@@ -11,7 +11,6 @@
     <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="stylesheet" href="../assets/css/base.css">
 </head>
-
 <body>
     <div id="main">
         <?php
