@@ -1,7 +1,7 @@
 <section class="vh-100">
     <div class="py-3 h-100">
         <div class="container login-header">
-            <a href="index.php" class="login-header-link">
+            <a href="index.php" class="login-header-logo-link">
                 <h1 class="login-header-logo">Laptop</h1>
             </a>
             <h1 class="login-header-title">Đăng nhập</h1>
