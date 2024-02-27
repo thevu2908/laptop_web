@@ -11,22 +11,19 @@
     <link rel="stylesheet" href="./assets/css/style.css">
     <link rel="stylesheet" href="./assets/css/base.css">
 </head>
-
 <body>
     <div id="main">
         <?php
             if (isset($_REQUEST["dang-nhap"])) {
-                include "./view/login.php";
+                include "./src/view/login.php";
             } else if (isset($_REQUEST["dang-ky"])) {
-                include "./view/signup.php";
+                include "./src/view/signup.php";
             } else {
-                // include "./view/header.php";
-                // include "./view/content.php";
-                echo "<h1>aaaaaaaaaaaaaaaaaaaa</h1>";
+                include "./src/view/header.php";
+                include "./src/view/content.php";
             }
         ?>
     </div>
-
     <script src="./js/main.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
