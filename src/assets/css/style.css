@@ -1,0 +1,81 @@
+#main {
+    background-color: #fff;
+}
+
+.header {
+    background-color: #f8f9fa;
+}
+
+.nav-content {
+    justify-content: center !important;
+}
+
+.search-box {
+    display: flex;
+    gap: 10px;
+}
+
+.login-btn, .cart-btn, .search-btn {
+    text-decoration: none;
+    color: #000;
+    padding: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-btn i {
+    font-size: 18px;
+    margin-top: 2px;
+}
+
+.cart-btn span {
+    font-size: 24px;
+}
+
+.login-header-link {
+    text-decoration: none;
+}
+
+.login-header {
+    padding-bottom: 20px;
+    cursor: pointer;
+}
+
+.login-header h1 {
+    display: inline;
+    font-weight: 500;
+}
+
+.login-header-logo {
+    color: #7065F0;
+    margin-right: 12px;
+}
+
+.login-header-title {
+    font-size: 22px;
+}
+
+.login-content {
+    background-color: #f5f4ff;
+    width: 100%;
+}
+
+.login-form {
+    width: 400px;
+}
+
+.btn-login {
+    width: 100%;
+}
+
+.login-footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.btn-fb-login {
+    margin-right: 10px;
+}
