@@ -4,6 +4,16 @@
 
 .header {
     background-color: #f8f9fa;
+    z-index: 10;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+
+.header-logo {
+    color: #7065F0;
+    font-size: 24px;
 }
 
 .nav-content {
@@ -15,7 +25,9 @@
     gap: 10px;
 }
 
-.login-btn, .cart-btn, .search-btn {
+.login-btn,
+.cart-btn,
+.search-btn {
     text-decoration: none;
     color: #000;
     padding: 8px;
@@ -84,4 +96,65 @@
 .login-link {
     text-decoration: none;
     color: #7065F0;
+}
+
+.content {
+    z-index: 1;
+    padding-top: 13.75rem;
+    padding-bottom: 7.5rem;
+    position: relative;
+}
+
+.content-container {
+    z-index: 1;
+    width: 100%;
+    max-width: 80rem;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+    position: relative;
+}
+
+.content-container-search {
+    max-width: 49.5rem;
+    grid-row-gap: 2.5rem;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+}
+
+.search {
+    width: 100%;
+    grid-row-gap: 0.75rem;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin-top: 0;
+    margin-bottom: 0;
+    display: flex;
+}
+
+.w-form {
+    margin: 0 0 15px;
+}
+
+.content-banner {
+    z-index: -1;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.contetnt-banner-image {
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: relative;
 }

@@ -1,7 +1,9 @@
 <header class="header">
     <nav class="navbar navbar-expand-lg navbar-light bg-light container">
         <div class="container-fluid">
-            <a class="navbar-brand" href="index.php">Laptop</a>
+            <a class="navbar-brand" href="index.php">
+                <h1 class="header-logo">Laptop</h1>
+            </a>
             <div class="collapse navbar-collapse nav-content" id="navbarSupportedContent">
                 <ul class="navbar-nav mb-2 mb-lg-0">
                     <li class="nav-item">
