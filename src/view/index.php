@@ -17,6 +17,8 @@
         <?php
             if (isset($_REQUEST["dang-nhap"])) {
                 include "./login.php";
+            } else if (isset($_REQUEST["dang-ky"])) {
+                include "./signup.php";
             } else {
                 include "./header.php";
             }

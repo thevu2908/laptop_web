@@ -4,7 +4,7 @@
             <a href="index.php" class="login-header-logo-link">
                 <h1 class="login-header-logo">Laptop</h1>
             </a>
-            <h1 class="login-header-title">Đăng nhập</h1>
+            <h1 class="login-header-title">Đăng ký</h1>
         </div>
         <div class="login-content">
             <div class="row d-flex align-items-center justify-content-center h-100 login-content">
@@ -14,20 +14,21 @@
                 <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1 py-5">
                     <form class="login-form">
                         <div class="form-outline mb-4">
-                            <label class="form-label" for="form1Example13">Số điện thoại</label>
-                            <input type="email" id="form1Example13" class="form-control form-control-lg" />
+                            <label class="form-label" for="phone">Số điện thoại</label>
+                            <input type="email" id="phone" class="form-control form-control-lg" />
                         </div>
 
                         <div class="form-outline mb-4">
-                            <label class="form-label" for="form1Example23">Mật khẩu</label>
-                            <input type="password" id="form1Example23" class="form-control form-control-lg" />
+                            <label class="form-label" for="password">Mật khẩu</label>
+                            <input type="password" id="password" class="form-control form-control-lg" />
                         </div>
 
-                        <div class="d-flex justify-content-end align-items-center mb-4">
-                            <a href="#!">Quên mật khẩu?</a>
-                        </div>
+                        <!-- <div class="form-outline mb-4">
+                            <label class="form-label" for="valid-password">Xác nhận mật khẩu</label>
+                            <input type="valid-password" id="valid-password" class="form-control form-control-lg" />
+                        </div> -->
 
-                        <button type="submit" class="btn btn-primary btn-lg btn-block btn-login">Đăng nhập</button>
+                        <button type="submit" class="btn btn-primary btn-lg btn-block btn-login">Đăng ký</button>
 
                         <div class="divider d-flex align-items-center my-4">
                             <p class="text-center fw-bold mx-3 mb-0 text-muted">Hoặc</p>
@@ -43,8 +44,8 @@
                         </div>
                     </form>
                     <div style="width: 400px;" class="d-flex mt-4 justify-content-center">
-                        <p style="color: rgba(0, 0, 0, .26);" class="mx-2">Bạn mới biết đến chúng tôi?</p>
-                        <a href="index.php?dang-ky" class="signup-link">Đăng ký</a>
+                        <p style="color: rgba(0, 0, 0, .26);" class="mx-2">Bạn đã có tài khoản</p>
+                        <a href="index.php?dang-nhap" class="login-link">Đăng nhập</a>
                     </div>
                 </div>
             </div>

@@ -79,3 +79,9 @@
 .btn-fb-login {
     margin-right: 10px;
 }
+
+.signup-link,
+.login-link {
+    text-decoration: none;
+    color: #7065F0;
+}
