@@ -20,8 +20,9 @@
             } else if (isset($_REQUEST["dang-ky"])) {
                 include "./view/signup.php";
             } else {
-                include "./view/header.php";
-                include "./view/content.php";
+                // include "./view/header.php";
+                // include "./view/content.php";
+                echo "<h1>aaaaaaaaaaaaaaaaaaaa</h1>";
             }
         ?>
     </div>
