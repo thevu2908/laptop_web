@@ -11,7 +11,7 @@
         <div class="content-banner-text">
             <img src="src\assets\images\banner\title.png">
             <p>
-                Kỉ nguyên AI đã tới. MSI mang tới dải sản phẩm hỗ trợ AI đa dạng nhất hiện nay, trang bị vi xử lí 
+                Kỉ nguyên AI đã tới. LAPTOP mang tới dải sản phẩm hỗ trợ AI đa dạng nhất hiện nay, trang bị vi xử lí 
                 <sup>®</sup> 
                 Core™ Ultra hoặc Intel
                 <sup>®</sup> 
