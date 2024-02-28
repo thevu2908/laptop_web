@@ -78,6 +78,25 @@
     width: 400px;
 }
 
+.password-form {
+    position: relative;
+}
+
+.showhide-pwd-icon {
+    position: absolute;
+    right: 10px;
+    top: 55%;
+}
+
+.showhide-pwd-icon .open {
+    display: inline-block;
+}
+
+.showhide-pwd-icon i {
+    display: none;
+    color: #8a8f94;
+}
+
 .btn-login {
     width: 100%;
 }
