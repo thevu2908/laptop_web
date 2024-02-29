@@ -366,4 +366,55 @@
             <a href="index.php?san-pham" class="btn btn-primary btn-showmore">Xem thêm</a>
         </div>
     </div>
+
+    <div class="content-features border-top">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-sm-6 col-md-6">
+                    <div class="feature-block">
+                        <span class="material-symbols-outlined">
+                            local_shipping
+                        </span>
+                        <div class="feature-block-content">
+                            <h5>Miễn phí vận chuyển</h5>
+                            <p>Đơn hàng từ 20 triệu đồng</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6 col-md-6">
+                    <div class="feature-block">
+                        <span class="material-symbols-outlined">
+                            cached
+                        </span>
+                        <div class="feature-block-content">
+                            <h5>30 ngày hoàn trả</h5>
+                            <p>Đảm bảo hoàn trả 100%</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6 col-md-6">
+                    <div class="feature-block">
+                        <span class="material-symbols-outlined">
+                            key
+                        </span>
+                        <div class="feature-block-content">
+                            <h5>Thanh toán an toàn</h5>
+                            <p>100% protected</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6 col-md-6">
+                    <div class="feature-block">
+                        <span class="material-symbols-outlined">
+                            schedule
+                        </span>
+                        <div class="feature-block-content">
+                            <h5>Hỗ trợ 24/7</h5>
+                            <p>Hỗ trợ khách hàng mọi lúc</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

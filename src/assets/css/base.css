@@ -12,6 +12,11 @@ img {
     max-width: 100%;
 }
 
+p {
+    font-family: "Source Sans Pro", sans-serif;
+    color: #757575;
+}
+
 .divider:after,
 .divider:before {
     content: "";
