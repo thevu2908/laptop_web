@@ -8,6 +8,10 @@ body {
     background-color: #fff;
 }
 
+a {
+    text-decoration: none;
+}
+
 img {
     max-width: 100%;
 }

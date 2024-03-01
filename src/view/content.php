@@ -399,7 +399,7 @@
                         </span>
                         <div class="feature-block-content">
                             <h5>Thanh toán an toàn</h5>
-                            <p>100% protected</p>
+                            <p>100% bảo mật</p>
                         </div>
                     </div>
                 </div>
