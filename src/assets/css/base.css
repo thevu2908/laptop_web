@@ -4,6 +4,23 @@
     box-sizing: border-box;
 }
 
+body {
+    background-color: #fff;
+}
+
+a {
+    text-decoration: none;
+}
+
+img {
+    max-width: 100%;
+}
+
+p {
+    font-family: "Source Sans Pro", sans-serif;
+    color: #757575;
+}
+
 .divider:after,
 .divider:before {
     content: "";
