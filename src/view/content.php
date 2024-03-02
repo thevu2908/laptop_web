@@ -1,15 +1,373 @@
 <div class="content">
-    <div class="content-container">
-        <div class="content-container-search">
-            <form action="/search" class="search w-form" style="opacity: 1; transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d;">
-                <div class="search-content"><input class="search-input w-input" maxlength="256" name="query" placeholder="Search for city, neighorhood, agent, address..." type="search" id="search" required="">
-                    <div class="search-button"><input type="submit" class="button button-accent button-fullwidth w-button" value="Search"></div>
+    <div class="content-banner">
+        <img src="src\assets\images\banner\banner.jpg" sizes="(max-width: 1279px) 100vw, 99vw" alt="" class="contetnt-banner-image">
+        <div class="content-banner-image-box">
+            <img src="src\assets\images\banner\laptop-1.png" class="content-banner-image">
+            <img src="src\assets\images\banner\laptop-2.png" class="content-banner-image content-banner-image-flow">
+            <img src="src\assets\images\banner\laptop-3.png" class="content-banner-image content-banner-image-flow">
+            <img src="src\assets\images\banner\laptop-4.png" class="content-banner-image content-banner-image-flow">
+            <img src="src\assets\images\banner\laptop-5.png" class="content-banner-image content-banner-image-flow">
+        </div>
+        <div class="content-banner-text">
+            <img src="src\assets\images\banner\title.png">
+            <p>
+                Kỉ nguyên AI đã tới. LAPTOP mang tới dải sản phẩm hỗ trợ AI đa dạng nhất hiện nay, trang bị vi xử lí
+                <sup>®</sup>
+                Core™ Ultra hoặc Intel
+                <sup>®</sup>
+                Core™ HX Series (thế hệ 14) cùng card đồ họa NVIDIA
+                <sup>®</sup>
+                GeForce RTX™. Sự cải tiến vượt bậc này hứa hẹn sẽ nâng cao trải nghiệm của người dùng, đại diện cho bước đi tiên phong trong kỉ nguyên mới.
+            </p>
+            <a href="index.php?san-pham" class="content-banner-shop-link">MUA NGAY</a>
+        </div>
+    </div>
+
+    <div class="content-product container">
+        <div class="content-product-title text-center">
+            <h2>New Arrivals</h2>
+            <p>The best Online sales to shop these weekend</p>
+        </div>
+
+        <div class="content-product-list row row-cols-4">
+            <div class="col">
+                <div class="product-item">
+                    <a href="index.php?san-pham?laptop-name" class="product-item-link">
+                        <div class="product-image-wrapper">
+                            <img src="src\assets\images\laptop-1.png" class="product-image">
+                        </div>
+                        <div class="product-info">
+                            <div class="product-price">
+                                <p class="product-price-number">₫26.190.000</p>
+                            </div>
+                            <div class="product-name">
+                                <p>MacBook Air M2 13 2022 8CPU 8GPU 8GB 256GB</p>
+                            </div>
+                            <div class="product-detail row">
+                                <span title="Màn hình" class="product-detail-info d-flex col-6">
+                                    <span class="material-symbols-outlined">
+                                        laptop_windows
+                                    </span>
+                                    13.6 inch
+                                </span>
+                                <span title="CPU" class="product-detail-info d-flex col-6">
+                                    <span class="material-symbols-outlined">
+                                        memory
+                                    </span>
+                                    M2
+                                </span>
+                                <span title="RAM" class="product-detail-info d-flex col-6">
+                                    <span class="material-symbols-outlined">
+                                        memory_alt
+                                    </span>
+                                    8GB
+                                </span>
+                                <span title="Ổ cứng" class="product-detail-info d-flex col-6">
+                                    <span class="material-symbols-outlined">
+                                        hard_drive_2
+                                    </span>
+                                    SSD 256GB
+                                </span>
+                                <span title="Card đồ họa" class="product-detail-info d-flex col-6">
+                                    <span class="material-symbols-outlined">
+                                        developer_board
+                                    </span>
+                                    Apple M2
+                                </span>
+                                <span title="Trọng lượng" class="product-detail-info d-flex col-6">
+                                    <span class="material-symbols-outlined">
+                                        weight
+                                    </span>
+                                    1.24 kg
+                                </span>
+                            </div>
+                        </div>
+                    </a>
                 </div>
-            </form>
+            </div>
+            <div class="col">
+                <div class="product-item">
+                    <a href="index.php?san-pham?laptop-name" class="product-item-link">
+                        <div class="product-image-wrapper">
+                            <img src="src\assets\images\laptop-1.png" class="product-image">
+                        </div>
+                        <div class="product-info">
+                            <div class="product-price">
+                                <p class="product-price-number">₫26.190.000</p>
+                            </div>
+                            <div class="product-name">
+                                <p>MacBook Air M2 13 2022 8CPU 8GPU 8GB 256GB</p>
+                            </div>
+                            <div class="product-detail row">
+                                <span title="Màn hình" class="product-detail-info d-flex col-6">
+                                    <span class="material-symbols-outlined">
+                                        laptop_windows
+                                    </span>
+                                    13.6 inch
+                                </span>
+                                <span title="CPU" class="product-detail-info d-flex col-6">
+                                    <span class="material-symbols-outlined">
+                                        memory
+                                    </span>
+                                    M2
+                                </span>
+                                <span title="RAM" class="product-detail-info d-flex col-6">
+                                    <span class="material-symbols-outlined">
+                                        memory_alt
+                                    </span>
+                                    8GB
+                                </span>
+                                <span title="Ổ cứng" class="product-detail-info d-flex col-6">
+                                    <span class="material-symbols-outlined">
+                                        hard_drive_2
+                                    </span>
+                                    SSD 256GB
+                                </span>
+                                <span title="Card đồ họa" class="product-detail-info d-flex col-6">
+                                    <span class="material-symbols-outlined">
+                                        developer_board
+                                    </span>
+                                    Apple M2
+                                </span>
+                                <span title="Trọng lượng" class="product-detail-info d-flex col-6">
+                                    <span class="material-symbols-outlined">
+                                        weight
+                                    </span>
+                                    1.24 kg
+                                </span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="col">
+                <div class="product-item">
+                    <a href="index.php?san-pham?laptop-name" class="product-item-link">
+                        <div class="product-image-wrapper">
+                            <img src="src\assets\images\laptop-1.png" class="product-image">
+                        </div>
+                        <div class="product-info">
+                            <div class="product-price">
+                                <p class="product-price-number">₫26.190.000</p>
+                            </div>
+                            <div class="product-name">
+                                <p>MacBook Air M2 13 2022 8CPU 8GPU 8GB 256GB</p>
+                            </div>
+                            <div class="product-detail row">
+                                <span title="Màn hình" class="product-detail-info d-flex col-6">
+                                    <span class="material-symbols-outlined">
+                                        laptop_windows
+                                    </span>
+                                    13.6 inch
+                                </span>
+                                <span title="CPU" class="product-detail-info d-flex col-6">
+                                    <span class="material-symbols-outlined">
+                                        memory
+                                    </span>
+                                    M2
+                                </span>
+                                <span title="RAM" class="product-detail-info d-flex col-6">
+                                    <span class="material-symbols-outlined">
+                                        memory_alt
+                                    </span>
+                                    8GB
+                                </span>
+                                <span title="Ổ cứng" class="product-detail-info d-flex col-6">
+                                    <span class="material-symbols-outlined">
+                                        hard_drive_2
+                                    </span>
+                                    SSD 256GB
+                                </span>
+                                <span title="Card đồ họa" class="product-detail-info d-flex col-6">
+                                    <span class="material-symbols-outlined">
+                                        developer_board
+                                    </span>
+                                    Apple M2
+                                </span>
+                                <span title="Trọng lượng" class="product-detail-info d-flex col-6">
+                                    <span class="material-symbols-outlined">
+                                        weight
+                                    </span>
+                                    1.24 kg
+                                </span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="col">
+                <div class="product-item">
+                    <a href="index.php?san-pham?laptop-name" class="product-item-link">
+                        <div class="product-image-wrapper">
+                            <img src="src\assets\images\laptop-1.png" class="product-image">
+                        </div>
+                        <div class="product-info">
+                            <div class="product-price">
+                                <p class="product-price-number">₫26.190.000</p>
+                            </div>
+                            <div class="product-name">
+                                <p>MacBook Air M2 13 2022 8CPU 8GPU 8GB 256GB</p>
+                            </div>
+                            <div class="product-detail row">
+                                <span title="Màn hình" class="product-detail-info d-flex col-6">
+                                    <span class="material-symbols-outlined">
+                                        laptop_windows
+                                    </span>
+                                    13.6 inch
+                                </span>
+                                <span title="CPU" class="product-detail-info d-flex col-6">
+                                    <span class="material-symbols-outlined">
+                                        memory
+                                    </span>
+                                    M2
+                                </span>
+                                <span title="RAM" class="product-detail-info d-flex col-6">
+                                    <span class="material-symbols-outlined">
+                                        memory_alt
+                                    </span>
+                                    8GB
+                                </span>
+                                <span title="Ổ cứng" class="product-detail-info d-flex col-6">
+                                    <span class="material-symbols-outlined">
+                                        hard_drive_2
+                                    </span>
+                                    SSD 256GB
+                                </span>
+                                <span title="Card đồ họa" class="product-detail-info d-flex col-6">
+                                    <span class="material-symbols-outlined">
+                                        developer_board
+                                    </span>
+                                    Apple M2
+                                </span>
+                                <span title="Trọng lượng" class="product-detail-info d-flex col-6">
+                                    <span class="material-symbols-outlined">
+                                        weight
+                                    </span>
+                                    1.24 kg
+                                </span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="col">
+                <div class="product-item">
+                    <a href="index.php?san-pham?laptop-name" class="product-item-link">
+                        <div class="product-image-wrapper">
+                            <img src="src\assets\images\laptop-1.png" class="product-image">
+                        </div>
+                        <div class="product-info">
+                            <div class="product-price">
+                                <p class="product-price-number">₫26.190.000</p>
+                            </div>
+                            <div class="product-name">
+                                <p>MacBook Air M2 13 2022 8CPU 8GPU 8GB 256GB</p>
+                            </div>
+                            <div class="product-detail row">
+                                <span title="Màn hình" class="product-detail-info d-flex col-6">
+                                    <span class="material-symbols-outlined">
+                                        laptop_windows
+                                    </span>
+                                    13.6 inch
+                                </span>
+                                <span title="CPU" class="product-detail-info d-flex col-6">
+                                    <span class="material-symbols-outlined">
+                                        memory
+                                    </span>
+                                    M2
+                                </span>
+                                <span title="RAM" class="product-detail-info d-flex col-6">
+                                    <span class="material-symbols-outlined">
+                                        memory_alt
+                                    </span>
+                                    8GB
+                                </span>
+                                <span title="Ổ cứng" class="product-detail-info d-flex col-6">
+                                    <span class="material-symbols-outlined">
+                                        hard_drive_2
+                                    </span>
+                                    SSD 256GB
+                                </span>
+                                <span title="Card đồ họa" class="product-detail-info d-flex col-6">
+                                    <span class="material-symbols-outlined">
+                                        developer_board
+                                    </span>
+                                    Apple M2
+                                </span>
+                                <span title="Trọng lượng" class="product-detail-info d-flex col-6">
+                                    <span class="material-symbols-outlined">
+                                        weight
+                                    </span>
+                                    1.24 kg
+                                </span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="col">
+                <div class="product-item">
+                    <a href="index.php?san-pham?laptop-name" class="product-item-link">
+                        <div class="product-image-wrapper">
+                            <img src="src\assets\images\laptop-1.png" class="product-image">
+                        </div>
+                        <div class="product-info">
+                            <div class="product-price">
+                                <p class="product-price-number">₫26.190.000</p>
+                            </div>
+                            <div class="product-name">
+                                <p>MacBook Air M2 13 2022 8CPU 8GPU 8GB 256GB</p>
+                            </div>
+                            <div class="product-detail row">
+                                <span title="Màn hình" class="product-detail-info d-flex col-6">
+                                    <span class="material-symbols-outlined">
+                                        laptop_windows
+                                    </span>
+                                    13.6 inch
+                                </span>
+                                <span title="CPU" class="product-detail-info d-flex col-6">
+                                    <span class="material-symbols-outlined">
+                                        memory
+                                    </span>
+                                    M2
+                                </span>
+                                <span title="RAM" class="product-detail-info d-flex col-6">
+                                    <span class="material-symbols-outlined">
+                                        memory_alt
+                                    </span>
+                                    8GB
+                                </span>
+                                <span title="Ổ cứng" class="product-detail-info d-flex col-6">
+                                    <span class="material-symbols-outlined">
+                                        hard_drive_2
+                                    </span>
+                                    SSD 256GB
+                                </span>
+                                <span title="Card đồ họa" class="product-detail-info d-flex col-6">
+                                    <span class="material-symbols-outlined">
+                                        developer_board
+                                    </span>
+                                    Apple M2
+                                </span>
+                                <span title="Trọng lượng" class="product-detail-info d-flex col-6">
+                                    <span class="material-symbols-outlined">
+                                        weight
+                                    </span>
+                                    1.24 kg
+                                </span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-showmore">
+            <a href="index.php?san-pham" class="btn btn-primary btn-showmore">Xem thêm</a>
         </div>
     </div>
     <div class="content-banner">
-        <img src="src\assets\images\banner-1.jpg" sizes="(max-width: 1279px) 100vw, 99vw" alt="" class="contetnt-banner-image">
+        <img src="../assets/images/banner-1.jpg" sizes="(max-width: 1279px) 100vw, 99vw" alt="" class="contetnt-banner-image">
         <div class="hero-background-gradient"></div>
     </div>
-</div>
+</dov>

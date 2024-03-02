@@ -18,9 +18,13 @@
                             <input type="email" id="phone" class="form-control form-control-lg" />
                         </div>
 
-                        <div class="form-outline mb-4">
+                        <div class="form-outline mb-4 password-form">
                             <label class="form-label" for="password">Mật khẩu</label>
-                            <input type="password" id="password" class="form-control form-control-lg" />
+                            <input type="password" id="password" class="form-control form-control-lg login-password" />
+                            <span class="showhide-pwd-icon">
+                                <i class="fa-regular fa-eye open"></i>
+                                <i class="fa-regular fa-eye-slash"></i>
+                            </span>
                         </div>
 
                         <!-- <div class="form-outline mb-4">
