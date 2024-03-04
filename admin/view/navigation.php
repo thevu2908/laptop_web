@@ -1,38 +1,37 @@
 <section class="sidebar">
       <a href="#" class="logo">
         <i class="fab fa-slack"></i>
-        <span class="text">Admin Panel</span>
+        <span class="text">Admin</span>
       </a>
-
       <ul class="side-menu top">
         <li class="active">
-          <a href="#" class="nav-link">
+          <a href="/laptop_web/admin.php" class="nav-link">
             <i class="fas fa-border-all"></i>
             <span class="text">Dashboard</span>
           </a>
         </li>
         <li>
-          <a href="#" class="nav-link">
+          <a href="/laptop_web/admin.php?controller=taikhoan" class="nav-link">
             <i class="fas fa-shopping-cart"></i>
-            <span class="text">My Store</span>
+            <span class="text">Tài Khoản</span>
           </a>
         </li>
         <li>
-          <a href="#" class="nav-link">
+          <a href="/laptop_web/admin.php?controller=donhang" class="nav-link">
             <i class="fas fa-chart-simple"></i>
-            <span class="text">Analytics</span>
+            <span class="text">Đơn Hàng</span>
           </a>
         </li>
         <li>
-          <a href="#" class="nav-link">
+          <a href="/laptop_web/admin.php?controller=sanpham" class="nav-link">
             <i class="fas fa-message"></i>
-            <span class="text">Message</span>
+            <span class="text">Sản Phẩm</span>
           </a>
         </li>
         <li>
           <a href="#" class="nav-link">
             <i class="fas fa-people-group"></i>
-            <span class="text">Team</span>
+            <span class="text">Nhân Viên</span>
           </a>
         </li>
       </ul>

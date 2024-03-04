@@ -144,7 +144,7 @@ body.dark {
 }
 
 .sidebar.hide .side-menu li a {
-  width: calc(48px - (4px * 2));
+  width: calc(78px - (4px * 2));
   transition: 0.3s ease;
 }
 
@@ -467,7 +467,7 @@ body.dark {
 
 .content main .table-data .order table th {
   padding-bottom: 12px;
-  font-size: 13px;
+  font-size: 10px;
   text-align: left;
   border-bottom: 1px solid var(--grey);
 }
@@ -644,7 +644,7 @@ border-radius: 3px 3px 0 0;
 }
 .table-title h2 {
 margin: 5px 0 0;
-font-size: 24px;
+font-size: 16px;
 }
 .table-title .btn-group {
 float: right;
@@ -715,6 +715,15 @@ color: #F44336;
 table.table td i {
 font-size: 18px;
 }
+/**/
+table.table {
+  font-size: 13px; 
+}
+table.table th{
+  font-size: 13px; 
+}
+
+/**/
 table.table .avatar {
 border-radius: 50%;
 vertical-align: middle;
