@@ -32,7 +32,7 @@
         <div class="content-product-list row row-cols-4">
             <div class="col">
                 <div class="product-item">
-                    <a href="index.php?san-pham?laptop-name" class="product-item-link">
+                    <a href="index.php?san-pham&id=1" class="product-item-link">
                         <div class="product-image-wrapper">
                             <img src="src\assets\images\laptop-1.png" class="product-image">
                         </div>
@@ -87,7 +87,7 @@
             </div>
             <div class="col">
                 <div class="product-item">
-                    <a href="index.php?san-pham?laptop-name" class="product-item-link">
+                    <a href="index.php?san-pham&id=1" class="product-item-link">
                         <div class="product-image-wrapper">
                             <img src="src\assets\images\laptop-1.png" class="product-image">
                         </div>
@@ -142,7 +142,7 @@
             </div>
             <div class="col">
                 <div class="product-item">
-                    <a href="index.php?san-pham?laptop-name" class="product-item-link">
+                    <a href="index.php?san-pham&id=1" class="product-item-link">
                         <div class="product-image-wrapper">
                             <img src="src\assets\images\laptop-1.png" class="product-image">
                         </div>
@@ -197,7 +197,7 @@
             </div>
             <div class="col">
                 <div class="product-item">
-                    <a href="index.php?san-pham?laptop-name" class="product-item-link">
+                    <a href="index.php?san-pham&id=1" class="product-item-link">
                         <div class="product-image-wrapper">
                             <img src="src\assets\images\laptop-1.png" class="product-image">
                         </div>
@@ -252,7 +252,7 @@
             </div>
             <div class="col">
                 <div class="product-item">
-                    <a href="index.php?san-pham?laptop-name" class="product-item-link">
+                    <a href="index.php?san-pham&id=1" class="product-item-link">
                         <div class="product-image-wrapper">
                             <img src="src\assets\images\laptop-1.png" class="product-image">
                         </div>
@@ -307,7 +307,7 @@
             </div>
             <div class="col">
                 <div class="product-item">
-                    <a href="index.php?san-pham?laptop-name" class="product-item-link">
+                    <a href="index.php?san-pham&id=1" class="product-item-link">
                         <div class="product-image-wrapper">
                             <img src="src\assets\images\laptop-1.png" class="product-image">
                         </div>

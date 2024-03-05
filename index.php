@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Laptop</title>
     <link rel="icon" type="image/x-icon" href="src\assets\images\logo.jpg">
-    <link href='https://fonts.googleapis.com/css?family=Poppins|Source Sans Pro|Catamaran' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Poppins|Source Sans Pro|Catamaran|Roboto' rel='stylesheet'>
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="./src/assets/css/base.css">
     <link rel="stylesheet" href="./src/assets/css/style.css">
 </head>
+
 <body>
     <div id="main">
         <?php
@@ -22,7 +23,11 @@
             } else if (isset($_REQUEST["dang-ky"])) {
                 include "./src/view/signup.php";
             } else if (isset($_REQUEST["san-pham"])) {
-                include "./src/view/product.php";
+                if (isset($_REQUEST["id"])) {
+                    include "./src/view/productDetail.php";
+                } else {
+                    include "./src/view/product.php";
+                }
             } else {
                 include "./src/view/homepage.php";
             }
