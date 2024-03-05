@@ -5,37 +5,37 @@
       </a>
       <ul class="side-menu top">
         <li class="active">
-          <a href="/laptop_web/admin.php" class="nav-link">
+          <a href="/laptop_web/admin.php?controller=dashboard" class="nav-link">
             <i class="fas fa-border-all"></i>
             <span class="text">Dashboard</span>
           </a>
         </li>
         <li>
-          <a href="/admin.php?controller=dashdoard" class="nav-link">
+          <a href="/laptop_web/admin.php?controller=dashdoard" class="nav-link">
             <i class="fas fa-shopping-cart"></i>
             <span class="text">Tài Khoản</span>
           </a>
         </li>
         <li>
-          <a href="/admin.php?controller=donhang" class="nav-link">
+          <a href="/laptop_web/admin.php?controller=donhang" class="nav-link">
             <i class="fas fa-chart-simple"></i>
             <span class="text">Đơn Hàng</span>
           </a>
         </li>
         <li>
-          <a href="/admin.php?controller=sanpham" class="nav-link">
+          <a href="/laptop_web/admin.php?controller=sanpham" class="nav-link">
             <i class="fas fa-message"></i>
             <span class="text">Sản Phẩm</span>
           </a>
         </li>
         <li>
-          <a href="/admin.php?controller=nhanvien" class="nav-link">
+          <a href="/laptop_web/admin.php?controller=nhanvien" class="nav-link">
             <i class="fas fa-people-group"></i>
             <span class="text">Nhân Viên</span>
           </a>
         </li>
         <li>
-          <a href="/admin.php?controller=nhomquyen" class="nav-link">
+          <a href="/laptop_web/admin.php?controller=nhomquyen" class="nav-link">
             <i class="fas fa-people-group"></i>
             <span class="text">Nhóm Quyền</span>
           </a>
