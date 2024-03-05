@@ -32,8 +32,8 @@
             <p>The best Online sales to shop these weekend</p>
         </div>
 
-        <div class="content-product-list row row-cols-4">
-            <div class="col">
+        <div class="content-product-list row">
+            <div class="col-3">
                 <div class="product-item">
                     <a href="index.php?san-pham&id=1" class="product-item-link">
                         <div class="product-image-wrapper">
@@ -88,7 +88,7 @@
                     </a>
                 </div>
             </div>
-            <div class="col">
+            <div class="col-3">
                 <div class="product-item">
                     <a href="index.php?san-pham&id=1" class="product-item-link">
                         <div class="product-image-wrapper">
@@ -143,7 +143,7 @@
                     </a>
                 </div>
             </div>
-            <div class="col">
+            <div class="col-3">
                 <div class="product-item">
                     <a href="index.php?san-pham&id=1" class="product-item-link">
                         <div class="product-image-wrapper">
@@ -198,7 +198,7 @@
                     </a>
                 </div>
             </div>
-            <div class="col">
+            <div class="col-3">
                 <div class="product-item">
                     <a href="index.php?san-pham&id=1" class="product-item-link">
                         <div class="product-image-wrapper">
@@ -253,7 +253,7 @@
                     </a>
                 </div>
             </div>
-            <div class="col">
+            <div class="col-3">
                 <div class="product-item">
                     <a href="index.php?san-pham&id=1" class="product-item-link">
                         <div class="product-image-wrapper">
@@ -308,7 +308,7 @@
                     </a>
                 </div>
             </div>
-            <div class="col">
+            <div class="col-3">
                 <div class="product-item">
                     <a href="index.php?san-pham&id=1" class="product-item-link">
                         <div class="product-image-wrapper">
