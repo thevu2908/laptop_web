@@ -40,6 +40,18 @@
             include "./admin/view/TaiKhoan.php";
             break;
           }
+          case "nhanvien":{
+            include "./admin/view/NhanVien.php";
+            break;
+          }
+          case "nhomquyen":{
+            include "./admin/view/NhomQuyen.php";
+            break;
+          }
+          case "chucnang":{
+            include "./admin/view/ChucNang.php";
+            break;
+          }
         }
       }else{
         include "./admin/view/dashboard.php";
