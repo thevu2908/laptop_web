@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -26,32 +27,22 @@
 <body>
     <div id="main">
         <?php
-            if (isset($_REQUEST["dang-nhap"])) {
-                include "./src/view/login.php";
-            } else if (isset($_REQUEST["dang-ky"])) {
-                include "./src/view/signup.php";
+        if (isset($_REQUEST["dang-nhap"])) {
+            include "./src/view/login.php";
+        } else if (isset($_REQUEST["san-pham"])) {
+            if (isset($_REQUEST["id"])) {
+                include "./src/view/productDetail.php";
             } else {
-                include "./src/view/header.php";
-                include "./src/view/content.php";
+                include "./src/view/product.php";
             }
-           
+        } else {
+            include "./src/view/homepage.php";
+        }
         ?>
-    </div>
-    <!-- <script src="./js/main.js"></script>
-=======
-            } else if (isset($_REQUEST["san-pham"])) {
-                if (isset($_REQUEST["id"])) {
-                    include "./src/view/productDetail.php";
-                } else {
-                    include "./src/view/product.php";
-                }
-            } else {
-                include "./src/view/homepage.php";
-            }
-        ?> -->
     </div>
 
     <script src="./src/assets/js/main.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
+
 </html>
