@@ -10,6 +10,7 @@ body {
 
 a {
     text-decoration: none;
+    cursor: pointer;
 }
 
 img {
@@ -73,3 +74,7 @@ p {
         opacity: 1;
     }
 } */
+
+.mt-70 {
+    margin-top: 70px;
+}

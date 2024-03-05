@@ -19,3 +19,12 @@ if (showhidePassword) {
         passwordElement.focus()
     })
 }
+
+const showSortFilter = document.querySelector('.show-sort-filter')
+const sortFilterList = document.querySelector('.sort-filter-menu')
+
+if (showSortFilter) {
+    showSortFilter.addEventListener('click', e => {
+        sortFilterList.classList.toggle('active')
+    })
+}

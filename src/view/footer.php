@@ -23,19 +23,19 @@
                     <h4>Danh mục sản phẩm</h4>
                     <ul class="footer-product-cate-list row">
                         <li class="col-6">
-                            <a href="index.php?san-pham?acer" class="footer-product-category-link">Acer</a>
+                            <a href="index.php?san-pham&loai=acer" class="footer-product-category-link">Acer</a>
                         </li>
                         <li class="col-6">
-                            <a href="index.php?san-pham?asus" class="footer-product-category-link">Asus</a>
+                            <a href="index.php?san-pham&loai=asus" class="footer-product-category-link">Asus</a>
                         </li>
                         <li class="col-6">
-                            <a href="index.php?san-pham?dell" class="footer-product-category-link">Dell</a>
+                            <a href="index.php?san-pham&loai=dell" class="footer-product-category-link">Dell</a>
                         </li>
                         <li class="col-6">
-                            <a href="index.php?san-pham?hp" class="footer-product-category-link">HP</a>
+                            <a href="index.php?san-pham&loai=hp" class="footer-product-category-link">HP</a>
                         </li>
                         <li class="col-6">
-                            <a href="index.php?san-pham?msi" class="footer-product-category-link">MSI</a>
+                            <a href="index.php?san-pham&loai=msi" class="footer-product-category-link">MSI</a>
                         </li>
                     </ul>
                 </div>
@@ -71,15 +71,15 @@
                     <ul class="footer-product-cate-list row">
                         <li class="d-flex justify-content-between">
                             Thứ 2 - Thứ 6
-                            <span>8.00-21.00</span>
+                            <span>8.00 - 21.00</span>
                         </li>
                         <li class="d-flex justify-content-between">
                             Thứ 7
-                            <span>10.00-20.00</span>
+                            <span>10.00 - 20.00</span>
                         </li>
                         <li class="d-flex justify-content-between">
                             Chủ nhật
-                            <span>12.00-21.00</span>
+                            <span>12.00 - 21.00</span>
                         </li>
                     </ul>
                 </div>
