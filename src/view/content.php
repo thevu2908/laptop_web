@@ -22,6 +22,13 @@
             <a href="index.php?san-pham" class="content-banner-shop-link">MUA NGAY</a>
         </div>
     </div>
+<<<<<<< HEAD
+    <div class="content-banner">
+        <img src="src\assets\images\banner-1.jpg" sizes="(max-width: 1279px) 100vw, 99vw" alt="" class="contetnt-banner-image">
+        <div class="hero-background-gradient"></div>
+    </div>
+</div>
+=======
 
     <div class="content-product container">
         <div class="content-product-title text-center">
