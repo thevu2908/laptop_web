@@ -22,24 +22,20 @@
             <a href="index.php?san-pham" class="content-banner-shop-link">MUA NGAY</a>
         </div>
     </div>
-<<<<<<< HEAD
     <div class="content-banner">
         <img src="src\assets\images\banner-1.jpg" sizes="(max-width: 1279px) 100vw, 99vw" alt="" class="contetnt-banner-image">
         <div class="hero-background-gradient"></div>
     </div>
-</div>
-=======
-
     <div class="content-product container">
         <div class="content-product-title text-center">
             <h2>New Arrivals</h2>
             <p>The best Online sales to shop these weekend</p>
         </div>
 
-        <div class="content-product-list row row-cols-4">
-            <div class="col">
+        <div class="content-product-list row">
+            <div class="col-3">
                 <div class="product-item">
-                    <a href="index.php?san-pham?laptop-name" class="product-item-link">
+                    <a href="index.php?san-pham&id=1" class="product-item-link">
                         <div class="product-image-wrapper">
                             <img src="src\assets\images\laptop-1.png" class="product-image">
                         </div>
@@ -92,9 +88,9 @@
                     </a>
                 </div>
             </div>
-            <div class="col">
+            <div class="col-3">
                 <div class="product-item">
-                    <a href="index.php?san-pham?laptop-name" class="product-item-link">
+                    <a href="index.php?san-pham&id=1" class="product-item-link">
                         <div class="product-image-wrapper">
                             <img src="src\assets\images\laptop-1.png" class="product-image">
                         </div>
@@ -147,9 +143,9 @@
                     </a>
                 </div>
             </div>
-            <div class="col">
+            <div class="col-3">
                 <div class="product-item">
-                    <a href="index.php?san-pham?laptop-name" class="product-item-link">
+                    <a href="index.php?san-pham&id=1" class="product-item-link">
                         <div class="product-image-wrapper">
                             <img src="src\assets\images\laptop-1.png" class="product-image">
                         </div>
@@ -202,9 +198,9 @@
                     </a>
                 </div>
             </div>
-            <div class="col">
+            <div class="col-3">
                 <div class="product-item">
-                    <a href="index.php?san-pham?laptop-name" class="product-item-link">
+                    <a href="index.php?san-pham&id=1" class="product-item-link">
                         <div class="product-image-wrapper">
                             <img src="src\assets\images\laptop-1.png" class="product-image">
                         </div>
@@ -257,9 +253,9 @@
                     </a>
                 </div>
             </div>
-            <div class="col">
+            <div class="col-3">
                 <div class="product-item">
-                    <a href="index.php?san-pham?laptop-name" class="product-item-link">
+                    <a href="index.php?san-pham&id=1" class="product-item-link">
                         <div class="product-image-wrapper">
                             <img src="src\assets\images\laptop-1.png" class="product-image">
                         </div>
@@ -312,9 +308,9 @@
                     </a>
                 </div>
             </div>
-            <div class="col">
+            <div class="col-3">
                 <div class="product-item">
-                    <a href="index.php?san-pham?laptop-name" class="product-item-link">
+                    <a href="index.php?san-pham&id=1" class="product-item-link">
                         <div class="product-image-wrapper">
                             <img src="src\assets\images\laptop-1.png" class="product-image">
                         </div>
