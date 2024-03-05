@@ -34,6 +34,9 @@
     if (isset($_GET['controller'])) {
       $tmp = $_GET['controller'];
       switch ($tmp) {
+        case "dashboard":
+          include "./admin/view/dashboard.php";
+          break;
         case "sanpham": {
             include "./admin/view/SanPham.php";
             break;

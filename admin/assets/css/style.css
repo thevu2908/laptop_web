@@ -55,7 +55,6 @@ body.dark {
   font-family: var(--lato);
   transition: 0.3s ease;
   overflow-x: hidden;
-  scrollbar-width: none;
 }
 
 .sidebar.hide {
