@@ -29,7 +29,6 @@
     <div class="content-product container">
         <div class="content-product-title text-center">
             <h2>New Arrivals</h2>
-            <p>The best Online sales to shop these weekend</p>
         </div>
 
         <div class="content-product-list row">
@@ -367,6 +366,54 @@
 
         <div class="content-showmore">
             <a href="index.php?san-pham" class="btn btn-primary btn-showmore">Xem thêm</a>
+        </div>
+    </div>
+
+    <div class="content-map container">
+        <div class="content-product-title text-center">
+            <h2>Location</h2>
+        </div>
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.669726976184!2d106.67968337480465!3d10.759917089387864!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752f1b7c3ed289%3A0xa06651894598e488!2zVHLGsOG7nW5nIMSQ4bqhaSBo4buNYyBTw6BpIEfDsm4!5e0!3m2!1svi!2s!4v1709630826710!5m2!1svi!2s" width="100%" height="500" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+
+    <div class="content-feedback container">
+        <div class="content-product-title text-center">
+            <h2>Contacts</h2>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <div class="contact-text-container">
+                    <h1 class="contact-text">
+                        Get in touch with
+                        <span>us and lets talk</span>
+                    </h1>
+                </div>
+                <div class="contact-info">
+                    <div class="contact-info-item">
+                        <span>Email</span>
+                        <span>laptop@gmail.com</span>
+                    </div>  
+                    <div class="contact-info-item">
+                        <span>Address</span>
+                        <span>275 An Duong Vuong, Quan 5, TP Ho Chi Minh</span>
+                    </div> 
+                    <div class="contact-info-item">
+                        <span>Phone</span>
+                        <span>(+84) 123456789</span>
+                    </div> 
+                </div>
+            </div>
+            <div class="col-6">
+                <form class="contact-form">
+                    <div class="contact-form-inputs">
+                        <input type="text" class="contact-form-input" id="customer-name" placeholder="Nhập họ tên của bạn">
+                        <input type="text" class="contact-form-input" id="customer-email" placeholder="Nhập email của bạn">
+                        <input type="text" class="contact-form-input" id="customer-phone" placeholder="Nhập số điện thoại của bạn">
+                        <textarea class="contact-message contact-form-input" id="customer-feedback" placeholder="Nhập lời nhắn"></textarea>
+                    </div>
+                    <input type="submit" class="btn btn-send-feedback" value="Gửi phản hồi">
+                </form>
+            </div>
         </div>
     </div>
 

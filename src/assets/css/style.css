@@ -80,10 +80,6 @@
     opacity: 1;
 }
 
-ul {
-    padding: 0;
-}
-
 .cart__item-total {
     display: flex;
     justify-content: space-between;
@@ -422,6 +418,7 @@ ul {
 
 .content-product {
     margin-top: 80px;
+    padding-bottom: 80px;
 }
 
 .content-product-title {
@@ -437,9 +434,146 @@ ul {
     text-transform: capitalize;
 }
 
-.content-product-title p {
-    font-family: "Source Sans Pro", sans-serif;
-    color: #757575;
+.content-map {
+    margin-top: 80px;
+    padding-bottom: 80px;
+    text-align: center;
+}
+
+.content-map .content-product-title {
+    margin-bottom: 30px;
+}
+
+.content-feedback {
+    margin-top: 80px;
+    padding-bottom: 80px;
+}
+
+.contact-text-container {
+    width: 100%;
+    max-width: 31.25rem;
+    grid-row-gap: 1rem;
+    text-align: center;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    display: flex;
+}
+
+.contact-text {
+    color: #1b1b1b;
+    text-align: left;
+    letter-spacing: -.05em;
+    font-family: Epilogue, sans-serif;
+    font-size: 4rem;
+    font-weight: 600;
+    line-height: 1.1em;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.contact-text span {
+    color: #7065f0;
+}
+
+.contact-info {
+    width: 100%;
+    max-width: 38.75rem;
+    margin-top: 32px;
+    display: grid;
+    grid-column-gap: 1.25rem;
+    grid-row-gap: 1.25rem;
+    grid-template-rows: auto auto;
+    grid-template-columns: 1fr 1fr;
+    grid-auto-columns: 1fr;
+    grid-auto-flow: column;
+}
+
+.contact-info-item {
+    color: #828282;
+    border-radius: 0.625rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 1.25rem 1.75rem;
+    transition: box-shadow .3s, color .3s;
+    box-shadow: 0 4px 40px rgba(0, 0, 0, .1);
+    margin: 0 12px 12px 0;
+}
+
+.contact-info-item span:first-child {
+    color: #7065f0;
+    font-family: Epilogue, sans-serif;
+    font-size: 1.125rem;
+    font-weight: 600;
+    line-height: 1.2em;
+}
+
+.contact-info-item span {
+    font-family: Epilogue, sans-serif;
+    font-size: 1.125rem;
+    font-weight: 500;
+    line-height: 1.8em;
+}
+
+.contact-form {
+    grid-row-gap: 1.75rem;
+    width: 100%;
+    background-image: linear-gradient(106.5deg, #7065f0, #a29bf5);
+    border-radius: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 3.75rem;
+}
+
+.contact-form-inputs {
+    grid-row-gap: 1.75rem;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.contact-form-input {
+    width: 100%;
+    height: 4rem;
+    background-color: #fff;
+    color: #1b1b1b;
+    border: 0 rgba(0, 0, 0, 0);
+    border-radius: 0.625rem;
+    margin: 0;
+    padding: 1.25rem 1.5rem;
+    font-size: .875rem;
+    font-weight: 500;
+    line-height: 1.8em;
+}
+
+.contact-form-input:focus {
+    outline: none;
+}
+
+.contact-message {
+    height: 7.75rem;
+}
+
+.btn-send-feedback {
+    background-color: #1b1b1b;
+    color: #fff;
+    letter-spacing: -.05rem;
+    border-radius: 0.625rem;
+    padding: 1.25rem 2.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1em;
+}
+
+.btn-send-feedback:hover {
+    background-color: #7065f0;
+    color: #fff;
 }
 
 .product-item {
@@ -598,7 +732,7 @@ ul {
 }
 
 .footer {
-    margin-top: 48px;
+    margin-top: 24px;
     padding-top: 2.5rem;
     padding-bottom: 2.5rem;
     background-color: #f1f0fe;
@@ -749,7 +883,7 @@ ul {
     border: 1px solid #ccc;
     border-radius: 4px;
     margin: 2px 0 0 0;
-    box-shadow: 0 0 6px 0 rgba(0,0,0,.1);
+    box-shadow: 0 0 6px 0 rgba(0, 0, 0, .1);
     background-color: #fff;
     transition: all .3s;
 }
@@ -818,7 +952,7 @@ ul {
     position: relative;
     width: -moz-fit-content;
     width: fit-content;
-    font-family: Roboto, sans-serif; 
+    font-family: Roboto, sans-serif;
 }
 
 .product-config-more-link::before {
@@ -883,6 +1017,7 @@ ul {
     margin: 0;
     display: flex;
     gap: 20px;
+    margin-left: 24px;
 }
 
 .product-color-item {
