@@ -517,6 +517,28 @@
     line-height: 1.8em;
 }
 
+.contact-info-item svg {
+    margin-right: 12px;
+}
+
+.platform-facebook {
+    width: 32px;
+}
+
+.platform-instagram {
+    width: 30px;
+    height: 30px;
+}
+
+.platform-tiktok {
+    width: 30px;
+    height: 30px;
+}
+
+.platform-youtube {
+    width: 32px;
+}
+
 .contact-form {
     grid-row-gap: 1.75rem;
     width: 100%;
@@ -681,7 +703,6 @@
     margin: 32px 0;
 }
 
-
 .btn-showmore {
     text-decoration: none;
     background-color: #7065f0;
@@ -700,7 +721,7 @@
 }
 
 .content-features {
-    margin-top: 70px;
+    margin-top: 80px;
     padding: 32px 0;
 }
 

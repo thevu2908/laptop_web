@@ -20,6 +20,8 @@
         <?php
         if (isset($_REQUEST["dang-nhap"])) {
             include "./src/view/login.php";
+        } else if (isset($_REQUEST["dang-ky"])) {
+            include "./src/view/signup.php";
         } else if (isset($_REQUEST["san-pham"])) {
             if (isset($_REQUEST["id"])) {
                 include "./src/view/productDetail.php";
