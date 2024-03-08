@@ -44,22 +44,28 @@
                 <div class="footer-block ml-65">
                     <h4>Theo dõi chúng tôi</h4>
                     <ul class="footer-product-cate-list row">
-                        <li class="">
+                        <li>
                             <a href="https://www.facebook.com/" class="footer-product-category-link" target="_blank">
                                 <i class="fa-brands fa-facebook"></i>
                                 Facebook
                             </a>
                         </li>
-                        <li class="">
+                        <li>
                             <a href="https://www.instagram.com/" class="footer-product-category-link" target="_blank">
                                 <i class="fa-brands fa-instagram"></i>
                                 Instagram
                             </a>
                         </li>
-                        <li class="">
+                        <li>
                             <a href="https://www.tiktok.com/" class="footer-product-category-link" target="_blank">
                                 <i class="fa-brands fa-tiktok"></i>
                                 Tiktok
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.youtube.com/" class="footer-product-category-link" target="_blank">
+                                <i class="fa-brands fa-youtube"></i>
+                                Youtube
                             </a>
                         </li>
                     </ul>
