@@ -10,11 +10,11 @@
 					<div class="col-sm-6">
 						<a href="#" class="btn btn-secondary"><i class="material-icons">&#xE24D;</i> <span>Import Excel</span></a>
 						<a href="#" class="btn btn-secondary"><i class="material-icons">&#xE24D;</i> <span>Export Excel</span></a>
-						<a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Thêm</span></a>
-						<a href="#deleteEmployeeModal" class="btn btn-danger" data-toggle="modal"><i class="material-icons">&#xE15C;</i> <span>Xóa</span></a>						
+						<a href="#addNhomQuyen" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Thêm</span></a>
+						<a href="#deleteNhomQuyen" class="btn btn-danger" data-toggle="modal"><i class="material-icons">&#xE15C;</i> <span>Xóa</span></a>						
 					</div>
 				</div>
-			</div>
+		</div>
 			<table class="table table-striped table-hover">
 				<thead>
 					<tr>
@@ -30,199 +30,85 @@
 						<th>Actions</th>
 					</tr>
 				</thead>
-				<tbody>
-					<tr>
-						<td>
-							<span class="custom-checkbox">
-								<input type="checkbox" id="checkbox1" name="options[]" value="1">
-								<label for="checkbox1"></label>
-							</span>
-						</td>
-						<td>1</td>
-						<td>Admin</td>
-						<td><span class="status text-success">&bull;</span> Active</td>
-						<td>
-							<a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-							<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-							<a href="#" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
-							<a href="#" class="Status" title="Status"><input type="checkbox" checked data-toggle="toggle" data-onstyle="danger" data-height=""></a>
-						</td>
-					</tr>
-					<!-- <tr>
-						<td>
-							<span class="custom-checkbox">
-								<input type="checkbox" id="checkbox2" name="options[]" value="1">
-								<label for="checkbox2"></label>
-							</span>
-						</td>
-						<td>Dominique Perrier</td>
-						<td>dominiqueperrier@mail.com</td>
-						<td>Obere Str. 57, Berlin, Germany</td>
-						<td>(313) 555-5735</td>
-						<td><span class="status text-success">&bull;</span> Active</td>
-						<td>
-							<a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-							<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-							<a href="#" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
-							<a href="#" class="Status" title="Status"><input type="checkbox" checked data-toggle="toggle" data-onstyle="danger" data-height=""></a>
-						</td>
-					</tr> -->
-					<!-- <tr>
-						<td>
-							<span class="custom-checkbox">
-								<input type="checkbox" id="checkbox3" name="options[]" value="1">
-								<label for="checkbox3"></label>
-							</span>
-						</td>
-						<td>Maria Anders</td>
-						<td>mariaanders@mail.com</td>
-						<td>25, rue Lauriston, Paris, France</td>
-						<td>(503) 555-9931</td>
-						<td><span class="status text-success">&bull;</span> Active</td>
-						<td>
-							<a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-							<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-							<a href="#" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
-							<a href="#" class="Status" title="Status"><input type="checkbox" checked data-toggle="toggle" data-onstyle="danger" data-height=""></a>
-						</td>
-					</tr> -->
-					<!-- <tr>
-						<td>
-							<span class="custom-checkbox">
-								<input type="checkbox" id="checkbox4" name="options[]" value="1">
-								<label for="checkbox4"></label>
-							</span>
-						</td>
-						<td>Fran Wilson</td>
-						<td>franwilson@mail.com</td>
-						<td>C/ Araquil, 67, Madrid, Spain</td>
-						<td>(204) 619-5731</td>
-						<td><span class="status text-success">&bull;</span> Active</td>
-						<td>
-							<a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-							<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-							<a href="#" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
-							<a href="#" class="Status" title="Status"><input type="checkbox" checked data-toggle="toggle" data-onstyle="danger" data-height=""></a>
-						</td>
-					</tr> -->
-										
-					<!-- <tr>
-						<td>
-							<span class="custom-checkbox">
-								<input type="checkbox" id="checkbox5" name="options[]" value="1">
-								<label for="checkbox5"></label>
-							</span>
-						</td>
-						<td>Martin Blank</td>
-						<td>martinblank@mail.com</td>
-						<td>Via Monte Bianco 34, Turin, Italy</td>
-						<td>(480) 631-2097</td>
-						<td><span class="status text-success">&bull;</span> Active</td>
-						<td>
-							<a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-							<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-							<a href="#" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
-							<a href="#" class="Status" title="Status"><input type="checkbox" checked data-toggle="toggle" data-onstyle="danger" data-height=""></a>
-						</td>
-					</tr>  -->
+				<tbody id="show-listNhomQuyen">
 				</tbody>
 			</table>
 			<div class="clearfix">
 				<div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
-				<ul class="pagination">
-					<li class="page-item disabled"><a href="#">Previous</a></li>
+				<ul class="pagination" id="pagination">
+					<!-- <li class="page-item disabled"><a href="#">Previous</a></li>
 					<li class="page-item"><a href="#" class="page-link">1</a></li>
 					<li class="page-item"><a href="#" class="page-link">2</a></li>
 					<li class="page-item active"><a href="#" class="page-link">3</a></li>
 					<li class="page-item"><a href="#" class="page-link">4</a></li>
 					<li class="page-item"><a href="#" class="page-link">5</a></li>
-					<li class="page-item"><a href="#" class="page-link">Next</a></li>
+					<li class="page-item"><a href="#" class="page-link">Next</a></li> -->
 				</ul>
 			</div>
 		</div>
 	</div>        
 </div>
 <!-- Add Modal HTML -->
-<div id="addEmployeeModal" class="modal fade">
+<div id="addNhomQuyen" class="modal fade">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<form>
 				<div class="modal-header">						
-					<h4 class="modal-title">Thêm Tài Khoản</h4>
+					<h4 class="modal-title">Thêm Nhóm Quyền</h4>
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 				</div>
-				<div class="modal-body">					
+				<div class="modal-body">
+				    <input type="hidden" class="form-control" required id="action" value="Add">					
 					<div class="form-group">
-						<label>Name</label>
-						<input type="text" class="form-control" required>
+						<p id="mess_maquyen"></p>
+						<label>Mã Nhóm Quyền</label>
+						<input type="text" class="form-control" required id="ma_quyen">
 					</div>
 					<div class="form-group">
-						<label>Email</label>
-						<input type="email" class="form-control" required>
-					</div>
-					<div class="form-group">
-						<label>Address</label>
-						<textarea class="form-control" required></textarea>
-					</div>
-					<div class="form-group">
-						<label>Phone</label>
-						<input type="text" class="form-control" required>
-					</div>					
+					    <p id="mess_tenquyen"></p>
+						<label>Tên Quyền</label>
+						<input type="text" class="form-control" required id="ten_quyen">
+					</div>				
 				</div>
 				<div class="modal-footer">
 					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-					<input type="submit" class="btn btn-success" value="Add">
+					<input type="button" class="btn btn-success" value="Thêm" id="addNhomQuyen">
 				</div>
 			</form>
 		</div>
 	</div>
 </div>
 <!-- Edit Modal HTML -->
-<div id="editEmployeeModal" class="modal fade">
+<div id="editNhomQuyen" class="modal fade">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<form>
 				<div class="modal-header">						
-					<h4 class="modal-title">Sửa Tài Khoản</h4>
+					<h4 class="modal-title">Sửa Nhóm Quyền</h4>
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 				</div>
-				<div class="modal-body">
-                    <input type="hidden" name="ma_tk" >									
+				<div class="modal-body">								
 					<div class="form-group">
                     <div class="form-group">
-						<label>Mã Tài Khoản</label>
-						<input class="form-control" type="text" name="password" required>
+						<label>Mã Nhóm Quyền</label>
+						<input class="form-control" type="text" name="" id="maquyen" required>
 					</div>
-						<!-- <input type="text" class="form-control" required> -->
-                        <select name="" id="" class="form-control" required>
-                            <option value="">A</option>
-                            <option value="">B</option>
-                            <option value="">C</option>
-                        </select>
 					</div>
 					<div class="form-group">
-						<label>Username</label>
-						<input type="text" class="form-control" name="username" required>
+						<label>Tên Nhóm Quyền</label>
+						<input type="text" class="form-control" name="" id="tenquyen" required>
 					</div>
-					<div class="form-group">
-						<label>Password</label>
-						<input class="form-control" type="password" name="password" required>
-					</div>
-					<!-- <div class="form-group">
-						<label>Phone</label>
-						<input type="text" class="form-control" required>
-					</div>					 -->
 				</div>
 				<div class="modal-footer">
 					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-					<input type="submit" class="btn btn-info" value="Save">
+					<input type="button" class="btn btn-info" id="btnUpdate" value="Update">
 				</div>
 			</form>
 		</div>
 	</div>
 </div>
 <!-- Delete Modal HTML -->
-<div id="deleteEmployeeModal" class="modal fade">
+<div id="deleteNhomQuyen" class="modal fade">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<form>
@@ -236,7 +122,36 @@
 				</div>
 				<div class="modal-footer">
 					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-					<input type="submit" class="btn btn-danger" value="Delete">
+					<input type="button" class="btn btn-danger" value="Delete" id="btnDelete">
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<!-- Detail Modal HTML -->
+<div id="detailNhomQuyen" class="modal fade">
+    <div class="modal-dialog">
+		<div class="modal-content">
+			<form>
+				<div class="modal-header">						
+					<h4 class="modal-title">Chi Tiết Quyền</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				</div>
+				<div class="modal-body">								
+					<div class="form-group">
+                    <div class="form-group">
+						<label>Mã Nhóm Quyền</label>
+						<input class="form-control" type="text" name="" id="detail_maquyen" required readonly="false">
+					</div>
+					</div>
+					<div class="form-group">
+						<label>Tên Nhóm Quyền</label>
+						<input type="text" class="form-control" name="" id="detail_tenquyen" required readonly="false">
+					</div>
+				</div>
+				<div class="modal-footer">
+					<input type="button" class="btn btn-danger" data-dismiss="modal" value="Cancel">
+					<!-- <input type="button" class="btn btn-info" id="btnUpdate" value="Update"> -->
 				</div>
 			</form>
 		</div>

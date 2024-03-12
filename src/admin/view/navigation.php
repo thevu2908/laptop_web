@@ -54,16 +54,15 @@ if (isset($_REQUEST['controller'])) {
       </a>
     </li>
   </ul>
-
   <ul class="side-menu">
     <li>
-      <a href="#">
+      <a href="#" style="text-decoration: none;">
         <i class="fas fa-cog"></i>
         <span class="text">Settings</span>
       </a>
     </li>
     <li>
-      <a href="#" class="logout">
+      <a href="/index.php" class="logout" style="text-decoration: none;">
         <i class="fas fa-right-from-bracket"></i>
         <span class="text">Logout</span>
       </a>

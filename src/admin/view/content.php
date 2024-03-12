@@ -3,7 +3,7 @@
         <a href="#" class="nav-link">Categories</a>
         <form action="#">
           <div class="form-input">
-            <input type="search" placeholder="search..." />
+            <input id="search" type="search" placeholder="search..." />
             <button class="search-btn">
               <i class="fas fa-search search-icon"></i>
             </button>
