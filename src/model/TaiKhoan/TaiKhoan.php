@@ -16,7 +16,7 @@ class TaiKhoan {
     }
 
     // Getter methods
-    public function getMaTk() {
+    public function getMaTk() : string {
         return $this->ma_tk;
     }
 
