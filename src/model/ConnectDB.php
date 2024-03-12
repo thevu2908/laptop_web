@@ -1,5 +1,5 @@
 <?php
-class Database{
+class ConnectDB {
     private $servername;
     private $username;
     private $password;
@@ -12,7 +12,7 @@ class Database{
         $this->password = "";
         $this->database = "web2";
         $this->conn = mysqli_connect($this->servername, $this->username, $this->password, $this->database);
-        
+
         if (!$this->conn) {
             die("Connection failed: ". mysqli_connect_error());
         }
