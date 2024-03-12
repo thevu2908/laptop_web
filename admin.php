@@ -61,7 +61,7 @@
     ?>
 
   </div>
-  <script src="./admin/assets/js/main.js"></script>
+  <script src="./public/pages/TaiKhoan.js"></script>
   <script src="./public/pages/NhomQuyen.js"></script>
 </body>
 

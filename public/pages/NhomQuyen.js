@@ -44,27 +44,29 @@ function loadData(){
         data:{action:tmp},
         success:function(data){
             var html="";
-            var jsonData=JSON.parse(data);
-            if(data.length>0){
-                jsonData.forEach((nhomquyen,index) => {
-                    html+=`<tr>
-                    <td>
-                        <span class="custom-checkbox">
-                            <input type="checkbox" id="checkbox1" name="options[]" value="1">
-                            <label for="checkbox1"></label>
-                        </span>
-                    </td>
-                    <td>${nhomquyen['ma_quyen']}</td>
-                    <td>${nhomquyen['ten_quyen']}</td>
-                    <td><span class="status text-success">&bull;</span> Active</td>
-                    <td>
-                        <a id="btnUp" href="#editNhomQuyen" class="edit" data-toggle="modal" data-id=${nhomquyen['ma_quyen']}><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                        <a id="btnDel" href="#deleteNhomQuyen" class="delete" data-toggle="modal" data-id1=${nhomquyen['ma_quyen']}><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-                        <a id="btnDetail" href="#detailNhomQuyen" class="view" data-id2=${nhomquyen['ma_quyen']} data-toggle="modal"><i class="material-icons">&#xE417;</i></a>
-                        <a href="#" class="Status" title="Status"><input type="checkbox" checked data-toggle="toggle" data-onstyle="danger" data-height=""></a>
-                    </td>
-                </tr>`
-                });
+            if (data) {
+                var jsonData=JSON.parse(data);
+                if(data.length>0){
+                    jsonData.forEach((nhomquyen,index) => {
+                        html+=`<tr>
+                        <td>
+                            <span class="custom-checkbox">
+                                <input type="checkbox" id="checkbox1" name="options[]" value="1">
+                                <label for="checkbox1"></label>
+                            </span>
+                        </td>
+                        <td>${nhomquyen['ma_quyen']}</td>
+                        <td>${nhomquyen['ten_quyen']}</td>
+                        <td><span class="status text-success">&bull;</span> Active</td>
+                        <td>
+                            <a id="btnUp" href="#editNhomQuyen" class="edit" data-toggle="modal" data-id=${nhomquyen['ma_quyen']}><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                            <a id="btnDel" href="#deleteNhomQuyen" class="delete" data-toggle="modal" data-id1=${nhomquyen['ma_quyen']}><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                            <a id="btnDetail" href="#detailNhomQuyen" class="view" data-id2=${nhomquyen['ma_quyen']} data-toggle="modal"><i class="material-icons">&#xE417;</i></a>
+                            <a href="#" class="Status" title="Status"><input type="checkbox" checked data-toggle="toggle" data-onstyle="danger" data-height=""></a>
+                        </td>
+                    </tr>`
+                    });
+                }
             }
             $("#show-listNhomQuyen").html(html);
         }

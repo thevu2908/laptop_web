@@ -1,7 +1,7 @@
 <?php
 include("../model/ConnectDB.php");
 include("../model/NhomQuyen/NhomQuyen.php");
-include("../model/NhomQuyen/NhomQuyenRepos.php");
+include("../model/NhomQuyen/NhomQuyenRepo.php");
 class NhomQuyenController{
     private $nhomquyenrepos;
     function __construct()
@@ -44,9 +44,10 @@ class NhomQuyenController{
         echo $this->nhomquyenrepos->getSize();
     }
 }
+
 $nhomquyenctl=new NhomQuyenController();
 $tmp=$_POST['action'];
-switch($tmp){
+switch($tmp) {
     case "Add":{
         $ma_quyen=$_POST['maquyen'];
         $ten_quyen=$_POST['tenquyen'];
