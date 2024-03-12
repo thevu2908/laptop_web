@@ -196,3 +196,33 @@ function detailNhomQuyen(){
    
 //     $("#pagination").html(pagelist);
 // }
+function listemployee() {
+    var pageno = $("#currentpage").val();
+    $.ajax({
+      url: "/src/controller/NhomQuyenController.php",
+      type: "GET",
+      dataType: "json",
+      data: { page: pageno, action: "panigation" },
+      beforeSend: function () {
+        $("#overlay").fadeIn();
+      },
+      success: function (rows) {
+        console.log(rows);  
+        if (rows.jsonemplyee) { 
+          var employeeslist = "";
+          $.each(rows.jsonemplyee, function (index, employee) {
+            employeeslist += getemployeerow(employee);
+          });
+          $("#employeetable tbody").html(employeeslist);
+          let totalemployees = rows.count;
+          let totalpages = Math.ceil(parseInt(totalemployees) / 4);
+          const currentpage = $("#currentpage").val();
+          pagination(totalpages, currentpage);
+          $("#overlay").fadeOut();
+        }
+      },
+      error: function () {
+        console.log("something went wrong");
+      },
+    });
+  }

@@ -43,6 +43,17 @@ class NhomQuyenController{
     function getSize(){
         echo $this->nhomquyenrepos->getSize();
     }
+    function panigation($start,$limit){
+        $nhomquyen= $this->nhomquyenrepos->panigation($start,$limit);
+        if(!empty($nhomquyen)){
+            $listnhomquyen=$nhomquyen;
+        }else{
+            $listnhomquyen=[];
+        }
+        $total=$this->nhomquyenrepos->getSize();
+        
+        echo json_encode($nhomquyen);
+    }
 }
 $nhomquyenctl=new NhomQuyenController();
 $tmp=$_POST['action'];
@@ -79,6 +90,13 @@ switch($tmp){
     }
     case "Size":{
         $nhomquyenctl->getSize();
+        break;
+    }
+    case "panigation":{
+        $page = (!empty($_GET['page'])) ? $_GET['page'] : 1;
+        $limit = 4;
+        $start = ($page - 1) * $limit;
+        $nhomquyenctl->panigation($start,$limit);
         break;
     }
 }

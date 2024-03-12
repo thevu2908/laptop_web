@@ -60,5 +60,14 @@ class NhomQuyenRepos extends Database{
         $size=mysqli_fetch_assoc($result);
         return $size;
     }
+    function panigation($start,$limit){
+        $sql = "SELECT * FROM nhomquyen ORDER BY ma_quyen DESC LIMIT {$start},{$limit}";
+        $result = mysqli_query($this->conn,$sql);
+        $arrNhomQuyen=array();
+        while($row=mysqli_fetch_assoc($result)){
+            $arrNhomQuyen[]=$row;
+        }
+        return $arrNhomQuyen;
+    }
 }
 ?>
