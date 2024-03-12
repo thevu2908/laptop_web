@@ -9,7 +9,7 @@ class TaiKhoanRepo extends ConnectDB {
             while ($row = mysqli_fetch_array($statement)) {
                 $accounts[] = $row;
             }
-            
+
             return $accounts;
         } catch (Exception $e) {
             echo 'Error: ' . $e->getMessage() . '<br>';
@@ -22,7 +22,11 @@ class TaiKhoanRepo extends ConnectDB {
             $query = "INSERT INTO taikhoan('ma_tk', 'ma_quyen', 'username', 'password', 'trang_thai') VALUES(?, ?, ?, ?, 0)";
             $statement = mysqli_prepare($this->conn, $query);
             
-            $statement->bind_param("ssss", $account->getMaTk(), $account->getMaQuyen(), $account->getUsername(), $account->getPassword());
+            $id = $account->getMaTk();
+            $accessId = $account->getMaQuyen();
+            $username = $account->getUsername();
+            $password = $account->getPassword();
+            $statement->bind_param("ssss", $id, $accessId, $username, $password);
 
             return $statement->execute();
         } catch (Exception $e) {

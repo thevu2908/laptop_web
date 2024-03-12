@@ -20,11 +20,9 @@ $taiKhoanCTL = new TaiKhoanController();
 $action = $_POST['action'];
 
 switch ($action) {
-    case 'load': {
+    case 'load':
         $taiKhoanCTL->getData();
         break;
-    }
-    default: {
+    default:
         break;
-    }
 }

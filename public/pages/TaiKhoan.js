@@ -26,10 +26,15 @@ function loadTaiKhoanData() {
                             <td>${item['username']}</td>
                             <td>${item['password']}</td>
                             <td>
-                                <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                                <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-                                <a href="#" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
-                                <a href="#" class="Status" title="Status"><input type="checkbox" checked data-toggle="toggle" data-onstyle="danger" data-height=""></a>
+                                <a href="#editAccountModal" class="edit" data-toggle="modal" data-id=${item['ma_tk']}>
+                                    <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
+                                </a>
+                                <a href="#deleteAccountModal" class="delete" data-toggle="modal" data-id1=${item['ma_tk']}>
+                                    <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
+                                </a>
+                                <a href="viewAccountModal" class="view" title="View" data-toggle="tooltip" data-id2=${item['ma_tk']}>
+                                    <i class="material-icons">&#xE417;</i>
+                                </a>
                             </td>
                         </tr>`
                 })

@@ -1,6 +1,7 @@
 
 $(document).ready(function(){
     loadNhomQuyenData();
+    loadNhomQuyenDataAccount();
     addNhomQuyen();
     deleteNhomQuyen();
     updateNhomQuyen();
@@ -72,6 +73,26 @@ function loadNhomQuyenData(){
         }
     }) 
 }
+
+function loadNhomQuyenDataAccount() {
+    $.ajax({
+        url:"src/controller/NhomQuyenController.php",
+        method:"POST",
+        data:{ action: 'Load' },
+        success: data => {
+            let html = "";
+            if (data && data.length > 0) {
+                const jsonData = JSON.parse(data);
+                jsonData.forEach((nhomquyen, index) => {
+                    html += `<option value='${nhomquyen['ma_quyen']}'>${nhomquyen['ten_quyen']}</option>`
+                });
+            }
+            console.log(html);
+            $("#admin-account-access").html(html);
+        }
+    }) 
+}
+
 function deleteNhomQuyen(){
     $(document).on("click","#btnDel",function(){
         var id=$(this).attr("data-id1");
