@@ -6,7 +6,7 @@ class NhomQuyenController{
     private $nhomquyenrepos;
     function __construct()
     {
-        $this->nhomquyenrepos=new NhomQuyenRepos();
+        $this->nhomquyenrepos=new NhomQuyenRepo();
     }
     function getAllNhomQuyen(){
         $nhomquyen=$this->nhomquyenrepos->getAllNhomQuyen();
