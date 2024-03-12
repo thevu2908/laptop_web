@@ -45,5 +45,15 @@ class NhomQuyenRepos extends Database{
         }
         return false;
     }
+    function searchNhomQuyen($search){
+        $sql="SELECT * FROM nhomquyen WHERE CONCAT(ma_quyen,ten_quyen) LIKE '%$search%'";
+        $result = mysqli_query($this->conn,$sql);
+        $arrNhomQuyen=array();
+        while($row=mysqli_fetch_assoc($result)){
+            //$nhomquyen=new NhomQuyen($row['ma_quyen'],$row['ten_quyen'],$row['trang_thai']);
+            $arrNhomQuyen[]=$row;
+        }
+        return $arrNhomQuyen;
+    }
 }
 ?>

@@ -36,6 +36,10 @@ class NhomQuyenController{
             echo "Update Fail";
         }
     }
+    function searchNhomQuyen($search){
+        $nhomquyen= $this->nhomquyenrepos->searchNhomQuyen($search);
+        echo json_encode($nhomquyen);
+    }
 }
 $nhomquyenctl=new NhomQuyenController();
 $tmp=$_POST['action'];
@@ -63,6 +67,11 @@ switch($tmp){
         $ma_quyen=$_POST['maquyen'];
         $ten_quyen=$_POST['tenquyen'];
         $nhomquyenctl->updateNhomQuyen($ma_quyen,$ten_quyen);
+        break;
+    }
+    case "Search":{
+        $search=$_POST['search'];
+        $nhomquyenctl->searchNhomQuyen($search);
         break;
     }
 }
