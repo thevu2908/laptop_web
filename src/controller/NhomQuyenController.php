@@ -40,6 +40,9 @@ class NhomQuyenController{
         $nhomquyen= $this->nhomquyenrepos->searchNhomQuyen($search);
         echo json_encode($nhomquyen);
     }
+    function getSize(){
+        echo $this->nhomquyenrepos->getSize();
+    }
 }
 $nhomquyenctl=new NhomQuyenController();
 $tmp=$_POST['action'];
@@ -72,6 +75,10 @@ switch($tmp){
     case "Search":{
         $search=$_POST['search'];
         $nhomquyenctl->searchNhomQuyen($search);
+        break;
+    }
+    case "Size":{
+        $nhomquyenctl->getSize();
         break;
     }
 }

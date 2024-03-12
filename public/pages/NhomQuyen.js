@@ -6,6 +6,7 @@ $(document).ready(function(){
     updateNhomQuyen();
     getNhomQuyen();
     searchNhomQuyen();
+    detailNhomQuyen();
 })
 function addNhomQuyen(){
     $(document).on('click',"#addNhomQuyen",function(){
@@ -59,7 +60,7 @@ function loadData(){
                     <td>
                         <a id="btnUp" href="#editNhomQuyen" class="edit" data-toggle="modal" data-id=${nhomquyen['ma_quyen']}><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
                         <a id="btnDel" href="#deleteNhomQuyen" class="delete" data-toggle="modal" data-id1=${nhomquyen['ma_quyen']}><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-                        <a href="#" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
+                        <a id="btnDetail" href="#detailNhomQuyen" class="view" data-id2=${nhomquyen['ma_quyen']} data-toggle="modal"><i class="material-icons">&#xE417;</i></a>
                         <a href="#" class="Status" title="Status"><input type="checkbox" checked data-toggle="toggle" data-onstyle="danger" data-height=""></a>
                     </td>
                 </tr>`
@@ -144,7 +145,7 @@ function searchNhomQuyen(){
                     <td>
                         <a id="btnUp" href="#editNhomQuyen" class="edit" data-toggle="modal" data-id=${nhomquyen['ma_quyen']}><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
                         <a id="btnDel" href="#deleteNhomQuyen" class="delete" data-toggle="modal" data-id1=${nhomquyen['ma_quyen']}><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-                        <a href="#" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
+                        <a id="btnDetail" href="#detailNhomQuyen" class="view" title="View" data-id2=${nhomquyen['ma_quyen']} data-toggle="modal"><i class="material-icons">&#xE417;</i></a>
                         <a href="#" class="Status" title="Status"><input type="checkbox" checked data-toggle="toggle" data-onstyle="danger" data-height=""></a>
                     </td>
                 </tr>`
@@ -155,6 +156,23 @@ function searchNhomQuyen(){
             }
         })
     })
+}
+function detailNhomQuyen(){
+    $(document).on("click","#btnDetail",function(){
+        var id=$(this).attr("data-id2");
+        console.log(id);
+        $.ajax({
+            url:"/src/controller/NhomQuyenController.php",
+            method:"POST",
+            data:{action:"Get",id:id},
+            dataType:"JSON",
+            success:function(data){
+                $("#detail_maquyen").val(data.ma_quyen);
+                $("#detail_tenquyen").val(data.ten_quyen);
+                
+            }
+        })
+})
 }
 // function panigation(total,current){
 //     var pagelist = "";

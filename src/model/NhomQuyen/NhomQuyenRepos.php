@@ -7,7 +7,7 @@ class NhomQuyenRepos extends Database{
         $result = mysqli_query($this->conn,$sql);
         $arrNhomQuyen=array();
         while($row=mysqli_fetch_assoc($result)){
-            //$nhomquyen=new NhomQuyen($row['ma_quyen'],$row['ten_quyen'],$row['trang_thai']);
+            
             $arrNhomQuyen[]=$row;
         }
         return $arrNhomQuyen;
@@ -16,7 +16,6 @@ class NhomQuyenRepos extends Database{
         $sql = "SELECT * FROM nhomquyen WHERE ma_quyen = '$id'";
         $result = mysqli_query($this->conn,$sql);
         if($row=mysqli_fetch_assoc($result)){
-            //$nq=new NhomQuyen($row['ma_quyen'],$row['ten_quyen'],$row['trang_thai']);
             return $row;
         }
         return null;
@@ -54,6 +53,12 @@ class NhomQuyenRepos extends Database{
             $arrNhomQuyen[]=$row;
         }
         return $arrNhomQuyen;
+    }
+    function getSize(){
+        $sql="SELECT count(*) FROM nhomquyen";
+        $result = mysqli_query($this->conn,$sql);
+        $size=mysqli_fetch_assoc($result);
+        return $size;
     }
 }
 ?>

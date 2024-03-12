@@ -128,4 +128,33 @@
 		</div>
 	</div>
 </div>
+<!-- Detail Modal HTML -->
+<div id="detailNhomQuyen" class="modal fade">
+    <div class="modal-dialog">
+		<div class="modal-content">
+			<form>
+				<div class="modal-header">						
+					<h4 class="modal-title">Chi Tiết Quyền</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				</div>
+				<div class="modal-body">								
+					<div class="form-group">
+                    <div class="form-group">
+						<label>Mã Nhóm Quyền</label>
+						<input class="form-control" type="text" name="" id="detail_maquyen" required readonly="false">
+					</div>
+					</div>
+					<div class="form-group">
+						<label>Tên Nhóm Quyền</label>
+						<input type="text" class="form-control" name="" id="detail_tenquyen" required readonly="false">
+					</div>
+				</div>
+				<div class="modal-footer">
+					<input type="button" class="btn btn-danger" data-dismiss="modal" value="Cancel">
+					<!-- <input type="button" class="btn btn-info" id="btnUpdate" value="Update"> -->
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
 </main>
