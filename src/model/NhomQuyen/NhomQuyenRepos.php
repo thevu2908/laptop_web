@@ -1,7 +1,7 @@
 <?php
 // include("../ConnectDB.php");
 // include("../NhomQuyen/NhomQuyen.php");
-class NhomQuyenRepos extends Database{
+class NhomQuyenRepos extends ConnectDB{
     function getAllNhomQuyen(){
         $sql = "SELECT * FROM nhomquyen";
         $result = mysqli_query($this->conn,$sql);

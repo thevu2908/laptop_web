@@ -44,15 +44,15 @@ class NhomQuyenController{
         echo $this->nhomquyenrepos->getSize();
     }
     function panigation($start,$limit){
-        $nhomquyen= $this->nhomquyenrepos->panigation($start,$limit);
-        if(!empty($nhomquyen)){
-            $listnhomquyen=$nhomquyen;
-        }else{
-            $listnhomquyen=[];
-        }
-        $total=$this->nhomquyenrepos->getSize();
-        
-        echo json_encode($nhomquyen);
+        //$nhomquyen= $this->nhomquyenrepos->panigation($start,$limit);
+        // if(!empty($nhomquyen)){
+        //     $listnhomquyen=$nhomquyen;
+        // }else{
+        //     $listnhomquyen=[];
+        // }
+        // $total=$this->nhomquyenrepos->getSize();
+
+        // echo json_encode($nhomquyen);
     }
 }
 $nhomquyenctl=new NhomQuyenController();
