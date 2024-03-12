@@ -24,15 +24,15 @@
 </head>
 
 <body>
-  <?php include "./src/admin/view/navigation.php" ?>
+  <?php include "./src/admin/view/Taskbar.php" ?>
   <div class="content">
-    <?php include "./src/admin/view/content.php" ?>
+    <?php include "./src/admin/view/Content.php" ?>
     <?php
     if (isset($_GET['controller'])) {
       $tmp = $_GET['controller'];
       switch ($tmp) {
         case "dashboard":
-          include "./src/admin/view/dashboard.php";
+          include "./src/admin/view/DashBoard.php";
           break;
         case "sanpham": {
             include "./src/admin/view/SanPham.php";
@@ -56,11 +56,12 @@
           }
       }
     } else {
-      include "./src/admin/view/dashboard.php";
+      include "./src/admin/view/DashBoard.php";
     }
     ?>
   </div>
 
+  <script src="./src/admin/assets/js/main.js"></script>
   <script src="./public/pages/NhomQuyen.js"></script>
   <script src="./public/pages/TaiKhoan.js"></script>
 </body>

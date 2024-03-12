@@ -6,12 +6,12 @@ if (isset($_REQUEST['controller'])) {
 ?>
 
 <section class="sidebar">
-  <a href="#" class="logo">
+  <a href="/admin.php" class="logo">
     <i class="fab fa-slack"></i>
     <span class="text">Admin</span>
   </a>
   <ul class="side-menu top">
-    <li class="side-menu-item <?php echo $page === 'dashboard' ? 'active' : '' ?>">
+    <li class="side-menu-item <?php echo $page === 'dashboard' || $page === '' ? 'active' : '' ?>">
       <a href="/admin.php?controller=dashboard" class="nav-link">
         <i class="fas fa-border-all"></i>
         <span class="text">Dashboard</span>

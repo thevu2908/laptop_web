@@ -79,6 +79,11 @@ body.dark {
   z-index: 500;
   padding-bottom: 20px;
   box-sizing: content-box;
+  padding-left: 15px;
+}
+
+.sidebar .logo:hover {
+  text-decoration: none;
 }
 
 .sidebar .logo i {
