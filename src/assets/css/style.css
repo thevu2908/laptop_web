@@ -13,7 +13,7 @@
 }
 
 .header-logo {
-    color: #7065F0;
+    color: var(--primary-color);
     font-size: 24px;
 }
 
@@ -26,7 +26,8 @@
     gap: 10px;
 }
 
-.cart-main {
+.cart-main,
+.checkout-main {
     background-color: #F8F8FC
 }
 
@@ -99,7 +100,7 @@
     top: 19px;
     right: -5px;
     padding-top: 4px;
-    background-color: #7065f0;
+    background-color: var(--primary-color);
     color: white;
     border-radius: 50%;
     font-size: 10px;
@@ -156,15 +157,15 @@
 }
 
 .cart__footer-tocart:hover {
-    background-color: #7065f0;
+    background-color: var(--primary-color);
 }
 
 /* CSS trang CART */
 
 .cart__left,
 .card__top-left {
-    width: 60%;
-    padding: 12px;
+    width: 68%;
+    padding: 0 12px 12px 12px;
 }
 
 .cart__left-product li input {
@@ -182,6 +183,7 @@
 
 .cart__left-product-name span {
     align-self: center;
+    margin-left: 12px;
 }
 
 .cart__left-title {
@@ -189,16 +191,49 @@
     font-weight: 500;
 }
 
-.cart__right {
-    height: auto;
+.cart__left-quantity input[type='button'] {
+    background: #F8F8FC;
+    font-weight: 500;
+    border: 1px solid #E4E5F0;
+    width: 30px;
+    height: 30px;
+    font-size: 20px;
+    background-color: transparent;
+    cursor: pointer;
+    padding: 0;
 }
 
-.cart__right-pay button {
+.cart__left-quantity input[type='text'] {
+    width: 40px;
+    height: 30px;
+    text-align: center;
+    font-size: 12px;
+    font-weight: bold;
+    border: 1px solid #E4E5F0;
+    padding: 0;
+    border-left: transparent;
+    border-right: transparent;
+}
+
+.cart__left-quantity input[type='text']:focus {
+    outline: unset;
+}
+
+.cart__right {
+    height: auto;
+    width: 30%;
+}
+
+.cart__right-pay a {
     border: none;
-    background-color: #7065F0;
+    background-color: var(--primary-color);
     color: white;
     padding: 4px;
     margin-top: 10px;
+}
+
+.cart__right-pay a:hover {
+    background-color: var(--primary-color);
 }
 
 /* END CSS trang CART */
@@ -211,6 +246,119 @@
 }
 
 /* END Modal */
+
+
+/* Checkout */
+.checkout-header {
+    padding: 8px;
+}
+
+.checkout__right-image {
+    width: 80px;
+    height: 80px;
+}
+
+.checkout__right-info {
+    font-weight: 500;
+}
+
+.checkout__right-info span {
+    font-size: 13px;
+}
+
+.checkout__right-info div {
+    font-size: 12px;
+    color: #82869E;
+}
+
+.edit-order {
+    font-size: 14px;
+}
+
+ul, li {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.checkout__left {
+    width: 65%;
+}
+
+.checkout-address .checkout-address-btn,
+.checkout-method .checkout-address-btn {
+    width: 100%;
+    height: 100px;
+    opacity: 1;
+    border-radius: 6px;
+    background-color: transparent;
+    border: 1px solid rgb(228, 229, 240);
+    position: relative;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    outline: none;
+    min-width: 250px;
+    cursor: pointer;
+    transition-duration: 80ms;
+}
+
+.checkout-address-btn.select,
+.checkout-method-btn.select {
+    border: 1px solid var(--primary-color);
+}
+
+.checkout-address__info {
+    padding: 0 18px;
+}
+
+.checkout-address__info h5,
+.checkout-address__info h6 {
+    font-size: 14px;
+
+}
+
+.checkout-address__info h5 {
+    font-weight: 500;
+    margin-bottom: 0;
+}
+
+.checkout-address__info h6 {
+    font-weight: 400;
+    margin-bottom: 0;
+}
+
+.checkout-method .checkout-address-btn {
+    padding: 18px;
+}
+
+.checkout-method .checkout-method-title {
+    align-self: flex-start;
+    font-weight: 500;
+}
+
+.checkout-method .checkout-method-describe {
+    color: rgb(130, 134, 158);
+    align-self: flex-start;
+}
+
+.checkout-note input {
+    padding: 6px 12px;
+    border-radius: 4px;
+    border: 1px solid rgb(228, 229, 240);
+}
+
+.checkout-note input:focus {
+    border: 1px solid rgb(20, 53, 195);
+}
+
+.checkout-confirm span {
+    font-weight: 500;
+}
+
+/* END Checkout */
 
 .login-header {
     padding-bottom: 20px;
@@ -226,7 +374,7 @@
 }
 
 .login-header-logo {
-    color: #7065F0;
+    color: var(--primary-color);
     margin-right: 12px;
     cursor: pointer;
 }
@@ -281,7 +429,7 @@
 .signup-link,
 .login-link {
     text-decoration: none;
-    color: #7065F0;
+    color: var(--primary-color);
 }
 
 .search-form {
@@ -320,12 +468,12 @@
 .btn-search-label {
     height: 30px;
     padding: 6px 10px;
-    background-color: #7065f0;
+    background-color: var(--primary-color);
     color: #fff;
 }
 
 .btn-search-label:hover {
-    background-color: #7065f0;
+    background-color: var(--primary-color);
     color: #fff;
     opacity: 0.9;
 }
@@ -473,7 +621,7 @@
 }
 
 .contact-text span {
-    color: #7065f0;
+    color: var(--primary-color);
 }
 
 .contact-info {
@@ -503,7 +651,7 @@
 }
 
 .contact-info-item span:first-child {
-    color: #7065f0;
+    color: var(--primary-color);
     font-family: Epilogue, sans-serif;
     font-size: 1.125rem;
     font-weight: 600;
@@ -542,7 +690,7 @@
 .contact-form {
     grid-row-gap: 1.75rem;
     width: 100%;
-    background-image: linear-gradient(106.5deg, #7065f0, #a29bf5);
+    background-image: linear-gradient(106.5deg, var(--primary-color), #a29bf5);
     border-radius: 1.25rem;
     display: flex;
     flex-direction: column;
@@ -594,7 +742,7 @@
 }
 
 .btn-send-feedback:hover {
-    background-color: #7065f0;
+    background-color: var(--primary-color);
     color: #fff;
 }
 
@@ -650,7 +798,7 @@
 }
 
 .product-price-number {
-    color: #7065f0;
+    color: var(--primary-color);
     font-family: "Poppins", sans-serif;
     font-size: 1.875rem;
     font-weight: 600;
@@ -705,7 +853,7 @@
 
 .btn-showmore {
     text-decoration: none;
-    background-color: #7065f0;
+    background-color: var(--primary-color);
     color: #fff;
     letter-spacing: -.05rem;
     border-radius: 0.625rem;
@@ -730,7 +878,7 @@
 }
 
 .feature-block span {
-    color: #7065F0;
+    color: var(--primary-color);
     font-size: 35px;
 }
 
@@ -767,7 +915,7 @@
 }
 
 .footer-block .footer-title {
-    color: #7065f0;
+    color: var(--primary-color);
     font-size: 26px;
     font-weight: 800;
     font-family: "Catamaran", sans-serif;
@@ -812,12 +960,13 @@
 }
 
 .footer-copyright span {
-    color: #7065F0;
+    color: var(--primary-color);
     margin-left: 4px;
 }
 
 .product-main,
-.cart-main {
+.cart-main,
+.checkout-main {
     margin-top: 70px;
     padding: 32px 0;
 }

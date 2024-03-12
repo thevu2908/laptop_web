@@ -24,7 +24,7 @@
                     </span>
                     <div class="cart-number">0</div>
                     <div class="cart-pseudo"></div>
-                    <?php include "cart-dropdown.php" ?>
+                    <?php include "Cart/cart-dropdown.php" ?>
                 </a>
                 <a href="index.php?dang-nhap" class="login-btn">
                     <i class="fa-regular fa-user"></i>
