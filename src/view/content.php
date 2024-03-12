@@ -391,7 +391,7 @@
                 <div class="contact-info">
                     <div class="contact-info-item">
                         <span>Email</span>
-                        <span>laptop@gmail.com</span>
+                        <span>sgulaptop@gmail.com</span>
                     </div>
                     <div class="contact-info-item">
                         <span>Address</span>

@@ -10,7 +10,7 @@
                     </p>
                     <p>
                         <b>Email:</b>
-                        laptop@gmail.com
+                        sgulaptop@gmail.com
                     </p>
                     <p>
                         <b>Liên hệ:</b>
