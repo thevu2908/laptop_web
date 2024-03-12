@@ -44,6 +44,7 @@ function loadData(){
         data:{action:tmp},
         success:function(data){
             var html="";
+            console.log(data);
             var jsonData=JSON.parse(data);
             if(data.length>0){
                 jsonData.forEach((nhomquyen,index) => {

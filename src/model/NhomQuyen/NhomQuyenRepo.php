@@ -20,7 +20,6 @@ class NhomQuyenRepo extends ConnectDB {
         }
         return null;
     }
-
     function addNhomQuyen($ma_quyen, $ten_quyen) {
         $sql = "INSERT INTO nhomquyen(ma_quyen,ten_quyen) VALUES('$ma_quyen','$ten_quyen')";
         $result = mysqli_query($this->conn, $sql);
