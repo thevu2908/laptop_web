@@ -1,6 +1,6 @@
 <?php
 
-class NhomQuyenRepo extends Database {
+class NhomQuyenRepo extends ConnectDB {
     function getAllNhomQuyen() {
         $sql = "SELECT * FROM nhomquyen";
         $result = mysqli_query($this->conn, $sql);
