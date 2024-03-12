@@ -1,6 +1,6 @@
 
 $(document).ready(function(){
-    loadData();
+    loadNhomQuyenData();
     addNhomQuyen();
     deleteNhomQuyen();
     updateNhomQuyen();
@@ -36,10 +36,10 @@ function addNhomQuyen(){
         }
     })
 }
-function loadData(){
+function loadNhomQuyenData(){
     var tmp="Load";
     $.ajax({
-        url:"/src/controller/NhomQuyenController.php",
+        url:"src/controller/NhomQuyenController.php",
         method:"POST",
         data:{action:tmp},
         success:function(data){
