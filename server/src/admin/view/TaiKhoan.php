@@ -8,14 +8,6 @@
 							<h2>Quản Lý <b>Tài Khoản</b></h2>
 						</div>
 						<div class="col-sm-6">
-							<a href="#" class="btn btn-secondary">
-								<i class="material-icons">&#xE24D;</i>
-								<span>Import Excel</span>
-							</a>
-							<a href="#" class="btn btn-secondary">
-								<i class="material-icons">&#xE24D;</i>
-								<span>Export Excel</span>
-							</a>
 							<a href="#addAccountModal" class="btn btn-success" data-toggle="modal">
 								<i class="material-icons">&#xE147;</i>
 								<span>Thêm</span>
@@ -87,12 +79,25 @@
 					</div>
 					<div class="modal-body">
 						<div class="form-group">
-							<label for="admin-account-username">Username</label>
-							<input id="admin-account-username" type="text" class="form-control">
+							<label for="admin-account-employee-choose">Chọn nhân viên để cấp tài khoản</label>
+							<select class="form-control" name="admin-account-employee-choose" id="admin-account-employee-choose">
+									
+							</select>
+						</div>
+
+						<div class="form-group">
+							<label for="admin-account-id">Mã tài khoản</label>
+							<input type="text" class="form-control" name="admin-account-id" id="admin-account-id" disabled>
 						</div>
 						<div class="form-group">
 							<label for="admin-account-password">Password</label>
-							<input type="password" class="form-control" id="admin-account-password">
+							<div class="admin-account-pwd">
+								<input type="password" class="form-control" id="admin-account-password">
+								<span class="showhide-pwd-icon">
+									<i class="fa-regular fa-eye open"></i>
+									<i class="fa-regular fa-eye-slash"></i>
+								</span>
+							</div>
 						</div>
 						<div class="form-group">
 							<label for="admin-account-access">Quyền tài khoản</label>
@@ -103,7 +108,7 @@
 					</div>
 					<div class="modal-footer">
 						<input type="button" class="btn btn-default" data-dismiss="modal" value="Hủy">
-						<input type="submit" class="btn btn-success" value="Thêm">
+						<input type="button" class="btn btn-success btn-add-account" value="Thêm">
 					</div>
 				</form>
 			</div>
@@ -122,8 +127,10 @@
 						<input type="hidden" name="ma_tk">
 						<div class="form-group">
 							<div class="form-group">
-								<label for="admin-account-id">Mã Tài Khoản</label>
-								<input class="form-control" type="text" name="admin-account-id" id="admin-account-id">
+								<label for="admin-account-id-edit">Mã tài khoản</label>
+								<select class="form-control" name="admin-account-id-edit" id="admin-account-id-edit">
+
+								</select>
 							</div>
 							<div class="form-group">
 							<label for="admin-account-access-edit">Quyền tài khoản</label>
@@ -138,12 +145,18 @@
 						</div>
 						<div class="form-group">
 							<label for="admin-account-password-edit">Password</label>
-							<input class="form-control" type="password" name="admin-account-password-edit" id="admin-account-password-edit">
+							<div class="admin-account-pwd">
+								<input class="form-control" type="password" name="admin-account-password-edit" id="admin-account-password-edit">
+								<span class="showhide-pwd-icon">
+									<i class="fa-regular fa-eye open"></i>
+									<i class="fa-regular fa-eye-slash"></i>
+								</span>
+							</div>
 						</div>
 					</div>
 					<div class="modal-footer">
 						<input type="button" class="btn btn-default" data-dismiss="modal" value="Hủy">
-						<input type="submit" class="btn btn-info" value="Lưu">
+						<input type="button" class="btn btn-info" value="Lưu">
 					</div>
 				</form>
 			</div>
@@ -164,7 +177,7 @@
 					</div>
 					<div class="modal-footer">
 						<input type="button" class="btn btn-default" data-dismiss="modal" value="Hủy">
-						<input type="submit" class="btn btn-danger" value="Xóa">
+						<input type="button" class="btn btn-danger" value="Xóa">
 					</div>
 				</form>
 			</div>

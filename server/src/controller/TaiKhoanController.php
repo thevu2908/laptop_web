@@ -12,15 +12,32 @@ class TaiKhoanController {
     }
 
     public function getData() {
-        echo json_encode($this->taiKhoanRepo->getData());
+        $accounts = $this->taiKhoanRepo->getData();
+        $result = [];
+
+        foreach ($accounts as $account) {
+            if ($account['trang_thai'] == 0) {
+                $result[] = $account;
+            }
+        }
+        
+        echo json_encode($result);
     }
 
     public function getAccount($accounntId) {
         echo json_encode($this->taiKhoanRepo->getAccount($accounntId));
     }
 
-    public function addAccount($account) {
+    public function getAccountsLength() {
+        echo $this->taiKhoanRepo->getAccountsLength();
+    }
 
+    public function addAccount($account) {
+        if ($this->taiKhoanRepo->addAccount($account)) {
+            echo 'success';
+        } else {
+            echo 'fail';
+        }
     }
 }
 
@@ -30,6 +47,15 @@ $action = $_POST['action'];
 switch ($action) {
     case 'load':
         $taiKhoanCTL->getData();
+        break;
+    case 'add':
+        $accountId = $_POST['accountId'];
+        $accessId = $_POST['accessId'];
+        $username = $_POST['username'];
+        $password = $_POST['password'];
+        $account = new TaiKhoan($accountId, $accessId, $username, $password, 0);
+
+        $taiKhoanCTL->addAccount($account);
         break;
     default:
         break;
