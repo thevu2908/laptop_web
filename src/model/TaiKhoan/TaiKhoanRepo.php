@@ -2,7 +2,7 @@
 
 class TaiKhoanRepo extends ConnectDB {
     public function getData() : array | null {
-        $accounts = [];
+        $accounts = array();
         try {
             $statement = mysqli_query($this->conn, "SELECT * FROM taikhoan");
             

@@ -15,16 +15,15 @@ class TaiKhoanController {
         echo json_encode($this->taiKhoanRepo->getData());
     }
 }
-
 $taiKhoanCTL = new TaiKhoanController();
-$action = $_POST['action'];
-
-switch ($action) {
-    case 'load': {
-        $taiKhoanCTL->getData();
-        break;
-    }
-    default: {
-        break;
-    }
-}
+print_r($taiKhoanCTL->getData());
+// $action = $_POST['action'];
+// switch ($action) {
+//     case 'load': {
+//         $taiKhoanCTL->getData();
+//         break;
+//     }
+//     default: {
+//         break;
+//     }
+// }

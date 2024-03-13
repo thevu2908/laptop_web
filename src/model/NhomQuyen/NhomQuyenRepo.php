@@ -1,5 +1,4 @@
 <?php
-
 class NhomQuyenRepo extends ConnectDB {
     function getAllNhomQuyen() {
         $sql = "SELECT * FROM nhomquyen";

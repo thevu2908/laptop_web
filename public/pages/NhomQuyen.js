@@ -1,12 +1,13 @@
 
 $(document).ready(function(){
-    loadData();
-    addNhomQuyen();
+    loadNhomQuyen();
+    //addNhomQuyen();
     deleteNhomQuyen();
     updateNhomQuyen();
     getNhomQuyen();
     searchNhomQuyen();
     detailNhomQuyen();
+    //$('#addNhomQuyen').modal({backdrop: 'static', keyboard: false}) 
 })
 function addNhomQuyen(){
     $(document).on('click',"#addNhomQuyen",function(){
@@ -22,7 +23,7 @@ function addNhomQuyen(){
             $("#mess_tenquyen").html("Please input tenquyen");
         }else{
             $.ajax({
-                url:"/src/controller/NhomQuyenController.php",
+                url:"src/controller/NhomQuyenController.php",
                 method:"POST",
                 data:{action:"Add", maquyen:ma_nhomquyen, tenquyen:ten_nhomquyen},
                 success:function(data){
@@ -30,16 +31,15 @@ function addNhomQuyen(){
                     //$("#addNhomQuyen").modal("show");
                     $("form").trigger('reset');
                     loadData();
-
                 }
             })
         }
     })
 }
-function loadData(){
+function loadNhomQuyen(){
     var tmp="Load";
     $.ajax({
-        url:"/src/controller/NhomQuyenController.php",
+        url:"src/controller/NhomQuyenController.php",
         method:"POST",
         data:{action:tmp},
         success:function(data){
@@ -82,7 +82,7 @@ function deleteNhomQuyen(){
                 data:{id:id,action:"Delete"},
                 success:function(data){
                     $("#deleteNhomQuyen").modal('hide');
-                    loadData();
+                    loadNhomQuyen();
                 }
             })
         })
@@ -115,7 +115,7 @@ function updateNhomQuyen(){
             success:function(data){
                 $("form").trigger('reset');
                 $("#editNhomQuyen").modal('hide');
-                loadData();
+                loadNhomQuyen()();
             }
         })
     })
@@ -175,55 +175,3 @@ function detailNhomQuyen(){
         })
 })
 }
-// function panigation(total,current){
-//     var pagelist = "";
-//     if (totalpages > 1) {
-//       currentpage = parseInt(currentpage);
-//       pagelist += `<ul class="pagination justify-content-center">`;
-//       const prevClass = currentpage == 1 ? " disabled" : "";
-//       pagelist += `<li class="page-item${prevClass}"><a class="page-link" href="#" data-page="${
-//         currentpage - 1
-//       }">Previous</a></li>`;
-//       for (let p = 1; p <= totalpages; p++) {
-//         const activeClass = currentpage == p ? " active" : "";
-//         pagelist += `<li class="page-item${activeClass}"><a class="page-link" href="#" data-page="${p}">${p}</a></li>`;
-//       }
-//       const nextClass = currentpage == totalpages ? " disabled" : "";
-//       pagelist += `<li class="page-item${nextClass}"><a class="page-link" href="#" data-page="${
-//         currentpage + 1
-//       }">Next</a></li>`;
-//       pagelist += `</ul>`;
-//     }
-   
-//     $("#pagination").html(pagelist);
-// }
-function listemployee() {
-    var pageno = $("#currentpage").val();
-    $.ajax({
-      url: "/src/controller/NhomQuyenController.php",
-      type: "GET",
-      dataType: "json",
-      data: { page: pageno, action: "panigation" },
-      beforeSend: function () {
-        $("#overlay").fadeIn();
-      },
-      success: function (rows) {
-        console.log(rows);  
-        if (rows.jsonemplyee) { 
-          var employeeslist = "";
-          $.each(rows.jsonemplyee, function (index, employee) {
-            employeeslist += getemployeerow(employee);
-          });
-          $("#employeetable tbody").html(employeeslist);
-          let totalemployees = rows.count;
-          let totalpages = Math.ceil(parseInt(totalemployees) / 4);
-          const currentpage = $("#currentpage").val();
-          pagination(totalpages, currentpage);
-          $("#overlay").fadeOut();
-        }
-      },
-      error: function () {
-        console.log("something went wrong");
-      },
-    });
-  }

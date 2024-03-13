@@ -5,7 +5,6 @@ class ConnectDB {
     private $password;
     private $database;
     public $conn;
-
     public function __construct() {
         $this->servername = "localhost";
         $this->username = "root";

@@ -60,8 +60,8 @@
     }
     ?>
   </div>
-  <script src="./public/pages/TaiKhoan.js"></script>
   <script src="./public/pages/NhomQuyen.js"></script>
+  <script src="./public/pages/TaiKhoan.js"></script>
 </body>
 
 </html>

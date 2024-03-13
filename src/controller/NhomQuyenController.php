@@ -1,7 +1,7 @@
 <?php
 include("../model/ConnectDB.php");
 include("../model/NhomQuyen/NhomQuyen.php");
-include("../model/NhomQuyen/NhomQuyenRepo.php");
+include("../model/NhomQuyen/NhomQuyenRepos.php");
 class NhomQuyenController{
     private $nhomquyenrepos;
     function __construct()
@@ -43,17 +43,17 @@ class NhomQuyenController{
     function getSize(){
         echo $this->nhomquyenrepos->getSize();
     }
-    function panigation($start,$limit){
-        $nhomquyen= $this->nhomquyenrepos->panigation($start,$limit);
-        if(!empty($nhomquyen)){
-            $listnhomquyen=$nhomquyen;
-        }else{
-            $listnhomquyen=[];
-        }
-        $total=$this->nhomquyenrepos->getSize();
+    // function panigation($start,$limit){
+    //     $nhomquyen= $this->nhomquyenrepos->panigation($start,$limit);
+    //     if(!empty($nhomquyen)){
+    //         $listnhomquyen=$nhomquyen;
+    //     }else{
+    //         $listnhomquyen=[];
+    //     }
+    //     $total=$this->nhomquyenrepos->getSize();
         
-        echo json_encode($nhomquyen);
-    }
+    //     echo json_encode($nhomquyen);
+    // }
 }
 
 $nhomquyenctl=new NhomQuyenController();
@@ -93,12 +93,12 @@ switch($tmp) {
         $nhomquyenctl->getSize();
         break;
     }
-    case "panigation":{
-        $page = (!empty($_GET['page'])) ? $_GET['page'] : 1;
-        $limit = 4;
-        $start = ($page - 1) * $limit;
-        $nhomquyenctl->panigation($start,$limit);
-        break;
-    }
+    // case "panigation":{
+    //     $page = (!empty($_GET['page'])) ? $_GET['page'] : 1;
+    //     $limit = 4;
+    //     $start = ($page - 1) * $limit;
+    //     $nhomquyenctl->panigation($start,$limit);
+    //     break;
+    // }
 }
 ?>
