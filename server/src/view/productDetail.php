@@ -1,5 +1,5 @@
 <?php
-include "src/view/header.php";
+include "server/src/view/header.php";
 ?>
 
 <div class="product-detail-container mt-70">
@@ -7,7 +7,7 @@ include "src/view/header.php";
         <div class="row">
             <div class="col-5">
                 <div class="product-image-container">
-                    <img src="src\assets\images\laptop-1.png" class="product-image">
+                    <img src="server\src\assets\images\laptop-1.png" class="product-image">
                 </div>
                 <div class="product-config-container">
                     <div class="product-config-info">
@@ -101,7 +101,7 @@ include "src/view/header.php";
                 </div>
                 <div class="modal-body px-0">
                     <div class="d-flex justify-content-center">
-                        <img class="product-config-detail-img" src="src\assets\images\laptop-1.png">
+                        <img class="product-config-detail-img" src="server\src\assets\images\laptop-1.png">
                     </div>
                     <div class="modal-row">
                         <h5 class="modal-row-title">Thông tin hàng hóa</h5>
@@ -244,5 +244,5 @@ include "src/view/header.php";
 </div>
 
 <?php
-include "src/view/footer.php";
+include "server/src/view/footer.php";
 ?>

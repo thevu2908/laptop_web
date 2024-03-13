@@ -2,7 +2,7 @@
 include("../model/ConnectDB.php");
 include("../model/NhomQuyen/NhomQuyen.php");
 include("../model/NhomQuyen/NhomQuyenRepo.php");
-class NhomQuyenController{
+class NhomQuyenController {
     private $nhomquyenrepos;
     function __construct()
     {

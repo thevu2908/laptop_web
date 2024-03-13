@@ -16,8 +16,4 @@
     <i class="fas fa-bell"></i>
     <span class="num">28</span>
   </a>
-
-  <a href="#" class="profile">
-    <img src="profile.png" alt="" />
-  </a>
 </nav>

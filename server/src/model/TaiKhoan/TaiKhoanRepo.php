@@ -6,7 +6,7 @@ class TaiKhoanRepo extends ConnectDB {
         try {
             $statement = mysqli_query($this->conn, "SELECT * FROM taikhoan");
             
-            while ($row = mysqli_fetch_array($statement)) {
+            while ($row = mysqli_fetch_assoc($statement)) {
                 $accounts[] = $row;
             }
 
@@ -16,6 +16,20 @@ class TaiKhoanRepo extends ConnectDB {
         }
         return null;
     }
+
+    public function getAccount($accountId) {
+        try {
+            $query = "SELECT * FROM taikhoan WHERE ma_tk = '$accountId'";
+            $statement = mysqli_query($this->conn, $query);
+
+            if ($row = mysqli_fetch_assoc($statement)) {
+                return $row;
+            }
+        } catch (Exception $e) {
+            echo 'Error: ' . $e->getMessage() . '<br>';
+        }
+        return null;
+    } 
 
     public function addAccount($account) : bool {
         try {

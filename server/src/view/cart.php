@@ -25,7 +25,7 @@
                 <ul class="cart__left-product">
                     <li class="d-flex justify-content-between w-100 align-items-center">
                         <div class="cart__left-product-name d-flex">
-                            <img src="src\assets\images\laptop-1.png" alt="">
+                            <img src="server\src\assets\images\laptop-1.png" alt="">
                             <span>MacBook Air M2 13 2022 8CPU 8GPU 8GB 256GB</span>
                         </div>
                         <div class="cart__left-product-price">₫26.190.000</div>
@@ -36,7 +36,7 @@
                     </li>
                     <li class="d-flex justify-content-between w-100 align-items-center">
                         <div class="cart__left-product-name d-flex">
-                            <img src="src\assets\images\laptop-1.png" alt="">
+                            <img src="server\src\assets\images\laptop-1.png" alt="">
                             <span>MacBook Air M2 13 2022 8CPU 8GPU 8GB 256GB</span>
                         </div>
                         <div class="cart__left-product-price">₫26.190.000</div>
@@ -47,7 +47,7 @@
                     </li>
                     <li class="d-flex justify-content-between w-100 align-items-center">
                         <div class="cart__left-product-name d-flex">
-                            <img src="src\assets\images\laptop-1.png" alt="">
+                            <img src="server\src\assets\images\laptop-1.png" alt="">
                             <span>MacBook Air M2 13 2022 8CPU 8GPU 8GB 256GB</span>
                         </div>
                         <div class="cart__left-product-price">₫26.190.000</div>

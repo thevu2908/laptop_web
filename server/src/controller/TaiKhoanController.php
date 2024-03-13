@@ -14,6 +14,14 @@ class TaiKhoanController {
     public function getData() {
         echo json_encode($this->taiKhoanRepo->getData());
     }
+
+    public function getAccount($accounntId) {
+        echo json_encode($this->taiKhoanRepo->getAccount($accounntId));
+    }
+
+    public function addAccount($account) {
+
+    }
 }
 
 $taiKhoanCTL = new TaiKhoanController();

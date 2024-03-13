@@ -1,15 +1,15 @@
-$(document).ready(function () {
+$(document).ready(() => {
     loadTaiKhoanData();
 })
 
 function loadTaiKhoanData() {
     $.ajax({
-        url: 'src/controller/TaiKhoanController.php',
+        url: 'server/src/controller/TaiKhoanController.php',
         method: 'POST',
         data: { action: 'load' },
         success: data => {
-            let html = ''
             if (data && data.length > 0) {
+                let html = ''
                 const jsonData = JSON.parse(data)
 
                 jsonData.forEach((item, index) => {
@@ -22,7 +22,7 @@ function loadTaiKhoanData() {
                                 </span>
                             </td>
                             <td>${item['ma_tk']}</td>
-                            <td>${item['ma_quyen']}</td>
+                            <td class="admin-accounnt-accessname-${index}"></td>
                             <td>${item['username']}</td>
                             <td>${item['password']}</td>
                             <td>
@@ -36,10 +36,14 @@ function loadTaiKhoanData() {
                                     <i class="material-icons">&#xE417;</i>
                                 </a>
                             </td>
-                        </tr>`
+                        </tr>
+                    `
+                    
+                    showTenNhomQuyenAccount(item['ma_quyen'], index);
                 })
+
+                $('.admin-account-list').html(html);
             }
-            $('.admin-account-list').html(html);
         }
     })
 }

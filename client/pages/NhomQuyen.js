@@ -1,4 +1,3 @@
-
 $(document).ready(function(){
     loadNhomQuyenData();
     loadNhomQuyenDataAccount();
@@ -9,7 +8,8 @@ $(document).ready(function(){
     searchNhomQuyen();
     detailNhomQuyen();
 })
-function addNhomQuyen(){
+
+function addNhomQuyen() {
     $(document).on('click',"#addNhomQuyen",function(){
         var ma_nhomquyen=$("#ma_quyen").val();
         var ten_nhomquyen=$("#ten_quyen").val();
@@ -23,7 +23,7 @@ function addNhomQuyen(){
             $("#mess_tenquyen").html("Please input tenquyen");
         }else{
             $.ajax({
-                url:"/src/controller/NhomQuyenController.php",
+                url:"server/src/controller/NhomQuyenController.php",
                 method:"POST",
                 data:{action:"Add", maquyen:ma_nhomquyen, tenquyen:ten_nhomquyen},
                 success:function(data){
@@ -37,10 +37,11 @@ function addNhomQuyen(){
         }
     })
 }
-function loadNhomQuyenData(){
+
+function loadNhomQuyenData() {
     var tmp="Load";
     $.ajax({
-        url:"src/controller/NhomQuyenController.php",
+        url:"server/src/controller/NhomQuyenController.php",
         method:"POST",
         data:{action:tmp},
         success:function(data){
@@ -76,30 +77,33 @@ function loadNhomQuyenData(){
 
 function loadNhomQuyenDataAccount() {
     $.ajax({
-        url:"src/controller/NhomQuyenController.php",
+        url:"server/src/controller/NhomQuyenController.php",
         method:"POST",
         data:{ action: 'Load' },
         success: data => {
-            let html = "";
             if (data && data.length > 0) {
+                let html = '';
                 const jsonData = JSON.parse(data);
+
                 jsonData.forEach((nhomquyen, index) => {
-                    html += `<option value='${nhomquyen['ma_quyen']}'>${nhomquyen['ten_quyen']}</option>`
-                });
+                    const selected = index === 0 ? 'selected' : '';
+                    html += `<option value='${nhomquyen['ma_quyen']}' ${selected}>${nhomquyen['ten_quyen']}</option>`
+                })
+
+                $("#admin-account-access").html(html);
+                $("#admin-account-access-edit").html(html);
             }
-            console.log(html);
-            $("#admin-account-access").html(html);
         }
     }) 
 }
 
-function deleteNhomQuyen(){
+function deleteNhomQuyen() {
     $(document).on("click","#btnDel",function(){
         var id=$(this).attr("data-id1");
         $("#deleteNhomQuyen").modal('show');
         $(document).on("click","#btnDelete",function(){
             $.ajax({
-                url:"/src/controller/NhomQuyenController.php",
+                url:"server/src/controller/NhomQuyenController.php",
                 method:"POST",
                 data:{id:id,action:"Delete"},
                 success:function(data){
@@ -110,28 +114,43 @@ function deleteNhomQuyen(){
         })
     })
 }
-function getNhomQuyen(){
+
+function getNhomQuyen() {
     $(document).on("click","#btnUp",function(){
-            var id=$(this).attr("data-id");
-            $.ajax({
-                url:"/src/controller/NhomQuyenController.php",
-                method:"POST",
-                data:{action:"Get",id:id},
-                dataType:"JSON",
-                success:function(data){
-                    $("#maquyen").val(data.ma_quyen);
-                    $("#tenquyen").val(data.ten_quyen);
-                    
-                }
-            })
+        var id=$(this).attr("data-id");
+        $.ajax({
+            url:"server/src/controller/NhomQuyenController.php",
+            method:"POST",
+            data:{action:"Get",id:id},
+            dataType:"JSON",
+            success:function(data){
+                $("#maquyen").val(data.ma_quyen);
+                $("#tenquyen").val(data.ten_quyen);
+            }
+        })
     })
 }
-function updateNhomQuyen(){
+
+function showTenNhomQuyenAccount(id, index) {
+    $.ajax({
+        url: "server/src/controller/NhomQuyenController.php",
+        method: "POST",
+        data: { action: 'Get', id: id },
+        dataType: 'JSON',
+        success: data => {
+            if (data && data.length > 0) {
+                $(`.admin-accounnt-accessname-${index}`).append(data['ten_quyen'])
+            }
+        }
+    })
+}
+
+function updateNhomQuyen() {
     $(document).on("click","#btnUpdate",function(){
         var maquyen=$("#maquyen").val();
         var tenquyen=$("#tenquyen").val();
         $.ajax({
-            url:"/src/controller/NhomQuyenController.php",
+            url:"server/src/controller/NhomQuyenController.php",
             method:"POST",
             data:{action:"Update",maquyen:maquyen,tenquyen:tenquyen},
             success:function(data){
@@ -142,12 +161,13 @@ function updateNhomQuyen(){
         })
     })
 }
-function searchNhomQuyen(){
+
+function searchNhomQuyen() {
     $(document).on("keyup","#search",function(){
         var search=$(this).val();
         console.log(search);
         $.ajax({
-            url:"/src/controller/NhomQuyenController.php",
+            url:"server/src/controller/NhomQuyenController.php",
             method:"POST",
             data:{action:"Search",search:search},
             success:function(data){
@@ -180,12 +200,13 @@ function searchNhomQuyen(){
         })
     })
 }
-function detailNhomQuyen(){
+
+function detailNhomQuyen() {
     $(document).on("click","#btnDetail",function(){
         var id=$(this).attr("data-id2");
         console.log(id);
         $.ajax({
-            url:"/src/controller/NhomQuyenController.php",
+            url:"server/src/controller/NhomQuyenController.php",
             method:"POST",
             data:{action:"Get",id:id},
             dataType:"JSON",
@@ -195,8 +216,10 @@ function detailNhomQuyen(){
                 
             }
         })
-})
+    })
 }
+
+
 // function panigation(total,current){
 //     var pagelist = "";
 //     if (totalpages > 1) {

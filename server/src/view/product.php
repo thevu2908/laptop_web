@@ -1,5 +1,5 @@
 <?php
-include "src/view/header.php";
+include "server/src/view/header.php";
 ?>
 
 <div class="product-main">
@@ -158,7 +158,7 @@ include "src/view/header.php";
                         <div class="product-item">
                             <a href="index.php?san-pham&id=123" class="product-item-link">
                                 <div class="product-image-wrapper">
-                                    <img src="src\assets\images\laptop-1.png" class="product-image">
+                                    <img src="server\src\assets\images\laptop-1.png" class="product-image">
                                 </div>
                                 <div class="product-info">
                                     <div class="product-price">
@@ -213,7 +213,7 @@ include "src/view/header.php";
                         <div class="product-item">
                             <a href="index.php?san-pham?laptop-name" class="product-item-link">
                                 <div class="product-image-wrapper">
-                                    <img src="src\assets\images\laptop-1.png" class="product-image">
+                                    <img src="server\src\assets\images\laptop-1.png" class="product-image">
                                 </div>
                                 <div class="product-info">
                                     <div class="product-price">
@@ -268,7 +268,7 @@ include "src/view/header.php";
                         <div class="product-item">
                             <a href="index.php?san-pham?laptop-name" class="product-item-link">
                                 <div class="product-image-wrapper">
-                                    <img src="src\assets\images\laptop-1.png" class="product-image">
+                                    <img src="server\src\assets\images\laptop-1.png" class="product-image">
                                 </div>
                                 <div class="product-info">
                                     <div class="product-price">
@@ -323,7 +323,7 @@ include "src/view/header.php";
                         <div class="product-item">
                             <a href="index.php?san-pham?laptop-name" class="product-item-link">
                                 <div class="product-image-wrapper">
-                                    <img src="src\assets\images\laptop-1.png" class="product-image">
+                                    <img src="server\src\assets\images\laptop-1.png" class="product-image">
                                 </div>
                                 <div class="product-info">
                                     <div class="product-price">
@@ -378,7 +378,7 @@ include "src/view/header.php";
                         <div class="product-item">
                             <a href="index.php?san-pham?laptop-name" class="product-item-link">
                                 <div class="product-image-wrapper">
-                                    <img src="src\assets\images\laptop-1.png" class="product-image">
+                                    <img src="server\src\assets\images\laptop-1.png" class="product-image">
                                 </div>
                                 <div class="product-info">
                                     <div class="product-price">
@@ -433,7 +433,7 @@ include "src/view/header.php";
                         <div class="product-item">
                             <a href="index.php?san-pham?laptop-name" class="product-item-link">
                                 <div class="product-image-wrapper">
-                                    <img src="src\assets\images\laptop-1.png" class="product-image">
+                                    <img src="server\src\assets\images\laptop-1.png" class="product-image">
                                 </div>
                                 <div class="product-info">
                                     <div class="product-price">
@@ -516,5 +516,5 @@ include "src/view/header.php";
 </div>
 
 <?php
-include "src/view/footer.php";
+include "server/src/view/footer.php";
 ?>
