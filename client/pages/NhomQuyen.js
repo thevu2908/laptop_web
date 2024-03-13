@@ -28,10 +28,9 @@ function addNhomQuyen() {
                 data:{action:"Add", maquyen:ma_nhomquyen, tenquyen:ten_nhomquyen},
                 success:function(data){
                     console.log(data);
-                    //$("#addNhomQuyen").modal("show");
                     $("form").trigger('reset');
-                    loadData();
-
+                    $("#addNhomQuyen").modal("hide");
+                    loadNhomQuyenData();
                 }
             })
         }
@@ -132,16 +131,22 @@ function getNhomQuyen() {
 }
 
 function showTenNhomQuyenAccount(id, index) {
-    $.ajax({
-        url: "server/src/controller/NhomQuyenController.php",
-        method: "POST",
-        data: { action: 'Get', id: id },
-        dataType: 'JSON',
-        success: data => {
-            if (data && data.length > 0) {
-                $(`.admin-accounnt-accessname-${index}`).append(data['ten_quyen'])
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: "server/src/controller/NhomQuyenController.php",
+            method: "POST",
+            data: { action: 'Get', id: id },
+            dataType: 'JSON',
+            success: data => {
+                if (data && data.length > 0) {
+                    $(`.admin-accounnt-accessname-${index}`).append(data['ten_quyen'])
+                }
+                resolve()
+            },
+            error: (xhr, status, error) => {
+                reject(error)
             }
-        }
+        })
     })
 }
 
@@ -202,7 +207,7 @@ function searchNhomQuyen() {
 }
 
 function detailNhomQuyen() {
-    $(document).on("click","#btnDetail",function(){
+    $(document).on("click","#btnDetail",function(e){
         var id=$(this).attr("data-id2");
         console.log(id);
         $.ajax({
