@@ -85,8 +85,11 @@ function loadNhomQuyenDataAccount() {
                 const jsonData = JSON.parse(data);
 
                 jsonData.forEach((nhomquyen, index) => {
-                    const selected = index === 0 ? 'selected' : '';
-                    html += `<option value='${nhomquyen['ma_quyen']}' ${selected}>${nhomquyen['ten_quyen']}</option>`
+                    const selected = index === 1 ? 'selected' : '';
+                    const disabled = index === 0 ? 'disabled' : '';
+                    html += `<option value='${nhomquyen['ma_quyen']}' ${selected} ${disabled}>${nhomquyen['ten_quyen']}</option>`
+                    // if (index !== 0) {
+                    // }
                 })
 
                 $("#admin-account-access").html(html);
@@ -131,22 +134,16 @@ function getNhomQuyen() {
 }
 
 function showTenNhomQuyenAccount(id, index) {
-    return new Promise((resolve, reject) => {
-        $.ajax({
-            url: "server/src/controller/NhomQuyenController.php",
-            method: "POST",
-            data: { action: 'Get', id: id },
-            dataType: 'JSON',
-            success: data => {
-                if (data && data.length > 0) {
-                    $(`.admin-accounnt-accessname-${index}`).append(data['ten_quyen'])
-                }
-                resolve()
-            },
-            error: (xhr, status, error) => {
-                reject(error)
+    $.ajax({
+        url: "server/src/controller/NhomQuyenController.php",
+        method: "POST",
+        data: { action: 'Get', id: id },
+        dataType: 'JSON',
+        success: data => {
+            if (data) {
+                $(`.admin-accounnt-accessname-${index}`).text(data.ten_quyen)
             }
-        })
+        }
     })
 }
 
