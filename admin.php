@@ -6,6 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Admin laptop</title>
+  <link rel="icon" type="image/x-icon" href="server\src\admin\assets\images\admin-icon.svg">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -20,48 +21,48 @@
   <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
   <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-  <link rel="stylesheet" href="./src/admin/assets/css/style.css" />
+  <link rel="stylesheet" href="server/src/admin/assets/css/style.css" />
 </head>
 
 <body>
-  <?php include "./src/admin/view/navigation.php" ?>
+  <?php include "./server/src/admin/view/Taskbar.php" ?>
   <div class="content">
-    <?php include "./src/admin/view/content.php" ?>
+    <?php include "./server/src/admin/view/Content.php" ?>
     <?php
     if (isset($_GET['controller'])) {
       $tmp = $_GET['controller'];
       switch ($tmp) {
         case "dashboard":
-          include "./src/admin/view/dashboard.php";
+          include "./server/src/admin/view/DashBoard.php";
           break;
         case "sanpham": {
-            include "./src/admin/view/SanPham.php";
+            include "./server/src/admin/view/SanPham.php";
             break;
           }
         case "taikhoan": {
-            include "./src/admin/view/TaiKhoan.php";
+            include "./server/src/admin/view/TaiKhoan.php";
             break;
           }
         case "nhanvien": {
-            include "./src/admin/view/NhanVien.php";
+            include "./server/src/admin/view/NhanVien.php";
             break;
           }
         case "nhomquyen": {
-            include "./src/admin/view/NhomQuyen.php";
+            include "./server/src/admin/view/NhomQuyen.php";
             break;
           }
         case "chucnang": {
-            include "./src/admin/view/ChucNang.php";
+            include "./server/src/admin/view/ChucNang.php";
             break;
           }
       }
     } else {
-      include "./src/admin/view/dashboard.php";
+      include "./server/src/admin/view/DashBoard.php";
     }
     ?>
   </div>
-  <script src="./public/pages/NhomQuyen.js"></script>
   <script src="./public/pages/TaiKhoan.js"></script>
+  <script src="./public/pages/NhomQuyen.js"></script>
 </body>
 
 </html>
