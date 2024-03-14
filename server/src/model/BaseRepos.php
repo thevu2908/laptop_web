@@ -1,7 +1,4 @@
 <?php 
-
-require_once('../config/ConnectDB.php');
-
 class BaseRepos {
 	protected $error;
 

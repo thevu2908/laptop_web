@@ -28,3 +28,53 @@ if (showSortFilter) {
         sortFilterList.classList.toggle('active')
     })
 }
+
+// Xử lý tăng giảm số lượng
+// const amountBtns = document.querySelectorAll(".cart__left-quantity input[type='button']");
+// var quantity = document.querySelector(".cart__left-quantity input[type='text']");
+// amountBtns.forEach((amountBtn, index) => {
+//     amountBtn.onclick = function() {
+//         if(index == 0) {
+//             if(quantity.value == 1) {
+//                 quantity.value = 1;
+//             }
+//             else {
+//                 quantity.value--;
+//             }
+//         }
+//         else {
+//             quantity.value++;
+//         }
+//     }
+// })
+
+/*
+<div class="buttons_added">
+  <input class="minus is-form" type="button" value="-">
+  <input aria-label="quantity" class="input-qty" max="10" min="1" name="" type="number" value="1">
+  <input class="plus is-form" type="button" value="+">
+</div>
+*/
+
+$('input.input-qty').each(function() {
+    var $this = $(this),
+        qty = $this.parent().find(".is-form"),
+        min = Number($this.attr('min')),
+        max = Number($this.attr('max'));
+
+    if (min == 0) {
+        var d = 0;
+    } 
+    else {
+        var d = min;
+    }
+    $(qty).on('click', function() {
+        if ($(this).hasClass('minus')) {
+            if (d > min) d += -1;
+        } else if ($(this).hasClass('plus')) {
+            var x = Number($this.val()) + 1;
+            if (x <= max) d += 1;
+        }
+        $this.attr('value', d).val(d);
+    });
+});
