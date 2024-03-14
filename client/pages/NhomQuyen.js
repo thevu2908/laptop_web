@@ -81,19 +81,18 @@ function loadNhomQuyenDataAccount() {
         data:{ action: 'Load' },
         success: data => {
             if (data && data.length > 0) {
-                let html = '';
+                let html = ''
                 const jsonData = JSON.parse(data);
 
                 jsonData.forEach((nhomquyen, index) => {
-                    const selected = index === 1 ? 'selected' : '';
-                    const disabled = index === 0 ? 'disabled' : '';
+                    const selected = index === 1 ? 'selected' : ''
+                    const disabled = index === 0 ? 'disabled' : ''
                     html += `<option value='${nhomquyen['ma_quyen']}' ${selected} ${disabled}>${nhomquyen['ten_quyen']}</option>`
-                    // if (index !== 0) {
-                    // }
                 })
 
-                $("#admin-account-access").html(html);
-                $("#admin-account-access-edit").html(html);
+                $("#admin-account-access").html(html)
+                $("#admin-account-access-edit").html(html)
+                $("#admin-account-access-view").html(html)
             }
         }
     }) 
@@ -165,9 +164,8 @@ function updateNhomQuyen() {
 }
 
 function searchNhomQuyen() {
-    $(document).on("keyup","#search",function(){
+    $(document).on("keyup",".admin-search-info",function(){
         var search=$(this).val();
-        console.log(search);
         $.ajax({
             url:"server/src/controller/NhomQuyenController.php",
             method:"POST",
