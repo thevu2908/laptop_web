@@ -81,8 +81,27 @@ $(document).ready(function() {
 		}
 	})
 
-  //disable search form submit
+  // disable search form submit
   $(document).on('click', '.btn-search-admin', e => {
     e.preventDefault()
   })
+
+  // check all accounts
+  checkAllAccounts()
 })
+
+function checkAllAccounts() {
+  const firstCheck = document.querySelector('table.table thead input[type=checkbox]')
+  
+  firstCheck.addEventListener('change', e => {
+    const checkItems = document.querySelectorAll('table.table input[name="chk[]"]')
+    
+    checkItems.forEach(item => {
+      if (firstCheck.checked) {
+        item.checked = true
+      } else {
+        item.checked = false
+      }
+    })
+  })
+}
