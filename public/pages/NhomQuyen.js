@@ -172,7 +172,7 @@ function detailNhomQuyen(){
                 
             }
         })
-})
+    })
 }
 // function panigation(total,current){
 //     var pagelist = "";
