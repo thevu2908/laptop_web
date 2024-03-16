@@ -36,4 +36,3 @@ class TaiKhoan {
         return $this->trang_thai;
     }
 }
-?>
