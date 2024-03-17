@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 17, 2024 at 06:57 AM
+-- Generation Time: Mar 17, 2024 at 09:18 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -410,6 +410,7 @@ CREATE TABLE `taikhoan` (
   `ma_quyen` varchar(20) NOT NULL,
   `username` varchar(50) NOT NULL,
   `password` varchar(50) NOT NULL,
+  `otp` int(6) NOT NULL,
   `trang_thai` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -417,11 +418,11 @@ CREATE TABLE `taikhoan` (
 -- Dumping data for table `taikhoan`
 --
 
-INSERT INTO `taikhoan` (`ma_tk`, `ma_quyen`, `username`, `password`, `trang_thai`) VALUES
-('admin', 'NQ01', 'admin', 'admin', 0),
-('NV01', 'NQ02', 'NV01', '123', 0),
-('NV02', 'NQ03', 'NV02', '123', 1),
-('NV03', 'NQ03', 'NV03', '123', 1);
+INSERT INTO `taikhoan` (`ma_tk`, `ma_quyen`, `username`, `password`, `otp`, `trang_thai`) VALUES
+('admin', 'NQ01', 'admin', 'admin', 0, 0),
+('NV01', 'NQ02', 'NV01', '123', 0, 0),
+('NV02', 'NQ03', 'NV02', '123', 0, 1),
+('NV03', 'NQ03', 'NV03', '123', 0, 1);
 
 -- --------------------------------------------------------
 
