@@ -160,8 +160,6 @@
     background-color: var(--primary-color);
 }
 
-/* CSS trang CART */
-
 .cart__left,
 .card__top-left {
     width: 68%;
@@ -236,19 +234,11 @@
     background-color: var(--primary-color);
 }
 
-/* END CSS trang CART */
-
-/* Modal */
-
 .modal__inner {
     display: flex;
     margin-top: 40px;
 }
 
-/* END Modal */
-
-
-/* Checkout */
 .checkout-header {
     padding: 8px;
 }
@@ -371,6 +361,7 @@ ul, li {
 
 .login-header-logo-link {
     text-decoration: none;
+    display: inline-block;
 }
 
 .login-header-logo {
@@ -411,7 +402,8 @@ ul, li {
     color: #8a8f94;
 }
 
-.btn-login {
+.btn-login, 
+.btn-continue-verify {
     width: 100%;
 }
 
@@ -430,6 +422,15 @@ ul, li {
 .login-link {
     text-decoration: none;
     color: var(--primary-color);
+}
+
+.verify-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    min-height: 600px;
+    width: 1040px;
 }
 
 .search-form {
@@ -499,7 +500,6 @@ ul, li {
 }
 
 @keyframes flowupdown {
-
     0%,
     100% {
         -webkit-transform: translateY(0);

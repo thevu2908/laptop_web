@@ -1,4 +1,7 @@
 <?php
+
+require_once '../config/config.php';
+
 class ConnectDB {
     private $servername = DB_HOST;
     private $username = DB_USERNAME;

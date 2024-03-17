@@ -21,7 +21,11 @@
         if (isset($_REQUEST["dang-nhap"])) {
             include "./server/src/view/login.php";
         } else if (isset($_REQUEST["dang-ky"])) {
-            include "./server/src/view/signup.php";
+            if (isset($_REQUEST["verify"])) {
+                include "./server/src/view/verify.php";
+            } else {
+                include "./server/src/view/signup.php";
+            }
         } else if (isset($_REQUEST["san-pham"])) {
             if (isset($_REQUEST["id"])) {
                 include "./server/src/view/productDetail.php";
