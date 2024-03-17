@@ -2,7 +2,7 @@
     <div class="cart__have-product">
         <ul class="cart__list-product">
             <li class="cart__item">
-                <img src="src\assets\images\laptop-1.png" alt="">
+                <img src=".\server\src\assets\images\laptop-1.png" alt="">
                 <div class="cart__item-info">
                     <div class="cart__item-name">MacBook Air M2 13 2022 8CPU 8GPU 8GB 256GB</div>
                     <div class="cart__item-total">
@@ -12,7 +12,7 @@
                 </div>
             </li>
             <li class="cart__item">
-                <img src="src\assets\images\laptop-1.png" alt="">
+                <img src=".\server\src\assets\images\laptop-1.png" alt="">
                 <div class="cart__item-info">
                     <div class="cart__item-name">MacBook Air M2 13 2022 8CPU 8GPU 8GB 256GB</div>
                     <div class="cart__item-total">
@@ -22,7 +22,7 @@
                 </div>
             </li>
             <li class="cart__item">
-                <img src="src\assets\images\laptop-1.png" alt="">
+                <img src=".\server\src\assets\images\laptop-1.png" alt="">
                 <div class="cart__item-info">
                     <div class="cart__item-name">MacBook Air M2 13 2022 8CPU 8GPU 8GB 256GB</div>
                     <div class="cart__item-total">

@@ -30,12 +30,15 @@
             }
         } else if (isset($_REQUEST["gio-hang"])) {
             include "./server/src/view/cart.php";
+        } else if (isset($_REQUEST["thanh-toan"])) {
+            include "./server/src/view/checkout.php";
         } else {
             include "./server/src/view/homepage.php";
         }
         ?>
     </div>
 
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="server/src/assets/js/main.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>

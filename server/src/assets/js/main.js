@@ -20,6 +20,7 @@ if (showhidePassword) {
     })
 }
 
+// Xử lý tăng/giảm số lượng
 const showSortFilter = document.querySelector('.show-sort-filter')
 const sortFilterList = document.querySelector('.sort-filter-menu')
 

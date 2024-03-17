@@ -38,51 +38,6 @@ ul {
     background: #eee;
 }
 
-/* MODAL */
-.overlay {
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background-color: rgba(0, 0, 0, 0.4);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1000;
-    /* display: none; */
-}
-
-.overlay.open {
-    display: flex;
-}
-
-.modal {
-    background-color: white;
-    position: relative;
-    animation: modalFadeIn linear 0.4s;
-}
-
-/* @keyframes modalFadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(-200px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
-} */
-
 .mt-70 {
     margin-top: 70px;
 }
