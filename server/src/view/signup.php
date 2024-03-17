@@ -19,22 +19,7 @@
                             <input type="email" id="phone" class="form-control form-control-lg" />
                         </div>
 
-                        <!-- <div class="form-outline mb-4 password-form">
-                            <label class="form-label" for="password">Mật khẩu</label>
-                            <input type="password" id="password" class="form-control form-control-lg login-password" />
-                            <span class="showhide-pwd-icon">
-                                <i class="fa-regular fa-eye open"></i>
-                                <i class="fa-regular fa-eye-slash"></i>
-                            </span>
-                        </div>
-
-                        <div class="form-outline mb-4">
-                            <label class="form-label" for="valid-password">Xác nhận mật khẩu</label>
-                            <input type="valid-password" id="valid-password" class="form-control form-control-lg" />
-                        </div> -->
-
-                        <a href="index.php?dang-ky&verify"
-                            class="btn btn-primary btn-lg btn-block btn-continue-verify">Tiếp tục</a>
+                        <a href="index.php?dang-ky&xac-minh-otp&id=1" class="btn btn-primary btn-lg btn-block btn-continue-verify">Tiếp tục</a>
 
                         <div class="divider d-flex align-items-center my-4">
                             <p class="text-center fw-bold mx-3 mb-0 text-muted">Hoặc</p>
