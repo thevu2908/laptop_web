@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 17, 2024 at 09:18 AM
+-- Generation Time: Mar 19, 2024 at 07:52 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -179,7 +179,8 @@ CREATE TABLE `danhgia` (
   `ma_kh` varchar(20) NOT NULL,
   `rating` float NOT NULL,
   `thoi_gian_danh_gia` date NOT NULL,
-  `noi_dung` varchar(200) NOT NULL
+  `noi_dung` varchar(200) NOT NULL,
+  `trang_thai` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -192,7 +193,8 @@ CREATE TABLE `giohang` (
   `ma_ctsp` varchar(20) NOT NULL,
   `ma_kh` varchar(20) NOT NULL,
   `gia_sp` float NOT NULL,
-  `so_luong` int(11) NOT NULL
+  `so_luong` int(11) NOT NULL,
+  `trang_thai` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -393,7 +395,7 @@ CREATE TABLE `sanpham` (
   `gia_nhap` double NOT NULL,
   `chiet_khau` int(11) NOT NULL,
   `trong_luong` float NOT NULL,
-  `chat_lieu` int(11) NOT NULL,
+  `chat_lieu` varchar(50) NOT NULL,
   `xuat_xu` varchar(50) NOT NULL,
   `so_luong_ton` int(11) NOT NULL,
   `trang_thai` int(11) NOT NULL
@@ -455,7 +457,8 @@ CREATE TABLE `thongbao` (
   `ma_km` varchar(20) NOT NULL,
   `ma_quyen` varchar(20) NOT NULL,
   `ma_chuc_nang` varchar(20) NOT NULL,
-  `noi_dung` varchar(200) NOT NULL
+  `noi_dung` varchar(200) NOT NULL,
+  `trang_thai` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------

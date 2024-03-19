@@ -68,7 +68,7 @@
 		</div>
 	</div>
 
-	<div id="addAccountModal" class="modal fade">
+	<div id="addAccountModal" class="modal fade" data-backdrop="static">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<form>
@@ -114,7 +114,7 @@
 		</div>
 	</div>
 
-	<div id="editAccountModal" class="modal fade">
+	<div id="editAccountModal" class="modal fade" data-backdrop="static">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<form>
@@ -160,7 +160,7 @@
 		</div>
 	</div>
 
-	<div id="deleteAccountModal" class="modal fade">
+	<div id="deleteAccountModal" class="modal fade" data-backdrop="static">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<form>
@@ -180,7 +180,7 @@
 		</div>
 	</div>
 
-	<div id="viewAccountModal" class="modal fade">
+	<div id="viewAccountModal" class="modal fade" data-backdrop="static">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<form>
