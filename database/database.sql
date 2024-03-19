@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 19, 2024 at 07:52 AM
+-- Generation Time: Mar 19, 2024 at 08:13 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -141,7 +141,7 @@ CREATE TABLE `chitietsanpham` (
   `card_do_hoa` varchar(50) NOT NULL,
   `gia_tien` float NOT NULL,
   `so_luong` int(11) NOT NULL,
-  `tinh_trang` varchar(50) NOT NULL
+  `trang_thai` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
