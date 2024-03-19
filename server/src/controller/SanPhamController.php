@@ -1,0 +1,130 @@
+<?php
+
+include __DIR__ . '/../model/ConnectDB.php';
+include __DIR__ . '/../model/SanPham/SanPham.php';
+include __DIR__ . '/../model/SanPham/SanPhamRepo.php';
+
+class SanPhamController {
+    private $sanPhamRepo;
+
+    public function __construct() {
+        $this->sanPhamRepo = new SanPhamRepo();
+    }
+
+    public function getData() {
+        $products = $this->sanPhamRepo->getData();
+        $result = [];
+
+        foreach ($products as $product) {
+            if ($product['trang_thai'] == 0) {
+                $result[] = $product;
+            }
+        }
+        
+        echo json_encode($result);
+    }
+
+    public function getAllProducts() {
+        echo json_encode($this->sanPhamRepo->getData());
+    }
+
+    public function getProduct($productId) {
+        echo json_encode($this->sanPhamRepo->getProduct($productId));
+    }
+
+    public function getProductsLength() {
+        echo $this->sanPhamRepo->getProductsLength();
+    }
+
+    public function addProduct($product) {
+        if ($this->sanPhamRepo->addProduct($product)) {
+            echo 'success';
+        } else {
+            echo 'fail';
+        }
+    }
+
+    public function updateProduct($product) {
+        if ($this->sanPhamRepo->updateProduct($product)) {
+            echo 'success';
+        } else {
+            echo 'fail';
+        }
+    }
+
+    public function deleteProduct($productId) {
+        if ($this->sanPhamRepo->deleteProduct($productId)) {
+            echo 'success';
+        } else {
+            echo 'fail';
+        }
+    }
+}
+
+$sanPhamCtl = new SanPhamController();
+$action = $_POST['action'];
+
+switch ($action) {
+    case 'load':
+        $sanPhamCtl->getData();
+        break;
+    case 'get-all':
+        $sanPhamCtl->getAllProducts();
+        break;
+    case 'get':
+        $productId = $_POST['productId'];
+        $sanPhamCtl->getProduct($productId);
+        break;
+    case 'add':
+        $productId = $_POST['productId'];
+        $companyId = $_POST['companyId'];
+        $typeId = $_POST['typeId'];
+        $osId = $_POST['osId'];
+        $productName = $_POST['productName'];
+        $screen = $_POST['screen'];
+        $resolution = $_POST['resolution'];
+        $battery = $_POST['battery'];
+        $keyboard = $_POST['keyboard'];
+        $importPrice = $_POST['importPrice'];
+        $chietkhau = $_POST['chietkhau'];
+        $price = $_POST['price'];
+        $weight = $_POST['weight'];
+        $material = $_POST['material'];
+        $origin = $_POST['origin'];
+        $quantity = $_POST['origin'];
+
+        $product = new SanPham($productId, $companyId, $typeId, $osId, $productName, $screen, $resolution, $battery, $keyboard,  $price, $importPrice, $chietkhau, $weight,
+                                $material, $origin, $quantity, 0);
+        
+        $sanPhamCtl->addProduct($product);
+        break;
+    case 'update':
+        $productId = $_POST['productId'];
+        $companyId = $_POST['companyId'];
+        $typeId = $_POST['typeId'];
+        $osId = $_POST['osId'];
+        $productName = $_POST['productName'];
+        $screen = $_POST['screen'];
+        $resolution = $_POST['resolution'];
+        $battery = $_POST['battery'];
+        $keyboard = $_POST['keyboard'];
+        $importPrice = $_POST['importPrice'];
+        $chietkhau = $_POST['chietkhau'];
+        $price = $_POST['price'];
+        $weight = $_POST['weight'];
+        $material = $_POST['material'];
+        $origin = $_POST['origin'];
+        $quantity = $_POST['origin'];
+
+        $product = new SanPham($productId, $companyId, $typeId, $osId, $productName, $screen, $resolution, $battery, $keyboard,  $price, $importPrice, $chietkhau, $weight,
+                                $material, $origin, $quantity, 0);
+        
+        $sanPhamCtl->updateProduct($product);
+        break;
+    case 'delete':
+        $productId = $_POST['productId'];
+        $sanPhamCtl->deleteProduct($productId);
+        break;
+    default:
+        break;
+}
