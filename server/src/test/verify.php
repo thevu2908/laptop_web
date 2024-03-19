@@ -18,7 +18,7 @@ $request->setHeader(
         'Accept' => 'application/json'
     )
 );
-$request->setBody('{"messages":[{"destinations":[{"to":"84862937296"}],"from":"ServiceSMS","text":"Lop u"}]}');
+$request->setBody('{"messages":[{"destinations":[{"to":"84976124506"}],"from":"ServiceSMS","text":"Dai Lon"}]}');
 try {
     $response = $request->send();
     if ($response->getStatus() == 200) {
