@@ -13,18 +13,19 @@
                 </div>
                 <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1 py-5">
                     <form class="login-form">
-                        <div class="form-outline mb-4">
-                            <label class="form-label" for="form1Example13">Số điện thoại</label>
-                            <input type="email" id="form1Example13" class="form-control form-control-lg" />
+                        <div class="mb-4">
+                            <label class="form-label" for="login-phone">Số điện thoại</label>
+                            <input type="email" id="login-phone" class="form-control form-control-lg" />
                         </div>
-
-                        <div class="form-outline mb-4 password-form">
-                            <label class="form-label" for="form1Example23">Mật khẩu</label>
-                            <input type="password" id="form1Example23" class="form-control form-control-lg login-password" />
-                            <span class="showhide-pwd-icon">
-                                <i class="fa-regular fa-eye open"></i>
-                                <i class="fa-regular fa-eye-slash"></i>
-                            </span>
+                        <div class="mb-4">
+                            <div class="password-form">
+                                <label class="form-label" for="login-password">Mật khẩu</label>
+                                <input type="password" id="login-password" class="form-control form-control-lg login-password" />
+                                <span class="showhide-pwd-icon">
+                                    <i class="fa-regular fa-eye open"></i>
+                                    <i class="fa-regular fa-eye-slash"></i>
+                                </span>
+                            </div>
                         </div>
 
                         <div class="d-flex justify-content-end align-items-center mb-4">

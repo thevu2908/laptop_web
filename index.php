@@ -21,7 +21,7 @@
         if (isset($_REQUEST["dang-nhap"])) {
             include "./server/src/view/login.php";
         } else if (isset($_REQUEST["dang-ky"])) {
-            if (isset($_REQUEST["verify"])) {
+            if (isset($_REQUEST["xac-minh-otp"]) || isset($_REQUEST["tao-mat-khau"]) || isset($_REQUEST["tao-thanh-cong"])) {
                 include "./server/src/view/verify.php";
             } else {
                 include "./server/src/view/signup.php";
