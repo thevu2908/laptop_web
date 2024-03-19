@@ -33,12 +33,24 @@
             include "./server/src/admin/view/SanPham.php";
             break;
           }
+          case "danhgia": {
+            include "./server/src/admin/view/DanhGia.php";
+            break;
+          }
           case "taikhoan": {
             include "./server/src/admin/view/TaiKhoan.php";
             break;
           }
           case "nhanvien": {
             include "./server/src/admin/view/NhanVien.php";
+            break;
+          }
+          case "hoadon": {
+            include "./server/src/admin/view/HoaDon.php";
+            break;
+          }
+          case "khuyenmai": {
+            include "./server/src/admin/view/KhuyenMai.php";
             break;
           }
           case "nhomquyen": {

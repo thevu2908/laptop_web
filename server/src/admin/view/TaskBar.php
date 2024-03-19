@@ -35,10 +35,28 @@ if (isset($_REQUEST['controller'])) {
         <span class="text">Sản Phẩm</span>
       </a>
     </li>
+    <li class="side-menu-item <?php echo $page === 'danhgia' ? 'active' : '' ?>">
+      <a href="/admin.php?controller=danhgia" class="nav-link">
+        <i class="fas fa-message"></i>
+        <span class="text">Đánh Giá</span>
+      </a>
+    </li>
     <li class="side-menu-item <?php echo $page === 'nhanvien' ? 'active' : '' ?>">
       <a href="/admin.php?controller=nhanvien" class="nav-link">
         <i class="fas fa-people-group"></i>
         <span class="text">Nhân Viên</span>
+      </a>
+    </li>
+    <li class="side-menu-item <?php echo $page === 'hoadon' ? 'active' : '' ?>">
+      <a href="/admin.php?controller=hoadon" class="nav-link">
+        <i class="fas fa-people-group"></i>
+        <span class="text">Hóa Đơn</span>
+      </a>
+    </li>
+    <li class="side-menu-item <?php echo $page === 'khuyenmai' ? 'active' : '' ?>">
+      <a href="/admin.php?controller=khuyenmai" class="nav-link">
+        <i class="fas fa-people-group"></i>
+        <span class="text">Khuyến Mãi</span>
       </a>
     </li>
     <li class="side-menu-item <?php echo $page === 'nhomquyen' ? 'active' : '' ?>">
