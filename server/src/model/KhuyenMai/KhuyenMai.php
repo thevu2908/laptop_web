@@ -42,4 +42,3 @@ class KhuyenMai {
         return $this->tinh_trang;
     }
 }
-?>
