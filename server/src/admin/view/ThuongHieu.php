@@ -1,4 +1,4 @@
-<div class="modal fade" id="addProductCompanyModal" tabindex="-1" aria-hidden="true" data-backdrop="static">
+<div class="modal fade" id="addProductBrandModal" tabindex="-1" aria-hidden="true" data-backdrop="static">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
@@ -8,10 +8,10 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form class="add-product-company-form">
+                <form class="add-product-brand-form">
                     <div class="form-group">
-                        <label for="product-company-name">Tên thương hiệu</label>
-                        <input type="text" class="form-control" id="product-company-name" name="product-company-name">
+                        <label for="product-brand-name">Tên thương hiệu</label>
+                        <input type="text" class="form-control" id="product-brand-name" name="product-brand-name">
                     </div>
                 </form>
             </div>
@@ -23,7 +23,7 @@
     </div>
 </div>
 
-<div class="modal fade" id="deleteProductCompanyModal" tabindex="-1" aria-hidden="true" data-backdrop="static">
+<div class="modal fade" id="deleteProductBrandModal" tabindex="-1" aria-hidden="true" data-backdrop="static">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
@@ -33,10 +33,10 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form class="add-product-company-form">
+                <form class="add-product-brand-form">
                     <div class="form-group">
-                        <label for="product-company-name">Chọn thương hiệu</label>
-                        <select id="product-company-name" class="form-control">
+                        <label for="product-brand-name">Chọn thương hiệu</label>
+                        <select id="product-brand-name" class="form-control">
                             <option value="">Apple</option>
                         </select>
                     </div>

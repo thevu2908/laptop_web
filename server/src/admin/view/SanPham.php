@@ -146,9 +146,9 @@
 									</div>
 								</li>
 								<li class="modal-row-item row align-items-center">
-									<label for="product-company" class="col-sm-4 px-0 mb-0">Thương hiệu:</label>
+									<label for="product-brand" class="col-sm-4 px-0 mb-0">Thương hiệu:</label>
 									<div class="col-sm-6 px-0">
-										<select id="product-company" class="form-control">
+										<select id="product-brand" class="form-control">
 											<option value="">Apple</option>
 										</select>
 									</div>
@@ -157,8 +157,8 @@
 											<span class="sr-only">Toggle Dropdown</span>
 										</button>
 										<div class="dropdown-menu dropdown-menu-right dropdown-menu-left">
-											<button href="#addProductCompanyModal" class="dropdown-item" type="button" data-toggle="modal">Thêm thương hiệu</button>
-											<button href="#deleteProductCompanyModal" class="dropdown-item" type="button" data-toggle="modal">Xóa thương hiệu</button>
+											<button href="#addProductBrandModal" class="dropdown-item" type="button" data-toggle="modal">Thêm thương hiệu</button>
+											<button href="#deleteProductBrandModal" class="dropdown-item" type="button" data-toggle="modal">Xóa thương hiệu</button>
 										</div>
 									</div>
 								</li>
