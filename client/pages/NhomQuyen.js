@@ -88,8 +88,6 @@ function render(data){
                 }
             }
             $("#show-listNhomQuyen").html(html);
-        }
-    }) 
 }
 
 function loadNhomQuyenDataAccount() {

@@ -1,13 +1,13 @@
 $(document).ready(() => {
-    loadAccountData()
-    addAccount()
-    showUpdateAccountModal()
-    updateAccount()
-    showDeleteAccountModal()
-    deleteAccount()
-    showDeleteCheckedAccountModal()
-    showViewAccountModal()
-    searchAccount()
+    // loadAccountData()
+    // addAccount()
+    // showUpdateAccountModal()
+    // updateAccount()
+    // showDeleteAccountModal()
+    // deleteAccount()
+    // showDeleteCheckedAccountModal()
+    // showViewAccountModal()
+    // searchAccount()
 })
 
 function loadAccountData() {

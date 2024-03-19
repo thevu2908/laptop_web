@@ -1,8 +1,15 @@
 <?php
+include("server/src/model/ConnectDB.php");
+include("server/src/model/ChiTietQuyen/ChiTietQuyen.php");
+include("server/src/model/ChiTietQuyen/ChiTietQuyenRepo.php");
+$chitietquyen=new ChiTietQuyenRepo();
+$tmp=$chitietquyen->getChucNang("NQ002");
+$arr=json_encode($tmp);
 $page = "";
 if (isset($_REQUEST['controller'])) {
   $page = $_REQUEST['controller'];
 }
+
 ?>
 
 <section class="sidebar">
@@ -17,6 +24,11 @@ if (isset($_REQUEST['controller'])) {
         <span class="text">Dashboard</span>
       </a>
     </li>
+    <?php
+    if(){
+
+    }
+    ?>
     <li class="side-menu-item <?php echo $page === 'taikhoan' ? 'active' : '' ?>">
       <a href="/admin.php?controller=taikhoan" class="nav-link">
         <i class="fas fa-shopping-cart"></i>

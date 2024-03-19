@@ -40,7 +40,7 @@ function getAllNhomQuyen(){
                         row.find("td:eq(4) input[type='checkbox']").prop("checked", detailData.some(item => item.hanh_dong === "Thêm"));
                         row.find("td:eq(5) input[type='checkbox']").prop("checked", detailData.some(item => item.hanh_dong === "Xóa"));
                         row.find("td:eq(6) input[type='checkbox']").prop("checked", detailData.some(item => item.hanh_dong === "Sửa"));
-                        phanquyen(chitietquyen['ma_quyen']);
+                        //phanquyen(chitietquyen['ma_quyen']);
                     }
                 })
             })
@@ -55,14 +55,23 @@ function phanquyen($id){
         success: function (data) {
             jsonData=JSON.parse(data);
             jsonData.forEach((chucnang,index)=>{
-                if(chucnang['ma_chuc_nang']==="CN001"){
+                if(chucnang['ma_chuc_nang']==="CN002"){
                     $.ajax({
                         url: "server/src/controller/CTQuyenController.php",
                         data: {action:"get",maquyen:$id,machucnang:chucnang['ma_chuc_nang']},
                         method: "post",
                         success: function (data) {
                             var detailData = JSON.parse(data);     
-                                           
+                            if(!detailData.some(item => item.hanh_dong === "Xóa")){
+                                ("#add_NhomQuyen").hide()
+                            }
+                            if(!detailData.some(item => item.hanh_dong === "Thêm")){
+                                //btnUp
+                                ("#btnUp").hide()
+                            }   
+                            if(!detailData.some(item => item.hanh_dong === "Sửa")){
+                                ("#btnDel").hide()
+                            }            
                         }
                     })
                 }

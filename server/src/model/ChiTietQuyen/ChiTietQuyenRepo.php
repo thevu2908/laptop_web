@@ -11,7 +11,7 @@ class ChiTietQuyenRepo extends ConnectDB{
         return $arrChiTietQuyen;
     }
     function getChucNang($id){
-        $sql = "SELECT DISTINCT ma_chuc_nang FROM chitietquyen WHERE ma_quyen='$id' AND hanh_dong!='NULL'";
+        $sql = "SELECT DISTINCT ma_chuc_nang FROM chitietquyen WHERE ma_quyen='$id'";
         $result = mysqli_query($this->conn,$sql);
         $arrChucNang=array();
         while($row=mysqli_fetch_assoc($result)){
@@ -28,6 +28,16 @@ class ChiTietQuyenRepo extends ConnectDB{
             $arrChiTietQuyen[]=$row;
         }
         return $arrChiTietQuyen;
+    }
+    function getHangDong($maquyen,$machucnang){
+        $sql = "SELECT hanh_dong FROM chitietquyen WHERE ma_quyen='$maquyen' AND ma_chuc_nang='$machucnang'";
+        $result = mysqli_query($this->conn,$sql);
+        $arrHanhDong=array();
+        while($row=mysqli_fetch_assoc($result)){
+            
+            $arrHanhDong[]=$row;
+        }
+        return $arrHanhDong;
     }
 }
 ?>

@@ -15,10 +15,16 @@
   <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <link rel="stylesheet" href="server/src/admin/assets/css/style.css" />
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+  <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
 </head>
 
 <body>
   <div id="admin-main">
+    <!-- <?php include "./server/src/controller/KiemTraQuyen.php"?> -->
     <?php include "./server/src/admin/view/Taskbar.php" ?>
     <div class="content">
       <?php include "./server/src/admin/view/Content.php" ?>
@@ -49,16 +55,21 @@
             include "./server/src/admin/view/ChucNang.php";
             break;
           }
+          case "phanquyen": {
+            include "./server/src/admin/view/PhanQuyen.php";
+            break;
+          }
       }
     } else {
       include "./server/src/admin/view/DashBoard.php";
     }
     ?>
   </div>
-
   <script src="./server/src/admin/assets/js/main.js"></script>
   <script src="./client/pages/NhomQuyen.js"></script>
   <script src="./client/pages/TaiKhoan.js"></script>
+  <script src="./client/pages/ChucNangQuyen.js"></script>
+  <script src="./client/pages/ChiTietQuyen.js"></script>
 </body>
 
 </html>
