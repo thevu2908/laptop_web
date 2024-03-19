@@ -55,14 +55,20 @@
             include "./server/src/admin/view/ChucNang.php";
             break;
           }
+          case "phanquyen": {
+            include "./server/src/admin/view/PhanQuyen.php";
+            break;
+          }
       }
     } else {
       include "./server/src/admin/view/DashBoard.php";
     }
     ?>
   </div>
-  <script src="./public/pages/TaiKhoan.js"></script>
-  <script src="./public/pages/NhomQuyen.js"></script>
+  <script src="./client/pages/TaiKhoan.js"></script>
+  <script src="./client/pages/NhomQuyen.js"></script>
+  <script src="./client/pages/ChucNangQuyen.js"></script>
+  <script src="./client/pages/ChiTietQuyen.js"></script>
 </body>
 
 </html>

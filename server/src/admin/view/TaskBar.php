@@ -47,6 +47,12 @@ if (isset($_REQUEST['controller'])) {
         <span class="text">Nhóm Quyền</span>
       </a>
     </li>
+    <li class="side-menu-item <?php echo $page === 'phanquyen' ? 'active' : '' ?>">
+      <a href="/admin.php?controller=phanquyen" class="nav-link">
+        <i class="fas fa-people-group"></i>
+        <span class="text">Phân Quyền</span>
+      </a>
+    </li>
     <li class="side-menu-item <?php echo $page === 'chucnang' ? 'active' : '' ?>">
       <a href="/admin.php?controller=chucnang" class="nav-link">
         <i class="fas fa-people-group"></i>

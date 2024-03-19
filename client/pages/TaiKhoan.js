@@ -11,7 +11,6 @@ function loadTaiKhoanData() {
             if (data && data.length > 0) {
                 let html = ''
                 const jsonData = JSON.parse(data)
-
                 jsonData.forEach((item, index) => {
                     html += `
                         <tr>
@@ -22,11 +21,12 @@ function loadTaiKhoanData() {
                                 </span>
                             </td>
                             <td>${item['ma_tk']}</td>
-                            <td class="admin-accounnt-accessname-${index}"></td>
+                            <--td class="admin-accounnt-accessname-${index}"></td--!>
+                            <td>${item['ma_quyen']}</td>
                             <td>${item['username']}</td>
                             <td>${item['password']}</td>
                             <td>
-                                <a href="#editAccountModal" class="edit" data-toggle="modal" data-id=${item['ma_tk']}>
+                                <a href="#editAccountModal" class="edit" data-toggle="modal" id="suaTaiKhoan" data-id=${item['ma_tk']}>
                                     <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
                                 </a>
                                 <a href="#deleteAccountModal" class="delete" data-toggle="modal" data-id1=${item['ma_tk']}>
@@ -39,7 +39,7 @@ function loadTaiKhoanData() {
                         </tr>
                     `
                     
-                    showTenNhomQuyenAccount(item['ma_quyen'], index);
+                    //showTenNhomQuyenAccount(item['ma_quyen'], index);
                 })
 
                 $('.admin-account-list').html(html);

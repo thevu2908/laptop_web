@@ -12,7 +12,7 @@
 									Excel</span></a>
 							<a href="#" class="btn btn-secondary"><i class="material-icons">&#xE24D;</i> <span>Export
 									Excel</span></a>
-							<a href="#addNhomQuyen" class="btn btn-success" data-toggle="modal"><i
+							<a href="#addNhomQuyen" id="add_NhomQuyen" class="btn btn-success" data-toggle="modal"><i
 									class="material-icons">&#xE147;</i> <span>Thêm</span></a>
 							<a href="#deleteNhomQuyen" class="btn btn-danger" data-toggle="modal"><i
 									class="material-icons">&#xE15C;</i> <span>Xóa</span></a>

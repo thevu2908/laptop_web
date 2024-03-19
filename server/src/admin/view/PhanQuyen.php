@@ -15,7 +15,7 @@
 						</div>
 					</div>
 				</div>
-				<table class="table table-striped table-hover">
+				<table class="table table-striped table-hover" id="mytable">
 					<thead>
 						<tr>
 							<th>
@@ -24,14 +24,30 @@
 									<label for="selectAll"></label>
 								</span>
 							</th>
-							<th>Mã Chức Năng</th>
+							<th>Nhóm Quyền</th>
 							<th>Chức Năng</th>
-							<th>Status</th>
-							<th>Actions</th>
+							<th>Xem</th>
+							<th>Thêm</th>
+                            <th>Xóa</th>
+                            <th>Sửa</th>
 						</tr>
 					</thead>
-					<tbody id="show-listChucNang">
+					<tbody id="show-ListPhanQuyen">
+                    <!-- <tr>
+						<td>
+							<span class="custom-checkbox">
+								<input type="checkbox" id="checkbox2" name="options[]" value="1">
+								<label for="checkbox2"></label>
+							</span>
+						</td>
+						<td>Admin</td>
+						<td>Tài Khoản</td>
+						<td><input type="checkbox" name="xem" class="checkbox" data-row="Admin" data-row1="Tài Khoản" data-column="Xem" id="chkxem"></td>
+                        <td><input type="checkbox" name="them" class="checkbox" data-row="Admin" data-row1="Tài Khoản" data-column="Thêm" id="chkthem"></td>
+                        <td><input type="checkbox" name="xoa" class="checkbox" data-row="Admin" data-row1="Tài Khoản" data-column="Xóa" id="chkxoa"></td>
+                        <td><input type="checkbox" name="sua" class="checkbox" data-row="Admin" data-row1="Tài Khoản" data-column="Sửa" id="chksua"></td>
 						
+					</tr> -->
 					</tbody>
 				</table>
 				<div class="clearfix">

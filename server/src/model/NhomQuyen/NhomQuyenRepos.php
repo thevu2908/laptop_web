@@ -1,4 +1,4 @@
-<?php
+<!-- <?php
 // include("../ConnectDB.php");
 // include("../NhomQuyen/NhomQuyen.php");
 class NhomQuyenRepos extends ConnectDB{
@@ -70,4 +70,4 @@ class NhomQuyenRepos extends ConnectDB{
         return $arrNhomQuyen;
     }
 }
-?>
+?> -->

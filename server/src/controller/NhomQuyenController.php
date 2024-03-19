@@ -1,13 +1,8 @@
 <?php
 include("../model/ConnectDB.php");
 include("../model/NhomQuyen/NhomQuyen.php");
-<<<<<<< HEAD:src/controller/NhomQuyenController.php
-include("../model/NhomQuyen/NhomQuyenRepos.php");
-class NhomQuyenController{
-=======
 include("../model/NhomQuyen/NhomQuyenRepo.php");
-class NhomQuyenController {
->>>>>>> 374e8c3c02a11b358c0d61f2950605f20a15bf69:server/src/controller/NhomQuyenController.php
+class NhomQuyenController{
     private $nhomquyenrepos;
     function __construct()
     {

@@ -24,19 +24,6 @@ class TaiKhoanController {
     }
 }
 $taiKhoanCTL = new TaiKhoanController();
-<<<<<<< HEAD:src/controller/TaiKhoanController.php
-print_r($taiKhoanCTL->getData());
-// $action = $_POST['action'];
-// switch ($action) {
-//     case 'load': {
-//         $taiKhoanCTL->getData();
-//         break;
-//     }
-//     default: {
-//         break;
-//     }
-// }
-=======
 $action = $_POST['action'];
 
 switch ($action) {
@@ -46,4 +33,3 @@ switch ($action) {
     default:
         break;
 }
->>>>>>> 374e8c3c02a11b358c0d61f2950605f20a15bf69:server/src/controller/TaiKhoanController.php
