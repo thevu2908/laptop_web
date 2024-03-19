@@ -83,27 +83,6 @@
             </div>
         </div>
     </div>
-
-    <!-- <div class="overlay">
-        <div class="modal">
-            <div class="modal__inner">
-                <div class="modal__inner-header">Khuyến mãi và mã giảm giá</div>
-                <div class="modal__inner-promotion">
-                    <div class="modal__inner-code">
-                        <input type="text" placeholder="Mã giảm giá/phiếu mua hàng">
-                    </div>
-                    <button>Áp dụng</button>
-                </div>
-                <ul class="modal__inner-list">
-
-                </ul>
-                <button class="modal__inner-close" >Đóng</button>
-            </div>
-        </div>
-        <div class="cart-notify">
-            
-        </div>
-    </div> -->
 </div>
 
 <?php

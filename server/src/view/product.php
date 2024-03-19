@@ -1,5 +1,5 @@
 <?php
-include "server/src/view/header.php";
+include "header.php";
 ?>
 
 <div class="product-main">
@@ -516,5 +516,5 @@ include "server/src/view/header.php";
 </div>
 
 <?php
-include "server/src/view/footer.php";
+include "footer.php";
 ?>
