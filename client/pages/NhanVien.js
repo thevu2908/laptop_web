@@ -18,7 +18,7 @@ function loadEmployeeData() {
                         <tr>
                             <td>
                                 <span class="custom-checkbox">
-                                    <input type="checkbox" id="checkbox-${item.ma_nv}" name="options[]" value="${item.ma_nv}">
+                                    <input type="checkbox" id="checkbox-${item.ma_nv}" name="chk[]" value="${item.ma_nv}">
                                     <label for="checkbox-${item.ma_nv}"></label>
                                 </span>
                             </td>

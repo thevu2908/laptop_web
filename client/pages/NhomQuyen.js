@@ -52,7 +52,7 @@ function loadNhomQuyenData() {
                         html+=`<tr>
                         <td>
                             <span class="custom-checkbox">
-                                <input type="checkbox" id="checkbox1" name="options[]" value="1">
+                                <input type="checkbox" id="checkbox1" name="chk[]" value="1">
                                 <label for="checkbox1"></label>
                             </span>
                         </td>
