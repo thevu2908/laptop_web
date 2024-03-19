@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 19, 2024 at 08:13 AM
+-- Generation Time: Mar 19, 2024 at 10:38 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -340,7 +340,8 @@ CREATE TABLE `phieubaohanh` (
   `ma_nv` varchar(20) NOT NULL,
   `ma_kh` varchar(20) NOT NULL,
   `ma_hd` varchar(20) NOT NULL,
-  `ngay_bao_hanh` int(11) NOT NULL,
+  `ngay_bao_hanh` date NOT NULL,
+  `ngay_tra` date NOT NULL,
   `trang_thai` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -625,7 +626,8 @@ ALTER TABLE `nhomquyen`
 ALTER TABLE `phieubaohanh`
   ADD PRIMARY KEY (`ma_pbh`),
   ADD KEY `pbh_fk_nv` (`ma_nv`),
-  ADD KEY `pbh_fk_kh` (`ma_kh`);
+  ADD KEY `pbh_fk_kh` (`ma_kh`),
+  ADD KEY `pbh_fk_hd` (`ma_hd`);
 
 --
 -- Indexes for table `phieudoitra`
@@ -775,6 +777,7 @@ ALTER TABLE `hoadon`
 -- Constraints for table `phieubaohanh`
 --
 ALTER TABLE `phieubaohanh`
+  ADD CONSTRAINT `pbh_fk_hd` FOREIGN KEY (`ma_hd`) REFERENCES `hoadon` (`ma_hd`),
   ADD CONSTRAINT `pbh_fk_kh` FOREIGN KEY (`ma_kh`) REFERENCES `khachhang` (`ma_kh`),
   ADD CONSTRAINT `pbh_fk_nv` FOREIGN KEY (`ma_nv`) REFERENCES `nhanvien` (`ma_nv`);
 
