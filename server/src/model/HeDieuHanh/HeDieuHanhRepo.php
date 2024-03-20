@@ -44,7 +44,7 @@ class HeDieuHanhRepo extends ConnectDB {
 
     public function add($object) {
         try {
-            $query = "INSERT INTO hedieuhanh(ma_hdh, ten_loai, trang_thai) VALUES (?, ?, 0)";
+            $query = "INSERT INTO hedieuhanh(ma_hdh, ten_hdh, trang_thai) VALUES (?, ?, 0)";
             $statement = mysqli_prepare($this->conn, $query);
 
             if (!$statement) {
