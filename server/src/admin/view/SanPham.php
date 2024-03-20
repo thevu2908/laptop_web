@@ -453,8 +453,8 @@
 	include 'ThuongHieu.php';
 	include 'TheLoai.php';
 	include 'MauSac.php';
-	include 'CPU.php';
-	include 'GPU.php';
+	include 'ChipXuLy.php';
+	include 'CardDoHoa.php';
 	include 'CongKetNoi.php';
 	include 'HeDieuHanh.php';
 	?>
