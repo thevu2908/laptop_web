@@ -29,6 +29,11 @@ function addType() {
     $(document).on('click', '#addProductTypeModal .btn-add-type', e => {
         const name = $('#product-type-name').val()
 
+        if (!name) {
+            alert('Vui lòng nhập tên thể loại')
+            return
+        }
+
         $.ajax({
             url: 'server/src/controller/TheLoaiController.php',
             method: 'POST',
