@@ -21,6 +21,9 @@ function loadTypeData() {
 
                 $('#admin-product-main #product-type').html(html)
             }
+        },
+        error: (jqXHR, textStatus, error) => {
+            console.log(error)
         }
     })
 }
