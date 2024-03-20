@@ -19,7 +19,7 @@ class ThuongHieuRepo extends ConnectDB {
 
     public function getBrand($brandId) {
         try {
-            $query = "SELECT * FROM thuonghieu WHERE ma_ctsp = '$brandId'";
+            $query = "SELECT * FROM thuonghieu WHERE ma_thuong_hieu = '$brandId'";
             $statement = mysqli_query($this->conn, $query);
 
             if ($row = mysqli_fetch_assoc($statement)) {
@@ -31,14 +31,16 @@ class ThuongHieuRepo extends ConnectDB {
         return null;
     }
 
-    public function getBrandsLength() {
+    public function getBrandsLength() : int {
         try {
-            $query = "SELECT COUNT(*) FROM thuonghieu";
+            $query = "SELECT COUNT(*) as count FROM thuonghieu";
             $statement = mysqli_query($this->conn, $query);
 
-            return mysqli_fetch_assoc($statement);
+            $result = mysqli_fetch_assoc($statement);
+            return $result['count'] === null ? -1 : (int)$result['count'];
         } catch (Exception $e) {
             echo 'Error: ' . $e->getMessage() . '<br>';
+            return -1;
         }
     }
 

@@ -69,6 +69,7 @@
   <script src="./client/pages/NhomQuyen.js"></script>
   <script src="./client/pages/NhanVien.js"></script>
   <script src="./client/pages/TaiKhoan.js"></script>
+  <script src="./client/pages/ThuongHieu.js"></script>
 </body>
 
 </html>

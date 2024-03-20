@@ -149,13 +149,13 @@
 									<label for="product-brand" class="col-sm-4 px-0 mb-0">Thương hiệu:</label>
 									<div class="col-sm-5 px-0">
 										<select id="product-brand" class="form-control">
-											<option value="">Apple</option>
+											
 										</select>
 									</div>
 									<button href="#addProductBrandModal" data-toggle="modal" type="button" class="btn btn-outline-primary btn-ssm br-50 ml-2">
 										<i class="fa-solid fa-plus"></i>
 									</button>
-									<button href="#deleteProductBrandModal" data-toggle="modal" type="button" class="btn btn-outline-danger btn-ssm br-50 ml-1">
+									<button href="#deleteProductBrandModal" data-toggle="modal" type="button" class="btn-open-delete-brand-modal btn btn-outline-danger btn-ssm br-50 ml-1">
 										<i class="fa-solid fa-minus"></i>
 									</button>
 								</li>
