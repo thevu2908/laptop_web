@@ -163,13 +163,13 @@
 									<label for="product-type" class="col-sm-3 px-0 mb-0">Thể loại</label>
 									<div class="col-sm-6 px-0">
 										<select id="product-type" class="form-control">
-											<option value="">Laptop Gaming</option>
+											
 										</select>
 									</div>
 									<button href="#addProductTypeModal" data-toggle="modal" type="button" class="btn btn-outline-primary btn-ssm br-50 ml-2">
 										<i class="fa-solid fa-plus"></i>
 									</button>
-									<button href="#deleteProductTypeModal" data-toggle="modal" type="button" class="btn btn-outline-danger btn-ssm br-50 ml-1">
+									<button href="#deleteProductTypeModal" data-toggle="modal" type="button" class="btn-open-delete-type-modal btn btn-outline-danger btn-ssm br-50 ml-1">
 										<i class="fa-solid fa-minus"></i>
 									</button>
 								</li>
@@ -381,7 +381,7 @@
 						</div>
 						<div class="modal-footer">
 							<input type="button" class="btn btn-secondary" data-dismiss="modal" value="Hủy">
-							<input type="submit" class="btn btn-primary" value="Thêm">
+							<input type="button" class="btn btn-primary" value="Thêm">
 						</div>
 					</form>
 				</div>
@@ -421,7 +421,7 @@
 					</div>
 					<div class="modal-footer">
 						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-						<input type="submit" class="btn btn-primary" value="Save">
+						<input type="button" class="btn btn-primary" value="Save">
 					</div>
 				</form>
 			</div>
@@ -442,7 +442,7 @@
 					</div>
 					<div class="modal-footer">
 						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-						<input type="submit" class="btn btn-danger" value="Delete">
+						<input type="button" class="btn btn-danger" value="Delete">
 					</div>
 				</form>
 			</div>

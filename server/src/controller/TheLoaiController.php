@@ -12,12 +12,12 @@ class TheLoaiController {
     }
 
     public function getData() {
-        $plugs = $this->theLoaiRepo->getData();
+        $types = $this->theLoaiRepo->getData();
         $result = [];
 
-        foreach ($plugs as $plug) {
-            if ($plug['trang_thai'] == 0) {
-                $result[] = $plug;
+        foreach ($types as $type) {
+            if ($type['trang_thai'] == 0) {
+                $result[] = $type;
             }
         }
         
@@ -32,8 +32,8 @@ class TheLoaiController {
         echo json_encode($this->theLoaiRepo->getType($id));
     }
 
-    public function getLength() {
-        echo $this->theLoaiRepo->getLength();
+    public function getLength() : int {
+        return $this->theLoaiRepo->getLength();
     }
 
     public function add($object) {
@@ -68,11 +68,15 @@ switch ($action) {
         $theloaiCtl->getType($id);
         break;
     case 'add':
-        $id = $_POST['id'];
-        $name = $_POST['name'];
-        
-        $object = new TheLoai($id, $name, 0);
-        $theloaiCtl->add($object);
+        $length = $theloaiCtl->getLength();
+        if ($length >= 0) {
+            $length += 1;
+            $id = 'TL'.sprintf('%03d', $length);
+            $name = $_POST['name'];
+            
+            $object = new TheLoai($id, $name, 0);
+            $theloaiCtl->add($object);
+        }
         break;
     case 'delete':
         $id = $_POST['id'];

@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Admin laptop</title>
+  <title>Laptop Admin</title>
   <link rel="icon" type="image/x-icon" href="server\src\admin\assets\images\admin-icon.svg">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
@@ -70,6 +70,7 @@
   <script src="./client/pages/NhanVien.js"></script>
   <script src="./client/pages/TaiKhoan.js"></script>
   <script src="./client/pages/ThuongHieu.js"></script>
+  <script src="./client/pages/TheLoai.js"></script>
 </body>
 
 </html>
