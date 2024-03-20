@@ -66,7 +66,7 @@ function loadEmployeeAccountData() {
                             let flag = true
                             
                             accounts.forEach(account => {
-                                if (item.ma_nv === accounts[i].ma_tk) {
+                                if (item.ma_nv === account.ma_tk) {
                                     flag = false
                                     return
                                 }
