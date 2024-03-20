@@ -44,6 +44,15 @@ body.dark {
   --dark: #fbfbfb;
 }
 
+.br-50 {
+  border-radius: 50%;
+}
+
+.btn-ssm {
+  font-size: 12px;
+  padding: 2px 6px;
+}
+
 #admin-main {
   height: 100%;
 }

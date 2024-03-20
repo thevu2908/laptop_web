@@ -147,37 +147,31 @@
 								</li>
 								<li class="modal-row-item row align-items-center">
 									<label for="product-brand" class="col-sm-4 px-0 mb-0">Thương hiệu:</label>
-									<div class="col-sm-6 px-0">
+									<div class="col-sm-5 px-0">
 										<select id="product-brand" class="form-control">
 											<option value="">Apple</option>
 										</select>
 									</div>
-									<div class="btn-group" style="margin-left: 10px;">
-										<button type="button" class="btn btn-sm btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-											<span class="sr-only">Toggle Dropdown</span>
-										</button>
-										<div class="dropdown-menu dropdown-menu-right dropdown-menu-left">
-											<button href="#addProductBrandModal" class="dropdown-item" type="button" data-toggle="modal">Thêm thương hiệu</button>
-											<button href="#deleteProductBrandModal" class="dropdown-item" type="button" data-toggle="modal">Xóa thương hiệu</button>
-										</div>
-									</div>
+									<button href="#addProductBrandModal" data-toggle="modal" type="button" class="btn btn-outline-primary btn-ssm br-50 ml-2">
+										<i class="fa-solid fa-plus"></i>
+									</button>
+									<button href="#deleteProductBrandModal" data-toggle="modal" type="button" class="btn btn-outline-danger btn-ssm br-50 ml-1">
+										<i class="fa-solid fa-minus"></i>
+									</button>
 								</li>
 								<li class="modal-row-item row align-items-center">
 									<label for="product-type" class="col-sm-3 px-0 mb-0">Thể loại</label>
-									<div class="col-sm-7 px-0">
+									<div class="col-sm-6 px-0">
 										<select id="product-type" class="form-control">
 											<option value="">Laptop Gaming</option>
 										</select>
 									</div>
-									<div class="btn-group" style="margin-left: 10px;">
-										<button type="button" class="btn btn-sm btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-											<span class="sr-only">Toggle Dropdown</span>
-										</button>
-										<div class="dropdown-menu dropdown-menu-right dropdown-menu-left">
-											<button href="#addProductTypeModal" class="dropdown-item" type="button" data-toggle="modal">Thêm thể loại</button>
-											<button href="#deleteProductTypeModal" class="dropdown-item" type="button" data-toggle="modal">Xóa thể loại</button>
-										</div>
-									</div>
+									<button href="#addProductTypeModal" data-toggle="modal" type="button" class="btn btn-outline-primary btn-ssm br-50 ml-2">
+										<i class="fa-solid fa-plus"></i>
+									</button>
+									<button href="#deleteProductTypeModal" data-toggle="modal" type="button" class="btn btn-outline-danger btn-ssm br-50 ml-1">
+										<i class="fa-solid fa-minus"></i>
+									</button>
 								</li>
 							</ul>
 						</div>
@@ -196,18 +190,16 @@
 										<td>
 											<select id="product-color" class="form-control selectpicker" multiple data-live-search="true">
 												<option value="">Đen</option>
+												<option value="">Vang</option>
 											</select>
 										</td>
 										<td>
-											<div class="btn-group" style="margin-left: 10px;">
-												<button type="button" class="btn btn-sm btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-													<span class="sr-only">Toggle Dropdown</span>
-												</button>
-												<div class="dropdown-menu dropdown-menu-right dropdown-menu-left">
-													<button href="#addProductColorModal" data-toggle="modal" class="dropdown-item" type="button">Thêm màu sắc</button>
-													<button href="#deleteProductColorModal" data-toggle="modal" class="dropdown-item" type="button">Xóa màu sắc</button>
-												</div>
-											</div>
+											<button href="#addProductColorModal" data-toggle="modal" type="button" class="btn btn-outline-primary btn-ssm br-50 ml-2">
+												<i class="fa-solid fa-plus"></i>
+											</button>
+											<button href="#deleteProductColorModal" data-toggle="modal" type="button" class="btn btn-outline-danger btn-ssm br-50 ml-1">
+												<i class="fa-solid fa-minus"></i>
+											</button>
 										</td>
 									</tr>
 									<tr>
@@ -231,41 +223,41 @@
 											</select>
 										</td>
 										<td>
-											<div class="btn-group" style="margin-left: 10px;">
-												<button type="button" class="btn btn-sm btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-													<span class="sr-only">Toggle Dropdown</span>
-												</button>
-												<div class="dropdown-menu dropdown-menu-right dropdown-menu-left">
-													<button href="#addProductCPUModal" data-toggle="modal" class="dropdown-item" type="button">Thêm CPU</button>
-													<button href="#deleteProductCPUModal" data-toggle="modal" class="dropdown-item" type="button">Xóa CPU</button>
-												</div>
-											</div>
+											<button href="#addProductCPUModal" data-toggle="modal" type="button" class="btn btn-outline-primary btn-ssm br-50 ml-2">
+												<i class="fa-solid fa-plus"></i>
+											</button>
+											<button href="#deleteProductCPUModal" data-toggle="modal" type="button" class="btn btn-outline-danger btn-ssm br-50 ml-1">
+												<i class="fa-solid fa-minus"></i>
+											</button>
 										</td>
 									</tr>
 								</tbody>
 							</table>
 						</div>
 						<div class="modal-row">
-							<h5 class="modal-row-title">RAM</h5>
+							<h5 class="modal-row-title">Bộ nhớ</h5>
 							<table class="modal-row-table">
 								<tbody>
 									<tr>
 										<td>Dung lượng RAM</td>
 										<td>
 											<select id="product-ram" class="form-control selectpicker" multiple data-live-search="true">
-												<option value="">8GB</option>
+												<option value="8gb">8GB</option>
+												<option value="16gb">16GB</option>
+												<option value="32gb">32GB</option>
+												<option value="64gb">64GB</option>
 											</select>
 										</td>
+									</tr>
+									<tr>
+										<td>Dung lượng ROM</td>
 										<td>
-											<div class="btn-group" style="margin-left: 10px;">
-												<button type="button" class="btn btn-sm btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-													<span class="sr-only">Toggle Dropdown</span>
-												</button>
-												<div class="dropdown-menu dropdown-menu-right dropdown-menu-left">
-													<button href="#addProductRAMModal" data-toggle="modal" class="dropdown-item" type="button">Thêm RAM</button>
-													<button href="#deleteProductRAMModal" data-toggle="modal" class="dropdown-item" type="button">Xóa RAM</button>
-												</div>
-											</div>
+											<select id="product-rom" class="form-control selectpicker" multiple data-live-search="true">
+												<option value="256gb">256GB</option>
+												<option value="512gb">512GB</option>
+												<option value="1tb">1TB</option>
+												<option value="4tb">4TB</option>
+											</select>
 										</td>
 									</tr>
 								</tbody>
@@ -304,15 +296,12 @@
 											</select>
 										</td>
 										<td>
-											<div class="btn-group" style="margin-left: 10px;">
-												<button type="button" class="btn btn-sm btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-													<span class="sr-only">Toggle Dropdown</span>
-												</button>
-												<div class="dropdown-menu dropdown-menu-right dropdown-menu-left">
-													<button href="#addProductGPUModal" data-toggle="modal" class="dropdown-item" type="button">Thêm GPU</button>
-													<button href="#deleteProductGPUModal" data-toggle="modal" class="dropdown-item" type="button">Xóa GPU</button>
-												</div>
-											</div>
+											<button href="#addProductGPUModal" data-toggle="modal" type="button" class="btn btn-outline-primary btn-ssm br-50 ml-2">
+												<i class="fa-solid fa-plus"></i>
+											</button>
+											<button href="#deleteProductGPUModal" data-toggle="modal" type="button" class="btn btn-outline-danger btn-ssm br-50 ml-1">
+												<i class="fa-solid fa-minus"></i>
+											</button>
 										</td>
 									</tr>
 								</tbody>
@@ -330,15 +319,12 @@
 											</select>
 										</td>
 										<td>
-											<div class="btn-group" style="margin-left: 10px;">
-												<button type="button" class="btn btn-sm btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-													<span class="sr-only">Toggle Dropdown</span>
-												</button>
-												<div class="dropdown-menu dropdown-menu-right dropdown-menu-left">
-													<button href="#addProductPlugModal" data-toggle="modal" class="dropdown-item" type="button">Thêm cổng kết nối</button>
-													<button href="#deleteProductPlugModal" data-toggle="modal" class="dropdown-item" type="button">Xóa cổng kết nối</button>
-												</div>
-											</div>
+											<button href="#addProductPlugModal" data-toggle="modal" type="button" class="btn btn-outline-primary btn-ssm br-50 ml-2">
+												<i class="fa-solid fa-plus"></i>
+											</button>
+											<button href="#deleteProductPlugModal" data-toggle="modal" type="button" class="btn btn-outline-danger btn-ssm br-50 ml-1">
+												<i class="fa-solid fa-minus"></i>
+											</button>
 										</td>
 									</tr>
 								</tbody>
@@ -382,15 +368,12 @@
 											</select>
 										</td>
 										<td>
-											<div class="btn-group" style="margin-left: 10px;">
-												<button type="button" class="btn btn-sm btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-													<span class="sr-only">Toggle Dropdown</span>
-												</button>
-												<div class="dropdown-menu dropdown-menu-right dropdown-menu-left">
-													<button href="#addProductOSModal" data-toggle="modal" class="dropdown-item" type="button">Thêm hệ điều hành</button>
-													<button href="#deleteProductOSModal" data-toggle="modal" class="dropdown-item" type="button">Xóa hệ điều hành</button>
-												</div>
-											</div>
+											<button href="#addProductOSModal" data-toggle="modal" type="button" class="btn btn-outline-primary btn-ssm br-50 ml-2">
+												<i class="fa-solid fa-plus"></i>
+											</button>
+											<button href="#deleteProductOSModal" data-toggle="modal" type="button" class="btn btn-outline-danger btn-ssm br-50 ml-1">
+												<i class="fa-solid fa-minus"></i>
+											</button>
 										</td>
 									</tr>
 								</tbody>
@@ -468,12 +451,11 @@
 
 	<?php 
 	include 'ThuongHieu.php';
+	include 'TheLoai.php';
 	include 'MauSac.php';
 	include 'CPU.php';
-	include 'RAM.php';
 	include 'GPU.php';
 	include 'CongKetNoi.php';
 	include 'HeDieuHanh.php';
-	include 'TheLoai.php';
 	?>
 </main>

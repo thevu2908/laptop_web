@@ -30,30 +30,20 @@
 <div class="modal fade" id="deleteProductColorModal" tabindex="-1" aria-hidden="true" data-backdrop="static">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Xóa màu sắc</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form class="add-product-color-form">
-                    <div class="form-group">
-                        <label for="product-color-name">Chọn màu sắc</label>
-                        <select id="product-color-name" class="form-control">
-                            <option value="">Đen</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="product-color-id">Mã màu</label>
-                        <input type="text" class="form-control" id="product-color-id" name="product-color-id">
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
-                <button type="button" class="btn btn-primary">Xóa</button>
-            </div>
+            <form>
+                <div class="modal-header">
+                    <h4 class="modal-title">Xóa màu sắc</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <p>Bạn có muốn xóa màu này ?</p>
+                    <p class="text-warning"><small>Hành động này sẽ không thể hoàn tác</small></p>
+                </div>
+                <div class="modal-footer">
+                    <input type="button" class="btn btn-secondary" data-dismiss="modal" value="Hủy">
+                    <input type="submit" class="btn btn-danger" value="Xóa">
+                </div>
+            </form>
         </div>
     </div>
 </div>

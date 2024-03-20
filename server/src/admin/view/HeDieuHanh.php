@@ -26,26 +26,20 @@
 <div class="modal fade" id="deleteProductOSModal" tabindex="-1" aria-hidden="true" data-backdrop="static">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Xóa os</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form class="add-product-os-form">
-                    <div class="form-group">
-                        <label for="product-os-name">Chọn hệ điều hành</label>
-                        <select id="product-os-name" class="form-control">
-                            <option value="">Windows</option>
-                        </select>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
-                <button type="button" class="btn btn-primary">Xóa</button>
-            </div>
+            <form>
+                <div class="modal-header">
+                    <h4 class="modal-title">Xóa hệ điều hành</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <p>Bạn có muốn xóa hệ điều hành này ?</p>
+                    <p class="text-warning"><small>Hành động này sẽ không thể hoàn tác</small></p>
+                </div>
+                <div class="modal-footer">
+                    <input type="button" class="btn btn-secondary" data-dismiss="modal" value="Hủy">
+                    <input type="submit" class="btn btn-danger" value="Xóa">
+                </div>
+            </form>
         </div>
     </div>
 </div>
