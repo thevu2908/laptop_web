@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 19, 2024 at 10:43 AM
+-- Generation Time: Mar 20, 2024 at 04:00 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -20,6 +20,18 @@ SET time_zone = "+00:00";
 --
 -- Database: `web2`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `carddohoa`
+--
+
+CREATE TABLE `carddohoa` (
+  `ma_card` varchar(20) NOT NULL,
+  `ten_card` varchar(150) NOT NULL,
+  `trang_thai` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -135,10 +147,10 @@ CREATE TABLE `chitietsanpham` (
   `ma_sp` varchar(20) NOT NULL,
   `ma_chip_xu_ly` varchar(20) NOT NULL,
   `ma_mau` varchar(20) NOT NULL,
+  `ma_carddohoa` varchar(50) NOT NULL,
   `ram` varchar(50) NOT NULL,
   `rom` varchar(50) NOT NULL,
   `hinh_anh` varchar(200) NOT NULL,
-  `card_do_hoa` varchar(50) NOT NULL,
   `gia_tien` float NOT NULL,
   `so_luong` int(11) NOT NULL,
   `trang_thai` int(11) NOT NULL
@@ -480,6 +492,12 @@ CREATE TABLE `thuonghieu` (
 --
 
 --
+-- Indexes for table `carddohoa`
+--
+ALTER TABLE `carddohoa`
+  ADD PRIMARY KEY (`ma_card`);
+
+--
 -- Indexes for table `chipxuly`
 --
 ALTER TABLE `chipxuly`
@@ -543,7 +561,8 @@ ALTER TABLE `chitietsanpham`
   ADD PRIMARY KEY (`ma_ctsp`),
   ADD KEY `ctsp_fk_sp` (`ma_sp`),
   ADD KEY `ctsp_fk_chip` (`ma_chip_xu_ly`),
-  ADD KEY `ctsp_fk_mausac` (`ma_mau`) USING BTREE;
+  ADD KEY `ctsp_fk_mausac` (`ma_mau`) USING BTREE,
+  ADD KEY `ctsp_fk_carddohoa` (`ma_carddohoa`);
 
 --
 -- Indexes for table `chucnangquyen`
@@ -749,6 +768,7 @@ ALTER TABLE `chitietquyen`
 -- Constraints for table `chitietsanpham`
 --
 ALTER TABLE `chitietsanpham`
+  ADD CONSTRAINT `ctsp_fk_carddohoa` FOREIGN KEY (`ma_carddohoa`) REFERENCES `carddohoa` (`ma_card`),
   ADD CONSTRAINT `ctsp_fk_chip` FOREIGN KEY (`ma_chip_xu_ly`) REFERENCES `chipxuly` (`ma_chip_xu_ly`),
   ADD CONSTRAINT `ctsp_fk_mau` FOREIGN KEY (`ma_mau`) REFERENCES `mausac` (`ma_mau`),
   ADD CONSTRAINT `ctsp_fk_sp` FOREIGN KEY (`ma_sp`) REFERENCES `sanpham` (`ma_sp`);
