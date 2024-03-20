@@ -15,9 +15,7 @@ function loadBrandData() {
             let html = ''
             if (data && data.length > 0) {
                 data.forEach((item, index) => {
-                    html += `
-                        <option value="${item.ma_thuong_hieu}">${item.ten_thuong_hieu}</option>
-                    `
+                    html += `<option value="${item.ma_thuong_hieu}">${item.ten_thuong_hieu}</option>`
                 })
 
                 $('#admin-product-main #product-brand').html(html)
