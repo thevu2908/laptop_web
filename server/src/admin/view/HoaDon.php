@@ -5,7 +5,7 @@
 				<div class="table-title">
 					<div class="row">
 						<div class="col-sm-6">
-							<h2>Quản Lý <b>Khuyến mãi</b></h2>
+							<h2>Quản Lý <b>HÓA ĐƠN</b></h2>
 						</div>
 						<div class="col-sm-6">
 							<a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal">
@@ -28,11 +28,15 @@
 									<label for="selectAll"></label>
 								</span>
 							</th>
-							<th>Mã KM</th>
-							<th>Mức KM</th>
-							<th>Điều kiện</th>
-							<th>Thời gian BD</th>
-							<th>Thời gian KT</th>
+							<th>Mã</th>
+							<th>Khách Hàng</th>
+							<th>Nhân Viên</th>
+							<th>Ngày Tạo</th>
+							<th>Tổng Tiền</th>
+							<th>Khuyến Mãi</th>
+							<th>Thành tiền</th>
+							<th>Hình thức</th>
+							<th>Tình Trạng</th>
 							<th>Status</th>
 							<th>Actions</th>
 						</tr>
@@ -46,10 +50,14 @@
 								</span>
 							</td>
 							<td>1</td>
-							<td>20%</td>
-							<td>>= 5.000.000đ</td>
+							<td>Đỗ Minh Quân</td>
+							<td>Nguyễn Thanh Sang</td>
 							<td>20-2-2024</td>
-							<td>30-3-2024</td>
+							<td>20.000.000đ</td>
+                            <td>20%</td>
+							<td>16.000.000đ</td>
+							<td>VNPay</td>
+							<td>Đã giao</td>
 							<td><span class="status text-success">&bull;</span> Active</td>
 							<td>
 								<a href="#editEmployeeModal" class="edit" data-toggle="modal">

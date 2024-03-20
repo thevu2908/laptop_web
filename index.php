@@ -34,6 +34,8 @@
             }
         } else if (isset($_REQUEST["gio-hang"])) {
             include "./server/src/view/cart.php";
+        } else if (isset($_REQUEST["thanh-toan"])) {
+            include "./server/src/view/checkout.php";
         } else {
             include "./server/src/view/homepage.php";
         }
