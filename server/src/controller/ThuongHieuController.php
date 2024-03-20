@@ -72,7 +72,7 @@ switch ($action) {
         $brandName = $_POST['brandName'];
         
         $brand = new ThuongHieu($brandId, $brandName, 0);
-        $thuongHieuCtl->addBrand($productDetail);
+        $thuongHieuCtl->addBrand($brand);
         break;
     case 'delete':
         $brandId = $_POST['brandId'];
