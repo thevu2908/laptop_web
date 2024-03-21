@@ -87,6 +87,7 @@
   <script src="./client/pages/MauSac.js"></script>
   <script src="./client/pages/ChipXuLy.js"></script>
   <script src="./client/pages/CardDoHoa.js"></script>
+  <script src="./client/pages/CongKetNoi.js"></script>
 </body>
 
 </html>

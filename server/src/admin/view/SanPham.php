@@ -312,14 +312,14 @@
 										<td>Cổng kết nối</td>
 										<td>
 											<select id="product-plug" class="form-control selectpicker" multiple data-live-search="true">
-												<option value="">Type C</option>
+												
 											</select>
 										</td>
 										<td>
 											<button href="#addProductPlugModal" data-toggle="modal" type="button" class="btn btn-outline-primary btn-ssm br-50 ml-2">
 												<i class="fa-solid fa-plus"></i>
 											</button>
-											<button href="#deleteProductPlugModal" data-toggle="modal" type="button" class="btn btn-outline-danger btn-ssm br-50 ml-1">
+											<button href="#deleteProductPlugModal" type="button" class="btn-delete-plug-modal btn btn-outline-danger btn-ssm br-50 ml-1">
 												<i class="fa-solid fa-minus"></i>
 											</button>
 										</td>

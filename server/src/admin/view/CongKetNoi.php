@@ -17,7 +17,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
-                <button type="button" class="btn btn-primary">Thêm</button>
+                <button type="button" class="btn btn-primary btn-add-plug">Thêm</button>
             </div>
         </div>
     </div>
@@ -31,13 +31,12 @@
                     <h4 class="modal-title">Xóa cổng kết nối</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 </div>
-                <div class="modal-body">
-                    <p>Bạn có muốn xóa cổng kết nối này ?</p>
-                    <p class="text-warning"><small>Hành động này sẽ không thể hoàn tác</small></p>
+                <div class="modal-body delete-product-plug-confirm">
+                    
                 </div>
                 <div class="modal-footer">
                     <input type="button" class="btn btn-secondary" data-dismiss="modal" value="Hủy">
-                    <input type="submit" class="btn btn-danger" value="Xóa">
+                    <input type="button" class="btn btn-danger btn-delete-plug" value="Xóa">
                 </div>
             </form>
         </div>

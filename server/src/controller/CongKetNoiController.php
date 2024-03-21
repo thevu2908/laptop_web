@@ -32,8 +32,8 @@ class CongKetNoiController {
         echo json_encode($this->congketnoiRepo->getPlug($id));
     }
 
-    public function getLength() {
-        echo $this->congketnoiRepo->getLength();
+    public function getLength() : int {
+        return $this->congketnoiRepo->getLength();
     }
 
     public function add($object) {
@@ -68,11 +68,15 @@ switch ($action) {
         $congketnoiCtl->getPlug($id);
         break;
     case 'add':
-        $id = $_POST['id'];
-        $name = $_POST['name'];
-        
-        $object = new CongKetNoi($id, $name, 0);
-        $congketnoiCtl->add($object);
+        $length = $congketnoiCtl->getLength();
+        if ($length >= 0) {
+            $length += 1;
+            $id = 'CKN'.sprintf('%03d', $length);
+            $name = $_POST['name'];
+            
+            $object = new CongKetNoi($id, $name, 0);
+            $congketnoiCtl->add($object);
+        }
         break;
     case 'delete':
         $id = $_POST['id'];

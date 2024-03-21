@@ -1,7 +1,7 @@
 <?php
 
 class CongKetNoiRepo extends ConnectDB {
-    public function getData() {
+    public function getData() : array | null {
         $plugs = [];
         try {
             $statement = mysqli_query($this->conn, "SELECT * FROM congketnoi");
@@ -31,18 +31,21 @@ class CongKetNoiRepo extends ConnectDB {
         return null;
     }
 
-    public function getLength() {
+    public function getLength() : int {
         try {
-            $query = "SELECT COUNT(*) FROM congketnoi";
+            $query = "SELECT COUNT(*) as count FROM congketnoi";
             $statement = mysqli_query($this->conn, $query);
 
-            return mysqli_fetch_assoc($statement);
+            $result = mysqli_fetch_assoc($statement);
+
+            return $result["count"] === null ? -1 : (int)$result["count"];
         } catch (Exception $e) {
             echo 'Error: ' . $e->getMessage() . '<br>';
+            return -1;
         }
     }
 
-    public function add($object) {
+    public function add($object) : bool {
         try {
             $query = "INSERT INTO congketnoi(ma_cong, ten_cong, trang_thai) VALUES (?, ?, 0)";
             $statement = mysqli_prepare($this->conn, $query);
@@ -67,7 +70,7 @@ class CongKetNoiRepo extends ConnectDB {
         return false;
     }
 
-    public function delete($id) {
+    public function delete($id) : bool {
         try {
             $query = "UPDATE congketnoi SET trang_thai = 1 WHERE ma_cong = ?";
             $statement = mysqli_prepare($this->conn, $query);
