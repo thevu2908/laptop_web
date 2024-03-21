@@ -288,17 +288,15 @@
 									<tr>
 										<td>Card đồ họa</td>
 										<td>
-											<select id="product-screencard" class="form-control selectpicker" multiple data-live-search="true">
-												<option value="">RTX 3060</option>
-												<option value="">RTX 3090</option>
-												<option value="">RTX 1650</option>
+											<select id="product-gpu" class="form-control selectpicker" multiple data-live-search="true">
+												
 											</select>
 										</td>
 										<td>
 											<button href="#addProductGPUModal" data-toggle="modal" type="button" class="btn btn-outline-primary btn-ssm br-50 ml-2">
 												<i class="fa-solid fa-plus"></i>
 											</button>
-											<button href="#deleteProductGPUModal" data-toggle="modal" type="button" class="btn btn-outline-danger btn-ssm br-50 ml-1">
+											<button href="#deleteProductGPUModal" type="button" class="btn-delete-gpu-modal btn btn-outline-danger btn-ssm br-50 ml-1">
 												<i class="fa-solid fa-minus"></i>
 											</button>
 										</td>

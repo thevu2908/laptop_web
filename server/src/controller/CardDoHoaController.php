@@ -12,12 +12,12 @@ class CardDoHoaController {
     }
 
     public function getData() {
-        $plugs = $this->cardDoHoaRepo->getData();
+        $gpus = $this->cardDoHoaRepo->getData();
         $result = [];
 
-        foreach ($plugs as $plug) {
-            if ($plug['trang_thai'] == 0) {
-                $result[] = $plug;
+        foreach ($gpus as $gpu) {
+            if ($gpu['trang_thai'] == 0) {
+                $result[] = $gpu;
             }
         }
         
@@ -32,8 +32,8 @@ class CardDoHoaController {
         echo json_encode($this->cardDoHoaRepo->getGPU($id));
     }
 
-    public function getLength() {
-        echo $this->cardDoHoaRepo->getLength();
+    public function getLength() : int {
+        return $this->cardDoHoaRepo->getLength();
     }
 
     public function add($object) {
@@ -68,11 +68,15 @@ switch ($action) {
         $cardDoHoaCtl->getGPU($id);
         break;
     case 'add':
-        $id = $_POST['id'];
-        $name = $_POST['name'];
-        
-        $object = new CardDoHoa($id, $name, 0);
-        $cardDoHoaCtl->add($object);
+        $length = $cardDoHoaCtl->getLength();
+        if ($length >= 0) {
+            $length += 1;
+            $id = 'CDH'.sprintf('%03d', $length);
+            $name = $_POST['name'];
+            
+            $object = new CardDoHoa($id, $name, 0);
+            $cardDoHoaCtl->add($object);
+        }
         break;
     case 'delete':
         $id = $_POST['id'];

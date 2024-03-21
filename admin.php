@@ -86,6 +86,7 @@
   <script src="./client/pages/TheLoai.js"></script>
   <script src="./client/pages/MauSac.js"></script>
   <script src="./client/pages/ChipXuLy.js"></script>
+  <script src="./client/pages/CardDoHoa.js"></script>
 </body>
 
 </html>
