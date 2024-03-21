@@ -96,7 +96,7 @@ function showDeleteColorModal() {
                     dataType: 'JSON',
                     success: data => {
                         if (data) {
-                            colorHtml += `"<b class="delete-type-id">${data.ten_mau}</b>"`
+                            colorHtml += `"<b class="delete-color-id">${data.ten_mau}</b>"`
                             if (index !== selected.length - 1) {
                                 colorHtml += ', '
                             }
