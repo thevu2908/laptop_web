@@ -79,7 +79,7 @@ function showDeleteCPUModal() {
                     dataType: 'JSON',
                     success: data => {
                         if (data) {
-                            cpuHtml += `"<b class="delete-type-id">${data.ten_chip}</b>"`
+                            cpuHtml += `"<b class="delete-cpu-id">${data.ten_chip}</b>"`
                             if (index !== selected.length - 1) {
                                 cpuHtml += ', '
                             }
