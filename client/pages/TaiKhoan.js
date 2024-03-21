@@ -71,7 +71,7 @@ function getAllAccounts() {
                 }
             },
             error: (jqXHR, textStatus, error) => {
-                reject(error);
+                reject(error)
             }
         })
     })
@@ -111,7 +111,7 @@ function addAccount() {
                 }
             },
             error: (jqXHR, textStatus, error) => {
-                console.log(error);
+                console.log(error)
             }
         })
     })
@@ -284,7 +284,7 @@ function deleteAccount() {
                         firstCheckInputElement.checked = false
                         loadAccountData()
                     }
-                });
+                })
             } else {
                 alert('Không có tài khoản nào được chọn\nVui lòng check vào ô các tài khoản muốn xóa')
             }
