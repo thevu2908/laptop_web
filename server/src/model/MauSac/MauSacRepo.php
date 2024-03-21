@@ -1,7 +1,7 @@
 <?php
 
 class MauSacRepo extends ConnectDB {
-    public function getData() {
+    public function getData() : array | null {
         $colors = [];
         try {
             $statement = mysqli_query($this->conn, "SELECT * FROM mausac");
@@ -17,9 +17,9 @@ class MauSacRepo extends ConnectDB {
         return null;
     }
 
-    public function getColor($colorId) {
+    public function getColor($id) {
         try {
-            $query = "SELECT * FROM mausac WHERE ma_mau = '$colorId'";
+            $query = "SELECT * FROM mausac WHERE ma_mau = '$id'";
             $statement = mysqli_query($this->conn, $query);
 
             if ($row = mysqli_fetch_assoc($statement)) {
@@ -31,18 +31,21 @@ class MauSacRepo extends ConnectDB {
         return null;
     }
 
-    public function getColorsLength() {
+    public function getLength() : int {
         try {
-            $query = "SELECT COUNT(*) FROM mausac";
+            $query = "SELECT COUNT(*) as count FROM mausac";
             $statement = mysqli_query($this->conn, $query);
 
-            return mysqli_fetch_assoc($statement);
+            $result = mysqli_fetch_assoc($statement);
+
+            return $result['count'] === null ? -1 : (int)$result['count'];
         } catch (Exception $e) {
             echo 'Error: ' . $e->getMessage() . '<br>';
+            return -1;
         }
     }
 
-    public function addColor($color) {
+    public function add($object) : bool {
         try {
             $query = "INSERT INTO mausac(ma_mau, ten_mau, trang_thai) VALUES (?, ?, 0)";
             $statement = mysqli_prepare($this->conn, $query);
@@ -51,10 +54,10 @@ class MauSacRepo extends ConnectDB {
                 throw new Exception("Query preparation failed: " . mysqli_error($this->conn));
             }
 
-            $colorId = $color->getMaMau();
-            $colorName = $color->getTenMau();
+            $id = $object->getMaMau();
+            $name = $object->getTenMau();
 
-            $result = $statement->bind_param("ss", $colorId, $colorName);
+            $result = $statement->bind_param("ss", $id, $name);
             
             if (!$result) {
                 throw new Exception("Binding parameters failed: " . mysqli_error($this->conn));
@@ -67,7 +70,7 @@ class MauSacRepo extends ConnectDB {
         }
     }
 
-    public function deleteColor($colorId) : bool {
+    public function delete($id) : bool {
         try {
             $query = "UPDATE mausac SET trang_thai = 1 WHERE ma_mau = ?";
             $statement = mysqli_prepare($this->conn, $query);
@@ -76,7 +79,7 @@ class MauSacRepo extends ConnectDB {
                 throw new Exception("Deleting data failed: " . mysqli_error($this->conn));
             }
 
-            $result = $statement->bind_param("s", $colorId);
+            $result = $statement->bind_param("s", $id);
 
             if (!$result) {
                 throw new Exception("Binding parameters failed: " . $statement->error);

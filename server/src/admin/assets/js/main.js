@@ -93,15 +93,17 @@ $(document).ready(function() {
 function checkAllAccounts() {
   const firstCheck = document.querySelector('table.table thead input[type=checkbox]')
   
-  firstCheck.addEventListener('change', e => {
-    const checkItems = document.querySelectorAll('table.table input[name="chk[]"]')
-    
-    checkItems.forEach(item => {
-      if (firstCheck.checked) {
-        item.checked = true
-      } else {
-        item.checked = false
-      }
+  if (firstCheck) {
+    firstCheck.addEventListener('change', e => {
+      const checkItems = document.querySelectorAll('table.table input[name="chk[]"]')
+      
+      checkItems.forEach(item => {
+        if (firstCheck.checked) {
+          item.checked = true
+        } else {
+          item.checked = false
+        }
+      })
     })
-  })
+  }
 }

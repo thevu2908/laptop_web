@@ -24,28 +24,28 @@ class MauSacController {
         echo json_encode($result);
     }
 
-    public function getAllColors() {
+    public function getAll() {
         echo json_encode($this->mauSacRepo->getData());
     }
 
-    public function getColor($colorId) {
-        echo json_encode($this->mauSacRepo->getColor($colorId));
+    public function getColor($id) {
+        echo json_encode($this->mauSacRepo->getColor($id));
     }
 
-    public function getColorsLength() {
-        echo $this->mauSacRepo->getColorsLength();
+    public function getLength() : int {
+        return $this->mauSacRepo->getLength();
     }
 
-    public function addColor($color) {
-        if ($this->mauSacRepo->addColor($color)) {
+    public function add($object) {
+        if ($this->mauSacRepo->add($object)) {
             echo 'success';
         } else {
             echo 'fail';
         }
     }
 
-    public function deleteColor($colorId) {
-        if ($this->mauSacRepo->deleteColor($colorId)) {
+    public function delete($id) {
+        if ($this->mauSacRepo->delete($id)) {
             echo 'success';
         } else {
             echo 'fail';
@@ -61,22 +61,22 @@ switch ($action) {
         $mauSacCtl->getData();
         break;
     case 'get-all':
-        $mauSacCtl->getAllColors();
+        $mauSacCtl->getAll();
         break;
     case 'get':
-        $colorId = $_POST['colorId'];
-        $mauSacCtl->getColor($colorId);
+        $id = $_POST['id'];
+        $mauSacCtl->getColor($id);
         break;
     case 'add':
-        $colorId = $_POST['colorId'];
-        $colorName = $_POST['colorName'];
+        $id = $_POST['id'];
+        $name = $_POST['name'];
         
-        $color = new MauSac($colorId, $colorName, 0);
-        $mauSacCtl->addColor($productDetail);
+        $color = new MauSac($id, $name, 0);
+        $mauSacCtl->add($color);
         break;
     case 'delete':
-        $colorId = $_POST['colorId'];
-        $mauSacCtl->deleteColor($colorId);
+        $id = $_POST['id'];
+        $mauSacCtl->delete($id);
         break;
     default:
         break;

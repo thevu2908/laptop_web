@@ -189,15 +189,14 @@
 										<td>Màu sắc:</td>
 										<td>
 											<select id="product-color" class="form-control selectpicker" multiple data-live-search="true">
-												<option value="">Đen</option>
-												<option value="">Vang</option>
+												
 											</select>
 										</td>
 										<td>
 											<button href="#addProductColorModal" data-toggle="modal" type="button" class="btn btn-outline-primary btn-ssm br-50 ml-2">
 												<i class="fa-solid fa-plus"></i>
 											</button>
-											<button href="#deleteProductColorModal" data-toggle="modal" type="button" class="btn btn-outline-danger btn-ssm br-50 ml-1">
+											<button href="#deleteProductColorModal" type="button" class="btn-delete-color-modal btn btn-outline-danger btn-ssm br-50 ml-1">
 												<i class="fa-solid fa-minus"></i>
 											</button>
 										</td>
