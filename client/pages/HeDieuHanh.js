@@ -22,7 +22,7 @@ function loadOSData() {
                 $('#admin-product-main #product-os').html(html)
             }
         },
-        error: (jqXHR, textStatus, error) => {
+        error: (xhr, status, error) => {
             console.log(error)
         }
     })
@@ -78,7 +78,7 @@ function showDeleteOSModal() {
                     $('.delete-product-os-confirm').html(html)
                 }
             },
-            error: (jqXHR, textStatus, error) => {
+            error: (xhr, status, error) => {
                 console.log(error)
             }
         })
@@ -103,7 +103,7 @@ function deleteOS() {
                     console.log(data)
                 }
             },
-            error: (jqXHR, textStatus, error) => {
+            error: (xhr, status, error) => {
                 console.log(error)
             }
         })

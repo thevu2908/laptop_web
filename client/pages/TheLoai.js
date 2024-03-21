@@ -22,7 +22,7 @@ function loadTypeData() {
                 $('#admin-product-main #product-type').html(html)
             }
         },
-        error: (jqXHR, textStatus, error) => {
+        error: (xhr, status, error) => {
             console.log(error)
         }
     })
@@ -52,7 +52,7 @@ function addType() {
                     console.log(data)
                 }
             },
-            error: (jqXHR, textStatus, error) => {
+            error: (xhr, status, error) => {
                 console.log(error)
             }
         })
@@ -82,7 +82,7 @@ function showDeleteTypeModal() {
                     $('.type-confirm-delete').html(html)
                 }
             },
-            error: (jqXHR, textStatus, error) => {
+            error: (xhr, status, error) => {
                 console.log(error)
             }
         })
@@ -107,7 +107,7 @@ function deleteType() {
                     console.log(data)
                 }
             },
-            error: (jqXHR, textStatus, error) => {
+            error: (xhr, status, error) => {
                 console.log(error)
             }
         })

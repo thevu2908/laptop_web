@@ -112,3 +112,20 @@ function showDeleteBrandModal() {
         })
     })
 }
+
+function showBrandName(id, index) {
+    $.ajax({
+        url: 'server/src/controller/ThuongHieuController.php',
+        method: 'POST',
+        data: { action: 'get', brandId: id },
+        dataType: 'JSON',
+        success: data => {
+            if (data) {
+                $(`.admin-product-type-name-${index}`).append(data.ten_thuong_hieu)
+            }
+        },
+        error: (jqXHR, textStatus, error) => {
+            console.log(error)
+        }
+    })
+}

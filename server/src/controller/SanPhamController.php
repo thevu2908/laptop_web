@@ -32,8 +32,8 @@ class SanPhamController {
         echo json_encode($this->sanPhamRepo->getProduct($productId));
     }
 
-    public function getProductsLength() {
-        echo $this->sanPhamRepo->getProductsLength();
+    public function getProductsLength() : int {
+        return $this->sanPhamRepo->getProductsLength();
     }
 
     public function addProduct($product) {
@@ -59,13 +59,15 @@ class SanPhamController {
             echo 'fail';
         }
     }
+
+    public function saveImage()
 }
 
 $sanPhamCtl = new SanPhamController();
 $action = $_POST['action'];
 
 switch ($action) {
-    case 'load':
+    case 'get-data':
         $sanPhamCtl->getData();
         break;
     case 'get-all':
@@ -76,27 +78,31 @@ switch ($action) {
         $sanPhamCtl->getProduct($productId);
         break;
     case 'add':
-        $productId = $_POST['productId'];
-        $companyId = $_POST['companyId'];
-        $typeId = $_POST['typeId'];
-        $osId = $_POST['osId'];
-        $productName = $_POST['productName'];
-        $screen = $_POST['screen'];
-        $resolution = $_POST['resolution'];
-        $battery = $_POST['battery'];
-        $keyboard = $_POST['keyboard'];
-        $importPrice = $_POST['importPrice'];
-        $chietkhau = $_POST['chietkhau'];
-        $price = $_POST['price'];
-        $weight = $_POST['weight'];
-        $material = $_POST['material'];
-        $origin = $_POST['origin'];
-        $quantity = $_POST['origin'];
-
-        $product = new SanPham($productId, $companyId, $typeId, $osId, $productName, $screen, $resolution, $battery, $keyboard,  $price, $importPrice, $chietkhau, $weight,
-                                $material, $origin, $quantity, 0);
-        
-        $sanPhamCtl->addProduct($product);
+        $length = $sanPhamCtl->getProductsLength();
+        if ($length >= 0) {
+            $length += 1;
+            $productId = 'SP'.sprintf("%03d", $length);
+            $companyId = $_POST['companyId'];
+            $typeId = $_POST['typeId'];
+            $osId = $_POST['osId'];
+            $productName = $_POST['productName'];
+            $screen = $_POST['screen'];
+            $resolution = $_POST['resolution'];
+            $battery = $_POST['battery'];
+            $keyboard = $_POST['keyboard'];
+            $importPrice = $_POST['importPrice'];
+            $chietkhau = $_POST['chietkhau'];
+            $price = $_POST['price'];
+            $weight = $_POST['weight'];
+            $material = $_POST['material'];
+            $origin = $_POST['origin'];
+            $quantity = $_POST['quantity'];
+    
+            $product = new SanPham($productId, $companyId, $typeId, $osId, $productName, $screen, $resolution, $battery, $keyboard,  $price, $importPrice, $chietkhau, $weight,
+                                    $material, $origin, $quantity, 0);
+            
+            $sanPhamCtl->addProduct($product);
+        }
         break;
     case 'update':
         $productId = $_POST['productId'];

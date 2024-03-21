@@ -44,7 +44,7 @@ function loadEmployeeData() {
                 $('.admin-employee-list').html(html)
             }
         },
-        error: (jqXHR, textStatus, error) => {
+        error: (xhr, status, error) => {
             console.log(error)
         }
     })
@@ -89,7 +89,7 @@ function loadEmployeeAccountData() {
                     }
                 })
             },
-            error: (jqXHR, textStatus, error) => {
+            error: (xhr, status, error) => {
                 console.log(error)
             }
         })

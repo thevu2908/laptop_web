@@ -23,7 +23,7 @@ function loadCPUData() {
                 $('#admin-product-main #product-cpu').selectpicker('refresh')
             }
         },
-        error: (jqXHR, textStatus, error) => {
+        error: (xhr, status, error) => {
             console.log(error)
         }
     })
@@ -86,7 +86,7 @@ function showDeleteCPUModal() {
                             resolve(cpuHtml)
                         }
                     },
-                    error: (jqXHR, textStatus, error) => {
+                    error: (xhr, status, error) => {
                         console.log(error)
                     }
                 })
@@ -126,7 +126,7 @@ function deleteCPU() {
                             resolve(false)
                         }
                     },
-                    error: (jqXHR, textStatus, error) => {
+                    error: (xhr, status, error) => {
                         console.log(error)
                         reject(false)
                     }

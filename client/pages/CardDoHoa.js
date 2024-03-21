@@ -23,7 +23,7 @@ function loadGPUData() {
                 $('#admin-product-main #product-gpu').selectpicker('refresh')
             }
         },
-        error: (jqXHR, textStatus, error) => {
+        error: (xhr, status, error) => {
             console.log(error)
         }
     })
@@ -86,7 +86,7 @@ function showDeleteGPUModal() {
                             resolve(gpuHtml)
                         }
                     },
-                    error: (jqXHR, textStatus, error) => {
+                    error: (xhr, status, error) => {
                         console.log(error)
                     }
                 })
@@ -126,7 +126,7 @@ function deleteGPU() {
                             resolve(false)
                         }
                     },
-                    error: (jqXHR, textStatus, error) => {
+                    error: (xhr, status, error) => {
                         console.log(error)
                         reject(false)
                     }

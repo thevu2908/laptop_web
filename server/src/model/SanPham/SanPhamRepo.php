@@ -31,14 +31,17 @@ class SanPhamRepo extends ConnectDB {
         return null;
     }
 
-    public function getProductsLength() {
+    public function getProductsLength() : int {
         try {
-            $query = "SELECT COUNT(*) FROM sanpham";
+            $query = "SELECT COUNT(*) as count FROM sanpham";
             $statement = mysqli_query($this->conn, $query);
 
-            return mysqli_fetch_assoc($statement);
+            $result = mysqli_fetch_assoc($statement);
+
+            return $result['count'] === null ? - 1 : (int)$result['count'];
         } catch (Exception $e) {
             echo 'Error: ' . $e->getMessage() . '<br>';
+            return -1;
         }
     }
 

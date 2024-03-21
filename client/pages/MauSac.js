@@ -23,7 +23,7 @@ function loadColorData() {
                 $('#admin-product-main #product-color').selectpicker('refresh');
             }
         },
-        error: (jqXHR, textStatus, error) => {
+        error: (xhr, status, error) => {
             console.log(error)
         }
     })
@@ -66,7 +66,7 @@ function addColor() {
                     console.log(data)
                 }
             },
-            error: (jqXHR, textStatus, error) => {
+            error: (xhr, status, error) => {
                 console.log(error)
             }
         })
@@ -103,7 +103,7 @@ function showDeleteColorModal() {
                             resolve(colorHtml)
                         }
                     },
-                    error: (jqXHR, textStatus, error) => {
+                    error: (xhr, status, error) => {
                         console.log(error)
                     }
                 })
@@ -143,7 +143,7 @@ function deleteColor() {
                             resolve(false)
                         }
                     },
-                    error: (jqXHR, textStatus, error) => {
+                    error: (xhr, status, error) => {
                         console.log(error)
                         reject(false)
                     }

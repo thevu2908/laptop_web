@@ -52,7 +52,7 @@ function loadAccountData() {
                 $('.admin-account-list').html(html);
             }
         },
-        error: (jqXHR, textStatus, error) => {
+        error: (xhr, status, error) => {
             console.log(error)
         }
     })
@@ -70,7 +70,7 @@ function getAllAccounts() {
                     resolve(data)
                 }
             },
-            error: (jqXHR, textStatus, error) => {
+            error: (xhr, status, error) => {
                 reject(error)
             }
         })
@@ -110,7 +110,7 @@ function addAccount() {
                     alert('Thêm tài khoản thất bại.\nVui lòng kiểm tra thông tin nhập vào')
                 }
             },
-            error: (jqXHR, textStatus, error) => {
+            error: (xhr, status, error) => {
                 console.log(error)
             }
         })
@@ -133,7 +133,7 @@ function showUpdateAccountModal() {
                     $('#admin-account-password-edit').val(data.password)
                 }
             },
-            error: (jqXHR, textStatus, error) => {
+            error: (xhr, status, error) => {
                 console.log(error)
             }
         })
@@ -172,7 +172,7 @@ function updateAccount() {
                     alert('Sửa thông tin tài khoản thất bại\nVui lòng kiểm tra thông tin nhập vào')
                 }
             },
-            error: (jqXHR, textStatus, error) => {
+            error: (xhr, status, error) => {
                 console.log(error)
             }
         })
@@ -230,7 +230,7 @@ function deleteAccount() {
                         alert('Xóa tài khoản thất bại')
                     }
                 },
-                error: (jqXHR, textStatus, error) => {
+                error: (xhr, status, error) => {
                     console.log(error)
                 }
             })
@@ -267,7 +267,7 @@ function deleteAccount() {
                                     resolve(false)
                                 }
                             },
-                            error: (jqXHR, textStatus, error) => {
+                            error: (xhr, status, error) => {
                                 console.log(error)
                                 resolve(false)
                             }
@@ -311,7 +311,7 @@ function showViewAccountModal() {
                     $('#admin-account-password-view').val(data.password)
                 }
             },
-            error: (jqXHR, textStatus, error) => {
+            error: (xhr, status, error) => {
                 console.log(error)
             }
         })

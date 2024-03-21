@@ -89,6 +89,7 @@
   <script src="./client/pages/CardDoHoa.js"></script>
   <script src="./client/pages/CongKetNoi.js"></script>
   <script src="./client/pages/HeDieuHanh.js"></script>
+  <script src="./client/pages/SanPham.js"></script>
 </body>
 
 </html>

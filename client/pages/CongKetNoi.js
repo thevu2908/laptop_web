@@ -23,7 +23,7 @@ function loadPlugData() {
                 $('#admin-product-main #product-plug').selectpicker('refresh')
             }
         },
-        error: (jqXHR, textStatus, error) => {
+        error: (xhr, status, error) => {
             console.log(error)
         }
     })
@@ -86,7 +86,7 @@ function showDeletePlugModal() {
                             resolve(plugHtml)
                         }
                     },
-                    error: (jqXHR, textStatus, error) => {
+                    error: (xhr, status, error) => {
                         console.log(error)
                     }
                 })
@@ -126,7 +126,7 @@ function deletePlug() {
                             resolve(false)
                         }
                     },
-                    error: (jqXHR, textStatus, error) => {
+                    error: (xhr, status, error) => {
                         console.log(error)
                         reject(false)
                     }

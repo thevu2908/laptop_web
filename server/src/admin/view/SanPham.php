@@ -37,8 +37,8 @@
 								</span>
 							</th>
 							<th>ID</th>
-							<th>Hãng</th>
 							<th>Tên sản phẩm</th>
+							<th>Thương hiệu</th>
 							<th>Giá nhập</th>
 							<th>Chiết khấu</th>
 							<th>Giá bán</th>
@@ -47,36 +47,7 @@
 						</tr>
 					</thead>
 					<tbody class="admin-product-list">
-						<!-- <tr>
-							<td>
-								<span class="custom-checkbox">
-									<input type="checkbox" id="checkbox1" name="options[]" value="1">
-									<label for="checkbox1"></label>
-								</span>
-							</td>
-							<td>1</td>
-							<td>Apple</td>
-							<td>iOS</td>
-							<td>MacBook</td>
-							<td>14in</td>
-							<td>800000</td>
-							<td>40.000.000</td>
-							<td>30.000.000</td>
-							<td>10%</td>
-							<td>1.2kg</td>
-							<td><span class="status text-success">&bull;</span>Active</td>
-							<td>
-								<a href="#editEmployeeModal" class="edit" data-toggle="modal">
-									<i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
-								</a>
-								<a href="#deleteEmployeeModal" class="delete" data-toggle="modal">
-									<i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
-								</a>
-								<a href="#" class="view" title="View" data-toggle="tooltip">
-									<i class="material-icons">&#xE417;</i>
-								</a>
-							</td>
-						</tr> -->
+						
 					</tbody>
 				</table>
 				<div class="clearfix">
@@ -378,7 +349,7 @@
 						</div>
 						<div class="modal-footer">
 							<input type="button" class="btn btn-secondary" data-dismiss="modal" value="Hủy">
-							<input type="button" class="btn btn-primary" value="Thêm">
+							<input type="button" class="btn btn-primary btn-add-product" value="Thêm">
 						</div>
 					</form>
 				</div>
