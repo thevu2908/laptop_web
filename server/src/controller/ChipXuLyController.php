@@ -28,24 +28,24 @@ class ChipXuLyController {
         echo json_encode($this->chipXuLyRepo->getData());
     }
 
-    public function getCPU($cpuId) {
-        echo json_encode($this->chipXuLyRepo->getCPU($cpuId));
+    public function getCPU($id) {
+        echo json_encode($this->chipXuLyRepo->getCPU($id));
     }
 
-    public function getLength() {
-        echo $this->chipXuLyRepo->getLength();
+    public function getLength() : int {
+        return $this->chipXuLyRepo->getLength();
     }
 
-    public function addCPU($cpu) {
-        if ($this->chipXuLyRepo->addCPU($cpu)) {
+    public function add($object) {
+        if ($this->chipXuLyRepo->add($object)) {
             echo 'success';
         } else {
             echo 'fail';
         }
     }
 
-    public function deleteCPU($cpuId) {
-        if ($this->chipXuLyRepo->deleteCPU($cpuId)) {
+    public function delete($id) {
+        if ($this->chipXuLyRepo->delete($id)) {
             echo 'success';
         } else {
             echo 'fail';
@@ -64,19 +64,23 @@ switch ($action) {
         $cpuCtl->getAll();
         break;
     case 'get':
-        $cpuId = $_POST['cpuId'];
-        $cpuCtl->getCPU($cpuId);
+        $id = $_POST['id'];
+        $cpuCtl->getCPU($id);
         break;
     case 'add':
-        $cpuId = $_POST['cpuId'];
-        $cpuName = $_POST['cpuName'];
-        
-        $cpu = new ChipXuLy($cpuId, $cpuName, 0);
-        $cpuCtl->addCPU($cpu);
+        $length = $cpuCtl->getLength();
+        if ($length >= 0) {
+            $length += 1;
+            $id = 'CXL'.sprintf('%03d', $length);
+            $name = $_POST['name'];
+            
+            $object = new ChipXuLy($id, $name, 0);
+            $cpuCtl->add($object);
+        }
         break;
     case 'delete':
-        $cpuId = $_POST['cpuId'];
-        $cpuCtl->deleteCPU($cpuId);
+        $id = $_POST['id'];
+        $cpuCtl->delete($id);
         break;
     default:
         break;

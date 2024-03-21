@@ -218,14 +218,14 @@
 										<td>CPU</td>
 										<td>
 											<select id="product-cpu" class="form-control selectpicker" multiple data-live-search="true">
-												<option value="">i5 11900H</option>
+												
 											</select>
 										</td>
 										<td>
 											<button href="#addProductCPUModal" data-toggle="modal" type="button" class="btn btn-outline-primary btn-ssm br-50 ml-2">
 												<i class="fa-solid fa-plus"></i>
 											</button>
-											<button href="#deleteProductCPUModal" data-toggle="modal" type="button" class="btn btn-outline-danger btn-ssm br-50 ml-1">
+											<button href="#deleteProductCPUModal" type="button" class="btn-delete-cpu-modal btn btn-outline-danger btn-ssm br-50 ml-1">
 												<i class="fa-solid fa-minus"></i>
 											</button>
 										</td>

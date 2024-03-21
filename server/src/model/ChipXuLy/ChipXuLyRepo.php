@@ -1,7 +1,7 @@
 <?php
 
 class ChipXuLyRepo extends ConnectDB {
-    public function getData() {
+    public function getData() : array | null {
         $cpus = [];
         try {
             $statement = mysqli_query($this->conn, "SELECT * FROM chipxuly");
@@ -17,9 +17,9 @@ class ChipXuLyRepo extends ConnectDB {
         return null;
     }
 
-    public function getCPU($cpuId) {
+    public function getCPU($id) {
         try {
-            $query = "SELECT * FROM chipxuly WHERE ma_chip_xu_ly = '$cpuId'";
+            $query = "SELECT * FROM chipxuly WHERE ma_chip_xu_ly = '$id'";
             $statement = mysqli_query($this->conn, $query);
 
             if ($row = mysqli_fetch_assoc($statement)) {
@@ -31,30 +31,33 @@ class ChipXuLyRepo extends ConnectDB {
         return null;
     }
 
-    public function getLength() {
+    public function getLength() : int {
         try {
-            $query = "SELECT COUNT(*) FROM chipxuly";
+            $query = "SELECT COUNT(*) as count FROM chipxuly";
             $statement = mysqli_query($this->conn, $query);
 
-            return mysqli_fetch_assoc($statement);
+            $result = mysqli_fetch_assoc($statement);
+
+            return $result["count"] === null ? -1 : (int)$result["count"];
         } catch (Exception $e) {
             echo 'Error: ' . $e->getMessage() . '<br>';
+            return -1;
         }
     }
 
-    public function addCPU($cpu) {
+    public function add($object) : bool {
         try {
-            $query = "INSERT INTO chip_xu_ly(ma_chip_xu_ly, ten_chip, trang_thai) VALUES (?, ?, 0)";
+            $query = "INSERT INTO chipxuly(ma_chip_xu_ly, ten_chip, trang_thai) VALUES (?, ?, 0)";
             $statement = mysqli_prepare($this->conn, $query);
 
             if (!$statement) {
                 throw new Exception("Query preparation failed: " . mysqli_error($this->conn));
             }
 
-            $cpuId = $cpu->getMaChip();
-            $cpuName = $cpu->getTenChip();
+            $id = $object->getMaChipXuLy();
+            $name = $object->getTenChip();
 
-            $result = $statement->bind_param("ss", $cpuId, $cpuName);
+            $result = $statement->bind_param("ss", $id, $name);
             
             if (!$result) {
                 throw new Exception("Binding parameters failed: " . mysqli_error($this->conn));
@@ -67,7 +70,7 @@ class ChipXuLyRepo extends ConnectDB {
         return false;
     }
 
-    public function deleteCPU($cpuId) {
+    public function delete($id) : bool {
         try {
             $query = "UPDATE chipxuly SET trang_thai = 1 WHERE ma_chip_xu_ly = ?";
             $statement = mysqli_prepare($this->conn, $query);
@@ -76,7 +79,7 @@ class ChipXuLyRepo extends ConnectDB {
                 throw new Exception("Deleting data failed: " . mysqli_error($this->conn));
             }
 
-            $result = $statement->bind_param("s", $cpuId);
+            $result = $statement->bind_param("s", $id);
 
             if (!$result) {
                 throw new Exception("Binding parameters failed: " . $statement->error);

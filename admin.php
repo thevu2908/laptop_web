@@ -85,6 +85,7 @@
   <script src="./client/pages/ThuongHieu.js"></script>
   <script src="./client/pages/TheLoai.js"></script>
   <script src="./client/pages/MauSac.js"></script>
+  <script src="./client/pages/ChipXuLy.js"></script>
 </body>
 
 </html>
