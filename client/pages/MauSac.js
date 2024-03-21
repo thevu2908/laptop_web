@@ -131,7 +131,7 @@ function deleteColor() {
         let promises = []
 
         selected.forEach(color => {
-            let = promise = new Promise((resolve, reject) => {
+            let promise = new Promise((resolve, reject) => {
                 $.ajax({
                     url: 'server/src/controller/MauSacController.php',
                     method: 'POST',
