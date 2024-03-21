@@ -361,14 +361,14 @@
 										<td>OS</td>
 										<td>
 											<select id="product-os" class="form-control">
-												<option value="">Windows</option>
+												
 											</select>
 										</td>
 										<td>
 											<button href="#addProductOSModal" data-toggle="modal" type="button" class="btn btn-outline-primary btn-ssm br-50 ml-2">
 												<i class="fa-solid fa-plus"></i>
 											</button>
-											<button href="#deleteProductOSModal" data-toggle="modal" type="button" class="btn btn-outline-danger btn-ssm br-50 ml-1">
+											<button href="#deleteProductOSModal" data-toggle="modal" type="button" class="btn-delete-os-modal btn btn-outline-danger btn-ssm br-50 ml-1">
 												<i class="fa-solid fa-minus"></i>
 											</button>
 										</td>

@@ -88,6 +88,7 @@
   <script src="./client/pages/ChipXuLy.js"></script>
   <script src="./client/pages/CardDoHoa.js"></script>
   <script src="./client/pages/CongKetNoi.js"></script>
+  <script src="./client/pages/HeDieuHanh.js"></script>
 </body>
 
 </html>

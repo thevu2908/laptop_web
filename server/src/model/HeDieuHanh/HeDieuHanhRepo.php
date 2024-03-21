@@ -1,7 +1,7 @@
 <?php
 
 class HeDieuHanhRepo extends ConnectDB {
-    public function getData() {
+    public function getData() : array | null {
         $arrays = [];
         try {
             $statement = mysqli_query($this->conn, "SELECT * FROM hedieuhanh");
@@ -31,14 +31,17 @@ class HeDieuHanhRepo extends ConnectDB {
         return null;
     }
 
-    public function getLength() {
+    public function getLength() : int {
         try {
-            $query = "SELECT COUNT(*) FROM hedieuhanh";
+            $query = "SELECT COUNT(*) as count FROM hedieuhanh";
             $statement = mysqli_query($this->conn, $query);
 
-            return mysqli_fetch_assoc($statement);
+            $result = mysqli_fetch_assoc($statement);
+
+            return $result["count"] === null ? -1 : (int)$result["count"];
         } catch (Exception $e) {
             echo 'Error: ' . $e->getMessage() . '<br>';
+            return -1;
         }
     }
 

@@ -11,12 +11,12 @@ class HeDieuHanhController {
     }
 
     public function getData() {
-        $plugs = $this->heDieuHanhRepo->getData();
+        $oss = $this->heDieuHanhRepo->getData();
         $result = [];
 
-        foreach ($plugs as $plug) {
-            if ($plug['trang_thai'] == 0) {
-                $result[] = $plug;
+        foreach ($oss as $os) {
+            if ($os['trang_thai'] == 0) {
+                $result[] = $os;
             }
         }
         
@@ -31,8 +31,8 @@ class HeDieuHanhController {
         echo json_encode($this->heDieuHanhRepo->getOS($id));
     }
 
-    public function getLength() {
-        echo $this->heDieuHanhRepo->getLength();
+    public function getLength() : int {
+        return $this->heDieuHanhRepo->getLength();
     }
 
     public function add($object) {
@@ -67,11 +67,15 @@ switch ($action) {
         $heDieuHanhCtl->getOS($id);
         break;
     case 'add':
-        $id = $_POST['id'];
-        $name = $_POST['name'];
-        
-        $object = new HeDieuHanh($id, $name, 0);
-        $heDieuHanhCtl->add($object);
+        $length = $heDieuHanhCtl->getLength();
+        if ($length >= 0) {
+            $length += 1;
+            $id = 'HDH'.sprintf('%03d', $length);
+            $name = $_POST['name'];
+
+            $object = new HeDieuHanh($id, $name, 0);
+            $heDieuHanhCtl->add($object);
+        }
         break;
     case 'delete':
         $id = $_POST['id'];

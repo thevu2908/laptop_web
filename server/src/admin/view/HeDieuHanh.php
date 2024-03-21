@@ -17,7 +17,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
-                <button type="button" class="btn btn-primary">Thêm</button>
+                <button type="button" class="btn btn-primary btn-add-os">Thêm</button>
             </div>
         </div>
     </div>
@@ -31,13 +31,12 @@
                     <h4 class="modal-title">Xóa hệ điều hành</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 </div>
-                <div class="modal-body">
-                    <p>Bạn có muốn xóa hệ điều hành này ?</p>
-                    <p class="text-warning"><small>Hành động này sẽ không thể hoàn tác</small></p>
+                <div class="modal-body delete-product-os-confirm">
+                    
                 </div>
                 <div class="modal-footer">
                     <input type="button" class="btn btn-secondary" data-dismiss="modal" value="Hủy">
-                    <input type="submit" class="btn btn-danger" value="Xóa">
+                    <input type="button" class="btn btn-danger btn-delete-os" value="Xóa">
                 </div>
             </form>
         </div>
