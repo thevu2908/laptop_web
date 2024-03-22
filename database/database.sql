@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 20, 2024 at 04:00 AM
+-- Generation Time: Mar 22, 2024 at 04:02 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -33,6 +33,18 @@ CREATE TABLE `carddohoa` (
   `trang_thai` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `carddohoa`
+--
+
+INSERT INTO `carddohoa` (`ma_card`, `ten_card`, `trang_thai`) VALUES
+('CDH001', 'GTX 1650', 0),
+('CDH002', 'RTX 3050', 0),
+('CDH003', 'RTX 3060', 0),
+('CDH004', 'abc', 1),
+('CDH005', 'bcd', 1),
+('CDH006', 'ddd', 1);
+
 -- --------------------------------------------------------
 
 --
@@ -44,6 +56,16 @@ CREATE TABLE `chipxuly` (
   `ten_chip` varchar(100) NOT NULL,
   `trang_thai` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `chipxuly`
+--
+
+INSERT INTO `chipxuly` (`ma_chip_xu_ly`, `ten_chip`, `trang_thai`) VALUES
+('CXL001', 'i5 11500H', 0),
+('CXL002', 'i9 11900H', 0),
+('CXL003', 'abc', 1),
+('CXL004', 'bcd', 1);
 
 -- --------------------------------------------------------
 
@@ -152,7 +174,6 @@ CREATE TABLE `chitietsanpham` (
   `rom` varchar(50) NOT NULL,
   `hinh_anh` varchar(200) NOT NULL,
   `gia_tien` float NOT NULL,
-  `so_luong` int(11) NOT NULL,
   `trang_thai` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -179,6 +200,16 @@ CREATE TABLE `congketnoi` (
   `ten_cong` varchar(50) NOT NULL,
   `trang_thai` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `congketnoi`
+--
+
+INSERT INTO `congketnoi` (`ma_cong`, `ten_cong`, `trang_thai`) VALUES
+('CKN001', 'Type C', 0),
+('CKN002', 'HDMI', 0),
+('CKN003', 'abc', 1),
+('CKN004', 'bcd', 1);
 
 -- --------------------------------------------------------
 
@@ -220,6 +251,15 @@ CREATE TABLE `hedieuhanh` (
   `ten_hdh` varchar(50) NOT NULL,
   `trang_thai` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `hedieuhanh`
+--
+
+INSERT INTO `hedieuhanh` (`ma_hdh`, `ten_hdh`, `trang_thai`) VALUES
+('HDH001', 'Windows', 0),
+('HDH002', 'macOS', 0),
+('HDH003', 'abc', 1);
 
 -- --------------------------------------------------------
 
@@ -281,6 +321,16 @@ CREATE TABLE `mausac` (
   `ten_mau` varchar(50) NOT NULL,
   `trang_thai` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `mausac`
+--
+
+INSERT INTO `mausac` (`ma_mau`, `ten_mau`, `trang_thai`) VALUES
+('#000', 'Đen', 0),
+('#c0c0c0', 'Bạc', 0),
+('#fff', 'Trắng', 0),
+('#ffff00', 'Vàng', 0);
 
 -- --------------------------------------------------------
 
@@ -415,6 +465,13 @@ CREATE TABLE `sanpham` (
   `trang_thai` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `sanpham`
+--
+
+INSERT INTO `sanpham` (`ma_sp`, `ma_thuong_hieu`, `ma_the_loai`, `ma_hdh`, `ten_sp`, `kich_co_man_hinh`, `do_phan_giai`, `pin`, `ban_phim`, `gia_ban`, `gia_nhap`, `chiet_khau`, `trong_luong`, `chat_lieu`, `xuat_xu`, `so_luong_ton`, `trang_thai`) VALUES
+('test', 'TH001', 'TL001', 'HDH001', 'test', 'test', 'test', 'test', 'test', 0, 0, 0, 1, 'test', 'test', 0, 0);
+
 -- --------------------------------------------------------
 
 --
@@ -452,6 +509,15 @@ CREATE TABLE `theloai` (
   `trang_thai` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `theloai`
+--
+
+INSERT INTO `theloai` (`ma_the_loai`, `ten_loai`, `trang_thai`) VALUES
+('TL001', 'Laptop Gaming', 0),
+('TL002', 'Laptop Văn Phòng', 0),
+('TL003', 'abc', 1);
+
 -- --------------------------------------------------------
 
 --
@@ -486,6 +552,20 @@ CREATE TABLE `thuonghieu` (
   `ten_thuong_hieu` varchar(50) NOT NULL,
   `trang_thai` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `thuonghieu`
+--
+
+INSERT INTO `thuonghieu` (`ma_thuong_hieu`, `ten_thuong_hieu`, `trang_thai`) VALUES
+('TH001', 'Dell', 0),
+('TH002', 'Acer', 0),
+('TH003', 'Asus', 0),
+('TH004', 'HP', 0),
+('TH005', 'Apple', 0),
+('TH006', 'MSI', 0),
+('TH007', 'Lenovo', 0),
+('TH008', 'abc', 1);
 
 --
 -- Indexes for dumped tables
