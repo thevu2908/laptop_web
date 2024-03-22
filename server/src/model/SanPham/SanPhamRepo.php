@@ -84,7 +84,11 @@ class SanPhamRepo extends ConnectDB {
                 throw new Exception("Binding parameters failed: " . mysqli_error($this->conn));
             }
 
-            return $statement->execute();
+            if ($statement->execute()) {
+                return true;
+            } else {
+                throw new Exception("Execution of query failed: " . mysqli_error($this->conn));
+            }
         } catch (Exception $e) {
             echo 'Error: ' . $e->getMessage() . '<br>';
             return false;

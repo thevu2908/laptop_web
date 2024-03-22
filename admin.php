@@ -90,6 +90,8 @@
   <script src="./client/pages/CongKetNoi.js"></script>
   <script src="./client/pages/HeDieuHanh.js"></script>
   <script src="./client/pages/SanPham.js"></script>
+  <script src="./client/pages/ChiTietSanPham.js"></script>
+  <script src="./client/pages/ChiTietCongKetNoi.js"></script>
 </body>
 
 </html>

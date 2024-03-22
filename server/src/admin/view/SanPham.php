@@ -94,7 +94,7 @@
 						<div class="modal-row">	
 							<div class="control-form__upload">
 								<div class="upload-box hide-image">
-									<input type="file" id="imgage-input" accept="image/*" hidden required>
+									<input type="file" id="product-image" accept="image/*" hidden>
 									<img src="" alt="Hình ảnh sản phẩm" class="preview-img">
 									<span class="btn-remove-img" onClick="removePreviewImage()">
 										<i class="fa-solid fa-xmark"></i>
@@ -110,6 +110,12 @@
 						<div class="modal-row">
 							<h5 class="modal-row-title">Thông tin sản phẩm</h5>
 							<ul class="modal-row-list">
+								<li class="modal-row-item row align-items-center">
+									<label for="product-name" class="col-sm-4 px-0 mb-0">Tên sản phẩm:</label>
+									<div class="col-sm-8">
+										<input type="text" class="form-control" name="product-name" id="product-name">
+									</div>
+								</li>
 								<li class="modal-row-item row align-items-center">
 									<label for="product-origin" class="col-sm-3 px-0 mb-0">Xuất xứ:</label>
 									<div class="col-sm-8 px-0">
@@ -151,9 +157,9 @@
 							<table class="modal-row-table">
 								<tbody>
 									<tr>
-										<td>Trọng lượng sản phẩm:</td>
+										<td>Trọng lượng(kg):</td>
 										<td>
-											<input type="text" class="form-control" name="product-weight" id="product-weight">
+											<input type="number" class="form-control" name="product-weight" id="product-weight">
 										</td>
 									</tr>
 									<tr>
@@ -246,7 +252,7 @@
 									<tr>
 										<td>Độ phân giải</td>
 										<td>
-											<input type="text" class="form-control" name="product-resoluton" id="product-resoluton">
+											<input type="text" class="form-control" name="product-resolution" id="product-resolution">
 										</td>
 									</tr>
 								</tbody>

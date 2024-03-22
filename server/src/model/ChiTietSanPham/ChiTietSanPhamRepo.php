@@ -31,21 +31,23 @@ class ChiTietSanPhamRepo extends ConnectDB {
         return null;
     }
 
-    public function getProductDetailsLength() {
+    public function getProductDetailsLength() : int {
         try {
-            $query = "SELECT COUNT(*) FROM chitietsanpham";
+            $query = "SELECT COUNT(*) as count FROM chitietsanpham";
             $statement = mysqli_query($this->conn, $query);
 
-            return mysqli_fetch_assoc($statement);
+            $result = mysqli_fetch_assoc($statement);
+
+            return $result['count'] === null ? -1 : (int)$result['count'];
         } catch (Exception $e) {
             echo 'Error: ' . $e->getMessage() . '<br>';
+            return -1;
         }
     }
 
     public function addProductDetail($productDetail) : bool {
         try {
-            $query = "INSERT INTO sanpham(ma_ctsp, ma_sp, ma_chip_xu_ly, ma_mau, ram, rom, hinh_anh, card_do_hoa, gia_tien, so_luong, trang_thai) 
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0)";
+            $query = "INSERT INTO chitietsanpham(ma_ctsp, ma_sp, ma_chip_xu_ly, ma_mau, ma_carddohoa, ma_congketnoi, ram, rom, hinh_anh, gia_tien, trang_thai) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0)";
             $statement = mysqli_prepare($this->conn, $query);
 
             if (!$statement) {
@@ -56,25 +58,29 @@ class ChiTietSanPhamRepo extends ConnectDB {
             $productId = $productDetail->getMaSp();
             $cpuId = $productDetail->getMaChipXuLy();
             $colorId = $productDetail->getMaMau();
+            $gpuId = $productDetail->getMaCardDoHoa();
+            $plugId = $productDetail->getMaCongKetNoi();
             $ram = $productDetail->getRam();
             $rom = $productDetail->getRom();
             $image = $productDetail->getHinhAnh();
-            $gpu = $productDetail->getCardDoHoa();
             $price = $productDetail->getGiaTien();
-            $quantity = $productDetail->getSoLuong();
 
             $result = $statement->bind_param(
-                "ssssssssdi", 
-                $productDetailId, $productId, $cpuId, $colorId,
-                $ram, $rom, $image, $gpu,
-                $price, $quantity
+                "sssssssssi", 
+                $productDetailId, $productId, $cpuId, $colorId, $gpuId, $plugId,
+                $ram, $rom, $image,
+                $price
             );
             
             if (!$result) {
                 throw new Exception("Binding parameters failed: " . mysqli_error($this->conn));
             }
 
-            return $statement->execute();
+            if ($statement->execute()) {
+                return true;
+            } else {
+                throw new Exception("Execution of query failed: " . mysqli_error($this->conn));
+            }
         } catch (Exception $e) {
             echo 'Error: ' . $e->getMessage() . '<br>';
             return false;
@@ -83,7 +89,7 @@ class ChiTietSanPhamRepo extends ConnectDB {
 
     public function updateProductDetail($productDetail) : bool {
         try {
-            $query = "UPDATE chitietsanpham SET ma_chip_xu_ly = ?, ma_mau = ?, ram = ?, rom = ?, hinh_anh = ?, card_do_hoa = ?, gia_tien = ?, so_luong = ? WHERE ma_ctsp = ?";
+            $query = "UPDATE chitietsanpham SET ma_chip_xu_ly = ?, ma_mau = ?, ma_carddohoa = ?, ma_congketnoi = ?, ram = ?, rom = ?, hinh_anh = ?, gia_tien = ? WHERE ma_ctsp = ?";
             $statement = mysqli_prepare($this->conn, $query);
             
             if (!$statement) {
@@ -91,21 +97,20 @@ class ChiTietSanPhamRepo extends ConnectDB {
             }
 
             $productDetailId = $productDetail->getMaCtsp();
-            $productId = $productDetail->getMaSp();
             $cpuId = $productDetail->getMaChipXuLy();
             $colorId = $productDetail->getMaMau();
+            $gpuId = $productDetail->getMaCardDoHoa();
+            $plugId = $productDetail->getMaCongKetNoi();
             $ram = $productDetail->getRam();
             $rom = $productDetail->getRom();
             $image = $productDetail->getHinhAnh();
-            $gpu = $productDetail->getCardDoHoa();
             $price = $productDetail->getGiaTien();
-            $quantity = $productDetail->getSoLuong();
             
             $result = $statement->bind_param(
-                "sssssssdis", 
-                $productId, $cpuId, $colorId,
-                $ram, $rom, $image, $gpu,
-                $price, $quantity,
+                "sssssssis", 
+                $cpuId, $colorId, $gpuId, $plugId,
+                $ram, $rom, $image,
+                $price,
                 $productDetailId
             );
 

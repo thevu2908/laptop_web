@@ -1,6 +1,5 @@
 const uploadImageContainer = document.querySelector('.upload-box')
-const imageInputElement = document.querySelector('#admin-product-main #imgage-input')
-const handleFileSelect = document.querySelector('#admin-product-main #imgage-input')
+const handleFileSelect = document.querySelector('#admin-product-main #product-image')
 const openFileChooser = document.querySelector('#admin-product-main .btn-upload-img')
 
 function uploadImage(file) {
@@ -54,16 +53,6 @@ if (uploadImageContainer) {
     uploadImageContainer.ondragleave = e => {
         e.preventDefault()
         e.stopPropagation()
-    }
-}
-
-if (imageInputElement) {
-    imageInputElement.onchange = e => {
-        const files = e.target.files;
-        if (files.length > 0) {
-            const file = files[0];
-            uploadImage(file);
-        }
     }
 }
 
