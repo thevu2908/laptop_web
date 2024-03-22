@@ -45,8 +45,8 @@ function addPlug() {
             success: data => {
                 if (data === 'success') {
                     alert('Thêm cổng kết nối mới thành công')
-                    $('form').trigger('reset')
                     $('#addProductPlugModal').modal('hide')
+                    $('.add-product-plug-form').trigger('reset')
                     loadPlugData()
                 } else {
                     alert('Thêm cổng kết nối mới thất bại')
@@ -141,7 +141,6 @@ function deletePlug() {
                 alert('Xóa cổng kết nối thất bại')
             } else {
                 alert('Xóa cổng kết nối thành công')
-                $('form').trigger('reset')
                 $('#deleteProductPlugModal').modal('hide')
                 loadPlugData()
             }

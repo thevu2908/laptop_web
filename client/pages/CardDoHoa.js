@@ -45,8 +45,8 @@ function addGPU() {
             success: data => {
                 if (data === 'success') {
                     alert('Thêm GPU mới thành công')
-                    $('form').trigger('reset')
                     $('#addProductGPUModal').modal('hide')
+                    $('.add-product-gpu-form').trigger('reset')
                     loadGPUData()
                 } else {
                     alert('Thêm GPU mới thất bại')
@@ -141,7 +141,6 @@ function deleteGPU() {
                 alert('Xóa GPU thất bại')
             } else {
                 alert('Xóa GPU thành công')
-                $('form').trigger('reset')
                 $('#deleteProductGPUModal').modal('hide')
                 loadGPUData()
             }

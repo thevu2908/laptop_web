@@ -45,8 +45,8 @@ function addCPU() {
             success: data => {
                 if (data === 'success') {
                     alert('Thêm CPU mới thành công')
-                    $('form').trigger('reset')
                     $('#addProductCPUModal').modal('hide')
+                    $('.add-product-cpu-form').trigger('reset')
                     loadCPUData()
                 } else {
                     alert('Thêm CPU mới thất bại')
@@ -141,7 +141,6 @@ function deleteCPU() {
                 alert('Xóa CPU thất bại')
             } else {
                 alert('Xóa CPU thành công')
-                $('form').trigger('reset')
                 $('#deleteProductCPUModal').modal('hide')
                 loadCPUData()
             }
