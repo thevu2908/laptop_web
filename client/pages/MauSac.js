@@ -58,8 +58,8 @@ function addColor() {
             success: data => {
                 if (data === 'success') {
                     alert('Thêm màu mới thành công')
-                    $('form').trigger('reset')
                     $('#addProductColorModal').modal('hide')
+                    $('.add-product-color-form').trigger('reset')
                     loadColorData()
                 } else {
                     alert('Thêm màu mới thất bại')
@@ -158,7 +158,6 @@ function deleteColor() {
                 alert('Xóa màu thất bại')
             } else {
                 alert('Xóa màu thành công')
-                $('form').trigger('reset')
                 $('#deleteProductColorModal').modal('hide')
                 loadColorData()
             }
