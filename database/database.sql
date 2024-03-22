@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 22, 2024 at 04:02 AM
+-- Generation Time: Mar 22, 2024 at 03:32 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -43,7 +43,8 @@ INSERT INTO `carddohoa` (`ma_card`, `ten_card`, `trang_thai`) VALUES
 ('CDH003', 'RTX 3060', 0),
 ('CDH004', 'abc', 1),
 ('CDH005', 'bcd', 1),
-('CDH006', 'ddd', 1);
+('CDH006', 'ddd', 1),
+('CDH007', 'Apple M2 GPU 8 nhân', 0);
 
 -- --------------------------------------------------------
 
@@ -65,18 +66,8 @@ INSERT INTO `chipxuly` (`ma_chip_xu_ly`, `ten_chip`, `trang_thai`) VALUES
 ('CXL001', 'i5 11500H', 0),
 ('CXL002', 'i9 11900H', 0),
 ('CXL003', 'abc', 1),
-('CXL004', 'bcd', 1);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `chitietcongketnoi`
---
-
-CREATE TABLE `chitietcongketnoi` (
-  `ma_cong` varchar(20) NOT NULL,
-  `ma_ctsp` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+('CXL004', 'bcd', 1),
+('CXL005', 'Apple M2', 0);
 
 -- --------------------------------------------------------
 
@@ -169,7 +160,8 @@ CREATE TABLE `chitietsanpham` (
   `ma_sp` varchar(20) NOT NULL,
   `ma_chip_xu_ly` varchar(20) NOT NULL,
   `ma_mau` varchar(20) NOT NULL,
-  `ma_carddohoa` varchar(50) NOT NULL,
+  `ma_carddohoa` varchar(20) NOT NULL,
+  `ma_congketnoi` varchar(20) NOT NULL,
   `ram` varchar(50) NOT NULL,
   `rom` varchar(50) NOT NULL,
   `hinh_anh` varchar(200) NOT NULL,
@@ -465,13 +457,6 @@ CREATE TABLE `sanpham` (
   `trang_thai` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `sanpham`
---
-
-INSERT INTO `sanpham` (`ma_sp`, `ma_thuong_hieu`, `ma_the_loai`, `ma_hdh`, `ten_sp`, `kich_co_man_hinh`, `do_phan_giai`, `pin`, `ban_phim`, `gia_ban`, `gia_nhap`, `chiet_khau`, `trong_luong`, `chat_lieu`, `xuat_xu`, `so_luong_ton`, `trang_thai`) VALUES
-('test', 'TH001', 'TL001', 'HDH001', 'test', 'test', 'test', 'test', 'test', 0, 0, 0, 1, 'test', 'test', 0, 0);
-
 -- --------------------------------------------------------
 
 --
@@ -584,13 +569,6 @@ ALTER TABLE `chipxuly`
   ADD PRIMARY KEY (`ma_chip_xu_ly`);
 
 --
--- Indexes for table `chitietcongketnoi`
---
-ALTER TABLE `chitietcongketnoi`
-  ADD PRIMARY KEY (`ma_cong`,`ma_ctsp`),
-  ADD KEY `ctckn_fk_ctsp` (`ma_ctsp`);
-
---
 -- Indexes for table `chitiethoadon`
 --
 ALTER TABLE `chitiethoadon`
@@ -642,7 +620,8 @@ ALTER TABLE `chitietsanpham`
   ADD KEY `ctsp_fk_sp` (`ma_sp`),
   ADD KEY `ctsp_fk_chip` (`ma_chip_xu_ly`),
   ADD KEY `ctsp_fk_mausac` (`ma_mau`) USING BTREE,
-  ADD KEY `ctsp_fk_carddohoa` (`ma_carddohoa`);
+  ADD KEY `ctsp_fk_carddohoa` (`ma_carddohoa`),
+  ADD KEY `ctsp_fk_ckn` (`ma_congketnoi`);
 
 --
 -- Indexes for table `chucnangquyen`
@@ -796,13 +775,6 @@ ALTER TABLE `thuonghieu`
 --
 
 --
--- Constraints for table `chitietcongketnoi`
---
-ALTER TABLE `chitietcongketnoi`
-  ADD CONSTRAINT `ctckn_fk_ckn` FOREIGN KEY (`ma_cong`) REFERENCES `congketnoi` (`ma_cong`),
-  ADD CONSTRAINT `ctckn_fk_ctsp` FOREIGN KEY (`ma_ctsp`) REFERENCES `chitietsanpham` (`ma_ctsp`);
-
---
 -- Constraints for table `chitiethoadon`
 --
 ALTER TABLE `chitiethoadon`
@@ -850,6 +822,7 @@ ALTER TABLE `chitietquyen`
 ALTER TABLE `chitietsanpham`
   ADD CONSTRAINT `ctsp_fk_carddohoa` FOREIGN KEY (`ma_carddohoa`) REFERENCES `carddohoa` (`ma_card`),
   ADD CONSTRAINT `ctsp_fk_chip` FOREIGN KEY (`ma_chip_xu_ly`) REFERENCES `chipxuly` (`ma_chip_xu_ly`),
+  ADD CONSTRAINT `ctsp_fk_ckn` FOREIGN KEY (`ma_congketnoi`) REFERENCES `congketnoi` (`ma_cong`),
   ADD CONSTRAINT `ctsp_fk_mau` FOREIGN KEY (`ma_mau`) REFERENCES `mausac` (`ma_mau`),
   ADD CONSTRAINT `ctsp_fk_sp` FOREIGN KEY (`ma_sp`) REFERENCES `sanpham` (`ma_sp`);
 
