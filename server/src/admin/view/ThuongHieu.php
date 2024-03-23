@@ -1,7 +1,7 @@
 <div class="modal fade" id="addProductBrandModal" tabindex="-1" aria-hidden="true" data-backdrop="static">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
-            <form>
+            <form class="add-product-brand-form">
                 <div class="modal-header">
                     <h5 class="modal-title">Thêm thương hiệu sản phẩm</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -26,7 +26,7 @@
 <div class="modal fade" id="deleteProductBrandModal" tabindex="-1" aria-hidden="true" data-backdrop="static">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
-            <form>
+            <form class="delete-product-brand-form">
                 <div class="modal-header">
                     <h4 class="modal-title">Xóa thương hiệu</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>

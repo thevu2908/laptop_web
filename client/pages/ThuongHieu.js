@@ -43,8 +43,8 @@ function addBrand() {
             success: data => {
                 if (data === 'success') {
                     alert('Thêm thương hiệu thành công')
-                    $('form').trigger('reset')
                     $('#addProductBrandModal').modal('hide')
+                    $('.add-product-brand-form').trigger('reset')
                     loadBrandData()
                 } else {
                     alert('Thêm thương hiệu thất bại')

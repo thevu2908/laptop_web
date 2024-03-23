@@ -44,8 +44,8 @@ function addOS() {
             success: data => {
                 if (data === 'success') {
                     alert('Thêm hệ điều hành mới thành công')
-                    $('form').trigger('reset')
                     $('#addProductOSModal').modal('hide')
+                    $('.add-product-os-form').trigger('reset')
                     loadOSData()
                 } else {
                     alert('Thêm hệ điều hành mới thất bại')

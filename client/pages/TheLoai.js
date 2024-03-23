@@ -44,8 +44,8 @@ function addType() {
             success: data => {
                 if (data === 'success') {
                     alert('Thêm thể loại thành công')
-                    $('form').trigger('reset')
                     $('#addProductTypeModal').modal('hide')
+                    $('.add-product-type-form').trigger('reset')
                     loadTypeData()
                 } else {
                     alert('Thêm thể loại thất bại')
