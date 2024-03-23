@@ -97,6 +97,7 @@ switch ($action) {
             $length += 1;
             $productId = 'SP'.sprintf("%03d", $length);
             $obj = json_decode(json_encode($_POST['product']));
+            $image = "server/src/assets/images/products/$productId.png";
             $importPrice = 0;
             $chietkhau = 0;
             $price = 0;
@@ -108,6 +109,7 @@ switch ($action) {
                 $obj->{'typeId'},
                 $obj->{'osId'},
                 $obj->{'productName'},
+                $image,
                 $obj->{'screen'},
                 $obj->{'resolution'},
                 $obj->{'battery'},
@@ -131,6 +133,7 @@ switch ($action) {
         $typeId = $_POST['typeId'];
         $osId = $_POST['osId'];
         $productName = $_POST['productName'];
+        $image = $_POST['image'];
         $screen = $_POST['screen'];
         $resolution = $_POST['resolution'];
         $battery = $_POST['battery'];
@@ -143,8 +146,26 @@ switch ($action) {
         $origin = $_POST['origin'];
         $quantity = 0;
 
-        $product = new SanPham($productId, $brandId, $typeId, $osId, $productName, $screen, $resolution, $battery, $keyboard,  $price, $importPrice, $chietkhau, $weight,
-                                $material, $origin, $quantity, 0);
+        $product = new SanPham(
+            $productId,
+            $brandId,
+            $typeId,
+            $osId,
+            $productName,
+            $image,
+            $screen,
+            $resolution,
+            $battery,
+            $keyboard,
+            $price,
+            $importPrice,
+            $chietkhau,
+            $weight,
+            $material,
+            $origin,
+            $quantity,
+            0
+        );
         
         $sanPhamCtl->updateProduct($product);
         break;

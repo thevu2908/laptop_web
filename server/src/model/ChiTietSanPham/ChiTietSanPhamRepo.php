@@ -1,10 +1,10 @@
 <?php
 
 class ChiTietSanPhamRepo extends ConnectDB {
-    public function getData() : array | null {
+    public function getData($productId) : array | null {
         $productDetails = [];
         try {
-            $statement = mysqli_query($this->conn, "SELECT * FROM chitietsanpham");
+            $statement = mysqli_query($this->conn, "SELECT * FROM chitietsanpham WHERE ma_sp = '$productId'");
             
             while ($row = mysqli_fetch_assoc($statement)) {
                 $productDetails[] = $row;
@@ -47,7 +47,7 @@ class ChiTietSanPhamRepo extends ConnectDB {
 
     public function addProductDetail($productDetail) : bool {
         try {
-            $query = "INSERT INTO chitietsanpham(ma_ctsp, ma_sp, ma_chip_xu_ly, ma_mau, ma_carddohoa, ram, rom, hinh_anh, gia_tien, trang_thai) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 0)";
+            $query = "INSERT INTO chitietsanpham(ma_ctsp, ma_sp, ma_chip_xu_ly, ma_mau, ma_carddohoa, ram, rom, gia_tien, trang_thai) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 0)";
             $statement = mysqli_prepare($this->conn, $query);
 
             if (!$statement) {
@@ -61,13 +61,12 @@ class ChiTietSanPhamRepo extends ConnectDB {
             $gpuId = $productDetail->getMaCardDoHoa();
             $ram = $productDetail->getRam();
             $rom = $productDetail->getRom();
-            $image = $productDetail->getHinhAnh();
             $price = $productDetail->getGiaTien();
 
             $result = $statement->bind_param(
-                "ssssssssi", 
+                "sssssssi", 
                 $productDetailId, $productId, $cpuId, $colorId, $gpuId,
-                $ram, $rom, $image,
+                $ram, $rom,
                 $price
             );
             
@@ -88,7 +87,7 @@ class ChiTietSanPhamRepo extends ConnectDB {
 
     public function updateProductDetail($productDetail) : bool {
         try {
-            $query = "UPDATE chitietsanpham SET ma_chip_xu_ly = ?, ma_mau = ?, ma_carddohoa = ?, ram = ?, rom = ?, hinh_anh = ?, gia_tien = ? WHERE ma_ctsp = ?";
+            $query = "UPDATE chitietsanpham SET ma_chip_xu_ly = ?, ma_mau = ?, ma_carddohoa = ?, ram = ?, rom = ?, gia_tien = ? WHERE ma_ctsp = ?";
             $statement = mysqli_prepare($this->conn, $query);
             
             if (!$statement) {
@@ -101,13 +100,12 @@ class ChiTietSanPhamRepo extends ConnectDB {
             $gpuId = $productDetail->getMaCardDoHoa();
             $ram = $productDetail->getRam();
             $rom = $productDetail->getRom();
-            $image = $productDetail->getHinhAnh();
             $price = $productDetail->getGiaTien();
             
             $result = $statement->bind_param(
-                "ssssssis", 
+                "sssssis", 
                 $cpuId, $colorId, $gpuId,
-                $ram, $rom, $image,
+                $ram, $rom,
                 $price,
                 $productDetailId
             );

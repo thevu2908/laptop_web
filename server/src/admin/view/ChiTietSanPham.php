@@ -1,57 +1,59 @@
-<main id="admin-product-main">
+<main id="admin-product-detail-main">
     <div class="container-xl">
         <div class="table-responsive">
             <div class="table-wrapper">
                 <div class="table-title">
                     <div class="row">
                         <div class="col-sm-6">
-                            <h2>Quản Lý <b>Sản Phẩm</b></h2>
+                            <h2>Chi Tiết Sản Phẩm <b class="product-name"></b></h2>
                         </div>
-                        <div class="col-sm-6">
-                            <a href="#" class="btn btn-secondary">
-                                <i class="material-icons">&#xE24D;</i>
-                                <span>Import Excel</span>
-                            </a>
-                            <a href="#" class="btn btn-secondary">
-                                <i class="material-icons">&#xE24D;</i>
-                                <span>Export Excel</span>
-                            </a>
-                            <a href="#addProductModal" class="btn btn-success" data-toggle="modal">
+                        <div class="col-sm-6 d-flex justify-content-end">
+                            <form>
+                                <div class="d-flex align-items-center">
+                                    <input type="search" class="form-control form-control-sm" id="product-id" placeholder="Nhập mã sản phẩm" style="border-top-right-radius: 0; border-bottom-right-radius: 0">
+                                    <button type="button" class="btn-search-product-detail">
+                                        <i class="fas fa-search search-icon"></i>
+                                    </button>
+                                </div>
+                            </form>
+                            <a href="#addProductDetailModal" class="btn btn-success" data-toggle="modal">
                                 <i class="material-icons">&#xE147;</i>
                                 <span>Thêm</span>
                             </a>
-                            <a href="#deleteProductModal" class="btn btn-danger" data-toggle="modal">
-                                <i class="material-icons">&#xE15C;</i>
-                                <span>Xóa</span>
-                            </a>
+                            <a href="#deleteProductDetailModal" class="btn btn-danger" data-toggle="modal">
+								<i class="material-icons">&#xE15C;</i>
+								<span>Xóa</span>
+							</a>
                         </div>
                     </div>
                 </div>
-                <table class="table table-striped table-hover">
-                    <thead>
-                        <tr>
-                            <th>
-                                <span class="custom-checkbox">
-                                    <input type="checkbox" id="selectAll">
-                                    <label for="selectAll"></label>
-                                </span>
-                            </th>
-                            <th>ID</th>
-                            <th>Tên sản phẩm</th>
-                            <th>Thương hiệu</th>
-                            <th>Giá nhập</th>
-                            <th>Chiết khấu</th>
-                            <th>Giá bán</th>
-                            <th>Số lượng tồn</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody class="admin-product-list">
+                <form>
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <span class="custom-checkbox">
+                                        <input type="checkbox" id="selectAll">
+                                        <label for="selectAll"></label>
+                                    </span>
+                                </th>
+                                <th>ID</th>
+                                <th>CPU</th>
+                                <th>Màu sắc</th>
+                                <th>GPU</th>
+                                <th>RAM</th>
+                                <th>ROM</th>
+                                <th>Giá</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody class="admin-product-detail-list">
 
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
+                </form>
                 <div class="clearfix">
-                    <div class="hint-text">Hiển thị <b>5</b> trong <b>25</b> sản phẩm</div>
+                    <div class="hint-text">Hiển thị <b>5</b> trong <b>25</b> chi tiết</div>
                     <ul class="pagination">
                         <li class="page-item disabled">
                             <a href="#">Previous</a>

@@ -517,6 +517,7 @@
 								</tbody>
 							</table>
 						</div>
+						<a href="/admin.php?controller=chitietsanpham" type="button" class="btn-to-product-detail">Sửa chi tiết sản phẩm</a>
 					</form>
 				</div>
 				<div class="modal-footer">

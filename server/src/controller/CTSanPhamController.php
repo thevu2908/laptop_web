@@ -11,8 +11,8 @@ class CTSanPhamController {
         $this->ctspRepo = new ChiTietSanPhamRepo();
     }
 
-    public function getData() {
-        $productDetails = $this->ctspRepo->getData();
+    public function getData($productId) {
+        $productDetails = $this->ctspRepo->getData($productId);
         $result = [];
 
         foreach ($productDetails as $productDetail) {
@@ -24,8 +24,8 @@ class CTSanPhamController {
         echo json_encode($result);
     }
 
-    public function getAllProductDetails() {
-        echo json_encode($this->ctspRepo->getData());
+    public function getAllProductDetails($productId) {
+        echo json_encode($this->ctspRepo->getData($productId));
     }
 
     public function getProductDetail($productDetailId) {
@@ -66,10 +66,12 @@ $action = $_POST['action'];
 
 switch ($action) {
     case 'get-data':
-        $ctspCtl->getData();
+        $productId = $_POST['productId'];
+        $ctspCtl->getData($productId);
         break;
     case 'get-all':
-        $ctspCtl->getAllProductDetails();
+        $productId = $_POST['productId'];
+        $ctspCtl->getAllProductDetails($productId);
         break;
     case 'get':
         $productDetailId = $_POST['productDetailId'];
@@ -82,7 +84,6 @@ switch ($action) {
             $productDetailId = 'CTSP'.sprintf('%04d', $length);
             $obj = json_decode(json_encode($_POST['productDetail']));
             $productId = $_POST['productId'];
-            $img = "server/src/assets/images/$productId.png";
             $price = 0;
             
             $productDetail = new ChiTietSanPham(
@@ -93,7 +94,6 @@ switch ($action) {
                 $obj->{'gpuId'},
                 $obj->{'ram'},
                 $obj->{'rom'},
-                $img,
                 $price,
                 0
             );
@@ -108,10 +108,9 @@ switch ($action) {
         $gpuId = $_POST['gpuId'];
         $ram = $_POST['ram'];
         $rom = $_POST['rom'];
-        $image = $_POST['image'];
         $price = $_POST['price'];
         
-        $productDetail = new ChiTietSanPham($productDetailId, $productId, $cpuId, $colorId, $gpuId, $ram, $rom, $image, $price, 0);
+        $productDetail = new ChiTietSanPham($productDetailId, $productId, $cpuId, $colorId, $gpuId, $ram, $rom, $price, 0);
         $ctspCtl->updateProductDetail($productDetail);
         break;
     case 'delete':

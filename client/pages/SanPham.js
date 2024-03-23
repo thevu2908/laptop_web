@@ -1,6 +1,7 @@
 $(document).ready(() => {
-    renderAdminPage()
+    renderAdminProductTable()
     addProduct()
+    renderUpdateProduct()
 })
 
 function getProductData() {
@@ -23,7 +24,34 @@ function getProductData() {
     })
 }
 
-function renderAdminPage() {
+function getProduct(productId) {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: 'server/src/controller/SanPhamController.php',
+            method: 'POST',
+            data: { action: 'get', productId },
+            dataType: 'JSON',
+            success: data => {
+                if (data) {
+                    resolve(data)
+                }
+            },
+            error: (xhr, status, error) => {
+                console.log(error)
+                reject(error)
+            }
+        })
+    })
+}
+
+function renderProductName(productId) {
+    getProduct(productId)
+    .then(product => {
+        $('#admin-product-detail-main .product-name').text(product.ten_sp)
+    })
+}
+
+function renderAdminProductTable() {
     getProductData().then(data => {
         let html = ''
 
@@ -32,8 +60,8 @@ function renderAdminPage() {
                 <tr>
                     <td>
                         <span class="custom-checkbox">
-                            <input type="checkbox" id="checkbox1" name="chk[]" value="${item.ma_sp}">
-                            <label for="checkbox1"></label>
+                            <input type="checkbox" id="checkbox-${item.ma_sp}" name="chk[]" value="${item.ma_sp}">
+                            <label for="checkbox-${item.ma_sp}"></label>
                         </span>
                     </td>
                     <td>${item.ma_sp}</td>
@@ -44,13 +72,13 @@ function renderAdminPage() {
                     <td>${item.gia_ban}</td>
                     <td>${item.so_luong_ton}</td>
                     <td>
-                        <a href="#editProductModal" class="edit" data-toggle="modal">
-                            <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
+                        <a href="#editProductModal" class="edit btn-update-product-modal" data-toggle="modal" data-id=${item.ma_sp}>
+                            <i class="material-icons" data-toggle="tooltip" title="Sửa thông tin">&#xE254;</i>
                         </a>
-                        <a href="#deleteProductModal" class="delete" data-toggle="modal">
-                            <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
+                        <a href="#deleteProductModal" class="delete" data-toggle="modal" data-id=${item.ma_sp}>
+                            <i class="material-icons" data-toggle="tooltip" title="Xóa">&#xE872;</i>
                         </a>
-                        <a href="#viewProductModal" class="view" title="View" data-toggle="tooltip">
+                        <a href="#viewProductModal" class="view" title="View" data-toggle="tooltip" data-id=${item.ma_sp}>
                             <i class="material-icons">&#xE417;</i>
                         </a>
                     </td>
@@ -61,6 +89,17 @@ function renderAdminPage() {
         })
 
         $('.admin-product-list').html(html)
+    })
+}
+
+function renderUpdateProduct() {
+    $(document).on('click', '.btn-update-product-modal', e => {
+        const productId = e.target.closest('.btn-update-product-modal').dataset.id
+        
+        getProduct(productId)
+            .then(product => {
+                
+            })
     })
 }
 
@@ -250,7 +289,7 @@ function addProduct() {
                                 alert('Thêm sản phẩm thành công');
                                 $('form').trigger('reset');
                                 $('#addProductModal').modal('hide');
-                                renderAdminPage();
+                                renderAdminProductTable();
                             }
                         })
                     }
@@ -260,5 +299,11 @@ function addProduct() {
                 }
             })
         })
+    })
+}
+
+function ToAdminProductDetail() {
+    $(document).on('click', '.btn-to-product-detail', e => {
+        window.location.href = '/admin.php?controller=chitietsanpham&id='
     })
 }
