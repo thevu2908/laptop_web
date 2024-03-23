@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 22, 2024 at 03:32 PM
+-- Generation Time: Mar 23, 2024 at 07:11 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -68,6 +68,17 @@ INSERT INTO `chipxuly` (`ma_chip_xu_ly`, `ten_chip`, `trang_thai`) VALUES
 ('CXL003', 'abc', 1),
 ('CXL004', 'bcd', 1),
 ('CXL005', 'Apple M2', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `chitietcongketnoi`
+--
+
+CREATE TABLE `chitietcongketnoi` (
+  `ma_cong` varchar(20) NOT NULL,
+  `ma_ctsp` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -161,7 +172,6 @@ CREATE TABLE `chitietsanpham` (
   `ma_chip_xu_ly` varchar(20) NOT NULL,
   `ma_mau` varchar(20) NOT NULL,
   `ma_carddohoa` varchar(20) NOT NULL,
-  `ma_congketnoi` varchar(20) NOT NULL,
   `ram` varchar(50) NOT NULL,
   `rom` varchar(50) NOT NULL,
   `hinh_anh` varchar(200) NOT NULL,
@@ -569,6 +579,13 @@ ALTER TABLE `chipxuly`
   ADD PRIMARY KEY (`ma_chip_xu_ly`);
 
 --
+-- Indexes for table `chitietcongketnoi`
+--
+ALTER TABLE `chitietcongketnoi`
+  ADD PRIMARY KEY (`ma_cong`,`ma_ctsp`),
+  ADD KEY `ctckn_fk_ctsp` (`ma_ctsp`);
+
+--
 -- Indexes for table `chitiethoadon`
 --
 ALTER TABLE `chitiethoadon`
@@ -620,8 +637,7 @@ ALTER TABLE `chitietsanpham`
   ADD KEY `ctsp_fk_sp` (`ma_sp`),
   ADD KEY `ctsp_fk_chip` (`ma_chip_xu_ly`),
   ADD KEY `ctsp_fk_mausac` (`ma_mau`) USING BTREE,
-  ADD KEY `ctsp_fk_carddohoa` (`ma_carddohoa`),
-  ADD KEY `ctsp_fk_ckn` (`ma_congketnoi`);
+  ADD KEY `ctsp_fk_carddohoa` (`ma_carddohoa`);
 
 --
 -- Indexes for table `chucnangquyen`
@@ -775,6 +791,13 @@ ALTER TABLE `thuonghieu`
 --
 
 --
+-- Constraints for table `chitietcongketnoi`
+--
+ALTER TABLE `chitietcongketnoi`
+  ADD CONSTRAINT `ctckn_fk_ckn` FOREIGN KEY (`ma_cong`) REFERENCES `congketnoi` (`ma_cong`),
+  ADD CONSTRAINT `ctckn_fk_ctsp` FOREIGN KEY (`ma_ctsp`) REFERENCES `chitietsanpham` (`ma_ctsp`);
+
+--
 -- Constraints for table `chitiethoadon`
 --
 ALTER TABLE `chitiethoadon`
@@ -822,7 +845,6 @@ ALTER TABLE `chitietquyen`
 ALTER TABLE `chitietsanpham`
   ADD CONSTRAINT `ctsp_fk_carddohoa` FOREIGN KEY (`ma_carddohoa`) REFERENCES `carddohoa` (`ma_card`),
   ADD CONSTRAINT `ctsp_fk_chip` FOREIGN KEY (`ma_chip_xu_ly`) REFERENCES `chipxuly` (`ma_chip_xu_ly`),
-  ADD CONSTRAINT `ctsp_fk_ckn` FOREIGN KEY (`ma_congketnoi`) REFERENCES `congketnoi` (`ma_cong`),
   ADD CONSTRAINT `ctsp_fk_mau` FOREIGN KEY (`ma_mau`) REFERENCES `mausac` (`ma_mau`),
   ADD CONSTRAINT `ctsp_fk_sp` FOREIGN KEY (`ma_sp`) REFERENCES `sanpham` (`ma_sp`);
 
