@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 23, 2024 at 02:50 PM
+-- Generation Time: Mar 23, 2024 at 03:27 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -79,6 +79,20 @@ CREATE TABLE `chitietcongketnoi` (
   `ma_cong` varchar(20) NOT NULL,
   `ma_ctsp` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `chitietcongketnoi`
+--
+
+INSERT INTO `chitietcongketnoi` (`ma_cong`, `ma_ctsp`) VALUES
+('CKN001', 'CTSP0001'),
+('CKN001', 'CTSP0002'),
+('CKN001', 'CTSP0003'),
+('CKN001', 'CTSP0004'),
+('CKN002', 'CTSP0001'),
+('CKN002', 'CTSP0002'),
+('CKN002', 'CTSP0003'),
+('CKN002', 'CTSP0004');
 
 -- --------------------------------------------------------
 
@@ -177,6 +191,16 @@ CREATE TABLE `chitietsanpham` (
   `gia_tien` float NOT NULL,
   `trang_thai` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `chitietsanpham`
+--
+
+INSERT INTO `chitietsanpham` (`ma_ctsp`, `ma_sp`, `ma_chip_xu_ly`, `ma_mau`, `ma_carddohoa`, `ram`, `rom`, `gia_tien`, `trang_thai`) VALUES
+('CTSP0001', 'SP001', 'CXL005', '#000', 'CDH007', '8gb', '256gb', 0, 0),
+('CTSP0002', 'SP001', 'CXL005', '#000', 'CDH007', '8gb', '512gb', 0, 0),
+('CTSP0003', 'SP001', 'CXL005', '#ffff00', 'CDH007', '8gb', '256gb', 0, 0),
+('CTSP0004', 'SP001', 'CXL005', '#ffff00', 'CDH007', '8gb', '512gb', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -459,13 +483,20 @@ CREATE TABLE `sanpham` (
   `ban_phim` varchar(50) NOT NULL,
   `gia_ban` double NOT NULL,
   `gia_nhap` double NOT NULL,
-  `chiet_khau` int(11) NOT NULL,
-  `trong_luong` float NOT NULL,
+  `chiet_khau` double NOT NULL,
+  `trong_luong` double NOT NULL,
   `chat_lieu` varchar(50) NOT NULL,
   `xuat_xu` varchar(50) NOT NULL,
   `so_luong_ton` int(11) NOT NULL,
   `trang_thai` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `sanpham`
+--
+
+INSERT INTO `sanpham` (`ma_sp`, `ma_thuong_hieu`, `ma_the_loai`, `ma_hdh`, `ten_sp`, `hinh_anh`, `kich_co_man_hinh`, `do_phan_giai`, `pin`, `ban_phim`, `gia_ban`, `gia_nhap`, `chiet_khau`, `trong_luong`, `chat_lieu`, `xuat_xu`, `so_luong_ton`, `trang_thai`) VALUES
+('SP001', 'TH005', 'TL002', 'HDH002', 'MacBook Air M2 2022', 'server/src/assets/images/products/SP001.png', '13.6 inch', '2560 x 1644 Pixels', 'Lithium polymer', 'English International Backlit Keyboard', 0, 0, 0, 1.2400000095367432, 'Kim loại', 'Trung Quốc', 0, 0);
 
 -- --------------------------------------------------------
 
