@@ -62,6 +62,10 @@
             include "./server/src/admin/view/ChucNang.php";
             break;
           }
+          case "chitietsanpham": {
+            include "./server/src/admin/view/ChiTietSanPham.php";
+            break;
+          }
         }
       } else {
         include "./server/src/admin/view/DashBoard.php";

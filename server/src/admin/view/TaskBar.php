@@ -10,7 +10,7 @@ if (isset($_REQUEST['controller'])) {
     <i class="fab fa-slack"></i>
     <span class="text">Admin</span>
   </a>
-  <ul class="side-menu top">
+  <ul class="side-menu">
     <li class="side-menu-item <?php echo $page === 'dashboard' || $page === '' ? 'active' : '' ?>">
       <a href="/admin.php?controller=dashboard" class="nav-link">
         <i class="fas fa-border-all"></i>
@@ -29,11 +29,27 @@ if (isset($_REQUEST['controller'])) {
         <span class="text">Đơn Hàng</span>
       </a>
     </li>
-    <li class="side-menu-item <?php echo $page === 'sanpham' ? 'active' : '' ?>">
-      <a href="/admin.php?controller=sanpham" class="nav-link">
-        <i class="fas fa-message"></i>
-        <span class="text">Sản Phẩm</span>
-      </a>
+    <li class="side-menu-item pr-0">
+      <button class="btn btn-toggle align-items-center rounded collapsed" data-toggle="collapse" data-target="#dashboard-collapse" aria-expanded="<?php echo $page === 'sanpham' || $page === 'chitietsanpham' ? 'true' : 'false'; ?>">
+        <i class="fa-solid fa-chevron-right"></i>
+        Sản phẩm
+      </button>
+      <div class="collapse <?php echo $page === 'sanpham' || $page === 'chitietsanpham' ? 'show' : 'hide'; ?>" id="dashboard-collapse">
+        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+          <li class="side-menu-item <?php echo $page === 'sanpham' ? 'active' : '' ?>">
+            <a href="/admin.php?controller=sanpham" class="nav-link">
+              <i class="fas fa-message"></i>
+              <span class="text">Sản Phẩm</span>
+            </a>
+          </li>
+          <li class="side-menu-item <?php echo $page === 'chitietsanpham' ? 'active' : '' ?>">
+            <a href="/admin.php?controller=chitietsanpham" class="nav-link">
+              <i class="fas fa-message"></i>
+              <span class="text">Chi Tiết Sản Phẩm</span>
+            </a>
+          </li>
+        </ul>
+      </div>
     </li>
     <li class="side-menu-item <?php echo $page === 'danhgia' ? 'active' : '' ?>">
       <a href="/admin.php?controller=danhgia" class="nav-link">

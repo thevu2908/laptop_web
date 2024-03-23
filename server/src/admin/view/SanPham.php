@@ -517,7 +517,6 @@
 								</tbody>
 							</table>
 						</div>
-						<button href="#productDetailModal" type="button" class="btn-update-product-detail-modal" data-toggle="modal" >Sửa chi tiết sản phẩm</button>
 					</form>
 				</div>
 				<div class="modal-footer">
@@ -557,6 +556,5 @@
 	include 'CardDoHoa.php';
 	include 'CongKetNoi.php';
 	include 'HeDieuHanh.php';
-	include 'ChiTietSanPham.php';
 	?>
 </main>
