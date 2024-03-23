@@ -51,7 +51,7 @@
 					</tbody>
 				</table>
 				<div class="clearfix">
-					<div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
+					<div class="hint-text">Hiển thị <b>5</b> trong <b>25</b> sản phẩm</div>
 					<ul class="pagination">
 						<li class="page-item disabled">
 							<a href="#">Previous</a>
@@ -172,9 +172,6 @@
 										<td>
 											<button href="#addProductColorModal" data-toggle="modal" type="button" class="btn btn-outline-primary btn-ssm br-50 ml-2">
 												<i class="fa-solid fa-plus"></i>
-											</button>
-											<button href="#deleteProductColorModal" type="button" class="btn-delete-color-modal btn btn-outline-danger btn-ssm br-50 ml-1">
-												<i class="fa-solid fa-minus"></i>
 											</button>
 										</td>
 									</tr>
@@ -353,49 +350,30 @@
 								</tbody>
 							</table>
 						</div>
-						<div class="modal-footer">
-							<input type="button" class="btn btn-secondary" data-dismiss="modal" value="Hủy">
-							<input type="button" class="btn btn-primary btn-add-product" value="Thêm">
-						</div>
 					</form>
+				</div>
+				<div class="modal-footer">
+					<input type="button" class="btn btn-secondary" data-dismiss="modal" value="Hủy">
+					<input type="button" class="btn btn-primary btn-add-product" value="Thêm">
 				</div>
 			</div>
 		</div>
 	</div>
 
-	<div id="editProducteModal" class="modal fade">
+	<div id="editProductModal" class="modal fade">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<form>
 					<div class="modal-header">
-						<h4 class="modal-title">Sửa Sản Phẩm</h4>
+						<h4 class="modal-title">Sửa thông tin sản phẩm</h4>
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 					</div>
 					<div class="modal-body">
-						<input type="hidden" name="ma_tk">
-						<div class="form-group">
-							<div class="form-group">
-								<label>Mã Tài Khoản</label>
-								<input class="form-control" type="text" name="password" required>
-							</div>
-							<select name="" id="" class="form-control" required>
-								<option value="">A</option>
-								<option value="">B</option>
-								<option value="">C</option>
-							</select>
-						</div>
-						<div class="form-group">
-							<label>Username</label>
-							<input type="text" class="form-control" name="username" required>
-						</div>
-						<div class="form-group">
-							<label>Password</label>
-							<input class="form-control" type="password" name="password" required>
-						</div>
+						
 					</div>
 					<div class="modal-footer">
-						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-						<input type="button" class="btn btn-primary" value="Save">
+						<input type="button" class="btn btn-secondary" data-dismiss="modal" value="Hủy">
+						<input type="button" class="btn btn-primary" value="Lưu">
 					</div>
 				</form>
 			</div>

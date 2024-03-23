@@ -30,23 +30,3 @@
         </div>
     </div>
 </div>
-
-<div class="modal fade" id="deleteProductColorModal" tabindex="-1" aria-hidden="true" data-backdrop="static">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <form class="delete-product-color-form">
-                <div class="modal-header">
-                    <h4 class="modal-title">Xóa màu sắc</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                </div>
-                <div class="modal-body delete-product-color-confirm">
-                    
-                </div>
-                <div class="modal-footer">
-                    <input type="button" class="btn btn-secondary" data-dismiss="modal" value="Hủy">
-                    <input type="button" class="btn btn-danger btn-delete-color" value="Xóa">
-                </div>
-            </form>
-        </div>
-    </div>
-</div>

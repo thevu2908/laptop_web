@@ -1,8 +1,6 @@
 $(document).ready(() => {
     loadColorData()
     addColor()
-    showDeleteColorModal()
-    deleteColor()
 })
 
 function loadColorData() {
@@ -68,98 +66,6 @@ function addColor() {
             },
             error: (xhr, status, error) => {
                 console.log(error)
-            }
-        })
-    })
-}
-
-function showDeleteColorModal() {
-    $(document).on('click', '.btn-delete-color-modal', e => {
-        const selected = $('#product-color').val()
-
-        if (selected.length === 0) {    
-            alert('Vui lòng chọn màu cần xóa')
-            $('#deleteProductColorModal').modal('hide')
-            return
-        }
-        
-        $('#deleteProductColorModal').modal('show')
-
-        let colorHtml = ''
-        let promise
-        selected.forEach((color, index) => {
-            promise = new Promise((resolve, reject) => {
-                $.ajax({
-                    url: 'server/src/controller/MauSacController.php',
-                    method: 'POST',
-                    data: { action: 'get', id: color },
-                    dataType: 'JSON',
-                    success: data => {
-                        if (data) {
-                            colorHtml += `"<b class="delete-color-id">${data.ten_mau}</b>"`
-                            if (index !== selected.length - 1) {
-                                colorHtml += ', '
-                            }
-                            resolve(colorHtml)
-                        }
-                    },
-                    error: (xhr, status, error) => {
-                        console.log(error)
-                    }
-                })
-            })
-        })
-
-        promise.then(colorHtml => {
-            let html = `
-                <p>
-                    Bạn có chắc chắn muốn xóa màu
-                    ${colorHtml}
-                    không ?
-                </p>
-                <p class="text-warning"><small>Hành động này sẽ không thể hoàn tác</small></p>
-            `
-
-            $('.delete-product-color-confirm').html(html)
-        })
-    })
-}
-
-function deleteColor() {
-    $(document).on('click', '.btn-delete-color', e => {
-        const selected = $('#product-color').val()
-        let promises = []
-
-        selected.forEach(color => {
-            let promise = new Promise((resolve, reject) => {
-                $.ajax({
-                    url: 'server/src/controller/MauSacController.php',
-                    method: 'POST',
-                    data: { action: 'delete', id: color},
-                    success: data => {
-                        if (data === 'success') {
-                            resolve(true)
-                        } else {
-                            resolve(false)
-                        }
-                    },
-                    error: (xhr, status, error) => {
-                        console.log(error)
-                        reject(false)
-                    }
-                })
-            })
-
-            promises.push(promise)
-        })
-
-        Promise.all(promises).then(results => {
-            if (results.includes(false)) {
-                alert('Xóa màu thất bại')
-            } else {
-                alert('Xóa màu thành công')
-                $('#deleteProductColorModal').modal('hide')
-                loadColorData()
             }
         })
     })
