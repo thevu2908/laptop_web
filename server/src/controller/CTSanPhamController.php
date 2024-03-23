@@ -38,9 +38,9 @@ class CTSanPhamController {
 
     public function addProductDetail($productDetail) {
         if ($this->ctspRepo->addProductDetail($productDetail)) {
-            echo 'success';
+            echo $productDetail->getMaCtsp();
         } else {
-            echo 'fail';
+            echo null;
         }
     }
 
@@ -91,7 +91,6 @@ switch ($action) {
                 $obj->{'cpuId'},
                 $obj->{'colorId'},
                 $obj->{'gpuId'},
-                $obj->{'plugId'},
                 $obj->{'ram'},
                 $obj->{'rom'},
                 $img,
@@ -107,13 +106,12 @@ switch ($action) {
         $cpuId = $_POST['cpuId'];
         $colorId = $_POST['colorId'];
         $gpuId = $_POST['gpuId'];
-        $plugId = $_POST['plugId'];
         $ram = $_POST['ram'];
         $rom = $_POST['rom'];
         $image = $_POST['image'];
         $price = $_POST['price'];
         
-        $productDetail = new ChiTietSanPham($productDetailId, $productId, $cpuId, $colorId, $gpuId, $plugId, $ram, $rom, $image, $price, 0);
+        $productDetail = new ChiTietSanPham($productDetailId, $productId, $cpuId, $colorId, $gpuId, $ram, $rom, $image, $price, 0);
         $ctspCtl->updateProductDetail($productDetail);
         break;
     case 'delete':

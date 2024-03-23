@@ -5,7 +5,6 @@ class ChiTietSanPham {
     private $ma_chip_xu_ly;
     private $ma_mau;
     private $ma_carddohoa;
-    private $ma_congketnoi;
     private $ram;
     private $rom;
     private $hinh_anh;
@@ -13,13 +12,12 @@ class ChiTietSanPham {
     private $trang_thai;
 
     // Constructor
-    public function __construct($ma_ctsp, $ma_sp, $ma_chip_xu_ly, $ma_mau, $ma_carddohoa, $ma_congketnoi, $ram, $rom, $hinh_anh, $gia_tien, $trang_thai) {
+    public function __construct($ma_ctsp, $ma_sp, $ma_chip_xu_ly, $ma_mau, $ma_carddohoa, $ram, $rom, $hinh_anh, $gia_tien, $trang_thai) {
         $this->ma_ctsp = $ma_ctsp;
         $this->ma_sp = $ma_sp;
         $this->ma_chip_xu_ly = $ma_chip_xu_ly;
         $this->ma_mau = $ma_mau;
         $this->ma_carddohoa = $ma_carddohoa;
-        $this->ma_congketnoi = $ma_congketnoi;
         $this->ram = $ram;
         $this->rom = $rom;
         $this->hinh_anh = $hinh_anh;
@@ -46,10 +44,6 @@ class ChiTietSanPham {
     
     public function getMaCardDoHoa() {
         return $this->ma_carddohoa;
-    }
-
-    public function getMaCongKetNoi() {
-        return $this->ma_congketnoi;
     }
 
     public function getRam() {

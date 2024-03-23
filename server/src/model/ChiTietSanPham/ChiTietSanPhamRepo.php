@@ -47,7 +47,7 @@ class ChiTietSanPhamRepo extends ConnectDB {
 
     public function addProductDetail($productDetail) : bool {
         try {
-            $query = "INSERT INTO chitietsanpham(ma_ctsp, ma_sp, ma_chip_xu_ly, ma_mau, ma_carddohoa, ma_congketnoi, ram, rom, hinh_anh, gia_tien, trang_thai) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0)";
+            $query = "INSERT INTO chitietsanpham(ma_ctsp, ma_sp, ma_chip_xu_ly, ma_mau, ma_carddohoa, ram, rom, hinh_anh, gia_tien, trang_thai) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 0)";
             $statement = mysqli_prepare($this->conn, $query);
 
             if (!$statement) {
@@ -59,15 +59,14 @@ class ChiTietSanPhamRepo extends ConnectDB {
             $cpuId = $productDetail->getMaChipXuLy();
             $colorId = $productDetail->getMaMau();
             $gpuId = $productDetail->getMaCardDoHoa();
-            $plugId = $productDetail->getMaCongKetNoi();
             $ram = $productDetail->getRam();
             $rom = $productDetail->getRom();
             $image = $productDetail->getHinhAnh();
             $price = $productDetail->getGiaTien();
 
             $result = $statement->bind_param(
-                "sssssssssi", 
-                $productDetailId, $productId, $cpuId, $colorId, $gpuId, $plugId,
+                "ssssssssi", 
+                $productDetailId, $productId, $cpuId, $colorId, $gpuId,
                 $ram, $rom, $image,
                 $price
             );
@@ -89,7 +88,7 @@ class ChiTietSanPhamRepo extends ConnectDB {
 
     public function updateProductDetail($productDetail) : bool {
         try {
-            $query = "UPDATE chitietsanpham SET ma_chip_xu_ly = ?, ma_mau = ?, ma_carddohoa = ?, ma_congketnoi = ?, ram = ?, rom = ?, hinh_anh = ?, gia_tien = ? WHERE ma_ctsp = ?";
+            $query = "UPDATE chitietsanpham SET ma_chip_xu_ly = ?, ma_mau = ?, ma_carddohoa = ?, ram = ?, rom = ?, hinh_anh = ?, gia_tien = ? WHERE ma_ctsp = ?";
             $statement = mysqli_prepare($this->conn, $query);
             
             if (!$statement) {
@@ -100,15 +99,14 @@ class ChiTietSanPhamRepo extends ConnectDB {
             $cpuId = $productDetail->getMaChipXuLy();
             $colorId = $productDetail->getMaMau();
             $gpuId = $productDetail->getMaCardDoHoa();
-            $plugId = $productDetail->getMaCongKetNoi();
             $ram = $productDetail->getRam();
             $rom = $productDetail->getRom();
             $image = $productDetail->getHinhAnh();
             $price = $productDetail->getGiaTien();
             
             $result = $statement->bind_param(
-                "sssssssis", 
-                $cpuId, $colorId, $gpuId, $plugId,
+                "ssssssis", 
+                $cpuId, $colorId, $gpuId,
                 $ram, $rom, $image,
                 $price,
                 $productDetailId

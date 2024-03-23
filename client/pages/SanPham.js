@@ -217,9 +217,7 @@ function addProduct() {
                                 product.rams.forEach(ram => {
                                     product.roms.forEach(rom => {
                                         product.gpus.forEach(gpuId => {
-                                            product.plugs.forEach(plugId => {
-                                                productDetails.push({ colorId, cpuId, ram, rom, gpuId, plugId })    
-                                            })
+                                            productDetails.push({ colorId, cpuId, ram, rom, gpuId })    
                                         })
                                     })
                                 })
@@ -228,18 +226,18 @@ function addProduct() {
 
                         productDetails.forEach(productDetail => {
                             let promise = new Promise((resolve, reject) => {
-                                addProductDetail(productDetail, productId)
-                                .then(result => {
-                                    if (result === 'success') {
-                                        resolve(true)
-                                    } else {
-                                        resolve(false)
-                                    }
-                                })
-                                .catch(error => {
-                                    console.log(error)
-                                    reject(error)
-                                })
+                                addProductDetail(productDetail, productId, product.plugs)
+                                    .then(result => {
+                                        if (result === 'success') {
+                                            resolve(true)
+                                        } else {
+                                            resolve(false)
+                                        }
+                                    })
+                                    .catch(error => {
+                                        console.log(error)
+                                        reject(error)
+                                    })
                             })
 
                             promises.push(promise)

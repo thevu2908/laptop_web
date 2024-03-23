@@ -80,7 +80,7 @@
 		</div>
 	</div>
 
-	<div id="addProductModal" class="modal fade product-config-modal" data-backdrop="static" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div id="addProductModal" class="modal fade product-config-modal" data-backdrop="static" aria-hidden="true">
 		<div class="modal-dialog modal-lg modal-dialog-scrollable">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -360,22 +360,170 @@
 		</div>
 	</div>
 
-	<div id="editProductModal" class="modal fade">
-		<div class="modal-dialog">
+	<div id="editProductModal" class="modal fade product-config-modal" data-backdrop="static" aria-hidden="true">
+		<div class="modal-dialog modal-lg modal-dialog-scrollable">
 			<div class="modal-content">
-				<form>
-					<div class="modal-header">
-						<h4 class="modal-title">Sửa thông tin sản phẩm</h4>
-						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-					</div>
-					<div class="modal-body">
-						
-					</div>
-					<div class="modal-footer">
-						<input type="button" class="btn btn-secondary" data-dismiss="modal" value="Hủy">
-						<input type="button" class="btn btn-primary" value="Lưu">
-					</div>
-				</form>
+				<div class="modal-header">
+					<h4 class="modal-title product-config-detail-name">Sửa thông tin chung sản phẩm</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				</div>
+				<div class="modal-body px-0">
+					<form class="edit-product-form">
+						<div class="modal-row">	
+							<div class="control-form__upload">
+								<div class="upload-box hide-image">
+									<input type="file" id="product-image" accept="image/*" hidden>
+									<img src="" alt="Hình ảnh sản phẩm" class="preview-img">
+									<span class="btn-remove-img" onClick="removePreviewImage()">
+										<i class="fa-solid fa-xmark"></i>
+									</span>
+									<div class="upload-box-content">
+										<span class="btn-upload-img">
+											<i class="fa-solid fa-cloud-arrow-up"></i>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="modal-row">
+							<h5 class="modal-row-title">Thông tin sản phẩm</h5>
+							<ul class="modal-row-list">
+								<li class="modal-row-item row align-items-center">
+									<label for="product-name" class="col-sm-4 px-0 mb-0">Tên sản phẩm:</label>
+									<div class="col-sm-8">
+										<input type="text" class="form-control" name="product-name" id="product-name">
+									</div>
+								</li>
+								<li class="modal-row-item row align-items-center">
+									<label for="product-origin" class="col-sm-3 px-0 mb-0">Xuất xứ:</label>
+									<div class="col-sm-8 px-0">
+										<input type="text" class="form-control" name="product-origin" id="product-origin">
+									</div>
+								</li>
+								<li class="modal-row-item row align-items-center">
+									<label for="product-brand" class="col-sm-4 px-0 mb-0">Thương hiệu:</label>
+									<div class="col-sm-5 px-0">
+										<select id="product-brand" class="form-control">
+											
+										</select>
+									</div>
+									<button href="#addProductBrandModal" data-toggle="modal" type="button" class="btn btn-outline-primary btn-ssm br-50 ml-2">
+										<i class="fa-solid fa-plus"></i>
+									</button>
+									<button href="#deleteProductBrandModal" data-toggle="modal" type="button" class="btn-open-delete-brand-modal btn btn-outline-danger btn-ssm br-50 ml-1">
+										<i class="fa-solid fa-minus"></i>
+									</button>
+								</li>
+								<li class="modal-row-item row align-items-center">
+									<label for="product-type" class="col-sm-3 px-0 mb-0">Thể loại</label>
+									<div class="col-sm-6 px-0">
+										<select id="product-type" class="form-control">
+											
+										</select>
+									</div>
+									<button href="#addProductTypeModal" data-toggle="modal" type="button" class="btn btn-outline-primary btn-ssm br-50 ml-2">
+										<i class="fa-solid fa-plus"></i>
+									</button>
+									<button href="#deleteProductTypeModal" data-toggle="modal" type="button" class="btn-open-delete-type-modal btn btn-outline-danger btn-ssm br-50 ml-1">
+										<i class="fa-solid fa-minus"></i>
+									</button>
+								</li>
+							</ul>
+						</div>
+						<div class="modal-row">
+							<h5 class="modal-row-title">Thiết kế & trọng lượng</h5>
+							<table class="modal-row-table">
+								<tbody>
+									<tr>
+										<td>Trọng lượng(kg):</td>
+										<td>
+											<input type="number" class="form-control" name="product-weight" id="product-weight">
+										</td>
+									</tr>
+									<tr>
+										<td>Chất liệu:</td>
+										<td>
+											<input type="text" class="form-control" name="product-material" id="product-material">
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div class="modal-row">
+							<h5 class="modal-row-title">Màn hình</h5>
+							<table class="modal-row-table">
+								<tbody>
+									<tr>
+										<td>Kích cỡ màn hình</td>
+										<td>
+											<input type="text" class="form-control" name="product-screen" id="product-screen">
+										</td>
+									</tr>
+									<tr>
+										<td>Độ phân giải</td>
+										<td>
+											<input type="text" class="form-control" name="product-resolution" id="product-resolution">
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div class="modal-row">
+							<h5 class="modal-row-title">Bàn phím & TouchPad</h5>
+							<table class="modal-row-table">
+								<tbody>
+									<tr>
+										<td>Kiểu bàn phím</td>
+										<td>
+											<input type="text" class="form-control" name="product-keyboard" id="product-keyboard">
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div class="modal-row">
+							<h5 class="modal-row-title">Thông tin pin & Sạc</h5>
+							<table class="modal-row-table">
+								<tbody>
+									<tr>
+										<td>Loại PIN</td>
+										<td>
+											<input type="text" class="form-control" name="product-battery" id="product-battery">
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div class="modal-row">
+							<h5 class="modal-row-title">Hệ điều hành</h5>
+							<table class="modal-row-table">
+								<tbody>
+									<tr>
+										<td>OS</td>
+										<td>
+											<select id="product-os" class="form-control">
+												
+											</select>
+										</td>
+										<td>
+											<button href="#addProductOSModal" data-toggle="modal" type="button" class="btn btn-outline-primary btn-ssm br-50 ml-2">
+												<i class="fa-solid fa-plus"></i>
+											</button>
+											<button href="#deleteProductOSModal" data-toggle="modal" type="button" class="btn-delete-os-modal btn btn-outline-danger btn-ssm br-50 ml-1">
+												<i class="fa-solid fa-minus"></i>
+											</button>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<button href="#productDetailModal" type="button" class="btn-update-product-detail-modal" data-toggle="modal" >Sửa chi tiết sản phẩm</button>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<input type="button" class="btn btn-secondary" data-dismiss="modal" value="Hủy">
+					<input type="button" class="btn btn-primary btn-update-product" value="Lưu">
+				</div>
 			</div>
 		</div>
 	</div>
@@ -409,5 +557,6 @@
 	include 'CardDoHoa.php';
 	include 'CongKetNoi.php';
 	include 'HeDieuHanh.php';
+	include 'ChiTietSanPham.php';
 	?>
 </main>
