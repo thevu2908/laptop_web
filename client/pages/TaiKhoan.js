@@ -269,7 +269,7 @@ function deleteAccount() {
                             },
                             error: (xhr, status, error) => {
                                 console.log(error)
-                                resolve(false)
+                                reject(error)
                             }
                         })
                     })
