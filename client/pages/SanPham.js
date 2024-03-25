@@ -4,6 +4,8 @@ $(document).ready(() => {
     renderUpdateProduct()
     updateProduct()
     toAdminProductDetail()
+    renderDeleteProductModal()
+    handleDeleteProduct()
 })
 
 function getProductData() {
@@ -15,7 +17,9 @@ function getProductData() {
             dataType: 'JSON',
             success: data => {
                 if (data && data.length > 0) {
-                    resolve(data);
+                    resolve(data)
+                } else {
+                    resolve(null)
                 }
             },
             error: (xhr, status, error) => {
@@ -36,6 +40,8 @@ function getProduct(productId) {
             success: data => {
                 if (data) {
                     resolve(data)
+                } else {
+                    resolve(null)
                 }
             },
             error: (xhr, status, error) => {
@@ -54,44 +60,48 @@ function renderProductName(productId) {
 }
 
 function renderAdminProductTable() {
-    getProductData().then(data => {
-        let html = ''
+    getProductData()
+        .then(data => {
+            let html = ''
 
-        data.forEach((item, index) => {
-            html += `
-                <tr>
-                    <td>
-                        <span class="custom-checkbox">
-                            <input type="checkbox" id="checkbox-${item.ma_sp}" name="chk[]" value="${item.ma_sp}">
-                            <label for="checkbox-${item.ma_sp}"></label>
-                        </span>
-                    </td>
-                    <td>${item.ma_sp}</td>
-                    <td>${item.ten_sp}</td>
-                    <td class="admin-product-type-name-${index}"></td>
-                    <td>${item.gia_nhap}</td>
-                    <td style="text-align: center;">${item.chiet_khau}</td>
-                    <td>${item.gia_ban}</td>
-                    <td style="text-align: center;">${item.so_luong_ton}</td>
-                    <td>
-                        <a href="#editProductModal" class="edit btn-update-product-modal" data-toggle="modal" data-id=${item.ma_sp}>
-                            <i class="material-icons" data-toggle="tooltip" title="Sửa thông tin">&#xE254;</i>
-                        </a>
-                        <a href="#deleteProductModal" class="delete" data-toggle="modal" data-id=${item.ma_sp}>
-                            <i class="material-icons" data-toggle="tooltip" title="Xóa">&#xE872;</i>
-                        </a>
-                        <a href="#viewProductModal" class="view" title="View" data-toggle="tooltip" data-id=${item.ma_sp}>
-                            <i class="material-icons">&#xE417;</i>
-                        </a>
-                    </td>
-                </tr>
-            `
+            if (data) {
+                data.forEach((item, index) => {
+                    html += `
+                        <tr>
+                            <td>
+                                <span class="custom-checkbox">
+                                    <input type="checkbox" id="checkbox-${item.ma_sp}" name="chk[]" value="${item.ma_sp}">
+                                    <label for="checkbox-${item.ma_sp}"></label>
+                                </span>
+                            </td>
+                            <td>${item.ma_sp}</td>
+                            <td>${item.ten_sp}</td>
+                            <td class="admin-product-type-name-${index}"></td>
+                            <td>${item.gia_nhap}</td>
+                            <td style="text-align: center;">${item.chiet_khau}</td>
+                            <td>${item.gia_ban}</td>
+                            <td style="text-align: center;">${item.so_luong_ton}</td>
+                            <td>
+                                <a href="#editProductModal" class="edit btn-update-product-modal" data-toggle="modal" data-id=${item.ma_sp}>
+                                    <i class="material-icons" data-toggle="tooltip" title="Sửa thông tin">&#xE254;</i>
+                                </a>
+                                <a href="#deleteProductModal" class="delete btn-delete-product-modal" data-toggle="modal" data-id=${item.ma_sp}>
+                                    <i class="material-icons" data-toggle="tooltip" title="Xóa">&#xE872;</i>
+                                </a>
+                                <a href="#viewProductModal" class="view" title="View" data-toggle="tooltip" data-id=${item.ma_sp}>
+                                    <i class="material-icons">&#xE417;</i>
+                                </a>
+                            </td>
+                        </tr>
+                    `
+    
+                    showBrandName(item.ma_thuong_hieu, index)
+                })
+            }
 
-            showBrandName(item.ma_thuong_hieu, index)
+            $('.admin-product-list').html(html)
         })
-
-        $('.admin-product-list').html(html)
-    })
+        .catch(error => console.log(error))
 }
 
 function renderUpdateProduct() {
@@ -379,9 +389,7 @@ function updateProduct() {
                             alert('Xảy ra lỗi trong quá trình cập nhật sản phẩm')
                         }
                     },
-                    error: (xhr, status, error) => {
-                        console.log(error)
-                    }
+                    error: (xhr, status, error) => console.log(error)
                 })
             })
     })
@@ -391,5 +399,101 @@ function toAdminProductDetail() {
     $(document).on('click', '.btn-to-product-detail', e => {
         const productId = $('#editProductModal .product-id').text()
         window.location.href = `/admin.php?controller=chitietsanpham&id=${productId}`
+    })
+}
+
+function renderDeleteProductModal() {
+    $(document).on('click', '.btn-delete-product-modal', e => {
+        const productId = e.target.closest('.btn-delete-product-modal').dataset.id
+
+        if (productId) {
+            getProduct(productId)
+                .then(product => {
+                    const html = `
+                        <p>Bạn có chắc chắn muôn xóa sản phẩm có mã "<b class="product-id">${product.ma_sp}</b>" không ?</p>
+                        <p class="text-warning"><small>Hành động này sẽ không thể hoàn tác</small></p>
+                    `
+                    $('#deleteProductModal .confirm-delete').html(html)
+                })
+        }
+    })
+
+    $('.btn-delete-checked-product-modal').on('click', () => {
+        const html = `
+            <p>Bạn có chắc muốn xóa các sản phẩm được chọn không ?</p>
+            <p class="text-warning"><small>Hành động này sẽ không thể hoàn tác</small></p>
+        `
+        $('#deleteProductModal .confirm-delete').html(html)
+    })
+}
+
+function deleteProduct(productId) {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: 'server/src/controller/SanPhamController.php',
+            method: 'POST',
+            data: { action: 'delete', productId },
+            success: data => {
+                if (data === 'success') {
+                    resolve(true)
+                } else {
+                    resolve(false)
+                }
+            },
+            error: (xhr, status, error) => {
+                console.log(error)
+                reject(error)
+            }
+        })
+    })
+}
+
+function handleDeleteProduct() {
+    $(document).on('click', '.btn-delete-product', () => {
+        const productId = $('#deleteProductModal .product-id').text()
+
+        if (productId) {
+            deleteProduct(productId)
+                .then(res => {
+                    if (res === true) {
+                        alert('Xóa sản phẩm thành công')
+                        $('#deleteProductModal').modal('hide')
+                        renderAdminProductTable()
+                    } else {
+                        alert('Xảy ra lỗi trong quá trình xóa sản phẩm')
+                    }
+                })
+                .catch(error => console.log(error))
+        } else {
+            let checkedProducts = []
+            const firstCheckInputElement = document.querySelector('table.table thead input[type=checkbox]')
+            const checkInputElements = document.querySelectorAll('.admin-product-list input[name="chk[]"]')
+
+            checkInputElements.forEach(item => {
+                if (item.checked) {
+                    checkedProducts.push(item.value)
+                }
+            })
+
+            if (checkedProducts.length > 0) {
+                let promises = []
+
+                checkedProducts.forEach(productId => promises.push(deleteProduct(productId)))
+
+                Promise.all(promises).then(results => {
+                    if (results.includes(false)) {
+                        alert('Xảy ra lỗi trong quá trình xóa các sản phẩm')
+                    } else {
+                        alert('Đã xóa sản phẩm các sản phẩm được chọn')
+                        firstCheckInputElement.checked = false
+                        renderAdminProductTable()
+                    }
+                })
+            } else {
+                alert('Không có sản phẩm nào được chọn\nVui lòng check vào ô các sản phẩm muốn xóa')
+            }
+
+            $('#deleteProductModal').modal('hide')
+        }
     })
 }

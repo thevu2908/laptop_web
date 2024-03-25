@@ -26,7 +26,7 @@
                                 <i class="material-icons">&#xE147;</i>
                                 <span>Thêm</span>
                             </a>
-                            <a href="#deleteProductDetailModal" class="btn btn-danger" data-toggle="modal">
+                            <a href="#deleteProductDetailModal" class="btn btn-danger btn-delete-checked-product-detail-modal" data-toggle="modal">
 								<i class="material-icons">&#xE15C;</i>
 								<span>Xóa</span>
 							</a>
@@ -357,6 +357,26 @@
 					<input type="button" class="btn btn-secondary" data-dismiss="modal" value="Hủy">
 					<input type="button" class="btn btn-primary btn-update-product-detail" value="Lưu">
 				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="deleteProductDetailModal" class="modal fade">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<form>
+					<div class="modal-header">
+						<h4 class="modal-title">Xóa chi tiết sản phẩm</h4>
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					</div>
+					<div class="modal-body confirm-delete">
+						
+					</div>
+					<div class="modal-footer">
+						<input type="button" class="btn btn-secondary" data-dismiss="modal" value="Hủy">
+						<input type="button" class="btn btn-danger btn-delete-product-detail" value="Xóa">
+					</div>
+				</form>
 			</div>
 		</div>
 	</div>

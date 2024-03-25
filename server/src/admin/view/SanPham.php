@@ -20,7 +20,7 @@
 								<i class="material-icons">&#xE147;</i>
 								<span>Thêm</span>
 							</a>
-							<a href="#deleteProductModal" class="btn btn-danger" data-toggle="modal">
+							<a href="#deleteProductModal" class="btn btn-danger btn-delete-checked-product-modal" data-toggle="modal">
 								<i class="material-icons">&#xE15C;</i>
 								<span>Xóa</span>
 							</a>
@@ -569,16 +569,15 @@
 			<div class="modal-content">
 				<form>
 					<div class="modal-header">
-						<h4 class="modal-title">Delete Employee</h4>
+						<h4 class="modal-title">Xóa sản phẩm</h4>
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 					</div>
-					<div class="modal-body">
-						<p>Are you sure you want to delete these Records?</p>
-						<p class="text-warning"><small>This action cannot be undone.</small></p>
+					<div class="modal-body confirm-delete">
+						
 					</div>
 					<div class="modal-footer">
-						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-						<input type="button" class="btn btn-danger" value="Delete">
+						<input type="button" class="btn btn-secondary" data-dismiss="modal" value="Hủy">
+						<input type="button" class="btn btn-danger btn-delete-product" value="Xóa">
 					</div>
 				</form>
 			</div>

@@ -1,9 +1,11 @@
 $(document).ready(() => {
     renderAdminProductDetail()
     renderProductDetail()
-    addProductDetailExecute()
+    handleAddProductDetail()
     renderUpdateProductDetail()
     updateProductDetail()
+    renderDeleteProductDetailModal()
+    handleDeleteProductDetail()
 })
 
 function getProductDetailData(productId) {
@@ -85,7 +87,7 @@ function renderAdminProductDetail() {
                                 <a href="#editProductDetailModal" class="edit btn-update-product-detail-modal" data-toggle="modal" data-id=${item.ma_ctsp}>
                                     <i class="material-icons" data-toggle="tooltip" title="Sửa thông tin">&#xE254;</i>
                                 </a>
-                                <a href="#deleteProductModal" class="delete" data-toggle="modal" data-id=${item.ma_ctsp}>
+                                <a href="#deleteProductDetailModal" class="delete btn-delete-product-detail-modal" data-toggle="modal" data-id=${item.ma_ctsp}>
                                     <i class="material-icons" data-toggle="tooltip" title="Xóa">&#xE872;</i>
                                 </a>
                             </td>
@@ -203,7 +205,7 @@ function validateEmpty(productDetail) {
     return true
 }
 
-function addProductDetailExecute() {
+function handleAddProductDetail() {
     $(document).on('click', '.btn-add-product-detail', () => {
         const productDetail = {
             productId: $('#admin-product-detail-main #product-id').val() !== null ? $('#admin-product-detail-main #product-id').val().toUpperCase() : null,
@@ -263,9 +265,104 @@ function updateProductDetail() {
                     alert('Xảy ra lỗi trong quá trình cập nhật chi tiết sản phẩm')
                 }
             },
+            error: (xhr, status, error) => console.log(error)
+        })
+    })
+}
+
+function renderDeleteProductDetailModal() {
+    $(document).on('click', '.btn-delete-product-detail-modal', e => {
+        const productDetailId = e.target.closest('.btn-delete-product-detail-modal').dataset.id
+
+        if (productDetailId) {
+            getProductDetail(productDetailId)
+                .then(productDetail => {
+                    const html = `
+                        <p>Bạn có chắc chắn muôn xóa chi tiết sản phẩm có mã "<b class="product-detail-id">${productDetail.ma_ctsp}</b>" không ?</p>
+                        <p class="text-warning"><small>Hành động này sẽ không thể hoàn tác</small></p>
+                    `
+                    $('#deleteProductDetailModal .confirm-delete').html(html)
+                })
+                .catch(error => console.log(error))
+        }
+    })
+
+    $('.btn-delete-checked-product-detail-modal').on('click', () => {
+        const html = `
+            <p>Bạn có chắc muốn xóa các chi tiết sản phẩm được chọn không ?</p>
+            <p class="text-warning"><small>Hành động này sẽ không thể hoàn tác</small></p>
+        `
+        $('#deleteProductDetailModal .confirm-delete').html(html)
+    })
+}
+
+function deleteProductDetail(productDetailId) {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: 'server/src/controller/CTSanPhamController.php',
+            method: 'POST',
+            data: { action: 'delete', productDetailId },
+            success: data => {
+                if (data === 'success') {
+                    resolve(true)
+                } else {
+                    resolve(false)
+                }
+            },
             error: (xhr, status, error) => {
                 console.log(error)
+                reject(error)
             }
         })
+    })
+}
+
+function handleDeleteProductDetail() {
+    $(document).on('click', '.btn-delete-product-detail', () => {
+        const productDetailId = $('#deleteProductDetailModal .product-detail-id').text()
+
+        if (productDetailId) {
+            deleteProductDetail(productDetailId)
+                .then(result => {
+                    if (result) {
+                        alert('Xóa chi tiết sản phẩm thành công')
+                        $('#deleteProductDetailModal').modal('hide')
+                        renderAdminProductDetail()
+                    } else {
+                        alert('Xảy ra lỗi trong quá trình xóa chi tiết sản phẩm')
+                    }
+                })
+                .catch(error => console.log(error))
+        } else {
+            let checkedProductDetails = []
+            const firstCheckInputElement = document.querySelector('table.table thead input[type=checkbox]')
+            const checkInputElements = document.querySelectorAll('.admin-product-detail-list input[name="chk[]"]')
+
+            checkInputElements.forEach(item => {
+                if (item.checked) {
+                    checkedProductDetails.push(item.value)
+                }
+            })
+
+            if (checkedProductDetails.length > 0) {
+                let promises = []
+
+                checkedProductDetails.forEach(productDetailId => promises.push(deleteProductDetail(productDetailId)))
+
+                Promise.all(promises).then(results => {
+                    if (results.includes(false)) {
+                        alert('Xảy ra lỗi trong quá trình xóa các chi tiết sản phẩm')
+                    } else {
+                        alert('Đã xóa sản phẩm các chi tiết sản phẩm được chọn')
+                        firstCheckInputElement.checked = false
+                        renderAdminProductDetail()
+                    }
+                })
+            } else {
+                alert('Không có chi tiết sản phẩm nào được chọn\nVui lòng check vào ô các chi tiết sản phẩm muốn xóa')
+            }
+
+            $('#deleteProductDetailModal').modal('hide')
+        }
     })
 }
