@@ -96,28 +96,6 @@ class SanPhamRepo extends ConnectDB {
         }
     }
 
-    public function deleteProduct($productId) : bool {
-        try {
-            $query = "UPDATE sanpham SET trang_thai = 1 WHERE ma_sp = ?";
-            $statement = mysqli_prepare($this->conn, $query);
-
-            if (!$statement) {
-                throw new Exception("Deleting data failed: " . mysqli_error($this->conn));
-            }
-
-            $result = $statement->bind_param("s", $productId);
-
-            if (!$result) {
-                throw new Exception("Binding parameters failed: " . $statement->error);
-            }
-
-            return $statement->execute();
-        } catch (Exception $e) {
-            echo 'Error: ' . $e->getMessage() . '<br>';
-            return false;
-        }
-    }
-
     public function updateProduct($product) : bool {
         try {
             $query = "UPDATE sanpham SET ma_thuong_hieu = ?, ma_the_loai = ?, ma_hdh = ?, ten_sp = ?, hinh_anh = ?, kich_co_man_hinh = ?, do_phan_giai = ?, pin = ?,
@@ -154,6 +132,32 @@ class SanPhamRepo extends ConnectDB {
                 $weight, $material, $origin, $quantity,
                 $productId
             );
+
+            if (!$result) {
+                throw new Exception("Binding parameters failed: " . $statement->error);
+            }
+
+            if ($statement->execute()) {
+                return true;
+            } else {
+                throw new Exception("Execution of query failed: " . mysqli_error($this->conn));
+            }
+        } catch (Exception $e) {
+            echo 'Error: ' . $e->getMessage() . '<br>';
+            return false;
+        }
+    }
+
+    public function deleteProduct($productId) : bool {
+        try {
+            $query = "UPDATE sanpham SET trang_thai = 1 WHERE ma_sp = ?";
+            $statement = mysqli_prepare($this->conn, $query);
+
+            if (!$statement) {
+                throw new Exception("Deleting data failed: " . mysqli_error($this->conn));
+            }
+
+            $result = $statement->bind_param("s", $productId);
 
             if (!$result) {
                 throw new Exception("Binding parameters failed: " . $statement->error);

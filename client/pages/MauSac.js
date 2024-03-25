@@ -18,7 +18,9 @@ function loadColorData() {
                 })
 
                 $('#admin-product-main #product-color').html(html)
-                $('#admin-product-main #product-color').selectpicker('refresh');
+                $('#admin-product-main #product-color').selectpicker('refresh')
+
+                $('#admin-product-detail-main #product-color').html(html)
             }
         },
         error: (xhr, status, error) => {
@@ -68,5 +70,20 @@ function addColor() {
                 console.log(error)
             }
         })
+    })
+}
+
+function renderColorName(id, index) {
+    $.ajax({
+        url: 'server/src/controller/MauSacController.php',
+        method: 'POST',
+        data: { action: 'get', id },
+        dataType: 'JSON',
+        success: data => {
+            $(`.product-detail-color-name-${index}`).text(data.ten_mau)
+        },
+        error: (xhr, status, error) => {
+            console.log(error)
+        }
     })
 }

@@ -20,7 +20,7 @@ class SanPhamController {
                 $result[] = $product;
             }
         }
-        
+
         echo json_encode($result);
     }
 
@@ -32,7 +32,7 @@ class SanPhamController {
         echo json_encode($this->sanPhamRepo->getProduct($productId));
     }
 
-    public function getProductsLength() : int {
+    public function getProductsLength(): int {
         return $this->sanPhamRepo->getProductsLength();
     }
 
@@ -63,16 +63,20 @@ class SanPhamController {
     function saveImage($fileInputName, $name) {
         $targetDir = '../assets/images/products/';
         $targetFile = $targetDir . $name . '.png';
-     
-        $imageFileType = strtolower(pathinfo($_FILES[$fileInputName]["name"], PATHINFO_EXTENSION));
-        if (!in_array($imageFileType, array("jpg", "jpeg", "png"))) {
-            echo "Chỉ những file JPG, JPEG, PNG được chấp nhận";
-        }
-    
-        if (move_uploaded_file($_FILES[$fileInputName]["tmp_name"], $targetFile)) {
-            echo 'success';
+
+        if (!empty($_FILES[$fileInputName]["tmp_name"])) {
+            $imageFileType = strtolower(pathinfo($_FILES[$fileInputName]["name"], PATHINFO_EXTENSION));
+            if (!in_array($imageFileType, array("jpg", "jpeg", "png"))) {
+                echo "Chỉ những file JPG, JPEG, PNG được chấp nhận";
+            }
+
+            if (move_uploaded_file($_FILES[$fileInputName]["tmp_name"], $targetFile)) {
+                echo 'success';
+            } else {
+                echo "Đã có lỗi trong quá trình lưu ảnh";
+            }
         } else {
-            echo "Đã có lỗi trong quá trình lưu ảnh";
+            echo 'no image updated';
         }
     }
 }
@@ -102,7 +106,7 @@ switch ($action) {
             $chietkhau = 0;
             $price = 0;
             $quantity = 0;
-    
+
             $product = new SanPham(
                 $productId,
                 $obj->{'brandId'},
@@ -123,50 +127,34 @@ switch ($action) {
                 $quantity,
                 0
             );
-            
+
             $sanPhamCtl->addProduct($product);
         }
         break;
     case 'update':
-        $productId = $_POST['productId'];
-        $brandId = $_POST['brandId'];
-        $typeId = $_POST['typeId'];
-        $osId = $_POST['osId'];
-        $productName = $_POST['productName'];
-        $image = $_POST['image'];
-        $screen = $_POST['screen'];
-        $resolution = $_POST['resolution'];
-        $battery = $_POST['battery'];
-        $keyboard = $_POST['keyboard'];
-        $importPrice = 0;
-        $chietkhau = 0;
-        $price = 0;
-        $weight = $_POST['weight'];
-        $material = $_POST['material'];
-        $origin = $_POST['origin'];
-        $quantity = 0;
+        $obj = json_decode(json_encode($_POST['product']));
 
         $product = new SanPham(
-            $productId,
-            $brandId,
-            $typeId,
-            $osId,
-            $productName,
-            $image,
-            $screen,
-            $resolution,
-            $battery,
-            $keyboard,
-            $price,
-            $importPrice,
-            $chietkhau,
-            $weight,
-            $material,
-            $origin,
-            $quantity,
+            $obj->{'productId'},
+            $obj->{'brandId'},
+            $obj->{'typeId'},
+            $obj->{'osId'},
+            $obj->{'productName'},
+            $obj->{'img'},
+            $obj->{'screen'},
+            $obj->{'resolution'},
+            $obj->{'battery'},
+            $obj->{'keyboard'},
+            $obj->{'price'},
+            $obj->{'importPrice'},
+            $obj->{'chietkhau'},
+            $obj->{'weight'},
+            $obj->{'material'},
+            $obj->{'origin'},
+            $obj->{'quantity'},
             0
         );
-        
+
         $sanPhamCtl->updateProduct($product);
         break;
     case 'delete':

@@ -101,16 +101,19 @@ switch ($action) {
         }
         break;
     case 'update':
-        $productDetailId = $_POST['productDetailId'];
-        $productId = $_POST['productId'];
-        $cpuId = $_POST['cpuId'];
-        $colorId = $_POST['colorId'];
-        $gpuId = $_POST['gpuId'];
-        $ram = $_POST['ram'];
-        $rom = $_POST['rom'];
-        $price = $_POST['price'];
+        $obj = json_decode(json_encode($_POST['productDetail']));
         
-        $productDetail = new ChiTietSanPham($productDetailId, $productId, $cpuId, $colorId, $gpuId, $ram, $rom, $price, 0);
+        $productDetail = new ChiTietSanPham(
+            $obj->{'productDetailId'},
+            $obj->{'productId'},
+            $obj->{'cpuId'},
+            $obj->{'colorId'},
+            $obj->{'gpuId'},
+            $obj->{'ram'},
+            $obj->{'rom'},
+            0,
+            0
+        );
         $ctspCtl->updateProductDetail($productDetail);
         break;
     case 'delete':

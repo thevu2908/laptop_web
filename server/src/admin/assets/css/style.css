@@ -917,6 +917,10 @@ table.table .avatar {
   width: 350px;
 }
 
+.modal-row label {
+  color: #99a2aa;
+}
+
 .modal-row-title {
   padding: 4px 30px;
   font-weight: 500;
@@ -1069,7 +1073,7 @@ table.table .avatar {
   display: none;
 }
 
-.btn-update-product-detail-modal {
+.btn-to-product-detail {
   font-size: 14px;
   line-height: 20px;
   color: #0168fa;
@@ -1082,7 +1086,7 @@ table.table .avatar {
   margin-left: 30px;
 }
 
-.btn-update-product-detail-modal::before {
+.btn-to-product-detail::before {
   content: "";
   position: absolute;
   left: 0;
@@ -1093,18 +1097,21 @@ table.table .avatar {
   -webkit-transform: scaleX(0);
   -ms-transform: scaleX(0);
   transform: scaleX(0);
-  transition: transform .5s ease, -webkit-transform .5s ease;
+  transition: transform 0.5s ease, -webkit-transform 0.5s ease;
 }
 
-.btn-update-product-detail-modal:hover {
+.btn-to-product-detail:hover {
+  text-decoration: none;
   color: #0168fa;
 }
 
-.btn-update-product-detail-modal:hover::before {
+.btn-to-product-detail:hover::before {
   transform: scaleX(1);
 }
 
-.dropdown-toggle { outline: 0; }
+.dropdown-toggle {
+  outline: 0;
+}
 
 .nav-flush .nav-link {
   border-radius: 0;
@@ -1113,14 +1120,14 @@ table.table .avatar {
 .btn-toggle {
   display: inline-flex;
   align-items: center;
-  padding: .5rem 1rem;
+  padding: 0.5rem 1rem;
   color: #000;
   background-color: transparent;
   border: 0;
 }
 
 .btn-toggle[aria-expanded="true"] {
-  color: rgba(0, 0, 0, .85);
+  color: rgba(0, 0, 0, 0.85);
 }
 .btn-toggle[aria-expanded="true"] i {
   transform: rotate(90deg);
@@ -1143,4 +1150,20 @@ table.table .avatar {
 
 .btn-toggle-nav .side-menu li.active::after {
   width: 20px;
+}
+
+.btn-search-product-detail {
+  width: 36px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--blue);
+  color: var(--light);
+  font-size: 16px;
+  border: none;
+  outline: none;
+  border-radius: 0 36px 36px 0;
+  cursor: pointer;
+  padding: 7px 0;
 }

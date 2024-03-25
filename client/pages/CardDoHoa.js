@@ -21,6 +21,8 @@ function loadGPUData() {
 
                 $('#admin-product-main #product-gpu').html(html)
                 $('#admin-product-main #product-gpu').selectpicker('refresh')
+
+                $('#admin-product-detail-main #product-gpu').html(html)
             }
         },
         error: (xhr, status, error) => {
@@ -145,5 +147,20 @@ function deleteGPU() {
                 loadGPUData()
             }
         })
+    })
+}
+
+function renderGPUName(id, index) {
+    $.ajax({
+        url: 'server/src/controller/CardDoHoaController.php',
+        method: 'POST',
+        data: { action: 'get', id },
+        dataType: 'JSON',
+        success: data => {
+            $(`.product-detail-gpu-name-${index}`).text(data.ten_card)
+        },
+        error: (xhr, status, error) => {
+            console.log(error)
+        }
     })
 }

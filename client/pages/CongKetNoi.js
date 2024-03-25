@@ -21,6 +21,9 @@ function loadPlugData() {
 
                 $('#admin-product-main #product-plug').html(html)
                 $('#admin-product-main #product-plug').selectpicker('refresh')
+
+                $('#admin-product-detail-main #product-plug').html(html)
+                $('#admin-product-detail-main #product-plug').selectpicker('refresh')
             }
         },
         error: (xhr, status, error) => {
@@ -143,6 +146,28 @@ function deletePlug() {
                 alert('Xóa cổng kết nối thành công')
                 $('#deleteProductPlugModal').modal('hide')
                 loadPlugData()
+            }
+        })
+    })
+}
+
+function getPlug(id) {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: 'server/src/controller/CongKetNoiController.php',
+            method: 'POST',
+            data: { action: 'get', id },
+            dataType: 'JSON',
+            success: data => {
+                if (data) {
+                    resolve(data)
+                } else {
+                    resolve(null)
+                }
+            },
+            error: (xhr, status, error) => {
+                console.log(error)
+                reject(error)
             }
         })
     })

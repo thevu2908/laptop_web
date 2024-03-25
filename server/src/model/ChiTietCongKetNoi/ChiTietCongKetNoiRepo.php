@@ -17,14 +17,17 @@ class ChiTietCongKetNoiRepo extends ConnectDB {
         return null;
     }
 
-    public function getChiTietCong($plugId, $productDetailId) {
+    public function getChiTietCong($productDetailId) {
+        $arrays = [];
         try {
-            $query = "SELECT * FROM chitietcongketnoi WHERE ma_cong = '$plugId' AND ma_ctsp = '$productDetailId'";
+            $query = "SELECT * FROM chitietcongketnoi WHERE ma_ctsp = '$productDetailId'";
             $statement = mysqli_query($this->conn, $query);
 
-            if ($row = mysqli_fetch_assoc($statement)) {
-                return $row;
+            while ($row = mysqli_fetch_assoc($statement)) {
+                $arrays[] = $row;
             }
+
+            return $arrays;
         } catch (Exception $e) {
             echo 'Error: ' . $e->getMessage() . '<br>';
         }

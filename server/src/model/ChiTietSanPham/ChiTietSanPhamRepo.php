@@ -64,7 +64,7 @@ class ChiTietSanPhamRepo extends ConnectDB {
             $price = $productDetail->getGiaTien();
 
             $result = $statement->bind_param(
-                "sssssssi", 
+                "sssssssd", 
                 $productDetailId, $productId, $cpuId, $colorId, $gpuId,
                 $ram, $rom,
                 $price
@@ -103,7 +103,7 @@ class ChiTietSanPhamRepo extends ConnectDB {
             $price = $productDetail->getGiaTien();
             
             $result = $statement->bind_param(
-                "sssssis", 
+                "sssssds", 
                 $cpuId, $colorId, $gpuId,
                 $ram, $rom,
                 $price,

@@ -40,7 +40,7 @@
 							<th>Tên sản phẩm</th>
 							<th>Thương hiệu</th>
 							<th>Giá nhập</th>
-							<th>Chiết khấu</th>
+							<th>Chiết khấu(%)</th>
 							<th>Giá bán</th>
 							<th>Số lượng tồn</th>
 							<th>Actions</th>
@@ -364,7 +364,7 @@
 		<div class="modal-dialog modal-lg modal-dialog-scrollable">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h4 class="modal-title product-config-detail-name">Sửa thông tin chung sản phẩm</h4>
+					<h4 class="modal-title product-config-detail-name">Sửa thông tin chung sản phẩm <b class="product-id"></b></h4>
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 				</div>
 				<div class="modal-body px-0">
@@ -374,7 +374,7 @@
 								<div class="upload-box hide-image">
 									<input type="file" id="product-image" accept="image/*" hidden>
 									<img src="" alt="Hình ảnh sản phẩm" class="preview-img">
-									<span class="btn-remove-img" onClick="removePreviewImage()">
+									<span class="btn-remove-img" onClick="updateRemovePreviewImage()">
 										<i class="fa-solid fa-xmark"></i>
 									</span>
 									<div class="upload-box-content">
@@ -429,6 +429,42 @@
 									</button>
 								</li>
 							</ul>
+						</div>
+						<div class="modal-row">
+							<h5 class="modal-row-title">Giá</h5>
+							<ul class="modal-row-list">
+								<li class="modal-row-item row align-items-center">
+									<label for="product-import-price" class="col-sm-3 px-0 mb-0">Giá nhập:</label>
+									<div class="col-sm-8 px-0">
+										<input type="number" class="form-control" name="product-import-price" id="product-import-price" disabled>
+									</div>
+								</li>
+								<li class="modal-row-item row align-items-center">
+									<label for="product-chietkhau" class="col-sm-4 px-0 mb-0">Chiết khấu(%):</label>
+									<div class="col-sm-8 px-0">
+										<input type="number" class="form-control" name="product-chietkhau" id="product-chietkhau">
+									</div>
+								</li>
+								<li class="modal-row-item row align-items-center">
+									<label for="product-price" class="col-sm-3 px-0 mb-0">Giá bán:</label>
+									<div class="col-sm-8 px-0">
+										<input type="number" class="form-control" name="product-price" id="product-price" disabled>
+									</div>
+								</li>
+							</ul>
+						</div>
+						<div class="modal-row">
+							<h5 class="modal-row-title">Số lượng</h5>
+							<table class="modal-row-table">
+								<tbody>
+									<tr>
+										<td>Số lượng tồn:</td>
+										<td>
+											<input type="number" class="form-control" name="product-quantity" id="product-quantity">
+										</td>
+									</tr>
+								</tbody>
+							</table>
 						</div>
 						<div class="modal-row">
 							<h5 class="modal-row-title">Thiết kế & trọng lượng</h5>
@@ -517,7 +553,7 @@
 								</tbody>
 							</table>
 						</div>
-						<a href="/admin.php?controller=chitietsanpham" type="button" class="btn-to-product-detail">Sửa chi tiết sản phẩm</a>
+						<button type="button" class="btn-to-product-detail">Sửa chi tiết sản phẩm</button>
 					</form>
 				</div>
 				<div class="modal-footer">

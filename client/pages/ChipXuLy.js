@@ -21,6 +21,8 @@ function loadCPUData() {
 
                 $('#admin-product-main #product-cpu').html(html)
                 $('#admin-product-main #product-cpu').selectpicker('refresh')
+
+                $('#admin-product-detail-main #product-cpu').html(html)
             }
         },
         error: (xhr, status, error) => {
@@ -145,5 +147,20 @@ function deleteCPU() {
                 loadCPUData()
             }
         })
+    })
+}
+
+function renderCPUName(id, index) {
+    $.ajax({
+        url: 'server/src/controller/ChipXuLyController.php',
+        method: 'POST',
+        data: { action: 'get', id },
+        dataType: 'JSON',
+        success: data => {
+            $(`.product-detail-cpu-name-${index}`).text(data.ten_chip)
+        },
+        error: (xhr, status, error) => {
+            console.log(error)
+        }
     })
 }
