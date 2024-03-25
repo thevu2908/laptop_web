@@ -1,12 +1,12 @@
 
 $(document).ready(function(){
     loadData();
-    // addNhomQuyen();
-    // deleteNhomQuyen();
-    // updateNhomQuyen();
-    // getNhomQuyen();
-     searchNhomQuyen();
-    // detailNhomQuyen();
+    addNhomQuyen();
+    deleteNhomQuyen();
+    updateNhomQuyen();
+    getNhomQuyen();
+    searchNhomQuyen();
+    detailNhomQuyen();
 })
 function addNhomQuyen(){
     $(document).on('click',"#addNhomQuyen",function(){
@@ -77,7 +77,7 @@ function render(data){
                         <td>${nhomquyen['ma_quyen']}</td>
                         <td>${nhomquyen['ten_quyen']}</td>
                         <td><span class="status text-success">&bull;</span> Active</td>
-                        <td>
+                        <td id="container">
                             <a id="btnUp" href="#editNhomQuyen" class="edit" data-toggle="modal" data-id=${nhomquyen['ma_quyen']}><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
                             <a id="btnDel" href="#deleteNhomQuyen" class="delete" data-toggle="modal" data-id1=${nhomquyen['ma_quyen']}><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                             <a id="btnDetail" href="#detailNhomQuyen" class="view" data-id2=${nhomquyen['ma_quyen']} data-toggle="modal"><i class="material-icons">&#xE417;</i></a>
@@ -88,6 +88,19 @@ function render(data){
                 }
             }
             $("#show-listNhomQuyen").html(html);
+            $.ajax({
+                url:"server/src/controller/CTQuyenController.php",
+                data:{action:"kiemtra" ,maquyen:$("#ad-maquyen").val(),machucnang:"CN002"},
+                method:"POST",
+                success:function(data){
+                    var jsonData = JSON.parse(data);
+                    console.log(jsonData);
+                    jsonData.some(item => item.hanh_dong === "Thêm")?$(".btn.btn-success.add").show():$(".btn.btn-success.add").hide();
+                    jsonData.some(item => item.hanh_dong === "Xóa")?$(".delete").show():$(".delete").hide();
+                    jsonData.some(item => item.hanh_dong === "Sửa")?$(".edit").show():$(".edit").hide();
+                    //jsonData.some(item => item.hanh_dong === "Xem")?$(".btn.btn-success.add").show():$(".btn.btn-success.add").hide();
+                }
+            })
 }
 
 function loadNhomQuyenDataAccount() {
@@ -201,8 +214,8 @@ function searchNhomQuyen() {
                     <td>${nhomquyen['ten_quyen']}</td>
                     <td><span class="status text-success">&bull;</span> Active</td>
                     <td>
-                        <a id="btnUp" href="#editNhomQuyen" class="edit" data-toggle="modal" data-id=${nhomquyen['ma_quyen']}><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                        <a id="btnDel" href="#deleteNhomQuyen" class="delete" data-toggle="modal" data-id1=${nhomquyen['ma_quyen']}><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                        <a id="btnUp" href="#editNhomQuyen" class="edit" data-toggle="modal" data-id=${nhomquyen['ma_quyen']}><i class="material-icons" data-toggle="tooltip" title="Edit" id="editIcon">&#xE254;</i></a>
+                        <a id="btnDel" href="#deleteNhomQuyen" class="delete" data-toggle="modal" data-id1=${nhomquyen['ma_quyen']}><i class="material-icons" data-toggle="tooltip" title="Delete" id="deleteIcon">&#xE872;</i></a>
                         <a id="btnDetail" href="#detailNhomQuyen" class="view" title="View" data-id2=${nhomquyen['ma_quyen']} data-toggle="modal"><i class="material-icons">&#xE417;</i></a>
                         <a href="#" class="Status" title="Status"><input type="checkbox" checked data-toggle="toggle" data-onstyle="danger" data-height=""></a>
                     </td>
@@ -210,7 +223,6 @@ function searchNhomQuyen() {
                 });
             }
             $("#show-listNhomQuyen").html(html);
-            
             }
         })
     })

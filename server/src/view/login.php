@@ -1,3 +1,7 @@
+<?php
+session_start();
+$_SESSION['maquyen']="";
+?>
 <section class="vh-100">
     <div class="py-3 h-100">
         <div class="container login-header">
@@ -12,27 +16,25 @@
                     <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp" class="img-fluid" alt="Phone image">
                 </div>
                 <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1 py-5">
-                    <form class="login-form">
+                    <form class="login-form" method="post" autocomplete="off" id="login-form">
                         <div class="mb-4">
                             <label class="form-label" for="login-phone">Số điện thoại</label>
-                            <input type="email" id="login-phone" class="form-control form-control-lg" />
+                            <input type="email" id="login-phone" name="login-phone" class="form-control form-control-lg" />
                         </div>
                         <div class="mb-4">
                             <div class="password-form">
                                 <label class="form-label" for="login-password">Mật khẩu</label>
-                                <input type="password" id="login-password" class="form-control form-control-lg login-password" />
+                                <input type="password" id="login-password" name="login-password" class="form-control form-control-lg login-password" />
                                 <span class="showhide-pwd-icon">
                                     <i class="fa-regular fa-eye open"></i>
                                     <i class="fa-regular fa-eye-slash"></i>
                                 </span>
                             </div>
                         </div>
-
                         <div class="d-flex justify-content-end align-items-center mb-4">
                             <a href="#!">Quên mật khẩu?</a>
                         </div>
-
-                        <button type="submit" class="btn btn-primary btn-lg btn-block btn-login">Đăng nhập</button>
+                        <button type="submit" class="btn btn-primary btn-lg btn-block btn-login" id="submit-login" name="submit">Đăng nhập</button>
 
                         <div class="divider d-flex align-items-center my-4">
                             <p class="text-center fw-bold mx-3 mb-0 text-muted">Hoặc</p>

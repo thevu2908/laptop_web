@@ -29,7 +29,7 @@ class ChiTietQuyenRepo extends ConnectDB{
         }
         return $arrChiTietQuyen;
     }
-    function getHangDong($maquyen,$machucnang){
+    function getHanhDong($maquyen,$machucnang){
         $sql = "SELECT hanh_dong FROM chitietquyen WHERE ma_quyen='$maquyen' AND ma_chuc_nang='$machucnang'";
         $result = mysqli_query($this->conn,$sql);
         $arrHanhDong=array();
@@ -38,6 +38,39 @@ class ChiTietQuyenRepo extends ConnectDB{
             $arrHanhDong[]=$row;
         }
         return $arrHanhDong;
+    }
+    function addPhanQuyen($maquyen,$machucnang,$hanhdong){
+        $sql = "INSERT INTO chitietquyen(ma_quyen,ma_chuc_nang,hanh_dong) VALUES('$maquyen','$machucnang','$hanhdong')";
+        $result = mysqli_query($this->conn,$sql);
+        if($result){
+            return true;
+        }
+        return false;
+    }
+    function updatePhanQuyen($maquyen,$machucnang,$hanhdong){
+        $sql = "DELETE FROM chitietquyen where ma_quyen='$maquyen' AND ma_chuc_nang='$machucnang' AND hanh_dong='$hanhdong'";
+        $result = mysqli_query($this->conn,$sql);
+        if($result){
+            return true;
+        }
+        return false;
+    }
+    function kiemtraquyenhanhdong($maquyen,$machucnang){
+        $sql = "SELECT hanh_dong FROM chitietquyen WHERE ma_quyen='$maquyen' AND ma_chuc_nang='$machucnang'";
+        $result = mysqli_query($this->conn,$sql);
+        $arrChiTietQuyen=array();
+        while($row=mysqli_fetch_assoc($result)){   
+            $arrChiTietQuyen[]=$row;
+        }
+        return $arrChiTietQuyen;
+    }
+    function kiemtrahangdong($maquyen,$machucnang,$hanhdong):bool{
+        $sql = "SELECT * FROM chitietquyen WHERE ma_quyen='$maquyen' AND ma_chuc_nang='$machucnang' AND hanh_dong='$hanhdong'";
+        $result = mysqli_query($this->conn,$sql);
+        if($row=mysqli_fetch_assoc($result)){
+            return true;
+        }
+        return false;
     }
 }
 ?>

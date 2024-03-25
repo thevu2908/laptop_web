@@ -8,11 +8,11 @@
 							<h2>Quản Lý <b>Tài Khoản</b></h2>
 						</div>
 						<div class="col-sm-6">
-							<a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal">
+							<a href="#addEmployeeModal" class="btn btn-success add" data-toggle="modal">
 								<i class="material-icons">&#xE147;</i>
 								<span>Thêm</span>
 							</a>
-							<a href="#deleteEmployeeModal" class="btn btn-danger" data-toggle="modal">
+							<a href="#deleteEmployeeModal" class="btn btn-danger delete" data-toggle="modal">
 								<i class="material-icons">&#xE15C;</i>
 								<span>Xóa</span>
 							</a>

@@ -21,11 +21,12 @@
   <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
 </head>
-
-<body>
+<body> 
   <div id="admin-main">
-    <!-- <?php include "./server/src/controller/KiemTraQuyen.php"?> -->
-    <?php include "./server/src/admin/view/Taskbar.php" ?>
+    <?php include "./server/src/admin/view/Taskbar.php";
+    $maquyen="NQ002";
+    echo "<input type='hidden' id='ad-maquyen' value='$maquyen'>";
+    ?>
     <div class="content">
       <?php include "./server/src/admin/view/Content.php" ?>
       <?php
@@ -33,7 +34,7 @@
         $tmp = $_GET['controller'];
         switch ($tmp) {
           case "dashboard":
-            include "./server/src/admin/view/DashBoard.php";
+            include "./server/src/admin/view/Dashboard.php";
             break;
           case "sanpham": {
             include "./server/src/admin/view/SanPham.php";
@@ -49,27 +50,31 @@
           }
           case "nhomquyen": {
             include "./server/src/admin/view/NhomQuyen.php";
+            echo "<script src='./client/pages/NhomQuyen.js'></script>";
             break;
           }
           case "chucnang": {
             include "./server/src/admin/view/ChucNang.php";
+            echo "<script src='./client/pages/ChucNangQuyen.js'></script>";
             break;
           }
           case "phanquyen": {
             include "./server/src/admin/view/PhanQuyen.php";
+            echo "<script src='./client/pages/ChiTietQuyen.js'></script>";
             break;
           }
-      }
+        }
+        // include "./server/src/controller/KiemTraQuyen.php"; 
     } else {
       include "./server/src/admin/view/DashBoard.php";
     }
     ?>
   </div>
   <script src="./server/src/admin/assets/js/main.js"></script>
-  <script src="./client/pages/NhomQuyen.js"></script>
   <script src="./client/pages/TaiKhoan.js"></script>
-  <script src="./client/pages/ChucNangQuyen.js"></script>
-  <script src="./client/pages/ChiTietQuyen.js"></script>
+  <!-- <script src="./client/pages/ChucNangQuyen.js"></script> -->
+  <!-- <script src="./client/pages/ChiTietQuyen.js"></script> -->
+  
 </body>
 
 </html>

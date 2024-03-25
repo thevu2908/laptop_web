@@ -16,6 +16,18 @@ class ChiTietQuyenController{
     function getChucNang($id){
         echo json_encode($this->chitietquyenRepo->getChucNang($id));
     }
+    // function kiemtrahangdong($maquyen,$machucnang,$hanhdong){
+    //     echo json_encode($this->chitietquyenRepo->kiemtrahangdong($maquyen,$machucnang,$hanhdong));
+    // }
+    function getHanhDong($maquyen,$machucnang){
+        echo json_encode($this->chitietquyenRepo->getHanhDong($maquyen,$machucnang));
+    }
+    function addPhanQuyen($maquyen,$machucnang,$hanhdong){
+        echo json_encode($this->chitietquyenRepo->addPhanQuyen($maquyen,$machucnang,$hanhdong));
+    }
+    function updatePhanQuyen($maquyen,$machucnang,$hanhdong){
+        echo json_encode($this->chitietquyenRepo->updatePhanQuyen($maquyen,$machucnang,$hanhdong));
+    }
 }
 $tmp=$_POST['action'];
 $chitietquyenctl=new ChiTietQuyenController();
@@ -32,6 +44,23 @@ switch ($tmp){
     }case "phanquyen":{
         $id=$_POST['id'];
         $chitietquyenctl->getChucNang($id);
+        break;
+    }case "kiemtra":{
+        $maquyen=$_POST['maquyen'];
+        $machucnang=$_POST['machucnang'];
+        $chitietquyenctl->getHanhDong($maquyen,$machucnang);
+        break;
+    }case "add":{
+        $maquyen=$_POST['maquyen'];
+        $machucnang=$_POST['machucnang'];
+        $hanhdong=$_POST['hanhdong']==''?'X':$_POST['hanhdong'];
+        $chitietquyenctl->addPhanQuyen($maquyen,$machucnang,$hanhdong);
+        break;
+    }case "update":{
+        $maquyen=$_POST['maquyen'];
+        $machucnang=$_POST['machucnang'];
+        $hanhdong=$_POST['hanhdong'];
+        $chitietquyenctl->updatePhanQuyen($maquyen,$machucnang,$hanhdong);
         break;
     }
 }
