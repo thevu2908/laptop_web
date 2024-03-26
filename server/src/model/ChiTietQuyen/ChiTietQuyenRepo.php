@@ -55,6 +55,16 @@ class ChiTietQuyenRepo extends ConnectDB{
         }
         return false;
     }
+    function deletePhanQuyen($listitemRemove){
+        foreach($listitemRemove as $key){
+            $sql="DELETE FROM chitietquyen WHERE ma_quyen='$key[maquyen]' AND ma_chuc_nang='$key[machucnang]'";
+            $result=mysqli_query($this->conn,$sql);
+            if(!$result){
+                return false;
+            }
+        }
+        return true;
+    }
     function kiemtraquyenhanhdong($maquyen,$machucnang){
         $sql = "SELECT hanh_dong FROM chitietquyen WHERE ma_quyen='$maquyen' AND ma_chuc_nang='$machucnang'";
         $result = mysqli_query($this->conn,$sql);

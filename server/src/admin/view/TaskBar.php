@@ -6,12 +6,13 @@ include("server/src/model/ChiTietQuyen/ChiTietQuyenRepo.php");
 include("server/src/model/ChucNangQuyen/ChucNangQuyenRepo.php");
 $chitietquyen=new ChiTietQuyenRepo();
 $chucnang=new ChucNangQuyenRepo();
-$maquyen="NQ002";
 if(isset($_SESSION['maquyen'])){
+  $maquyen=$_SESSION['maquyen'];
   $tmp=$chitietquyen->getChucNang($maquyen);
   $arr=json_decode(json_encode($tmp),true);
+  //echo $_SESSION['maquyen'];
 }else{
-  echo "Hello";
+  $maquyen="";
 }
 $page = "";
 if (isset($_REQUEST['controller'])) {

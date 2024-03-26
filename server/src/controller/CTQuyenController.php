@@ -28,6 +28,9 @@ class ChiTietQuyenController{
     function updatePhanQuyen($maquyen,$machucnang,$hanhdong){
         echo json_encode($this->chitietquyenRepo->updatePhanQuyen($maquyen,$machucnang,$hanhdong));
     }
+    function deletePhanQuyen($listitemRemove){
+        echo json_encode($this->chitietquyenRepo->deletePhanQuyen($listitemRemove));
+    }
 }
 $tmp=$_POST['action'];
 $chitietquyenctl=new ChiTietQuyenController();
@@ -61,6 +64,10 @@ switch ($tmp){
         $machucnang=$_POST['machucnang'];
         $hanhdong=$_POST['hanhdong'];
         $chitietquyenctl->updatePhanQuyen($maquyen,$machucnang,$hanhdong);
+        break;
+    }case "delete":{
+        $listitemRemove = json_decode(json_encode($_POST['listitemRemove']), true);
+        $chitietquyenctl->deletePhanQuyen($listitemRemove);
         break;
     }
 }

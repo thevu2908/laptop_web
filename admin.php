@@ -24,7 +24,8 @@
 <body> 
   <div id="admin-main">
     <?php include "./server/src/admin/view/Taskbar.php";
-    $maquyen="NQ002";
+    echo isset($_SESSION['maquyen'])?"Hello":"Bye";
+    $maquyen=$_SESSION['maquyen'];
     echo "<input type='hidden' id='ad-maquyen' value='$maquyen'>";
     ?>
     <div class="content">
@@ -72,6 +73,7 @@
   </div>
   <script src="./server/src/admin/assets/js/main.js"></script>
   <script src="./client/pages/TaiKhoan.js"></script>
+  <script src="./client/plugins/pagination.js"></script>
   <!-- <script src="./client/pages/ChucNangQuyen.js"></script> -->
   <!-- <script src="./client/pages/ChiTietQuyen.js"></script> -->
   

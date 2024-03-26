@@ -1,8 +1,10 @@
 $(document).ready(function(){
     loadPhanQuyen();
     addPhanQuyen();
+    deletePhanQuyen();
     //getAction();
 })
+var listitemRemove = [];
 function loadPhanQuyen(){
     $.ajax({
         url: "server/src/controller/CTQuyenController.php",
@@ -15,9 +17,10 @@ function loadPhanQuyen(){
                 html+=`<tr data-row="${chitietquyen['ma_quyen']}" data-row1="${chitietquyen['ma_chuc_nang']}">
                 <td>
                     <span class="custom-checkbox">
-                        <input type="checkbox" id="checkbox2" name="options[]" value="1">
+                        <input type="checkbox" id="checkbox2" data-row="${chitietquyen['ma_quyen']}" data-row1="${chitietquyen['ma_chuc_nang']}" onclick="removeList(this)">
                         <label for="checkbox2"></label>
                     </span>
+                    
                 </td>
                 <td id="admin-TenQuyen-${index}">${chitietquyen['ma_quyen']}</td>
                 <td id="admin-TenChucNang-${index}">${chitietquyen['ma_chuc_nang']}</td>
@@ -63,13 +66,17 @@ function addPhanQuyen(){
             data: {action:"add",maquyen:maquyen,machucnang:machucnang},
             method: "post",
             success: function (data) {
-                if(data==="true"){
-                    console.log(data);
+                // if(data==="true"){
+                // console.log(data);
+                // $("form").reset();
+                // loadPhanQuyen();
+                // $("#addEmployeeModal").hide();
+                // }else{
+                //     console.log(data);
+                // }
                 $("form").reset();
-                loadNhomQuyen();
-                }else{
-                    console.log(data);
-                }
+                loadPhanQuyen();
+                $("#addEmployeeModal").hide();
             }
         })
     })
@@ -81,7 +88,6 @@ function getTenQuyen(maquyen,index){
         method: "post",
         success: function (data) {
             var nhomquyen=JSON.parse(data);
-            console.log(nhomquyen);
             $("#admin-TenQuyen-"+index+"").text(nhomquyen['ten_quyen']);
         }
 
@@ -94,7 +100,6 @@ function getTenChucNang(machucnang,index){
         method: "post",
         success: function (data) {
             var chucnang=JSON.parse(data);
-            console.log(chucnang);
             $("#admin-TenChucNang-"+index+"").text(chucnang['ten_chuc_nang']);
         }
 
@@ -132,38 +137,27 @@ function getAllListChucNang(){
 
     })
 }
-// function phanquyen($id){
-//     $.ajax({
-//         url: "server/src/controller/CTQuyenController.php",
-//         data: {action:"phanquyen",id:$id},
-//         method: "post",
-//         success: function (data) {
-//             jsonData=JSON.parse(data);
-//             jsonData.forEach((chucnang,index)=>{
-//                 if(chucnang['ma_chuc_nang']==="CN002"){
-//                     $.ajax({
-//                         url: "server/src/controller/CTQuyenController.php",
-//                         data: {action:"get",maquyen:$id,machucnang:chucnang['ma_chuc_nang']},
-//                         method: "post",
-//                         success: function (data) {
-//                             var detailData = JSON.parse(data);     
-//                             if(!detailData.some(item => item.hanh_dong === "Xóa")){
-//                                 ("#add_NhomQuyen").hide()
-//                             }
-//                             if(!detailData.some(item => item.hanh_dong === "Thêm")){
-//                                 //btnUp
-//                                 ("#btnUp").hide()
-//                             }   
-//                             if(!detailData.some(item => item.hanh_dong === "Sửa")){
-//                                 ("#btnDel").hide()
-//                             }            
-//                         }
-//                     })
-//                 }
-//             })
-//         }
-//     })
-// }
+function deletePhanQuyen(){
+    $(document).on("click","#admin-delete-phanquyen",function(){
+        if(listitemRemove.length===0){
+            console.log("Vui Lòng Chọn");
+        }else{
+            console.log(listitemRemove);
+            $(document).on("click","#admin-delete",function(){
+                $.ajax({
+                    url: "server/src/controller/CTQuyenController.php",
+                    data:{action:"delete",listitemRemove:listitemRemove},
+                    method: "post",
+                    success: function (data) {
+                        console.log(data);
+                        $("#deleteEmployeeModal").hide();
+                        loadPhanQuyen();
+                    }
+                })
+            })
+        }
+    })
+}
 function change(checkbox){
     var isChecked = checkbox.checked;
     var maquyen = checkbox.dataset.row;
@@ -184,4 +178,20 @@ function update(action,maquyen,machucnang,hanhdong){
             console.log(data);
         }
     })
+}
+
+function removeList(checkbox) {
+    var isChecked = checkbox.checked;
+    var maquyen = checkbox.dataset.row;
+    var machucnang = checkbox.dataset.row1;
+    if (isChecked) {
+        listitemRemove.push({ maquyen: maquyen, machucnang: machucnang });
+    } else {
+        //console.log(maquyen, machucnang);
+        var indexToRemove = listitemRemove.findIndex(item => item.maquyen === maquyen && item.machucnang === machucnang);
+        if (indexToRemove !== -1) {
+            listitemRemove.splice(indexToRemove, 1);
+        }
+    }
+    //console.log(listitemRemove);
 }

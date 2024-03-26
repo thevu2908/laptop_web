@@ -1,6 +1,11 @@
 <?php
 session_start();
-$_SESSION['maquyen']="";
+if(isset($_POST['submit'])){
+    $_SESSION['maquyen']=$_POST['login-password'];
+    header('location:admin.php');
+}else{
+    echo "Not Exist";
+}
 ?>
 <section class="vh-100">
     <div class="py-3 h-100">

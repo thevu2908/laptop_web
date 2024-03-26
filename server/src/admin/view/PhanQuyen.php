@@ -11,7 +11,7 @@
 							<a href="#" class="btn btn-secondary"><i class="material-icons">&#xE24D;</i> <span>Import Excel</span></a>
 							<a href="#" class="btn btn-secondary"><i class="material-icons">&#xE24D;</i> <span>Export Excel</span></a>
 							<a href="#addEmployeeModal" id="admin-add-phanquyen" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Thêm</span></a>
-							<a href="#deleteEmployeeModal" class="btn btn-danger" data-toggle="modal"><i class="material-icons">&#xE15C;</i> <span>Xóa</span></a>
+							<a href="#deleteEmployeeModal" class="btn btn-danger delete" data-toggle="modal" id="admin-delete-phanquyen"><i class="material-icons">&#xE15C;</i> <span>Xóa</span></a>
 						</div>
 					</div>
 				</div>
@@ -33,21 +33,7 @@
 						</tr>
 					</thead>
 					<tbody id="show-ListPhanQuyen">
-                    <!-- <tr>
-						<td>
-							<span class="custom-checkbox">
-								<input type="checkbox" id="checkbox2" name="options[]" value="1">
-								<label for="checkbox2"></label>
-							</span>
-						</td>
-						<td>Admin</td>
-						<td>Tài Khoản</td>
-						<td><input type="checkbox" name="xem" class="checkbox" data-row="Admin" data-row1="Tài Khoản" data-column="Xem" id="chkxem"></td>
-                        <td><input type="checkbox" name="them" class="checkbox" data-row="Admin" data-row1="Tài Khoản" data-column="Thêm" id="chkthem"></td>
-                        <td><input type="checkbox" name="xoa" class="checkbox" data-row="Admin" data-row1="Tài Khoản" data-column="Xóa" id="chkxoa"></td>
-                        <td><input type="checkbox" name="sua" class="checkbox" data-row="Admin" data-row1="Tài Khoản" data-column="Sửa" id="chksua"></td>
-						
-					</tr> -->
+                    
 					</tbody>
 				</table>
 				<div class="clearfix">
@@ -153,7 +139,7 @@
 					</div>
 					<div class="modal-footer">
 						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-						<input type="submit" class="btn btn-danger" value="Delete">
+						<input type="button" class="btn btn-danger" value="Delete" id="admin-delete">
 					</div>
 				</form>
 			</div>
