@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 23, 2024 at 03:27 PM
+-- Generation Time: Mar 27, 2024 at 07:08 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -89,10 +89,11 @@ INSERT INTO `chitietcongketnoi` (`ma_cong`, `ma_ctsp`) VALUES
 ('CKN001', 'CTSP0002'),
 ('CKN001', 'CTSP0003'),
 ('CKN001', 'CTSP0004'),
+('CKN001', 'CTSP0005'),
 ('CKN002', 'CTSP0001'),
 ('CKN002', 'CTSP0002'),
 ('CKN002', 'CTSP0003'),
-('CKN002', 'CTSP0004');
+('CKN002', 'CTSP0005');
 
 -- --------------------------------------------------------
 
@@ -189,6 +190,7 @@ CREATE TABLE `chitietsanpham` (
   `ram` varchar(50) NOT NULL,
   `rom` varchar(50) NOT NULL,
   `gia_tien` float NOT NULL,
+  `so_luong` int(11) NOT NULL,
   `trang_thai` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -196,11 +198,12 @@ CREATE TABLE `chitietsanpham` (
 -- Dumping data for table `chitietsanpham`
 --
 
-INSERT INTO `chitietsanpham` (`ma_ctsp`, `ma_sp`, `ma_chip_xu_ly`, `ma_mau`, `ma_carddohoa`, `ram`, `rom`, `gia_tien`, `trang_thai`) VALUES
-('CTSP0001', 'SP001', 'CXL005', '#000', 'CDH007', '8gb', '256gb', 0, 0),
-('CTSP0002', 'SP001', 'CXL005', '#000', 'CDH007', '8gb', '512gb', 0, 0),
-('CTSP0003', 'SP001', 'CXL005', '#ffff00', 'CDH007', '8gb', '256gb', 0, 0),
-('CTSP0004', 'SP001', 'CXL005', '#ffff00', 'CDH007', '8gb', '512gb', 0, 0);
+INSERT INTO `chitietsanpham` (`ma_ctsp`, `ma_sp`, `ma_chip_xu_ly`, `ma_mau`, `ma_carddohoa`, `ram`, `rom`, `gia_tien`, `so_luong`, `trang_thai`) VALUES
+('CTSP0001', 'SP001', 'CXL005', '#000', 'CDH007', '16GB', '256GB', 0, 0, 0),
+('CTSP0002', 'SP001', 'CXL005', '#000', 'CDH007', '8gb', '512gb', 0, 0, 0),
+('CTSP0003', 'SP001', 'CXL005', '#ffff00', 'CDH007', '8gb', '256gb', 0, 0, 0),
+('CTSP0004', 'SP001', 'CXL005', '#ffff00', 'CDH007', '8gb', '512gb', 0, 0, 0),
+('CTSP0005', 'SP001', 'CXL005', '#c0c0c0', 'CDH007', '8GB', '512GB', 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -235,6 +238,17 @@ INSERT INTO `congketnoi` (`ma_cong`, `ten_cong`, `trang_thai`) VALUES
 ('CKN002', 'HDMI', 0),
 ('CKN003', 'abc', 1),
 ('CKN004', 'bcd', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ctsp_imei`
+--
+
+CREATE TABLE `ctsp_imei` (
+  `ma_imei` varchar(20) NOT NULL,
+  `ma_ctsp` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -328,6 +342,7 @@ CREATE TABLE `khachhang` (
 
 CREATE TABLE `khuyenmai` (
   `ma_km` varchar(20) NOT NULL,
+  `ten_khuyen_mai` varchar(200) NOT NULL,
   `muc_khuyen_mai` double NOT NULL,
   `dieu_kien` varchar(50) NOT NULL,
   `thoi_gian_bat_dau` date NOT NULL,
@@ -496,7 +511,8 @@ CREATE TABLE `sanpham` (
 --
 
 INSERT INTO `sanpham` (`ma_sp`, `ma_thuong_hieu`, `ma_the_loai`, `ma_hdh`, `ten_sp`, `hinh_anh`, `kich_co_man_hinh`, `do_phan_giai`, `pin`, `ban_phim`, `gia_ban`, `gia_nhap`, `chiet_khau`, `trong_luong`, `chat_lieu`, `xuat_xu`, `so_luong_ton`, `trang_thai`) VALUES
-('SP001', 'TH005', 'TL002', 'HDH002', 'MacBook Air M2 2022', 'server/src/assets/images/products/SP001.png', '13.6 inch', '2560 x 1644 Pixels', 'Lithium polymer', 'English International Backlit Keyboard', 0, 0, 0, 1.2400000095367432, 'Kim loại', 'Trung Quốc', 0, 0);
+('SP001', 'TH005', 'TL002', 'HDH002', 'MacBook Air M2 2022', 'server/src/assets/images/products/SP001.png', '13.6 inch', '2560 x 1644 Pixels', 'Lithium polymer', 'English International Backlit Keyboard', 20200000, 20000000, 1, 1.24, 'Kim loại', 'Trung Quốc', 10, 0),
+('SP002', 'TH001', 'TL001', 'HDH001', 'name', 'server/src/assets/images/products/SP002.png', 'screen', 'resolution', 'battery', 'key board', 0, 0, 0, 1, 'material', 'origin', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -681,6 +697,13 @@ ALTER TABLE `chucnangquyen`
 --
 ALTER TABLE `congketnoi`
   ADD PRIMARY KEY (`ma_cong`);
+
+--
+-- Indexes for table `ctsp_imei`
+--
+ALTER TABLE `ctsp_imei`
+  ADD PRIMARY KEY (`ma_imei`),
+  ADD KEY `imei_ctsp` (`ma_ctsp`);
 
 --
 -- Indexes for table `danhgia`
@@ -878,6 +901,12 @@ ALTER TABLE `chitietsanpham`
   ADD CONSTRAINT `ctsp_fk_chip` FOREIGN KEY (`ma_chip_xu_ly`) REFERENCES `chipxuly` (`ma_chip_xu_ly`),
   ADD CONSTRAINT `ctsp_fk_mau` FOREIGN KEY (`ma_mau`) REFERENCES `mausac` (`ma_mau`),
   ADD CONSTRAINT `ctsp_fk_sp` FOREIGN KEY (`ma_sp`) REFERENCES `sanpham` (`ma_sp`);
+
+--
+-- Constraints for table `ctsp_imei`
+--
+ALTER TABLE `ctsp_imei`
+  ADD CONSTRAINT `imei_ctsp` FOREIGN KEY (`ma_ctsp`) REFERENCES `chitietsanpham` (`ma_ctsp`);
 
 --
 -- Constraints for table `danhgia`
