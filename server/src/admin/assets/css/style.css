@@ -1167,3 +1167,8 @@ table.table .avatar {
   cursor: pointer;
   padding: 7px 0;
 }
+
+.modal .preview-image {
+  width: 138px;
+  height: 138px;
+}

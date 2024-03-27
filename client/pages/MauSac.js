@@ -87,3 +87,21 @@ function renderColorName(id, index) {
         }
     })
 }
+
+function getColorId(name) {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: 'server/src/controller/MauSacController.php',
+            method: 'POST',
+            data: { action: 'get-id', name },
+            dataType: 'JSON',
+            success: id => {
+                resolve(id)
+            },
+            error: (xhr, status, error) => {
+                console.log(error)
+                reject(error)
+            }
+        })
+    })
+}

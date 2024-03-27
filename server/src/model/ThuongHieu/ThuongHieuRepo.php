@@ -31,6 +31,20 @@ class ThuongHieuRepo extends ConnectDB {
         return null;
     }
 
+    public function getId($name) {
+        try {
+            $query = "SELECT ma_thuong_hieu FROM thuonghieu WHERE ten_thuong_hieu = '$name' AND trang_thai = '0'";
+            $statement = mysqli_query($this->conn, $query);
+
+            if ($row = mysqli_fetch_assoc($statement)) {
+                return $row['ma_thuong_hieu'];
+            }
+        } catch (Exception $e) {
+            echo 'Error: ' . $e->getMessage() . '<br>';
+        }
+        return null;
+    }
+
     public function getBrandsLength() : int {
         try {
             $query = "SELECT COUNT(*) as count FROM thuonghieu";

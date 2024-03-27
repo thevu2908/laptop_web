@@ -31,6 +31,20 @@ class CongKetNoiRepo extends ConnectDB {
         return null;
     }
 
+    public function getId($name) {
+        try {
+            $query = "SELECT ma_cong FROM congketnoi WHERE ten_cong = '$name' AND trang_thai = '0'";
+            $statement = mysqli_query($this->conn, $query);
+
+            if ($row = mysqli_fetch_assoc($statement)) {
+                return $row['ma_cong'];
+            }
+        } catch (Exception $e) {
+            echo 'Error: ' . $e->getMessage() . '<br>';
+        }
+        return null;
+    }
+
     public function getLength() : int {
         try {
             $query = "SELECT COUNT(*) as count FROM congketnoi";

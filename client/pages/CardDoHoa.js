@@ -164,3 +164,21 @@ function renderGPUName(id, index) {
         }
     })
 }
+
+function getGPUId(name) {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: 'server/src/controller/CardDoHoaController.php',
+            method: 'POST',
+            data: { action: 'get-id', name },
+            dataType: 'JSON',
+            success: data => {
+                resolve(data)
+            },
+            error: (xhr, status, error) => {
+                console.log(error)
+                reject(false)
+            }
+        })
+    })
+}

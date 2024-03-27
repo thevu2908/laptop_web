@@ -129,3 +129,21 @@ function showBrandName(id, index) {
         }
     })
 }
+
+function getBrandId(name) {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: 'server/src/controller/ThuongHieuController.php',
+            method: 'POST',
+            data: { action: 'get-id', name },
+            dataType: 'JSON',
+            success: id => {
+                resolve(id)
+            },
+            error: (jqXHR, textStatus, error) => {
+                console.log(error)
+                reject(error)
+            }
+        })
+    })
+}

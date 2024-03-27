@@ -32,6 +32,10 @@ class CardDoHoaController {
         echo json_encode($this->cardDoHoaRepo->getGPU($id));
     }
 
+    public function getId($name) {
+        echo json_encode($this->cardDoHoaRepo->getId($name));
+    }
+ 
     public function getLength() : int {
         return $this->cardDoHoaRepo->getLength();
     }
@@ -66,6 +70,10 @@ switch ($action) {
     case 'get':
         $id = $_POST['id'];
         $cardDoHoaCtl->getGPU($id);
+        break;
+    case 'get-id':
+        $name = $_POST['name'];
+        $cardDoHoaCtl->getId($name);
         break;
     case 'add':
         $length = $cardDoHoaCtl->getLength();

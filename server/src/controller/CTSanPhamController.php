@@ -44,14 +44,6 @@ class CTSanPhamController {
         }
     }
 
-    public function updateProductDetail($productDetail) {
-        if ($this->ctspRepo->updateProductDetail($productDetail)) {
-            echo 'success';
-        } else {
-            echo 'fail';
-        }
-    }
-
     public function deleteProductDetail($productDetailId) {
         if ($this->ctspRepo->deleteProductDetail($productDetailId)) {
             echo 'success';
@@ -85,6 +77,7 @@ switch ($action) {
             $obj = json_decode(json_encode($_POST['productDetail']));
             $productId = $_POST['productId'];
             $price = 0;
+            $quantity = 0;
             
             $productDetail = new ChiTietSanPham(
                 $productDetailId,
@@ -95,26 +88,11 @@ switch ($action) {
                 $obj->{'ram'},
                 $obj->{'rom'},
                 $price,
+                $quantity,
                 0
             );
             $ctspCtl->addProductDetail($productDetail);
         }
-        break;
-    case 'update':
-        $obj = json_decode(json_encode($_POST['productDetail']));
-        
-        $productDetail = new ChiTietSanPham(
-            $obj->{'productDetailId'},
-            $obj->{'productId'},
-            $obj->{'cpuId'},
-            $obj->{'colorId'},
-            $obj->{'gpuId'},
-            $obj->{'ram'},
-            $obj->{'rom'},
-            0,
-            0
-        );
-        $ctspCtl->updateProductDetail($productDetail);
         break;
     case 'delete':
         $productDetailId = $_POST['productDetailId'];

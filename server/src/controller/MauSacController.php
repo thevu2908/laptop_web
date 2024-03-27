@@ -32,6 +32,10 @@ class MauSacController {
         echo json_encode($this->mauSacRepo->getColor($id));
     }
 
+    public function getId($name) {
+        echo json_encode($this->mauSacRepo->getId($name));
+    }
+
     public function getLength() : int {
         return $this->mauSacRepo->getLength();
     }
@@ -66,6 +70,10 @@ switch ($action) {
     case 'get':
         $id = $_POST['id'];
         $mauSacCtl->getColor($id);
+        break;
+    case 'get-id':
+        $name = $_POST['name'];
+        $mauSacCtl->getId($name);
         break;
     case 'add':
         $id = $_POST['id'];

@@ -2,8 +2,6 @@ $(document).ready(() => {
     renderAdminProductDetail()
     renderProductDetail()
     handleAddProductDetail()
-    renderUpdateProductDetail()
-    updateProductDetail()
     renderDeleteProductDetailModal()
     handleDeleteProductDetail()
 })
@@ -78,15 +76,13 @@ function renderAdminProductDetail() {
                             <td>${item.ram.toUpperCase()}</td>
                             <td>${item.rom.toUpperCase()}</td>
                             <td class="d-flex justify-content-center"">
-                                <ul class="product-detail-${index}" style="width: fit-content;">
+                                <ul class="product-detail-${index} mb-0" style="width: fit-content;">
                                     
                                 </ul>
                             </td>
                             <td>${item.gia_tien}</td>
+                            <td>${item.so_luong}</td>
                             <td>
-                                <a href="#editProductDetailModal" class="edit btn-update-product-detail-modal" data-toggle="modal" data-id=${item.ma_ctsp}>
-                                    <i class="material-icons" data-toggle="tooltip" title="Sửa thông tin">&#xE254;</i>
-                                </a>
                                 <a href="#deleteProductDetailModal" class="delete btn-delete-product-detail-modal" data-toggle="modal" data-id=${item.ma_ctsp}>
                                     <i class="material-icons" data-toggle="tooltip" title="Xóa">&#xE872;</i>
                                 </a>
@@ -125,8 +121,9 @@ function addProductDetail(productDetail, productId, plugs) {
             method: 'POST',
             data: { action: 'add', productDetail, productId },
             success: productDetailId => {
-                if (!productDetailId) {
-                    resolve(null)
+                if (!productDetailId.startsWith('CTSP')) {
+                    console.log(productDetailId)
+                    resolve(false)
                 } else {
                     let promises = []
 
@@ -138,13 +135,7 @@ function addProductDetail(productDetail, productId, plugs) {
                         promises.push(promise)
                     })
 
-                    Promise.all(promises).then(results => {
-                        if (results.includes(false)) {
-                            resolve('error')
-                        } else {
-                            resolve('success')
-                        }
-                    })
+                    Promise.all(promises).then(results => resolve(!results.includes(false)))
                 }
             },
             error: (xhr, status, error) => {
@@ -155,32 +146,37 @@ function addProductDetail(productDetail, productId, plugs) {
     })
 }
 
-function renderUpdateProductDetail() {
-    $(document).on('click', '.btn-update-product-detail-modal', e => {
-        const productDetailId = e.target.closest('.btn-update-product-detail-modal').dataset.id
+function handleAddProductDetail() {
+    $(document).on('click', '.btn-add-product-detail', () => {
+        const productDetail = {
+            productId: $('#admin-product-detail-main #product-id').val() !== null ? $('#admin-product-detail-main #product-id').val().toUpperCase() : null,
+            colorId: $('#addProductDetailModal #product-color').val(),
+            cpuId: $('#addProductDetailModal #product-cpu').val(),
+            ram: $('#addProductDetailModal #product-ram').val().toUpperCase(),
+            rom: $('#addProductDetailModal #product-rom').val().toUpperCase(),
+            gpuId: $('#addProductDetailModal #product-gpu').val(),
+            plugs: $('#addProductDetailModal #product-plug').val()
+        }
 
-        getProductDetail(productDetailId)
+        if (!validateProductDetailEmpty(productDetail)) {
+            return
+        }
+
+        addProductDetail(productDetail, productDetail.productId, productDetail.plugs)
             .then(data => {
-                $('#editProductDetailModal .product-detail-id').text(data.ma_ctsp)
-                $('#editProductDetailModal #product-cpu').val(data.ma_chip_xu_ly)
-                $('#editProductDetailModal #product-ram').val(data.ram.toLowerCase())
-                $('#editProductDetailModal #product-rom').val(data.rom.toLowerCase())
-                $('#editProductDetailModal #product-gpu').val(data.ma_carddohoa)
-                $('#editProductDetailModal #product-color').val(data.ma_mau)
-
-                getProductDetailPlug(data.ma_ctsp)
-                    .then(plugs => {
-                        const plugIds = plugs.map(plug => plug.ma_cong)
-                        $('#editProductDetailModal #product-plug').val(plugIds)
-                        $('#editProductDetailModal #product-plug').selectpicker('refresh')
-                    })
-                    .catch(error => console.log(error))
+                if (data === 'success') {
+                    alert('Thêm chi tiết sản phẩm thành công')
+                    $('#addProductDetailModal').modal('hide')
+                    renderAdminProductDetail()
+                } else {
+                    alert('Xảy ra lỗi trong quá trình thêm chi tiết sản phẩm')
+                }
             })
             .catch(error => console.log(error))
     })
 }
 
-function validateEmpty(productDetail) {
+function validateProductDetailEmpty(productDetail) {
     if (!productDetail.productId) {
         alert('Vui lòng nhập mã sản phẩm')
         $('.modal').modal('hide')
@@ -203,71 +199,6 @@ function validateEmpty(productDetail) {
         return false
     }
     return true
-}
-
-function handleAddProductDetail() {
-    $(document).on('click', '.btn-add-product-detail', () => {
-        const productDetail = {
-            productId: $('#admin-product-detail-main #product-id').val() !== null ? $('#admin-product-detail-main #product-id').val().toUpperCase() : null,
-            colorId: $('#addProductDetailModal #product-color').val(),
-            cpuId: $('#addProductDetailModal #product-cpu').val(),
-            ram: $('#addProductDetailModal #product-ram').val().toUpperCase(),
-            rom: $('#addProductDetailModal #product-rom').val().toUpperCase(),
-            gpuId: $('#addProductDetailModal #product-gpu').val(),
-            plugs: $('#addProductDetailModal #product-plug').val()
-        }
-
-        if (!validateEmpty(productDetail)) {
-            return
-        }
-
-        addProductDetail(productDetail, productDetail.productId, productDetail.plugs)
-            .then(data => {
-                if (data === 'success') {
-                    alert('Thêm chi tiết sản phẩm thành công')
-                    $('#addProductDetailModal').modal('hide')
-                    renderAdminProductDetail()
-                } else {
-                    alert('Xảy ra lỗi trong quá trình thêm chi tiết sản phẩm')
-                }
-            })
-            .catch(error => console.log(error))
-    })
-}
-
-function updateProductDetail() {
-    $(document).on('click', '.btn-update-product-detail', e => {
-        const productDetail = {
-            productId: $('#admin-product-detail-main #product-id').val().toUpperCase(),
-            productDetailId: $('#editProductDetailModal .product-detail-id').text(),
-            colorId: $('#editProductDetailModal #product-color').val(),
-            cpuId: $('#editProductDetailModal #product-cpu').val(),
-            ram: $('#editProductDetailModal #product-ram').val().toUpperCase(),
-            rom: $('#editProductDetailModal #product-rom').val().toUpperCase(),
-            gpuId: $('#editProductDetailModal #product-gpu').val(),
-            plugs: $('#editProductDetailModal #product-plug').val()
-        }
-
-        if (!validateEmpty(productDetail)) {
-            return
-        }
-
-        $.ajax({
-            url: 'server/src/controller/CTSanPhamController.php',
-            method: 'POST',
-            data: { action: 'update', productDetail },
-            success: data => {
-                if (data === 'success') {
-                    alert('Cập nhật chi tiết sản phẩm thành công')
-                    $('#editProductDetailModal').modal('hide')
-                    renderAdminProductDetail()
-                } else {
-                    alert('Xảy ra lỗi trong quá trình cập nhật chi tiết sản phẩm')
-                }
-            },
-            error: (xhr, status, error) => console.log(error)
-        })
-    })
 }
 
 function renderDeleteProductDetailModal() {

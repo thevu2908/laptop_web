@@ -32,6 +32,10 @@ class CongKetNoiController {
         echo json_encode($this->congketnoiRepo->getPlug($id));
     }
 
+    public function getId($name) {
+        echo json_encode($this->congketnoiRepo->getId($name));
+    }
+
     public function getLength() : int {
         return $this->congketnoiRepo->getLength();
     }
@@ -66,6 +70,10 @@ switch ($action) {
     case 'get':
         $id = $_POST['id'];
         $congketnoiCtl->getPlug($id);
+        break;
+    case 'get-id':
+        $name = $_POST['name'];
+        $congketnoiCtl->getId($name);
         break;
     case 'add':
         $length = $congketnoiCtl->getLength();

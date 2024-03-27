@@ -109,3 +109,21 @@ function deleteOS() {
         })
     })
 }
+
+function getOSId(name) {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: 'server/src/controller/HeDieuHanhController.php',
+            method: 'POST',
+            data: { action: 'get-id', name },
+            dataType: 'JSON',
+            success: data => {
+                resolve(data)
+            },
+            error: (xhr, status, error) => {
+                console.log(error)
+                reject(error)
+            }
+        })
+    })
+}

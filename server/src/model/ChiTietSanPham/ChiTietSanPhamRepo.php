@@ -47,7 +47,7 @@ class ChiTietSanPhamRepo extends ConnectDB {
 
     public function addProductDetail($productDetail) : bool {
         try {
-            $query = "INSERT INTO chitietsanpham(ma_ctsp, ma_sp, ma_chip_xu_ly, ma_mau, ma_carddohoa, ram, rom, gia_tien, trang_thai) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 0)";
+            $query = "INSERT INTO chitietsanpham(ma_ctsp, ma_sp, ma_chip_xu_ly, ma_mau, ma_carddohoa, ram, rom, gia_tien, so_luong, trang_thai) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 0)";
             $statement = mysqli_prepare($this->conn, $query);
 
             if (!$statement) {
@@ -62,12 +62,13 @@ class ChiTietSanPhamRepo extends ConnectDB {
             $ram = $productDetail->getRam();
             $rom = $productDetail->getRom();
             $price = $productDetail->getGiaTien();
+            $quantity = $productDetail->getSoLuong();
 
             $result = $statement->bind_param(
-                "sssssssd", 
+                "sssssssdi", 
                 $productDetailId, $productId, $cpuId, $colorId, $gpuId,
                 $ram, $rom,
-                $price
+                $price, $quantity
             );
             
             if (!$result) {
@@ -79,42 +80,6 @@ class ChiTietSanPhamRepo extends ConnectDB {
             } else {
                 throw new Exception("Execution of query failed: " . mysqli_error($this->conn));
             }
-        } catch (Exception $e) {
-            echo 'Error: ' . $e->getMessage() . '<br>';
-            return false;
-        }
-    }
-
-    public function updateProductDetail($productDetail) : bool {
-        try {
-            $query = "UPDATE chitietsanpham SET ma_chip_xu_ly = ?, ma_mau = ?, ma_carddohoa = ?, ram = ?, rom = ?, gia_tien = ? WHERE ma_ctsp = ?";
-            $statement = mysqli_prepare($this->conn, $query);
-            
-            if (!$statement) {
-                throw new Exception("Query preparation failed: " . mysqli_error($this->conn));
-            }
-
-            $productDetailId = $productDetail->getMaCtsp();
-            $cpuId = $productDetail->getMaChipXuLy();
-            $colorId = $productDetail->getMaMau();
-            $gpuId = $productDetail->getMaCardDoHoa();
-            $ram = $productDetail->getRam();
-            $rom = $productDetail->getRom();
-            $price = $productDetail->getGiaTien();
-            
-            $result = $statement->bind_param(
-                "sssssds", 
-                $cpuId, $colorId, $gpuId,
-                $ram, $rom,
-                $price,
-                $productDetailId
-            );
-
-            if (!$result) {
-                throw new Exception("Binding parameters failed: " . $statement->error);
-            }
-
-            return $statement->execute();
         } catch (Exception $e) {
             echo 'Error: ' . $e->getMessage() . '<br>';
             return false;

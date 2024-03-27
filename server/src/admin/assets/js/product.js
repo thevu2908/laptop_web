@@ -35,13 +35,14 @@ function removePreviewImage() {
 
 if (uploadImageContainer) {
     uploadImageContainer.ondrop = e => {
-        e.preventDefault();
-        e.stopPropagation();;
+        e.preventDefault()
+        e.stopPropagation()
 
-        const files = e.dataTransfer.files;
+        const files = e.dataTransfer.files
         if (files.length > 0) {
-            const file = files[0];
-            uploadImage(file);
+            const file = files[0]
+            uploadImage(file)
+            handleFileSelect.files = files
         }
     }
 
@@ -58,10 +59,10 @@ if (uploadImageContainer) {
 
 if (handleFileSelect) {
     handleFileSelect.onchange = e => {
-        const files = e.target.files;
+        const files = e.target.files
         if (files.length > 0) {
-            const file = files[0];
-            uploadImage(file);
+            const file = files[0]
+            uploadImage(file)
         }
     }
 }
@@ -72,7 +73,7 @@ if (openFileChooser) {
     }
 }
 
-// update product
+// update product image
 const updateUploadImageContainer = document.querySelector('#editProductModal .upload-box')
 const updateHandleFileSelect = document.querySelector('#admin-product-main #editProductModal #product-image')
 const updateOpenFileChooser = document.querySelector('#admin-product-main #editProductModal .btn-upload-img')
@@ -110,13 +111,14 @@ function updateRemovePreviewImage() {
 
 if (updateUploadImageContainer) {
     updateUploadImageContainer.ondrop = e => {
-        e.preventDefault();
-        e.stopPropagation();;
+        e.preventDefault()
+        e.stopPropagation()
 
-        const files = e.dataTransfer.files;
+        const files = e.dataTransfer.files
         if (files.length > 0) {
-            const file = files[0];
-            updateUploadImage(file);
+            const file = files[0]
+            updateHandleFileSelect.files = files
+            updateUploadImage(file)
         }
     }
 
@@ -133,10 +135,10 @@ if (updateUploadImageContainer) {
 
 if (updateHandleFileSelect) {
     updateHandleFileSelect.onchange = e => {
-        const files = e.target.files;
+        const files = e.target.files
         if (files.length > 0) {
-            const file = files[0];
-            updateUploadImage(file);
+            const file = files[0]
+            updateUploadImage(file)
         }
     }
 }
@@ -157,4 +159,11 @@ if (productChietKhau) {
 
         productPrice.value = Number(productImportPrice.value) * (100 + Number(productChietKhau.value)) / 100
     }
+}
+
+// import excel
+const btnImportExcel = document.querySelector('#admin-product-main .btn-import-excel')
+
+if (btnImportExcel) {
+    btnImportExcel.onclick = () => document.querySelector('#admin-product-main #import-excel-file').click()
 }

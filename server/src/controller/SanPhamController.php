@@ -60,10 +60,9 @@ class SanPhamController {
         }
     }
 
-    function saveImage($fileInputName, $name) {
+    public function saveImage($fileInputName, $name) {
         $targetDir = '../assets/images/products/';
         $targetFile = $targetDir . $name . '.png';
-
         if (!empty($_FILES[$fileInputName]["tmp_name"])) {
             $imageFileType = strtolower(pathinfo($_FILES[$fileInputName]["name"], PATHINFO_EXTENSION));
             if (!in_array($imageFileType, array("jpg", "jpeg", "png"))) {
@@ -133,6 +132,8 @@ switch ($action) {
         break;
     case 'update':
         $obj = json_decode(json_encode($_POST['product']));
+        $productId = $obj->{'productId'};
+        $image = "server/src/assets/images/products/$productId.png";
 
         $product = new SanPham(
             $obj->{'productId'},
@@ -140,7 +141,7 @@ switch ($action) {
             $obj->{'typeId'},
             $obj->{'osId'},
             $obj->{'productName'},
-            $obj->{'img'},
+            $image,
             $obj->{'screen'},
             $obj->{'resolution'},
             $obj->{'battery'},
@@ -162,12 +163,18 @@ switch ($action) {
         $sanPhamCtl->deleteProduct($productId);
         break;
     case 'save-image':
-        $length = $sanPhamCtl->getProductsLength();
-        if ($length >= 0) {
-            $length += 1;
-            $name = 'SP'.sprintf("%03d", $length);
-
+        $productId = $_POST['productId'];
+        if ($productId) {
+            $name = $productId;
             $sanPhamCtl->saveImage("fileInputName", $name);
+        } else {
+            $length = $sanPhamCtl->getProductsLength();
+            if ($length >= 0) {
+                $length += 1;
+                $name = 'SP'.sprintf("%03d", $length);
+    
+                $sanPhamCtl->saveImage("fileInputName", $name);
+            }
         }
         break;
     default:

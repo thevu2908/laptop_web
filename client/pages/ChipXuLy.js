@@ -164,3 +164,19 @@ function renderCPUName(id, index) {
         }
     })
 }
+
+function getCPUId(name) {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: 'server/src/controller/ChipXuLyController.php',
+            method: 'POST',
+            data: { action: 'get-id', name },
+            dataType: 'JSON',
+            success: id => resolve(id),
+            error: (xhr, status, error) => {
+                console.log(error)
+                reject(error)
+            }
+        })
+    })
+}

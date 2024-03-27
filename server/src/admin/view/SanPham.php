@@ -8,14 +8,20 @@
 							<h2>Quản Lý <b>Sản Phẩm</b></h2>
 						</div>
 						<div class="col-sm-6">
-							<a href="#" class="btn btn-secondary">
-								<i class="material-icons">&#xE24D;</i>
-								<span>Import Excel</span>
-							</a>
-							<a href="#" class="btn btn-secondary">
-								<i class="material-icons">&#xE24D;</i>
-								<span>Export Excel</span>
-							</a>
+							<div>
+								<input type="file" id="import-excel-file" accept=".xlsx,.xls" hidden>
+								<a href="#" class="btn btn-primary btn-import-excel">
+									<i class="fa-solid fa-file-import"></i>
+									<span>Import Excel</span>
+								</a>
+							</div>
+							<div>
+								<input type="file" id="export-excel-file" accept=".xlsx,.xls" hidden>
+								<a href="#" class="btn btn-primary btn-export-excel">
+									<i class="fa-solid fa-file-export"></i>
+									<span>Export Excel</span>
+								</a>
+							</div>
 							<a href="#addProductModal" class="btn btn-success" data-toggle="modal">
 								<i class="material-icons">&#xE147;</i>
 								<span>Thêm</span>
@@ -229,7 +235,7 @@
 												<option value="256gb">256GB</option>
 												<option value="512gb">512GB</option>
 												<option value="1tb">1TB</option>
-												<option value="4tb">4TB</option>
+												<option value="2TB">2TB</option>
 											</select>
 										</td>
 									</tr>
@@ -373,7 +379,7 @@
 							<div class="control-form__upload">
 								<div class="upload-box hide-image">
 									<input type="file" id="product-image" accept="image/*" hidden>
-									<img src="" alt="Hình ảnh sản phẩm" class="preview-img">
+									<img src="" alt="Hình ảnh sản phẩm" class="preview-img" style="width: 138px; height: 138px;">
 									<span class="btn-remove-img" onClick="updateRemovePreviewImage()">
 										<i class="fa-solid fa-xmark"></i>
 									</span>

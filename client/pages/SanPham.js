@@ -1,11 +1,12 @@
 $(document).ready(() => {
     renderAdminProductTable()
-    addProduct()
+    handleAddProduct()
     renderUpdateProduct()
-    updateProduct()
+    handleUpdateProduct()
     toAdminProductDetail()
     renderDeleteProductModal()
     handleDeleteProduct()
+    importExcel()
 })
 
 function getProductData() {
@@ -78,9 +79,9 @@ function renderAdminProductTable() {
                             <td>${item.ten_sp}</td>
                             <td class="admin-product-type-name-${index}"></td>
                             <td>${item.gia_nhap}</td>
-                            <td style="text-align: center;">${item.chiet_khau}</td>
+                            <td>${item.chiet_khau}</td>
                             <td>${item.gia_ban}</td>
-                            <td style="text-align: center;">${item.so_luong_ton}</td>
+                            <td>${item.so_luong_ton}</td>
                             <td>
                                 <a href="#editProductModal" class="edit btn-update-product-modal" data-toggle="modal" data-id=${item.ma_sp}>
                                     <i class="material-icons" data-toggle="tooltip" title="Sửa thông tin">&#xE254;</i>
@@ -134,7 +135,7 @@ function renderUpdateProduct() {
     })
 }
 
-function validateEmpty(product) {
+function validateProductEmpty(product) {
     if (!product.img) {
         alert('Vui lòng chọn hình ảnh')
         return false
@@ -222,12 +223,12 @@ function validateEmpty(product) {
     return true
 }
 
-function saveImage(fileInput) {
+function saveImage(fileInput, productId) {
     return new Promise((resolve, reject) => {
         const file = fileInput.files[0]
-
         const formData = new FormData()
         formData.append('action', 'save-image')
+        formData.append('productId', productId)
         formData.append('fileInputName', file)
 
         $.ajax({
@@ -247,7 +248,49 @@ function saveImage(fileInput) {
     })
 }
 
-function addProduct() {
+function addProduct(product) {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: 'server/src/controller/SanPhamController.php',
+            method: 'POST',
+            data: { action: 'add', product },
+            success: productId => {
+                if (!productId.startsWith('SP')) {
+                    console.log(productId)
+                    resolve(false)
+                } else {
+                    let promises = []
+                    let productDetails = []
+    
+                    product.colors.forEach(colorId => {
+                        product.cpus.forEach(cpuId => {
+                            product.rams.forEach(ram => {
+                                product.roms.forEach(rom => {
+                                    product.gpus.forEach(gpuId => {
+                                        productDetails.push({ colorId, cpuId, ram, rom, gpuId })
+                                    })
+                                })
+                            })
+                        })
+                    })
+
+                    productDetails.forEach(productDetail => promises.push(addProductDetail(productDetail, productId, product.plugs)))
+    
+                    Promise.all(promises).then(results => {
+                        if (results.includes(false)) resolve(false) 
+                        else resolve(true)
+                    })
+                }
+            },
+            error: (xhr, status, error) => {
+                console.log(error)
+                reject(error)
+            }
+        })
+    })
+}
+
+function handleAddProduct() {
     $(document).on('click', '.btn-add-product', e => {
         const product = {
             img: $('.preview-img').attr('src'),
@@ -270,80 +313,57 @@ function addProduct() {
             plugs: $('#product-plug').val(),
         }
 
-        if (!validateEmpty(product)) {
+        if (!validateProductEmpty(product)) {
             return
         }
 
-        saveImage(document.querySelector('#addProductModal #product-image'))
+        saveImage(document.querySelector('#addProductModal #product-image'), null)
             .then(res => {
                 if (res !== 'success') {
                     alert(res)
                     return
                 }
 
-                $.ajax({
-                    url: 'server/src/controller/SanPhamController.php',
-                    method: 'POST',
-                    data: { action: 'add', product },
-                    success: productId => {
-                        if (!productId) {
-                            alert('Xảy ra lỗi trong quá trình thêm sản phẩm')
+                addProduct(product)
+                    .then(res => {
+                        if (res) {
+                            alert('Thêm sản phẩm thành công')
+                            $('form').trigger('reset')
+                            $('#addProductModal').modal('hide')
+                            renderAdminProductTable()
                         } else {
-                            let promises = []
-                            let productDetails = []
-
-                            product.colors.forEach(colorId => {
-                                product.cpus.forEach(cpuId => {
-                                    product.rams.forEach(ram => {
-                                        product.roms.forEach(rom => {
-                                            product.gpus.forEach(gpuId => {
-                                                productDetails.push({ colorId, cpuId, ram, rom, gpuId })
-                                            })
-                                        })
-                                    })
-                                })
-                            })
-
-                            productDetails.forEach(productDetail => {
-                                let promise = new Promise((resolve, reject) => {
-                                    addProductDetail(productDetail, productId, product.plugs)
-                                        .then(result => {
-                                            if (result === 'success') {
-                                                resolve(true)
-                                            } else {
-                                                resolve(false)
-                                            }
-                                        })
-                                        .catch(error => {
-                                            console.log(error)
-                                            reject(error)
-                                        })
-                                })
-
-                                promises.push(promise)
-                            })
-
-                            Promise.all(promises).then(results => {
-                                if (results.includes(false)) {
-                                    alert('Xảy ra lỗi trong quá trình thêm sản phẩm');
-                                } else {
-                                    alert('Thêm sản phẩm thành công');
-                                    $('form').trigger('reset');
-                                    $('#addProductModal').modal('hide');
-                                    renderAdminProductTable();
-                                }
-                            })
+                            alert('Xảy ra lỗi trong quá trình thêm sản phẩm')
                         }
-                    },
-                    error: (xhr, status, error) => {
-                        console.log(error)
-                    }
-                })
+                    })
+                    .catch(error => console.log(error))
             })
+            .catch(error => console.log(error))
     })
 }
 
-function updateProduct() {
+function updateProduct(product) {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: 'server/src/controller/SanPhamController.php',
+            method: 'POST',
+            data: { action: 'update', product },
+            success: res => {
+                if (res === 'success') {
+                    resolve(true)
+                } else {
+                    console.log(res)
+                    resolve(false)
+                }
+            },
+            error: (xhr, status, error) => { 
+                console.log(error)
+                reject(error)
+            }
+        })
+    })
+}
+
+function handleUpdateProduct() {
     $(document).on('click', '.btn-update-product', () => {
         const product = {
             productId: $('#editProductModal .product-id').text(),
@@ -365,32 +385,28 @@ function updateProduct() {
             origin: $('#editProductModal #product-origin').val(),
         }
 
-        if (!validateEmpty(product)) {
+        if (!validateProductEmpty(product)) {
             return
         }
 
-        saveImage(document.querySelector('#editProductModal #product-image'))
+        saveImage(document.querySelector('#editProductModal #product-image'), product.productId)
             .then(res => {
                 if (res !== 'success' && res !== 'no image updated') {
                     alert(res)
                     return
                 }
 
-                $.ajax({
-                    url: 'server/src/controller/SanPhamController.php',
-                    method: 'POST',
-                    data: { action: 'update', product },
-                    success: data => {
-                        if (data === 'success') {
+                updateProduct(product)
+                    .then(res => {
+                        if (res) {
                             alert('Cập nhật sản phẩm thành công')
                             $('#editProductModal').modal('hide')
                             renderAdminProductTable()
                         } else {
                             alert('Xảy ra lỗi trong quá trình cập nhật sản phẩm')
                         }
-                    },
-                    error: (xhr, status, error) => console.log(error)
-                })
+                    })
+                    .catch(error => console.log(error))
             })
     })
 }
@@ -496,4 +512,110 @@ function handleDeleteProduct() {
             $('#deleteProductModal').modal('hide')
         }
     })
+}
+
+function importExcel() {
+    $('#admin-product-main #import-excel-file').on('change', e => {
+        const file = e.target.files[0]
+        const reader = new FileReader()
+
+        reader.onload = e => {
+            const data = new Uint8Array(e.target.result)
+            const workbook = XLSX.read(data, { type: 'array' })
+            const sheetName = workbook.SheetNames[0]
+            const sheet = workbook.Sheets[sheetName]
+            const range = XLSX.utils.decode_range(sheet['!ref'])
+
+            let promises = []
+            let products = []
+            const titles = [
+                'productName', 'origin', 'brandId', 'typeId', 'weight', 'colors', 'material', 'cpus', 
+                'rams', 'roms', 'screen', 'resolution', 'gpus', 'plugs', 'keyboard', 'battery', 'osId'
+            ]
+
+            for (let  i = range.s.r + 1; i <= range.e.r; i++) {
+                let product = {}
+
+                for (let j = range.s.c; j <= range.e.c; j++) {
+                    if (i == 1) continue
+                    else {
+                        const cellValue = getCellValue(sheet, i, j)
+
+                        if (titles[j] === 'colors' || titles[j] === 'cpus' || titles[j] === 'gpus' || titles[j] === 'rams' || titles[j] === 'roms' || titles[j] === 'plugs') {
+                            if (cellValue.toString().includes(',')) {
+                                let arrays = cellValue.split(',')
+                                arrays = arrays.map(item => item.trim())
+                                product[titles[j]] = arrays
+                            } else {
+                                product[titles[j]] = [cellValue]
+                            }
+                        } else {
+                            product[titles[j]] = cellValue
+                        }
+                    }
+                }
+
+                if (Object.keys(product).length > 0) products.push(product)
+            }
+            
+            products.forEach(product => {
+                let brandPromise = getBrandId(product.brandId).then(brandId => product.brandId = brandId)
+                let typePromise = getTypeId(product.typeId).then(typeId => product.typeId = typeId)
+                let osPromise = getOSId(product.osId).then(osId => product.osId = osId)
+                let colorPromises = []
+                let cpuPromises = []
+                let gpuPromises = []
+                let plugPromises = []
+
+                product.colors.forEach((colorName, index) => {
+                    let colorPromise = getColorId(colorName).then(colorId => product.colors[index] = colorId)
+                    colorPromises.push(colorPromise)
+                })
+
+                product.cpus.forEach((cpuName, index) => {
+                    let cpuPromise = getCPUId(cpuName).then(cpuId => product.cpus[index] = cpuId)
+                    cpuPromises.push(cpuPromise)
+                })
+
+                product.gpus.forEach((gpuName, index) => {
+                    let gpuPromise = getGPUId(gpuName).then(gpuId => product.gpus[index] = gpuId)
+                    gpuPromises.push(gpuPromise)
+                })
+
+                product.plugs.forEach((plugName, index) => {
+                    let plugPromise = getPlugId(plugName).then(plugId => product.plugs[index] = plugId)
+                    plugPromises.push(plugPromise)
+                })
+
+                promises.push(brandPromise, typePromise, colorPromises, osPromise, cpuPromises, gpuPromises, plugPromises)
+            })
+            
+            Promise.all(promises).then(res => {
+                if (!res.includes(false)) {
+                    promises = []
+                    products.forEach(product => promises.push(addProduct(product)))
+
+                    Promise.all(promises).then(results => {
+                        if (results.includes(false)) {
+                            alert('Xảy ra lỗi trong quá trình thêm sản phẩm vào hệ thống từ file excel\nVui lòng kiểm tra lại định dạng và thông tin của file excel')
+                        } else {
+                            alert('Thêm các sản phẩm từ file excel thành công')
+                            $('form').trigger('reset')
+                            renderAdminProductTable()
+                        }
+                    })
+                } else {
+                    alert('Xảy ra lỗi trong quá trình thêm sản phẩm vào hệ thống từ file excel\nVui lòng kiểm tra lại định dạng và thông tin của file excel')
+                }
+            })
+        }
+ 
+        reader.readAsArrayBuffer(file)
+    })
+}
+
+function getCellValue(sheet, row, column) {
+    const cellAddress = XLSX.utils.encode_cell({ r: row, c: column })
+    const cell = sheet[cellAddress]
+    return cell ? cell.v : ''
 }
