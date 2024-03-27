@@ -997,14 +997,10 @@ table.table .avatar {
 }
 
 .upload-box {
-  width: 150px;
   height: 150px;
   border: 1px dashed #dbdbdb;
   position: relative;
   padding: 5px;
-  /* display: flex;
-  align-items: center;
-  justify-content: center; */
 }
 
 .upload-box .btn-remove-img {
@@ -1166,9 +1162,4 @@ table.table .avatar {
   border-radius: 0 36px 36px 0;
   cursor: pointer;
   padding: 7px 0;
-}
-
-.modal .preview-image {
-  width: 138px;
-  height: 138px;
 }

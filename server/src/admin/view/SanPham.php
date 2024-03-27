@@ -379,7 +379,7 @@
 							<div class="control-form__upload">
 								<div class="upload-box hide-image">
 									<input type="file" id="product-image" accept="image/*" hidden>
-									<img src="" alt="Hình ảnh sản phẩm" class="preview-img" style="width: 138px; height: 138px;">
+									<img src="" alt="Hình ảnh sản phẩm" class="preview-img">
 									<span class="btn-remove-img" onClick="updateRemovePreviewImage()">
 										<i class="fa-solid fa-xmark"></i>
 									</span>
