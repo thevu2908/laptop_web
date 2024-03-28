@@ -618,15 +618,13 @@ INSERT INTO `thuonghieu` (`ma_thuong_hieu`, `ten_thuong_hieu`, `trang_thai`) VAL
 -- Indexes for table `carddohoa`
 --
 ALTER TABLE `carddohoa`
-  ADD PRIMARY KEY (`ma_card`),
-  ADD UNIQUE KEY `ten_card` (`ten_card`);
+  ADD PRIMARY KEY (`ma_card`);
 
 --
 -- Indexes for table `chipxuly`
 --
 ALTER TABLE `chipxuly`
-  ADD PRIMARY KEY (`ma_chip_xu_ly`),
-  ADD UNIQUE KEY `ten_chip` (`ten_chip`);
+  ADD PRIMARY KEY (`ma_chip_xu_ly`);
 
 --
 -- Indexes for table `chitietcongketnoi`
@@ -699,8 +697,7 @@ ALTER TABLE `chucnangquyen`
 -- Indexes for table `congketnoi`
 --
 ALTER TABLE `congketnoi`
-  ADD PRIMARY KEY (`ma_cong`),
-  ADD UNIQUE KEY `ten_cong` (`ten_cong`);
+  ADD PRIMARY KEY (`ma_cong`);
 
 --
 -- Indexes for table `ctsp_imei`
@@ -727,8 +724,7 @@ ALTER TABLE `giohang`
 -- Indexes for table `hedieuhanh`
 --
 ALTER TABLE `hedieuhanh`
-  ADD PRIMARY KEY (`ma_hdh`),
-  ADD UNIQUE KEY `ten_hdh` (`ten_hdh`);
+  ADD PRIMARY KEY (`ma_hdh`);
 
 --
 -- Indexes for table `hoadon`
@@ -821,8 +817,7 @@ ALTER TABLE `taikhoan`
 -- Indexes for table `theloai`
 --
 ALTER TABLE `theloai`
-  ADD PRIMARY KEY (`ma_the_loai`),
-  ADD UNIQUE KEY `ten_loai` (`ten_loai`);
+  ADD PRIMARY KEY (`ma_the_loai`);
 
 --
 -- Indexes for table `thongbao`
@@ -845,8 +840,7 @@ ALTER TABLE `thongbao`
 -- Indexes for table `thuonghieu`
 --
 ALTER TABLE `thuonghieu`
-  ADD PRIMARY KEY (`ma_thuong_hieu`),
-  ADD UNIQUE KEY `ten_thuong_hieu` (`ten_thuong_hieu`);
+  ADD PRIMARY KEY (`ma_thuong_hieu`);
 
 --
 -- Constraints for dumped tables
