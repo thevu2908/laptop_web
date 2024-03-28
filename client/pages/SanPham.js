@@ -96,7 +96,7 @@ function renderAdminProductTable() {
                         </tr>
                     `
     
-                    showBrandName(item.ma_thuong_hieu, index)
+                    renderBrandName(item.ma_thuong_hieu, index)
                 })
             }
 
@@ -276,10 +276,7 @@ function addProduct(product) {
 
                     productDetails.forEach(productDetail => promises.push(addProductDetail(productDetail, productId, product.plugs)))
     
-                    Promise.all(promises).then(results => {
-                        if (results.includes(false)) resolve(false) 
-                        else resolve(true)
-                    })
+                    Promise.all(promises).then(results => resolve(!results.includes(false)))
                 }
             },
             error: (xhr, status, error) => {
@@ -519,14 +516,13 @@ function importExcel() {
         const file = e.target.files[0]
         const reader = new FileReader()
 
-        reader.onload = e => {
+        reader.onload = async e => {
             const data = new Uint8Array(e.target.result)
             const workbook = XLSX.read(data, { type: 'array' })
             const sheetName = workbook.SheetNames[0]
             const sheet = workbook.Sheets[sheetName]
             const range = XLSX.utils.decode_range(sheet['!ref'])
 
-            let promises = []
             let products = []
             const titles = [
                 'productName', 'origin', 'brandId', 'typeId', 'weight', 'colors', 'material', 'cpus', 
@@ -558,56 +554,33 @@ function importExcel() {
                 if (Object.keys(product).length > 0) products.push(product)
             }
             
-            products.forEach(product => {
-                let brandPromise = getBrandId(product.brandId).then(brandId => product.brandId = brandId)
-                let typePromise = getTypeId(product.typeId).then(typeId => product.typeId = typeId)
-                let osPromise = getOSId(product.osId).then(osId => product.osId = osId)
-                let colorPromises = []
-                let cpuPromises = []
-                let gpuPromises = []
-                let plugPromises = []
-
-                product.colors.forEach((colorName, index) => {
-                    let colorPromise = getColorId(colorName).then(colorId => product.colors[index] = colorId)
-                    colorPromises.push(colorPromise)
-                })
-
-                product.cpus.forEach((cpuName, index) => {
-                    let cpuPromise = getCPUId(cpuName).then(cpuId => product.cpus[index] = cpuId)
-                    cpuPromises.push(cpuPromise)
-                })
-
-                product.gpus.forEach((gpuName, index) => {
-                    let gpuPromise = getGPUId(gpuName).then(gpuId => product.gpus[index] = gpuId)
-                    gpuPromises.push(gpuPromise)
-                })
-
-                product.plugs.forEach((plugName, index) => {
-                    let plugPromise = getPlugId(plugName).then(plugId => product.plugs[index] = plugId)
-                    plugPromises.push(plugPromise)
-                })
-
-                promises.push(brandPromise, typePromise, colorPromises, osPromise, cpuPromises, gpuPromises, plugPromises)
-            })
-            
-            Promise.all(promises).then(res => {
-                if (!res.includes(false)) {
-                    promises = []
-                    products.forEach(product => promises.push(addProduct(product)))
-
-                    Promise.all(promises).then(results => {
-                        if (results.includes(false)) {
-                            alert('Xảy ra lỗi trong quá trình thêm sản phẩm vào hệ thống từ file excel\nVui lòng kiểm tra lại định dạng và thông tin của file excel')
-                        } else {
-                            alert('Thêm các sản phẩm từ file excel thành công')
-                            $('form').trigger('reset')
-                            renderAdminProductTable()
-                        }
-                    })
-                } else {
-                    alert('Xảy ra lỗi trong quá trình thêm sản phẩm vào hệ thống từ file excel\nVui lòng kiểm tra lại định dạng và thông tin của file excel')
+            for (let product of products) {
+                product.brandId = await handleImportBrand(product.brandId)
+                product.typeId = await handleImportType(product.typeId)
+                product.osId = await handleImportOS(product.osId)
+                for (let index in product.cpus) product.cpus[index] = await handleImportCPU(product.cpus[index])
+                for (let index in product.gpus) product.gpus[index] = await handleImportGPU(product.gpus[index])
+                for (let index in product.plugs) product.plugs[index] = await handleImportPlug(product.plugs[index])
+        
+                for (let index in product.colors) {
+                    product.colors[index] = await getColorId(product.colors[index])
+                    if (!product.colors[index]) {
+                        alert(`Màu ${product.colors[index]} ở sản phẩm ${product.productName} không tồn tại trong hệ thống\nVui lòng thêm màu vào hệ thống\nSau đó thêm chi tiết sản phẩm riêng trong phần thêm chi tiết sản phẩm`)
+                        return
+                    }
                 }
-            })
+            }
+
+            const addProductPromises = products.map(product => addProduct(product))
+            const res = await Promise.all(addProductPromises)
+
+            if (!res.includes(false)) {
+                alert('Thêm các sản phẩm từ file excel thành công')
+                $('form').trigger('reset')
+                renderAdminProductTable()
+            } else {
+                alert('Xảy ra lỗi trong quá trình thêm sản phẩm vào hệ thống từ file excel\nVui lòng kiểm tra lại định dạng và nội dung của file excel')
+            }
         }
  
         reader.readAsArrayBuffer(file)

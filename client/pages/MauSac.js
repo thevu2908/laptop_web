@@ -1,6 +1,6 @@
 $(document).ready(() => {
     loadColorData()
-    addColor()
+    handleAddColor()
 })
 
 function loadColorData() {
@@ -23,13 +23,33 @@ function loadColorData() {
                 $('#admin-product-detail-main #product-color').html(html)
             }
         },
-        error: (xhr, status, error) => {
-            console.log(error)
-        }
+        error: (xhr, status, error) => console.log(error)
     })
 }
 
-function addColor() {
+function addColor(id, name) {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: 'server/src/controller/MauSacController.php',
+            method: 'POST',
+            data: { action: 'add', id, name },
+            success: data => {
+                if (data === 'success') {
+                    resolve(true)
+                } else {
+                    resolve(false)
+                    console.log(data)
+                }
+            },
+            error: (xhr, status, error) => {
+                console.log(error)
+                reject(error)
+            }
+        })
+    })
+}
+
+function handleAddColor() {
     $(document).on('click', '.btn-add-color', e => {
         const id = $('#product-color-id').val()
         const name = $('#product-color-name').val()
@@ -51,41 +71,45 @@ function addColor() {
             return
         }
 
-        $.ajax({
-            url: 'server/src/controller/MauSacController.php',
-            method: 'POST',
-            data: { action: 'add', id, name },
-            success: data => {
-                if (data === 'success') {
+        addColor(id, name)
+            .then(res => {
+                if (res) {
                     alert('Thêm màu mới thành công')
                     $('#addProductColorModal').modal('hide')
                     $('.add-product-color-form').trigger('reset')
                     loadColorData()
                 } else {
                     alert('Thêm màu mới thất bại')
-                    console.log(data)
                 }
-            },
+            })
+            .catch(error => console.log(error))
+    })
+}
+
+function getColor(id) {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: 'server/src/controller/MauSacController.php',
+            method: 'POST',
+            data: { action: 'get', id },
+            dataType: 'JSON',
+            success: color => resolve(color),
             error: (xhr, status, error) => {
                 console.log(error)
+                reject(error)
             }
         })
     })
 }
 
 function renderColorName(id, index) {
-    $.ajax({
-        url: 'server/src/controller/MauSacController.php',
-        method: 'POST',
-        data: { action: 'get', id },
-        dataType: 'JSON',
-        success: data => {
-            $(`.product-detail-color-name-${index}`).text(data.ten_mau)
-        },
-        error: (xhr, status, error) => {
-            console.log(error)
-        }
-    })
+    getColor(id)
+        .then(color => {
+            if (color) {
+                $(`.product-detail-color-name-${index}`).text(color.ten_mau)
+            }
+        })
+        .catch(error => console.log(error))
 }
 
 function getColorId(name) {
@@ -95,9 +119,7 @@ function getColorId(name) {
             method: 'POST',
             data: { action: 'get-id', name },
             dataType: 'JSON',
-            success: id => {
-                resolve(id)
-            },
+            success: id => resolve(id),
             error: (xhr, status, error) => {
                 console.log(error)
                 reject(error)
