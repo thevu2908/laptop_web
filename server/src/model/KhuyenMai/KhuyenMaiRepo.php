@@ -5,7 +5,7 @@ class KhuyenMaiRepo extends ConnectDB {
         $result = mysqli_query($this->conn, $sql);
         $arrKhuyenMai = array();
         while($row = mysqli_fetch_assoc($result)) {
-            $arrKhuyenMai = $row;
+            $arrKhuyenMai[] = $row;
         }
         return $arrKhuyenMai;
     }

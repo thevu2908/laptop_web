@@ -56,6 +56,11 @@
     font-size: 24px;
 }
 
+.cart-btn {
+    background-color: transparent;
+    border: none;
+}
+
 .cart-dropdown {
     position: absolute;
     background-color: #fff;
@@ -127,12 +132,14 @@
 
 .cart__item-info {
     padding: 6px 0 6px 8px;
+    align-self: center;
 }
 
 .cart__footer-total {
     display: flex;
     justify-content: space-between;
     font-size: 0.938rem;
+    margin-top: 10px;
 }
 
 .cart__footer-money {
@@ -146,6 +153,7 @@
 }
 
 .cart__footer-tocart {
+    display: block;
     font-size: 1rem;
     color: white;
     padding: 12px;
@@ -158,6 +166,7 @@
 
 .cart__footer-tocart:hover {
     background-color: var(--primary-color);
+    color: white;
 }
 
 .cart__left,
@@ -1186,7 +1195,8 @@ ul, li {
     line-height: 1em;
 }
 
-.product-name {
+.product-name,
+.promotion-name {
     grid-row-gap: 0.25rem;
     flex-direction: column;
     display: flex;

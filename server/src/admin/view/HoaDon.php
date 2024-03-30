@@ -28,7 +28,7 @@
 									<label for="selectAll"></label>
 								</span>
 							</th>
-							<th>Mã</th>
+							<th>ID</th>
 							<th>Khách Hàng</th>
 							<th>Nhân Viên</th>
 							<th>Ngày Tạo</th>
@@ -37,8 +37,7 @@
 							<th>Thành tiền</th>
 							<th>Hình thức</th>
 							<th>Tình Trạng</th>
-							<th>Status</th>
-							<th>Actions</th>
+							<th class="w-auto">Actions</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -49,7 +48,7 @@
 									<label for="checkbox1"></label>
 								</span>
 							</td>
-							<td>1</td>
+							<td>HD001</td>
 							<td>Đỗ Minh Quân</td>
 							<td>Nguyễn Thanh Sang</td>
 							<td>20-2-2024</td>
@@ -58,14 +57,7 @@
 							<td>16.000.000đ</td>
 							<td>VNPay</td>
 							<td>Đã giao</td>
-							<td><span class="status text-success">&bull;</span> Active</td>
 							<td>
-								<a href="#editEmployeeModal" class="edit" data-toggle="modal">
-									<i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
-								</a>
-								<a href="#deleteEmployeeModal" class="delete" data-toggle="modal">
-									<i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
-								</a>
 								<a href="#" class="view" title="View" data-toggle="tooltip">
 									<i class="material-icons">&#xE417;</i>
 								</a>

@@ -1,13 +1,19 @@
 <?php
 class DanhGiaRepo extends ConnectDB {
-    function getAllDanhGia() {
-        $sql = "SELECT * FROM danhgia";
-        $result = mysqli_query($this->conn, $sql);
-        $arrDanhGia = array();
-        while($row = mysqli_fetch_assoc($result)) {
-            $arrDanhGia = $row;
+    function getAllDanhGia($ma_ctsp) : array | null {
+        $sql = "SELECT * FROM danhgia WHERE ma_ctsp=$ma_ctsp";
+        $arrDanhGia = [];
+        try {
+            $result = mysqli_query($this->conn, $sql);
+            while($row = mysqli_fetch_assoc($result)) {
+                $arrDanhGia[] = $row;
+            }
+            return $arrDanhGia;
         }
-        return $arrDanhGia;
+        catch (Exception $e) {
+            echo 'Error: ' . $e->getMessage() . '<br>';
+        }
+        return null;
     }
 
     function getDanhGia($ma_kh) {
