@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 22, 2024 at 03:32 PM
+-- Generation Time: Mar 27, 2024 at 02:47 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -41,10 +41,20 @@ INSERT INTO `carddohoa` (`ma_card`, `ten_card`, `trang_thai`) VALUES
 ('CDH001', 'GTX 1650', 0),
 ('CDH002', 'RTX 3050', 0),
 ('CDH003', 'RTX 3060', 0),
-('CDH004', 'abc', 1),
-('CDH005', 'bcd', 1),
-('CDH006', 'ddd', 1),
-('CDH007', 'Apple M2 GPU 8 nhân', 0);
+('CDH004', 'AMD Radeon Graphics', 0),
+('CDH005', 'RTX 2050', 0),
+('CDH006', 'Intel Iris Xe Graphics', 0),
+('CDH007', 'Apple M2 GPU 8 nhân', 0),
+('CDH008', 'Intel UHD Graphics', 0),
+('CDH009', 'GeForce MX550 2GB', 0),
+('CDH010', 'RTX 4060', 0),
+('CDH011', 'Apple M1 GPU 7 nhân', 0),
+('CDH012', 'Apple M2 GPU 10 nhân', 0),
+('CDH013', 'Apple M3 GPU Pro 18 nhân', 0),
+('CDH014', 'RTX 4050', 0),
+('CDH015', 'RTX 3080Ti', 0),
+('CDH016', 'RTX 4090', 0),
+('CDH017', 'Intel Arc Graphics', 0);
 
 -- --------------------------------------------------------
 
@@ -63,11 +73,37 @@ CREATE TABLE `chipxuly` (
 --
 
 INSERT INTO `chipxuly` (`ma_chip_xu_ly`, `ten_chip`, `trang_thai`) VALUES
-('CXL001', 'i5 11500H', 0),
-('CXL002', 'i9 11900H', 0),
-('CXL003', 'abc', 1),
-('CXL004', 'bcd', 1),
-('CXL005', 'Apple M2', 0);
+('CXL001', 'i5 11400H', 0),
+('CXL002', 'i5 12450H', 0),
+('CXL003', 'R5 7520U', 0),
+('CXL004', 'i5 1235U', 0),
+('CXL005', 'Apple M2', 0),
+('CXL006', 'R7 5700U', 0),
+('CXL007', 'i5 1335U', 0),
+('CXL008', 'i5 12450HX', 0),
+('CXL009', 'i5 13500H', 0),
+('CXL010', 'i7 1255U', 0),
+('CXL011', 'R7 7840HS', 0),
+('CXL012', 'i9 14900HX', 0),
+('CXL013', 'Apple M1', 0),
+('CXL014', 'Apple M3 Pro', 0),
+('CXL015', 'i7 1355U', 0),
+('CXL016', 'i5 1135G7', 0),
+('CXL017', 'i9 12900HX', 0),
+('CXL018', 'Intel Core Ultra 7', 0),
+('CXL019', 'R7 6800U', 0),
+('CXL020', 'i7 1360P', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `chitietcongketnoi`
+--
+
+CREATE TABLE `chitietcongketnoi` (
+  `ma_cong` varchar(20) NOT NULL,
+  `ma_ctsp` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -161,11 +197,10 @@ CREATE TABLE `chitietsanpham` (
   `ma_chip_xu_ly` varchar(20) NOT NULL,
   `ma_mau` varchar(20) NOT NULL,
   `ma_carddohoa` varchar(20) NOT NULL,
-  `ma_congketnoi` varchar(20) NOT NULL,
   `ram` varchar(50) NOT NULL,
   `rom` varchar(50) NOT NULL,
-  `hinh_anh` varchar(200) NOT NULL,
   `gia_tien` float NOT NULL,
+  `so_luong` int(11) NOT NULL,
   `trang_thai` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -200,8 +235,27 @@ CREATE TABLE `congketnoi` (
 INSERT INTO `congketnoi` (`ma_cong`, `ten_cong`, `trang_thai`) VALUES
 ('CKN001', 'Type C', 0),
 ('CKN002', 'HDMI', 0),
-('CKN003', 'abc', 1),
-('CKN004', 'bcd', 1);
+('CKN003', 'USB', 0),
+('CKN004', 'LAN', 0),
+('CKN005', 'Jack', 0),
+('CKN006', 'RJ45 Gigabit Ethernet', 0),
+('CKN007', 'DC-in jack', 0),
+('CKN008', 'Thunderbolt', 0),
+('CKN009', 'Power connector', 0),
+('CKN010', 'SD Card', 0),
+('CKN011', 'Card reader', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ctsp_imei`
+--
+
+CREATE TABLE `ctsp_imei` (
+  `ma_imei` varchar(20) NOT NULL,
+  `ma_ctsp` varchar(20) NOT NULL,
+  `trang_thi` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -295,6 +349,7 @@ CREATE TABLE `khachhang` (
 
 CREATE TABLE `khuyenmai` (
   `ma_km` varchar(20) NOT NULL,
+  `ten_khuyen_mai` varchar(200) NOT NULL,
   `muc_khuyen_mai` double NOT NULL,
   `dieu_kien` varchar(50) NOT NULL,
   `thoi_gian_bat_dau` date NOT NULL,
@@ -320,6 +375,9 @@ CREATE TABLE `mausac` (
 
 INSERT INTO `mausac` (`ma_mau`, `ten_mau`, `trang_thai`) VALUES
 ('#000', 'Đen', 0),
+('#00008B', 'Xanh đậm', 0),
+('#808080', 'Xám', 0),
+('#ADD8E6', 'Xanh nhạt', 0),
 ('#c0c0c0', 'Bạc', 0),
 ('#fff', 'Trắng', 0),
 ('#ffff00', 'Vàng', 0);
@@ -443,14 +501,15 @@ CREATE TABLE `sanpham` (
   `ma_the_loai` varchar(20) NOT NULL,
   `ma_hdh` varchar(20) NOT NULL,
   `ten_sp` varchar(100) NOT NULL,
+  `hinh_anh` varchar(200) NOT NULL,
   `kich_co_man_hinh` varchar(50) NOT NULL,
   `do_phan_giai` varchar(50) NOT NULL,
   `pin` varchar(50) NOT NULL,
   `ban_phim` varchar(50) NOT NULL,
   `gia_ban` double NOT NULL,
   `gia_nhap` double NOT NULL,
-  `chiet_khau` int(11) NOT NULL,
-  `trong_luong` float NOT NULL,
+  `chiet_khau` double NOT NULL,
+  `trong_luong` double NOT NULL,
   `chat_lieu` varchar(50) NOT NULL,
   `xuat_xu` varchar(50) NOT NULL,
   `so_luong_ton` int(11) NOT NULL,
@@ -550,7 +609,7 @@ INSERT INTO `thuonghieu` (`ma_thuong_hieu`, `ten_thuong_hieu`, `trang_thai`) VAL
 ('TH005', 'Apple', 0),
 ('TH006', 'MSI', 0),
 ('TH007', 'Lenovo', 0),
-('TH008', 'abc', 1);
+('TH008', 'Huawei', 0);
 
 --
 -- Indexes for dumped tables
@@ -567,6 +626,13 @@ ALTER TABLE `carddohoa`
 --
 ALTER TABLE `chipxuly`
   ADD PRIMARY KEY (`ma_chip_xu_ly`);
+
+--
+-- Indexes for table `chitietcongketnoi`
+--
+ALTER TABLE `chitietcongketnoi`
+  ADD PRIMARY KEY (`ma_cong`,`ma_ctsp`),
+  ADD KEY `ctckn_fk_ctsp` (`ma_ctsp`);
 
 --
 -- Indexes for table `chitiethoadon`
@@ -620,8 +686,7 @@ ALTER TABLE `chitietsanpham`
   ADD KEY `ctsp_fk_sp` (`ma_sp`),
   ADD KEY `ctsp_fk_chip` (`ma_chip_xu_ly`),
   ADD KEY `ctsp_fk_mausac` (`ma_mau`) USING BTREE,
-  ADD KEY `ctsp_fk_carddohoa` (`ma_carddohoa`),
-  ADD KEY `ctsp_fk_ckn` (`ma_congketnoi`);
+  ADD KEY `ctsp_fk_carddohoa` (`ma_carddohoa`);
 
 --
 -- Indexes for table `chucnangquyen`
@@ -634,6 +699,13 @@ ALTER TABLE `chucnangquyen`
 --
 ALTER TABLE `congketnoi`
   ADD PRIMARY KEY (`ma_cong`);
+
+--
+-- Indexes for table `ctsp_imei`
+--
+ALTER TABLE `ctsp_imei`
+  ADD PRIMARY KEY (`ma_imei`),
+  ADD KEY `imei_ctsp` (`ma_ctsp`);
 
 --
 -- Indexes for table `danhgia`
@@ -679,7 +751,8 @@ ALTER TABLE `khuyenmai`
 -- Indexes for table `mausac`
 --
 ALTER TABLE `mausac`
-  ADD PRIMARY KEY (`ma_mau`);
+  ADD PRIMARY KEY (`ma_mau`),
+  ADD UNIQUE KEY `ten_mau` (`ten_mau`);
 
 --
 -- Indexes for table `nhacungcap`
@@ -775,6 +848,13 @@ ALTER TABLE `thuonghieu`
 --
 
 --
+-- Constraints for table `chitietcongketnoi`
+--
+ALTER TABLE `chitietcongketnoi`
+  ADD CONSTRAINT `ctckn_fk_ckn` FOREIGN KEY (`ma_cong`) REFERENCES `congketnoi` (`ma_cong`),
+  ADD CONSTRAINT `ctckn_fk_ctsp` FOREIGN KEY (`ma_ctsp`) REFERENCES `chitietsanpham` (`ma_ctsp`);
+
+--
 -- Constraints for table `chitiethoadon`
 --
 ALTER TABLE `chitiethoadon`
@@ -822,9 +902,14 @@ ALTER TABLE `chitietquyen`
 ALTER TABLE `chitietsanpham`
   ADD CONSTRAINT `ctsp_fk_carddohoa` FOREIGN KEY (`ma_carddohoa`) REFERENCES `carddohoa` (`ma_card`),
   ADD CONSTRAINT `ctsp_fk_chip` FOREIGN KEY (`ma_chip_xu_ly`) REFERENCES `chipxuly` (`ma_chip_xu_ly`),
-  ADD CONSTRAINT `ctsp_fk_ckn` FOREIGN KEY (`ma_congketnoi`) REFERENCES `congketnoi` (`ma_cong`),
   ADD CONSTRAINT `ctsp_fk_mau` FOREIGN KEY (`ma_mau`) REFERENCES `mausac` (`ma_mau`),
   ADD CONSTRAINT `ctsp_fk_sp` FOREIGN KEY (`ma_sp`) REFERENCES `sanpham` (`ma_sp`);
+
+--
+-- Constraints for table `ctsp_imei`
+--
+ALTER TABLE `ctsp_imei`
+  ADD CONSTRAINT `imei_ctsp` FOREIGN KEY (`ma_ctsp`) REFERENCES `chitietsanpham` (`ma_ctsp`);
 
 --
 -- Constraints for table `danhgia`

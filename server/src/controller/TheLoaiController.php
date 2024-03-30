@@ -32,6 +32,10 @@ class TheLoaiController {
         echo json_encode($this->theLoaiRepo->getType($id));
     }
 
+    public function getId($name) {
+        echo json_encode($this->theLoaiRepo->getId($name));
+    }
+
     public function getLength() : int {
         return $this->theLoaiRepo->getLength();
     }
@@ -66,6 +70,10 @@ switch ($action) {
     case 'get':
         $id = $_POST['id'];
         $theloaiCtl->getType($id);
+        break;
+    case 'get-id':
+        $name = $_POST['name'];
+        $theloaiCtl->getId($name);
         break;
     case 'add':
         $length = $theloaiCtl->getLength();

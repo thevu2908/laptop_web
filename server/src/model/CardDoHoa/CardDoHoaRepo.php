@@ -45,6 +45,20 @@ class CardDoHoaRepo extends ConnectDB {
         }
     }
 
+    public function getId($name) {
+        try {
+            $query = "SELECT ma_card FROM carddohoa WHERE ten_card = '$name' AND trang_thai = '0'";
+            $statement = mysqli_query($this->conn, $query);
+
+            if ($row = mysqli_fetch_assoc($statement)) {
+                return $row['ma_card'];
+            }
+        } catch (Exception $e) {
+            echo 'Error: ' . $e->getMessage() . '<br>';
+        }
+        return null;
+    }
+
     public function add($object) : bool {
         try {
             $query = "INSERT INTO carddohoa(ma_card, ten_card, trang_thai) VALUES (?, ?, 0)";

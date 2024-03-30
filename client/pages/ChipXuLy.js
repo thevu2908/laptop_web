@@ -1,8 +1,8 @@
 $(document).ready(() => {
     loadCPUData()
-    addCPU()
-    showDeleteCPUModal()
-    deleteCPU()
+    handleAddCPU()
+    renderDeleteCPUModal()
+    handleDeleteCPU()
 })
 
 function loadCPUData() {
@@ -21,15 +21,37 @@ function loadCPUData() {
 
                 $('#admin-product-main #product-cpu').html(html)
                 $('#admin-product-main #product-cpu').selectpicker('refresh')
+
+                $('#admin-product-detail-main #product-cpu').html(html)
             }
         },
-        error: (xhr, status, error) => {
-            console.log(error)
-        }
+        error: (xhr, status, error) => console.log(error)
     })
 }
 
-function addCPU() {
+function addCPU(name) {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: 'server/src/controller/ChipXuLyController.php',
+            method: 'POST',
+            data: { action: 'add', name },
+            success: res => {
+                if (res === 'success') {
+                    resolve(true)
+                } else {
+                    console.log(res)
+                    reject(false)
+                }
+            },
+            error: (xhr, status, error) => {
+                console.log(error)
+                reject(error)
+            }
+        })
+    })
+}
+
+function handleAddCPU() {
     $(document).on('click', '.btn-add-cpu', e => {
         const name = $('#product-cpu-name').val()
 
@@ -38,12 +60,9 @@ function addCPU() {
             return
         }
 
-        $.ajax({
-            url: 'server/src/controller/ChipXuLyController.php',
-            method: 'POST',
-            data: { action: 'add', name },
-            success: data => {
-                if (data === 'success') {
+        addCPU(name)
+            .then(res => {
+                if (res) {
                     alert('Thêm CPU mới thành công')
                     $('#addProductCPUModal').modal('hide')
                     $('.add-product-cpu-form').trigger('reset')
@@ -51,13 +70,29 @@ function addCPU() {
                 } else {
                     alert('Thêm CPU mới thất bại')
                 }
+            })
+            .catch(error => console.log(error))
+    })
+}
+
+function getCPU(id) {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: 'server/src/controller/ChipXuLyController.php',
+            method: 'POST',
+            data: { action: 'get', id },
+            dataType: 'JSON',
+            success: cpu => resolve(cpu),
+            error: (xhr, status, error) => {
+                console.log(error)
+                reject(error)
             }
         })
     })
 }
 
-function showDeleteCPUModal() {
-    $(document).on('click', '.btn-delete-cpu-modal', e => {
+function renderDeleteCPUModal() {
+    $(document).on('click', '.btn-delete-cpu-modal', async e => {
         const selected = $('#product-cpu').val()
 
         if (selected.length === 0) {    
@@ -68,33 +103,17 @@ function showDeleteCPUModal() {
         
         $('#deleteProductCPUModal').modal('show')
 
-        let cpuHtml = ''
-        let promise
-        selected.forEach((cpu, index) => {
-            promise = new Promise((resolve, reject) => {
-                $.ajax({
-                    url: 'server/src/controller/ChipXuLyController.php',
-                    method: 'POST',
-                    data: { action: 'get', id: cpu },
-                    dataType: 'JSON',
-                    success: data => {
-                        if (data) {
-                            cpuHtml += `"<b class="delete-cpu-id">${data.ten_chip}</b>"`
-                            if (index !== selected.length - 1) {
-                                cpuHtml += ', '
-                            }
-                            resolve(cpuHtml)
-                        }
-                    },
-                    error: (xhr, status, error) => {
-                        console.log(error)
-                    }
-                })
-            })
-        })
+        try {
+            let cpuHtml = ''
+            const cpuPromises = selected.map(cpuId => getCPU(cpuId))
+            const cpus = await Promise.all(cpuPromises)
 
-        promise.then(cpuHtml => {
-            let html = `
+            cpus.forEach((cpu, index) => {
+                cpuHtml += `<b class="delete-cpu-id">${cpu.ten_chip}</b>`
+                if (index !== selected.length - 1) cpuHtml += ', '
+            })
+
+            const html = `
                 <p>
                     Bạn có chắc chắn muốn xóa CPU
                     ${cpuHtml}
@@ -104,37 +123,40 @@ function showDeleteCPUModal() {
             `
 
             $('.delete-product-cpu-confirm').html(html)
+        } catch(error) {
+            console.log(error)
+        }
+    })
+}
+
+function deleteCPU(id) {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: 'server/src/controller/ChipXuLyController.php',
+            method: 'POST',
+            data: { action: 'delete', id },
+            success: res => {
+                if (res === 'success') {
+                    resolve(true)
+                } else {
+                    console.log(res)
+                    resolve(false)
+                }
+            },
+            error: (xhr, status, error) => {
+                console.log(error)
+                reject(false)
+            }
         })
     })
 }
 
-function deleteCPU() {
+function handleDeleteCPU() {
     $(document).on('click', '.btn-delete-cpu', e => {
         const selected = $('#product-cpu').val()
         let promises = []
 
-        selected.forEach(cpu => {
-            let promise = new Promise((resolve, reject) => {
-                $.ajax({
-                    url: 'server/src/controller/ChipXuLyController.php',
-                    method: 'POST',
-                    data: { action: 'delete', id: cpu},
-                    success: data => {
-                        if (data === 'success') {
-                            resolve(true)
-                        } else {
-                            resolve(false)
-                        }
-                    },
-                    error: (xhr, status, error) => {
-                        console.log(error)
-                        reject(false)
-                    }
-                })
-            })
-
-            promises.push(promise)
-        })
+        selected.forEach(id => promises.push(deleteCPU(id)))
 
         Promise.all(promises).then(results => {
             if (results.includes(false)) {
@@ -146,4 +168,44 @@ function deleteCPU() {
             }
         })
     })
+}
+
+function renderCPUName(id, index) {
+    getCPU(id)
+        .then(cpu => {
+            if (cpu) {
+                $(`.product-detail-cpu-name-${index}`).text(cpu.ten_chip)
+            }
+        })
+        .catch(error => console.log(error))
+}
+
+function getCPUId(name) {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: 'server/src/controller/ChipXuLyController.php',
+            method: 'POST',
+            data: { action: 'get-id', name },
+            dataType: 'JSON',
+            success: id => resolve(id),
+            error: (xhr, status, error) => {
+                console.log(error)
+                reject(error)
+            }
+        })
+    })
+}
+
+async function handleImportCPU(name) {
+    try {
+        let id = await getCPUId(name)
+        if (!id) {
+            const res = await addCPU(name)
+            if (res) id = getCPUId(name)
+        }
+        return id
+    } catch(error) {
+        console.log(error)
+        return null
+    }
 }

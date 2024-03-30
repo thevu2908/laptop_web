@@ -1,6 +1,6 @@
 <?php
 
-include __DIR__ . '/../model/ConnectDB.php';
+require_once __DIR__ . '/../model/ConnectDB.php';
 include __DIR__ . '/../model/SanPham/SanPham.php';
 include __DIR__ . '/../model/SanPham/SanPhamRepo.php';
 
@@ -20,7 +20,7 @@ class SanPhamController {
                 $result[] = $product;
             }
         }
-        
+
         echo json_encode($result);
     }
 
@@ -32,15 +32,15 @@ class SanPhamController {
         echo json_encode($this->sanPhamRepo->getProduct($productId));
     }
 
-    public function getProductsLength() : int {
+    public function getProductsLength(): int {
         return $this->sanPhamRepo->getProductsLength();
     }
 
     public function addProduct($product) {
         if ($this->sanPhamRepo->addProduct($product)) {
-            echo 'success';
+            echo $product->getMaSp();
         } else {
-            echo 'fail';
+            echo null;
         }
     }
 
@@ -57,6 +57,25 @@ class SanPhamController {
             echo 'success';
         } else {
             echo 'fail';
+        }
+    }
+
+    public function saveImage($fileInputName, $name) {
+        $targetDir = '../assets/images/products/';
+        $targetFile = $targetDir . $name . '.png';
+        if (!empty($_FILES[$fileInputName]["tmp_name"])) {
+            $imageFileType = strtolower(pathinfo($_FILES[$fileInputName]["name"], PATHINFO_EXTENSION));
+            if (!in_array($imageFileType, array("jpg", "jpeg", "png"))) {
+                echo "Chỉ những file JPG, JPEG, PNG được chấp nhận";
+            }
+
+            if (move_uploaded_file($_FILES[$fileInputName]["tmp_name"], $targetFile)) {
+                echo 'success';
+            } else {
+                echo "Đã có lỗi trong quá trình lưu ảnh";
+            }
+        } else {
+            echo 'no image updated';
         }
     }
 }
@@ -80,54 +99,83 @@ switch ($action) {
         if ($length >= 0) {
             $length += 1;
             $productId = 'SP'.sprintf("%03d", $length);
-            $companyId = $_POST['companyId'];
-            $typeId = $_POST['typeId'];
-            $osId = $_POST['osId'];
-            $productName = $_POST['productName'];
-            $screen = $_POST['screen'];
-            $resolution = $_POST['resolution'];
-            $battery = $_POST['battery'];
-            $keyboard = $_POST['keyboard'];
-            $importPrice = $_POST['importPrice'];
-            $chietkhau = $_POST['chietkhau'];
-            $price = $_POST['price'];
-            $weight = $_POST['weight'];
-            $material = $_POST['material'];
-            $origin = $_POST['origin'];
-            $quantity = $_POST['quantity'];
-    
-            $product = new SanPham($productId, $companyId, $typeId, $osId, $productName, $screen, $resolution, $battery, $keyboard,  $price, $importPrice, $chietkhau, $weight,
-                                    $material, $origin, $quantity, 0);
-            
+            $obj = json_decode(json_encode($_POST['product']));
+            $image = "server/src/assets/images/products/$productId.png";
+            $importPrice = 0;
+            $chietkhau = 0;
+            $price = 0;
+            $quantity = 0;
+
+            $product = new SanPham(
+                $productId,
+                $obj->{'brandId'},
+                $obj->{'typeId'},
+                $obj->{'osId'},
+                $obj->{'productName'},
+                $image,
+                $obj->{'screen'},
+                $obj->{'resolution'},
+                $obj->{'battery'},
+                $obj->{'keyboard'},
+                $price,
+                $importPrice,
+                $chietkhau,
+                $obj->{'weight'},
+                $obj->{'material'},
+                $obj->{'origin'},
+                $quantity,
+                0
+            );
+
             $sanPhamCtl->addProduct($product);
         }
         break;
     case 'update':
-        $productId = $_POST['productId'];
-        $companyId = $_POST['companyId'];
-        $typeId = $_POST['typeId'];
-        $osId = $_POST['osId'];
-        $productName = $_POST['productName'];
-        $screen = $_POST['screen'];
-        $resolution = $_POST['resolution'];
-        $battery = $_POST['battery'];
-        $keyboard = $_POST['keyboard'];
-        $importPrice = $_POST['importPrice'];
-        $chietkhau = $_POST['chietkhau'];
-        $price = $_POST['price'];
-        $weight = $_POST['weight'];
-        $material = $_POST['material'];
-        $origin = $_POST['origin'];
-        $quantity = $_POST['origin'];
+        $obj = json_decode(json_encode($_POST['product']));
+        $productId = $obj->{'productId'};
+        $image = "server/src/assets/images/products/$productId.png";
 
-        $product = new SanPham($productId, $companyId, $typeId, $osId, $productName, $screen, $resolution, $battery, $keyboard,  $price, $importPrice, $chietkhau, $weight,
-                                $material, $origin, $quantity, 0);
-        
+        $product = new SanPham(
+            $obj->{'productId'},
+            $obj->{'brandId'},
+            $obj->{'typeId'},
+            $obj->{'osId'},
+            $obj->{'productName'},
+            $image,
+            $obj->{'screen'},
+            $obj->{'resolution'},
+            $obj->{'battery'},
+            $obj->{'keyboard'},
+            $obj->{'price'},
+            $obj->{'importPrice'},
+            $obj->{'chietkhau'},
+            $obj->{'weight'},
+            $obj->{'material'},
+            $obj->{'origin'},
+            $obj->{'quantity'},
+            0
+        );
+
         $sanPhamCtl->updateProduct($product);
         break;
     case 'delete':
         $productId = $_POST['productId'];
         $sanPhamCtl->deleteProduct($productId);
+        break;
+    case 'save-image':
+        $productId = $_POST['productId'];
+        if ($productId) {
+            $name = $productId;
+            $sanPhamCtl->saveImage("fileInputName", $name);
+        } else {
+            $length = $sanPhamCtl->getProductsLength();
+            if ($length >= 0) {
+                $length += 1;
+                $name = 'SP'.sprintf("%03d", $length);
+    
+                $sanPhamCtl->saveImage("fileInputName", $name);
+            }
+        }
         break;
     default:
         break;

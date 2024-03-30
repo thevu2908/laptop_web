@@ -5,6 +5,7 @@ class SanPham {
     private $ma_the_loai;
     private $ma_hdh;
     private $ten_sp;
+    private $hinh_anh;
     private $kich_co_man_hinh;
     private $do_phan_giai;
     private $pin;
@@ -19,12 +20,13 @@ class SanPham {
     private $trang_thai;
 
     // Constructor
-    public function __construct($ma_sp, $ma_thuong_hieu, $ma_the_loai, $ma_hdh, $ten_sp, $kich_co_man_hinh, $do_phan_giai, $pin, $ban_phim, $gia_ban, $gia_nhap, $chiet_khau, $trong_luong, $chat_lieu, $xuat_xu, $so_luong_ton, $trang_thai) {
+    public function __construct($ma_sp, $ma_thuong_hieu, $ma_the_loai, $ma_hdh, $ten_sp, $hinh_anh, $kich_co_man_hinh, $do_phan_giai, $pin, $ban_phim, $gia_ban, $gia_nhap, $chiet_khau, $trong_luong, $chat_lieu, $xuat_xu, $so_luong_ton, $trang_thai) {
         $this->ma_sp = $ma_sp;
         $this->ma_thuong_hieu = $ma_thuong_hieu;
         $this->ma_the_loai = $ma_the_loai;
         $this->ma_hdh = $ma_hdh;
         $this->ten_sp = $ten_sp;
+        $this->hinh_anh = $hinh_anh;
         $this->kich_co_man_hinh = $kich_co_man_hinh;
         $this->do_phan_giai = $do_phan_giai;
         $this->pin = $pin;
@@ -58,6 +60,10 @@ class SanPham {
 
     public function getTenSp() {
         return $this->ten_sp;
+    }
+
+    public function getHinhAnh() {
+        return $this->hinh_anh;
     }
 
     public function getKichCoManHinh() {

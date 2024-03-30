@@ -11,8 +11,8 @@ class CTSanPhamController {
         $this->ctspRepo = new ChiTietSanPhamRepo();
     }
 
-    public function getData() {
-        $productDetails = $this->ctspRepo->getData();
+    public function getData($productId) {
+        $productDetails = $this->ctspRepo->getData($productId);
         $result = [];
 
         foreach ($productDetails as $productDetail) {
@@ -24,12 +24,32 @@ class CTSanPhamController {
         echo json_encode($result);
     }
 
-    public function getAllProductDetails() {
-        echo json_encode($this->ctspRepo->getData());
+    public function getAllProductDetails($productId) {
+        echo json_encode($this->ctspRepo->getData($productId));
     }
 
     public function getProductDetail($productDetailId) {
         echo json_encode($this->ctspRepo->getProductDetail($productDetailId));
+    }
+
+    public function getProductDetailColors($productId) {
+        echo json_encode($this->ctspRepo->getProductDetailColors($productId));
+    }
+
+    public function getProductDetailCPUs($productId) {
+        echo json_encode($this->ctspRepo->getProductDetailCPUs($productId));
+    }
+
+    public function getProductDetailGPUs($productId) {
+        echo json_encode($this->ctspRepo->getProductDetailGPUs($productId));
+    }
+
+    public function getProductDetailRAMs($productId) {
+        echo json_encode($this->ctspRepo->getProductDetailRAMs($productId));
+    }
+
+    public function getProductDetailROMs($productId) {
+        echo json_encode($this->ctspRepo->getProductDetailROMs($productId));
     }
 
     public function getProductDetailsLength() : int {
@@ -38,17 +58,9 @@ class CTSanPhamController {
 
     public function addProductDetail($productDetail) {
         if ($this->ctspRepo->addProductDetail($productDetail)) {
-            echo 'success';
+            echo $productDetail->getMaCtsp();
         } else {
-            echo 'fail';
-        }
-    }
-
-    public function updateProductDetail($productDetail) {
-        if ($this->ctspRepo->updateProductDetail($productDetail)) {
-            echo 'success';
-        } else {
-            echo 'fail';
+            echo null;
         }
     }
 
@@ -66,14 +78,36 @@ $action = $_POST['action'];
 
 switch ($action) {
     case 'get-data':
-        $ctspCtl->getData();
+        $productId = $_POST['productId'];
+        $ctspCtl->getData($productId);
         break;
     case 'get-all':
-        $ctspCtl->getAllProductDetails();
+        $productId = $_POST['productId'];
+        $ctspCtl->getAllProductDetails($productId);
         break;
     case 'get':
         $productDetailId = $_POST['productDetailId'];
         $ctspCtl->getProductDetail($productDetailId);
+        break;
+    case 'get-colors':
+        $productId = $_POST['productId'];
+        $ctspCtl->getProductDetailColors($productId);
+        break;
+    case 'get-cpus':
+        $productId = $_POST['productId'];
+        $ctspCtl->getProductDetailCPUs($productId);
+        break;
+    case 'get-gpus':
+        $productId = $_POST['productId'];
+        $ctspCtl->getProductDetailGPUs($productId);
+        break;
+    case 'get-rams':
+        $productId = $_POST['productId'];
+        $ctspCtl->getProductDetailRAMs($productId);
+        break;
+    case 'get-roms':
+        $productId = $_POST['productId'];
+        $ctspCtl->getProductDetailROMs($productId);
         break;
     case 'add':
         $length = $ctspCtl->getProductDetailsLength();
@@ -82,8 +116,8 @@ switch ($action) {
             $productDetailId = 'CTSP'.sprintf('%04d', $length);
             $obj = json_decode(json_encode($_POST['productDetail']));
             $productId = $_POST['productId'];
-            $img = "server/src/assets/images/$productId.png";
             $price = 0;
+            $quantity = 0;
             
             $productDetail = new ChiTietSanPham(
                 $productDetailId,
@@ -91,30 +125,14 @@ switch ($action) {
                 $obj->{'cpuId'},
                 $obj->{'colorId'},
                 $obj->{'gpuId'},
-                $obj->{'plugId'},
                 $obj->{'ram'},
                 $obj->{'rom'},
-                $img,
                 $price,
+                $quantity,
                 0
             );
             $ctspCtl->addProductDetail($productDetail);
         }
-        break;
-    case 'update':
-        $productDetailId = $_POST['productDetailId'];
-        $productId = $_POST['productId'];
-        $cpuId = $_POST['cpuId'];
-        $colorId = $_POST['colorId'];
-        $gpuId = $_POST['gpuId'];
-        $plugId = $_POST['plugId'];
-        $ram = $_POST['ram'];
-        $rom = $_POST['rom'];
-        $image = $_POST['image'];
-        $price = $_POST['price'];
-        
-        $productDetail = new ChiTietSanPham($productDetailId, $productId, $cpuId, $colorId, $gpuId, $plugId, $ram, $rom, $image, $price, 0);
-        $ctspCtl->updateProductDetail($productDetail);
         break;
     case 'delete':
         $productDetailId = $_POST['productDetailId'];

@@ -32,6 +32,10 @@ class ChipXuLyController {
         echo json_encode($this->chipXuLyRepo->getCPU($id));
     }
 
+    public function getId($name) {
+        echo json_encode($this->chipXuLyRepo->getId($name));
+    }
+
     public function getLength() : int {
         return $this->chipXuLyRepo->getLength();
     }
@@ -66,6 +70,10 @@ switch ($action) {
     case 'get':
         $id = $_POST['id'];
         $cpuCtl->getCPU($id);
+        break;
+    case 'get-id':
+        $name = $_POST['name'];
+        $cpuCtl->getId($name);
         break;
     case 'add':
         $length = $cpuCtl->getLength();

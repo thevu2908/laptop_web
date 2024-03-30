@@ -31,6 +31,10 @@ class HeDieuHanhController {
         echo json_encode($this->heDieuHanhRepo->getOS($id));
     }
 
+    public function getId($name) {
+        echo json_encode($this->heDieuHanhRepo->getId($name));
+    }
+
     public function getLength() : int {
         return $this->heDieuHanhRepo->getLength();
     }
@@ -65,6 +69,10 @@ switch ($action) {
     case 'get':
         $id = $_POST['id'];
         $heDieuHanhCtl->getOS($id);
+        break;
+    case 'get-id':
+        $name = $_POST['name'];
+        $heDieuHanhCtl->getId($name);
         break;
     case 'add':
         $length = $heDieuHanhCtl->getLength();

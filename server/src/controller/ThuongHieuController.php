@@ -32,6 +32,10 @@ class ThuongHieuController {
         echo json_encode($this->thuongHieuRepo->getBrand($brandId));
     }
 
+    public function getId($name) {
+        echo json_encode($this->thuongHieuRepo->getId($name));
+    }
+
     public function getBrandsLength() : int {
         return $this->thuongHieuRepo->getBrandsLength();
     }
@@ -66,6 +70,10 @@ switch ($action) {
     case 'get':
         $brandId = $_POST['brandId'];
         $thuongHieuCtl->getBrand($brandId);
+        break;
+    case 'get-id':
+        $name = $_POST['name'];
+        $thuongHieuCtl->getId($name);
         break;
     case 'add':
         $length = $thuongHieuCtl->getBrandsLength();

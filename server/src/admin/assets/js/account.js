@@ -3,6 +3,7 @@ const addModalAccountId = document.querySelector('#admin-account-id')
 const addModalAccountPwd = document.querySelector('#admin-account-password')
 const editModalAccountId = document.querySelector('#admin-account-id-edit')
 const editModalAccountPwd = document.querySelector('#admin-account-password-edit')
+const viewModalAccountPwd = document.querySelector('#admin-account-password-view')
 const showHidePwds = document.querySelectorAll('.showhide-pwd-icon')
 
 function showAccountId() {
@@ -26,6 +27,7 @@ if (showHidePwds) {
             if (addModalAccountPwd.type === 'password') {
                 addModalAccountPwd.type = 'text'
                 editModalAccountPwd.type = 'text'
+                viewModalAccountPwd.type = 'text'
 
                 passwordIcons.forEach(passwordIcon => {
                     passwordIcon.classList.remove('open')
@@ -36,6 +38,7 @@ if (showHidePwds) {
             } else {
                 addModalAccountPwd.type = 'password'
                 editModalAccountPwd.type = 'password'
+                viewModalAccountPwd.type = 'password'
 
                 passwordIcons.forEach(passwordIcon => {
                     passwordIcon.classList.add('open')
