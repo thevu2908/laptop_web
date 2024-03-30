@@ -34,6 +34,25 @@ class ChiTietCongKetNoiRepo extends ConnectDB {
         return null;
     }
 
+    public function getProductPlugs($productId) {
+        $res = [];
+        try {
+            $query = "SELECT DISTINCT ten_cong FROM chitietcongketnoi ctckn JOIN chitietsanpham ctsp JOIN congketnoi ckn
+                        WHERE ctckn.ma_ctsp = ctsp.ma_ctsp AND ctckn.ma_cong = ckn.ma_cong AND ctsp.trang_thai = '0' AND ctsp.ma_ctsp IN 
+                        (SELECT ma_ctsp FROM sanpham sp JOIN chitietsanpham ctsp2 WHERE sp.ma_sp = ctsp2.ma_sp AND sp.ma_sp = '$productId')";
+            $statement = mysqli_query($this->conn, $query);
+
+            while ($row = mysqli_fetch_assoc($statement)) {
+                $res[] = $row['ten_cong'];
+            }
+
+            return $res;
+        } catch (Exception $e) {
+            echo 'Error: ' . $e->getMessage() . '<br>';
+        }
+        return null;
+    }
+
     public function getLength() {
         try {
             $query = "SELECT COUNT(*) FROM chitietcongketnoi";

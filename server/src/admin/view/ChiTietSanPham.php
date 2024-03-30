@@ -122,7 +122,7 @@
 							<table class="modal-row-table">
 								<tbody>
 									<tr>
-										<td>CPU</td>
+										<td>CPU:</td>
 										<td>
 											<select id="product-cpu" class="form-control">
 												
@@ -145,7 +145,7 @@
 							<table class="modal-row-table">
 								<tbody>
 									<tr>
-										<td>Dung lượng RAM</td>
+										<td>Dung lượng RAM:</td>
 										<td>
 											<select id="product-ram" class="form-control">
 												<option value="8gb">8GB</option>
@@ -156,7 +156,7 @@
 										</td>
 									</tr>
 									<tr>
-										<td>Dung lượng ROM</td>
+										<td>Dung lượng ROM:</td>
 										<td>
 											<select id="product-rom" class="form-control">
 												<option value="256gb">256GB</option>
@@ -174,7 +174,7 @@
 							<table class="modal-row-table">
 								<tbody>
 									<tr>
-										<td>Card đồ họa</td>
+										<td>Card đồ họa:</td>
 										<td>
 											<select id="product-gpu" class="form-control">
 												
@@ -197,7 +197,7 @@
 							<table class="modal-row-table">
 								<tbody>
 									<tr>
-										<td>Cổng kết nối</td>
+										<td>Cổng kết nối:</td>
 										<td>
 											<select id="product-plug" class="form-control selectpicker" multiple data-live-search="true">
 												

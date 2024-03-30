@@ -35,6 +35,22 @@ function getProductDetailPlug(productDetailId) {
     })
 }
 
+function getProductPlugs(productId) {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: 'server/src/controller/CTCongKetNoiController.php',
+            method: 'POST',
+            data: { action: 'get-plug', productId },
+            dataType: 'JSON',
+            success: plugs => resolve(plugs),
+            error: (xhr, status, error) => {
+                console.log(error)
+                reject(error)
+            }
+        })
+    })
+}
+
 function renderProductDetailPlug(productDetailId, index) {
     getProductDetailPlug(productDetailId)
         .then(data => {

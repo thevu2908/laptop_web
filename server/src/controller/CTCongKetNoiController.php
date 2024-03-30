@@ -18,6 +18,10 @@ class ChiTietCongKetNoiController {
         echo json_encode($this->ctcknRepo->getChiTietCong($productDetailId));
     }
 
+    public function getProductPlugs($productId) {
+        echo json_encode($this->ctcknRepo->getProductPlugs($productId));
+    }
+
     public function getLength() {
         echo $this->ctcknRepo->getLength();
     }
@@ -49,6 +53,10 @@ switch ($action) {
     case 'get':
         $productDetailId = $_POST['productDetailId'];
         $ctcknCtl->getChiTietCong($productDetailId);
+        break;
+    case 'get-plug':
+        $productId = $_POST['productId'];
+        $ctcknCtl->getProductPlugs($productId);
         break;
     case 'add':
         $plugId = $_POST['plugId'];

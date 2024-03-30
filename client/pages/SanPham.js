@@ -1,12 +1,13 @@
 $(document).ready(() => {
     renderAdminProductTable()
     handleAddProduct()
-    renderUpdateProduct()
+    renderUpdateProductModal()
     handleUpdateProduct()
     toAdminProductDetail()
     renderDeleteProductModal()
     handleDeleteProduct()
     importExcel()
+    exportExcel()
 })
 
 function getProductData() {
@@ -95,7 +96,7 @@ function renderAdminProductTable() {
                             </td>
                         </tr>
                     `
-    
+
                     renderBrandName(item.ma_thuong_hieu, index)
                 })
             }
@@ -105,7 +106,7 @@ function renderAdminProductTable() {
         .catch(error => console.log(error))
 }
 
-function renderUpdateProduct() {
+function renderUpdateProductModal() {
     $(document).on('click', '.btn-update-product-modal', e => {
         const productId = e.target.closest('.btn-update-product-modal').dataset.id
 
@@ -261,7 +262,7 @@ function addProduct(product) {
                 } else {
                     let promises = []
                     let productDetails = []
-    
+
                     product.colors.forEach(colorId => {
                         product.cpus.forEach(cpuId => {
                             product.rams.forEach(ram => {
@@ -275,7 +276,7 @@ function addProduct(product) {
                     })
 
                     productDetails.forEach(productDetail => promises.push(addProductDetail(productDetail, productId, product.plugs)))
-    
+
                     Promise.all(promises).then(results => resolve(!results.includes(false)))
                 }
             },
@@ -352,7 +353,7 @@ function updateProduct(product) {
                     resolve(false)
                 }
             },
-            error: (xhr, status, error) => { 
+            error: (xhr, status, error) => {
                 console.log(error)
                 reject(error)
             }
@@ -511,84 +512,152 @@ function handleDeleteProduct() {
     })
 }
 
+function getCellValue(sheet, row, column) {
+    const cellAddress = XLSX.utils.encode_cell({ r: row, c: column })
+    const cell = sheet[cellAddress]
+    return cell ? cell.v : ''
+}
+
 function importExcel() {
     $('#admin-product-main #import-excel-file').on('change', e => {
         const file = e.target.files[0]
         const reader = new FileReader()
 
         reader.onload = async e => {
-            const data = new Uint8Array(e.target.result)
-            const workbook = XLSX.read(data, { type: 'array' })
-            const sheetName = workbook.SheetNames[0]
-            const sheet = workbook.Sheets[sheetName]
-            const range = XLSX.utils.decode_range(sheet['!ref'])
-
-            let products = []
-            const titles = [
-                'productName', 'origin', 'brandId', 'typeId', 'weight', 'colors', 'material', 'cpus', 
-                'rams', 'roms', 'screen', 'resolution', 'gpus', 'plugs', 'keyboard', 'battery', 'osId'
-            ]
-
-            for (let  i = range.s.r + 1; i <= range.e.r; i++) {
-                let product = {}
-
-                for (let j = range.s.c; j <= range.e.c; j++) {
-                    if (i == 1) continue
-                    else {
-                        const cellValue = getCellValue(sheet, i, j)
-
-                        if (titles[j] === 'colors' || titles[j] === 'cpus' || titles[j] === 'gpus' || titles[j] === 'rams' || titles[j] === 'roms' || titles[j] === 'plugs') {
-                            if (cellValue.toString().includes(',')) {
-                                let arrays = cellValue.split(',')
-                                arrays = arrays.map(item => item.trim())
-                                product[titles[j]] = arrays
+            NProgress.start()
+            try {
+                const data = new Uint8Array(e.target.result)
+                const workbook = XLSX.read(data, { type: 'array' })
+                const sheetName = workbook.SheetNames[0]
+                const sheet = workbook.Sheets[sheetName]
+                const range = XLSX.utils.decode_range(sheet['!ref'])
+    
+                let products = []
+                const titles = [
+                    'productName', 'origin', 'brandId', 'typeId', 'weight', 'colors', 'material', 'cpus',
+                    'rams', 'roms', 'screen', 'resolution', 'gpus', 'plugs', 'keyboard', 'battery', 'osId'
+                ]
+    
+                for (let i = range.s.r + 1; i <= range.e.r; i++) {
+                    let product = {}
+    
+                    for (let j = range.s.c; j <= range.e.c; j++) {
+                        if (i == 1) continue
+                        else {
+                            const cellValue = getCellValue(sheet, i, j)
+    
+                            if (titles[j] === 'colors' || titles[j] === 'cpus' || titles[j] === 'gpus' || titles[j] === 'rams' || titles[j] === 'roms' || titles[j] === 'plugs') {
+                                if (cellValue.toString().includes(',')) {
+                                    let arrays = cellValue.split(',')
+                                    arrays = arrays.map(item => item.trim())
+                                    product[titles[j]] = arrays
+                                } else {
+                                    product[titles[j]] = [cellValue]
+                                }
                             } else {
-                                product[titles[j]] = [cellValue]
+                                product[titles[j]] = cellValue
                             }
-                        } else {
-                            product[titles[j]] = cellValue
+                        }
+                    }
+    
+                    if (Object.keys(product).length > 0) products.push(product)
+                }
+    
+                for (let product of products) {
+                    product.brandId = await handleImportBrand(product.brandId)
+                    product.typeId = await handleImportType(product.typeId)
+                    product.osId = await handleImportOS(product.osId)
+                    for (let index in product.cpus) product.cpus[index] = await handleImportCPU(product.cpus[index])
+                    for (let index in product.gpus) product.gpus[index] = await handleImportGPU(product.gpus[index])
+                    for (let index in product.plugs) product.plugs[index] = await handleImportPlug(product.plugs[index])
+    
+                    for (let index in product.colors) {
+                        product.colors[index] = await getColorId(product.colors[index])
+                        if (!product.colors[index]) {
+                            alert(`Màu ${product.colors[index]} ở sản phẩm ${product.productName} không tồn tại trong hệ thống\nVui lòng thêm màu vào hệ thống\nSau đó thêm chi tiết sản phẩm riêng trong phần thêm chi tiết sản phẩm`)
+                            return
                         }
                     }
                 }
-
-                if (Object.keys(product).length > 0) products.push(product)
-            }
-            
-            for (let product of products) {
-                product.brandId = await handleImportBrand(product.brandId)
-                product.typeId = await handleImportType(product.typeId)
-                product.osId = await handleImportOS(product.osId)
-                for (let index in product.cpus) product.cpus[index] = await handleImportCPU(product.cpus[index])
-                for (let index in product.gpus) product.gpus[index] = await handleImportGPU(product.gpus[index])
-                for (let index in product.plugs) product.plugs[index] = await handleImportPlug(product.plugs[index])
-        
-                for (let index in product.colors) {
-                    product.colors[index] = await getColorId(product.colors[index])
-                    if (!product.colors[index]) {
-                        alert(`Màu ${product.colors[index]} ở sản phẩm ${product.productName} không tồn tại trong hệ thống\nVui lòng thêm màu vào hệ thống\nSau đó thêm chi tiết sản phẩm riêng trong phần thêm chi tiết sản phẩm`)
-                        return
-                    }
+    
+                const addProductPromises = products.map(product => addProduct(product))
+                const res = await Promise.all(addProductPromises)
+    
+                if (!res.includes(false)) {
+                    alert('Thêm các sản phẩm từ file excel thành công')
+                    $('form').trigger('reset')
+                    renderAdminProductTable()
+                } else {
+                    alert('Xảy ra lỗi trong quá trình thêm sản phẩm vào hệ thống từ file excel\nVui lòng kiểm tra lại định dạng và nội dung của file excel')
                 }
-            }
-
-            const addProductPromises = products.map(product => addProduct(product))
-            const res = await Promise.all(addProductPromises)
-
-            if (!res.includes(false)) {
-                alert('Thêm các sản phẩm từ file excel thành công')
-                $('form').trigger('reset')
-                renderAdminProductTable()
-            } else {
-                alert('Xảy ra lỗi trong quá trình thêm sản phẩm vào hệ thống từ file excel\nVui lòng kiểm tra lại định dạng và nội dung của file excel')
+            } catch (error) {
+                console.log(error)
+            } finally {
+                NProgress.done()
             }
         }
- 
         reader.readAsArrayBuffer(file)
     })
 }
 
-function getCellValue(sheet, row, column) {
-    const cellAddress = XLSX.utils.encode_cell({ r: row, c: column })
-    const cell = sheet[cellAddress]
-    return cell ? cell.v : ''
+function exportExcel() {
+    $('#admin-product-main .btn-export-excel').on('click', async () => {
+        NProgress.start()
+
+        try {
+            const products = await getProductData()
+            let excelDatas = []
+    
+            for (let product of products) {
+                const brand = await getBrand(product.ma_thuong_hieu)
+                const type = await getType(product.ma_the_loai)
+                const os = await getOS(product.ma_hdh)
+                const colors = await getProductDetailColors(product.ma_sp)
+                const cpus = await getProductDetailCPUs(product.ma_sp)
+                const gpus = await getProductDetailGPUs(product.ma_sp)
+                const rams = await getProductDetailRAMs(product.ma_sp)
+                const roms = await getProductDetailROMs(product.ma_sp)
+                const plugs = await getProductPlugs(product.ma_sp)
+                
+                const colorName = colors.map(color => color).join(', ')
+                const cpuName = cpus.map(cpu => cpu).join(', ')
+                const gpuName = gpus.map(gpu => gpu).join(', ')
+                const ramName = rams.map(ram => ram).join(', ')
+                const romName = roms.map(rom => rom).join(', ')
+                const plugName = plugs.map(plug => plug).join(', ')
+    
+                excelDatas.push({
+                    'Mã sản phẩm': product.ma_sp,
+                    'Tên sản phẩm': product.ten_sp,
+                    'Thương hiệu': brand.ten_thuong_hieu,
+                    'Loại sản phẩm': type.ten_loai,
+                    'Giá nhập': product.gia_nhap,
+                    'Chiết khấu': product.chiet_khau,
+                    'Giá bán': product.gia_ban,
+                    'Số lượng tồn': product.so_luong_ton,
+                    'CPU': cpuName,
+                    'Card đồ họa': gpuName,
+                    'RAM': ramName,
+                    'Bộ nhớ': romName,
+                    'Màu sắc': colorName,
+                    'Cổng kết nối': plugName,
+                    'Xuất xứ': product.xuat_xu,
+                    'Trọng lượng': product.trong_luong,
+                    'Chất liệu': product.chat_lieu,
+                    'Kích cỡ màn hình': product.kich_co_man_hinh,
+                    'Hệ điều hành': os.ten_hdh,
+                })
+            }
+    
+            const ws = XLSX.utils.json_to_sheet(excelDatas)
+            const wb = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(wb, ws, "Sheet1")
+            const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' })
+            saveAs(new Blob([wbout], { type: 'application/octet-stream' }), 'dssp.xlsx')
+        } catch (error) {
+            console.log(error)
+        } finally {
+            NProgress.done()
+        }
+    })
 }

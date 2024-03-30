@@ -8,15 +8,14 @@
 							<h2>Quản Lý <b>Sản Phẩm</b></h2>
 						</div>
 						<div class="col-sm-6">
-							<div>
+							<form>
 								<input type="file" id="import-excel-file" accept=".xlsx,.xls" hidden>
 								<a href="#" class="btn btn-primary btn-import-excel">
 									<i class="fa-solid fa-file-import"></i>
 									<span>Import Excel</span>
 								</a>
-							</div>
+							</form>
 							<div>
-								<input type="file" id="export-excel-file" accept=".xlsx,.xls" hidden>
 								<a href="#" class="btn btn-primary btn-export-excel">
 									<i class="fa-solid fa-file-export"></i>
 									<span>Export Excel</span>
@@ -143,7 +142,7 @@
 									</button>
 								</li>
 								<li class="modal-row-item row align-items-center">
-									<label for="product-type" class="col-sm-3 px-0 mb-0">Thể loại</label>
+									<label for="product-type" class="col-sm-3 px-0 mb-0">Thể loại:</label>
 									<div class="col-sm-6 px-0">
 										<select id="product-type" class="form-control">
 											
@@ -195,7 +194,7 @@
 							<table class="modal-row-table">
 								<tbody>
 									<tr>
-										<td>CPU</td>
+										<td>CPU:</td>
 										<td>
 											<select id="product-cpu" class="form-control selectpicker" multiple data-live-search="true">
 												
@@ -218,7 +217,7 @@
 							<table class="modal-row-table">
 								<tbody>
 									<tr>
-										<td>Dung lượng RAM</td>
+										<td>Dung lượng RAM:</td>
 										<td>
 											<select id="product-ram" class="form-control selectpicker" multiple data-live-search="true">
 												<option value="8gb">8GB</option>
@@ -229,7 +228,7 @@
 										</td>
 									</tr>
 									<tr>
-										<td>Dung lượng ROM</td>
+										<td>Dung lượng ROM:</td>
 										<td>
 											<select id="product-rom" class="form-control selectpicker" multiple data-live-search="true">
 												<option value="256gb">256GB</option>
@@ -247,13 +246,13 @@
 							<table class="modal-row-table">
 								<tbody>
 									<tr>
-										<td>Kích cỡ màn hình</td>
+										<td>Kích cỡ màn hình:</td>
 										<td>
 											<input type="text" class="form-control" name="product-screen" id="product-screen">
 										</td>
 									</tr>
 									<tr>
-										<td>Độ phân giải</td>
+										<td>Độ phân giải:</td>
 										<td>
 											<input type="text" class="form-control" name="product-resolution" id="product-resolution">
 										</td>
@@ -266,7 +265,7 @@
 							<table class="modal-row-table">
 								<tbody>
 									<tr>
-										<td>Card đồ họa</td>
+										<td>Card đồ họa:</td>
 										<td>
 											<select id="product-gpu" class="form-control selectpicker" multiple data-live-search="true">
 												
@@ -289,7 +288,7 @@
 							<table class="modal-row-table">
 								<tbody>
 									<tr>
-										<td>Cổng kết nối</td>
+										<td>Cổng kết nối:</td>
 										<td>
 											<select id="product-plug" class="form-control selectpicker" multiple data-live-search="true">
 												
@@ -312,7 +311,7 @@
 							<table class="modal-row-table">
 								<tbody>
 									<tr>
-										<td>Kiểu bàn phím</td>
+										<td>Kiểu bàn phím:</td>
 										<td>
 											<input type="text" class="form-control" name="product-keyboard" id="product-keyboard">
 										</td>
@@ -325,7 +324,7 @@
 							<table class="modal-row-table">
 								<tbody>
 									<tr>
-										<td>Loại PIN</td>
+										<td>Loại PIN:</td>
 										<td>
 											<input type="text" class="form-control" name="product-battery" id="product-battery">
 										</td>
@@ -338,7 +337,7 @@
 							<table class="modal-row-table">
 								<tbody>
 									<tr>
-										<td>OS</td>
+										<td>OS:</td>
 										<td>
 											<select id="product-os" class="form-control">
 												
@@ -421,7 +420,7 @@
 									</button>
 								</li>
 								<li class="modal-row-item row align-items-center">
-									<label for="product-type" class="col-sm-3 px-0 mb-0">Thể loại</label>
+									<label for="product-type" class="col-sm-3 px-0 mb-0">Thể loại:</label>
 									<div class="col-sm-6 px-0">
 										<select id="product-type" class="form-control">
 											
@@ -437,7 +436,7 @@
 							</ul>
 						</div>
 						<div class="modal-row">
-							<h5 class="modal-row-title">Giá</h5>
+							<h5 class="modal-row-title">Giá:</h5>
 							<ul class="modal-row-list">
 								<li class="modal-row-item row align-items-center">
 									<label for="product-import-price" class="col-sm-3 px-0 mb-0">Giá nhập:</label>
@@ -496,13 +495,13 @@
 							<table class="modal-row-table">
 								<tbody>
 									<tr>
-										<td>Kích cỡ màn hình</td>
+										<td>Kích cỡ màn hình:</td>
 										<td>
 											<input type="text" class="form-control" name="product-screen" id="product-screen">
 										</td>
 									</tr>
 									<tr>
-										<td>Độ phân giải</td>
+										<td>Độ phân giải:</td>
 										<td>
 											<input type="text" class="form-control" name="product-resolution" id="product-resolution">
 										</td>
@@ -515,7 +514,7 @@
 							<table class="modal-row-table">
 								<tbody>
 									<tr>
-										<td>Kiểu bàn phím</td>
+										<td>Kiểu bàn phím:</td>
 										<td>
 											<input type="text" class="form-control" name="product-keyboard" id="product-keyboard">
 										</td>
@@ -528,7 +527,7 @@
 							<table class="modal-row-table">
 								<tbody>
 									<tr>
-										<td>Loại PIN</td>
+										<td>Loại PIN:</td>
 										<td>
 											<input type="text" class="form-control" name="product-battery" id="product-battery">
 										</td>
@@ -541,7 +540,7 @@
 							<table class="modal-row-table">
 								<tbody>
 									<tr>
-										<td>OS</td>
+										<td>OS:</td>
 										<td>
 											<select id="product-os" class="form-control">
 												

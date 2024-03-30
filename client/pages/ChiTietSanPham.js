@@ -13,9 +13,9 @@ function getProductDetailData(productId) {
             method: 'POST',
             data: { action: 'get-data', productId },
             dataType: 'JSON',
-            success: data => {
-                if (data && data.length > 0) {
-                    resolve(data)
+            success: productDetails => {
+                if (productDetails && productDetails.length > 0) {
+                    resolve(productDetails)
                 } else {
                     resolve([])
                 }
@@ -295,5 +295,85 @@ function handleDeleteProductDetail() {
 
             $('#deleteProductDetailModal').modal('hide')
         }
+    })
+}
+
+function getProductDetailColors(productId) {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: 'server/src/controller/CTSanPhamController.php',
+            method: 'POST',
+            data: { action: 'get-colors', productId },
+            dataType: 'JSON',
+            success: colors => resolve(colors),
+            error: (xhr, status, error) => {
+                console.log(error)
+                reject(error)
+            }
+        })
+    })
+}
+
+function getProductDetailCPUs(productId) {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: 'server/src/controller/CTSanPhamController.php',
+            method: 'POST',
+            data: { action: 'get-cpus', productId },
+            dataType: 'JSON',
+            success: cpus => resolve(cpus),
+            error: (xhr, status, error) => {
+                console.log(error)
+                reject(error)
+            }
+        })
+    })
+}
+
+function getProductDetailGPUs(productId) {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: 'server/src/controller/CTSanPhamController.php',
+            method: 'POST',
+            data: { action: 'get-gpus', productId },
+            dataType: 'JSON',
+            success: gpus => resolve(gpus),
+            error: (xhr, status, error) => {
+                console.log(error)
+                reject(error)
+            }
+        })
+    })
+}
+
+function getProductDetailRAMs(productId) {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: 'server/src/controller/CTSanPhamController.php',
+            method: 'POST',
+            data: { action: 'get-rams', productId },
+            dataType: 'JSON',
+            success: rams => resolve(rams),
+            error: (xhr, status, error) => {
+                console.log(error)
+                reject(error)
+            }
+        })
+    })
+}
+
+function getProductDetailROMs(productId) {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: 'server/src/controller/CTSanPhamController.php',
+            method: 'POST',
+            data: { action: 'get-roms', productId },
+            dataType: 'JSON',
+            success: roms => resolve(roms),
+            error: (xhr, status, error) => {
+                console.log(error)
+                reject(error)
+            }
+        })
     })
 }

@@ -32,6 +32,26 @@ class CTSanPhamController {
         echo json_encode($this->ctspRepo->getProductDetail($productDetailId));
     }
 
+    public function getProductDetailColors($productId) {
+        echo json_encode($this->ctspRepo->getProductDetailColors($productId));
+    }
+
+    public function getProductDetailCPUs($productId) {
+        echo json_encode($this->ctspRepo->getProductDetailCPUs($productId));
+    }
+
+    public function getProductDetailGPUs($productId) {
+        echo json_encode($this->ctspRepo->getProductDetailGPUs($productId));
+    }
+
+    public function getProductDetailRAMs($productId) {
+        echo json_encode($this->ctspRepo->getProductDetailRAMs($productId));
+    }
+
+    public function getProductDetailROMs($productId) {
+        echo json_encode($this->ctspRepo->getProductDetailROMs($productId));
+    }
+
     public function getProductDetailsLength() : int {
         return $this->ctspRepo->getProductDetailsLength();
     }
@@ -68,6 +88,26 @@ switch ($action) {
     case 'get':
         $productDetailId = $_POST['productDetailId'];
         $ctspCtl->getProductDetail($productDetailId);
+        break;
+    case 'get-colors':
+        $productId = $_POST['productId'];
+        $ctspCtl->getProductDetailColors($productId);
+        break;
+    case 'get-cpus':
+        $productId = $_POST['productId'];
+        $ctspCtl->getProductDetailCPUs($productId);
+        break;
+    case 'get-gpus':
+        $productId = $_POST['productId'];
+        $ctspCtl->getProductDetailGPUs($productId);
+        break;
+    case 'get-rams':
+        $productId = $_POST['productId'];
+        $ctspCtl->getProductDetailRAMs($productId);
+        break;
+    case 'get-roms':
+        $productId = $_POST['productId'];
+        $ctspCtl->getProductDetailROMs($productId);
         break;
     case 'add':
         $length = $ctspCtl->getProductDetailsLength();

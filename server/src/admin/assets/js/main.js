@@ -57,29 +57,29 @@ if (window.innerWidth < 768) {
 }
 
 //jQuery
-$(document).ready(function() {
-	// Activate tooltip
-	$('[data-toggle="tooltip"]').tooltip();
-	
-	// Select/Deselect checkboxes
-	var checkbox = $('table tbody input[type="checkbox"]');
-	$("#selectAll").click(function() {
-		if(this.checked){
-			checkbox.each(function() {
-				this.checked = true;                        
-			})
-		} else{
-			checkbox.each(function() {
-				this.checked = false;                        
-			});
-		} 
-	})
+$(document).ready(function () {
+  // Activate tooltip
+  $('[data-toggle="tooltip"]').tooltip();
 
-	checkbox.click(function() {
-		if(!this.checked){
-			$("#selectAll").prop("checked", false);
-		}
-	})
+  // Select/Deselect checkboxes
+  var checkbox = $('table tbody input[type="checkbox"]');
+  $("#selectAll").click(function () {
+    if (this.checked) {
+      checkbox.each(function () {
+        this.checked = true;
+      })
+    } else {
+      checkbox.each(function () {
+        this.checked = false;
+      });
+    }
+  })
+
+  checkbox.click(function () {
+    if (!this.checked) {
+      $("#selectAll").prop("checked", false);
+    }
+  })
 
   // disable search form submit
   $(document).on('click', '.btn-search-admin', e => {
@@ -92,11 +92,11 @@ $(document).ready(function() {
 
 function checkAllAccounts() {
   const firstCheck = document.querySelector('table.table thead input[type=checkbox]')
-  
+
   if (firstCheck) {
     firstCheck.addEventListener('change', e => {
       const checkItems = document.querySelectorAll('table.table input[name="chk[]"]')
-      
+
       checkItems.forEach(item => {
         if (firstCheck.checked) {
           item.checked = true
@@ -107,3 +107,9 @@ function checkAllAccounts() {
     })
   }
 }
+
+// configre NProgress
+NProgress.configure({
+  showSpinner: false,
+  trickleSpeed: 50,
+})
