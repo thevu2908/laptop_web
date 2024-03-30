@@ -253,7 +253,8 @@ INSERT INTO `congketnoi` (`ma_cong`, `ten_cong`, `trang_thai`) VALUES
 
 CREATE TABLE `ctsp_imei` (
   `ma_imei` varchar(20) NOT NULL,
-  `ma_ctsp` varchar(20) NOT NULL
+  `ma_ctsp` varchar(20) NOT NULL,
+  `trang_thi` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
