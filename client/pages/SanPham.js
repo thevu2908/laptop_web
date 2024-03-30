@@ -6,6 +6,7 @@ $(document).ready(() => {
     toAdminProductDetail()
     renderDeleteProductModal()
     handleDeleteProduct()
+    renderViewProductModal()
     importExcel()
     exportExcel()
 })
@@ -90,8 +91,8 @@ function renderAdminProductTable() {
                                 <a href="#deleteProductModal" class="delete btn-delete-product-modal" data-toggle="modal" data-id=${item.ma_sp}>
                                     <i class="material-icons" data-toggle="tooltip" title="Xóa">&#xE872;</i>
                                 </a>
-                                <a href="#viewProductModal" class="view" title="View" data-toggle="tooltip" data-id=${item.ma_sp}>
-                                    <i class="material-icons">&#xE417;</i>
+                                <a href="#viewProductModal" class="view btn-view-product-modal" title="View" data-toggle="modal" data-id=${item.ma_sp}>
+                                    <i class="material-icons" data-toggle="tooltip" title="Xem thông tin">&#xE417;</i>
                                 </a>
                             </td>
                         </tr>
@@ -104,36 +105,6 @@ function renderAdminProductTable() {
             $('.admin-product-list').html(html)
         })
         .catch(error => console.log(error))
-}
-
-function renderUpdateProductModal() {
-    $(document).on('click', '.btn-update-product-modal', e => {
-        const productId = e.target.closest('.btn-update-product-modal').dataset.id
-
-        getProduct(productId)
-            .then(product => {
-                $('#editProductModal .product-id').text(product.ma_sp)
-                $('#editProductModal .upload-box').removeClass('hide-image')
-                $('#editProductModal .upload-box').css('display', 'flex')
-                $('#editProductModal .preview-img').attr('src', product.hinh_anh)
-                $('#editProductModal #product-name').val(product.ten_sp)
-                $('#editProductModal #product-origin').val(product.xuat_xu)
-                $('#editProductModal #product-brand').val(product.ma_thuong_hieu)
-                $('#editProductModal #product-type').val(product.ma_the_loai)
-                $('#editProductModal #product-weight').val(product.trong_luong)
-                $('#editProductModal #product-material').val(product.chat_lieu)
-                $('#editProductModal #product-screen').val(product.kich_co_man_hinh)
-                $('#editProductModal #product-resolution').val(product.do_phan_giai)
-                $('#editProductModal #product-keyboard').val(product.ban_phim)
-                $('#editProductModal #product-battery').val(product.pin)
-                $('#editProductModal #product-os').val(product.ma_hdh)
-                $('#editProductModal #product-import-price').val(product.gia_nhap)
-                $('#editProductModal #product-chietkhau').val(product.chiet_khau)
-                $('#editProductModal #product-price').val(product.gia_ban)
-                $('#editProductModal #product-quantity').val(product.so_luong_ton)
-            })
-            .catch(error => console.log(error))
-    })
 }
 
 function validateProductEmpty(product) {
@@ -339,6 +310,36 @@ function handleAddProduct() {
     })
 }
 
+function renderUpdateProductModal() {
+    $(document).on('click', '.btn-update-product-modal', e => {
+        const productId = e.target.closest('.btn-update-product-modal').dataset.id
+
+        getProduct(productId)
+            .then(product => {
+                $('#editProductModal .product-id').text(product.ma_sp)
+                $('#editProductModal .upload-box').removeClass('hide-image')
+                $('#editProductModal .upload-box').css('display', 'flex')
+                $('#editProductModal .preview-img').attr('src', product.hinh_anh)
+                $('#editProductModal #product-name').val(product.ten_sp)
+                $('#editProductModal #product-origin').val(product.xuat_xu)
+                $('#editProductModal #product-brand').val(product.ma_thuong_hieu)
+                $('#editProductModal #product-type').val(product.ma_the_loai)
+                $('#editProductModal #product-weight').val(product.trong_luong)
+                $('#editProductModal #product-material').val(product.chat_lieu)
+                $('#editProductModal #product-screen').val(product.kich_co_man_hinh)
+                $('#editProductModal #product-resolution').val(product.do_phan_giai)
+                $('#editProductModal #product-keyboard').val(product.ban_phim)
+                $('#editProductModal #product-battery').val(product.pin)
+                $('#editProductModal #product-os').val(product.ma_hdh)
+                $('#editProductModal #product-import-price').val(product.gia_nhap)
+                $('#editProductModal #product-chietkhau').val(product.chiet_khau)
+                $('#editProductModal #product-price').val(product.gia_ban)
+                $('#editProductModal #product-quantity').val(product.so_luong_ton)
+            })
+            .catch(error => console.log(error))
+    })
+}
+
 function updateProduct(product) {
     return new Promise((resolve, reject) => {
         $.ajax({
@@ -508,6 +509,58 @@ function handleDeleteProduct() {
             }
 
             $('#deleteProductModal').modal('hide')
+        }
+    })
+}
+
+function renderViewProductModal() {
+    $(document).on('click', '.btn-view-product-modal', async e => {
+        const productId = e.target.closest('.btn-view-product-modal').dataset.id
+
+        if (productId) {
+            const product = await getProduct(productId)
+            $('#viewProductModal .product-id').text(product.ma_sp)
+            $('#viewProductModal .upload-box').css('display', 'flex')
+            $('#viewProductModal .preview-img').attr('src', product.hinh_anh)
+            $('#viewProductModal .product-name').text(product.ten_sp)
+            $('#viewProductModal .product-origin').text(product.xuat_xu)
+            $('#viewProductModal #product-brand').val(product.ma_thuong_hieu)
+            $('#viewProductModal #product-type').val(product.ma_the_loai)
+            $('#viewProductModal .product-weight').text(product.trong_luong)
+            $('#viewProductModal .product-material').text(product.chat_lieu)
+            $('#viewProductModal .product-screen').text(product.kich_co_man_hinh)
+            $('#viewProductModal .product-resolution').text(product.do_phan_giai)
+            $('#viewProductModal .product-keyboard').text(product.ban_phim)
+            $('#viewProductModal .product-battery').text(product.pin)
+            $('#viewProductModal #product-os').val(product.ma_hdh)
+            $('#viewProductModal .product-import-price').text(product.gia_nhap)
+            $('#viewProductModal .product-chietkhau').text(product.chiet_khau)
+            $('#viewProductModal .product-price').text(product.gia_ban)
+            $('#viewProductModal .product-quantity').text(product.so_luong_ton)
+
+            const colors = await getProductDetailColors(productId)
+            const colorHtml = colors.map(color => color).join(', ')
+            $('#viewProductModal .product-color').html(colorHtml)
+
+            const cpus = await getProductDetailCPUs(productId)
+            const cpuHtml = cpus.map(cpu => `<li>${cpu}</li>`).join('')
+            $('#viewProductModal .product-cpu').html(cpuHtml)
+
+            const gpus = await getProductDetailGPUs(productId)
+            const gpuHtml = gpus.map(gpu => `<li>${gpu}</li>`).join('')
+            $('#viewProductModal .product-gpu').html(gpuHtml)
+
+            const rams = await getProductDetailRAMs(productId)
+            const ramHtml = rams.map(ram => ram).join(', ')
+            $('#viewProductModal .product-ram').html(ramHtml)
+
+            const roms = await getProductDetailROMs(productId)
+            const romHtml = roms.map(rom => rom).join(', ')
+            $('#viewProductModal .product-rom').html(romHtml)
+
+            const plugs = await getProductPlugs(productId)
+            const plugHtml = plugs.map(plug => `<li>${plug}</li>`).join('')
+            $('#viewProductModal .product-plug').html(plugHtml)
         }
     })
 }

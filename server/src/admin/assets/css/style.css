@@ -72,6 +72,10 @@ input[type="color" i] {
   height: 100%;
 }
 
+.modal ul {
+  list-style-type: none;
+}
+
 .sidebar {
   position: fixed;
   top: 0;
