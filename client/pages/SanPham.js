@@ -9,6 +9,7 @@ $(document).ready(() => {
     renderViewProductModal()
     importExcel()
     exportExcel()
+    searchProduct()
 })
 
 function getProductData() {
@@ -712,5 +713,35 @@ function exportExcel() {
         } finally {
             NProgress.done()
         }
+    })
+}
+
+function searchProduct() {
+    $(document).on('keyup', '.admin-search-info', e => {
+        const info = e.target.value.toLowerCase()
+
+        $('.admin-product-table tr').each(function(index) {
+            if (index !== 0) {
+                $row = $(this)
+
+                const tdElement = $row.find('td')
+                const id = tdElement[1].innerText.toLowerCase()
+                const name = tdElement[2].innerText.toLowerCase()
+                const brand = tdElement[3].innerText.toLowerCase()
+                const quantity = tdElement[7].innerText.toLowerCase()
+
+                const matchId = id.indexOf(info)
+                const matchName = name.indexOf(info)
+                const matchBrand = brand.indexOf(info)
+                const machQuantity = quantity.indexOf(info)
+
+
+                if (matchId < 0 && matchName < 0 && matchBrand < 0 && machQuantity < 0) {
+                    $row.hide()
+                } else {
+                    $row.show()
+                }
+            }
+        })
     })
 }

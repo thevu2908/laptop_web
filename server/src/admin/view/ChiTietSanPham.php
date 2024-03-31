@@ -33,7 +33,7 @@
                         </div>
                     </div>
                 </div>
-                <table class="table table-striped table-hover">
+                <table class="table table-striped table-hover admin-product-detail-table">
                     <thead>
                         <tr>
                             <th>
@@ -43,8 +43,8 @@
                                 </span>
                             </th>
                             <th>ID</th>
-                            <th>CPU</th>
                             <th>Màu sắc</th>
+                            <th>CPU</th>
                             <th>Card đồ họa</th>
                             <th>RAM</th>
                             <th>ROM</th>
