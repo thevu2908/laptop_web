@@ -41,13 +41,23 @@ function getProduct(productId) {
             method: 'POST',
             data: { action: 'get', productId },
             dataType: 'JSON',
-            success: data => {
-                if (data) {
-                    resolve(data)
-                } else {
-                    resolve(null)
-                }
-            },
+            success: product => resolve(product),
+            error: (xhr, status, error) => {
+                console.log(error)
+                reject(error)
+            }
+        })
+    })
+}
+
+function getProductInfo(productId) {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: 'server/src/controller/SanPhamController.php',
+            method: 'POST',
+            data: { action: 'get-info', productId },
+            dataType: 'JSON',
+            success: product => resolve(product),
             error: (xhr, status, error) => {
                 console.log(error)
                 reject(error)
@@ -663,16 +673,25 @@ function exportExcel() {
             let excelDatas = []
     
             for (let product of products) {
-                const brand = await getBrand(product.ma_thuong_hieu)
-                const type = await getType(product.ma_the_loai)
-                const os = await getOS(product.ma_hdh)
-                const colors = await getProductDetailColors(product.ma_sp)
-                const cpus = await getProductDetailCPUs(product.ma_sp)
-                const gpus = await getProductDetailGPUs(product.ma_sp)
-                const rams = await getProductDetailRAMs(product.ma_sp)
-                const roms = await getProductDetailROMs(product.ma_sp)
+                const info = await getProductInfo(product.ma_sp)
+                const productDetails = await getProductDetailByProductId(product.ma_sp)
                 const plugs = await getProductPlugs(product.ma_sp)
-                
+
+                let colors = [], cpus = [], gpus = [], rams = [], roms = []
+                productDetails.forEach(productDetail => {
+                    colors.push(productDetail.ten_mau)
+                    cpus.push(productDetail.ten_chip)
+                    gpus.push(productDetail.ten_card)
+                    rams.push(productDetail.ram)
+                    roms.push(productDetail.rom)
+                })
+
+                colors = [...new Set(colors)]
+                cpus = [...new Set(cpus)]
+                gpus = [...new Set(gpus)]
+                rams = [...new Set(rams)]
+                roms = [...new Set(roms)]
+
                 const colorName = colors.map(color => color).join(', ')
                 const cpuName = cpus.map(cpu => cpu).join(', ')
                 const gpuName = gpus.map(gpu => gpu).join(', ')
@@ -683,8 +702,8 @@ function exportExcel() {
                 excelDatas.push({
                     'Mã sản phẩm': product.ma_sp,
                     'Tên sản phẩm': product.ten_sp,
-                    'Thương hiệu': brand.ten_thuong_hieu,
-                    'Loại sản phẩm': type.ten_loai,
+                    'Thương hiệu': info.ten_thuong_hieu,
+                    'Loại sản phẩm': info.ten_loai,
                     'Giá nhập': product.gia_nhap,
                     'Chiết khấu': product.chiet_khau,
                     'Giá bán': product.gia_ban,
@@ -699,7 +718,7 @@ function exportExcel() {
                     'Trọng lượng': product.trong_luong,
                     'Chất liệu': product.chat_lieu,
                     'Kích cỡ màn hình': product.kich_co_man_hinh,
-                    'Hệ điều hành': os.ten_hdh,
+                    'Hệ điều hành': info.ten_hdh,
                 })
             }
     

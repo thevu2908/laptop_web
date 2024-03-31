@@ -299,84 +299,21 @@ function handleDeleteProductDetail() {
     })
 }
 
-function getProductDetailColors(productId) {
+function getProductDetailByProductId(productId) {
     return new Promise((resolve, reject) => {
         $.ajax({
             url: 'server/src/controller/CTSanPhamController.php',
             method: 'POST',
-            data: { action: 'get-colors', productId },
+            data: { action: 'get-by-product-id', productId },
             dataType: 'JSON',
-            success: colors => resolve(colors),
+            success: productDetails => resolve(productDetails),
             error: (xhr, status, error) => {
                 console.log(error)
                 reject(error)
             }
         })
     })
-}
 
-function getProductDetailCPUs(productId) {
-    return new Promise((resolve, reject) => {
-        $.ajax({
-            url: 'server/src/controller/CTSanPhamController.php',
-            method: 'POST',
-            data: { action: 'get-cpus', productId },
-            dataType: 'JSON',
-            success: cpus => resolve(cpus),
-            error: (xhr, status, error) => {
-                console.log(error)
-                reject(error)
-            }
-        })
-    })
-}
-
-function getProductDetailGPUs(productId) {
-    return new Promise((resolve, reject) => {
-        $.ajax({
-            url: 'server/src/controller/CTSanPhamController.php',
-            method: 'POST',
-            data: { action: 'get-gpus', productId },
-            dataType: 'JSON',
-            success: gpus => resolve(gpus),
-            error: (xhr, status, error) => {
-                console.log(error)
-                reject(error)
-            }
-        })
-    })
-}
-
-function getProductDetailRAMs(productId) {
-    return new Promise((resolve, reject) => {
-        $.ajax({
-            url: 'server/src/controller/CTSanPhamController.php',
-            method: 'POST',
-            data: { action: 'get-rams', productId },
-            dataType: 'JSON',
-            success: rams => resolve(rams),
-            error: (xhr, status, error) => {
-                console.log(error)
-                reject(error)
-            }
-        })
-    })
-}
-
-function getProductDetailROMs(productId) {
-    return new Promise((resolve, reject) => {
-        $.ajax({
-            url: 'server/src/controller/CTSanPhamController.php',
-            method: 'POST',
-            data: { action: 'get-roms', productId },
-            dataType: 'JSON',
-            success: roms => resolve(roms),
-            error: (xhr, status, error) => {
-                console.log(error)
-                reject(error)
-            }
-        })
-    })
 }
 
 function searchProductDetail() {
