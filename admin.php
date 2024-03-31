@@ -24,7 +24,7 @@
 <body> 
   <div id="admin-main">
     <?php include "./server/src/admin/view/Taskbar.php";
-    echo isset($_SESSION['maquyen'])?"Hello":"Bye";
+    echo isset($_SESSION['maquyen'])?"Hello: ".$_SESSION['maquyen']:"Bye";
     $maquyen=$_SESSION['maquyen'];
     echo "<input type='hidden' id='ad-maquyen' value='$maquyen'>";
     ?>

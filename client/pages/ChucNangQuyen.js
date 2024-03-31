@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    getAllChuNangQuyen();
+    //getAllChuNangQuyen();
 })
 
 function getAllChuNangQuyen(){

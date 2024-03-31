@@ -42,7 +42,7 @@ function kiemtraquyen($arr,$chucnang){
     
     <?php
     if(!empty($maquyen)){
-      if(kiemtraquyen($arr,"CN001")){
+      if(kiemtraquyen($arr,"CN001") && $chitietquyen->kiemtrahangdong($maquyen,"CN001","Xem")){
         echo "<li class='side-menu-item ".($page === 'taikhoan' ? 'active' : '')."'>
         <a href='/admin.php?controller=taikhoan' class='nav-link'>
           <i class='fas fa-shopping-cart'></i>
@@ -50,7 +50,7 @@ function kiemtraquyen($arr,$chucnang){
         </a>
       </li>";
       }
-      if(kiemtraquyen($arr,"CN002")){
+      if(kiemtraquyen($arr,"CN002") && $chitietquyen->kiemtrahangdong($maquyen,"CN002","Xem")){
         echo "<li class='side-menu-item ".($page === 'nhomquyen' ? 'active' : '' )."'>
         <a href='/admin.php?controller=nhomquyen' class='nav-link'>
           <i class='fas fa-chart-simple'></i>
@@ -58,7 +58,7 @@ function kiemtraquyen($arr,$chucnang){
         </a>
       </li>";
       }
-      if(kiemtraquyen($arr,"CN003")){
+      if(kiemtraquyen($arr,"CN003") && $chitietquyen->kiemtrahangdong($maquyen,"CN003","Xem")){
         echo " <li class='side-menu-item ".($page === 'sanpham' ? 'active' : '')."'>
         <a href='/admin.php?controller=sanpham' class='nav-link'>
           <i class='fas fa-message'></i>
@@ -66,6 +66,7 @@ function kiemtraquyen($arr,$chucnang){
         </a>
       </li>";
       }
+      //&& $chitietquyen->kiemtrahangdong($maquyen,"CN004","Xem")
       if(kiemtraquyen($arr,"CN004")){
         //"add_PhanQuyen"
         echo " <li class='side-menu-item ".($page === 'phanquyen' ? 'active' : '')."'>
@@ -75,7 +76,7 @@ function kiemtraquyen($arr,$chucnang){
         </a>
       </li>";
       }
-      if(kiemtraquyen($arr,"CN005")){
+      if(kiemtraquyen($arr,"CN005") && $chitietquyen->kiemtrahangdong($maquyen,"CN005","Xem")){
         echo " <li class='side-menu-item ".( $page === 'chucnang' ? 'active' : '')."'>
         <a href='/admin.php?controller=chucnang' class='nav-link'>
           <i class='fas fa-message'></i>

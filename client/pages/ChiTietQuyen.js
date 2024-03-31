@@ -6,6 +6,7 @@ $(document).ready(function(){
 })
 var listitemRemove = [];
 function loadPhanQuyen(){
+    var pageno = $("#currentpage").val();
     $.ajax({
         url: "server/src/controller/CTQuyenController.php",
         data: {action:"load"},
@@ -76,7 +77,7 @@ function addPhanQuyen(){
                 // }
                 $("form").reset();
                 loadPhanQuyen();
-                $("#addEmployeeModal").hide();
+                $("#addEmployeeModal").modal("hide");
             }
         })
     })

@@ -1,18 +1,21 @@
 <?php
-class PannigatinRepo extends ConnectDB{
+class PanigationRepo extends ConnectDB{
     public function getPanigation($table,$start=0,$limit=8){
-        $query="SELECT * from  '$table'  ORDER BY id DESC LIMIT {$start},{$limit}";
+        $query="SELECT * from  $table LIMIT {$start},{$limit}";
         $result=mysqli_query($this->conn,$query);
         $arrPanigation=array();
         while($row=mysqli_fetch_array($result)){
             $arrPanigation[]=$row;
         }
-        return $arrPanigation ?? [];
+        return $arrPanigation;
     }
     public function getCount($table)
     {
-        $query = "SELECT count(*) as num FROM '$table'";
+        $query = "SELECT count(*) as num FROM $table";
         $result=mysqli_query($this->conn,$query);
+        if (!$result) {
+            return -1;
+        }
         if($row=mysqli_fetch_array($result)){
             return $row['num'];
         }

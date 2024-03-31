@@ -77,7 +77,7 @@ class ChiTietQuyenRepo extends ConnectDB{
     function kiemtrahangdong($maquyen,$machucnang,$hanhdong):bool{
         $sql = "SELECT * FROM chitietquyen WHERE ma_quyen='$maquyen' AND ma_chuc_nang='$machucnang' AND hanh_dong='$hanhdong'";
         $result = mysqli_query($this->conn,$sql);
-        if($row=mysqli_fetch_assoc($result)){
+        if(mysqli_num_rows($result) > 0){
             return true;
         }
         return false;
