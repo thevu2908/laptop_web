@@ -1,5 +1,14 @@
 $(document).ready(function(){
     loadPhanQuyen();
+    $(document).on("click", "ul.pagination li a", function (e) {
+        e.preventDefault();
+        var $this = $(this);
+        const pagenum = $this.data("page");
+        $("#currentpage").val(pagenum);
+        loadPhanQuyen();
+        $this.parent().siblings().removeClass("active");
+        $this.parent().addClass("active");
+    });
     addPhanQuyen();
     deletePhanQuyen();
     //getAction();
@@ -8,11 +17,12 @@ var listitemRemove = [];
 function loadPhanQuyen(){
     var pageno = $("#currentpage").val();
     $.ajax({
-        url: "server/src/controller/CTQuyenController.php",
-        data: {action:"load"},
-        method: "post",
+        url: "server/src/controller/PanigationController.php",
+        data: {action:"panigation", page: pageno,table:"chitietquyen"},
+        method: "GET",
+        dataType: "json",
         success: function (data) {
-            var jsonData=JSON.parse(data);
+            var jsonData=data.panigation;
             var html="";
             jsonData.forEach((chitietquyen,index) => {
                 html+=`<tr data-row="${chitietquyen['ma_quyen']}" data-row1="${chitietquyen['ma_chuc_nang']}">
@@ -53,6 +63,11 @@ function loadPhanQuyen(){
                 })
             })
             $("#show-ListPhanQuyen").html(html);
+            let total = data.count;
+            console.log(total);
+            let totalpages = Math.ceil(parseInt(total) / 4);
+            const currentpage = $("#currentpage").val();
+            pagination(totalpages, currentpage);
         }
     });
 }
@@ -67,17 +82,9 @@ function addPhanQuyen(){
             data: {action:"add",maquyen:maquyen,machucnang:machucnang},
             method: "post",
             success: function (data) {
-                // if(data==="true"){
-                // console.log(data);
-                // $("form").reset();
-                // loadPhanQuyen();
-                // $("#addEmployeeModal").hide();
-                // }else{
-                //     console.log(data);
-                // }
-                $("form").reset();
+                //$("form").reset();
+                $("#addPhanQuyenModal").modal("hide");
                 loadPhanQuyen();
-                $("#addEmployeeModal").modal("hide");
             }
         })
     })
@@ -151,8 +158,17 @@ function deletePhanQuyen(){
                     method: "post",
                     success: function (data) {
                         console.log(data);
-                        $("#deleteEmployeeModal").hide();
-                        loadPhanQuyen();
+                        $("#deletePhanQuyenModal").modal("hide");
+                        var currentPage = parseInt($("#currentpage").val());
+                        var totalEmployees = parseInt($("#totalEmployees").val());
+                        var employeesPerPage = 4;
+                        var totalPages = Math.ceil(totalEmployees / employeesPerPage);
+                        if ($("#mytable tbody tr").length === 1 && currentPage !== 1) {
+                            currentPage--;
+                            $("#currentpage").val(currentPage);
+                        }
+                       loadPhanQuyen();
+                       pagination(totalPages, currentPage);
                     }
                 })
             })

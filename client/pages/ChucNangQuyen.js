@@ -1,14 +1,25 @@
 $(document).ready(function() {
-    //getAllChuNangQuyen();
+    getAllChuNangQuyen();
+    $(document).on("click", "ul.pagination li a", function (e) {
+        e.preventDefault();
+        var $this = $(this);
+        const pagenum = $this.data("page");
+        $("#currentpage").val(pagenum);
+        getAllChuNangQuyen();
+        $this.parent().siblings().removeClass("active");
+        $this.parent().addClass("active");
+    });
 })
 
 function getAllChuNangQuyen(){
+    var pageno = $("#currentpage").val();
     $.ajax({
-        url:"server/src/controller/ChucNangQuyenController.php",
-        method:"post",
-        data:{action:"get"},
+        url:"server/src/controller/PanigationController.php",
+        data: {action:"panigation", page: pageno,table:"chucnangquyen"},
+        method: "GET",
+        dataType: "json",
         success:function(data){
-            var jsondata=JSON.parse(data);
+            var jsondata=data.panigation;
             var html="";
             jsondata.forEach((chucnangquyen,index) => {
                 html+=`<tr>
@@ -43,6 +54,11 @@ function getAllChuNangQuyen(){
                     //jsonData.some(item => item.hanh_dong === "Xem")?$(".btn.btn-success.add").show():$(".btn.btn-success.add").hide();
                 }
             })
+            let total = data.count;
+            console.log(total);
+            let totalpages = Math.ceil(parseInt(total) / 4);
+            const currentpage = $("#currentpage").val();
+            pagination(totalpages, currentpage);
         }
     })
 }

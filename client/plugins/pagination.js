@@ -1,15 +1,16 @@
-$(document).ready(function() {
-    listChucNang();
-    $(document).on("click", "ul.pagination li a", function (e) {
-        e.preventDefault();
-        var $this = $(this);
-        const pagenum = $this.data("page");
-        $("#currentpage").val(pagenum);
-        listChucNang();
-        $this.parent().siblings().removeClass("active");
-        $this.parent().addClass("active");
-    });
-})
+// $(document).ready(function() {
+//     listChucNang();
+//     $(document).on("click", "ul.pagination li a", function (e) {
+//         e.preventDefault();
+//         var $this = $(this);
+//         const pagenum = $this.data("page");
+//         $("#currentpage").val(pagenum);
+//         listChucNang();
+//         $this.parent().siblings().removeClass("active");
+//         $this.parent().addClass("active");
+//     });
+// })
+//
 function pagination(totalpages, currentpage) {
     var pagelist = "";
     if (totalpages > 1) {
@@ -29,9 +30,9 @@ function pagination(totalpages, currentpage) {
       }">Next</a></li>`;
       pagelist += `</ul>`;
     }
-   
     $("#panigation").html(pagelist);
 }
+//
 // function listChucNang() {
 //     var pageno = $("#currentpage").val();
 //     $.ajax({

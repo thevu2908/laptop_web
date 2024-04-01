@@ -10,8 +10,8 @@
 						<div class="col-sm-6">
 							<a href="#" class="btn btn-secondary"><i class="material-icons">&#xE24D;</i> <span>Import Excel</span></a>
 							<a href="#" class="btn btn-secondary"><i class="material-icons">&#xE24D;</i> <span>Export Excel</span></a>
-							<a href="#addEmployeeModal" id="admin-add-phanquyen" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Thêm</span></a>
-							<a href="#deleteEmployeeModal" class="btn btn-danger delete" data-toggle="modal" id="admin-delete-phanquyen"><i class="material-icons">&#xE15C;</i> <span>Xóa</span></a>
+							<a href="#addPhanQuyenModal" id="admin-add-phanquyen" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Thêm</span></a>
+							<a href="#deletePhanQuyenModal" class="btn btn-danger delete" data-toggle="modal" id="admin-delete-phanquyen"><i class="material-icons">&#xE15C;</i> <span>Xóa</span></a>
 						</div>
 					</div>
 				</div>
@@ -46,7 +46,7 @@
 		</div>
 	</div>
 	<!-- Add Modal HTML -->
-	<div id="addEmployeeModal" class="modal fade">
+	<div id="addPhanQuyenModal" class="modal fade">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<form>
@@ -119,7 +119,7 @@
 		</div>
 	</div>
 	<!-- Delete Modal HTML -->
-	<div id="deleteEmployeeModal" class="modal fade">
+	<div id="deletePhanQuyenModal" class="modal fade">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<form>

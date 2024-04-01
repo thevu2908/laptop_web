@@ -1,6 +1,15 @@
 
 $(document).ready(function(){
     loadData();
+    $(document).on("click", "ul.pagination li a", function (e) {
+        e.preventDefault();
+        var $this = $(this);
+        const pagenum = $this.data("page");
+        $("#currentpage").val(pagenum);
+        loadData();
+        $this.parent().siblings().removeClass("active");
+        $this.parent().addClass("active");
+    });
     addNhomQuyen();
     deleteNhomQuyen();
     updateNhomQuyen();
@@ -37,10 +46,12 @@ function addNhomQuyen(){
 }
 function loadData(){
     var tmp="Load";
+    var pageno = $("#currentpage").val();
     $.ajax({
-        url:"server/src/controller/NhomQuyenController.php",
-        method:"POST",
-        data:{action:tmp},
+        url: "server/src/controller/PanigationController.php",
+        data: {action:"panigation", page: pageno,table:"nhomquyen"},
+        method: "GET",
+        dataType: "json",
         success:function(data){
             render(data);
         }
@@ -63,9 +74,9 @@ function searchNhomQuyen(){
 function render(data){
     var html="";
             //console.log(data);
-            if (data) {
-                var jsonData=JSON.parse(data);
-                if(data.length>0){
+            if (true) {
+                var jsonData=data.panigation;
+                if(jsonData>0){
                     jsonData.forEach((nhomquyen,index) => {
                         html+=`<tr>
                         <td>
@@ -100,6 +111,11 @@ function render(data){
                     //jsonData.some(item => item.hanh_dong === "Xem")?$(".btn.btn-success.add").show():$(".btn.btn-success.add").hide();
                 }
             })
+            let total = data.count;
+            console.log(total);
+            let totalpages = Math.ceil(parseInt(total) / 4);
+            const currentpage = $("#currentpage").val();
+            pagination(totalpages, currentpage);
 }
 
 function loadNhomQuyenDataAccount() {

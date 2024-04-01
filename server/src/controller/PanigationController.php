@@ -8,12 +8,6 @@ class PanigationController{
     }
     function getPanigation($table,$start,$limit){
         $panigation=$this->panigationrepo->getPanigation($table,$start,$limit);
-        // if(!empty($panigation)){
-        //     $pani=$panigation;
-        // }else{
-        //     $pani=[];
-        // }
-        $total=$this->panigationrepo->getCount($table);
         $panigationjson=['count'=>$this->panigationrepo->getCount($table),'panigation'=>$panigation];
         echo json_encode( $panigationjson);
     }
@@ -28,7 +22,7 @@ switch($tmp){
     case 'panigation':{
         $table=$_GET['table'];
         $page = (!empty($_GET['page'])) ? $_GET['page'] : 1;
-        $limit = 2;
+        $limit = 4;
         $start = ($page - 1) * $limit;
         $panigationctl->getPanigation($table,$start,$limit);
         break;
