@@ -25,7 +25,7 @@ include "header.php";
                         
                     </div>
                     <div class="col-12 d-flex justify-content-center">
-                        <nav aria-label="Page navigation example">
+                        <nav>
                             <ul class="pagination">
                                 <li class="page-item disabled">
                                     <a class="page-link" href="#" aria-label="Previous">

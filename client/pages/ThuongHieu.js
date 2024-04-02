@@ -45,7 +45,7 @@ async function renderFilterBrand() {
                     </a>
                 </div>
         `
-        
+
         for (let index in brands) {
             html += `
                 <div class="filter-item col-6">
@@ -68,7 +68,7 @@ async function renderFilterBrand() {
         } else {
             html += `</div>`
         }
-        
+
         $('.product-main .filter-brand').html(html)
     }
 }
