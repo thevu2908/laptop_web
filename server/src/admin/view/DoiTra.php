@@ -5,7 +5,7 @@
 				<div class="table-title">
 					<div class="row">
 						<div class="col-sm-6">
-							<h2>Quản Lý <b id="ad-NhomQuyen">Bảo Hành</b></h2>
+							<h2>Quản Lý <b id="ad-NhomQuyen">Đổi Trả</b></h2>
 						</div>
 						<div class="col-sm-6">
 							<a href="#" class="btn btn-secondary"><i class="material-icons">&#xE24D;</i> <span>Import
@@ -28,12 +28,13 @@
 									<label for="selectAll"></label>
 								</span>
 							</th>
-							<th>Mã Phiếu Bảo Hành</th>
+							<th>Mã Phiếu Đổi Trả</th>
                             <th>Mã Hóa Đơn</th>
 							<th>Nhân Viên</th>
 							<th>Khách Hàng</th>
-                            <th>Ngày Bảo Hành</th>
                             <th>Ngày Trả</th>
+                            <th>Số Lượng Trả</th>
+                            <th>Tổng Tiền Trả</th>
 							<th>Actions</th>
 						</tr>
 					</thead>

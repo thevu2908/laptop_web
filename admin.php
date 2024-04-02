@@ -49,6 +49,14 @@
             include "./server/src/admin/view/NhanVien.php";
             break;
           }
+          case "baohanh": {
+            include "./server/src/admin/view/BaoHanh.php";
+            break;
+          }
+          case "doitra": {
+            include "./server/src/admin/view/DoiTra.php";
+            break;
+          }
           case "nhomquyen": {
             include "./server/src/admin/view/NhomQuyen.php";
             echo "<script src='./client/pages/NhomQuyen.js'></script>";
@@ -76,5 +84,4 @@
   <script src="./client/plugins/pagination.js"></script>
   <script src="./client/pages/PhanQuyen.js"></script>
 </body>
-
 </html>

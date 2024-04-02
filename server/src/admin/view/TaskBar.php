@@ -66,9 +66,7 @@ function kiemtraquyen($arr,$chucnang){
         </a>
       </li>";
       }
-      //&& $chitietquyen->kiemtrahangdong($maquyen,"CN004","Xem")
       if(kiemtraquyen($arr,"CN004")){
-        //"add_PhanQuyen"
         echo " <li class='side-menu-item ".($page === 'phanquyen' ? 'active' : '')."'>
         <a href='/admin.php?controller=phanquyen' class='nav-link'>
           <i class='fas fa-message'></i>
@@ -121,13 +119,19 @@ function kiemtraquyen($arr,$chucnang){
         <i class="fas fa-people-group"></i>
         <span class="text">Phân Quyền</span>
       </a>
-    </li>
-    <li class="side-menu-item <?php echo $page === 'chucnang' ? 'active' : '' ?>">
-      <a href="/admin.php?controller=chucnang" class="nav-link">
+    </li>-->
+    <li class="side-menu-item <?php echo $page === 'baohanh' ? 'active' : '' ?>">
+      <a href="/admin.php?controller=baohanh" class="nav-link">
         <i class="fas fa-people-group"></i>
-        <span class="text">Chức Năng</span>
+        <span class="text">Bảo Hành</span>
       </a>
-    </li> -->
+    </li>
+    <li class="side-menu-item <?php echo $page === 'doitra' ? 'active' : '' ?>">
+      <a href="/admin.php?controller=doitra" class="nav-link">
+        <i class="fas fa-people-group"></i>
+        <span class="text">Đổi Trả</span>
+      </a>
+    </li>
   </ul>
   <ul class="side-menu">
     <li>
