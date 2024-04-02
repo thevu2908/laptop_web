@@ -1,12 +1,12 @@
 
 $(document).ready(function(){
-    loadData();
+    loadNhomQuyen();
     $(document).on("click", "ul.pagination li a", function (e) {
         e.preventDefault();
         var $this = $(this);
         const pagenum = $this.data("page");
         $("#currentpage").val(pagenum);
-        loadData();
+        loadNhomQuyen();
         $this.parent().siblings().removeClass("active");
         $this.parent().addClass("active");
     });
@@ -38,14 +38,13 @@ function addNhomQuyen(){
                     console.log(data);
                     $("form").trigger('reset');
                     $("#addNhomQuyen").modal("hide");
-                    loadNhomQuyenData();
+                    loadNhomQuyen();
                 }
             })
         }
     })
 }
-function loadData(){
-    var tmp="Load";
+function loadNhomQuyen(){
     var pageno = $("#currentpage").val();
     $.ajax({
         url: "server/src/controller/PanigationController.php",
@@ -76,7 +75,7 @@ function render(data){
             //console.log(data);
             if (true) {
                 var jsonData=data.panigation;
-                if(jsonData>0){
+                
                     jsonData.forEach((nhomquyen,index) => {
                         html+=`<tr>
                         <td>
@@ -95,27 +94,27 @@ function render(data){
                         </td>
                     </tr>`
                     });
-                }
             }
             $("#show-listNhomQuyen").html(html);
-            $.ajax({
-                url:"server/src/controller/CTQuyenController.php",
-                data:{action:"kiemtra" ,maquyen:$("#ad-maquyen").val(),machucnang:"CN002"},
-                method:"POST",
-                success:function(data){
-                    var jsonData = JSON.parse(data);
-                    console.log(jsonData);
-                    jsonData.some(item => item.hanh_dong === "Thêm")?$(".btn.btn-success.add").show():$(".btn.btn-success.add").hide();
-                    jsonData.some(item => item.hanh_dong === "Xóa")?$(".delete").show():$(".delete").hide();
-                    jsonData.some(item => item.hanh_dong === "Sửa")?$(".edit").show():$(".edit").hide();
-                    //jsonData.some(item => item.hanh_dong === "Xem")?$(".btn.btn-success.add").show():$(".btn.btn-success.add").hide();
-                }
-            })
-            let total = data.count;
-            console.log(total);
-            let totalpages = Math.ceil(parseInt(total) / 4);
-            const currentpage = $("#currentpage").val();
-            pagination(totalpages, currentpage);
+            // $.ajax({
+            //     url:"server/src/controller/CTQuyenController.php",
+            //     data:{action:"kiemtra" ,maquyen:$("#ad-maquyen").val(),machucnang:"CN002"},
+            //     method:"POST",
+            //     success:function(data){
+            //         var jsonData = JSON.parse(data);
+            //         console.log(jsonData);
+            //         jsonData.some(item => item.hanh_dong === "Thêm")?$(".btn.btn-success.add").show():$(".btn.btn-success.add").hide();
+            //         jsonData.some(item => item.hanh_dong === "Xóa")?$(".delete").show():$(".delete").hide();
+            //         jsonData.some(item => item.hanh_dong === "Sửa")?$(".edit").show():$(".edit").hide();
+            //     }
+            // })
+            phanquyen("CN002")
+            totalPage(data.count);
+            // let total = data.count;
+            // console.log(total);
+            // let totalpages = Math.ceil(parseInt(total) / 4);
+            // const currentpage = $("#currentpage").val();
+            // pagination(totalpages, currentpage);
 }
 
 function loadNhomQuyenDataAccount() {
@@ -142,7 +141,7 @@ function loadNhomQuyenDataAccount() {
 
 function deleteNhomQuyen() {
     $(document).on("click","#btnDel",function(){
-        var id=$(this).attr("data-id1");
+        console.log(id);
         $("#deleteNhomQuyen").modal('show');
         $(document).on("click","#btnDelete",function(){
             $.ajax({
@@ -151,7 +150,7 @@ function deleteNhomQuyen() {
                 data:{id:id,action:"Delete"},
                 success:function(data){
                     $("#deleteNhomQuyen").modal('hide');
-                    loadData();
+                    loadNhomQuyen();
                 }
             })
         })
@@ -199,7 +198,7 @@ function updateNhomQuyen() {
             success:function(data){
                 $("form").trigger('reset');
                 $("#editNhomQuyen").modal('hide');
-                loadData();
+                loadNhomQuyen();
             }
         })
     })

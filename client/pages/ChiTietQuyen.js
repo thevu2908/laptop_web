@@ -15,6 +15,7 @@ $(document).ready(function(){
 })
 var listitemRemove = [];
 function loadPhanQuyen(){
+    selectNhomQuyen();
     var pageno = $("#currentpage").val();
     $.ajax({
         url: "server/src/controller/PanigationController.php",
@@ -58,18 +59,34 @@ function loadPhanQuyen(){
                         row.find("td:eq(4) input[type='checkbox']").prop("checked", detailData.some(item => item.hanh_dong === "Thêm"));
                         row.find("td:eq(5) input[type='checkbox']").prop("checked", detailData.some(item => item.hanh_dong === "Xóa"));
                         row.find("td:eq(6) input[type='checkbox']").prop("checked", detailData.some(item => item.hanh_dong === "Sửa"));
-                        //phanquyen(chitietquyen['ma_quyen']);
                     }
                 })
             })
             $("#show-ListPhanQuyen").html(html);
-            let total = data.count;
-            console.log(total);
-            let totalpages = Math.ceil(parseInt(total) / 4);
-            const currentpage = $("#currentpage").val();
-            pagination(totalpages, currentpage);
+            totalPage(data.count);
+            // let total = data.count;
+            // console.log(total);
+            // let totalpages = Math.ceil(parseInt(total) / 4);
+            // const currentpage = $("#currentpage").val();
+            // pagination(totalpages, currentpage);
         }
     });
+}
+function selectNhomQuyen(){
+    $.ajax({
+        url: "server/src/controller/NhomQuyenController.php",
+        data: {action:"Load"},
+        method: "post",
+        success: function (data) {
+            var jsonData=JSON.parse(data);
+            var html="<option value='All'>All</option>";
+            jsonData.forEach((nhomquyen,index) => {
+                html+=`<option value="${nhomquyen['ma_quyen']}">${nhomquyen['ten_quyen']}</option>`;
+            })
+            $("#admin-select-nhomquyen").html(html);
+        }
+
+    })
 }
 function addPhanQuyen(){
     getAllListChucNang();

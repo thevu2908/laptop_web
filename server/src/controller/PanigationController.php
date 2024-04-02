@@ -22,7 +22,7 @@ switch($tmp){
     case 'panigation':{
         $table=$_GET['table'];
         $page = (!empty($_GET['page'])) ? $_GET['page'] : 1;
-        $limit = 4;
+        $limit = 8;
         $start = ($page - 1) * $limit;
         $panigationctl->getPanigation($table,$start,$limit);
         break;

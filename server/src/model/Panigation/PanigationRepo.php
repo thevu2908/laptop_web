@@ -1,7 +1,12 @@
 <?php
 class PanigationRepo extends ConnectDB{
     public function getPanigation($table,$start=0,$limit=8){
-        $query="SELECT * from  $table LIMIT {$start},{$limit}";
+        //ORDER BY DEFAULT
+        if($table=="chitietquyen"){
+            $query="SELECT DISTINCT ma_quyen,ma_chuc_nang FROM chitietquyen ORDER BY 1 ASC LIMIT {$start},{$limit}";
+        }else{
+            $query="SELECT * from  $table ORDER BY 1 ASC LIMIT {$start},{$limit}";
+        }
         $result=mysqli_query($this->conn,$query);
         $arrPanigation=array();
         while($row=mysqli_fetch_array($result)){
@@ -11,7 +16,11 @@ class PanigationRepo extends ConnectDB{
     }
     public function getCount($table)
     {
-        $query = "SELECT count(*) as num FROM $table";
+        if($table=="chitietquyen"){
+            $query = "SELECT count(DISTINCT ma_quyen,ma_chuc_nang) as num FROM chitietquyen";
+        }else{
+            $query = "SELECT count(*) as num FROM $table";
+        }
         $result=mysqli_query($this->conn,$query);
         if (!$result) {
             return -1;

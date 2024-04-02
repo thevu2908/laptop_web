@@ -11,6 +11,14 @@
 //     });
 // })
 //
+function totalPage(count){
+  let total = count;
+  console.log(total);
+  let totalpages = Math.ceil(parseInt(total) / 8);
+  const currentpage = $("#currentpage").val();
+  console.log(currentpage);
+  pagination(totalpages, currentpage);
+}
 function pagination(totalpages, currentpage) {
     var pagelist = "";
     if (totalpages > 1) {
@@ -32,6 +40,7 @@ function pagination(totalpages, currentpage) {
     }
     $("#panigation").html(pagelist);
 }
+
 //
 // function listChucNang() {
 //     var pageno = $("#currentpage").val();

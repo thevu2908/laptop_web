@@ -74,9 +74,7 @@
   <script src="./server/src/admin/assets/js/main.js"></script>
   <script src="./client/pages/TaiKhoan.js"></script>
   <script src="./client/plugins/pagination.js"></script>
-  <!-- <script src="./client/pages/ChucNangQuyen.js"></script> -->
-  <!-- <script src="./client/pages/ChiTietQuyen.js"></script> -->
-  
+  <script src="./client/pages/PhanQuyen.js"></script>
 </body>
 
 </html>

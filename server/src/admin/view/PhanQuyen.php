@@ -6,6 +6,9 @@
 					<div class="row">
 						<div class="col-sm-6">
 							<h2>Quản Lý <b id="ad-PhanQuyen">Phân Quyền</b></h2>
+							<select class="form-select" aria-label="Default select example" id="admin-select-nhomquyen">
+                                
+                            </select>
 						</div>
 						<div class="col-sm-6">
 							<a href="#" class="btn btn-secondary"><i class="material-icons">&#xE24D;</i> <span>Import Excel</span></a>
