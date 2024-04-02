@@ -18,4 +18,3 @@ class ChiTietCongKetNoi {
         return $this->ma_ctsp;
     }
 }
-?>

@@ -68,7 +68,7 @@
 		</div>
 	</div>
 
-	<div id="addAccountModal" class="modal fade">
+	<div id="addAccountModal" class="modal fade" data-backdrop="static">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<form>
@@ -114,7 +114,7 @@
 		</div>
 	</div>
 
-	<div id="editAccountModal" class="modal fade">
+	<div id="editAccountModal" class="modal fade" data-backdrop="static">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<form>
@@ -160,7 +160,7 @@
 		</div>
 	</div>
 
-	<div id="deleteAccountModal" class="modal fade">
+	<div id="deleteAccountModal" class="modal fade" data-backdrop="static">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<form>
@@ -180,7 +180,7 @@
 		</div>
 	</div>
 
-	<div id="viewAccountModal" class="modal fade">
+	<div id="viewAccountModal" class="modal fade" data-backdrop="static">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<form>
@@ -197,7 +197,7 @@
 							</div>
 							<div class="form-group">
 							<label for="admin-account-access-view">Quyền tài khoản</label>
-								<select name="admin-account-access-view" id="admin-account-access-view" class="form-control">
+								<select name="admin-account-access-view" id="admin-account-access-view" class="form-control" disabled>
 									
 								</select>
 							</div>
@@ -209,7 +209,7 @@
 						<div class="form-group">
 							<label for="admin-account-password-view">Password</label>
 							<div class="admin-account-pwd">
-								<input class="form-control" type="password" name="admin-account-password-view" id="admin-account-password-view">
+								<input class="form-control" type="password" name="admin-account-password-view" id="admin-account-password-view" disabled>
 								<span class="showhide-pwd-icon">
 									<i class="fa-regular fa-eye open"></i>
 									<i class="fa-regular fa-eye-slash"></i>

@@ -31,7 +31,7 @@ if (showSortFilter) {
     })
 }
 
-// cart
+// add quantity
 $('input.input-qty').each(function () {
     var $this = $(this),
         qty = $this.parent().find(".is-form"),
@@ -128,3 +128,29 @@ if (backHomePage) {
         }
     }, 1000)
 }
+
+// configre NProgress
+NProgress.configure({
+    showSpinner: false,
+    trickleSpeed: 50,
+})
+
+// open modal
+$('.openmodal').click((e) => {
+    e.preventDefault();
+    $('.modal-cart').addClass('open');
+});
+
+$('.closemodal').click((e) => {
+    e.preventDefault();
+    $('.modal-cart').removeClass('open');
+});
+
+$('.modal-cart').click((e) => {
+    e.preventDefault();
+    $('.modal-cart').removeClass('open');
+});
+
+$(".modal-cart-dialog").click((e) => {
+    e.stopPropagation();
+});

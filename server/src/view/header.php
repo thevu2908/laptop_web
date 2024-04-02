@@ -18,14 +18,14 @@
                 </div>
             </form>
             <div class="search-box">
-                <a href="index.php?gio-hang" class="cart-btn">
+                <button class="cart-btn">
                     <span class="material-symbols-outlined">
                         shopping_bag
                     </span>
                     <div class="cart-number">0</div>
                     <div class="cart-pseudo"></div>
                     <?php include "cart-dropdown.php" ?>
-                </a>
+                </button>
                 <a href="index.php?dang-nhap" class="login-btn">
                     <i class="fa-regular fa-user"></i>
                 </a>

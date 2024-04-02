@@ -18,7 +18,7 @@ function loadEmployeeData() {
                         <tr>
                             <td>
                                 <span class="custom-checkbox">
-                                    <input type="checkbox" id="checkbox-${item.ma_nv}" name="options[]" value="${item.ma_nv}">
+                                    <input type="checkbox" id="checkbox-${item.ma_nv}" name="chk[]" value="${item.ma_nv}">
                                     <label for="checkbox-${item.ma_nv}"></label>
                                 </span>
                             </td>
@@ -44,7 +44,7 @@ function loadEmployeeData() {
                 $('.admin-employee-list').html(html)
             }
         },
-        error: (jqXHR, textStatus, error) => {
+        error: (xhr, status, error) => {
             console.log(error)
         }
     })
@@ -66,7 +66,7 @@ function loadEmployeeAccountData() {
                             let flag = true
                             
                             accounts.forEach(account => {
-                                if (item.ma_nv === accounts[i].ma_tk) {
+                                if (item.ma_nv === account.ma_tk) {
                                     flag = false
                                     return
                                 }
@@ -89,7 +89,7 @@ function loadEmployeeAccountData() {
                     }
                 })
             },
-            error: (jqXHR, textStatus, error) => {
+            error: (xhr, status, error) => {
                 console.log(error)
             }
         })

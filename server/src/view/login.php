@@ -3,9 +3,8 @@ session_start();
 if(isset($_POST['submit'])){
     $_SESSION['maquyen']=$_POST['login-password'];
     header('location:admin.php');
-}else{
-    echo "Not Exist";
 }
+
 ?>
 <section class="vh-100">
     <div class="py-3 h-100">

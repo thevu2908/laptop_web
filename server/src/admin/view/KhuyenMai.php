@@ -5,14 +5,14 @@
 				<div class="table-title">
 					<div class="row">
 						<div class="col-sm-6">
-							<h2>Quản Lý <b id="ad-KhuyenMai">Khuyến Mãi</b></h2>
+							<h2>Quản Lý <b>Khuyến mãi</b></h2>
 						</div>
 						<div class="col-sm-6">
-							<a href="#addEmployeeModal" class="btn btn-success add" data-toggle="modal">
+							<a href="#addPromotion" class="btn btn-success add" data-toggle="modal">
 								<i class="material-icons">&#xE147;</i>
 								<span>Thêm</span>
 							</a>
-							<a href="#deleteEmployeeModal" class="btn btn-danger delete" data-toggle="modal">
+							<a href="#deletePromotion" class="btn btn-danger delete" data-toggle="modal">
 								<i class="material-icons">&#xE15C;</i>
 								<span>Xóa</span>
 							</a>
@@ -28,79 +28,17 @@
 									<label for="selectAll"></label>
 								</span>
 							</th>
-							<th>Mã Quyền</th>
-							<th>Tên Quyền</th>
+							<th>ID</th>
+							<th>Điều kiện</th>
+							<th>Mức khuyến mãi</th>
+							<th>Từ ngày</th>
+							<th>Đến ngày</th>
 							<th>Status</th>
 							<th>Actions</th>
 						</tr>
 					</thead>
-					<tbody>
-						<tr>
-							<td>
-								<span class="custom-checkbox">
-									<input type="checkbox" id="checkbox1" name="options[]" value="1">
-									<label for="checkbox1"></label>
-								</span>
-							</td>
-							<td>1</td>
-							<td>Admin</td>
-							<td><span class="status text-success">&bull;</span> Active</td>
-							<td>
-								<a href="#editEmployeeModal" class="edit" data-toggle="modal">
-									<i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
-								</a>
-								<a href="#deleteEmployeeModal" class="delete" data-toggle="modal">
-									<i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
-								</a>
-								<a href="#" class="view" title="View" data-toggle="tooltip">
-									<i class="material-icons">&#xE417;</i>
-								</a>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<span class="custom-checkbox">
-									<input type="checkbox" id="checkbox1" name="options[]" value="1">
-									<label for="checkbox1"></label>
-								</span>
-							</td>
-							<td>1</td>
-							<td>Admin</td>
-							<td><span class="status text-success">&bull;</span> Active</td>
-							<td>
-								<a href="#editEmployeeModal" class="edit" data-toggle="modal">
-									<i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
-								</a>
-								<a href="#deleteEmployeeModal" class="delete" data-toggle="modal">
-									<i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
-								</a>
-								<a href="#" class="view" title="View" data-toggle="tooltip">
-									<i class="material-icons">&#xE417;</i>
-								</a>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<span class="custom-checkbox">
-									<input type="checkbox" id="checkbox1" name="options[]" value="1">
-									<label for="checkbox1"></label>
-								</span>
-							</td>
-							<td>1</td>
-							<td>Admin</td>
-							<td><span class="status text-success">&bull;</span> Active</td>
-							<td>
-								<a href="#editEmployeeModal" class="edit" data-toggle="modal">
-									<i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
-								</a>
-								<a href="#deleteEmployeeModal" class="delete" data-toggle="modal">
-									<i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
-								</a>
-								<a href="#" class="view" title="View" data-toggle="tooltip">
-									<i class="material-icons">&#xE417;</i>
-								</a>
-							</td>
-						</tr>
+					<tbody class="admin-promotion-list">
+						
 					</tbody>
 				</table>
 				<div class="clearfix">
@@ -119,42 +57,87 @@
 		</div>
 	</div>
 
-	<div id="addPromotionModal" class="modal fade">
-		<div class="modal-dialog">
+	<div id="addPromotion" class="modal fade product-config-modal" data-backdrop="static" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-lg modal-dialog-scrollable">
 			<div class="modal-content">
-				<form>
-					<div class="modal-header">
-						<h4 class="modal-title">Thêm khuyến mãi</h4>
-						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-					</div>
-					<div class="modal-body">
-						<div class="form-group">
-							<label>Name</label>
-							<input type="text" class="form-control" required>
+				<div class="modal-header">
+					<h5 class="modal-title promotion-config-detail-name">Thêm khuyến mãi</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body px-0">
+					<form class="add-promotion-form">
+						<div class="modal-row">
+							<h5 class="modal-row-title">Thông tin khuyến mãi</h5>
+							<ul class="modal-row-list">
+								<li class="modal-row-item row align-items-center justify-content-between">
+									<label for="promotion-id" class="col-sm-3 px-0 mb-0">ID:</label>
+									<div class="col-sm-8 px-0">
+										<input type="text" readonly class="form-control" name="promotion-id" id="promotion-id">
+									</div>
+								</li>
+								<li class="modal-row-item row align-items-center justify-content-between">
+									<label for="promotion-name" class="col-sm-3 px-0 mb-0">Tên:</label>
+									<div class="col-sm-8 px-0">
+										<input type="text" class="form-control" name="promotion-name" id="promotion-name">
+									</div>
+								</li>
+								<li class="modal-row-item row align-items-center justify-content-between">
+									<label for="promotion-percent" class="col-sm-3 px-0 mb-0">Mức giảm:</label>
+									<div class="col-sm-8 px-0">
+										<input type="text" class="form-control" name="promotion-percent" id="promotion-percent">
+									</div>
+								</li>
+								<li class="modal-row-item row align-items-center justify-content-between">
+									<label for="promotion-condition" class="col-sm-3 px-0 mb-0">Điều kiện:</label>
+									<div class="col-sm-8 px-0">
+										<input type="text" class="form-control" name="promotion-condition" id="promotion-condition">
+									</div>
+								</li>
+								
+							</ul>
 						</div>
-						<div class="form-group">
-							<label>Email</label>
-							<input type="email" class="form-control" required>
+						<div class="modal-row">
+							<h5 class="modal-row-title">Thời gian khuyến mãi</h5>
+							<table class="modal-row-table">
+								<tbody>
+									<tr>
+										<td>Từ ngày	:</td>
+										<td>
+											<input type="date" class="form-control" name="promotion-date-from" id="promotion-date-from">
+										</td>
+										<td>
+											<button href="#addProductColorModal" data-toggle="modal" type="button" class="btn btn-outline-primary btn-ssm br-50 ml-2">
+												<i class="fa fa-calendar" aria-hidden="true"></i>
+											</button>
+										</td>
+									</tr>
+									<tr>
+										<td>Đến ngày:</td>
+										<td>
+											<input type="date" class="form-control" name="promotion-date-to" id="promotion-date-to">
+										</td>
+										<td>
+											<button href="#addProductColorModal" data-toggle="modal" type="button" class="btn btn-outline-primary btn-ssm br-50 ml-2">
+												<i class="fa fa-calendar" aria-hidden="true"></i>
+											</button>
+										</td>
+									</tr>
+								</tbody>
+							</table>
 						</div>
-						<div class="form-group">
-							<label>Address</label>
-							<textarea class="form-control" required></textarea>
+						<div class="modal-footer">
+							<input type="button" class="btn btn-secondary" data-dismiss="modal" value="Hủy">
+							<input type="button" class="btn btn-primary btn-add-promotion" value="Thêm">
 						</div>
-						<div class="form-group">
-							<label>Phone</label>
-							<input type="text" class="form-control" required>
-						</div>
-					</div>
-					<div class="modal-footer">
-						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-						<input type="submit" class="btn btn-success" value="Add">
-					</div>
-				</form>
+					</form>
+				</div>
 			</div>
 		</div>
 	</div>
 
-	<div id="editPromotionModal" class="modal fade">
+	<div id="editPromotion" class="modal fade">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<form>
@@ -194,7 +177,7 @@
 		</div>
 	</div>
 
-	<div id="deletePromotionModal" class="modal fade">
+	<div id="deletePromotion" class="modal fade">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<form>
