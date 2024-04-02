@@ -1,15 +1,6 @@
 $(document).ready(() => {
     renderProducts()
-    $(document).on("click", "ul.pagination li a", function (e) {
-        e.preventDefault();
-        var $this = $(this);
-        const pagenum = $this.data("page");
-        $("#currentpage").val(pagenum);
-        renderProducts();
-        $this.parent().siblings().removeClass("active");
-        $this.parent().addClass("active");
-    });
-
+    clickPage(renderProducts)
     handleAddProduct()
     renderUpdateProductModal()
     handleUpdateProduct()
@@ -22,24 +13,40 @@ $(document).ready(() => {
     searchProduct()
 })
 
-function getProductData() {
+function getAdminProductData() {
     return new Promise((resolve, reject) => {
         const page = $('#currentpage').val()
+
         $.ajax({
             url: 'server/src/controller/PaginationController.php',
             method: 'GET',
             data: { action: 'pagination', table: 'sanpham', page: page },
             dataType: 'JSON',
-            success: async products => {
-                if (products && products.pagination.length > 0) {
-                    const count = products.count
+            success: products => resolve(products),
+            error: (xhr, status, error) => {
+                console.log(error)
+                reject(error)
+            }
+        })
+    })
+}
 
-                    for (let product of products.pagination) {
+function getEndUserProductData() {
+    return new Promise((resolve, reject) => {
+        const page = $('#currentpage').val()
+        $.ajax({
+            url: 'server/src/controller/SanPhamController.php',
+            method: 'POST',
+            data: { action: 'get-data' },
+            dataType: 'JSON',
+            success: async products => {
+                if (products && products.length > 0) {
+                    for (let product of products) {
                         const plugs = await getProductDetailPlug(product.ma_ctsp)
                         product.plugs = plugs.map(plug => plug.ten_cong)
                     }
 
-                    const newProducts = Object.values(products.pagination.reduce((acc, current) => {
+                    const newProducts = Object.values(products.reduce((acc, current) => {
                         if (!acc[current.ma_sp]) {
                             acc[current.ma_sp] = {
                                 id: current.ma_sp,
@@ -78,7 +85,7 @@ function getProductData() {
                         return acc
                     }, {}))
 
-                    resolve({ count, pagination: newProducts })
+                    resolve(newProducts)
                 } else {
                     resolve(null)
                 }
@@ -128,7 +135,7 @@ function renderProductName(productId) {
 }
 
 function renderAdminProductTable() {
-    getProductData()
+    getAdminProductData()
         .then(products => {
             let html = ''
 
@@ -138,42 +145,43 @@ function renderAdminProductTable() {
                         <tr>
                             <td>
                                 <span class="custom-checkbox">
-                                    <input type="checkbox" id="checkbox-${product.id}" name="chk[]" value="${product.id}">
-                                    <label for="checkbox-${product.id}"></label>
+                                    <input type="checkbox" id="checkbox-${product.ma_sp}" name="chk[]" value="${product.ma_sp}">
+                                    <label for="checkbox-${product.ma_sp}"></label>
                                 </span>
                             </td>
-                            <td>${product.id}</td>
-                            <td>${product.name}</td>
-                            <td>${product.brand}</td>
-                            <td>${product.importPrice}</td>
-                            <td>${product.chietkhau}</td>
-                            <td>${product.price}</td>
-                            <td>${product.quantity}</td>
+                            <td>${product.ma_sp}</td>
+                            <td>${product.ten_sp}</td>
+                            <td class="product-brand-${index}"></td>
+                            <td>${product.gia_nhap}</td>
+                            <td>${product.chiet_khau}</td>
+                            <td>${product.gia_ban}</td>
+                            <td>${product.so_luong_ton}</td>
                             <td>
-                                <a href="#editProductModal" class="edit btn-update-product-modal" data-toggle="modal" data-id=${product.id}>
+                                <a href="#editProductModal" class="edit btn-update-product-modal" data-toggle="modal" data-id=${product.ma_sp}>
                                     <i class="material-icons" data-toggle="tooltip" title="Sửa thông tin">&#xE254;</i>
                                 </a>
-                                <a href="#deleteProductModal" class="delete btn-delete-product-modal" data-toggle="modal" data-id=${product.id}>
+                                <a href="#deleteProductModal" class="delete btn-delete-product-modal" data-toggle="modal" data-id=${product.ma_sp}>
                                     <i class="material-icons" data-toggle="tooltip" title="Xóa">&#xE872;</i>
                                 </a>
-                                <a href="#viewProductModal" class="view btn-view-product-modal" title="View" data-toggle="modal" data-id=${product.id}>
+                                <a href="#viewProductModal" class="view btn-view-product-modal" title="View" data-toggle="modal" data-id=${product.ma_sp}>
                                     <i class="material-icons" data-toggle="tooltip" title="Xem thông tin">&#xE417;</i>
                                 </a>
                             </td>
                         </tr>
                     `
+
+                    renderBrandName(product.ma_thuong_hieu, index)
                 })
             }
 
             $('.admin-product-list').html(html)
-            console.log(products.count)
             totalPage(products.count)
         })
         .catch(error => console.log(error))
 }
 
 async function renderHomePageProduct() {
-    const products = await getProductData()
+    const products = await getEndUserProductData()
 
     if (products) {
         let html = ''
@@ -246,7 +254,7 @@ async function renderHomePageProduct() {
 
 async function renderEndUserProduct() {
     NProgress.start()
-    const products = await getProductData()
+    const products = await getEndUserProductData()
 
     if (products) {
         let html = ''
@@ -1037,7 +1045,6 @@ function searchProduct() {
                 const matchName = name.indexOf(info)
                 const matchBrand = brand.indexOf(info)
                 const machQuantity = quantity.indexOf(info)
-
 
                 if (matchId < 0 && matchName < 0 && matchBrand < 0 && machQuantity < 0) {
                     $row.hide()

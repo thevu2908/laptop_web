@@ -13,7 +13,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <link rel="stylesheet" href="server/src/admin/assets/css/style.css" />
 
@@ -26,7 +26,8 @@
   <script lang="javascript" src="https://cdn.sheetjs.com/xlsx-0.20.1/package/dist/xlsx.full.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
 </head>
-<body> 
+
+<body>
   <div id="admin-main">
     <?php include "./server/src/admin/view/Taskbar.php";
     // echo isset($_SESSION['maquyen'])?"Hello: ".$_SESSION['maquyen']:"Bye";
@@ -43,50 +44,70 @@
             include "./server/src/admin/view/Dashboard.php";
             break;
           case "sanpham": {
-            include "./server/src/admin/view/SanPham.php";
-            break;
-          }
+              include "./server/src/admin/view/SanPham.php";
+              echo '<script src="./client/pages/ThuongHieu.js"></script>';
+              echo '<script src="./client/pages/TheLoai.js"></script>';
+              echo '<script src="./client/pages/MauSac.js"></script>';
+              echo '<script src="./client/pages/ChipXuLy.js"></script>';
+              echo '<script src="./client/pages/CardDoHoa.js"></script>';
+              echo '<script src="./client/pages/CongKetNoi.js"></script>';
+              echo '<script src="./client/pages/HeDieuHanh.js"></script>';
+              echo '<script src="./client/pages/SanPham.js"></script>';
+              echo '<script src="./client/pages/ChiTietSanPham.js"></script>';
+              echo '<script src="./client/pages/ChiTietCongKetNoi.js"></script>';
+              break;
+            }
           case "danhgia": {
-            include "./server/src/admin/view/DSSanPham.php";
-            echo '<script src="./client/pages/DanhGia.js"></script>';
-            break;
-          }
+              include "./server/src/admin/view/DSSanPham.php";
+              echo '<script src="./client/pages/DanhGia.js"></script>';
+              break;
+            }
           case "taikhoan": {
-            include "./server/src/admin/view/TaiKhoan.php";
-            break;
-          }
+              include "./server/src/admin/view/TaiKhoan.php";
+              break;
+            }
           case "nhanvien": {
-            include "./server/src/admin/view/NhanVien.php";
-            break;
-          }
+              include "./server/src/admin/view/NhanVien.php";
+              break;
+            }
           case "hoadon": {
-            include "./server/src/admin/view/HoaDon.php";
-            break;
-          }
+              include "./server/src/admin/view/HoaDon.php";
+              break;
+            }
           case "khuyenmai": {
-            include "./server/src/admin/view/KhuyenMai.php";
-            echo "<script src='./client/pages/KhuyenMai.js'></script>";
-            break;
-          }
+              include "./server/src/admin/view/KhuyenMai.php";
+              echo "<script src='./client/pages/KhuyenMai.js'></script>";
+              break;
+            }
           case "nhomquyen": {
-            include "./server/src/admin/view/NhomQuyen.php";
-            echo "<script src='./client/pages/NhomQuyen.js'></script>";
-            break;
-          }
+              include "./server/src/admin/view/NhomQuyen.php";
+              echo "<script src='./client/pages/NhomQuyen.js'></script>";
+              break;
+            }
           case "chucnang": {
-            include "./server/src/admin/view/ChucNang.php";
-            echo "<script src='./client/pages/ChucNangQuyen.js'></script>";
-            break;
-          }
+              include "./server/src/admin/view/ChucNang.php";
+              echo "<script src='./client/pages/ChucNangQuyen.js'></script>";
+              break;
+            }
           case "phanquyen": {
-            include "./server/src/admin/view/PhanQuyen.php";
-            echo "<script src='./client/pages/ChiTietQuyen.js'></script>";
-            break;
-          }
+              include "./server/src/admin/view/PhanQuyen.php";
+              echo "<script src='./client/pages/ChiTietQuyen.js'></script>";
+              break;
+            }
           case "chitietsanpham": {
-            include "./server/src/admin/view/ChiTietSanPham.php";
-            break;
-          }
+              include "./server/src/admin/view/ChiTietSanPham.php";
+              echo '<script src="./client/pages/ThuongHieu.js"></script>';
+              echo '<script src="./client/pages/TheLoai.js"></script>';
+              echo '<script src="./client/pages/MauSac.js"></script>';
+              echo '<script src="./client/pages/ChipXuLy.js"></script>';
+              echo '<script src="./client/pages/CardDoHoa.js"></script>';
+              echo '<script src="./client/pages/CongKetNoi.js"></script>';
+              echo '<script src="./client/pages/HeDieuHanh.js"></script>';
+              echo '<script src="./client/pages/SanPham.js"></script>';
+              echo '<script src="./client/pages/ChiTietSanPham.js"></script>';
+              echo '<script src="./client/pages/ChiTietCongKetNoi.js"></script>';
+              break;
+            }
         }
       } else {
         include "./server/src/admin/view/DashBoard.php";
@@ -94,7 +115,7 @@
       ?>
     </div>
   </div>
-  
+
   <script src="./server/src/admin/assets/js/main.js"></script>
   <script src="./server/src/admin/assets/js/account.js"></script>
   <script src="./server/src/admin/assets/js/product.js"></script>
@@ -102,6 +123,8 @@
   <script src="./client/utils/formatCurrency.js"></script>
   <script src="./client/pages/NhanVien.js"></script>
   <script src="./client/pages/TaiKhoan.js"></script>
+  <script src="./client/plugins/pagination.js"></script>
+
   <script src="./client/pages/ThuongHieu.js"></script>
   <script src="./client/pages/TheLoai.js"></script>
   <script src="./client/pages/MauSac.js"></script>
@@ -112,7 +135,6 @@
   <script src="./client/pages/SanPham.js"></script>
   <script src="./client/pages/ChiTietSanPham.js"></script>
   <script src="./client/pages/ChiTietCongKetNoi.js"></script>
-  <script src="./client/plugins/pagination.js"></script>
 </body>
 
 </html>
