@@ -1,17 +1,8 @@
 $(document).ready(function(){
     loadPhanQuyen();
-    $(document).on("click", "ul.pagination li a", function (e) {
-        e.preventDefault();
-        var $this = $(this);
-        const pagenum = $this.data("page");
-        $("#currentpage").val(pagenum);
-        loadPhanQuyen();
-        $this.parent().siblings().removeClass("active");
-        $this.parent().addClass("active");
-    });
+    clickPage(loadPhanQuyen);
     addPhanQuyen();
     deletePhanQuyen();
-    //getAction();
 })
 var listitemRemove = [];
 function loadPhanQuyen(){

@@ -40,7 +40,7 @@ function kiemtraquyen($arr,$chucnang){
       </a>
     </li>
     
-    <?php
+    <!-- <?php
     if(!empty($maquyen)){
       if(kiemtraquyen($arr,"CN001") && $chitietquyen->kiemtrahangdong($maquyen,"CN001","Xem")){
         echo "<li class='side-menu-item ".($page === 'taikhoan' ? 'active' : '')."'>
@@ -83,8 +83,8 @@ function kiemtraquyen($arr,$chucnang){
       </li>";
       }
     }
-    ?>
-    <!-- <li class="side-menu-item <?php echo $page === 'taikhoan' ? 'active' : ''?>">
+    ?> -->
+    <li class="side-menu-item <?php echo $page === 'taikhoan' ? 'active' : ''?>">
       <a href="/admin.php?controller=taikhoan" class="nav-link">
         <i class="fas fa-shopping-cart"></i>
         <span class="text">Tài Khoản</span>
@@ -159,7 +159,7 @@ function kiemtraquyen($arr,$chucnang){
         <i class="fas fa-people-group"></i>
         <span class="text">Đổi Trả</span>
       </a>
-    </li> -->
+    </li>
   </ul>
   <ul class="side-menu">
     <li>

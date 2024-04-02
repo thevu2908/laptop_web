@@ -8,6 +8,17 @@ function totalPage(count){
   console.log(currentpage);
   pagination(totalpages, currentpage);
 }
+function clickPage(func){
+  $(document).on("click", "ul.pagination li a", function (e) {
+    e.preventDefault();
+    var $this = $(this);
+    const pagenum = $this.data("page");
+    $("#currentpage").val(pagenum);
+    func();
+    $this.parent().siblings().removeClass("active");
+    $this.parent().addClass("active");
+});
+}
 function pagination(totalpages, currentpage) {
     var pagelist = "";
     if (totalpages > 1) {
