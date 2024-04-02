@@ -80,7 +80,7 @@
                 <div class="cart__right-promotion bg-white mb-4 p-4 rounded-3">
                     <div class="d-flex justify-content-between" >
                         <h6>Khuyến mãi</h6>
-                        <a href="#">Chọn khuyến mãi</a>
+                        <a href="#"class="openmodal">Chọn khuyến mãi</a>
                     </div>
                     <div class="cart__right-condition">Đơn hàng chưa đủ điều kiện áp dụng khuyến mãi. Vui lòng mua thêm để áp dụng</div>
                 </div>
@@ -100,28 +100,97 @@
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- <div class="overlay">
-        <div class="modal">
-            <div class="modal__inner">
-                <div class="modal__inner-header">Khuyến mãi và mã giảm giá</div>
-                <div class="modal__inner-promotion">
-                    <div class="modal__inner-code">
-                        <input type="text" placeholder="Mã giảm giá/phiếu mua hàng">
-                    </div>
-                    <button>Áp dụng</button>
+        <!-- Modal -->
+        <div class="modal-cart">
+            <div class="modal-cart-dialog">
+                <div class="modal-cart-header">
+                    <h2>Khuyến mãi và mã giảm giá</h2>
+                    <i class="fa-solid fa-xmark closemodal"></i>
                 </div>
-                <ul class="modal__inner-list">
-                </ul>
-                <button class="modal__inner-close" >Đóng</button>
+
+                <div class="modal-cart-body" style="min-height: 450px;" >
+                    <div class="modal-cart-promotion">
+                        <div class="modal-cart-code">
+                            <input class="w-100" type="text" placeholder="Mã giảm giá/phiếu mua hàng">
+                        </div>
+                        <button class="btn disabled">Tìm kiếm</button>
+                    </div>
+
+                    <ul class="modal-cart-list">
+                        <li class="modal-promo-item" >
+                            <div class="modal-promo-name d-flex align-items-center" >
+                                <div class="modal-promo-code">KM0012</div>
+                                <div class="modal-promo-name2 ms-2" style="font-weight: 500;">Khuyến mãi siêu sốc</div>
+                            </div>
+                            <div class="modal-promo-percent mt-2 mb-2" >
+                                Giảm 20%
+                            </div>
+                            <div class="modal-promo-bottom d-flex justify-content-between">
+                                <div class="modal-promo-expiry" >HSD: 31/4/2024</div>
+                                <div class="modal-promo-add" >Áp dụng</div>
+                            </div>
+                        </li>
+                        <li class="modal-promo-item" >
+                            <div class="modal-promo-name d-flex align-items-center" >
+                                <div class="modal-promo-code">KM0012</div>
+                                <div class="modal-promo-name2 ms-2" style="font-weight: 500;">Khuyến mãi siêu sốc</div>
+                            </div>
+                            <div class="modal-promo-percent mt-2 mb-2" >
+                                Giảm 20%
+                            </div>
+                            <div class="modal-promo-bottom d-flex justify-content-between">
+                                <div class="modal-promo-expiry" >HSD: 31/4/2024</div>
+                                <div class="modal-promo-add" >Áp dụng</div>
+                            </div>
+                        </li>
+                        <li class="modal-promo-item" >
+                            <div class="modal-promo-name d-flex align-items-center" >
+                                <div class="modal-promo-code">KM0012</div>
+                                <div class="modal-promo-name2 ms-2" style="font-weight: 500;">Khuyến mãi siêu sốc</div>
+                            </div>
+                            <div class="modal-promo-percent mt-2 mb-2" >
+                                Giảm 20%
+                            </div>
+                            <div class="modal-promo-bottom d-flex justify-content-between">
+                                <div class="modal-promo-expiry" >HSD: 31/4/2024</div>
+                                <div class="modal-promo-add" >Áp dụng</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="modal-cart-footer">
+                    <button class="btn btn-danger closemodal">Đóng</button>
+                </div>
             </div>
         </div>
-        <div class="cart-notify">
-            
-        </div>
-    </div> -->
+    </div>
 </div>
+
+<script>
+    var input = document.querySelector(".modal-cart-code input");
+    var button = document.querySelector(".modal-cart-promotion button");
+    input.addEventListener('input', function() {
+        if (input.value.trim() === '') {
+            button.classList.add('disabled');
+        } else {
+            button.classList.remove('disabled');
+        }
+    });
+
+    window.addEventListener('DOMContentLoaded', () => {
+        const listContainer = document.querySelector('.modal-cart-body');
+        const list = document.querySelector('.modal-cart-list');
+
+        const minHeight = parseInt(getComputedStyle(list).minHeight, 10);
+        const containerHeight = listContainer.offsetHeight;
+
+        if (containerHeight < minHeight) {
+            listContainer.style.overflow = 'initial'; // Không cần hiển thị thanh cuộn
+        }
+    });
+</script>
 
 <?php
     include "footer.php";

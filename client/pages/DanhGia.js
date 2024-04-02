@@ -1,5 +1,3 @@
-// import { getProductData } from 'SanPham.js';
-
 $(document).ready(() => {
     renderProducts()
 })

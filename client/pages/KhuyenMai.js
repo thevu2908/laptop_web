@@ -1,7 +1,5 @@
 $(document).ready(() => {
-    console.log("Khuyen mai")
     loadPromotionData()
-    console.log("Khuyen mai 2")
 })
 
 function loadPromotionData() {
