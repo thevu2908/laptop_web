@@ -1280,7 +1280,6 @@ ul, li {
 }
 
 .product-item {
-    width: 100%;
     margin-bottom: 16px;
 }
 
@@ -1353,10 +1352,10 @@ ul, li {
     color: #1b1b1b;
     margin-top: 0;
     margin-bottom: 0;
-    font-family: "Epilogue", sans-serif;
-    font-size: 1.125rem;
-    font-weight: 600;
-    line-height: 1.2em;
+    font-family: Roboto, Helvetica, Arial, sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: normal;
 }
 
 .product-detail {
@@ -1556,7 +1555,7 @@ ul, li {
     transform: rotate(45deg);
 }
 
-.product-list {
+.product-list-container {
     background-color: #fff;
     background-clip: border-box;
     padding-top: 10px;

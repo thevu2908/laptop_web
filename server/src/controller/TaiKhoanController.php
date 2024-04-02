@@ -73,7 +73,6 @@ class TaiKhoanController {
         echo json_encode($result);
     }
 }
-
 $taiKhoanCTL = new TaiKhoanController();
 $action = $_POST['action'];
 

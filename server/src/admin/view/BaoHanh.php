@@ -5,7 +5,7 @@
 				<div class="table-title">
 					<div class="row">
 						<div class="col-sm-6">
-							<h2>Quản Lý <b id="ad-NhomQuyen">Nhóm Quyền</b></h2>
+							<h2>Quản Lý <b id="ad-NhomQuyen">Bảo Hành</b></h2>
 						</div>
 						<div class="col-sm-6">
 							<a href="#" class="btn btn-secondary"><i class="material-icons">&#xE24D;</i> <span>Import
@@ -28,9 +28,9 @@
 									<label for="selectAll"></label>
 								</span>
 							</th>
-							<th>Mã Quyền</th>
-							<th>Tên Quyền</th>
-							<th>Status</th>
+							<th>Mã Phiếu Bảo Hành</th>
+							<th>Nhân Viên</th>
+							<th>Khách Hàng</th>
 							<th>Actions</th>
 						</tr>
 					</thead>
@@ -52,7 +52,7 @@
 			<div class="modal-content">
 				<form>
 					<div class="modal-header">
-						<h4 class="modal-title">Thêm Nhóm Quyền</h4>
+						<h4 class="modal-title">Thêm Phiếu Bảo Hành</h4>
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 					</div>
 					<div class="modal-body">

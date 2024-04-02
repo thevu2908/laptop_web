@@ -1,32 +1,93 @@
 $(document).ready(() => {
-    loadCPUData()
+    renderAdminCPU()
     handleAddCPU()
     renderDeleteCPUModal()
     handleDeleteCPU()
 })
 
-function loadCPUData() {
-    $.ajax({
-        url: 'server/src/controller/ChipXuLyController.php',
-        method: 'POST',
-        data: { action: 'load' },
-        dataType: 'JSON',
-        success: data => {
-            if (data && data.length > 0) {
-                let html = ''
-                
-                data.forEach(item => {
-                    html += `<option value="${item.ma_chip_xu_ly}">${item.ten_chip}</option>`
-                })
-
-                $('#admin-product-main #product-cpu').html(html)
-                $('#admin-product-main #product-cpu').selectpicker('refresh')
-
-                $('#admin-product-detail-main #product-cpu').html(html)
+function getCPUData() {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: 'server/src/controller/ChipXuLyController.php',
+            method: 'POST',
+            data: { action: 'load' },
+            dataType: 'JSON',
+            success: cpus => resolve(cpus),
+            error: (xhr, status, error) => {
+                console.log(error)
+                reject(error)
             }
-        },
-        error: (xhr, status, error) => console.log(error)
+        })
     })
+}
+
+async function renderAdminCPU() {
+    const cpus = await getCPUData()
+    if (cpus && cpus.length > 0) {
+        let html = ''
+        cpus.forEach(cpu => html += `<option value="${cpu.ma_chip_xu_ly}">${cpu.ten_chip}</option>`)
+        if ($('#admin-product-main #product-cpu').length > 0) {
+            $('#admin-product-main #product-cpu').html(html)
+            $('#admin-product-main #product-cpu').selectpicker('refresh')
+            $('#admin-product-detail-main #product-cpu').html(html)
+        }
+    }
+}
+
+function renderFilterCPU() {
+    $('.product-main .filter-cpu').html(`
+        <h5>CPU</h5>
+        <div class="filter-list row">
+            <div class="filter-item col-12">
+                <a href="index.php?san-pham" class="filter-item-link active">
+                    <i class="fa-regular fa-square"></i>
+                    Tất cả
+                </a>
+            </div>
+            <div class="filter-item col-12">
+                <a href="index.php?san-pham&cpu=intel-core-i3" class="filter-item-link">
+                    <i class="fa-regular fa-square"></i>
+                    Intel core i3
+                </a>
+            </div>
+            <div class="filter-item col-12">
+                <a href="index.php?san-pham&cpu=intel-core-i5" class="filter-item-link">
+                    <i class="fa-regular fa-square"></i>
+                    Intel core i5
+                </a>
+            </div>
+            <div class="filter-item col-12">
+                <a href="index.php?san-pham&cpu=intel-core-i7" class="filter-item-link">
+                    <i class="fa-regular fa-square"></i>
+                    Intel core i7
+                </a>
+            </div>
+            <div class="filter-item col-12">
+                <a href="index.php?san-pham&cpu=intel-core-i7" class="filter-item-link">
+                    <i class="fa-regular fa-square"></i>
+                    Intel core i9
+                </a>
+            </div>
+            <div class="filter-item col-12">
+                <a href="index.php?san-pham&cpu=amd-ryzen-3" class="filter-item-link">
+                    <i class="fa-regular fa-square"></i>
+                    AMD ryzen 3
+                </a>
+            </div>
+            <div class="filter-item col-12">
+                <a href="index.php?san-pham&cpu=amd-ryzen-5" class="filter-item-link">
+                    <i class="fa-regular fa-square"></i>
+                    AMD ryzen 5
+                </a>
+            </div>
+            <div class="filter-item col-12">
+                <a href="index.php?san-pham&cpu=amd-ryzen-7" class="filter-item-link">
+                    <i class="fa-regular fa-square"></i>
+                    AMD ryzen 7
+                </a>
+            </div>
+        </div>
+    `)
 }
 
 function addCPU(name) {
@@ -66,7 +127,7 @@ function handleAddCPU() {
                     alert('Thêm CPU mới thành công')
                     $('#addProductCPUModal').modal('hide')
                     $('.add-product-cpu-form').trigger('reset')
-                    loadCPUData()
+                    renderAdminCPU()
                 } else {
                     alert('Thêm CPU mới thất bại')
                 }
@@ -164,7 +225,7 @@ function handleDeleteCPU() {
             } else {
                 alert('Xóa CPU thành công')
                 $('#deleteProductCPUModal').modal('hide')
-                loadCPUData()
+                renderAdminCPU()
             }
         })
     })

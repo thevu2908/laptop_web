@@ -1,27 +1,94 @@
 $(document).ready(() => {
-    loadBrandData()
+    renderAdminBrand()
+    renderMoreBrand()
     handleAddBrand()
     renderDeleteBrandModal()
     handleDeleteBrand()
 })
 
-function loadBrandData() {
-    $.ajax({
-        url: 'server/src/controller/ThuongHieuController.php',
-        method: 'POST',
-        data: { action: 'load' },
-        dataType:'JSON',
-        success: brands => {
-            let html = ''
-            if (brands && brands.length > 0) {
-                brands.forEach((brand, index) => {
-                    html += `<option value="${brand.ma_thuong_hieu}">${brand.ten_thuong_hieu}</option>`
-                })
-
-                $('#admin-product-main #product-brand').html(html)
+function getBrandData() {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: 'server/src/controller/ThuongHieuController.php',
+            method: 'POST',
+            data: { action: 'load' },
+            dataType: 'JSON',
+            success: brands => resolve(brands),
+            error: (jqXHR, textStatus, error) => {
+                console.log(error)
+                reject(error)
             }
-        },
-        error: (jqXHR, textStatus, error) => console.log(error)
+        })
+    })
+
+}
+
+async function renderAdminBrand() {
+    const brands = await getBrandData()
+    if (brands && brands.length > 0) {
+        let html = ''
+        brands.forEach(brand => html += `<option value="${brand.ma_thuong_hieu}">${brand.ten_thuong_hieu}</option>`)
+        $('#admin-product-main #product-brand').html(html)
+    }
+}
+
+async function renderFilterBrand() {
+    const brands = await getBrandData()
+    if (brands && brands.length > 0) {
+        let html = `
+            <h5>Hãng sản xuất</h5>
+            <div class="filter-list row">
+                <div class="filter-item col-6">
+                    <a href="index.php?san-pham" class="filter-item-link active">
+                        <i class="fa-regular fa-square"></i>
+                        Tất cả
+                    </a>
+                </div>
+        `
+        
+        for (let index in brands) {
+            html += `
+                <div class="filter-item col-6">
+                    <a href="index.php?san-pham&loai=${brands[index].ten_thuong_hieu.toLowerCase()}" class="filter-item-link">
+                        <i class="fa-regular fa-square"></i>
+                        ${brands[index].ten_thuong_hieu}
+                    </a>
+                </div>
+            `
+            if (index > 5) break
+        }
+
+        if (brands.length > 7) {
+            html += `
+                    <div class="filter-item col-12 text-center show-more-brand-container">
+                        <a class="btn-show-more-brand link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Xem thêm</a>
+                    </div>
+                </div>
+            `
+        } else {
+            html += `</div>`
+        }
+        
+        $('.product-main .filter-brand').html(html)
+    }
+}
+
+function renderMoreBrand() {
+    $(document).on('click', '.product-main .btn-show-more-brand', async () => {
+        const brands = await getBrandData()
+        let html = ''
+        for (let i = 7; i < brands.length; i++) {
+            html += `
+                <div class="filter-item col-6">
+                    <a href="index.php?san-pham&loai=${brands[i].ten_thuong_hieu.toLowerCase()}" class="filter-item-link">
+                        <i class="fa-regular fa-square"></i>
+                        ${brands[i].ten_thuong_hieu}
+                    </a>
+                </div
+            `
+        }
+        $('.product-main .show-more-brand-container').remove()
+        $('.product-main .filter-brand .filter-list').append(html)
     })
 }
 
@@ -61,7 +128,7 @@ function handleAddBrand() {
                     alert('Thêm thương hiệu thành công')
                     $('#addProductBrandModal').modal('hide')
                     $('.add-product-brand-form').trigger('reset')
-                    loadBrandData()
+                    renderAdminBrand()
                 } else {
                     alert('Thêm thương hiệu thất bại')
                     console.log(res)
@@ -102,7 +169,7 @@ function handleDeleteBrand() {
                 if (res) {
                     alert('Xóa thương hiệu thành công')
                     $('#deleteProductBrandModal').modal('hide')
-                    loadBrandData()
+                    renderAdminBrand()
                 } else {
                     alert('Xóa thương hiệu thất bại')
                 }
@@ -149,16 +216,6 @@ function renderDeleteBrandModal() {
             })
             .catch(error => console.log(error))
     })
-}
-
-function renderBrandName(brandId, index) {
-    getBrand(brandId)
-        .then(brand => {
-            if (brand) {
-                $(`.admin-product-type-name-${index}`).append(brand.ten_thuong_hieu)
-            }
-        })
-        .catch(error => console.log(error))
 }
 
 function getBrandId(name) {

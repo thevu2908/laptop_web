@@ -52,7 +52,7 @@
 						</tr>
 					</thead>
 					<tbody class="admin-product-list">
-
+						
 					</tbody>
 				</table>
 				<div class="clearfix">

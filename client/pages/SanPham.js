@@ -1,5 +1,5 @@
 $(document).ready(() => {
-    renderAdminProductTable()
+    renderProducts()
     handleAddProduct()
     renderUpdateProductModal()
     handleUpdateProduct()
@@ -19,9 +19,53 @@ function getProductData() {
             method: 'POST',
             data: { action: 'get-data' },
             dataType: 'JSON',
-            success: data => {
-                if (data && data.length > 0) {
-                    resolve(data)
+            success: async products => {
+                if (products && products.length > 0) {
+                    for (let product of products) {
+                        const plugs = await getProductDetailPlug(product.ma_ctsp)
+                        product.plugs = plugs.map(plug => plug.ten_cong)
+                    }
+
+                    const newProducts = Object.values(products.reduce((acc, current) => {
+                        if (!acc[current.ma_sp]) {
+                            acc[current.ma_sp] = {
+                                id: current.ma_sp,
+                                name: current.ten_sp,
+                                keyboard: current.ban_phim,
+                                material: current.chat_lieu,
+                                screen: current.kich_co_man_hinh,
+                                resolution: current.do_phan_giai,
+                                importPrice: current.gia_nhap,
+                                chietkhau: current.chiet_khau,
+                                price: current.gia_ban,
+                                image: current.hinh_anh,
+                                battery: current.pin,
+                                os: current.ten_hdh,
+                                weight: current.trong_luong,
+                                type: current.ten_loai,
+                                brand: current.ten_thuong_hieu,
+                                origin: current.xuat_xu,
+                                quantity: current.so_luong_ton,
+                                detail: []
+                            }
+                        }
+                
+                        acc[current.ma_sp].detail.push(
+                            { 
+                                id: current.ma_ctsp,
+                                color: current.ten_mau,
+                                cpu: current.ten_chip,
+                                gpu: current.ten_card,
+                                ram: current.ram,
+                                rom: current.rom,
+                                plugs: current.plugs
+                            }
+                        )
+                
+                        return acc
+                    }, {}))
+
+                    resolve(newProducts)
                 } else {
                     resolve(null)
                 }
@@ -50,20 +94,17 @@ function getProduct(productId) {
     })
 }
 
-function getProductInfo(productId) {
-    return new Promise((resolve, reject) => {
-        $.ajax({
-            url: 'server/src/controller/SanPhamController.php',
-            method: 'POST',
-            data: { action: 'get-info', productId },
-            dataType: 'JSON',
-            success: product => resolve(product),
-            error: (xhr, status, error) => {
-                console.log(error)
-                reject(error)
-            }
-        })
-    })
+function renderProducts() {
+    const urlParams = new URLSearchParams(window.location.search)
+    if (window.location.pathname === '/admin.php') {
+        renderAdminProductTable()
+    } else if (window.location.pathname === '/index.php') {
+        if (urlParams.has('san-pham')) {
+            renderEndUserProduct()
+        } else {
+            renderHomePageProduct()
+        }
+    }
 }
 
 function renderProductName(productId) {
@@ -75,47 +116,270 @@ function renderProductName(productId) {
 
 function renderAdminProductTable() {
     getProductData()
-        .then(data => {
+        .then(products => {
             let html = ''
 
-            if (data) {
-                data.forEach((item, index) => {
+            if (products) {
+                products.forEach((product, index) => {
                     html += `
                         <tr>
                             <td>
                                 <span class="custom-checkbox">
-                                    <input type="checkbox" id="checkbox-${item.ma_sp}" name="chk[]" value="${item.ma_sp}">
-                                    <label for="checkbox-${item.ma_sp}"></label>
+                                    <input type="checkbox" id="checkbox-${product.id}" name="chk[]" value="${product.id}">
+                                    <label for="checkbox-${product.id}"></label>
                                 </span>
                             </td>
-                            <td>${item.ma_sp}</td>
-                            <td>${item.ten_sp}</td>
-                            <td class="admin-product-type-name-${index}"></td>
-                            <td>${item.gia_nhap}</td>
-                            <td>${item.chiet_khau}</td>
-                            <td>${item.gia_ban}</td>
-                            <td>${item.so_luong_ton}</td>
+                            <td>${product.id}</td>
+                            <td>${product.name}</td>
+                            <td>${product.brand}</td>
+                            <td>${product.importPrice}</td>
+                            <td>${product.chietkhau}</td>
+                            <td>${product.price}</td>
+                            <td>${product.quantity}</td>
                             <td>
-                                <a href="#editProductModal" class="edit btn-update-product-modal" data-toggle="modal" data-id=${item.ma_sp}>
+                                <a href="#editProductModal" class="edit btn-update-product-modal" data-toggle="modal" data-id=${product.id}>
                                     <i class="material-icons" data-toggle="tooltip" title="Sửa thông tin">&#xE254;</i>
                                 </a>
-                                <a href="#deleteProductModal" class="delete btn-delete-product-modal" data-toggle="modal" data-id=${item.ma_sp}>
+                                <a href="#deleteProductModal" class="delete btn-delete-product-modal" data-toggle="modal" data-id=${product.id}>
                                     <i class="material-icons" data-toggle="tooltip" title="Xóa">&#xE872;</i>
                                 </a>
-                                <a href="#viewProductModal" class="view btn-view-product-modal" title="View" data-toggle="modal" data-id=${item.ma_sp}>
+                                <a href="#viewProductModal" class="view btn-view-product-modal" title="View" data-toggle="modal" data-id=${product.id}>
                                     <i class="material-icons" data-toggle="tooltip" title="Xem thông tin">&#xE417;</i>
                                 </a>
                             </td>
                         </tr>
                     `
-
-                    renderBrandName(item.ma_thuong_hieu, index)
                 })
             }
 
             $('.admin-product-list').html(html)
         })
         .catch(error => console.log(error))
+}
+
+async function renderHomePageProduct() {
+    const products = await getProductData()
+
+    if (products) {
+        let html = ''
+        
+        for (let index in products) {
+            const product = products[index]
+
+            html += `
+                <div class="product-item col-3">
+                    <a href="index.php?san-pham&id=1" class="product-item-link">
+                        <div class="product-image-wrapper">
+                            <img src="${product.image}">
+                        </div>
+                        <div class="product-info">
+                            <div class="product-price">
+                                <p class="product-price-number">₫${formatCurrency(product.price)}</p>
+                            </div>
+                            <div class="product-name">
+                                <p>${product.name} ${product.detail[0].ram} ${product.detail[0].rom}</p>
+                            </div>
+                            <div class="product-detail row">
+                                <span title="Màn hình" class="product-detail-info d-flex col-6">
+                                    <span class="material-symbols-outlined">
+                                        laptop_windows
+                                    </span>
+                                    ${product.screen}
+                                </span>
+                                <span title="CPU" class="product-detail-info d-flex col-6">
+                                    <span class="material-symbols-outlined">
+                                        memory
+                                    </span>
+                                    ${product.detail[0].cpu}
+                                </span>
+                                <span title="RAM" class="product-detail-info d-flex col-6">
+                                    <span class="material-symbols-outlined">
+                                        memory_alt
+                                    </span>
+                                    ${product.detail[0].ram}
+                                </span>
+                                <span title="Ổ cứng" class="product-detail-info d-flex col-6">
+                                    <span class="material-symbols-outlined">
+                                        hard_drive_2
+                                    </span>
+                                    SSD ${product.detail[0].rom}
+                                </span>
+                                <span title="Card đồ họa" class="product-detail-info d-flex col-6">
+                                    <span class="material-symbols-outlined">
+                                        developer_board
+                                    </span>
+                                    ${product.detail[0].gpu}
+                                </span>
+                                <span title="Trọng lượng" class="product-detail-info d-flex col-6">
+                                    <span class="material-symbols-outlined">
+                                        weight
+                                    </span>
+                                    ${product.weight} kg
+                                </span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            `
+
+            if (index >= 7) break
+        }
+
+        $('.content-product-list').html(html)
+    }
+}
+
+async function renderEndUserProduct() {
+    NProgress.start()
+    const products = await getProductData()
+
+    if (products) {
+        let html = ''
+
+        products.forEach(product => {
+            html += `
+                <div class="product-item col-4">
+                    <a href="index.php?san-pham&id=123" class="product-item-link">
+                        <div class="product-image-wrapper">
+                            <img src="${product.image}">
+                        </div>
+                        <div class="product-info">
+                            <div class="product-price">
+                                <p class="product-price-number">₫${formatCurrency(product.price)}</p>
+                            </div>
+                            <div class="product-name">
+                                <p>${product.name} ${product.detail[0].ram} ${product.detail[0].rom}</p>
+                            </div>
+                            <div class="product-detail row">
+                                <span title="Màn hình" class="product-detail-info d-flex col-6">
+                                    <span class="material-symbols-outlined">
+                                        laptop_windows
+                                    </span>
+                                    ${product.screen}
+                                </span>
+                                <span title="CPU" class="product-detail-info d-flex col-6">
+                                    <span class="material-symbols-outlined">
+                                        memory
+                                    </span>
+                                    ${product.detail[0].cpu}
+                                </span>
+                                <span title="RAM" class="product-detail-info d-flex col-6">
+                                    <span class="material-symbols-outlined">
+                                        memory_alt
+                                    </span>
+                                    ${product.detail[0].ram}
+                                </span>
+                                <span title="Ổ cứng" class="product-detail-info d-flex col-6">
+                                    <span class="material-symbols-outlined">
+                                        hard_drive_2
+                                    </span>
+                                    SSD ${product.detail[0].rom}
+                                </span>
+                                <span title="Card đồ họa" class="product-detail-info d-flex col-6">
+                                    <span class="material-symbols-outlined">
+                                        developer_board
+                                    </span>
+                                    ${product.detail[0].gpu}
+                                </span>
+                                <span title="Trọng lượng" class="product-detail-info d-flex col-6">
+                                    <span class="material-symbols-outlined">
+                                        weight
+                                    </span>
+                                    ${product.weight} kg
+                                </span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            `
+        })
+
+        renderEndUserProductFilter()
+        $('.product-main .product-list').html(html)
+        renderFooter()
+        NProgress.done()
+    }
+}
+
+function renderEndUserProductFilter() {
+    $('.product-main .sort-filter').html(`
+        <div class="d-flex align-items-center sort-filter-container show-sort-filter">
+            <i class="fa-solid fa-filter"></i>
+            <div class="sort-filter-list">
+                <p class="sort-filter-item-default">Mặc định</p>
+                <ul class="sort-filter-menu">
+                    <li class="sort-filter-item active">
+                        <a class="sort-filter-item-link" href="index.php?san-pham&sort=default">Mặc định</a>
+                    </li>
+                    <li class="sort-filter-item">
+                        <a class="sort-filter-item-link" href="index.php?san-pham&sort=ban-chay">Bán chạy</a>
+                    </li>
+                    <li class="sort-filter-item">
+                        <a class="sort-filter-item-link" href="index.php?san-pham&sort=gia-cao-thap">Giá từ cao đến thấp</a>
+                    </li>
+                    <li class="sort-filter-item">
+                        <a class="sort-filter-item-link" href="index.php?san-pham&sort=gia-thap-cao">Giá từ thấp đến cao</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    `)
+
+    renderFilterBrand()
+
+    $('.product-main .filter-price').html(`
+        <h5>Mức giá</h5>
+        <div class="filter-list row">
+            <div class="filter-item col-12">
+                <a href="index.php?san-pham" class="filter-item-link active">
+                    <i class="fa-regular fa-square"></i>
+                    Tất cả
+                </a>
+            </div>
+            <div class="filter-item col-12">
+                <a href="index.php?san-pham&muc-gia=duoi-10-trieu" class="filter-item-link">
+                    <i class="fa-regular fa-square"></i>
+                    Dưới 10 triệu
+                </a>
+            </div>
+            <div class="filter-item col-12">
+                <a href="index.php?san-pham&muc-gia=tu-10-15-trieu" class="filter-item-link">
+                    <i class="fa-regular fa-square"></i>
+                    Từ 10 - 15 triệu
+                </a>
+            </div>
+            <div class="filter-item col-12">
+                <a href="index.php?san-pham&muc-gia=tu-15-20-trieu" class="filter-item-link">
+                    <i class="fa-regular fa-square"></i>
+                    Từ 15 - 20 triệu
+                </a>
+            </div>
+            <div class="filter-item col-12">
+                <a href="index.php?san-pham&muc-gia=tu-20-25-trieu" class="filter-item-link">
+                    <i class="fa-regular fa-square"></i>
+                    Từ 20 - 25 triệu
+                </a>
+            </div>
+            <div class="filter-item col-12">
+                <a href="index.php?san-pham&muc-gia=tren-25-trieu" class="filter-item-link">
+                    <i class="fa-regular fa-square"></i>
+                    Trên 25 triệu
+                </a>
+            </div>
+        </div>
+    `)
+
+    renderFilterCPU()
+}
+
+async function renderFooter() {
+    try {
+        const footerResponse = await fetch('server/src/view/footer.php');
+        const footerHtml = await footerResponse.text();
+        $('#footer-main').html(footerHtml);
+    } catch (error) {
+        console.error(error);
+    }
 }
 
 function validateProductEmpty(product) {
@@ -530,6 +794,31 @@ function renderViewProductModal() {
 
         if (productId) {
             const product = await getProduct(productId)
+            const productDetails = await getProductDetailByProductId(product.ma_sp)
+            const plugs = await getProductPlugs(productId)
+
+            let colors = [], cpus = [], gpus = [], rams = [], roms = []
+            productDetails.forEach(productDetail => {
+                colors.push(productDetail.ten_mau)
+                cpus.push(productDetail.ten_chip)
+                gpus.push(productDetail.ten_card)
+                rams.push(productDetail.ram)
+                roms.push(productDetail.rom)
+            })
+
+            colors = [...new Set(colors)]
+            cpus = [...new Set(cpus)]
+            gpus = [...new Set(gpus)]
+            rams = [...new Set(rams)]
+            roms = [...new Set(roms)]
+
+            const colorHtml = colors.map(color => color).join(', ')
+            const cpuHtml = cpus.map(cpu => `<li>${cpu}</li>`).join('')
+            const gpuHtml = gpus.map(gpu => `<li>${gpu}</li>`).join('')
+            const ramHtml = rams.map(ram => ram).join(', ')
+            const romHtml = roms.map(rom => rom).join(', ')
+            const plugHtml = plugs.map(plug => `<li>${plug}</li>`).join('')
+
             $('#viewProductModal .product-id').text(product.ma_sp)
             $('#viewProductModal .upload-box').css('display', 'flex')
             $('#viewProductModal .preview-img').attr('src', product.hinh_anh)
@@ -548,29 +837,11 @@ function renderViewProductModal() {
             $('#viewProductModal .product-chietkhau').text(product.chiet_khau)
             $('#viewProductModal .product-price').text(product.gia_ban)
             $('#viewProductModal .product-quantity').text(product.so_luong_ton)
-
-            const colors = await getProductDetailColors(productId)
-            const colorHtml = colors.map(color => color).join(', ')
             $('#viewProductModal .product-color').html(colorHtml)
-
-            const cpus = await getProductDetailCPUs(productId)
-            const cpuHtml = cpus.map(cpu => `<li>${cpu}</li>`).join('')
             $('#viewProductModal .product-cpu').html(cpuHtml)
-
-            const gpus = await getProductDetailGPUs(productId)
-            const gpuHtml = gpus.map(gpu => `<li>${gpu}</li>`).join('')
             $('#viewProductModal .product-gpu').html(gpuHtml)
-
-            const rams = await getProductDetailRAMs(productId)
-            const ramHtml = rams.map(ram => ram).join(', ')
             $('#viewProductModal .product-ram').html(ramHtml)
-
-            const roms = await getProductDetailROMs(productId)
-            const romHtml = roms.map(rom => rom).join(', ')
             $('#viewProductModal .product-rom').html(romHtml)
-
-            const plugs = await getProductPlugs(productId)
-            const plugHtml = plugs.map(plug => `<li>${plug}</li>`).join('')
             $('#viewProductModal .product-plug').html(plugHtml)
         }
     })
@@ -595,21 +866,21 @@ function importExcel() {
                 const sheetName = workbook.SheetNames[0]
                 const sheet = workbook.Sheets[sheetName]
                 const range = XLSX.utils.decode_range(sheet['!ref'])
-    
+
                 let products = []
                 const titles = [
                     'productName', 'origin', 'brandId', 'typeId', 'weight', 'colors', 'material', 'cpus',
                     'rams', 'roms', 'screen', 'resolution', 'gpus', 'plugs', 'keyboard', 'battery', 'osId'
                 ]
-    
+
                 for (let i = range.s.r + 1; i <= range.e.r; i++) {
                     let product = {}
-    
+
                     for (let j = range.s.c; j <= range.e.c; j++) {
                         if (i == 1) continue
                         else {
                             const cellValue = getCellValue(sheet, i, j)
-    
+
                             if (titles[j] === 'colors' || titles[j] === 'cpus' || titles[j] === 'gpus' || titles[j] === 'rams' || titles[j] === 'roms' || titles[j] === 'plugs') {
                                 if (cellValue.toString().includes(',')) {
                                     let arrays = cellValue.split(',')
@@ -623,10 +894,10 @@ function importExcel() {
                             }
                         }
                     }
-    
+
                     if (Object.keys(product).length > 0) products.push(product)
                 }
-    
+
                 for (let product of products) {
                     product.brandId = await handleImportBrand(product.brandId)
                     product.typeId = await handleImportType(product.typeId)
@@ -634,7 +905,7 @@ function importExcel() {
                     for (let index in product.cpus) product.cpus[index] = await handleImportCPU(product.cpus[index])
                     for (let index in product.gpus) product.gpus[index] = await handleImportGPU(product.gpus[index])
                     for (let index in product.plugs) product.plugs[index] = await handleImportPlug(product.plugs[index])
-    
+
                     for (let index in product.colors) {
                         product.colors[index] = await getColorId(product.colors[index])
                         if (!product.colors[index]) {
@@ -643,10 +914,10 @@ function importExcel() {
                         }
                     }
                 }
-    
+
                 const addProductPromises = products.map(product => addProduct(product))
                 const res = await Promise.all(addProductPromises)
-    
+
                 if (!res.includes(false)) {
                     alert('Thêm các sản phẩm từ file excel thành công')
                     $('form').trigger('reset')
@@ -671,19 +942,16 @@ function exportExcel() {
         try {
             const products = await getProductData()
             let excelDatas = []
-    
-            for (let product of products) {
-                const info = await getProductInfo(product.ma_sp)
-                const productDetails = await getProductDetailByProductId(product.ma_sp)
-                const plugs = await getProductPlugs(product.ma_sp)
 
-                let colors = [], cpus = [], gpus = [], rams = [], roms = []
-                productDetails.forEach(productDetail => {
-                    colors.push(productDetail.ten_mau)
-                    cpus.push(productDetail.ten_chip)
-                    gpus.push(productDetail.ten_card)
+            products.forEach(product => {
+                let colors = [], cpus = [], gpus = [], rams = [], roms = [], plugs = []
+                product.detail.forEach(productDetail => {
+                    colors.push(productDetail.color)
+                    cpus.push(productDetail.cpu)
+                    gpus.push(productDetail.gpu)
                     rams.push(productDetail.ram)
                     roms.push(productDetail.rom)
+                    plugs.push(productDetail.plugs)
                 })
 
                 colors = [...new Set(colors)]
@@ -691,6 +959,7 @@ function exportExcel() {
                 gpus = [...new Set(gpus)]
                 rams = [...new Set(rams)]
                 roms = [...new Set(roms)]
+                plugs = [...new Set(plugs.flatMap(plug => plug))]
 
                 const colorName = colors.map(color => color).join(', ')
                 const cpuName = cpus.map(cpu => cpu).join(', ')
@@ -698,30 +967,30 @@ function exportExcel() {
                 const ramName = rams.map(ram => ram).join(', ')
                 const romName = roms.map(rom => rom).join(', ')
                 const plugName = plugs.map(plug => plug).join(', ')
-    
+
                 excelDatas.push({
-                    'Mã sản phẩm': product.ma_sp,
-                    'Tên sản phẩm': product.ten_sp,
-                    'Thương hiệu': info.ten_thuong_hieu,
-                    'Loại sản phẩm': info.ten_loai,
-                    'Giá nhập': product.gia_nhap,
-                    'Chiết khấu': product.chiet_khau,
-                    'Giá bán': product.gia_ban,
-                    'Số lượng tồn': product.so_luong_ton,
+                    'Mã sản phẩm': product.id,
+                    'Tên sản phẩm': product.name,
+                    'Thương hiệu': product.brand,
+                    'Loại sản phẩm': product.type,
+                    'Giá nhập': product.importPrice,
+                    'Chiết khấu': product.chietkhau,
+                    'Giá bán': product.price,
+                    'Số lượng tồn': product.quantity,
                     'CPU': cpuName,
                     'Card đồ họa': gpuName,
                     'RAM': ramName,
                     'Bộ nhớ': romName,
                     'Màu sắc': colorName,
                     'Cổng kết nối': plugName,
-                    'Xuất xứ': product.xuat_xu,
-                    'Trọng lượng': product.trong_luong,
-                    'Chất liệu': product.chat_lieu,
-                    'Kích cỡ màn hình': product.kich_co_man_hinh,
-                    'Hệ điều hành': info.ten_hdh,
+                    'Xuất xứ': product.origin,
+                    'Trọng lượng': product.weight,
+                    'Chất liệu': product.material,
+                    'Kích cỡ màn hình': product.screen,
+                    'Hệ điều hành': product.os,
                 })
-            }
-    
+            })
+
             const ws = XLSX.utils.json_to_sheet(excelDatas)
             const wb = XLSX.utils.book_new();
             XLSX.utils.book_append_sheet(wb, ws, "Sheet1")
@@ -739,7 +1008,7 @@ function searchProduct() {
     $(document).on('keyup', '.admin-search-info', e => {
         const info = e.target.value.toLowerCase()
 
-        $('.admin-product-table tr').each(function(index) {
+        $('.admin-product-table tr').each(function (index) {
             if (index !== 0) {
                 $row = $(this)
 

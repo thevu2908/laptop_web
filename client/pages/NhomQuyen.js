@@ -1,6 +1,15 @@
+
 $(document).ready(function(){
-    loadNhomQuyenData();
-    loadNhomQuyenDataAccount();
+    loadNhomQuyen();
+    $(document).on("click", "ul.pagination li a", function (e) {
+        e.preventDefault();
+        var $this = $(this);
+        const pagenum = $this.data("page");
+        $("#currentpage").val(pagenum);
+        loadNhomQuyen();
+        $this.parent().siblings().removeClass("active");
+        $this.parent().addClass("active");
+    });
     addNhomQuyen();
     deleteNhomQuyen();
     updateNhomQuyen();
@@ -8,8 +17,7 @@ $(document).ready(function(){
     searchNhomQuyen();
     detailNhomQuyen();
 })
-
-function addNhomQuyen() {
+function addNhomQuyen(){
     $(document).on('click',"#addNhomQuyen",function(){
         var ma_nhomquyen=$("#ma_quyen").val();
         var ten_nhomquyen=$("#ten_quyen").val();
@@ -30,48 +38,83 @@ function addNhomQuyen() {
                     console.log(data);
                     $("form").trigger('reset');
                     $("#addNhomQuyen").modal("hide");
-                    loadNhomQuyenData();
+                    loadNhomQuyen();
                 }
             })
         }
     })
 }
-
-function loadNhomQuyenData() {
-    var tmp="Load";
+function loadNhomQuyen(){
+    var pageno = $("#currentpage").val();
     $.ajax({
-        url:"server/src/controller/NhomQuyenController.php",
-        method:"POST",
-        data:{action:tmp},
+        url: "server/src/controller/PanigationController.php",
+        data: {action:"panigation", page: pageno,table:"nhomquyen"},
+        method: "GET",
+        dataType: "json",
         success:function(data){
-            var html="";
-            if (data) {
-                var jsonData=JSON.parse(data);
-                if(data.length>0){
-                    jsonData.forEach((nhomquyen,index) => {
-                        html+=`<tr>
-                        <td>
-                            <span class="custom-checkbox">
-                                <input type="checkbox" id="checkbox1" name="chk[]" value="1">
-                                <label for="checkbox1"></label>
-                            </span>
-                        </td>
-                        <td>${nhomquyen['ma_quyen']}</td>
-                        <td>${nhomquyen['ten_quyen']}</td>
-                        <td><span class="status text-success">&bull;</span> Active</td>
-                        <td>
-                            <a id="btnUp" href="#editNhomQuyen" class="edit" data-toggle="modal" data-id=${nhomquyen['ma_quyen']}><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                            <a id="btnDel" href="#deleteNhomQuyen" class="delete" data-toggle="modal" data-id1=${nhomquyen['ma_quyen']}><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-                            <a id="btnDetail" href="#detailNhomQuyen" class="view" data-id2=${nhomquyen['ma_quyen']} data-toggle="modal"><i class="material-icons">&#xE417;</i></a>
-                            <a href="#" class="Status" title="Status"><input type="checkbox" checked data-toggle="toggle" data-onstyle="danger" data-height=""></a>
-                        </td>
-                    </tr>`
-                    });
-                }
-            }
-            $("#show-listNhomQuyen").html(html);
+            render(data);
         }
     }) 
+}
+function searchNhomQuyen(){
+    $(document).on("keyup","#search",function(){
+        var search=$(this).val();
+        console.log(search);
+        $.ajax({
+            url:"server/src/controller/NhomQuyenController.php",
+            method:"POST",
+            data:{action:"Search",search:search},
+            success:function(data){
+                render(data);
+            }
+        })
+    })
+}
+function render(data){
+    var html="";
+    //console.log(data);
+    if (true) {
+        var jsonData=data.panigation;
+        
+            jsonData.forEach((nhomquyen,index) => {
+                html+=`<tr>
+                <td>
+                    <span class="custom-checkbox">
+                        <input type="checkbox" id="checkbox1" name="chk[]" value="1">
+                        <label for="checkbox1"></label>
+                    </span>
+                </td>
+                <td>${nhomquyen['ma_quyen']}</td>
+                <td>${nhomquyen['ten_quyen']}</td>
+                <td><span class="status text-success">&bull;</span> Active</td>
+                <td id="container">
+                    <a id="btnUp" href="#editNhomQuyen" class="edit" data-toggle="modal" data-id=${nhomquyen['ma_quyen']}><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                    <a id="btnDel" href="#deleteNhomQuyen" class="delete" data-toggle="modal" data-id1=${nhomquyen['ma_quyen']}><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                    <a id="btnDetail" href="#detailNhomQuyen" class="view" data-id2=${nhomquyen['ma_quyen']} data-toggle="modal"><i class="material-icons">&#xE417;</i></a>
+                </td>
+            </tr>`
+            });
+    }
+    $("#show-listNhomQuyen").html(html);
+    // $.ajax({
+    //     url:"server/src/controller/CTQuyenController.php",
+    //     data:{action:"kiemtra" ,maquyen:$("#ad-maquyen").val(),machucnang:"CN002"},
+    //     method:"POST",
+    //     success:function(data){
+    //         var jsonData = JSON.parse(data);
+    //         console.log(jsonData);
+    //         jsonData.some(item => item.hanh_dong === "Thêm")?$(".btn.btn-success.add").show():$(".btn.btn-success.add").hide();
+    //         jsonData.some(item => item.hanh_dong === "Xóa")?$(".delete").show():$(".delete").hide();
+    //         jsonData.some(item => item.hanh_dong === "Sửa")?$(".edit").show():$(".edit").hide();
+    //     }
+    // })
+    // phanquyen("CN002")
+    // totalPage(data.count);
+    // let total = data.count;
+    // console.log(total);
+    // let totalpages = Math.ceil(parseInt(total) / 4);
+    // const currentpage = $("#currentpage").val();
+    // pagination(totalpages, currentpage);
 }
 
 function loadNhomQuyenDataAccount() {
@@ -81,18 +124,16 @@ function loadNhomQuyenDataAccount() {
         data:{ action: 'Load' },
         success: data => {
             if (data && data.length > 0) {
-                let html = ''
+                let html = '';
                 const jsonData = JSON.parse(data);
 
                 jsonData.forEach((nhomquyen, index) => {
-                    const selected = index === 1 ? 'selected' : ''
-                    const disabled = index === 0 ? 'disabled' : ''
-                    html += `<option value='${nhomquyen['ma_quyen']}' ${selected} ${disabled}>${nhomquyen['ten_quyen']}</option>`
+                    const selected = index === 0 ? 'selected' : '';
+                    html += `<option value='${nhomquyen['ma_quyen']}' ${selected}>${nhomquyen['ten_quyen']}</option>`
                 })
 
-                $("#admin-account-access").html(html)
-                $("#admin-account-access-edit").html(html)
-                $("#admin-account-access-view").html(html)
+                $("#admin-account-access").html(html);
+                $("#admin-account-access-edit").html(html);
             }
         }
     }) 
@@ -100,7 +141,7 @@ function loadNhomQuyenDataAccount() {
 
 function deleteNhomQuyen() {
     $(document).on("click","#btnDel",function(){
-        var id=$(this).attr("data-id1");
+        console.log(id);
         $("#deleteNhomQuyen").modal('show');
         $(document).on("click","#btnDelete",function(){
             $.ajax({
@@ -109,26 +150,26 @@ function deleteNhomQuyen() {
                 data:{id:id,action:"Delete"},
                 success:function(data){
                     $("#deleteNhomQuyen").modal('hide');
-                    loadData();
+                    loadNhomQuyen();
                 }
             })
         })
     })
 }
-
-function getNhomQuyen() {
+function getNhomQuyen(){
     $(document).on("click","#btnUp",function(){
-        var id=$(this).attr("data-id");
-        $.ajax({
-            url:"server/src/controller/NhomQuyenController.php",
-            method:"POST",
-            data:{action:"Get",id:id},
-            dataType:"JSON",
-            success:function(data){
-                $("#maquyen").val(data.ma_quyen);
-                $("#tenquyen").val(data.ten_quyen);
-            }
-        })
+            var id=$(this).attr("data-id");
+            $.ajax({
+                url:"server/src/controller/NhomQuyenController.php",
+                method:"POST",
+                data:{action:"Get",id:id},
+                dataType:"JSON",
+                success:function(data){
+                    $("#maquyen").val(data.ma_quyen);
+                    $("#tenquyen").val(data.ten_quyen);
+                    
+                }
+            })
     })
 }
 
@@ -139,8 +180,8 @@ function showTenNhomQuyenAccount(id, index) {
         data: { action: 'Get', id: id },
         dataType: 'JSON',
         success: data => {
-            if (data) {
-                $(`.admin-accounnt-accessname-${index}`).text(data.ten_quyen)
+            if (data && data.length > 0) {
+                $(`.admin-accounnt-accessname-${index}`).append(data['ten_quyen'])
             }
         }
     })
@@ -157,15 +198,16 @@ function updateNhomQuyen() {
             success:function(data){
                 $("form").trigger('reset');
                 $("#editNhomQuyen").modal('hide');
-                loadData();
+                loadNhomQuyen();
             }
         })
     })
 }
 
 function searchNhomQuyen() {
-    $(document).on("keyup",".admin-search-info",function(){
+    $(document).on("keyup","#search",function(){
         var search=$(this).val();
+        console.log(search);
         $.ajax({
             url:"server/src/controller/NhomQuyenController.php",
             method:"POST",
@@ -186,8 +228,8 @@ function searchNhomQuyen() {
                     <td>${nhomquyen['ten_quyen']}</td>
                     <td><span class="status text-success">&bull;</span> Active</td>
                     <td>
-                        <a id="btnUp" href="#editNhomQuyen" class="edit" data-toggle="modal" data-id=${nhomquyen['ma_quyen']}><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                        <a id="btnDel" href="#deleteNhomQuyen" class="delete" data-toggle="modal" data-id1=${nhomquyen['ma_quyen']}><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                        <a id="btnUp" href="#editNhomQuyen" class="edit" data-toggle="modal" data-id=${nhomquyen['ma_quyen']}><i class="material-icons" data-toggle="tooltip" title="Edit" id="editIcon">&#xE254;</i></a>
+                        <a id="btnDel" href="#deleteNhomQuyen" class="delete" data-toggle="modal" data-id1=${nhomquyen['ma_quyen']}><i class="material-icons" data-toggle="tooltip" title="Delete" id="deleteIcon">&#xE872;</i></a>
                         <a id="btnDetail" href="#detailNhomQuyen" class="view" title="View" data-id2=${nhomquyen['ma_quyen']} data-toggle="modal"><i class="material-icons">&#xE417;</i></a>
                         <a href="#" class="Status" title="Status"><input type="checkbox" checked data-toggle="toggle" data-onstyle="danger" data-height=""></a>
                     </td>
@@ -195,14 +237,13 @@ function searchNhomQuyen() {
                 });
             }
             $("#show-listNhomQuyen").html(html);
-            
             }
         })
     })
 }
 
 function detailNhomQuyen() {
-    $(document).on("click","#btnDetail",function(e){
+    $(document).on("click","#btnDetail",function(){
         var id=$(this).attr("data-id2");
         console.log(id);
         $.ajax({
@@ -216,10 +257,8 @@ function detailNhomQuyen() {
                 
             }
         })
-    })
+})
 }
-
-
 // function panigation(total,current){
 //     var pagelist = "";
 //     if (totalpages > 1) {

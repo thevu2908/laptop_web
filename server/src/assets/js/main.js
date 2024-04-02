@@ -129,6 +129,12 @@ if (backHomePage) {
     }, 1000)
 }
 
+// configre NProgress
+NProgress.configure({
+    showSpinner: false,
+    trickleSpeed: 50,
+})
+
 // open modal
 $('.openmodal').click((e) => {
     e.preventDefault();

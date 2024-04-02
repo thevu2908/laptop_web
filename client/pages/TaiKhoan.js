@@ -1,13 +1,13 @@
 $(document).ready(() => {
-    loadAccountData()
-    addAccount()
-    showUpdateAccountModal()
-    updateAccount()
-    showDeleteAccountModal()
-    deleteAccount()
-    showDeleteCheckedAccountModal()
-    showViewAccountModal()
-    searchAccount()
+    // loadAccountData()
+    // addAccount()
+    // showUpdateAccountModal()
+    // updateAccount()
+    // showDeleteAccountModal()
+    // deleteAccount()
+    // showDeleteCheckedAccountModal()
+    // showViewAccountModal()
+    // searchAccount()
 })
 
 function loadAccountData() {
@@ -19,8 +19,9 @@ function loadAccountData() {
         success: data => {
             if (data && data.length > 0) {
                 let html = ''
+                const jsonData = JSON.parse(data)
 
-                data.forEach((item, index) => {
+                jsonData.forEach((item, index) => {
                     html += `
                         <tr>
                             <td>
@@ -29,12 +30,13 @@ function loadAccountData() {
                                     <label for="checkbox-${item.ma_tk}"></label>
                                 </span>
                             </td>
-                            <td>${item.ma_tk}</td>
+                            <td>${item['ma_tk']}</td>
                             <td class="admin-accounnt-accessname-${index}"></td>
-                            <td>${item.username}</td>
+                            <td>${item['username']}</td>
+                            <td>${item['password']}</td>
                             <td>
-                                <a href="#editAccountModal" class="edit btn-update-account-modal" data-toggle="modal" data-id="${item.ma_tk}">
-                                    <i class="material-icons" data-toggle="tooltip" title="Sửa thông tin">&#xE254;</i>
+                                <a href="#editAccountModal" class="edit" data-toggle="modal" data-id=${item['ma_tk']}>
+                                    <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
                                 </a>
                                 <a href="#deleteAccountModal" class="delete btn-delete-account-modal" data-toggle="modal" data-id="${item.ma_tk}">
                                     <i class="material-icons" data-toggle="tooltip" title="Xóa">&#xE872;</i>
@@ -45,8 +47,8 @@ function loadAccountData() {
                             </td>
                         </tr>
                     `
-
-                    showTenNhomQuyenAccount(item['ma_quyen'], index)
+                    
+                    showTenNhomQuyenAccount(item['ma_quyen'], index);
                 })
 
                 $('.admin-account-list').html(html);

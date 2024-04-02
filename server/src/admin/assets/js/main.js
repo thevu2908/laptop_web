@@ -87,7 +87,7 @@ $(document).ready(function () {
   })
 
   // check all accounts
-  checkAllAccounts()
+  //checkAllAccounts()
 })
 
 function checkAllAccounts() {

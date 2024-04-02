@@ -11,8 +11,8 @@ class SanPhamController {
         $this->sanPhamRepo = new SanPhamRepo();
     }
 
-    public function getData() {
-        $products = $this->sanPhamRepo->getData();
+    public function getProducts() {
+        $products = $this->sanPhamRepo->getProducts();
         $result = [];
 
         foreach ($products as $product) {
@@ -25,15 +25,11 @@ class SanPhamController {
     }
 
     public function getAllProducts() {
-        echo json_encode($this->sanPhamRepo->getData());
+        echo json_encode($this->sanPhamRepo->getProducts());
     }
 
     public function getProduct($productId) {
         echo json_encode($this->sanPhamRepo->getProduct($productId));
-    }
-
-    public function getProductInfo($productId) {
-        echo json_encode($this->sanPhamRepo->getProductInfo($productId));
     }
 
     public function getProductsLength(): int {
@@ -89,7 +85,7 @@ $action = $_POST['action'];
 
 switch ($action) {
     case 'get-data':
-        $sanPhamCtl->getData();
+        $sanPhamCtl->getProducts();
         break;
     case 'get-all':
         $sanPhamCtl->getAllProducts();
@@ -97,10 +93,6 @@ switch ($action) {
     case 'get':
         $productId = $_POST['productId'];
         $sanPhamCtl->getProduct($productId);
-        break;
-    case 'get-info':
-        $productId = $_POST['productId'];
-        $sanPhamCtl->getProductInfo($productId);
         break;
     case 'add':
         $length = $sanPhamCtl->getProductsLength();

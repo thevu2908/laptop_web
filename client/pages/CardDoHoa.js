@@ -19,10 +19,11 @@ function loadGPUData() {
                     html += `<option value="${item.ma_card}">${item.ten_card}</option>`
                 })
 
-                $('#admin-product-main #product-gpu').html(html)
-                $('#admin-product-main #product-gpu').selectpicker('refresh')
-
-                $('#admin-product-detail-main #product-gpu').html(html)
+                if ($('#admin-product-main #product-gpu').length > 0) {
+                    $('#admin-product-main #product-gpu').html(html)
+                    $('#admin-product-main #product-gpu').selectpicker('refresh')
+                    $('#admin-product-detail-main #product-gpu').html(html)
+                }
             }
         },
         error: (xhr, status, error) => console.log(error)

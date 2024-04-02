@@ -5,21 +5,20 @@
 				<div class="table-title">
 					<div class="row">
 						<div class="col-sm-6">
-							<h2>Quản Lý <b>Tài Khoản</b></h2>
+							<h2>Quản Lý <b id="ad-PhanQuyen">Phân Quyền</b></h2>
+							<select class="form-select" aria-label="Default select example" id="admin-select-nhomquyen">
+                                
+                            </select>
 						</div>
 						<div class="col-sm-6">
-							<a href="#addEmployeeModal" class="btn btn-success add" data-toggle="modal">
-								<i class="material-icons">&#xE147;</i>
-								<span>Thêm</span>
-							</a>
-							<a href="#deleteEmployeeModal" class="btn btn-danger delete" data-toggle="modal">
-								<i class="material-icons">&#xE15C;</i>
-								<span>Xóa</span>
-							</a>
+							<a href="#" class="btn btn-secondary"><i class="material-icons">&#xE24D;</i> <span>Import Excel</span></a>
+							<a href="#" class="btn btn-secondary"><i class="material-icons">&#xE24D;</i> <span>Export Excel</span></a>
+							<a href="#addPhanQuyenModal" id="admin-add-phanquyen" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Thêm</span></a>
+							<a href="#deletePhanQuyenModal" class="btn btn-danger delete" data-toggle="modal" id="admin-delete-phanquyen"><i class="material-icons">&#xE15C;</i> <span>Xóa</span></a>
 						</div>
 					</div>
 				</div>
-				<table class="table table-striped table-hover">
+				<table class="table table-striped table-hover" id="mytable">
 					<thead>
 						<tr>
 							<th>
@@ -28,97 +27,73 @@
 									<label for="selectAll"></label>
 								</span>
 							</th>
-							<th>Mã nhân viên</th>
-							<th>Tên nhân viên</th>
-							<th>Tuổi</th>
-							<th>Số điện thoại</th>
-							<th>Actions</th>
+							<th>Nhóm Quyền</th>
+							<th>Chức Năng</th>
+							<th>Xem</th>
+							<th>Thêm</th>
+                            <th>Xóa</th>
+                            <th>Sửa</th>
 						</tr>
 					</thead>
-					<tbody class="admin-employee-list">
-						
+					<tbody id="show-ListPhanQuyen">
+                    
 					</tbody>
 				</table>
 				<div class="clearfix">
 					<div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
-					<ul class="pagination">
-						<li class="page-item disabled">
-							<a href="#">Previous</a>
-						</li>
-						<li class="page-item active">
-							<a href="#" class="page-link">1</a>
-						</li>
-						<li class="page-item">
-							<a href="#" class="page-link">2</a>
-						</li>
-						<li class="page-item">
-							<a href="#" class="page-link">3</a>
-						</li>
-						<li class="page-item">
-							<a href="#" class="page-link">4</a>
-						</li>
-						<li class="page-item">
-							<a href="#" class="page-link">5</a>
-						</li>
-						<li class="page-item">
-							<a href="#" class="page-link">Next</a>
-						</li>
-					</ul>
+					<nav id="panigation">
+                    </nav>
+					<input type="hidden" name="currentpage" id="currentpage" value="1">
 				</div>
 			</div>
 		</div>
 	</div>
-
-	<div id="addEmployeeModal" class="modal fade">
+	<!-- Add Modal HTML -->
+	<div id="addPhanQuyenModal" class="modal fade">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<form>
 					<div class="modal-header">
-						<h4 class="modal-title">Thêm nhân viên</h4>
+						<h4 class="modal-title">Thêm Mới Phân Quyền</h4>
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 					</div>
 					<div class="modal-body">
 						<div class="form-group">
-							<label>Name</label>
-							<input type="text" class="form-control" required>
+							<label>Nhóm Quyền</label>
+							<br>
+							<select name="" id="select_nhomquyen" class="form-control"></select>
 						</div>
 						<div class="form-group">
-							<label>Email</label>
-							<input type="email" class="form-control" required>
-						</div>
-						<div class="form-group">
-							<label>Address</label>
-							<textarea class="form-control" required></textarea>
-						</div>
-						<div class="form-group">
-							<label>Phone</label>
-							<input type="text" class="form-control" required>
+							<label>Chức Năng</label>
+							<br>
+							<select name="" id="select_chucnang" class="form-control"></select>
 						</div>
 					</div>
 					<div class="modal-footer">
 						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-						<input type="submit" class="btn btn-success" value="Add">
+						<input type="button" class="btn btn-success" value="Add" id="add_PhanQuyen">
 					</div>
 				</form>
 			</div>
 		</div>
 	</div>
-
+	<!-- Edit Modal HTML -->
 	<div id="editEmployeeModal" class="modal fade">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<form>
 					<div class="modal-header">
-						<h4 class="modal-title">Sửa thông tin nhân viên</h4>
+						<h4 class="modal-title">Sửa Tài Khoản</h4>
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 					</div>
 					<div class="modal-body">
 						<input type="hidden" name="ma_tk">
 						<div class="form-group">
 							<div class="form-group">
-								<label>Mã nhân viên</label>
+								<label>Mã Tài Khoản</label>
 								<input class="form-control" type="text" name="password" required>
 							</div>
+							<!-- <input type="text" class="form-control" required> -->
 							<select name="" id="" class="form-control" required>
 								<option value="">A</option>
 								<option value="">B</option>
@@ -133,6 +108,10 @@
 							<label>Password</label>
 							<input class="form-control" type="password" name="password" required>
 						</div>
+						<!-- <div class="form-group">
+						<label>Phone</label>
+						<input type="text" class="form-control" required>
+					</div>					 -->
 					</div>
 					<div class="modal-footer">
 						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
@@ -142,8 +121,8 @@
 			</div>
 		</div>
 	</div>
-
-	<div id="deleteEmployeeModal" class="modal fade">
+	<!-- Delete Modal HTML -->
+	<div id="deletePhanQuyenModal" class="modal fade">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<form>
@@ -157,7 +136,7 @@
 					</div>
 					<div class="modal-footer">
 						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-						<input type="submit" class="btn btn-danger" value="Delete">
+						<input type="button" class="btn btn-danger" value="Delete" id="admin-delete">
 					</div>
 				</form>
 			</div>

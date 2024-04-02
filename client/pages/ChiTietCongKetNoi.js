@@ -54,20 +54,8 @@ function getProductPlugs(productId) {
 function renderProductDetailPlug(productDetailId, index) {
     getProductDetailPlug(productDetailId)
         .then(data => {
-            let html = ''
-                let promises = []
-    
-                data.forEach(item => {
-                    let promise = getPlug(item.ma_cong)
-                        .then(plug => html += `<li>${plug.ten_cong}</li>`)
-                        .catch(error => console.log(error))
-
-                    promises.push(promise)
-                })
-
-                Promise.all(promises).then(() => {
-                    $(`#admin-product-detail-main .product-detail-${index}`).html(html)
-                })
+            const html = data.map(data => `<li>${data.ten_cong}</li>`).join('')
+            $(`#admin-product-detail-main .product-detail-${index}`).html(html)
         })
         .catch(error => console.log(error))
 }
