@@ -19,24 +19,54 @@ function clickPage(func){
     $this.parent().addClass("active");
 });
 }
+// function pagination(totalpages, currentpage) {
+//     var pagelist = "";
+//     if (totalpages > 1) {
+//       currentpage = parseInt(currentpage);
+//       pagelist += `<ul class="pagination justify-content-center">`;
+//       const prevClass = currentpage == 1 ? " disabled" : "";
+//       pagelist += `<li class="page-item${prevClass}"><a class="page-link" href="#" data-page="${
+//         currentpage - 1
+//       }">Previous</a></li>`;
+//       for (let p = 1; p <= totalpages; p++) {
+//         const activeClass = currentpage == p ? " active" : "";
+//         pagelist += `<li class="page-item${activeClass}"><a class="page-link" href="#" data-page="${p}">${p}</a></li>`;
+//       }
+//       const nextClass = currentpage == totalpages ? " disabled" : "";
+//       pagelist += `<li class="page-item${nextClass}"><a class="page-link" href="#" data-page="${
+//         currentpage + 1
+//       }">Next</a></li>`;
+//       pagelist += `</ul>`;
+//     }
+//     $("#panigation").html(pagelist);
+// }
+
 function pagination(totalpages, currentpage) {
-    var pagelist = "";
+    var pagelist = ""
     if (totalpages > 1) {
-      currentpage = parseInt(currentpage);
-      pagelist += `<ul class="pagination justify-content-center">`;
-      const prevClass = currentpage == 1 ? " disabled" : "";
-      pagelist += `<li class="page-item${prevClass}"><a class="page-link" href="#" data-page="${
-        currentpage - 1
-      }">Previous</a></li>`;
-      for (let p = 1; p <= totalpages; p++) {
-        const activeClass = currentpage == p ? " active" : "";
-        pagelist += `<li class="page-item${activeClass}"><a class="page-link" href="#" data-page="${p}">${p}</a></li>`;
-      }
-      const nextClass = currentpage == totalpages ? " disabled" : "";
-      pagelist += `<li class="page-item${nextClass}"><a class="page-link" href="#" data-page="${
-        currentpage + 1
-      }">Next</a></li>`;
-      pagelist += `</ul>`;
+        currentpage = parseInt(currentpage)
+        pagelist += `<ul class="pagination justify-content-center">`
+        const prevClass = currentpage == 1 ? " disabled" : ""
+        pagelist += `<li class="page-item${prevClass}"><a class="page-link" href="#" data-page="${currentpage - 1}">Previous</a></li>`
+        for (let p = 1; p <= totalpages; p++) {
+            const activeClass = currentpage == p ? " active" : ""
+            pagelist += `<li class="page-item${activeClass}"><a class="page-link" href="#" data-page="${p}">${p}</a></li>`
+        }
+        const nextClass = currentpage == totalpages ? " disabled" : ""
+        pagelist += `<li class="page-item${nextClass}"><a class="page-link" href="#" data-page="${currentpage + 1}">Next</a></li>`
+        pagelist += `</ul>`
     }
-    $("#panigation").html(pagelist);
+    $("#pagination").html(pagelist)
+}
+
+function clickPage(func) {
+    $(document).on("click", "ul.pagination li a", function (e) {
+        e.preventDefault()
+        var $this = $(this)
+        const pagenum = $this.data("page")
+        $("#currentpage").val(pagenum)
+        func()
+        $this.parent().siblings().removeClass("active")
+        $this.parent().addClass("active")
+    })
 }

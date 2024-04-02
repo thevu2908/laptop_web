@@ -2,9 +2,9 @@
 include("../model/ConnectDB.php");
 include("../model/Panigation/PanigationRepo.php");
 class PanigationController{
-    private PanigationRepo $panigationrepo;
+    private PaginationRepo $panigationrepo;
     function __construct(){
-        $this->panigationrepo=new PanigationRepo();
+        $this->panigationrepo=new PaginationRepo();
     }
     function getPanigation($table,$start,$limit){
         $panigation=$this->panigationrepo->getPanigation($table,$start,$limit);

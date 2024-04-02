@@ -9,12 +9,12 @@ function loadPhanQuyen(){
     selectNhomQuyen();
     var pageno = $("#currentpage").val();
     $.ajax({
-        url: "server/src/controller/PanigationController.php",
-        data: {action:"panigation", page: pageno,table:"chitietquyen"},
+        url: "server/src/controller/PaginationController.php",
+        data: {action:"pagination", page: pageno,table:"chitietquyen"},
         method: "GET",
         dataType: "json",
         success: function (data) {
-            var jsonData=data.panigation;
+            var jsonData=data.paginattion;
             var html="";
             jsonData.forEach((chitietquyen,index) => {
                 html+=`<tr data-row="${chitietquyen['ma_quyen']}" data-row1="${chitietquyen['ma_chuc_nang']}">

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 02, 2024 at 09:37 AM
+-- Generation Time: Apr 02, 2024 at 10:44 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -106,6 +106,141 @@ CREATE TABLE `chitietcongketnoi` (
   `ma_ctsp` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `chitietcongketnoi`
+--
+
+INSERT INTO `chitietcongketnoi` (`ma_cong`, `ma_ctsp`) VALUES
+('CKN001', 'CTSP0001'),
+('CKN001', 'CTSP0002'),
+('CKN001', 'CTSP0003'),
+('CKN001', 'CTSP0004'),
+('CKN001', 'CTSP0010'),
+('CKN001', 'CTSP0012'),
+('CKN001', 'CTSP0019'),
+('CKN001', 'CTSP0020'),
+('CKN001', 'CTSP0021'),
+('CKN001', 'CTSP0022'),
+('CKN001', 'CTSP0031'),
+('CKN001', 'CTSP0032'),
+('CKN001', 'CTSP0035'),
+('CKN001', 'CTSP0036'),
+('CKN001', 'CTSP0037'),
+('CKN001', 'CTSP0040'),
+('CKN001', 'CTSP0041'),
+('CKN001', 'CTSP0042'),
+('CKN001', 'CTSP0044'),
+('CKN002', 'CTSP0001'),
+('CKN002', 'CTSP0002'),
+('CKN002', 'CTSP0003'),
+('CKN002', 'CTSP0004'),
+('CKN002', 'CTSP0005'),
+('CKN002', 'CTSP0006'),
+('CKN002', 'CTSP0007'),
+('CKN002', 'CTSP0008'),
+('CKN002', 'CTSP0010'),
+('CKN002', 'CTSP0012'),
+('CKN002', 'CTSP0013'),
+('CKN002', 'CTSP0014'),
+('CKN002', 'CTSP0015'),
+('CKN002', 'CTSP0016'),
+('CKN002', 'CTSP0017'),
+('CKN002', 'CTSP0018'),
+('CKN002', 'CTSP0019'),
+('CKN002', 'CTSP0020'),
+('CKN002', 'CTSP0031'),
+('CKN002', 'CTSP0032'),
+('CKN002', 'CTSP0033'),
+('CKN002', 'CTSP0034'),
+('CKN002', 'CTSP0036'),
+('CKN002', 'CTSP0037'),
+('CKN002', 'CTSP0038'),
+('CKN002', 'CTSP0039'),
+('CKN002', 'CTSP0040'),
+('CKN002', 'CTSP0041'),
+('CKN002', 'CTSP0044'),
+('CKN003', 'CTSP0006'),
+('CKN003', 'CTSP0007'),
+('CKN003', 'CTSP0008'),
+('CKN003', 'CTSP0009'),
+('CKN003', 'CTSP0010'),
+('CKN003', 'CTSP0011'),
+('CKN003', 'CTSP0012'),
+('CKN003', 'CTSP0014'),
+('CKN003', 'CTSP0015'),
+('CKN003', 'CTSP0016'),
+('CKN003', 'CTSP0017'),
+('CKN003', 'CTSP0018'),
+('CKN003', 'CTSP0033'),
+('CKN003', 'CTSP0034'),
+('CKN003', 'CTSP0035'),
+('CKN003', 'CTSP0036'),
+('CKN003', 'CTSP0037'),
+('CKN003', 'CTSP0038'),
+('CKN003', 'CTSP0039'),
+('CKN003', 'CTSP0040'),
+('CKN003', 'CTSP0041'),
+('CKN003', 'CTSP0042'),
+('CKN003', 'CTSP0043'),
+('CKN003', 'CTSP0044'),
+('CKN004', 'CTSP0006'),
+('CKN004', 'CTSP0037'),
+('CKN004', 'CTSP0039'),
+('CKN004', 'CTSP0040'),
+('CKN004', 'CTSP0042'),
+('CKN004', 'CTSP0044'),
+('CKN005', 'CTSP0008'),
+('CKN005', 'CTSP0009'),
+('CKN005', 'CTSP0010'),
+('CKN005', 'CTSP0011'),
+('CKN005', 'CTSP0012'),
+('CKN005', 'CTSP0014'),
+('CKN005', 'CTSP0015'),
+('CKN005', 'CTSP0016'),
+('CKN005', 'CTSP0017'),
+('CKN005', 'CTSP0018'),
+('CKN005', 'CTSP0019'),
+('CKN005', 'CTSP0020'),
+('CKN005', 'CTSP0021'),
+('CKN005', 'CTSP0022'),
+('CKN005', 'CTSP0031'),
+('CKN005', 'CTSP0032'),
+('CKN005', 'CTSP0036'),
+('CKN005', 'CTSP0037'),
+('CKN005', 'CTSP0038'),
+('CKN005', 'CTSP0039'),
+('CKN005', 'CTSP0040'),
+('CKN005', 'CTSP0041'),
+('CKN005', 'CTSP0044'),
+('CKN006', 'CTSP0011'),
+('CKN006', 'CTSP0014'),
+('CKN006', 'CTSP0019'),
+('CKN006', 'CTSP0020'),
+('CKN006', 'CTSP0038'),
+('CKN007', 'CTSP0015'),
+('CKN007', 'CTSP0016'),
+('CKN007', 'CTSP0036'),
+('CKN007', 'CTSP0039'),
+('CKN007', 'CTSP0040'),
+('CKN008', 'CTSP0017'),
+('CKN008', 'CTSP0018'),
+('CKN008', 'CTSP0023'),
+('CKN008', 'CTSP0024'),
+('CKN008', 'CTSP0025'),
+('CKN008', 'CTSP0026'),
+('CKN008', 'CTSP0027'),
+('CKN008', 'CTSP0028'),
+('CKN008', 'CTSP0029'),
+('CKN008', 'CTSP0030'),
+('CKN008', 'CTSP0033'),
+('CKN008', 'CTSP0042'),
+('CKN009', 'CTSP0020'),
+('CKN010', 'CTSP0033'),
+('CKN011', 'CTSP0037'),
+('CKN012', 'CTSP0021'),
+('CKN012', 'CTSP0022'),
+('CKN013', 'CTSP0035');
+
 -- --------------------------------------------------------
 
 --
@@ -205,6 +340,56 @@ CREATE TABLE `chitietsanpham` (
   `trang_thai` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `chitietsanpham`
+--
+
+INSERT INTO `chitietsanpham` (`ma_ctsp`, `ma_sp`, `ma_chip_xu_ly`, `ma_mau`, `ma_carddohoa`, `ram`, `rom`, `gia_tien`, `so_luong`, `trang_thai`) VALUES
+('CTSP0001', 'SP001', 'CXL005', '#000', 'CDH007', '8GB', '256GB', 0, 0, 0),
+('CTSP0002', 'SP001', 'CXL005', '#000', 'CDH007', '8GB', '512GB', 0, 0, 0),
+('CTSP0003', 'SP001', 'CXL005', '#ffff00', 'CDH007', '8GB', '256GB', 0, 0, 0),
+('CTSP0004', 'SP001', 'CXL005', '#ffff00', 'CDH007', '8GB', '512GB', 0, 0, 0),
+('CTSP0005', 'SP002', 'CXL003', '#c0c0c0', 'CDH004', '8GB', '256GB', 0, 0, 0),
+('CTSP0006', 'SP003', 'CXL001', '#000', 'CDH005', '16GB', '512GB', 0, 0, 0),
+('CTSP0007', 'SP004', 'CXL004', '#000', 'CDH006', '16GB', '512GB', 0, 0, 0),
+('CTSP0008', 'SP005', 'CXL003', '#000', 'CDH004', '16GB', '512GB', 0, 0, 0),
+('CTSP0009', 'SP006', 'CXL002', '#808080', 'CDH008', '16GB', '512GB', 0, 0, 0),
+('CTSP0010', 'SP007', 'CXL003', '#c0c0c0', 'CDH004', '16GB', '512GB', 0, 0, 0),
+('CTSP0011', 'SP008', 'CXL006', '#c0c0c0', 'CDH004', '16GB', '512GB', 0, 0, 0),
+('CTSP0012', 'SP009', 'CXL007', '#c0c0c0', 'CDH009', '16GB', '512GB', 0, 0, 0),
+('CTSP0013', 'SP010', 'CXL006', '#c0c0c0', 'CDH004', '8GB', '512GB', 0, 0, 0),
+('CTSP0014', 'SP011', 'CXL008', '#808080', 'CDH005', '16GB', '512GB', 0, 0, 0),
+('CTSP0015', 'SP012', 'CXL009', '#808080', 'CDH006', '16GB', '512GB', 0, 0, 0),
+('CTSP0016', 'SP012', 'CXL009', '#808080', 'CDH006', '16GB', '1TB', 0, 0, 0),
+('CTSP0017', 'SP013', 'CXL010', '#000', 'CDH006', '8GB', '512GB', 0, 0, 0),
+('CTSP0018', 'SP013', 'CXL010', '#000', 'CDH006', '16GB', '512GB', 0, 0, 0),
+('CTSP0019', 'SP014', 'CXL011', '#808080', 'CDH010', '16GB', '512GB', 0, 0, 0),
+('CTSP0020', 'SP015', 'CXL012', '#808080', 'CDH010', '32GB', '1TB', 0, 0, 0),
+('CTSP0021', 'SP016', 'CXL013', '#ffff00', 'CDH011', '8GB', '256GB', 0, 0, 0),
+('CTSP0022', 'SP016', 'CXL013', '#ffff00', 'CDH011', '8GB', '512GB', 0, 0, 0),
+('CTSP0023', 'SP017', 'CXL005', '#00008B', 'CDH012', '8GB', '256GB', 0, 0, 0),
+('CTSP0024', 'SP017', 'CXL005', '#00008B', 'CDH012', '8GB', '512GB', 0, 0, 0),
+('CTSP0025', 'SP017', 'CXL005', '#ffff00', 'CDH012', '8GB', '256GB', 0, 0, 0),
+('CTSP0026', 'SP017', 'CXL005', '#ffff00', 'CDH012', '8GB', '512GB', 0, 0, 0),
+('CTSP0027', 'SP017', 'CXL005', '#c0c0c0', 'CDH012', '8GB', '256GB', 0, 0, 0),
+('CTSP0028', 'SP017', 'CXL005', '#c0c0c0', 'CDH012', '8GB', '512GB', 0, 0, 0),
+('CTSP0029', 'SP017', 'CXL005', '#808080', 'CDH012', '8GB', '256GB', 0, 0, 0),
+('CTSP0030', 'SP017', 'CXL005', '#808080', 'CDH012', '8GB', '512GB', 0, 0, 0),
+('CTSP0031', 'SP018', 'CXL014', '#000', 'CDH013', '32GB', '512GB', 0, 0, 0),
+('CTSP0032', 'SP018', 'CXL014', '#c0c0c0', 'CDH013', '32GB', '512GB', 0, 0, 0),
+('CTSP0033', 'SP019', 'CXL015', '#c0c0c0', 'CDH006', '16GB', '512GB', 0, 0, 0),
+('CTSP0034', 'SP020', 'CXL004', '#808080', 'CDH006', '16GB', '512GB', 0, 0, 0),
+('CTSP0035', 'SP021', 'CXL016', '#000', 'CDH006', '8GB', '512GB', 0, 0, 0),
+('CTSP0036', 'SP022', 'CXL002', '#000', 'CDH014', '16GB', '512GB', 0, 0, 0),
+('CTSP0037', 'SP023', 'CXL017', '#808080', 'CDH015', '64GB', '2TB', 0, 0, 0),
+('CTSP0038', 'SP024', 'CXL018', '#000', 'CDH014', '16GB', '512GB', 0, 0, 0),
+('CTSP0039', 'SP025', 'CXL002', '#000', 'CDH008', '8GB', '512GB', 0, 0, 0),
+('CTSP0040', 'SP026', 'CXL001', '#000', 'CDH002', '8GB', '512GB', 0, 0, 0),
+('CTSP0041', 'SP027', 'CXL019', '#ADD8E6', 'CDH004', '16GB', '1TB', 0, 0, 0),
+('CTSP0042', 'SP028', 'CXL012', '#000', 'CDH016', '16GB', '2TB', 0, 0, 0),
+('CTSP0043', 'SP029', 'CXL018', '#00008B', 'CDH017', '32GB', '1TB', 0, 0, 0),
+('CTSP0044', 'SP030', 'CXL020', '#c0c0c0', 'CDH008', '16GB', '512GB', 0, 0, 0);
+
 -- --------------------------------------------------------
 
 --
@@ -244,7 +429,9 @@ INSERT INTO `congketnoi` (`ma_cong`, `ten_cong`, `trang_thai`) VALUES
 ('CKN008', 'Thunderbolt', 0),
 ('CKN009', 'Power connector', 0),
 ('CKN010', 'SD Card', 0),
-('CKN011', 'Card reader', 0);
+('CKN011', 'Card reader', 0),
+('CKN012', 'Thunerbolt', 0),
+('CKN013', '', 0);
 
 -- --------------------------------------------------------
 
@@ -999,6 +1186,115 @@ INSERT INTO `district` (`district_id`, `province_id`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `giohang`
+--
+
+CREATE TABLE `giohang` (
+  `ma_ctsp` varchar(20) NOT NULL,
+  `ma_kh` varchar(20) NOT NULL,
+  `gia_sp` float NOT NULL,
+  `so_luong` int(11) NOT NULL,
+  `trang_thai` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `hedieuhanh`
+--
+
+CREATE TABLE `hedieuhanh` (
+  `ma_hdh` varchar(20) NOT NULL,
+  `ten_hdh` varchar(50) NOT NULL,
+  `trang_thai` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `hedieuhanh`
+--
+
+INSERT INTO `hedieuhanh` (`ma_hdh`, `ten_hdh`, `trang_thai`) VALUES
+('HDH001', 'Windows', 0),
+('HDH002', 'macOS', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `hoadon`
+--
+
+CREATE TABLE `hoadon` (
+  `ma_hd` varchar(20) NOT NULL,
+  `ma_kh` varchar(20) NOT NULL,
+  `ma_nv` varchar(20) NOT NULL,
+  `ngay_tao` date NOT NULL,
+  `tong_tien` double NOT NULL,
+  `khuyen_mai` double NOT NULL,
+  `thanh_tien` double NOT NULL,
+  `hinh_thuc` varchar(50) NOT NULL,
+  `tinh_trang` varchar(50) NOT NULL,
+  `trang_thai` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `khachhang`
+--
+
+CREATE TABLE `khachhang` (
+  `ma_kh` varchar(20) NOT NULL,
+  `ten_kh` varchar(100) NOT NULL,
+  `so_dien_thoai` varchar(10) NOT NULL,
+  `tuoi` int(11) NOT NULL,
+  `dia_chi` varchar(150) NOT NULL,
+  `trang_thai` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `khuyenmai`
+--
+
+CREATE TABLE `khuyenmai` (
+  `ma_km` varchar(20) NOT NULL,
+  `ten_khuyen_mai` varchar(200) NOT NULL,
+  `muc_khuyen_mai` double NOT NULL,
+  `dieu_kien` varchar(50) NOT NULL,
+  `thoi_gian_bat_dau` date NOT NULL,
+  `thoi_gian_ket_thuc` date NOT NULL,
+  `tinh_trang` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `mausac`
+--
+
+CREATE TABLE `mausac` (
+  `ma_mau` varchar(20) NOT NULL,
+  `ten_mau` varchar(50) NOT NULL,
+  `trang_thai` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `mausac`
+--
+
+INSERT INTO `mausac` (`ma_mau`, `ten_mau`, `trang_thai`) VALUES
+('#000', 'Đen', 0),
+('#00008B', 'Xanh đậm', 0),
+('#808080', 'Xám', 0),
+('#ADD8E6', 'Xanh nhạt', 0),
+('#c0c0c0', 'Bạc', 0),
+('#fff', 'Trắng', 0),
+('#ffff00', 'Vàng', 0);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `nhacungcap`
 --
 
@@ -1209,6 +1505,42 @@ CREATE TABLE `sanpham` (
   `so_luong_ton` int(11) NOT NULL,
   `trang_thai` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `sanpham`
+--
+
+INSERT INTO `sanpham` (`ma_sp`, `ma_thuong_hieu`, `ma_the_loai`, `ma_hdh`, `ten_sp`, `hinh_anh`, `kich_co_man_hinh`, `do_phan_giai`, `pin`, `ban_phim`, `gia_ban`, `gia_nhap`, `chiet_khau`, `trong_luong`, `chat_lieu`, `xuat_xu`, `so_luong_ton`, `trang_thai`) VALUES
+('SP001', 'TH005', 'TL002', 'HDH002', 'MacBook Air M2 2022', 'server/src/assets/images/products/SP001.png', '13.6 inch', '2560 x 1644 Pixels', 'Lithium polymer', 'English International Backlit Keyboard', 0, 0, 0, 1.24, 'Kim loại', 'Trung Quốc', 0, 0),
+('SP002', 'TH004', 'TL002', 'HDH001', 'HP 245 G10', 'server/src/assets/images/products/SP002.png', '14 inch', '1920 x 1080 Pixels', 'Lithium polymer', 'English International Backlit Keyboard', 0, 0, 0, 1.36, 'Nhựa', 'Trung Quốc', 0, 0),
+('SP003', 'TH003', 'TL001', 'HDH001', 'Asus TUF Gaming', 'server/src/assets/images/products/SP003.png', '15.6 inch', '1920 x 1080 Pixels', 'Lithium polymer', 'Backlit Chiclet Keyboard', 0, 0, 0, 2.3, 'Nhôm + Nhựa cao cấp', 'Trung Quốc', 0, 0),
+('SP004', 'TH001', 'TL002', 'HDH001', 'Dell Inspiron 15 N3520', 'server/src/assets/images/products/SP004.png', '15.6 inch', '1920 x 1200 Pixels', 'Lithium polymer', 'English International Non-backlit Keyboard', 0, 0, 0, 1.9, 'Nhựa', 'Trung Quốc', 0, 0),
+('SP005', 'TH003', 'TL002', 'HDH001', 'Asus Vivobook', 'server/src/assets/images/products/SP005.png', '14 inch', '1920 x 1080 Pixels', 'Lithium-ion', 'Chiclet Keyboard', 0, 0, 0, 1.3, 'Nhựa', 'Trung Quốc', 0, 0),
+('SP006', 'TH007', 'TL002', 'HDH001', 'Lenovo IdeaPad 3', 'server/src/assets/images/products/SP006.png', '15 inch', '1920 x 1080 Pixels', 'Lithium-ion', 'Bàn phím cứng', 0, 0, 0, 1.37, 'Nhựa ABS', 'Trung Quốc', 0, 0),
+('SP007', 'TH004', 'TL002', 'HDH001', 'HP 14s-em0086AU', 'server/src/assets/images/products/SP007.png', '14 inch', '1920 x 1080 Pixels', 'Lithium-ion', 'Chiclet Keyboard', 0, 0, 0, 1.4, 'Nhựa', 'Trung Quốc', 0, 0),
+('SP008', 'TH002', 'TL002', 'HDH001', 'Acer Aspire 3', 'server/src/assets/images/products/SP008.png', '15.6 inch', '1920 x 1080 Pixels', 'Lithium-ion', 'English International Backlit Keyboard', 0, 0, 0, 1.7, 'Nhựa Polycarbonate', 'Trung Quốc', 0, 0),
+('SP009', 'TH001', 'TL002', 'HDH001', 'Dell Inspiron 15 N3530', 'server/src/assets/images/products/SP009.png', '15.6 inch', 'FHD (1920 x 1080)', 'Lithium polymer', 'English International Non-backlit Keyboard', 0, 0, 0, 1.66, 'Nhựa', 'Trung Quốc', 0, 0),
+('SP010', 'TH008', 'TL002', 'HDH001', 'Huawei MateBook', 'server/src/assets/images/products/SP010.png', '15.6 inch', '1920 x 1080 Pixels', 'Lithium-ion', 'English International Backlit Keyboard', 0, 0, 0, 1.53, 'Hợp kim nhôm', 'Trung Quốc', 0, 0),
+('SP011', 'TH007', 'TL001', 'HDH001', 'Lenovo Gaming LOQ', 'server/src/assets/images/products/SP011.png', '15.6 inch', '1920 x 1080 Pixels', 'Lithium polymer', 'English International Backlit Keyboard', 0, 0, 0, 2.38, 'Nhựa ABS', 'Trung Quốc', 0, 0),
+('SP012', 'TH007', 'TL002', 'HDH001', 'Lenovo IdeaPad Slim 5', 'server/src/assets/images/products/SP012.png', '14 inch', '1920 x 1200 Pixels', 'Lithium polymer', 'English International Backlit Keyboard', 0, 0, 0, 1.46, 'Alumium CNC', 'Trung Quốc', 0, 0),
+('SP013', 'TH007', 'TL002', 'HDH001', 'Lenovo ThinkPad E14 Gen 4', 'server/src/assets/images/products/SP013.png', '14 inch', '1920 x 1080 Pixels', 'Lithium polymer', 'Chiclet Keyboard', 0, 0, 0, 1.64, 'Alumium CNC', 'Trung Quốc', 0, 0),
+('SP014', 'TH007', 'TL001', 'HDH001', 'Lenovo Gaming Legion Slim 5', 'server/src/assets/images/products/SP014.png', '16 inch', '2560 x 1600 Pixels', 'Lithium polymer', 'English International Backlit Keyboard', 0, 0, 0, 2.4, 'Nhôm', 'Trung Quốc', 0, 0),
+('SP015', 'TH007', 'TL001', 'HDH001', 'Lenovo Gaming Legion Pro 5', 'server/src/assets/images/products/SP015.png', '16 inch', '2560 x 1600 Pixels', 'Lithium polymer', 'English International Backlit Keyboard', 0, 0, 0, 2.55, 'Nhôm + Nhựa', 'Trung Quốc', 0, 0),
+('SP016', 'TH005', 'TL002', 'HDH002', 'MacBook Air M1 2020', 'server/src/assets/images/products/SP016.png', '13.3 inch', '2560 x 1600 Pixels', 'Lithium polymer', 'English International Backlit Keyboard', 0, 0, 0, 1.29, 'Nhôm + Nhựa', 'Trung Quốc', 0, 0),
+('SP017', 'TH005', 'TL002', 'HDH002', 'MacBook Air M2 2023', 'server/src/assets/images/products/SP017.png', '15 inch', '2880 x 1800 Pixels', 'Lithium polymer', 'English International Backlit Keyboard', 0, 0, 0, 1.51, 'Nhôm nguyên khối', 'Trung Quốc', 0, 0),
+('SP018', 'TH005', 'TL002', 'HDH002', 'MacBook Pro 16 2023 M3', 'server/src/assets/images/products/SP018.png', '16.2 inch', '3456 x 2234 Pixels', 'Lithium polymer', 'English International Backlit Keyboard', 0, 0, 0, 2.14, 'Nhôm nguyên khối', 'Trung Quốc', 0, 0),
+('SP019', 'TH001', 'TL002', 'HDH001', 'Dell Inspiron 14', 'server/src/assets/images/products/SP019.png', '14 inch', '1920 x 1200 Pixels', 'Lithium polymer', 'Backlit Chiclet Keyboard', 0, 0, 0, 1.62, 'Nhôm + Nhựa', 'Trung Quốc', 0, 0),
+('SP020', 'TH001', 'TL002', 'HDH001', 'Dell Vostro V3520', 'server/src/assets/images/products/SP020.png', '15.6 inch', 'FHD (1920 x 1080)', 'Lithium-ion', 'English International Non-backlit Keyboard', 0, 0, 0, 1.9, 'Nhựa', 'Trung Quốc', 0, 0),
+('SP021', 'TH001', 'TL002', 'HDH001', 'Dell Latitude 3420', 'server/src/assets/images/products/SP021.png', '14 inch', 'FHD (1920 x 1080)', 'Lithium-ion', 'Backlit Chiclet Keyboard', 0, 0, 0, 2, 'Nhựa', 'Trung Quốc', 0, 0),
+('SP022', 'TH006', 'TL001', 'HDH001', 'MSI Gaming Thin GF63', 'server/src/assets/images/products/SP022.png', '15.6 inch', '1920 x 1080 Pixels', 'Lithium polymer', 'Bàn phím cứng', 0, 0, 0, 1.86, 'Nhựa + Kim loại', 'Trung Quốc', 0, 0),
+('SP023', 'TH006', 'TL001', 'HDH001', 'MSI Gaming Raider', 'server/src/assets/images/products/SP023.png', '17.3 inch', '3840 x 2160 Pixels', 'Lithium polymer', '6-row, multimedia Fn keys, numeric keypad', 0, 0, 0, 2.9, 'Hợp kim', 'Trung Quốc', 0, 0),
+('SP024', 'TH006', 'TL001', 'HDH001', 'MSI Gaming Cyborg 15 AI', 'server/src/assets/images/products/SP024.png', '15.6 inch', '1920 x 1080 Pixels', 'Lithium polymer', '6-row, multimedia Fn keys, numeric keypad', 0, 0, 0, 1.98, 'Hợp chất nhựa', 'Trung Quốc', 0, 0),
+('SP025', 'TH002', 'TL001', 'HDH001', 'Acer Aspire 7 Gaming', 'server/src/assets/images/products/SP025.png', '15.6 inch', '1920 x 1080 Pixels', 'Lithium polymer', '6-row, multimedia Fn keys, numeric keypad', 0, 0, 0, 2.1, 'Nhựa Polycarbonate', 'Trung Quốc', 0, 0),
+('SP026', 'TH002', 'TL001', 'HDH001', 'Acer Nitro 5 Gaming', 'server/src/assets/images/products/SP026.png', '15.6 inch', '1920 x 1080 Pixels', 'Lithium-ion', 'Backlit Chiclet Keyboard', 0, 0, 0, 2.5, 'Nhựa Polycarbonate', 'Trung Quốc', 0, 0),
+('SP027', 'TH002', 'TL002', 'HDH001', 'Acer Swift Edge SFA', 'server/src/assets/images/products/SP027.png', '16 inch', '3840 x 2400 Pixels', 'Lithium-ion 3 viên', 'Bàn phím cứng', 0, 0, 0, 1.1, 'Nhựa + Nhôm', 'Trung Quốc', 0, 0),
+('SP028', 'TH003', 'TL001', 'HDH001', 'Asus ROG Strix Scar 18 Gaming', 'server/src/assets/images/products/SP028.png', '18 inch', '2560 x 1600 Pixels', 'Lithium polymer', 'Backlit Chiclet Keyboard', 0, 0, 0, 3.1, 'Kim loại', 'Trung Quốc', 0, 0),
+('SP029', 'TH003', 'TL002', 'HDH001', 'Asus Zenbook 14', 'server/src/assets/images/products/SP029.png', '14 inch', '2880 x 1800 Pixels', 'Lithium polymer', 'Backlit Chiclet Keyboard', 0, 0, 0, 1.2, 'Nhôm', 'Trung Quốc', 0, 0),
+('SP030', 'TH004', 'TL002', 'HDH001', 'HP ProBook 440 G10', 'server/src/assets/images/products/SP030.png', '14 inch', '1920 x 1080 Pixels', 'Lithium-ion', 'Chiclet Keyboard', 0, 0, 0, 1.38, 'Kim loại', 'Trung Quốc', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -11916,16 +12248,244 @@ INSERT INTO `wards` (`wards_id`, `district_id`, `name`) VALUES
 --
 
 --
+-- Indexes for table `carddohoa`
+--
+ALTER TABLE `carddohoa`
+  ADD PRIMARY KEY (`ma_card`);
+
+--
+-- Indexes for table `chipxuly`
+--
+ALTER TABLE `chipxuly`
+  ADD PRIMARY KEY (`ma_chip_xu_ly`);
+
+--
+-- Indexes for table `chitietcongketnoi`
+--
+ALTER TABLE `chitietcongketnoi`
+  ADD PRIMARY KEY (`ma_cong`,`ma_ctsp`),
+  ADD KEY `ctckn_fk_ctsp` (`ma_ctsp`);
+
+--
+-- Indexes for table `chitiethoadon`
+--
+ALTER TABLE `chitiethoadon`
+  ADD PRIMARY KEY (`ma_hd`,`ma_ctsp`),
+  ADD KEY `cthd_fk_ctsp` (`ma_ctsp`);
+
+--
+-- Indexes for table `chitietkhuyenmai`
+--
+ALTER TABLE `chitietkhuyenmai`
+  ADD PRIMARY KEY (`ma_km`,`ma_hd`),
+  ADD KEY `ma_km` (`ma_km`),
+  ADD KEY `ma_km_2` (`ma_km`),
+  ADD KEY `ctkm_fk_hd` (`ma_hd`);
+
+--
+-- Indexes for table `chitietphieubaohanh`
+--
+ALTER TABLE `chitietphieubaohanh`
+  ADD PRIMARY KEY (`ma_pbh`,`ma_ctsp`),
+  ADD KEY `ctpbh_fk_ctsp` (`ma_ctsp`);
+
+--
+-- Indexes for table `chitietphieudoitra`
+--
+ALTER TABLE `chitietphieudoitra`
+  ADD PRIMARY KEY (`ma_pdt`,`ma_ctsp`),
+  ADD KEY `ctpdt_fk_ctsp` (`ma_ctsp`);
+
+--
+-- Indexes for table `chitietphieunhap`
+--
+ALTER TABLE `chitietphieunhap`
+  ADD PRIMARY KEY (`ma_pn`,`ma_ctsp`),
+  ADD KEY `ctpn_fk_ctsp` (`ma_ctsp`);
+
+--
+-- Indexes for table `chitietquyen`
+--
+ALTER TABLE `chitietquyen`
+  ADD PRIMARY KEY (`ma_quyen`,`ma_chuc_nang`,`hanh_dong`),
+  ADD KEY `ctq_fk_chucnang` (`ma_chuc_nang`);
+
+--
+-- Indexes for table `chitietsanpham`
+--
+ALTER TABLE `chitietsanpham`
+  ADD PRIMARY KEY (`ma_ctsp`),
+  ADD KEY `ctsp_fk_sp` (`ma_sp`),
+  ADD KEY `ctsp_fk_chip` (`ma_chip_xu_ly`),
+  ADD KEY `ctsp_fk_mausac` (`ma_mau`) USING BTREE,
+  ADD KEY `ctsp_fk_carddohoa` (`ma_carddohoa`);
+
+--
+-- Indexes for table `chucnangquyen`
+--
+ALTER TABLE `chucnangquyen`
+  ADD PRIMARY KEY (`ma_chuc_nang`);
+
+--
+-- Indexes for table `congketnoi`
+--
+ALTER TABLE `congketnoi`
+  ADD PRIMARY KEY (`ma_cong`);
+
+--
+-- Indexes for table `ctsp_imei`
+--
+ALTER TABLE `ctsp_imei`
+  ADD PRIMARY KEY (`ma_imei`),
+  ADD KEY `imei_ctsp` (`ma_ctsp`);
+
+--
+-- Indexes for table `danhgia`
+--
+ALTER TABLE `danhgia`
+  ADD PRIMARY KEY (`ma_ctsp`,`ma_kh`),
+  ADD KEY `danhgia_fk_kh` (`ma_kh`);
+
+--
 -- Indexes for table `district`
 --
 ALTER TABLE `district`
   ADD PRIMARY KEY (`district_id`);
 
 --
+-- Indexes for table `giohang`
+--
+ALTER TABLE `giohang`
+  ADD PRIMARY KEY (`ma_ctsp`,`ma_kh`),
+  ADD KEY `giohang_fk_kh` (`ma_kh`);
+
+--
+-- Indexes for table `hedieuhanh`
+--
+ALTER TABLE `hedieuhanh`
+  ADD PRIMARY KEY (`ma_hdh`);
+
+--
+-- Indexes for table `hoadon`
+--
+ALTER TABLE `hoadon`
+  ADD PRIMARY KEY (`ma_hd`),
+  ADD KEY `hd_fk_kh` (`ma_kh`),
+  ADD KEY `hd_fk_nv` (`ma_nv`);
+
+--
+-- Indexes for table `khachhang`
+--
+ALTER TABLE `khachhang`
+  ADD PRIMARY KEY (`ma_kh`);
+
+--
+-- Indexes for table `khuyenmai`
+--
+ALTER TABLE `khuyenmai`
+  ADD PRIMARY KEY (`ma_km`);
+
+--
+-- Indexes for table `mausac`
+--
+ALTER TABLE `mausac`
+  ADD PRIMARY KEY (`ma_mau`),
+  ADD UNIQUE KEY `ten_mau` (`ten_mau`);
+
+--
+-- Indexes for table `nhacungcap`
+--
+ALTER TABLE `nhacungcap`
+  ADD PRIMARY KEY (`ma_ncc`);
+
+--
+-- Indexes for table `nhanvien`
+--
+ALTER TABLE `nhanvien`
+  ADD PRIMARY KEY (`ma_nv`);
+
+--
+-- Indexes for table `nhomquyen`
+--
+ALTER TABLE `nhomquyen`
+  ADD PRIMARY KEY (`ma_quyen`);
+
+--
+-- Indexes for table `phieubaohanh`
+--
+ALTER TABLE `phieubaohanh`
+  ADD PRIMARY KEY (`ma_pbh`),
+  ADD KEY `pbh_fk_nv` (`ma_nv`),
+  ADD KEY `pbh_fk_kh` (`ma_kh`),
+  ADD KEY `pbh_fk_hd` (`ma_hd`);
+
+--
+-- Indexes for table `phieudoitra`
+--
+ALTER TABLE `phieudoitra`
+  ADD PRIMARY KEY (`ma_pdt`),
+  ADD KEY `pdt_fk_nv` (`ma_nv`),
+  ADD KEY `pdt_fk_hd` (`ma_hd`);
+
+--
+-- Indexes for table `phieunhap`
+--
+ALTER TABLE `phieunhap`
+  ADD PRIMARY KEY (`ma_pn`),
+  ADD KEY `pn_fk_ncc` (`ma_ncc`),
+  ADD KEY `pn_fk_nv` (`ma_nv`);
+
+--
 -- Indexes for table `province`
 --
 ALTER TABLE `province`
   ADD PRIMARY KEY (`province_id`);
+
+--
+-- Indexes for table `sanpham`
+--
+ALTER TABLE `sanpham`
+  ADD PRIMARY KEY (`ma_sp`),
+  ADD KEY `sp_fk_thuonghieu` (`ma_thuong_hieu`),
+  ADD KEY `sp_fk_theloai` (`ma_the_loai`),
+  ADD KEY `sp_fk_hdh` (`ma_hdh`);
+
+--
+-- Indexes for table `taikhoan`
+--
+ALTER TABLE `taikhoan`
+  ADD PRIMARY KEY (`ma_tk`),
+  ADD UNIQUE KEY `username` (`username`),
+  ADD KEY `tk_fk_quyen` (`ma_quyen`);
+
+--
+-- Indexes for table `theloai`
+--
+ALTER TABLE `theloai`
+  ADD PRIMARY KEY (`ma_the_loai`);
+
+--
+-- Indexes for table `thongbao`
+--
+ALTER TABLE `thongbao`
+  ADD PRIMARY KEY (`ma_sp`,`ma_kh`,`ma_nv`,`ma_tk`,`ma_hd`,`ma_pn`,`ma_pdt`,`ma_pbh`,`ma_ncc`,`ma_km`,`ma_quyen`,`ma_chuc_nang`),
+  ADD KEY `tb_fk_kh` (`ma_kh`),
+  ADD KEY `tb_fk_nv` (`ma_nv`),
+  ADD KEY `tb_fk_tk` (`ma_tk`),
+  ADD KEY `tb_fk_hd` (`ma_hd`),
+  ADD KEY `tb_fk_pn` (`ma_pn`),
+  ADD KEY `tb_fk_pdt` (`ma_pdt`),
+  ADD KEY `tb_fk_pbh` (`ma_pbh`),
+  ADD KEY `tb_fk_ncc` (`ma_ncc`),
+  ADD KEY `tb_fk_km` (`ma_km`),
+  ADD KEY `tb_fk_quyen` (`ma_quyen`),
+  ADD KEY `tb_fk_chucnang` (`ma_chuc_nang`);
+
+--
+-- Indexes for table `thuonghieu`
+--
+ALTER TABLE `thuonghieu`
+  ADD PRIMARY KEY (`ma_thuong_hieu`);
 
 --
 -- Indexes for table `wards`
@@ -11954,6 +12514,148 @@ ALTER TABLE `province`
 --
 ALTER TABLE `wards`
   MODIFY `wards_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10585;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `chitietcongketnoi`
+--
+ALTER TABLE `chitietcongketnoi`
+  ADD CONSTRAINT `ctckn_fk_ckn` FOREIGN KEY (`ma_cong`) REFERENCES `congketnoi` (`ma_cong`),
+  ADD CONSTRAINT `ctckn_fk_ctsp` FOREIGN KEY (`ma_ctsp`) REFERENCES `chitietsanpham` (`ma_ctsp`);
+
+--
+-- Constraints for table `chitiethoadon`
+--
+ALTER TABLE `chitiethoadon`
+  ADD CONSTRAINT `cthd_fk_ctsp` FOREIGN KEY (`ma_ctsp`) REFERENCES `chitietsanpham` (`ma_ctsp`),
+  ADD CONSTRAINT `cthd_fk_hd` FOREIGN KEY (`ma_hd`) REFERENCES `hoadon` (`ma_hd`);
+
+--
+-- Constraints for table `chitietkhuyenmai`
+--
+ALTER TABLE `chitietkhuyenmai`
+  ADD CONSTRAINT `ctkm_fk_hd` FOREIGN KEY (`ma_hd`) REFERENCES `hoadon` (`ma_hd`),
+  ADD CONSTRAINT `ctkm_fk_km` FOREIGN KEY (`ma_km`) REFERENCES `khuyenmai` (`ma_km`);
+
+--
+-- Constraints for table `chitietphieubaohanh`
+--
+ALTER TABLE `chitietphieubaohanh`
+  ADD CONSTRAINT `ctpbh_fk_ctsp` FOREIGN KEY (`ma_ctsp`) REFERENCES `chitietsanpham` (`ma_ctsp`),
+  ADD CONSTRAINT `ctpbh_fk_pbh` FOREIGN KEY (`ma_pbh`) REFERENCES `phieubaohanh` (`ma_pbh`);
+
+--
+-- Constraints for table `chitietphieudoitra`
+--
+ALTER TABLE `chitietphieudoitra`
+  ADD CONSTRAINT `ctpdt_fk_ctsp` FOREIGN KEY (`ma_ctsp`) REFERENCES `chitietsanpham` (`ma_ctsp`),
+  ADD CONSTRAINT `ctpdt_fk_pdt` FOREIGN KEY (`ma_pdt`) REFERENCES `phieudoitra` (`ma_pdt`);
+
+--
+-- Constraints for table `chitietphieunhap`
+--
+ALTER TABLE `chitietphieunhap`
+  ADD CONSTRAINT `ctpn_fk_ctsp` FOREIGN KEY (`ma_ctsp`) REFERENCES `chitietsanpham` (`ma_ctsp`),
+  ADD CONSTRAINT `ctpn_fk_pn` FOREIGN KEY (`ma_pn`) REFERENCES `phieunhap` (`ma_pn`);
+
+--
+-- Constraints for table `chitietquyen`
+--
+ALTER TABLE `chitietquyen`
+  ADD CONSTRAINT `ctq_fk_chucnang` FOREIGN KEY (`ma_chuc_nang`) REFERENCES `chucnangquyen` (`ma_chuc_nang`),
+  ADD CONSTRAINT `ctq_fk_quyen` FOREIGN KEY (`ma_quyen`) REFERENCES `nhomquyen` (`ma_quyen`);
+
+--
+-- Constraints for table `chitietsanpham`
+--
+ALTER TABLE `chitietsanpham`
+  ADD CONSTRAINT `ctsp_fk_carddohoa` FOREIGN KEY (`ma_carddohoa`) REFERENCES `carddohoa` (`ma_card`),
+  ADD CONSTRAINT `ctsp_fk_chip` FOREIGN KEY (`ma_chip_xu_ly`) REFERENCES `chipxuly` (`ma_chip_xu_ly`),
+  ADD CONSTRAINT `ctsp_fk_mau` FOREIGN KEY (`ma_mau`) REFERENCES `mausac` (`ma_mau`),
+  ADD CONSTRAINT `ctsp_fk_sp` FOREIGN KEY (`ma_sp`) REFERENCES `sanpham` (`ma_sp`);
+
+--
+-- Constraints for table `ctsp_imei`
+--
+ALTER TABLE `ctsp_imei`
+  ADD CONSTRAINT `imei_ctsp` FOREIGN KEY (`ma_ctsp`) REFERENCES `chitietsanpham` (`ma_ctsp`);
+
+--
+-- Constraints for table `danhgia`
+--
+ALTER TABLE `danhgia`
+  ADD CONSTRAINT `danhgia_fk_ctsp` FOREIGN KEY (`ma_ctsp`) REFERENCES `chitietsanpham` (`ma_ctsp`),
+  ADD CONSTRAINT `danhgia_fk_kh` FOREIGN KEY (`ma_kh`) REFERENCES `khachhang` (`ma_kh`);
+
+--
+-- Constraints for table `giohang`
+--
+ALTER TABLE `giohang`
+  ADD CONSTRAINT `giohang_fk_ctsp` FOREIGN KEY (`ma_ctsp`) REFERENCES `chitietsanpham` (`ma_ctsp`),
+  ADD CONSTRAINT `giohang_fk_kh` FOREIGN KEY (`ma_kh`) REFERENCES `khachhang` (`ma_kh`);
+
+--
+-- Constraints for table `hoadon`
+--
+ALTER TABLE `hoadon`
+  ADD CONSTRAINT `hd_fk_kh` FOREIGN KEY (`ma_kh`) REFERENCES `khachhang` (`ma_kh`),
+  ADD CONSTRAINT `hd_fk_nv` FOREIGN KEY (`ma_nv`) REFERENCES `nhanvien` (`ma_nv`);
+
+--
+-- Constraints for table `phieubaohanh`
+--
+ALTER TABLE `phieubaohanh`
+  ADD CONSTRAINT `pbh_fk_hd` FOREIGN KEY (`ma_hd`) REFERENCES `hoadon` (`ma_hd`),
+  ADD CONSTRAINT `pbh_fk_kh` FOREIGN KEY (`ma_kh`) REFERENCES `khachhang` (`ma_kh`),
+  ADD CONSTRAINT `pbh_fk_nv` FOREIGN KEY (`ma_nv`) REFERENCES `nhanvien` (`ma_nv`);
+
+--
+-- Constraints for table `phieudoitra`
+--
+ALTER TABLE `phieudoitra`
+  ADD CONSTRAINT `pdt_fk_hd` FOREIGN KEY (`ma_hd`) REFERENCES `hoadon` (`ma_hd`),
+  ADD CONSTRAINT `pdt_fk_nv` FOREIGN KEY (`ma_nv`) REFERENCES `nhanvien` (`ma_nv`);
+
+--
+-- Constraints for table `phieunhap`
+--
+ALTER TABLE `phieunhap`
+  ADD CONSTRAINT `pn_fk_ncc` FOREIGN KEY (`ma_ncc`) REFERENCES `nhacungcap` (`ma_ncc`),
+  ADD CONSTRAINT `pn_fk_nv` FOREIGN KEY (`ma_nv`) REFERENCES `nhanvien` (`ma_nv`);
+
+--
+-- Constraints for table `sanpham`
+--
+ALTER TABLE `sanpham`
+  ADD CONSTRAINT `sp_fk_hdh` FOREIGN KEY (`ma_hdh`) REFERENCES `hedieuhanh` (`ma_hdh`),
+  ADD CONSTRAINT `sp_fk_theloai` FOREIGN KEY (`ma_the_loai`) REFERENCES `theloai` (`ma_the_loai`),
+  ADD CONSTRAINT `sp_fk_thuonghieu` FOREIGN KEY (`ma_thuong_hieu`) REFERENCES `thuonghieu` (`ma_thuong_hieu`);
+
+--
+-- Constraints for table `taikhoan`
+--
+ALTER TABLE `taikhoan`
+  ADD CONSTRAINT `tk_fk_quyen` FOREIGN KEY (`ma_quyen`) REFERENCES `nhomquyen` (`ma_quyen`);
+
+--
+-- Constraints for table `thongbao`
+--
+ALTER TABLE `thongbao`
+  ADD CONSTRAINT `tb_fk_chucnang` FOREIGN KEY (`ma_chuc_nang`) REFERENCES `chucnangquyen` (`ma_chuc_nang`),
+  ADD CONSTRAINT `tb_fk_hd` FOREIGN KEY (`ma_hd`) REFERENCES `hoadon` (`ma_hd`),
+  ADD CONSTRAINT `tb_fk_kh` FOREIGN KEY (`ma_kh`) REFERENCES `khachhang` (`ma_kh`),
+  ADD CONSTRAINT `tb_fk_km` FOREIGN KEY (`ma_km`) REFERENCES `khuyenmai` (`ma_km`),
+  ADD CONSTRAINT `tb_fk_ncc` FOREIGN KEY (`ma_ncc`) REFERENCES `nhacungcap` (`ma_ncc`),
+  ADD CONSTRAINT `tb_fk_nv` FOREIGN KEY (`ma_nv`) REFERENCES `nhanvien` (`ma_nv`),
+  ADD CONSTRAINT `tb_fk_pbh` FOREIGN KEY (`ma_pbh`) REFERENCES `phieubaohanh` (`ma_pbh`),
+  ADD CONSTRAINT `tb_fk_pdt` FOREIGN KEY (`ma_pdt`) REFERENCES `phieudoitra` (`ma_pdt`),
+  ADD CONSTRAINT `tb_fk_pn` FOREIGN KEY (`ma_pn`) REFERENCES `phieunhap` (`ma_pn`),
+  ADD CONSTRAINT `tb_fk_quyen` FOREIGN KEY (`ma_quyen`) REFERENCES `nhomquyen` (`ma_quyen`),
+  ADD CONSTRAINT `tb_fk_sp` FOREIGN KEY (`ma_sp`) REFERENCES `sanpham` (`ma_sp`),
+  ADD CONSTRAINT `tb_fk_tk` FOREIGN KEY (`ma_tk`) REFERENCES `taikhoan` (`ma_tk`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

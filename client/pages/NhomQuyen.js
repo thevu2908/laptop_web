@@ -1,15 +1,7 @@
 
 $(document).ready(function(){
     loadNhomQuyen();
-    $(document).on("click", "ul.pagination li a", function (e) {
-        e.preventDefault();
-        var $this = $(this);
-        const pagenum = $this.data("page");
-        $("#currentpage").val(pagenum);
-        loadNhomQuyen();
-        $this.parent().siblings().removeClass("active");
-        $this.parent().addClass("active");
-    });
+    clickPage(loadNhomQuyen);
     addNhomQuyen();
     deleteNhomQuyen();
     updateNhomQuyen();
@@ -47,8 +39,8 @@ function addNhomQuyen(){
 function loadNhomQuyen(){
     var pageno = $("#currentpage").val();
     $.ajax({
-        url: "server/src/controller/PanigationController.php",
-        data: {action:"panigation", page: pageno,table:"nhomquyen"},
+        url: "server/src/controller/PaginationController.php",
+        data: {action:"pagination", page: pageno,table:"nhomquyen"},
         method: "GET",
         dataType: "json",
         success:function(data){
@@ -96,9 +88,9 @@ function render(data){
                     });
             }
             $("#show-listNhomQuyen").html(html);
-            phanquyen("CN002")
+            //phanquyen("CN002")
             totalPage(data.count);
-
+    
 }
 
 function loadNhomQuyenDataAccount() {
@@ -241,5 +233,5 @@ function detailNhomQuyen() {
                 
             }
         })
-})
+    })
 }

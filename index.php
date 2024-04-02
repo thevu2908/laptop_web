@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="./server/src/assets/css/style.css">
     <link rel="stylesheet" href="./server/src/assets/css/base.css">
 </head>
+
 <body>
     <div id="main">
         <?php
@@ -35,6 +36,17 @@
             } else {
                 include "./server/src/view/product.php";
             }
+            echo '<script src="./client/pages/ThuongHieu.js"></script>';
+            echo '<script src="./client/pages/TheLoai.js"></script>';
+            echo '<script src="./client/pages/MauSac.js"></script>';
+            echo '<script src="./client/pages/ChipXuLy.js"></script>';
+            echo '<script src="./client/pages/CardDoHoa.js"></script>';
+            echo '<script src="./client/pages/CongKetNoi.js"></script>';
+            echo '<script src="./client/pages/HeDieuHanh.js"></script>';
+            echo '<script src="./client/pages/SanPham.js"></script>';
+            echo '<script src="./client/pages/ChiTietSanPham.js"></script>';
+            echo '<script src="./client/pages/ChiTietCongKetNoi.js"></script>';
+            echo '<script src="./client/utils/formatCurrency.js"></script>';
         } else if (isset($_REQUEST["gio-hang"])) {
             include "./server/src/view/cart.php";
         } else if (isset($_REQUEST["thanh-toan"])) {
@@ -42,22 +54,23 @@
             echo '<script src="client/pages/DiaChi.js"></script>';
         } else {
             include "./server/src/view/homepage.php";
+            echo '<script src="./client/pages/ThuongHieu.js"></script>';
+            echo '<script src="./client/pages/TheLoai.js"></script>';
+            echo '<script src="./client/pages/MauSac.js"></script>';
+            echo '<script src="./client/pages/ChipXuLy.js"></script>';
+            echo '<script src="./client/pages/CardDoHoa.js"></script>';
+            echo '<script src="./client/pages/CongKetNoi.js"></script>';
+            echo '<script src="./client/pages/HeDieuHanh.js"></script>';
+            echo '<script src="./client/pages/SanPham.js"></script>';
+            echo '<script src="./client/pages/ChiTietSanPham.js"></script>';
+            echo '<script src="./client/pages/ChiTietCongKetNoi.js"></script>';
+            echo '<script src="./client/utils/formatCurrency.js"></script>';
         }
         ?>
     </div>
 
-    <script src="./client/pages/ThuongHieu.js"></script>
-    <script src="./client/pages/TheLoai.js"></script>
-    <script src="./client/pages/MauSac.js"></script>
-    <script src="./client/pages/ChipXuLy.js"></script>
-    <script src="./client/pages/CardDoHoa.js"></script>
-    <script src="./client/pages/CongKetNoi.js"></script>
-    <script src="./client/pages/HeDieuHanh.js"></script>
-    <script src="./client/pages/SanPham.js"></script>
-    <script src="./client/pages/ChiTietSanPham.js"></script>
-    <script src="./client/pages/ChiTietCongKetNoi.js"></script>
-    <script src="./client/utils/formatCurrency.js"></script>
     <script src="server/src/assets/js/main.js"></script>
+    <script src="./client/plugins/pagination.js"></script>
 </body>
 
 </html>
