@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 02, 2024 at 09:03 AM
--- Server version: 10.4.32-MariaDB
--- PHP Version: 8.0.30
+-- Generation Time: Apr 02, 2024 at 09:37 AM
+-- Server version: 10.4.28-MariaDB
+-- PHP Version: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -738,7 +738,7 @@ INSERT INTO `district` (`district_id`, `province_id`, `name`) VALUES
 (446, 40, 'Huyện Đắk Hà'),
 (447, 40, 'Huyện Sa Thầy'),
 (448, 40, 'Huyện Tu Mơ Rông'),
-(449, 40, 'Huyện Ia H\'Drai''),
+(449, 40, 'Huyện Ia H\' Drai'),
 (450, 41, 'Thành phố Pleiku'),
 (451, 41, 'Thị xã An Khê'),
 (452, 41, 'Thị xã Ayun Pa'),
@@ -758,14 +758,14 @@ INSERT INTO `district` (`district_id`, `province_id`, `name`) VALUES
 (466, 41, 'Huyện Chư Pưh'),
 (467, 42, 'Thành phố Buôn Ma Thuột'),
 (468, 42, 'Thị Xã Buôn Hồ'),
-(469, 42, 'Huyện Ea H\'leo''),
+(469, 42, 'Huyện Ea H\'leo'),
 (470, 42, 'Huyện Ea Súp'),
 (471, 42, 'Huyện Buôn Đôn'),
-(472, 42, 'Huyện Cư M\'gar''),
+(472, 42, 'Huyện Cư M\'gar'),
 (473, 42, 'Huyện Krông Búk'),
 (474, 42, 'Huyện Krông Năng'),
 (475, 42, 'Huyện Ea Kar'),
-(476, 42, 'Huyện M\'Đrắk''),
+(476, 42, 'Huyện M\'Đrắk'),
 (477, 42, 'Huyện Krông Bông'),
 (478, 42, 'Huyện Krông Pắc'),
 (479, 42, 'Huyện Krông A Na'),
@@ -777,7 +777,7 @@ INSERT INTO `district` (`district_id`, `province_id`, `name`) VALUES
 (485, 43, 'Huyện Đắk Mil'),
 (486, 43, 'Huyện Krông Nô'),
 (487, 43, 'Huyện Đắk Song'),
-(488, 43, 'Huyện Đắk R\'Lấp''),
+(488, 43, 'Huyện Đắk R\'Lấp'),
 (489, 43, 'Huyện Tuy Đức'),
 (490, 44, 'Thành phố Đà Lạt'),
 (491, 44, 'Thành phố Bảo Lộc'),
@@ -995,115 +995,6 @@ INSERT INTO `district` (`district_id`, `province_id`, `name`) VALUES
 (703, 63, 'Huyện Năm Căn'),
 (704, 63, 'Huyện Phú Tân'),
 (705, 63, 'Huyện Ngọc Hiển');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `giohang`
---
-
-CREATE TABLE `giohang` (
-  `ma_ctsp` varchar(20) NOT NULL,
-  `ma_kh` varchar(20) NOT NULL,
-  `gia_sp` float NOT NULL,
-  `so_luong` int(11) NOT NULL,
-  `trang_thai` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `hedieuhanh`
---
-
-CREATE TABLE `hedieuhanh` (
-  `ma_hdh` varchar(20) NOT NULL,
-  `ten_hdh` varchar(50) NOT NULL,
-  `trang_thai` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `hedieuhanh`
---
-
-INSERT INTO `hedieuhanh` (`ma_hdh`, `ten_hdh`, `trang_thai`) VALUES
-('HDH001', 'Windows', 0),
-('HDH002', 'macOS', 0);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `hoadon`
---
-
-CREATE TABLE `hoadon` (
-  `ma_hd` varchar(20) NOT NULL,
-  `ma_kh` varchar(20) NOT NULL,
-  `ma_nv` varchar(20) NOT NULL,
-  `ngay_tao` date NOT NULL,
-  `tong_tien` double NOT NULL,
-  `khuyen_mai` double NOT NULL,
-  `thanh_tien` double NOT NULL,
-  `hinh_thuc` varchar(50) NOT NULL,
-  `tinh_trang` varchar(50) NOT NULL,
-  `trang_thai` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `khachhang`
---
-
-CREATE TABLE `khachhang` (
-  `ma_kh` varchar(20) NOT NULL,
-  `ten_kh` varchar(100) NOT NULL,
-  `so_dien_thoai` varchar(10) NOT NULL,
-  `tuoi` int(11) NOT NULL,
-  `dia_chi` varchar(150) NOT NULL,
-  `trang_thai` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `khuyenmai`
---
-
-CREATE TABLE `khuyenmai` (
-  `ma_km` varchar(20) NOT NULL,
-  `ten_khuyen_mai` varchar(200) NOT NULL,
-  `muc_khuyen_mai` double NOT NULL,
-  `dieu_kien` varchar(50) NOT NULL,
-  `thoi_gian_bat_dau` date NOT NULL,
-  `thoi_gian_ket_thuc` date NOT NULL,
-  `tinh_trang` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `mausac`
---
-
-CREATE TABLE `mausac` (
-  `ma_mau` varchar(20) NOT NULL,
-  `ten_mau` varchar(50) NOT NULL,
-  `trang_thai` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `mausac`
---
-
-INSERT INTO `mausac` (`ma_mau`, `ten_mau`, `trang_thai`) VALUES
-('#000', 'Đen', 0),
-('#00008B', 'Xanh đậm', 0),
-('#808080', 'Xám', 0),
-('#ADD8E6', 'Xanh nhạt', 0),
-('#c0c0c0', 'Bạc', 0),
-('#fff', 'Trắng', 0),
-('#ffff00', 'Vàng', 0);
 
 -- --------------------------------------------------------
 
@@ -9333,7 +9224,7 @@ INSERT INTO `wards` (`wards_id`, `district_id`, `name`) VALUES
 (7897, 480, 'Xã Đắk Nuê'),
 (7898, 480, 'Xã Krông Nô'),
 (7899, 480, 'Xã Nam Ka'),
-(7900, 480, 'Xã Ea R\'Bin''),
+(7900, 480, 'Xã Ea R\'Bin'),
 (7901, 481, 'Xã Ea Ning'),
 (7902, 481, 'Xã Cư Ê Wi'),
 (7903, 481, 'Xã Ea Ktur'),
@@ -9347,17 +9238,17 @@ INSERT INTO `wards` (`wards_id`, `district_id`, `name`) VALUES
 (7911, 482, 'Phường Nghĩa Phú'),
 (7912, 482, 'Phường Nghĩa Tân'),
 (7913, 482, 'Phường Nghĩa Trung'),
-(7914, 482, 'Xã Đăk R\'Moan''),
+(7914, 482, 'Xã Đăk R\'Moan'),
 (7915, 482, 'Phường Quảng Thành'),
 (7916, 482, 'Xã Đắk Nia'),
 (7917, 483, 'Xã Quảng Sơn'),
 (7918, 483, 'Xã Quảng Hoà'),
 (7919, 483, 'Xã Đắk Ha'),
-(7920, 483, 'Xã Đắk R\'Măng''),
+(7920, 483, 'Xã Đắk R\'Măng'),
 (7921, 483, 'Xã Quảng Khê'),
 (7922, 483, 'Xã Đắk Plao'),
 (7923, 483, 'Xã Đắk Som'),
-(7924, 484, 'Thị trấn Ea T\'Ling''),
+(7924, 484, 'Thị trấn Ea T\'Ling'),
 (7925, 484, 'Xã Đắk Wil'),
 (7926, 484, 'Xã Ea Pô'),
 (7927, 484, 'Xã Nam Dong'),
@@ -9367,10 +9258,10 @@ INSERT INTO `wards` (`wards_id`, `district_id`, `name`) VALUES
 (7931, 484, 'Xã Trúc Sơn'),
 (7932, 485, 'Thị trấn Đắk Mil'),
 (7933, 485, 'Xã  Đắk Lao'),
-(7934, 485, 'Xã Đắk R\'La''),
+(7934, 485, 'Xã Đắk R\'La'),
 (7935, 485, 'Xã Đắk Gằn'),
 (7936, 485, 'Xã Đức Mạnh'),
-(7937, 485, 'Xã Đắk N\'Drót''),
+(7937, 485, 'Xã Đắk N\'Drót'),
 (7938, 485, 'Xã Long Sơn'),
 (7939, 485, 'Xã Đắk Sắk'),
 (7940, 485, 'Xã Thuận An'),
@@ -9386,7 +9277,7 @@ INSERT INTO `wards` (`wards_id`, `district_id`, `name`) VALUES
 (7950, 486, 'Xã Đức Xuyên'),
 (7951, 486, 'Xã Đắk Nang'),
 (7952, 486, 'Xã Quảng Phú'),
-(7953, 486, 'Xã Nâm N\'Đir''),
+(7953, 486, 'Xã Nâm N\'Đir'),
 (7954, 487, 'Thị trấn Đức An'),
 (7955, 487, 'Xã Đắk Môl'),
 (7956, 487, 'Xã Đắk Hòa'),
@@ -9410,7 +9301,7 @@ INSERT INTO `wards` (`wards_id`, `district_id`, `name`) VALUES
 (7974, 489, 'Xã Quảng Trực'),
 (7975, 489, 'Xã Đắk Búk So'),
 (7976, 489, 'Xã Quảng Tâm'),
-(7977, 489, 'Xã Đắk R\'Tíh''),
+(7977, 489, 'Xã Đắk R\'Tíh'),
 (7978, 489, 'Xã Đắk Ngo'),
 (7979, 489, 'Xã Quảng Tân'),
 (7980, 490, 'Phường 7'),
@@ -9433,7 +9324,7 @@ INSERT INTO `wards` (`wards_id`, `district_id`, `name`) VALUES
 (7997, 491, 'Phường Lộc Tiến'),
 (7998, 491, 'Phường 2'),
 (7999, 491, 'Phường 1'),
-(8000, 491, 'Phường B\'lao''),
+(8000, 491, 'Phường B\'lao'),
 (8001, 491, 'Phường Lộc Sơn'),
 (8002, 491, 'Xã Đạm Bri'),
 (8003, 491, 'Xã Lộc Thanh'),
@@ -9442,12 +9333,12 @@ INSERT INTO `wards` (`wards_id`, `district_id`, `name`) VALUES
 (8006, 491, 'Xã Đại Lào'),
 (8007, 492, 'Xã Đạ Tông'),
 (8008, 492, 'Xã Đạ Long'),
-(8009, 492, 'Xã Đạ M\' Rong''),
+(8009, 492, 'Xã Đạ M\' Rong'),
 (8010, 492, 'Xã Liêng Srônh'),
 (8011, 492, 'Xã Đạ Rsal'),
 (8012, 492, 'Xã Rô Men'),
 (8013, 492, 'Xã Phi Liêng'),
-(8014, 492, 'Xã Đạ K\' Nàng''),
+(8014, 492, 'Xã Đạ K\' Nàng'),
 (8015, 493, 'Thị trấn Lạc Dương'),
 (8016, 493, 'Xã Đạ Chais'),
 (8017, 493, 'Xã Đạ Nhim'),
@@ -9470,7 +9361,7 @@ INSERT INTO `wards` (`wards_id`, `district_id`, `name`) VALUES
 (8034, 494, 'Xã Liên Hà'),
 (8035, 494, 'Xã Đan Phượng'),
 (8036, 494, 'Xã Nam Hà'),
-(8037, 495, 'Thị trấn D\'Ran''),
+(8037, 495, 'Thị trấn D\'Ran'),
 (8038, 495, 'Thị trấn Thạnh Mỹ'),
 (8039, 495, 'Xã Lạc Xuân'),
 (8040, 495, 'Xã Đạ Ròn'),
@@ -9485,7 +9376,7 @@ INSERT INTO `wards` (`wards_id`, `district_id`, `name`) VALUES
 (8049, 496, 'Xã Liên Hiệp'),
 (8050, 496, 'Xã Hiệp Thạnh'),
 (8051, 496, 'Xã Bình Thạnh'),
-(8052, 496, 'Xã N\'Thol Hạ''),
+(8052, 496, 'Xã N\'Thol Hạ'),
 (8053, 496, 'Xã Tân Hội'),
 (8054, 496, 'Xã Tân Thành'),
 (8055, 496, 'Xã Phú Hội'),
@@ -9519,7 +9410,7 @@ INSERT INTO `wards` (`wards_id`, `district_id`, `name`) VALUES
 (8083, 498, 'Xã Lộc Lâm'),
 (8084, 498, 'Xã Lộc Phú'),
 (8085, 498, 'Xã Lộc Bắc'),
-(8086, 498, 'Xã B\' Lá''),
+(8086, 498, 'Xã B\' Lá'),
 (8087, 498, 'Xã Lộc Ngãi'),
 (8088, 498, 'Xã Lộc Quảng'),
 (8089, 498, 'Xã Lộc Tân'),
@@ -9528,7 +9419,7 @@ INSERT INTO `wards` (`wards_id`, `district_id`, `name`) VALUES
 (8092, 498, 'Xã Tân Lạc'),
 (8093, 498, 'Xã Lộc Thành'),
 (8094, 498, 'Xã Lộc Nam'),
-(8095, 499, 'Thị trấn Đạ M\'ri''),
+(8095, 499, 'Thị trấn Đạ M\'ri'),
 (8096, 499, 'Thị trấn Ma Đa Guôi'),
 (8097, 499, 'Xã Hà Lâm'),
 (8098, 499, 'Xã Đạ Tồn'),
@@ -12025,244 +11916,16 @@ INSERT INTO `wards` (`wards_id`, `district_id`, `name`) VALUES
 --
 
 --
--- Indexes for table `carddohoa`
---
-ALTER TABLE `carddohoa`
-  ADD PRIMARY KEY (`ma_card`);
-
---
--- Indexes for table `chipxuly`
---
-ALTER TABLE `chipxuly`
-  ADD PRIMARY KEY (`ma_chip_xu_ly`);
-
---
--- Indexes for table `chitietcongketnoi`
---
-ALTER TABLE `chitietcongketnoi`
-  ADD PRIMARY KEY (`ma_cong`,`ma_ctsp`),
-  ADD KEY `ctckn_fk_ctsp` (`ma_ctsp`);
-
---
--- Indexes for table `chitiethoadon`
---
-ALTER TABLE `chitiethoadon`
-  ADD PRIMARY KEY (`ma_hd`,`ma_ctsp`),
-  ADD KEY `cthd_fk_ctsp` (`ma_ctsp`);
-
---
--- Indexes for table `chitietkhuyenmai`
---
-ALTER TABLE `chitietkhuyenmai`
-  ADD PRIMARY KEY (`ma_km`,`ma_hd`),
-  ADD KEY `ma_km` (`ma_km`),
-  ADD KEY `ma_km_2` (`ma_km`),
-  ADD KEY `ctkm_fk_hd` (`ma_hd`);
-
---
--- Indexes for table `chitietphieubaohanh`
---
-ALTER TABLE `chitietphieubaohanh`
-  ADD PRIMARY KEY (`ma_pbh`,`ma_ctsp`),
-  ADD KEY `ctpbh_fk_ctsp` (`ma_ctsp`);
-
---
--- Indexes for table `chitietphieudoitra`
---
-ALTER TABLE `chitietphieudoitra`
-  ADD PRIMARY KEY (`ma_pdt`,`ma_ctsp`),
-  ADD KEY `ctpdt_fk_ctsp` (`ma_ctsp`);
-
---
--- Indexes for table `chitietphieunhap`
---
-ALTER TABLE `chitietphieunhap`
-  ADD PRIMARY KEY (`ma_pn`,`ma_ctsp`),
-  ADD KEY `ctpn_fk_ctsp` (`ma_ctsp`);
-
---
--- Indexes for table `chitietquyen`
---
-ALTER TABLE `chitietquyen`
-  ADD PRIMARY KEY (`ma_quyen`,`ma_chuc_nang`,`hanh_dong`),
-  ADD KEY `ctq_fk_chucnang` (`ma_chuc_nang`);
-
---
--- Indexes for table `chitietsanpham`
---
-ALTER TABLE `chitietsanpham`
-  ADD PRIMARY KEY (`ma_ctsp`),
-  ADD KEY `ctsp_fk_sp` (`ma_sp`),
-  ADD KEY `ctsp_fk_chip` (`ma_chip_xu_ly`),
-  ADD KEY `ctsp_fk_mausac` (`ma_mau`) USING BTREE,
-  ADD KEY `ctsp_fk_carddohoa` (`ma_carddohoa`);
-
---
--- Indexes for table `chucnangquyen`
---
-ALTER TABLE `chucnangquyen`
-  ADD PRIMARY KEY (`ma_chuc_nang`);
-
---
--- Indexes for table `congketnoi`
---
-ALTER TABLE `congketnoi`
-  ADD PRIMARY KEY (`ma_cong`);
-
---
--- Indexes for table `ctsp_imei`
---
-ALTER TABLE `ctsp_imei`
-  ADD PRIMARY KEY (`ma_imei`),
-  ADD KEY `imei_ctsp` (`ma_ctsp`);
-
---
--- Indexes for table `danhgia`
---
-ALTER TABLE `danhgia`
-  ADD PRIMARY KEY (`ma_ctsp`,`ma_kh`),
-  ADD KEY `danhgia_fk_kh` (`ma_kh`);
-
---
 -- Indexes for table `district`
 --
 ALTER TABLE `district`
   ADD PRIMARY KEY (`district_id`);
 
 --
--- Indexes for table `giohang`
---
-ALTER TABLE `giohang`
-  ADD PRIMARY KEY (`ma_ctsp`,`ma_kh`),
-  ADD KEY `giohang_fk_kh` (`ma_kh`);
-
---
--- Indexes for table `hedieuhanh`
---
-ALTER TABLE `hedieuhanh`
-  ADD PRIMARY KEY (`ma_hdh`);
-
---
--- Indexes for table `hoadon`
---
-ALTER TABLE `hoadon`
-  ADD PRIMARY KEY (`ma_hd`),
-  ADD KEY `hd_fk_kh` (`ma_kh`),
-  ADD KEY `hd_fk_nv` (`ma_nv`);
-
---
--- Indexes for table `khachhang`
---
-ALTER TABLE `khachhang`
-  ADD PRIMARY KEY (`ma_kh`);
-
---
--- Indexes for table `khuyenmai`
---
-ALTER TABLE `khuyenmai`
-  ADD PRIMARY KEY (`ma_km`);
-
---
--- Indexes for table `mausac`
---
-ALTER TABLE `mausac`
-  ADD PRIMARY KEY (`ma_mau`),
-  ADD UNIQUE KEY `ten_mau` (`ten_mau`);
-
---
--- Indexes for table `nhacungcap`
---
-ALTER TABLE `nhacungcap`
-  ADD PRIMARY KEY (`ma_ncc`);
-
---
--- Indexes for table `nhanvien`
---
-ALTER TABLE `nhanvien`
-  ADD PRIMARY KEY (`ma_nv`);
-
---
--- Indexes for table `nhomquyen`
---
-ALTER TABLE `nhomquyen`
-  ADD PRIMARY KEY (`ma_quyen`);
-
---
--- Indexes for table `phieubaohanh`
---
-ALTER TABLE `phieubaohanh`
-  ADD PRIMARY KEY (`ma_pbh`),
-  ADD KEY `pbh_fk_nv` (`ma_nv`),
-  ADD KEY `pbh_fk_kh` (`ma_kh`),
-  ADD KEY `pbh_fk_hd` (`ma_hd`);
-
---
--- Indexes for table `phieudoitra`
---
-ALTER TABLE `phieudoitra`
-  ADD PRIMARY KEY (`ma_pdt`),
-  ADD KEY `pdt_fk_nv` (`ma_nv`),
-  ADD KEY `pdt_fk_hd` (`ma_hd`);
-
---
--- Indexes for table `phieunhap`
---
-ALTER TABLE `phieunhap`
-  ADD PRIMARY KEY (`ma_pn`),
-  ADD KEY `pn_fk_ncc` (`ma_ncc`),
-  ADD KEY `pn_fk_nv` (`ma_nv`);
-
---
 -- Indexes for table `province`
 --
 ALTER TABLE `province`
   ADD PRIMARY KEY (`province_id`);
-
---
--- Indexes for table `sanpham`
---
-ALTER TABLE `sanpham`
-  ADD PRIMARY KEY (`ma_sp`),
-  ADD KEY `sp_fk_thuonghieu` (`ma_thuong_hieu`),
-  ADD KEY `sp_fk_theloai` (`ma_the_loai`),
-  ADD KEY `sp_fk_hdh` (`ma_hdh`);
-
---
--- Indexes for table `taikhoan`
---
-ALTER TABLE `taikhoan`
-  ADD PRIMARY KEY (`ma_tk`),
-  ADD UNIQUE KEY `username` (`username`),
-  ADD KEY `tk_fk_quyen` (`ma_quyen`);
-
---
--- Indexes for table `theloai`
---
-ALTER TABLE `theloai`
-  ADD PRIMARY KEY (`ma_the_loai`);
-
---
--- Indexes for table `thongbao`
---
-ALTER TABLE `thongbao`
-  ADD PRIMARY KEY (`ma_sp`,`ma_kh`,`ma_nv`,`ma_tk`,`ma_hd`,`ma_pn`,`ma_pdt`,`ma_pbh`,`ma_ncc`,`ma_km`,`ma_quyen`,`ma_chuc_nang`),
-  ADD KEY `tb_fk_kh` (`ma_kh`),
-  ADD KEY `tb_fk_nv` (`ma_nv`),
-  ADD KEY `tb_fk_tk` (`ma_tk`),
-  ADD KEY `tb_fk_hd` (`ma_hd`),
-  ADD KEY `tb_fk_pn` (`ma_pn`),
-  ADD KEY `tb_fk_pdt` (`ma_pdt`),
-  ADD KEY `tb_fk_pbh` (`ma_pbh`),
-  ADD KEY `tb_fk_ncc` (`ma_ncc`),
-  ADD KEY `tb_fk_km` (`ma_km`),
-  ADD KEY `tb_fk_quyen` (`ma_quyen`),
-  ADD KEY `tb_fk_chucnang` (`ma_chuc_nang`);
-
---
--- Indexes for table `thuonghieu`
---
-ALTER TABLE `thuonghieu`
-  ADD PRIMARY KEY (`ma_thuong_hieu`);
 
 --
 -- Indexes for table `wards`
@@ -12291,148 +11954,6 @@ ALTER TABLE `province`
 --
 ALTER TABLE `wards`
   MODIFY `wards_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10585;
-
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `chitietcongketnoi`
---
-ALTER TABLE `chitietcongketnoi`
-  ADD CONSTRAINT `ctckn_fk_ckn` FOREIGN KEY (`ma_cong`) REFERENCES `congketnoi` (`ma_cong`),
-  ADD CONSTRAINT `ctckn_fk_ctsp` FOREIGN KEY (`ma_ctsp`) REFERENCES `chitietsanpham` (`ma_ctsp`);
-
---
--- Constraints for table `chitiethoadon`
---
-ALTER TABLE `chitiethoadon`
-  ADD CONSTRAINT `cthd_fk_ctsp` FOREIGN KEY (`ma_ctsp`) REFERENCES `chitietsanpham` (`ma_ctsp`),
-  ADD CONSTRAINT `cthd_fk_hd` FOREIGN KEY (`ma_hd`) REFERENCES `hoadon` (`ma_hd`);
-
---
--- Constraints for table `chitietkhuyenmai`
---
-ALTER TABLE `chitietkhuyenmai`
-  ADD CONSTRAINT `ctkm_fk_hd` FOREIGN KEY (`ma_hd`) REFERENCES `hoadon` (`ma_hd`),
-  ADD CONSTRAINT `ctkm_fk_km` FOREIGN KEY (`ma_km`) REFERENCES `khuyenmai` (`ma_km`);
-
---
--- Constraints for table `chitietphieubaohanh`
---
-ALTER TABLE `chitietphieubaohanh`
-  ADD CONSTRAINT `ctpbh_fk_ctsp` FOREIGN KEY (`ma_ctsp`) REFERENCES `chitietsanpham` (`ma_ctsp`),
-  ADD CONSTRAINT `ctpbh_fk_pbh` FOREIGN KEY (`ma_pbh`) REFERENCES `phieubaohanh` (`ma_pbh`);
-
---
--- Constraints for table `chitietphieudoitra`
---
-ALTER TABLE `chitietphieudoitra`
-  ADD CONSTRAINT `ctpdt_fk_ctsp` FOREIGN KEY (`ma_ctsp`) REFERENCES `chitietsanpham` (`ma_ctsp`),
-  ADD CONSTRAINT `ctpdt_fk_pdt` FOREIGN KEY (`ma_pdt`) REFERENCES `phieudoitra` (`ma_pdt`);
-
---
--- Constraints for table `chitietphieunhap`
---
-ALTER TABLE `chitietphieunhap`
-  ADD CONSTRAINT `ctpn_fk_ctsp` FOREIGN KEY (`ma_ctsp`) REFERENCES `chitietsanpham` (`ma_ctsp`),
-  ADD CONSTRAINT `ctpn_fk_pn` FOREIGN KEY (`ma_pn`) REFERENCES `phieunhap` (`ma_pn`);
-
---
--- Constraints for table `chitietquyen`
---
-ALTER TABLE `chitietquyen`
-  ADD CONSTRAINT `ctq_fk_chucnang` FOREIGN KEY (`ma_chuc_nang`) REFERENCES `chucnangquyen` (`ma_chuc_nang`),
-  ADD CONSTRAINT `ctq_fk_quyen` FOREIGN KEY (`ma_quyen`) REFERENCES `nhomquyen` (`ma_quyen`);
-
---
--- Constraints for table `chitietsanpham`
---
-ALTER TABLE `chitietsanpham`
-  ADD CONSTRAINT `ctsp_fk_carddohoa` FOREIGN KEY (`ma_carddohoa`) REFERENCES `carddohoa` (`ma_card`),
-  ADD CONSTRAINT `ctsp_fk_chip` FOREIGN KEY (`ma_chip_xu_ly`) REFERENCES `chipxuly` (`ma_chip_xu_ly`),
-  ADD CONSTRAINT `ctsp_fk_mau` FOREIGN KEY (`ma_mau`) REFERENCES `mausac` (`ma_mau`),
-  ADD CONSTRAINT `ctsp_fk_sp` FOREIGN KEY (`ma_sp`) REFERENCES `sanpham` (`ma_sp`);
-
---
--- Constraints for table `ctsp_imei`
---
-ALTER TABLE `ctsp_imei`
-  ADD CONSTRAINT `imei_ctsp` FOREIGN KEY (`ma_ctsp`) REFERENCES `chitietsanpham` (`ma_ctsp`);
-
---
--- Constraints for table `danhgia`
---
-ALTER TABLE `danhgia`
-  ADD CONSTRAINT `danhgia_fk_ctsp` FOREIGN KEY (`ma_ctsp`) REFERENCES `chitietsanpham` (`ma_ctsp`),
-  ADD CONSTRAINT `danhgia_fk_kh` FOREIGN KEY (`ma_kh`) REFERENCES `khachhang` (`ma_kh`);
-
---
--- Constraints for table `giohang`
---
-ALTER TABLE `giohang`
-  ADD CONSTRAINT `giohang_fk_ctsp` FOREIGN KEY (`ma_ctsp`) REFERENCES `chitietsanpham` (`ma_ctsp`),
-  ADD CONSTRAINT `giohang_fk_kh` FOREIGN KEY (`ma_kh`) REFERENCES `khachhang` (`ma_kh`);
-
---
--- Constraints for table `hoadon`
---
-ALTER TABLE `hoadon`
-  ADD CONSTRAINT `hd_fk_kh` FOREIGN KEY (`ma_kh`) REFERENCES `khachhang` (`ma_kh`),
-  ADD CONSTRAINT `hd_fk_nv` FOREIGN KEY (`ma_nv`) REFERENCES `nhanvien` (`ma_nv`);
-
---
--- Constraints for table `phieubaohanh`
---
-ALTER TABLE `phieubaohanh`
-  ADD CONSTRAINT `pbh_fk_hd` FOREIGN KEY (`ma_hd`) REFERENCES `hoadon` (`ma_hd`),
-  ADD CONSTRAINT `pbh_fk_kh` FOREIGN KEY (`ma_kh`) REFERENCES `khachhang` (`ma_kh`),
-  ADD CONSTRAINT `pbh_fk_nv` FOREIGN KEY (`ma_nv`) REFERENCES `nhanvien` (`ma_nv`);
-
---
--- Constraints for table `phieudoitra`
---
-ALTER TABLE `phieudoitra`
-  ADD CONSTRAINT `pdt_fk_hd` FOREIGN KEY (`ma_hd`) REFERENCES `hoadon` (`ma_hd`),
-  ADD CONSTRAINT `pdt_fk_nv` FOREIGN KEY (`ma_nv`) REFERENCES `nhanvien` (`ma_nv`);
-
---
--- Constraints for table `phieunhap`
---
-ALTER TABLE `phieunhap`
-  ADD CONSTRAINT `pn_fk_ncc` FOREIGN KEY (`ma_ncc`) REFERENCES `nhacungcap` (`ma_ncc`),
-  ADD CONSTRAINT `pn_fk_nv` FOREIGN KEY (`ma_nv`) REFERENCES `nhanvien` (`ma_nv`);
-
---
--- Constraints for table `sanpham`
---
-ALTER TABLE `sanpham`
-  ADD CONSTRAINT `sp_fk_hdh` FOREIGN KEY (`ma_hdh`) REFERENCES `hedieuhanh` (`ma_hdh`),
-  ADD CONSTRAINT `sp_fk_theloai` FOREIGN KEY (`ma_the_loai`) REFERENCES `theloai` (`ma_the_loai`),
-  ADD CONSTRAINT `sp_fk_thuonghieu` FOREIGN KEY (`ma_thuong_hieu`) REFERENCES `thuonghieu` (`ma_thuong_hieu`);
-
---
--- Constraints for table `taikhoan`
---
-ALTER TABLE `taikhoan`
-  ADD CONSTRAINT `tk_fk_quyen` FOREIGN KEY (`ma_quyen`) REFERENCES `nhomquyen` (`ma_quyen`);
-
---
--- Constraints for table `thongbao`
---
-ALTER TABLE `thongbao`
-  ADD CONSTRAINT `tb_fk_chucnang` FOREIGN KEY (`ma_chuc_nang`) REFERENCES `chucnangquyen` (`ma_chuc_nang`),
-  ADD CONSTRAINT `tb_fk_hd` FOREIGN KEY (`ma_hd`) REFERENCES `hoadon` (`ma_hd`),
-  ADD CONSTRAINT `tb_fk_kh` FOREIGN KEY (`ma_kh`) REFERENCES `khachhang` (`ma_kh`),
-  ADD CONSTRAINT `tb_fk_km` FOREIGN KEY (`ma_km`) REFERENCES `khuyenmai` (`ma_km`),
-  ADD CONSTRAINT `tb_fk_ncc` FOREIGN KEY (`ma_ncc`) REFERENCES `nhacungcap` (`ma_ncc`),
-  ADD CONSTRAINT `tb_fk_nv` FOREIGN KEY (`ma_nv`) REFERENCES `nhanvien` (`ma_nv`),
-  ADD CONSTRAINT `tb_fk_pbh` FOREIGN KEY (`ma_pbh`) REFERENCES `phieubaohanh` (`ma_pbh`),
-  ADD CONSTRAINT `tb_fk_pdt` FOREIGN KEY (`ma_pdt`) REFERENCES `phieudoitra` (`ma_pdt`),
-  ADD CONSTRAINT `tb_fk_pn` FOREIGN KEY (`ma_pn`) REFERENCES `phieunhap` (`ma_pn`),
-  ADD CONSTRAINT `tb_fk_quyen` FOREIGN KEY (`ma_quyen`) REFERENCES `nhomquyen` (`ma_quyen`),
-  ADD CONSTRAINT `tb_fk_sp` FOREIGN KEY (`ma_sp`) REFERENCES `sanpham` (`ma_sp`),
-  ADD CONSTRAINT `tb_fk_tk` FOREIGN KEY (`ma_tk`) REFERENCES `taikhoan` (`ma_tk`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
