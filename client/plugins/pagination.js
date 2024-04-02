@@ -1,7 +1,7 @@
 function totalPage(count){
   let total = count;
   console.log(total);
-  let totalpages = Math.ceil(parseInt(total) / 8);
+  let totalpages = Math.ceil(parseInt(total) / 6);
   const currentpage = $("#currentpage").val();
   $("#cur").text(currentpage);
   $("#total").text(totalpages);
