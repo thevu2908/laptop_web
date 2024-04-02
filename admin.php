@@ -87,6 +87,7 @@
   <script src="./server/src/admin/assets/js/account.js"></script>
   <script src="./server/src/admin/assets/js/product.js"></script>
   <script src="./server/src/admin/assets/js/productColor.js"></script>
+  <script src="./client/utils/formatCurrency.js"></script>
   <script src="./client/pages/NhomQuyen.js"></script>
   <script src="./client/pages/NhanVien.js"></script>
   <script src="./client/pages/TaiKhoan.js"></script>

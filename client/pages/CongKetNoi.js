@@ -19,11 +19,12 @@ function loadPlugData() {
                     html += `<option value="${item.ma_cong}">${item.ten_cong}</option>`
                 })
 
-                $('#admin-product-main #product-plug').html(html)
-                $('#admin-product-main #product-plug').selectpicker('refresh')
-
-                $('#admin-product-detail-main #product-plug').html(html)
-                $('#admin-product-detail-main #product-plug').selectpicker('refresh')
+                if ($('#admin-product-main #product-plug').length > 0) {
+                    $('#admin-product-main #product-plug').html(html)
+                    $('#admin-product-main #product-plug').selectpicker('refresh')
+                    $('#admin-product-detail-main #product-plug').html(html)
+                    $('#admin-product-detail-main #product-plug').selectpicker('refresh')
+                }
             }
         },
         error: (xhr, status, error) => console.log(error)

@@ -20,7 +20,7 @@ class ChiTietCongKetNoiRepo extends ConnectDB {
     public function getChiTietCong($productDetailId) {
         $arrays = [];
         try {
-            $query = "SELECT * FROM chitietcongketnoi WHERE ma_ctsp = '$productDetailId'";
+            $query = "SELECT ctckn.*, ten_cong FROM chitietcongketnoi ctckn JOIN congketnoi ckn ON ctckn.ma_cong = ckn.ma_cong WHERE ma_ctsp = '$productDetailId'";
             $statement = mysqli_query($this->conn, $query);
 
             while ($row = mysqli_fetch_assoc($statement)) {
