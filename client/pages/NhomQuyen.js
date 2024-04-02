@@ -47,8 +47,8 @@ function addNhomQuyen(){
 function loadNhomQuyen(){
     var pageno = $("#currentpage").val();
     $.ajax({
-        url: "server/src/controller/PanigationController.php",
-        data: {action:"panigation", page: pageno,table:"nhomquyen"},
+        url: "server/src/controller/PaginationController.php",
+        data: {action:"pagination", page: pageno,table:"nhomquyen"},
         method: "GET",
         dataType: "json",
         success:function(data){
@@ -74,7 +74,7 @@ function render(data){
     var html="";
     //console.log(data);
     if (true) {
-        var jsonData=data.panigation;
+        var jsonData=data.paginattion;
         
             jsonData.forEach((nhomquyen,index) => {
                 html+=`<tr>
@@ -259,7 +259,7 @@ function detailNhomQuyen() {
         })
 })
 }
-// function panigation(total,current){
+// function paginattion(total,current){
 //     var pagelist = "";
 //     if (totalpages > 1) {
 //       currentpage = parseInt(currentpage);

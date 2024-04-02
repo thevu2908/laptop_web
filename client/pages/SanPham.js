@@ -1,5 +1,15 @@
 $(document).ready(() => {
     renderProducts()
+    $(document).on("click", "ul.pagination li a", function (e) {
+        e.preventDefault();
+        var $this = $(this);
+        const pagenum = $this.data("page");
+        $("#currentpage").val(pagenum);
+        renderProducts();
+        $this.parent().siblings().removeClass("active");
+        $this.parent().addClass("active");
+    });
+
     handleAddProduct()
     renderUpdateProductModal()
     handleUpdateProduct()
@@ -14,19 +24,22 @@ $(document).ready(() => {
 
 function getProductData() {
     return new Promise((resolve, reject) => {
+        const page = $('#currentpage').val()
         $.ajax({
-            url: 'server/src/controller/SanPhamController.php',
-            method: 'POST',
-            data: { action: 'get-data' },
+            url: 'server/src/controller/PaginationController.php',
+            method: 'GET',
+            data: { action: 'pagination', table: 'sanpham', page: page },
             dataType: 'JSON',
             success: async products => {
-                if (products && products.length > 0) {
-                    for (let product of products) {
+                if (products && products.pagination.length > 0) {
+                    const count = products.count
+
+                    for (let product of products.pagination) {
                         const plugs = await getProductDetailPlug(product.ma_ctsp)
                         product.plugs = plugs.map(plug => plug.ten_cong)
                     }
 
-                    const newProducts = Object.values(products.reduce((acc, current) => {
+                    const newProducts = Object.values(products.pagination.reduce((acc, current) => {
                         if (!acc[current.ma_sp]) {
                             acc[current.ma_sp] = {
                                 id: current.ma_sp,
@@ -65,7 +78,7 @@ function getProductData() {
                         return acc
                     }, {}))
 
-                    resolve(newProducts)
+                    resolve({ count, pagination: newProducts })
                 } else {
                     resolve(null)
                 }
@@ -120,7 +133,7 @@ function renderAdminProductTable() {
             let html = ''
 
             if (products) {
-                products.forEach((product, index) => {
+                products.pagination.forEach((product, index) => {
                     html += `
                         <tr>
                             <td>
@@ -153,6 +166,8 @@ function renderAdminProductTable() {
             }
 
             $('.admin-product-list').html(html)
+            console.log(products.count)
+            totalPage(products.count)
         })
         .catch(error => console.log(error))
 }

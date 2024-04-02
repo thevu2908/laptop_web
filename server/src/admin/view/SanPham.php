@@ -56,30 +56,12 @@
 					</tbody>
 				</table>
 				<div class="clearfix">
-					<div class="hint-text">Hiển thị <b>5</b> trong <b>25</b> sản phẩm</div>
-					<ul class="pagination">
-						<li class="page-item disabled">
-							<a href="#">Previous</a>
-						</li>
-						<li class="page-item active">
-							<a href="#" class="page-link">1</a>
-						</li>
-						<li class="page-item">
-							<a href="#" class="page-link">2</a>
-						</li>
-						<li class="page-item">
-							<a href="#" class="page-link">3</a>
-						</li>
-						<li class="page-item">
-							<a href="#" class="page-link">4</a>
-						</li>
-						<li class="page-item">
-							<a href="#" class="page-link">5</a>
-						</li>
-						<li class="page-item">
-							<a href="#" class="page-link">Next</a>
-						</li>
-					</ul>
+					<div class="hint-text">Showing <b id="cur">5</b> out of <b id="total">25</b> entries</div>
+					<nav id="pagination">
+						
+					</nav>
+					<input type="hidden" name="currentpage" id="currentpage" value="1">
+				</div>
 				</div>
 			</div>
 		</div>
