@@ -169,6 +169,23 @@ function getOSId(name) {
     })
 }
 
+function showOS(id, index) {
+    $.ajax({
+        url: 'server/src/controller/HeDieuHanhController.php',
+        method: 'POST',
+        data: { action: 'get', id: id },
+        dataType: 'JSON',
+        success: data => {
+            if (data) {
+                $(`.product-OS-${index}`).append(data.ten_hdh)
+            }
+        },
+        error: (jqXHR, textStatus, error) => {
+            console.log(error)
+        }
+    })
+}
+
 async function handleImportOS(name) {
     try {
         let id = await getOSId(name)

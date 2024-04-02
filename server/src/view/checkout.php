@@ -3,6 +3,7 @@
     include "header.php";
 ?>
 
+
 <div class="checkout-main">
     <div class="container">
         <div class="justify-content-between row">
@@ -19,10 +20,7 @@
                                 </div>
                             </div>
                         </li>
-                        <li class="col-6" >
-                            <div class="checkout-address-btn">Thêm địa chỉ</div>
-                        </li>
-                        <li class="col-6" >
+                        <li class="col-6 openmodal" >
                             <div class="checkout-address-btn">Thêm địa chỉ</div>
                         </li>
                     </ul>
@@ -124,6 +122,78 @@
                     </div>
                     <button class="btn btn-success mt-4 mx-2" >THANH TOÁN</button>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal-cart" >
+        <div class="modal-cart-dialog">
+            <div class="modal-cart-header">
+                <h2>Thông tin người nhận hàng</h2>
+                <i class="fa-solid fa-xmark closemodal"></i>
+            </div>
+
+            <div class="modal-cart-body" style="min-height: 450px;" >
+                <form>
+                    <div class="form-group">
+                        <label for="inputName">Họ tên</label>
+                        <input type="text" class="form-control" id="inputName" placeholder="Vui lòng nhập tên người nhận">
+                    </div>
+                    <div class="form-row row">
+                        <div class="form-group col-6">
+                            <label for="inputPhone">Số điện thoại</label>
+                            <input type="tel" class="form-control" id="inputPhone" placeholder="Nhập số điện thoại">
+                        </div>
+                        <div class="form-group col-6">
+                            <label for="inputEmail">Email</label>
+                            <input type="email" class="form-control" id="inputEmail" placeholder="Nhập email của bạn">
+                        </div>
+                    </div>
+                    
+                    <h3 class="" style="margin: 0;" >Địa chỉ nhận hàng</h3>
+                    <div class="form-row row">
+                        <div class="col-6 my-1 d-flex flex-column">
+                            <label class="mr-sm-2" for="province">Tỉnh/Thành phố</label>
+                            <select class="custom-select mr-sm-2" id="province" name="province">
+                                <option value="">Chọn một tỉnh</option>
+                                
+                            </select>
+                        </div>
+                        <div class="col-6 my-1 d-flex flex-column">
+                            <label class="mr-sm-2" for="district">Quận/Huyện</label>
+                            <select class="custom-select mr-sm-2" id="district" name="district" >
+                                <option value="">Chọn một quận/huyện</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row row">
+                        <div class="col-6 my-1 d-flex flex-column">
+                            <label class="mr-sm-2" for="wards">Phường/Xã</label>
+                            <select class="custom-select mr-sm-2" id="wards" name="wards" >
+                                <option value="">Chọn một xã</option>
+                            </select>
+                        </div>
+                        <div class="col-6 my-1 d-flex flex-column">
+                            <label for="inputAddress">Địa chỉ cụ thể</label>
+                            <input type="email" class="form-control" id="inputAddress" placeholder="Số nhà, ngõ, tên đường ...">
+                        </div>
+                    </div>
+
+                    <div class="form-group d-flex justify-content-end">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="gridCheck" style="margin-top: 6px;">
+                            <label class="form-check-label" for="gridCheck" style="line-height: normal;">
+                                Đặt làm mặc định
+                            </label>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary" id="saveAddress" name="saveAddress">Lưu địa chỉ</button>
+                </form>
+            </div>
+
+            <div class="modal-cart-footer">
+                <button class="btn btn-danger closemodal">Hủy bỏ</button>
             </div>
         </div>
     </div>

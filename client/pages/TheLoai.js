@@ -168,6 +168,23 @@ function getTypeId(name) {
     })
 }
 
+function showType(id, index) {
+    $.ajax({
+        url: 'server/src/controller/TheLoaiController.php',
+        method: 'POST',
+        data: { action: 'get', id: id },
+        dataType: 'JSON',
+        success: data => {
+            if (data) {
+                $(`.product-type-${index}`).append(data.ten_loai)
+            }
+        },
+        error: (jqXHR, textStatus, error) => {
+            console.log(error)
+        }
+    })
+}
+
 async function handleImportType(name) {
     try {
         let id = await getTypeId(name)
