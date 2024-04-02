@@ -3,6 +3,8 @@ function totalPage(count){
   console.log(total);
   let totalpages = Math.ceil(parseInt(total) / 8);
   const currentpage = $("#currentpage").val();
+  $("#cur").text(currentpage);
+  $("#total").text(totalpages);
   console.log(currentpage);
   pagination(totalpages, currentpage);
 }
