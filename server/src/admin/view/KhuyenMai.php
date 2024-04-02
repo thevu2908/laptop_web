@@ -8,11 +8,11 @@
 							<h2>Quản Lý <b>Khuyến mãi</b></h2>
 						</div>
 						<div class="col-sm-6">
-							<a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal">
+							<a href="#addEmployeeModal" class="btn btn-success add" data-toggle="modal">
 								<i class="material-icons">&#xE147;</i>
 								<span>Thêm</span>
 							</a>
-							<a href="#deleteEmployeeModal" class="btn btn-danger" data-toggle="modal">
+							<a href="#deleteEmployeeModal" class="btn btn-danger delete" data-toggle="modal">
 								<i class="material-icons">&#xE15C;</i>
 								<span>Xóa</span>
 							</a>
@@ -38,6 +38,50 @@
 						</tr>
 					</thead>
 					<tbody>
+						<tr>
+							<td>
+								<span class="custom-checkbox">
+									<input type="checkbox" id="checkbox1" name="options[]" value="1">
+									<label for="checkbox1"></label>
+								</span>
+							</td>
+							<td>1</td>
+							<td>Admin</td>
+							<td><span class="status text-success">&bull;</span> Active</td>
+							<td>
+								<a href="#editEmployeeModal" class="edit" data-toggle="modal">
+									<i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
+								</a>
+								<a href="#deleteEmployeeModal" class="delete" data-toggle="modal">
+									<i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
+								</a>
+								<a href="#" class="view" title="View" data-toggle="tooltip">
+									<i class="material-icons">&#xE417;</i>
+								</a>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<span class="custom-checkbox">
+									<input type="checkbox" id="checkbox1" name="options[]" value="1">
+									<label for="checkbox1"></label>
+								</span>
+							</td>
+							<td>1</td>
+							<td>Admin</td>
+							<td><span class="status text-success">&bull;</span> Active</td>
+							<td>
+								<a href="#editEmployeeModal" class="edit" data-toggle="modal">
+									<i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
+								</a>
+								<a href="#deleteEmployeeModal" class="delete" data-toggle="modal">
+									<i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
+								</a>
+								<a href="#" class="view" title="View" data-toggle="tooltip">
+									<i class="material-icons">&#xE417;</i>
+								</a>
+							</td>
+						</tr>
 						<tr>
 							<td>
 								<span class="custom-checkbox">

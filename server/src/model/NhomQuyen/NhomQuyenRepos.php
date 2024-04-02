@@ -1,4 +1,6 @@
-<?php
+<!-- <?php
+// include("../ConnectDB.php");
+// include("../NhomQuyen/NhomQuyen.php");
 class NhomQuyenRepos extends ConnectDB{
     function getAllNhomQuyen(){
         $sql = "SELECT * FROM nhomquyen";
@@ -68,3 +70,4 @@ class NhomQuyenRepos extends ConnectDB{
         return $arrNhomQuyen;
     }
 }
+?> -->

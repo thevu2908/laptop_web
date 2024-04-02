@@ -1,16 +1,20 @@
 <?php
 
-require_once '../config/config.php';
+//require_once '../config/config.php';
 
 class ConnectDB {
-    private $servername = DB_HOST;
-    private $username = DB_USERNAME;
-    private $password = DB_PASSWORD;
-    private $dbName = DB_NAME;
-    protected $conn;
+    private $servername;
+    private $username;
+    private $password;
+    private $database;
+    public $conn;
 
     public function __construct() {
-        $this->conn = mysqli_connect($this->servername, $this->username, $this->password, $this->dbName);
+        $this->servername = "localhost";
+        $this->username = "root";
+        $this->password = "";
+        $this->database = "school";
+        $this->conn = mysqli_connect($this->servername, $this->username, $this->password, $this->database);
 
         if (!$this->conn) {
             die("Connection failed: ". mysqli_connect_error());

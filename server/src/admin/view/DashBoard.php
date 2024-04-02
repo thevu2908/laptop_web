@@ -53,7 +53,7 @@
         <tbody>
           <tr>
             <td>
-              <img src="profile.png" alt="" />
+              <img src="profile.png" alt="Error" />
               <p>User Name</p>
             </td>
             <td>07-05-2023</td>
