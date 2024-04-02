@@ -32,7 +32,7 @@
 						</div>
 					</div>
 				</div>
-				<table class="table table-striped table-hover">
+				<table class="table table-striped table-hover admin-product-table">
 					<thead>
 						<tr>
 							<th>

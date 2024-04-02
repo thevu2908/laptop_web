@@ -23,12 +23,6 @@ if (isset($_REQUEST['controller'])) {
         <span class="text">Tài Khoản</span>
       </a>
     </li>
-    <li class="side-menu-item <?php echo $page === 'donhang' ? 'active' : '' ?>">
-      <a href="/admin.php?controller=donhang" class="nav-link">
-        <i class="fas fa-chart-simple"></i>
-        <span class="text">Đơn Hàng</span>
-      </a>
-    </li>
     <li class="side-menu-item pr-0">
       <button class="btn btn-toggle align-items-center rounded collapsed" data-toggle="collapse" data-target="#dashboard-collapse" aria-expanded="<?php echo $page === 'sanpham' || $page === 'chitietsanpham' ? 'true' : 'false'; ?>">
         <i class="fa-solid fa-chevron-right"></i>
@@ -38,13 +32,13 @@ if (isset($_REQUEST['controller'])) {
         <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
           <li class="side-menu-item <?php echo $page === 'sanpham' ? 'active' : '' ?>">
             <a href="/admin.php?controller=sanpham" class="nav-link">
-              <i class="fas fa-message"></i>
+              <i class="fa-solid fa-laptop"></i>
               <span class="text">Sản Phẩm</span>
             </a>
           </li>
           <li class="side-menu-item <?php echo $page === 'chitietsanpham' ? 'active' : '' ?>">
             <a href="/admin.php?controller=chitietsanpham" class="nav-link">
-              <i class="fas fa-message"></i>
+              <i class="fa-solid fa-laptop-code"></i>
               <span class="text">Chi Tiết Sản Phẩm</span>
             </a>
           </li>
@@ -65,8 +59,8 @@ if (isset($_REQUEST['controller'])) {
     </li>
     <li class="side-menu-item <?php echo $page === 'hoadon' ? 'active' : '' ?>">
       <a href="/admin.php?controller=hoadon" class="nav-link">
-        <i class="fas fa-people-group"></i>
-        <span class="text">Hóa Đơn</span>
+        <i class="fa-regular fa-clipboard"></i>
+        <span class="text">Đơn Hàng</span>
       </a>
     </li>
     <li class="side-menu-item <?php echo $page === 'khuyenmai' ? 'active' : '' ?>">

@@ -4,6 +4,7 @@ $(document).ready(() => {
     handleAddProductDetail()
     renderDeleteProductDetailModal()
     handleDeleteProductDetail()
+    searchProductDetail()
 })
 
 function getProductDetailData(productId) {
@@ -70,8 +71,8 @@ function renderAdminProductDetail() {
                                 </span>
                             </td>
                             <td>${item.ma_ctsp}</td>
-                            <td class="product-detail-cpu-name-${index}"></td>
                             <td class="product-detail-color-name-${index}"></td>
+                            <td class="product-detail-cpu-name-${index}"></td>
                             <td class="product-detail-gpu-name-${index}"></td>
                             <td>${item.ram.toUpperCase()}</td>
                             <td>${item.rom.toUpperCase()}</td>
@@ -298,81 +299,56 @@ function handleDeleteProductDetail() {
     })
 }
 
-function getProductDetailColors(productId) {
+function getProductDetailByProductId(productId) {
     return new Promise((resolve, reject) => {
         $.ajax({
             url: 'server/src/controller/CTSanPhamController.php',
             method: 'POST',
-            data: { action: 'get-colors', productId },
+            data: { action: 'get-by-product-id', productId },
             dataType: 'JSON',
-            success: colors => resolve(colors),
+            success: productDetails => resolve(productDetails),
             error: (xhr, status, error) => {
                 console.log(error)
                 reject(error)
             }
         })
     })
+
 }
 
-function getProductDetailCPUs(productId) {
-    return new Promise((resolve, reject) => {
-        $.ajax({
-            url: 'server/src/controller/CTSanPhamController.php',
-            method: 'POST',
-            data: { action: 'get-cpus', productId },
-            dataType: 'JSON',
-            success: cpus => resolve(cpus),
-            error: (xhr, status, error) => {
-                console.log(error)
-                reject(error)
-            }
-        })
-    })
-}
+function searchProductDetail() {
+    $(document).on('keyup', '.admin-search-info', e => {
+        const info = e.target.value.toLowerCase()
 
-function getProductDetailGPUs(productId) {
-    return new Promise((resolve, reject) => {
-        $.ajax({
-            url: 'server/src/controller/CTSanPhamController.php',
-            method: 'POST',
-            data: { action: 'get-gpus', productId },
-            dataType: 'JSON',
-            success: gpus => resolve(gpus),
-            error: (xhr, status, error) => {
-                console.log(error)
-                reject(error)
-            }
-        })
-    })
-}
+        $('.admin-product-detail-table tr').each(function(index) {
+            if (index !== 0) {
+                $row = $(this)
 
-function getProductDetailRAMs(productId) {
-    return new Promise((resolve, reject) => {
-        $.ajax({
-            url: 'server/src/controller/CTSanPhamController.php',
-            method: 'POST',
-            data: { action: 'get-rams', productId },
-            dataType: 'JSON',
-            success: rams => resolve(rams),
-            error: (xhr, status, error) => {
-                console.log(error)
-                reject(error)
-            }
-        })
-    })
-}
+                const tdElement = $row.find('td')
+                const id = tdElement[1].innerText.toLowerCase()
+                const color = tdElement[2].innerText.toLowerCase()
+                const cpu = tdElement[3].innerText.toLowerCase()
+                const gpu = tdElement[4].innerText.toLowerCase()
+                const ram = tdElement[5].innerText.toLowerCase()
+                const rom = tdElement[6].innerText.toLowerCase()
+                const plug = tdElement[7].innerText.toLowerCase()
+                const quantity = tdElement[9].innerText.toLowerCase()
 
-function getProductDetailROMs(productId) {
-    return new Promise((resolve, reject) => {
-        $.ajax({
-            url: 'server/src/controller/CTSanPhamController.php',
-            method: 'POST',
-            data: { action: 'get-roms', productId },
-            dataType: 'JSON',
-            success: roms => resolve(roms),
-            error: (xhr, status, error) => {
-                console.log(error)
-                reject(error)
+                const matchId = id.indexOf(info)
+                const matchCPU = cpu.indexOf(info)
+                const matchColor = color.indexOf(info)
+                const matchGPU = gpu.indexOf(info)
+                const matchRam = ram.indexOf(info)
+                const matchRom = rom.indexOf(info)
+                const matchPlug = plug.indexOf(info)
+                const machQuantity = quantity.indexOf(info)
+
+
+                if (matchId < 0 && matchCPU < 0 && matchColor < 0 && matchGPU < 0 && matchRam < 0 && matchRom < 0 && matchPlug < 0 && machQuantity < 0) {
+                    $row.hide()
+                } else {
+                    $row.show()
+                }
             }
         })
     })
