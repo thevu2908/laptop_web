@@ -1,5 +1,5 @@
 $(document).ready(() => {
-    renderAccountData()
+    renderAccountData(null)
     handleAddAccount()
     showUpdateAccountModal()
     handleUpdateAccount()
@@ -26,8 +26,8 @@ function getAccountData() {
     })
 }
 
-async function renderAccountData() {
-    const accounts = await getAccountData()
+async function renderAccountData(data) {
+    const accounts = data === null ? await getAccountData() : data
 
     if (accounts && accounts.length > 0) {
         let html = ''
@@ -342,27 +342,15 @@ function showViewAccountModal() {
 
 function searchAccount() {
     $(document).on('keyup', '.admin-search-info', e => {
-        const info = e.target.value.toLowerCase()
+        const search = e.target.value.toLowerCase()
 
-        $('.admin-account-table tr').each(function (index) {
-            if (index !== 0) {
-                $row = $(this)
-
-                const tdElement = $row.find('td')
-                const accountId = tdElement[1].innerText.toLowerCase()
-                const accessId = tdElement[2].innerText.toLowerCase()
-                const username = tdElement[3].innerText.toLowerCase()
-
-                const matchAccountId = accountId.indexOf(info)
-                const matchAccessId = accessId.indexOf(info)
-                const matchUsernameId = username.indexOf(info)
-
-                if (matchAccountId < 0 && matchAccessId < 0 && matchUsernameId < 0) {
-                    $row.hide()
-                } else {
-                    $row.show()
-                }
-            }
+        $.ajax({
+            url: 'server/src/controller/SearchController.php',
+            method: 'GET',
+            data: { action: 'search', table: 'taikhoan', search },
+            dataType: 'JSON',
+            success: accounts => renderAccountData(accounts),
+            error: (xhr, status, error) => console.log(error)
         })
     })
 }
