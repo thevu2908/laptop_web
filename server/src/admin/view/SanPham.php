@@ -62,7 +62,6 @@
 					</div>
 					<input type="hidden" name="currentpage" id="currentpage" value="1">
 				</div>
-				</div>
 			</div>
 		</div>
 	</div>
@@ -551,7 +550,7 @@
 		</div>
 	</div>
 
-	<div id="deleteProductModal" class="modal fade">
+	<div id="deleteProductModal" class="modal fade" data-backdrop="static" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<form>

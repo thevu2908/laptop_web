@@ -59,20 +59,8 @@ class TaiKhoanController {
             echo 'fail';
         }
     }
-
-    public function searchAccount($info) {
-        $accounts = $this->taiKhoanRepo->searchAccount($info);
-        $result = [];
-
-        foreach ($accounts as $account) {
-            if ($account['trang_thai'] == 0) {
-                $result[] = $account;
-            }
-        }
-        
-        echo json_encode($result);
-    }
 }
+
 $taiKhoanCTL = new TaiKhoanController();
 $action = $_POST['action'];
 
@@ -108,10 +96,6 @@ switch ($action) {
     case 'delete':
         $accountId = $_POST['accountId'];
         $taiKhoanCTL->deleteAccount($accountId);
-        break;
-    case 'search':
-        $info = $_POST['info'];
-        $taiKhoanCTL->searchAccount($info);
         break;
     default:
         break;

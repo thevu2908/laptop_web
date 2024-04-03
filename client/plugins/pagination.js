@@ -27,7 +27,7 @@ function pagination(totalpages, currentpage) {
 }
 
 function clickPage(func) {
-    $(document).on("click", "ul.pagination li a", function (e) {
+    $(document).on("click", "ul.pagination li a", function(e) {
         e.preventDefault()
         var $this = $(this)
         const pagenum = $this.data("page")
@@ -36,4 +36,32 @@ function clickPage(func) {
         $this.parent().siblings().removeClass("active")
         $this.parent().addClass("active")
     })
+}
+
+function enduserTotalPage(total, perPage, currentpage) {
+    const totalPages = Math.ceil(total / perPage)
+    enduserPagination(totalPages, currentpage)
+}
+
+function enduserPagination(totalPages, currentpage) {
+    if (totalPages > 1) {
+        let disabled = currentpage == 1 ? 'disabled' : ''
+        let html = `
+            <ul class="pagination">
+                <li class="page-item ${disabled}"><a class="page-link btn-prev" data-page=${Number(currentpage) - 1} aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+        `
+
+        for (let i = 1; i <= totalPages; i++) {
+            const active = i == currentpage ? 'active' : '';
+            html += `<li class="page-item ${active}"><a class="page-link" data-page=${i}>${i}</a></li>`
+        }
+
+        disabled = currentpage == totalPages ? 'disabled' : ''
+        html += `
+                <li class="page-item ${disabled}"><a class="page-link btn-next" data-page=${Number(currentpage) + 1} aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
+            </ul>
+        `
+
+        $('.product-main .enduser-pagination').html(html)
+    }
 }

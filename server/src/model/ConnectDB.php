@@ -1,7 +1,5 @@
 <?php
 
-//require_once '../config/config.php';
-
 class ConnectDB {
     private $servername;
     private $username;
