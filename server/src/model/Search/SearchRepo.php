@@ -11,7 +11,7 @@ class SearchRepo extends ConnectDB {
                         JOIN theloai tl ON sp.ma_the_loai = tl.ma_the_loai
                         JOIN hedieuhanh hdh ON sp.ma_hdh = hdh.ma_hdh
                         WHERE CONCAT(ma_sp, ten_sp, ten_thuong_hieu, gia_nhap, gia_ban, so_luong_ton) LIKE '%$search_term%'
-                        ORDER BY ma_sp LIMIT {$start}, {$limit}
+                        ORDER BY ma_sp LIMIT {$start},{$limit}
                 ";
             } else {
                 $query = "SELECT * FROM $table WHERE CONCAT(";
@@ -22,7 +22,7 @@ class SearchRepo extends ConnectDB {
                         $columns[] = $row['Field'];
                     }
                 }
-                $query .= implode(" , ", $columns) . ") LIKE '%$search_term%' ORDER BY $columns[0] LIMIT {$start}, {$limit}";
+                $query .= implode(" , ", $columns) . ") LIKE '%$search_term%' ORDER BY $columns[0] LIMIT {$start},{$limit}";
             }
     
             $result = $this->conn->query($query);
