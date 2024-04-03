@@ -114,21 +114,4 @@ class TaiKhoanRepo extends ConnectDB {
             return false;
         }
     }
-
-    public function searchAccount($info) : array | null {
-        $searchs = [];
-        try {
-            $query = "SELECT * FROM taikhoan WHERE ma_tk LIKE '%$info%' or ma_quyen LIKE '%$info% or username LIKE '%$info%";
-            $statement = mysqli_query($this->conn, $query);
-
-            while ($row = mysqli_fetch_assoc($statement)) {
-                $searchs[] = $row;
-            }
-
-            return $searchs;
-        } catch (Exception $e) {
-            echo 'Error: ' . $e->getMessage() . '<br>';
-        }
-        return null;
-    }
 }

@@ -20,7 +20,6 @@ function getBrandData() {
             }
         })
     })
-
 }
 
 async function renderAdminBrand() {
@@ -45,7 +44,7 @@ async function renderFilterBrand() {
                     </a>
                 </div>
         `
-        
+
         for (let index in brands) {
             html += `
                 <div class="filter-item col-6">
@@ -68,7 +67,7 @@ async function renderFilterBrand() {
         } else {
             html += `</div>`
         }
-        
+
         $('.product-main .filter-brand').html(html)
     }
 }
@@ -90,6 +89,13 @@ function renderMoreBrand() {
         $('.product-main .show-more-brand-container').remove()
         $('.product-main .filter-brand .filter-list').append(html)
     })
+}
+
+async function renderBrandName(id, index) {
+    const brand = await getBrand(id)
+    if (brand) {
+        $(`.admin-product-list .product-brand-${index}`).text(brand.ten_thuong_hieu)
+    }
 }
 
 function addBrand(brandName) {

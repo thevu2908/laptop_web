@@ -9,10 +9,69 @@ $(document).ready(() => {
     renderViewProductModal()
     importExcel()
     exportExcel()
-    searchProduct()
+    searchAdminProduct()
 })
 
-function getProductData() {
+function formatProduct(products) {
+    return Object.values(products.reduce((acc, current) => {
+        if (!acc[current.ma_sp]) {
+            acc[current.ma_sp] = {
+                id: current.ma_sp,
+                name: current.ten_sp,
+                keyboard: current.ban_phim,
+                material: current.chat_lieu,
+                screen: current.kich_co_man_hinh,
+                resolution: current.do_phan_giai,
+                importPrice: current.gia_nhap,
+                chietkhau: current.chiet_khau,
+                price: current.gia_ban,
+                image: current.hinh_anh,
+                battery: current.pin,
+                os: current.ten_hdh,
+                weight: current.trong_luong,
+                type: current.ten_loai,
+                brand: current.ten_thuong_hieu,
+                origin: current.xuat_xu,
+                quantity: current.so_luong_ton,
+                detail: []
+            }
+        }
+
+        acc[current.ma_sp].detail.push(
+            { 
+                id: current.ma_ctsp,
+                color: current.ten_mau,
+                cpu: current.ten_chip,
+                gpu: current.ten_card,
+                ram: current.ram,
+                rom: current.rom,
+                plugs: current.plugs
+            }
+        )
+
+        return acc
+    }, {}))
+}
+
+function getPaginationProducts(limit) {
+    return new Promise((resolve, reject) => {
+        const page = $('#currentpage').val()
+
+        $.ajax({
+            url: 'server/src/controller/PaginationController.php',
+            method: 'GET',
+            data: { action: 'pagination', table: 'sanpham', page, limit },
+            dataType: 'JSON',
+            success: products => resolve(products),
+            error: (xhr, status, error) => {
+                console.log(error)
+                reject(error)   
+            }
+        })
+    })
+}
+
+function getFullProductsInfo() {
     return new Promise((resolve, reject) => {
         $.ajax({
             url: 'server/src/controller/SanPhamController.php',
@@ -25,47 +84,7 @@ function getProductData() {
                         const plugs = await getProductDetailPlug(product.ma_ctsp)
                         product.plugs = plugs.map(plug => plug.ten_cong)
                     }
-
-                    const newProducts = Object.values(products.reduce((acc, current) => {
-                        if (!acc[current.ma_sp]) {
-                            acc[current.ma_sp] = {
-                                id: current.ma_sp,
-                                name: current.ten_sp,
-                                keyboard: current.ban_phim,
-                                material: current.chat_lieu,
-                                screen: current.kich_co_man_hinh,
-                                resolution: current.do_phan_giai,
-                                importPrice: current.gia_nhap,
-                                chietkhau: current.chiet_khau,
-                                price: current.gia_ban,
-                                image: current.hinh_anh,
-                                battery: current.pin,
-                                os: current.ten_hdh,
-                                weight: current.trong_luong,
-                                type: current.ten_loai,
-                                brand: current.ten_thuong_hieu,
-                                origin: current.xuat_xu,
-                                quantity: current.so_luong_ton,
-                                detail: []
-                            }
-                        }
-                
-                        acc[current.ma_sp].detail.push(
-                            { 
-                                id: current.ma_ctsp,
-                                color: current.ten_mau,
-                                cpu: current.ten_chip,
-                                gpu: current.ten_card,
-                                ram: current.ram,
-                                rom: current.rom,
-                                plugs: current.plugs
-                            }
-                        )
-                
-                        return acc
-                    }, {}))
-
-                    resolve(newProducts)
+                    resolve(formatProduct(products))
                 } else {
                     resolve(null)
                 }
@@ -97,10 +116,12 @@ function getProduct(productId) {
 function renderProducts() {
     const urlParams = new URLSearchParams(window.location.search)
     if (window.location.pathname === '/admin.php') {
-        renderAdminProductTable()
+        renderAdminProductTable(null)
+        clickPage(renderAdminProductTable)
     } else if (window.location.pathname === '/index.php') {
         if (urlParams.has('san-pham')) {
             renderEndUserProduct()
+            clickPage(renderEndUserProduct)
         } else {
             renderHomePageProduct()
         }
@@ -114,116 +135,117 @@ function renderProductName(productId) {
         })
 }
 
-function renderAdminProductTable() {
-    getProductData()
-        .then(products => {
-            let html = ''
+async function renderAdminProductTable(data) {
+    const products = data ? data : await getPaginationProducts(null)
 
-            if (products) {
-                products.forEach((product, index) => {
-                    html += `
-                        <tr>
-                            <td>
-                                <span class="custom-checkbox">
-                                    <input type="checkbox" id="checkbox-${product.id}" name="chk[]" value="${product.id}">
-                                    <label for="checkbox-${product.id}"></label>
-                                </span>
-                            </td>
-                            <td>${product.id}</td>
-                            <td>${product.name}</td>
-                            <td>${product.brand}</td>
-                            <td>${product.importPrice}</td>
-                            <td>${product.chietkhau}</td>
-                            <td>${product.price}</td>
-                            <td>${product.quantity}</td>
-                            <td>
-                                <a href="#editProductModal" class="edit btn-update-product-modal" data-toggle="modal" data-id=${product.id}>
-                                    <i class="material-icons" data-toggle="tooltip" title="Sửa thông tin">&#xE254;</i>
-                                </a>
-                                <a href="#deleteProductModal" class="delete btn-delete-product-modal" data-toggle="modal" data-id=${product.id}>
-                                    <i class="material-icons" data-toggle="tooltip" title="Xóa">&#xE872;</i>
-                                </a>
-                                <a href="#viewProductModal" class="view btn-view-product-modal" title="View" data-toggle="modal" data-id=${product.id}>
-                                    <i class="material-icons" data-toggle="tooltip" title="Xem thông tin">&#xE417;</i>
-                                </a>
-                            </td>
-                        </tr>
-                    `
-                })
-            }
-
-            $('.admin-product-list').html(html)
+    if (products && products.pagination.length > 0) {
+        let html = ''
+        console.log(products)
+        products.pagination.forEach(product => {
+            html += `
+                <tr>
+                    <td>
+                        <span class="custom-checkbox">
+                            <input type="checkbox" id="checkbox-${product.ma_sp}" name="chk[]" value="${product.ma_sp}">
+                            <label for="checkbox-${product.ma_sp}"></label>
+                        </span>
+                    </td>
+                    <td>${product.ma_sp}</td>
+                    <td>${product.ten_sp}</td>
+                    <td>${product.ten_thuong_hieu}</td>
+                    <td>${product.gia_nhap}</td>
+                    <td>${product.chiet_khau}</td>
+                    <td>${product.gia_ban}</td>
+                    <td>${product.so_luong_ton}</td>
+                    <td>
+                        <a href="#editProductModal" class="edit btn-update-product-modal" data-toggle="modal" data-id=${product.ma_sp}>
+                            <i class="material-icons" data-toggle="tooltip" title="Sửa thông tin">&#xE254;</i>
+                        </a>
+                        <a href="#deleteProductModal" class="delete btn-delete-product-modal" data-toggle="modal" data-id=${product.ma_sp}>
+                            <i class="material-icons" data-toggle="tooltip" title="Xóa">&#xE872;</i>
+                        </a>
+                        <a href="#viewProductModal" class="view btn-view-product-modal" title="View" data-toggle="modal" data-id=${product.ma_sp}>
+                            <i class="material-icons" data-toggle="tooltip" title="Xem thông tin">&#xE417;</i>
+                        </a>
+                    </td>
+                </tr>
+            `
         })
-        .catch(error => console.log(error))
+        $('.admin-product-list').html(html)
+        totalPage(products.count)
+    }
 }
 
 async function renderHomePageProduct() {
+<<<<<<< HEAD
     const products = await getProductData()
     console.log(products)
+=======
+    const products = await getPaginationProducts(8)
+>>>>>>> 78bf1b0e9e33f5a398bd0ba3d7b162edaffc78f5
 
     if (products) {
         let html = ''
-        
-        for (let index in products) {
-            const product = products[index]
 
+        for (let product of products.pagination) {
+            const productDetails = await getProductDetailByProductId(products.pagination[0].ma_sp)
+            const productDetail = productDetails[0]
+    
             html += `
                 <div class="product-item col-3">
                     <a href="index.php?san-pham&id=1" class="product-item-link">
                         <div class="product-image-wrapper">
-                            <img src="${product.image}">
+                            <img src="${product.hinh_anh}">
                         </div>
                         <div class="product-info">
                             <div class="product-price">
-                                <p class="product-price-number">₫${formatCurrency(product.price)}</p>
+                                <p class="product-price-number">₫${formatCurrency(product.gia_ban)}</p>
                             </div>
                             <div class="product-name">
-                                <p>${product.name} ${product.detail[0].ram} ${product.detail[0].rom}</p>
+                                <p>${product.ten_sp} ${productDetail.ram} ${productDetail.rom}</p>
                             </div>
                             <div class="product-detail row">
                                 <span title="Màn hình" class="product-detail-info d-flex col-6">
                                     <span class="material-symbols-outlined">
                                         laptop_windows
                                     </span>
-                                    ${product.screen}
+                                    ${product.kich_co_man_hinh}
                                 </span>
                                 <span title="CPU" class="product-detail-info d-flex col-6">
                                     <span class="material-symbols-outlined">
                                         memory
                                     </span>
-                                    ${product.detail[0].cpu}
+                                    ${productDetail.ten_chip}
                                 </span>
                                 <span title="RAM" class="product-detail-info d-flex col-6">
                                     <span class="material-symbols-outlined">
                                         memory_alt
                                     </span>
-                                    ${product.detail[0].ram}
+                                    ${productDetail.ram}
                                 </span>
                                 <span title="Ổ cứng" class="product-detail-info d-flex col-6">
                                     <span class="material-symbols-outlined">
                                         hard_drive_2
                                     </span>
-                                    SSD ${product.detail[0].rom}
+                                    SSD ${productDetail.rom}
                                 </span>
                                 <span title="Card đồ họa" class="product-detail-info d-flex col-6">
                                     <span class="material-symbols-outlined">
                                         developer_board
                                     </span>
-                                    ${product.detail[0].gpu}
+                                    ${productDetail.ten_card}
                                 </span>
                                 <span title="Trọng lượng" class="product-detail-info d-flex col-6">
                                     <span class="material-symbols-outlined">
                                         weight
                                     </span>
-                                    ${product.weight} kg
+                                    ${product.trong_luong} kg
                                 </span>
                             </div>
                         </div>
                     </a>
                 </div>
             `
-
-            if (index >= 7) break
         }
 
         $('.content-product-list').html(html)
@@ -232,71 +254,76 @@ async function renderHomePageProduct() {
 
 async function renderEndUserProduct() {
     NProgress.start()
-    const products = await getProductData()
+    const currentPage = $('#currentpage').val()
+    const products = await getPaginationProducts(6)
 
     if (products) {
         let html = ''
+        
+        for (let product of products.pagination) {
+            const productDetails = await getProductDetailByProductId(products.pagination[0].ma_sp)
+            const productDetail = productDetails[0]
 
-        products.forEach(product => {
             html += `
                 <div class="product-item col-4">
                     <a href="index.php?san-pham&id=123" class="product-item-link">
                         <div class="product-image-wrapper">
-                            <img src="${product.image}">
+                            <img src="${product.hinh_anh}">
                         </div>
                         <div class="product-info">
                             <div class="product-price">
-                                <p class="product-price-number">₫${formatCurrency(product.price)}</p>
+                                <p class="product-price-number">₫${formatCurrency(product.gia_ban)}</p>
                             </div>
                             <div class="product-name">
-                                <p>${product.name} ${product.detail[0].ram} ${product.detail[0].rom}</p>
+                                <p>${product.ten_sp} ${productDetail.ram} ${productDetail.rom}</p>
                             </div>
                             <div class="product-detail row">
                                 <span title="Màn hình" class="product-detail-info d-flex col-6">
                                     <span class="material-symbols-outlined">
                                         laptop_windows
                                     </span>
-                                    ${product.screen}
+                                    ${product.kich_co_man_hinh}
                                 </span>
                                 <span title="CPU" class="product-detail-info d-flex col-6">
                                     <span class="material-symbols-outlined">
                                         memory
                                     </span>
-                                    ${product.detail[0].cpu}
+                                    ${productDetail.ten_chip}
                                 </span>
                                 <span title="RAM" class="product-detail-info d-flex col-6">
                                     <span class="material-symbols-outlined">
                                         memory_alt
                                     </span>
-                                    ${product.detail[0].ram}
+                                    ${productDetail.ram}
                                 </span>
                                 <span title="Ổ cứng" class="product-detail-info d-flex col-6">
                                     <span class="material-symbols-outlined">
                                         hard_drive_2
                                     </span>
-                                    SSD ${product.detail[0].rom}
+                                    SSD ${productDetail.rom}
                                 </span>
                                 <span title="Card đồ họa" class="product-detail-info d-flex col-6">
                                     <span class="material-symbols-outlined">
                                         developer_board
                                     </span>
-                                    ${product.detail[0].gpu}
+                                    ${productDetail.ten_card}
                                 </span>
                                 <span title="Trọng lượng" class="product-detail-info d-flex col-6">
                                     <span class="material-symbols-outlined">
                                         weight
                                     </span>
-                                    ${product.weight} kg
+                                    ${product.trong_luong} kg
                                 </span>
                             </div>
                         </div>
                     </a>
                 </div>
             `
-        })
+        }
 
         renderEndUserProductFilter()
         $('.product-main .product-list').html(html)
+        enduserTotalPage(products.count, 6, currentPage)
         renderFooter()
         NProgress.done()
     }
@@ -941,7 +968,7 @@ function exportExcel() {
         NProgress.start()
 
         try {
-            const products = await getProductData()
+            const products = await getFullProductsInfo()
             let excelDatas = []
 
             products.forEach(product => {
@@ -1005,32 +1032,18 @@ function exportExcel() {
     })
 }
 
-function searchProduct() {
+function searchAdminProduct() {
     $(document).on('keyup', '.admin-search-info', e => {
-        const info = e.target.value.toLowerCase()
+        const search = e.target.value.toLowerCase()
+        const page = $('#currentpage').val()
 
-        $('.admin-product-table tr').each(function (index) {
-            if (index !== 0) {
-                $row = $(this)
-
-                const tdElement = $row.find('td')
-                const id = tdElement[1].innerText.toLowerCase()
-                const name = tdElement[2].innerText.toLowerCase()
-                const brand = tdElement[3].innerText.toLowerCase()
-                const quantity = tdElement[7].innerText.toLowerCase()
-
-                const matchId = id.indexOf(info)
-                const matchName = name.indexOf(info)
-                const matchBrand = brand.indexOf(info)
-                const machQuantity = quantity.indexOf(info)
-
-
-                if (matchId < 0 && matchName < 0 && matchBrand < 0 && machQuantity < 0) {
-                    $row.hide()
-                } else {
-                    $row.show()
-                }
-            }
+        $.ajax({
+            url: 'server/src/controller/SearchController.php',
+            method: 'GET',
+            data: { action: 'search', search, table: 'sanpham', page },
+            dataType: 'JSON',
+            success: products => renderAdminProductTable(products),
+            error: (xhr, status, error) => console.log(error)
         })
     })
 }

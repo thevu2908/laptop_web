@@ -33,8 +33,12 @@ class ChiTietSanPhamRepo extends ConnectDB {
 
     public function getProductDetailByProductId($productId) {
         try {
-            $query = "SELECT DISTINCT ten_mau, ten_chip, ten_card, ram, rom FROM chitietsanpham ctsp JOIN mausac ms JOIN chipxuly cxl JOIN carddohoa cdh
-                        WHERE ctsp.ma_mau = ms.ma_mau AND ctsp.ma_chip_xu_ly = cxl.ma_chip_xu_ly AND ctsp.ma_carddohoa = cdh.ma_card AND ma_sp = '$productId'";
+            $query = "SELECT ctsp.*, ten_mau, ten_chip, ten_card, ram, rom FROM chitietsanpham ctsp 
+                        JOIN mausac ms ON ctsp.ma_mau = ms.ma_mau
+                        JOIN chipxuly cxl ON ctsp.ma_chip_xu_ly = cxl.ma_chip_xu_ly
+                        JOIN carddohoa cdh ON ctsp.ma_carddohoa = cdh.ma_card
+                        WHERE ma_sp = '$productId' AND ctsp.trang_thai = '0'
+            ";
             $statement = mysqli_query($this->conn, $query);
 
             $productDetails = [];
