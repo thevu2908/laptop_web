@@ -11,8 +11,12 @@ class SearchController {
     }
 
     public function search($search, $table) {
-        echo json_encode($this->searchRepo->search($search, $table));
-        // echo $search;
+        $results = [];
+        $data = $this->searchRepo->search($search, $table);
+        foreach ($data as $item) {
+            if ($item['trang_thai'] == 0) $results[] = $item;
+        }
+        return $results;
     }
 }
 
