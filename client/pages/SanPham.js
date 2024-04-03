@@ -1,6 +1,5 @@
 $(document).ready(() => {
     renderProducts()
-    clickPage(renderProducts)
     handleAddProduct()
     renderUpdateProductModal()
     handleUpdateProduct()
@@ -13,27 +12,67 @@ $(document).ready(() => {
     searchProduct()
 })
 
-function getAdminProductData() {
+function formatProduct(products) {
+    return Object.values(products.reduce((acc, current) => {
+        if (!acc[current.ma_sp]) {
+            acc[current.ma_sp] = {
+                id: current.ma_sp,
+                name: current.ten_sp,
+                keyboard: current.ban_phim,
+                material: current.chat_lieu,
+                screen: current.kich_co_man_hinh,
+                resolution: current.do_phan_giai,
+                importPrice: current.gia_nhap,
+                chietkhau: current.chiet_khau,
+                price: current.gia_ban,
+                image: current.hinh_anh,
+                battery: current.pin,
+                os: current.ten_hdh,
+                weight: current.trong_luong,
+                type: current.ten_loai,
+                brand: current.ten_thuong_hieu,
+                origin: current.xuat_xu,
+                quantity: current.so_luong_ton,
+                detail: []
+            }
+        }
+
+        acc[current.ma_sp].detail.push(
+            { 
+                id: current.ma_ctsp,
+                color: current.ten_mau,
+                cpu: current.ten_chip,
+                gpu: current.ten_card,
+                ram: current.ram,
+                rom: current.rom,
+                plugs: current.plugs
+            }
+        )
+
+        return acc
+    }, {}))
+}
+
+function getPaginationProducts(limit) {
     return new Promise((resolve, reject) => {
         const page = $('#currentpage').val()
 
         $.ajax({
             url: 'server/src/controller/PaginationController.php',
             method: 'GET',
-            data: { action: 'pagination', table: 'sanpham', page: page },
+            data: { action: 'pagination', table: 'sanpham', page, limit },
             dataType: 'JSON',
             success: products => resolve(products),
             error: (xhr, status, error) => {
                 console.log(error)
-                reject(error)
+                reject(error)   
             }
         })
     })
 }
 
-function getEndUserProductData() {
+function getFullProductsInfo() {
     return new Promise((resolve, reject) => {
-        const page = $('#currentpage').val()
         $.ajax({
             url: 'server/src/controller/SanPhamController.php',
             method: 'POST',
@@ -45,47 +84,7 @@ function getEndUserProductData() {
                         const plugs = await getProductDetailPlug(product.ma_ctsp)
                         product.plugs = plugs.map(plug => plug.ten_cong)
                     }
-
-                    const newProducts = Object.values(products.reduce((acc, current) => {
-                        if (!acc[current.ma_sp]) {
-                            acc[current.ma_sp] = {
-                                id: current.ma_sp,
-                                name: current.ten_sp,
-                                keyboard: current.ban_phim,
-                                material: current.chat_lieu,
-                                screen: current.kich_co_man_hinh,
-                                resolution: current.do_phan_giai,
-                                importPrice: current.gia_nhap,
-                                chietkhau: current.chiet_khau,
-                                price: current.gia_ban,
-                                image: current.hinh_anh,
-                                battery: current.pin,
-                                os: current.ten_hdh,
-                                weight: current.trong_luong,
-                                type: current.ten_loai,
-                                brand: current.ten_thuong_hieu,
-                                origin: current.xuat_xu,
-                                quantity: current.so_luong_ton,
-                                detail: []
-                            }
-                        }
-                
-                        acc[current.ma_sp].detail.push(
-                            { 
-                                id: current.ma_ctsp,
-                                color: current.ten_mau,
-                                cpu: current.ten_chip,
-                                gpu: current.ten_card,
-                                ram: current.ram,
-                                rom: current.rom,
-                                plugs: current.plugs
-                            }
-                        )
-                
-                        return acc
-                    }, {}))
-
-                    resolve(newProducts)
+                    resolve(formatProduct(products))
                 } else {
                     resolve(null)
                 }
@@ -118,9 +117,11 @@ function renderProducts() {
     const urlParams = new URLSearchParams(window.location.search)
     if (window.location.pathname === '/admin.php') {
         renderAdminProductTable()
+        clickPage(renderAdminProductTable)
     } else if (window.location.pathname === '/index.php') {
         if (urlParams.has('san-pham')) {
             renderEndUserProduct()
+            clickPage(renderEndUserProduct)
         } else {
             renderHomePageProduct()
         }
@@ -135,7 +136,7 @@ function renderProductName(productId) {
 }
 
 function renderAdminProductTable() {
-    getAdminProductData()
+    getPaginationProducts(null)
         .then(products => {
             let html = ''
 
@@ -151,7 +152,7 @@ function renderAdminProductTable() {
                             </td>
                             <td>${product.ma_sp}</td>
                             <td>${product.ten_sp}</td>
-                            <td class="product-brand-${index}"></td>
+                            <td>${product.ten_thuong_hieu}</td>
                             <td>${product.gia_nhap}</td>
                             <td>${product.chiet_khau}</td>
                             <td>${product.gia_ban}</td>
@@ -169,8 +170,6 @@ function renderAdminProductTable() {
                             </td>
                         </tr>
                     `
-
-                    renderBrandName(product.ma_thuong_hieu, index)
                 })
             }
 
@@ -181,71 +180,70 @@ function renderAdminProductTable() {
 }
 
 async function renderHomePageProduct() {
-    const products = await getEndUserProductData()
+    const products = await getPaginationProducts(8)
 
     if (products) {
         let html = ''
-        
-        for (let index in products) {
-            const product = products[index]
 
+        for (let product of products.pagination) {
+            const productDetails = await getProductDetailByProductId(products.pagination[0].ma_sp)
+            const productDetail = productDetails[0]
+    
             html += `
                 <div class="product-item col-3">
                     <a href="index.php?san-pham&id=1" class="product-item-link">
                         <div class="product-image-wrapper">
-                            <img src="${product.image}">
+                            <img src="${product.hinh_anh}">
                         </div>
                         <div class="product-info">
                             <div class="product-price">
-                                <p class="product-price-number">₫${formatCurrency(product.price)}</p>
+                                <p class="product-price-number">₫${formatCurrency(product.gia_ban)}</p>
                             </div>
                             <div class="product-name">
-                                <p>${product.name} ${product.detail[0].ram} ${product.detail[0].rom}</p>
+                                <p>${product.ten_sp} ${productDetail.ram} ${productDetail.rom}</p>
                             </div>
                             <div class="product-detail row">
                                 <span title="Màn hình" class="product-detail-info d-flex col-6">
                                     <span class="material-symbols-outlined">
                                         laptop_windows
                                     </span>
-                                    ${product.screen}
+                                    ${product.kich_co_man_hinh}
                                 </span>
                                 <span title="CPU" class="product-detail-info d-flex col-6">
                                     <span class="material-symbols-outlined">
                                         memory
                                     </span>
-                                    ${product.detail[0].cpu}
+                                    ${productDetail.ten_chip}
                                 </span>
                                 <span title="RAM" class="product-detail-info d-flex col-6">
                                     <span class="material-symbols-outlined">
                                         memory_alt
                                     </span>
-                                    ${product.detail[0].ram}
+                                    ${productDetail.ram}
                                 </span>
                                 <span title="Ổ cứng" class="product-detail-info d-flex col-6">
                                     <span class="material-symbols-outlined">
                                         hard_drive_2
                                     </span>
-                                    SSD ${product.detail[0].rom}
+                                    SSD ${productDetail.rom}
                                 </span>
                                 <span title="Card đồ họa" class="product-detail-info d-flex col-6">
                                     <span class="material-symbols-outlined">
                                         developer_board
                                     </span>
-                                    ${product.detail[0].gpu}
+                                    ${productDetail.ten_card}
                                 </span>
                                 <span title="Trọng lượng" class="product-detail-info d-flex col-6">
                                     <span class="material-symbols-outlined">
                                         weight
                                     </span>
-                                    ${product.weight} kg
+                                    ${product.trong_luong} kg
                                 </span>
                             </div>
                         </div>
                     </a>
                 </div>
             `
-
-            if (index >= 7) break
         }
 
         $('.content-product-list').html(html)
@@ -254,71 +252,76 @@ async function renderHomePageProduct() {
 
 async function renderEndUserProduct() {
     NProgress.start()
-    const products = await getEndUserProductData()
+    const currentPage = $('#currentpage').val()
+    const products = await getPaginationProducts(6)
 
     if (products) {
         let html = ''
+        
+        for (let product of products.pagination) {
+            const productDetails = await getProductDetailByProductId(products.pagination[0].ma_sp)
+            const productDetail = productDetails[0]
 
-        products.forEach(product => {
             html += `
                 <div class="product-item col-4">
                     <a href="index.php?san-pham&id=123" class="product-item-link">
                         <div class="product-image-wrapper">
-                            <img src="${product.image}">
+                            <img src="${product.hinh_anh}">
                         </div>
                         <div class="product-info">
                             <div class="product-price">
-                                <p class="product-price-number">₫${formatCurrency(product.price)}</p>
+                                <p class="product-price-number">₫${formatCurrency(product.gia_ban)}</p>
                             </div>
                             <div class="product-name">
-                                <p>${product.name} ${product.detail[0].ram} ${product.detail[0].rom}</p>
+                                <p>${product.ten_sp} ${productDetail.ram} ${productDetail.rom}</p>
                             </div>
                             <div class="product-detail row">
                                 <span title="Màn hình" class="product-detail-info d-flex col-6">
                                     <span class="material-symbols-outlined">
                                         laptop_windows
                                     </span>
-                                    ${product.screen}
+                                    ${product.kich_co_man_hinh}
                                 </span>
                                 <span title="CPU" class="product-detail-info d-flex col-6">
                                     <span class="material-symbols-outlined">
                                         memory
                                     </span>
-                                    ${product.detail[0].cpu}
+                                    ${productDetail.ten_chip}
                                 </span>
                                 <span title="RAM" class="product-detail-info d-flex col-6">
                                     <span class="material-symbols-outlined">
                                         memory_alt
                                     </span>
-                                    ${product.detail[0].ram}
+                                    ${productDetail.ram}
                                 </span>
                                 <span title="Ổ cứng" class="product-detail-info d-flex col-6">
                                     <span class="material-symbols-outlined">
                                         hard_drive_2
                                     </span>
-                                    SSD ${product.detail[0].rom}
+                                    SSD ${productDetail.rom}
                                 </span>
                                 <span title="Card đồ họa" class="product-detail-info d-flex col-6">
                                     <span class="material-symbols-outlined">
                                         developer_board
                                     </span>
-                                    ${product.detail[0].gpu}
+                                    ${productDetail.ten_card}
                                 </span>
                                 <span title="Trọng lượng" class="product-detail-info d-flex col-6">
                                     <span class="material-symbols-outlined">
                                         weight
                                     </span>
-                                    ${product.weight} kg
+                                    ${product.trong_luong} kg
                                 </span>
                             </div>
                         </div>
                     </a>
                 </div>
             `
-        })
+        }
 
         renderEndUserProductFilter()
         $('.product-main .product-list').html(html)
+        enduserTotalPage(products.count, 6, currentPage)
         renderFooter()
         NProgress.done()
     }
@@ -963,7 +966,7 @@ function exportExcel() {
         NProgress.start()
 
         try {
-            const products = await getProductData()
+            const products = await getFullProductsInfo()
             let excelDatas = []
 
             products.forEach(product => {

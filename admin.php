@@ -124,17 +124,6 @@
   <script src="./client/pages/NhanVien.js"></script>
   <script src="./client/pages/TaiKhoan.js"></script>
   <script src="./client/plugins/pagination.js"></script>
-
-  <script src="./client/pages/ThuongHieu.js"></script>
-  <script src="./client/pages/TheLoai.js"></script>
-  <script src="./client/pages/MauSac.js"></script>
-  <script src="./client/pages/ChipXuLy.js"></script>
-  <script src="./client/pages/CardDoHoa.js"></script>
-  <script src="./client/pages/CongKetNoi.js"></script>
-  <script src="./client/pages/HeDieuHanh.js"></script>
-  <script src="./client/pages/SanPham.js"></script>
-  <script src="./client/pages/ChiTietSanPham.js"></script>
-  <script src="./client/pages/ChiTietCongKetNoi.js"></script>
 </body>
 
 </html>
