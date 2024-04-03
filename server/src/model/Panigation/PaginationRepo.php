@@ -37,15 +37,6 @@ class PaginationRepo extends ConnectDB {
         try {
             if ($table == "chitietquyen") {
                 $query = "SELECT count(DISTINCT ma_quyen, ma_chuc_nang) as num FROM chitietquyen";
-            } else if ($table == "end-user-sanpham") {
-                $query = "
-                    SELECT count(*) as num
-                    FROM sanpham sp 
-                    JOIN thuonghieu th ON sp.ma_thuong_hieu = th.ma_thuong_hieu
-                    JOIN theloai tl ON sp.ma_the_loai = tl.ma_the_loai
-                    JOIN hedieuhanh hdh ON sp.ma_hdh = hdh.ma_hdh
-                    WHERE sp.trang_thai = '0'
-                ";
             } else {
                 $query = "SELECT count(*) as num FROM $table";
             }
