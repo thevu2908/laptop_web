@@ -133,10 +133,9 @@ function loadNhomQuyenDataAccount() {
                     html += `<option value='${nhomquyen['ma_quyen']}' ${selected}>${nhomquyen['ten_quyen']}</option>`
                 })
 
-                
-
                 $("#admin-account-access").html(html)
                 $("#admin-account-access-edit").html(html)
+                $("#admin-account-access-view").html(html)
             }
         }
     }) 
