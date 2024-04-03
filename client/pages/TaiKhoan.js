@@ -1,63 +1,68 @@
 $(document).ready(() => {
-    // loadAccountData()
-    // addAccount()
-    // showUpdateAccountModal()
-    // updateAccount()
-    // showDeleteAccountModal()
-    // deleteAccount()
-    // showDeleteCheckedAccountModal()
-    // showViewAccountModal()
-    // searchAccount()
+    renderAccountData()
+    handleAddAccount()
+    showUpdateAccountModal()
+    handleUpdateAccount()
+    showDeleteAccountModal()
+    handleDeleteAccount()
+    showDeleteCheckedAccountModal()
+    showViewAccountModal()
+    searchAccount()
 })
 
-function loadAccountData() {
-    $.ajax({
-        url: 'server/src/controller/TaiKhoanController.php',
-        method: 'POST',
-        data: { action: 'load' },
-        dataType: 'JSON',
-        success: data => {
-            if (data && data.length > 0) {
-                let html = ''
-                const jsonData = JSON.parse(data)
-
-                jsonData.forEach((item, index) => {
-                    html += `
-                        <tr>
-                            <td>
-                                <span class="custom-checkbox">
-                                    <input type="checkbox" id="checkbox-${item.ma_tk}" name="chk[]" value="${item.ma_tk}">
-                                    <label for="checkbox-${item.ma_tk}"></label>
-                                </span>
-                            </td>
-                            <td>${item['ma_tk']}</td>
-                            <td class="admin-accounnt-accessname-${index}"></td>
-                            <td>${item['username']}</td>
-                            <td>${item['password']}</td>
-                            <td>
-                                <a href="#editAccountModal" class="edit" data-toggle="modal" data-id=${item['ma_tk']}>
-                                    <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
-                                </a>
-                                <a href="#deleteAccountModal" class="delete btn-delete-account-modal" data-toggle="modal" data-id="${item.ma_tk}">
-                                    <i class="material-icons" data-toggle="tooltip" title="Xóa">&#xE872;</i>
-                                </a>
-                                <a href="#viewAccountModal" class="view btn-view-account-modal" title="View" data-toggle="modal" data-id="${item.ma_tk}">
-                                    <i class="material-icons" data-toggle="tooltip" title="Xem thông tin">&#xE417;</i>
-                                </a>
-                            </td>
-                        </tr>
-                    `
-                    
-                    showTenNhomQuyenAccount(item['ma_quyen'], index);
-                })
-
-                $('.admin-account-list').html(html);
+function getAccountData() {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: 'server/src/controller/TaiKhoanController.php',
+            method: 'POST',
+            data: { action: 'load' },
+            dataType: 'JSON',
+            success: accounts => resolve(accounts),
+            error: (xhr, status, error) => {
+                console.log(error)
+                reject(error)
             }
-        },
-        error: (xhr, status, error) => {
-            console.log(error)
-        }
+        })
     })
+}
+
+async function renderAccountData() {
+    const accounts = await getAccountData()
+
+    if (accounts && accounts.length > 0) {
+        let html = ''
+
+        accounts.forEach((accounnt, index) => {
+            html += `
+                <tr>
+                    <td>
+                        <span class="custom-checkbox">
+                            <input type="checkbox" id="checkbox-${accounnt.ma_tk}" name="chk[]" value="${accounnt.ma_tk}">
+                            <label for="checkbox-${accounnt.ma_tk}"></label>
+                        </span>
+                    </td>
+                    <td>${accounnt.ma_tk}</td>
+                    <td class="admin-accounnt-accessname-${index}"></td>
+                    <td>${accounnt.username}</td>
+                    <td>
+                        <a href="#editAccountModal" class="edit btn-update-account-modal" data-toggle="modal" data-id=${accounnt.ma_tk}>
+                            <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
+                        </a>
+                        <a href="#deleteAccountModal" class="delete btn-delete-account-modal" data-toggle="modal" data-id="${accounnt.ma_tk}">
+                            <i class="material-icons" data-toggle="tooltip" title="Xóa">&#xE872;</i>
+                        </a>
+                        <a href="#viewAccountModal" class="view btn-view-account-modal" title="View" data-toggle="modal" data-id="${accounnt.ma_tk}">
+                            <i class="material-icons" data-toggle="tooltip" title="Xem thông tin">&#xE417;</i>
+                        </a>
+                    </td>
+                </tr>
+            `
+
+            showTenNhomQuyenAccount(accounnt.ma_quyen, index)
+        })
+
+        $('.admin-account-list').html(html)
+    }
 }
 
 function getAllAccounts() {
@@ -67,20 +72,43 @@ function getAllAccounts() {
             method: 'POST',
             data: { action: 'get-all' },
             dataType: 'JSON',
-            success: data => {
-                if (data && data.length > 0) {
-                    resolve(data)
+            success: accounts => {
+                if (accounts && accounts.length > 0) {
+                    resolve(accounts)
                 }
             },
             error: (xhr, status, error) => {
+                console.log(error)
                 reject(error)
             }
         })
     })
 }
 
-function addAccount() {
-    $('.btn-add-account').on('click', e => {
+function addAccount(accountId, accessId, username, password) {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: 'server/src/controller/TaiKhoanController.php',
+            method: 'POST',
+            data: { action: 'add', accountId, accessId, username, password },
+            success: res => {
+                if (res === 'success') {
+                    resolve(true)
+                } else {
+                    resolve(false)
+                }
+            },
+            error: (xhr, status, error) => {
+                console.log(error)
+                reject(error)
+            }
+        })
+    })
+
+}
+
+function handleAddAccount() {
+    $('.btn-add-account').on('click', async e => {
         const accountId = $('#admin-account-id').val()
         const accessId = $('#admin-account-access').val()
         const password = $('#admin-account-password').val()
@@ -98,52 +126,72 @@ function addAccount() {
             return
         }
 
+        const res = await addAccount(accountId, accessId, accountId, password)
+        if (res) {
+            alert('Thêm tài khoản thành công')
+            $('form').trigger('reset')
+            $('#addAccountModal').modal('hide')
+            renderAccountData()
+        } else {
+            alert('Thêm tài khoản thất bại\nVui lòng kiểm tra thông tin nhập vào')
+        }
+    })
+}
+
+function getAccount(accountId) {
+    return new Promise((resolve, reject) => {
         $.ajax({
             url: 'server/src/controller/TaiKhoanController.php',
             method: 'POST',
-            data: { action: 'add', accountId: accountId, accessId: accessId, username: accountId, password: password },
-            success: data => {
-                if (data && data === 'success') {
-                    alert('Thêm tài khoản thành công')
-                    $('form').trigger('reset')
-                    $('#addAccountModal').modal('hide')
-                    loadAccountData()
-                } else {
-                    alert('Thêm tài khoản thất bại.\nVui lòng kiểm tra thông tin nhập vào')
-                }
-            },
+            data: { action: 'get', accountId },
+            dataType: 'JSON',
+            success: account => resolve(account),
             error: (xhr, status, error) => {
                 console.log(error)
+                reject(error)
             }
         })
     })
 }
 
 function showUpdateAccountModal() {
-    $(document).on('click', '.btn-update-account-modal', e => {
+    $(document).on('click', '.btn-update-account-modal', async e => {
         const accountId = e.target.closest('.btn-update-account-modal').dataset.id
+        const account = await getAccount(accountId)
+        console.log(account)
+        if (account) {
+            $('#admin-account-id-edit').val(account.ma_tk)
+            $('#admin-account-access-edit').val(account.ma_quyen)
+            $('#admin-account-username-edit').val(account.username)
+            $('#admin-account-password-edit').val(account.password)
+        }
+    })
+}
+
+function updateAccount(accountId, accessId, username, password) {
+    return new Promise((resolve, reject) => {
         $.ajax({
             url: 'server/src/controller/TaiKhoanController.php',
             method: 'POST',
-            data: { action: 'get', accountId: accountId },
-            dataType: 'JSON',
-            success: data => {
-                if (data) {
-                    $('#admin-account-id-edit').val(data.ma_tk)
-                    $('#admin-account-access-edit').val(data.ma_quyen)
-                    $('#admin-account-username-edit').val(data.username)
-                    $('#admin-account-password-edit').val(data.password)
+            data: { action: 'update', accountId, accessId, username, password },
+            success: res => {
+                if (res === 'success') {
+                    resolve(true)
+                } else {
+                    resolve(false)
                 }
             },
             error: (xhr, status, error) => {
                 console.log(error)
+                reject(error)
             }
         })
     })
+
 }
 
-function updateAccount() {
-    $(document).on('click', '.btn-update-account', e => {
+function handleUpdateAccount() {
+    $(document).on('click', '.btn-update-account', async e => {
         const accountId = $('#admin-account-id-edit').val()
         const accessId = $('#admin-account-access-edit').val()
         const username = $('#admin-account-username-edit').val()
@@ -160,24 +208,15 @@ function updateAccount() {
             return
         }
 
-        $.ajax({
-            url: 'server/src/controller/TaiKhoanController.php',
-            method: 'POST',
-            data: { action: 'update', accountId: accountId, accessId: accessId, username: username, password: password },
-            success: data => {
-                if (data && data === 'success') {
-                    alert('Sửa thông tin tài khoản thành công')
-                    $('form').trigger('reset')
-                    $('#editAccountModal').modal('hide')
-                    loadAccountData()
-                } else {
-                    alert('Sửa thông tin tài khoản thất bại\nVui lòng kiểm tra thông tin nhập vào')
-                }
-            },
-            error: (xhr, status, error) => {
-                console.log(error)
-            }
-        })
+        const res = await updateAccount(accountId, accessId, username, password)
+        if (res) {
+            alert('Sửa thông tin tài khoản thành công')
+            $('form').trigger('reset')
+            $('#editAccountModal').modal('hide')
+            renderAccountData()
+        } else {
+            alert('Sửa thông tin tài khoản thất bại\nVui lòng kiểm tra thông tin nhập vào')
+        }
     })
 }
 
@@ -207,8 +246,30 @@ function showDeleteCheckedAccountModal() {
     })
 }
 
-function deleteAccount() {
-    $(document).on('click', '.btn-delete-account', e => {
+function deleteAccount(accountId) {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: 'server/src/controller/TaiKhoanController.php',
+            method: 'POST',
+            data: { action: 'delete', accountId },
+            success: res => {
+                if (res === 'success') {
+                    resolve(true)
+                } else {
+                    resolve(false)
+                }
+            },
+            error: (xhr, status, error) => {
+                console.log(error)
+                reject(error)
+            }
+        })
+    })
+
+}
+
+function handleDeleteAccount() {
+    $(document).on('click', '.btn-delete-account', async e => {
         const accountId = $('#deleteAccountModal .delete-account-id').text()
 
         if (accountId) {
@@ -218,24 +279,15 @@ function deleteAccount() {
                 return
             }
 
-            $.ajax({
-                url: 'server/src/controller/TaiKhoanController.php',
-                method: 'POST',
-                data: { action: 'delete', accountId: accountId },
-                success: data => {
-                    if (data && data === 'success') {
-                        alert(`Đã xóa tài khoản có mã ${accountId}`);
-                        $('form').trigger('reset')
-                        $('#deleteAccountModal').modal('hide')
-                        loadAccountData()
-                    } else {
-                        alert('Xóa tài khoản thất bại')
-                    }
-                },
-                error: (xhr, status, error) => {
-                    console.log(error)
-                }
-            })
+            const res = await deleteAccount(accountId)
+            if (res) {
+                alert('Xóa tài khoản thành công')
+                $('form').trigger('reset')
+                $('#deleteAccountModal').modal('hide')
+                renderAccountData()
+            } else {
+                alert('Xóa tài khoản thất bại')
+            }
         } else {
             let checkedAccounts = []
             const firstCheckInputElement = document.querySelector('table.table thead input[type=checkbox]')
@@ -248,45 +300,23 @@ function deleteAccount() {
             })
 
             if (checkedAccounts.length > 0) {
-                let promises = []
-
                 if (checkedAccounts.includes('admin')) {
                     alert('Không thể xóa tài khoản admin\nHãy bỏ check tài khoản admin')
                     $('#deleteAccountModal').modal('hide')
                     return
                 }
 
-                checkedAccounts.forEach(checkedAccount => {
-                    let promise = new Promise((resolve, reject) => {
-                        $.ajax({
-                            url: 'server/src/controller/TaiKhoanController.php',
-                            method: 'POST',
-                            data: { action: 'delete', accountId: checkedAccount },
-                            success: data => {
-                                if (data && data === 'success') {
-                                    resolve(true)
-                                } else {
-                                    resolve(false)
-                                }
-                            },
-                            error: (xhr, status, error) => {
-                                console.log(error)
-                                reject(error)
-                            }
-                        })
-                    })
+                const promises = checkedAccounts.map(checkedAccount => deleteAccount(checkedAccount))
+                const res = await Promise.all(promises)
 
-                    promises.push(promise)
-                })
-
-                Promise.all(promises).then(results => {
-                    if (results.includes(true)) {
-                        alert('Đã xóa tài khoản các tài khoản được chọn')
-                        $('form').trigger('reset')
-                        firstCheckInputElement.checked = false
-                        loadAccountData()
-                    }
-                })
+                if (!res.includes(false)) {
+                    alert('Đã xóa tài khoản các tài khoản được chọn')
+                    $('form').trigger('reset')
+                    firstCheckInputElement.checked = false
+                    renderAccountData()
+                } else {
+                    alert('Xảy ra lỗi trong quá trình xóa tài khoản')
+                }
             } else {
                 alert('Không có tài khoản nào được chọn\nVui lòng check vào ô các tài khoản muốn xóa')
             }
@@ -297,26 +327,16 @@ function deleteAccount() {
 }
 
 function showViewAccountModal() {
-    $(document).on('click', '.btn-view-account-modal', e => {
+    $(document).on('click', '.btn-view-account-modal', async e => {
         const accountId = e.target.closest('.btn-view-account-modal').dataset.id
+        const account = await getAccount(accountId)
 
-        $.ajax({
-            url: 'server/src/controller/TaiKhoanController.php',
-            method: 'POST',
-            data: { action: 'get', accountId: accountId },
-            dataType: 'JSON',
-            success: data => {
-                if (data) {
-                    $('#admin-account-id-view').val(data.ma_tk)
-                    $('#admin-account-access-view').val(data.ma_quyen)
-                    $('#admin-account-username-view').val(data.username)
-                    $('#admin-account-password-view').val(data.password)
-                }
-            },
-            error: (xhr, status, error) => {
-                console.log(error)
-            }
-        })
+        if (account) {
+            $('#admin-account-id-view').val(account.ma_tk)
+            $('#admin-account-access-view').val(account.ma_quyen)
+            $('#admin-account-username-view').val(account.username)
+            $('#admin-account-password-view').val(account.password)
+        }
     })
 }
 
@@ -324,7 +344,7 @@ function searchAccount() {
     $(document).on('keyup', '.admin-search-info', e => {
         const info = e.target.value.toLowerCase()
 
-        $('.admin-account-table tr').each(function(index) {
+        $('.admin-account-table tr').each(function (index) {
             if (index !== 0) {
                 $row = $(this)
 

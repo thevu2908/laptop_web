@@ -1,6 +1,7 @@
 
 $(document).ready(function(){
     loadNhomQuyen();
+    loadNhomQuyenDataAccount()
     $(document).on("click", "ul.pagination li a", function (e) {
         e.preventDefault();
         var $this = $(this);
@@ -132,8 +133,10 @@ function loadNhomQuyenDataAccount() {
                     html += `<option value='${nhomquyen['ma_quyen']}' ${selected}>${nhomquyen['ten_quyen']}</option>`
                 })
 
-                $("#admin-account-access").html(html);
-                $("#admin-account-access-edit").html(html);
+                
+
+                $("#admin-account-access").html(html)
+                $("#admin-account-access-edit").html(html)
             }
         }
     }) 
@@ -177,11 +180,11 @@ function showTenNhomQuyenAccount(id, index) {
     $.ajax({
         url: "server/src/controller/NhomQuyenController.php",
         method: "POST",
-        data: { action: 'Get', id: id },
+        data: { action: 'Get', id },
         dataType: 'JSON',
-        success: data => {
-            if (data && data.length > 0) {
-                $(`.admin-accounnt-accessname-${index}`).append(data['ten_quyen'])
+        success: access => {
+            if (access) {
+                $(`.admin-accounnt-accessname-${index}`).text(access.ten_quyen)
             }
         }
     })

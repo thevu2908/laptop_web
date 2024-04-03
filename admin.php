@@ -29,11 +29,7 @@
 
 <body>
   <div id="admin-main">
-    <?php include "./server/src/admin/view/Taskbar.php";
-    // echo isset($_SESSION['maquyen'])?"Hello: ".$_SESSION['maquyen']:"Bye";
-    // $maquyen=$_SESSION['maquyen'];
-    // echo "<input type='hidden' id='ad-maquyen' value='$maquyen'>";
-    ?>
+    <?php include "./server/src/admin/view/Taskbar.php"; ?>
     <div class="content">
       <?php include "./server/src/admin/view/Content.php" ?>
       <?php
@@ -64,10 +60,16 @@
             }
           case "taikhoan": {
               include "./server/src/admin/view/TaiKhoan.php";
+              echo '<script src="./client/pages/TaiKhoan.js"></script>';
+              echo "<script src='./client/pages/NhomQuyen.js'></script>";
+              echo "<script src='./client/pages/NhanVien.js'></script>'";
               break;
             }
           case "nhanvien": {
               include "./server/src/admin/view/NhanVien.php";
+              echo '<script src="./client/pages/TaiKhoan.js"></script>';
+              echo "<script src='./client/pages/NhomQuyen.js'></script>";
+              echo "<script src='./client/pages/NhanVien.js'></script>'";
               break;
             }
           case "hoadon": {
@@ -121,8 +123,6 @@
   <script src="./server/src/admin/assets/js/product.js"></script>
   <script src="./server/src/admin/assets/js/productColor.js"></script>
   <script src="./client/utils/formatCurrency.js"></script>
-  <script src="./client/pages/NhanVien.js"></script>
-  <script src="./client/pages/TaiKhoan.js"></script>
   <script src="./client/plugins/pagination.js"></script>
 </body>
 
