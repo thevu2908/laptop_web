@@ -62,15 +62,3 @@ function enduserPagination(totalPages, currentpage) {
         $('.product-main .enduser-pagination').html(html)
     }
 }
-
-// function enduserClickPage(func) {
-//     $(document).on('click', '.enduser-pagination .pagination li a', e => {
-//         const $this = $(e.target)
-//         console.log($this)
-//         const currentPage = $this.data('page')
-//         $('#enduser-currentpage').val(currentPage)
-//         func()
-//         $this.parent().siblings().removeClass("active")
-//         $this.parent().addClass("active")
-//     })
-// }
