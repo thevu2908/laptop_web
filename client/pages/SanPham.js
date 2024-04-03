@@ -56,7 +56,6 @@ function formatProduct(products) {
 function getPaginationProducts(limit) {
     return new Promise((resolve, reject) => {
         const page = $('#currentpage').val()
-
         $.ajax({
             url: 'server/src/controller/PaginationController.php',
             method: 'GET',
@@ -140,7 +139,6 @@ async function renderAdminProductTable(data) {
 
     if (products && products.pagination.length > 0) {
         let html = ''
-        console.log(products)
         products.pagination.forEach(product => {
             html += `
                 <tr>
