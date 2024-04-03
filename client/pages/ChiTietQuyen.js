@@ -14,7 +14,7 @@ function loadPhanQuyen(){
         method: "GET",
         dataType: "json",
         success: function (data) {
-            var jsonData=data.paginattion;
+            var jsonData=data.pagination;
             var html="";
             jsonData.forEach((chitietquyen,index) => {
                 html+=`<tr data-row="${chitietquyen['ma_quyen']}" data-row1="${chitietquyen['ma_chuc_nang']}">
@@ -55,11 +55,6 @@ function loadPhanQuyen(){
             })
             $("#show-ListPhanQuyen").html(html);
             totalPage(data.count);
-            // let total = data.count;
-            // console.log(total);
-            // let totalpages = Math.ceil(parseInt(total) / 4);
-            // const currentpage = $("#currentpage").val();
-            // pagination(totalpages, currentpage);
         }
     });
 }

@@ -26,7 +26,7 @@ switch ($tmp) {
     case 'pagination': {
             $table = $_GET['table'];
             $page = (!empty($_GET['page'])) ? $_GET['page'] : 1;
-            $limit = 8;
+            $limit = 6;
             $start = ($page - 1) * $limit;
             $panigationctl->getPanigation($table, $start, $limit);
             break;
