@@ -1,5 +1,5 @@
 $(document).ready(() => {
-    renderProducts()
+    renderProductsEval()
 })
 
 function getProductData() {
@@ -11,6 +11,7 @@ function getProductData() {
             dataType: 'JSON',
             success: data => {
                 if (data && data.length > 0) {
+                    console.log("OKK")
                     resolve(data);
                 }
             },
@@ -22,7 +23,7 @@ function getProductData() {
     })
 }
 
-function renderProducts() {
+function renderProductsEval() {
     getProductData().then(data => {
         let html = ''
 

@@ -159,6 +159,7 @@ function renderAdminProductTable() {
 
 async function renderHomePageProduct() {
     const products = await getProductData()
+    console.log(products)
 
     if (products) {
         let html = ''
