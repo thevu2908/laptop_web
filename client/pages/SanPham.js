@@ -9,7 +9,7 @@ $(document).ready(() => {
     renderViewProductModal()
     importExcel()
     exportExcel()
-    searchProduct()
+    searchAdminProduct()
 })
 
 function formatProduct(products) {
@@ -56,7 +56,6 @@ function formatProduct(products) {
 function getPaginationProducts(limit) {
     return new Promise((resolve, reject) => {
         const page = $('#currentpage').val()
-
         $.ajax({
             url: 'server/src/controller/PaginationController.php',
             method: 'GET',
@@ -116,7 +115,7 @@ function getProduct(productId) {
 function renderProducts() {
     const urlParams = new URLSearchParams(window.location.search)
     if (window.location.pathname === '/admin.php') {
-        renderAdminProductTable()
+        renderAdminProductTable(null)
         clickPage(renderAdminProductTable)
     } else if (window.location.pathname === '/index.php') {
         if (urlParams.has('san-pham')) {
@@ -135,48 +134,44 @@ function renderProductName(productId) {
         })
 }
 
-function renderAdminProductTable() {
-    getPaginationProducts(null)
-        .then(products => {
-            let html = ''
+async function renderAdminProductTable(data) {
+    const products = data ? data : await getPaginationProducts(null)
 
-            if (products) {
-                products.pagination.forEach((product, index) => {
-                    html += `
-                        <tr>
-                            <td>
-                                <span class="custom-checkbox">
-                                    <input type="checkbox" id="checkbox-${product.ma_sp}" name="chk[]" value="${product.ma_sp}">
-                                    <label for="checkbox-${product.ma_sp}"></label>
-                                </span>
-                            </td>
-                            <td>${product.ma_sp}</td>
-                            <td>${product.ten_sp}</td>
-                            <td>${product.ten_thuong_hieu}</td>
-                            <td>${product.gia_nhap}</td>
-                            <td>${product.chiet_khau}</td>
-                            <td>${product.gia_ban}</td>
-                            <td>${product.so_luong_ton}</td>
-                            <td>
-                                <a href="#editProductModal" class="edit btn-update-product-modal" data-toggle="modal" data-id=${product.ma_sp}>
-                                    <i class="material-icons" data-toggle="tooltip" title="Sửa thông tin">&#xE254;</i>
-                                </a>
-                                <a href="#deleteProductModal" class="delete btn-delete-product-modal" data-toggle="modal" data-id=${product.ma_sp}>
-                                    <i class="material-icons" data-toggle="tooltip" title="Xóa">&#xE872;</i>
-                                </a>
-                                <a href="#viewProductModal" class="view btn-view-product-modal" title="View" data-toggle="modal" data-id=${product.ma_sp}>
-                                    <i class="material-icons" data-toggle="tooltip" title="Xem thông tin">&#xE417;</i>
-                                </a>
-                            </td>
-                        </tr>
-                    `
-                })
-            }
-
-            $('.admin-product-list').html(html)
-            totalPage(products.count)
+    if (products && products.pagination.length > 0) {
+        let html = ''
+        products.pagination.forEach(product => {
+            html += `
+                <tr>
+                    <td>
+                        <span class="custom-checkbox">
+                            <input type="checkbox" id="checkbox-${product.ma_sp}" name="chk[]" value="${product.ma_sp}">
+                            <label for="checkbox-${product.ma_sp}"></label>
+                        </span>
+                    </td>
+                    <td>${product.ma_sp}</td>
+                    <td>${product.ten_sp}</td>
+                    <td>${product.ten_thuong_hieu}</td>
+                    <td>${product.gia_nhap}</td>
+                    <td>${product.chiet_khau}</td>
+                    <td>${product.gia_ban}</td>
+                    <td>${product.so_luong_ton}</td>
+                    <td>
+                        <a href="#editProductModal" class="edit btn-update-product-modal" data-toggle="modal" data-id=${product.ma_sp}>
+                            <i class="material-icons" data-toggle="tooltip" title="Sửa thông tin">&#xE254;</i>
+                        </a>
+                        <a href="#deleteProductModal" class="delete btn-delete-product-modal" data-toggle="modal" data-id=${product.ma_sp}>
+                            <i class="material-icons" data-toggle="tooltip" title="Xóa">&#xE872;</i>
+                        </a>
+                        <a href="#viewProductModal" class="view btn-view-product-modal" title="View" data-toggle="modal" data-id=${product.ma_sp}>
+                            <i class="material-icons" data-toggle="tooltip" title="Xem thông tin">&#xE417;</i>
+                        </a>
+                    </td>
+                </tr>
+            `
         })
-        .catch(error => console.log(error))
+        $('.admin-product-list').html(html)
+        totalPage(products.count)
+    }
 }
 
 async function renderHomePageProduct() {
@@ -1030,31 +1025,18 @@ function exportExcel() {
     })
 }
 
-function searchProduct() {
+function searchAdminProduct() {
     $(document).on('keyup', '.admin-search-info', e => {
-        const info = e.target.value.toLowerCase()
+        const search = e.target.value.toLowerCase()
+        const page = $('#currentpage').val()
 
-        $('.admin-product-table tr').each(function (index) {
-            if (index !== 0) {
-                $row = $(this)
-
-                const tdElement = $row.find('td')
-                const id = tdElement[1].innerText.toLowerCase()
-                const name = tdElement[2].innerText.toLowerCase()
-                const brand = tdElement[3].innerText.toLowerCase()
-                const quantity = tdElement[7].innerText.toLowerCase()
-
-                const matchId = id.indexOf(info)
-                const matchName = name.indexOf(info)
-                const matchBrand = brand.indexOf(info)
-                const machQuantity = quantity.indexOf(info)
-
-                if (matchId < 0 && matchName < 0 && matchBrand < 0 && machQuantity < 0) {
-                    $row.hide()
-                } else {
-                    $row.show()
-                }
-            }
+        $.ajax({
+            url: 'server/src/controller/SearchController.php',
+            method: 'GET',
+            data: { action: 'search', search, table: 'sanpham', page },
+            dataType: 'JSON',
+            success: products => renderAdminProductTable(products),
+            error: (xhr, status, error) => console.log(error)
         })
     })
 }

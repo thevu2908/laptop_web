@@ -27,7 +27,11 @@ switch ($action) {
     case 'pagination':
         $table = $_GET['table'];
         $page = !empty($_GET['page']) ? $_GET['page'] : 1;
-        $limit = $_GET['limit'] !== '' ? $_GET['limit'] : 8;
+        if (isset($_GET['limit'])) {
+            $limit = $_GET['limit'] !== '' ? $_GET['limit'] : 8;
+        } else {
+            $limit = 8;
+        }
         $start = ($page - 1) * $limit;
         $paginationCtl->getPagination($table, $start, $limit);
         break;

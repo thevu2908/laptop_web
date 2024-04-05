@@ -66,7 +66,6 @@ function searchNhomQuyen() {
             method: "POST",
             data: { action: "Search", search: search },
             success: function (data) {
-                console.log(data)
                 if (data) {
                     render(data);
                 }
@@ -74,82 +73,51 @@ function searchNhomQuyen() {
         })
     })
 }
+function render(data) {
+    var html = "";
+    if (true) {
+        var jsonData = data.paginattion;
 
-function render(data){
-    var html="";
-            //console.log(data);
-            if (true) {
-                var jsonData=data.panigation;
-                
-                    jsonData.forEach((nhomquyen,index) => {
-                        html+=`<tr>
-                        <td>
-                            <span class="custom-checkbox">
-                                <input type="checkbox" id="checkbox1" name="options[]" value="1">
-                                <label for="checkbox1"></label>
-                            </span>
-                        </td>
-                        <td>${nhomquyen['ma_quyen']}</td>
-                        <td>${nhomquyen['ten_quyen']}</td>
-                        <td><span class="status text-success">&bull;</span> Active</td>
-                        <td id="container">
-                            <a id="btnUp" href="#editNhomQuyen" class="edit" data-toggle="modal" data-id=${nhomquyen['ma_quyen']}><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                            <a id="btnDel" href="#deleteNhomQuyen" class="delete" data-toggle="modal" data-id1=${nhomquyen['ma_quyen']}><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-                            <a id="btnDetail" href="#detailNhomQuyen" class="view" data-id2=${nhomquyen['ma_quyen']} data-toggle="modal"><i class="material-icons">&#xE417;</i></a>
-                        </td>
-                    </tr>`
-                    });
-            }
-            $("#show-listNhomQuyen").html(html);
-            //phanquyen("CN002")
-            totalPage(data.count);
-        }
-    
-// function render(data) {
-//     var html = "";
-//     if (true) {
-//         var jsonData = data.paginattion;
-
-//         jsonData.forEach((nhomquyen, index) => {
-//             html += `<tr>
-//                 <td>
-//                     <span class="custom-checkbox">
-//                         <input type="checkbox" id="checkbox1" name="chk[]" value="1">
-//                         <label for="checkbox1"></label>
-//                     </span>
-//                 </td>
-//                 <td>${nhomquyen['ma_quyen']}</td>
-//                 <td>${nhomquyen['ten_quyen']}</td>
-//                 <td><span class="status text-success">&bull;</span> Active</td>
-//                 <td id="container">
-//                     <a id="btnUp" href="#editNhomQuyen" class="edit" data-toggle="modal" data-id=${nhomquyen['ma_quyen']}><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-//                     <a id="btnDel" href="#deleteNhomQuyen" class="delete" data-toggle="modal" data-id1=${nhomquyen['ma_quyen']}><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-//                     <a id="btnDetail" href="#detailNhomQuyen" class="view" data-id2=${nhomquyen['ma_quyen']} data-toggle="modal"><i class="material-icons">&#xE417;</i></a>
-//                 </td>
-//             </tr>`
-//         });
-//     }
-//     $("#show-listNhomQuyen").html(html);
-//     // $.ajax({
-//     //     url:"server/src/controller/CTQuyenController.php",
-//     //     data:{action:"kiemtra" ,maquyen:$("#ad-maquyen").val(),machucnang:"CN002"},
-//     //     method:"POST",
-//     //     success:function(data){
-//     //         var jsonData = JSON.parse(data);
-//     //         console.log(jsonData);
-//     //         jsonData.some(item => item.hanh_dong === "Thêm")?$(".btn.btn-success.add").show():$(".btn.btn-success.add").hide();
-//     //         jsonData.some(item => item.hanh_dong === "Xóa")?$(".delete").show():$(".delete").hide();
-//     //         jsonData.some(item => item.hanh_dong === "Sửa")?$(".edit").show():$(".edit").hide();
-//     //     }
-//     // })
-//     // phanquyen("CN002")
-//     // totalPage(data.count);
-//     // let total = data.count;
-//     // console.log(total);
-//     // let totalpages = Math.ceil(parseInt(total) / 4);
-//     // const currentpage = $("#currentpage").val();
-//     // pagination(totalpages, currentpage);
-// }
+        jsonData.forEach((nhomquyen, index) => {
+            html += `<tr>
+                <td>
+                    <span class="custom-checkbox">
+                        <input type="checkbox" id="checkbox1" name="chk[]" value="1">
+                        <label for="checkbox1"></label>
+                    </span>
+                </td>
+                <td>${nhomquyen['ma_quyen']}</td>
+                <td>${nhomquyen['ten_quyen']}</td>
+                <td><span class="status text-success">&bull;</span> Active</td>
+                <td id="container">
+                    <a id="btnUp" href="#editNhomQuyen" class="edit" data-toggle="modal" data-id=${nhomquyen['ma_quyen']}><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                    <a id="btnDel" href="#deleteNhomQuyen" class="delete" data-toggle="modal" data-id1=${nhomquyen['ma_quyen']}><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                    <a id="btnDetail" href="#detailNhomQuyen" class="view" data-id2=${nhomquyen['ma_quyen']} data-toggle="modal"><i class="material-icons">&#xE417;</i></a>
+                </td>
+            </tr>`
+        });
+    }
+    $("#show-listNhomQuyen").html(html);
+    // $.ajax({
+    //     url:"server/src/controller/CTQuyenController.php",
+    //     data:{action:"kiemtra" ,maquyen:$("#ad-maquyen").val(),machucnang:"CN002"},
+    //     method:"POST",
+    //     success:function(data){
+    //         var jsonData = JSON.parse(data);
+    //         console.log(jsonData);
+    //         jsonData.some(item => item.hanh_dong === "Thêm")?$(".btn.btn-success.add").show():$(".btn.btn-success.add").hide();
+    //         jsonData.some(item => item.hanh_dong === "Xóa")?$(".delete").show():$(".delete").hide();
+    //         jsonData.some(item => item.hanh_dong === "Sửa")?$(".edit").show():$(".edit").hide();
+    //     }
+    // })
+    // phanquyen("CN002")
+    // totalPage(data.count);
+    // let total = data.count;
+    // console.log(total);
+    // let totalpages = Math.ceil(parseInt(total) / 4);
+    // const currentpage = $("#currentpage").val();
+    // pagination(totalpages, currentpage);
+}
 
 function loadNhomQuyenDataAccount() {
     $.ajax({
@@ -255,7 +223,6 @@ function detailNhomQuyen() {
             }
         })
     })
-<<<<<<< HEAD
 }
 
 function detailNhomQuyen() {
@@ -275,6 +242,3 @@ function detailNhomQuyen() {
         })
     })
 }
-=======
-}
->>>>>>> fcddf7d350576853a2cb53721142d47321278707
