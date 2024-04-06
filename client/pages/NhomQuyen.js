@@ -76,7 +76,7 @@ function searchNhomQuyen() {
 function render(data) {
     var html = "";
     if (true) {
-        var jsonData = data.paginattion;
+        var jsonData = data.pagination;
 
         jsonData.forEach((nhomquyen, index) => {
             html += `<tr>
@@ -98,25 +98,7 @@ function render(data) {
         });
     }
     $("#show-listNhomQuyen").html(html);
-    // $.ajax({
-    //     url:"server/src/controller/CTQuyenController.php",
-    //     data:{action:"kiemtra" ,maquyen:$("#ad-maquyen").val(),machucnang:"CN002"},
-    //     method:"POST",
-    //     success:function(data){
-    //         var jsonData = JSON.parse(data);
-    //         console.log(jsonData);
-    //         jsonData.some(item => item.hanh_dong === "Thêm")?$(".btn.btn-success.add").show():$(".btn.btn-success.add").hide();
-    //         jsonData.some(item => item.hanh_dong === "Xóa")?$(".delete").show():$(".delete").hide();
-    //         jsonData.some(item => item.hanh_dong === "Sửa")?$(".edit").show():$(".edit").hide();
-    //     }
-    // })
-    // phanquyen("CN002")
-    // totalPage(data.count);
-    // let total = data.count;
-    // console.log(total);
-    // let totalpages = Math.ceil(parseInt(total) / 4);
-    // const currentpage = $("#currentpage").val();
-    // pagination(totalpages, currentpage);
+    totalPage(data.count);
 }
 
 function loadNhomQuyenDataAccount() {

@@ -32,11 +32,13 @@ class ChiTietQuyenController{
         echo json_encode($this->chitietquyenRepo->deletePhanQuyen($listitemRemove));
     }
 }
-$tmp=$_POST['action'];
+$tmp=$_REQUEST['action'];
 $chitietquyenctl=new ChiTietQuyenController();
 switch ($tmp){
-    case "load":{
-        $chitietquyenctl->getAllChiTietQuyen();
+    case "taskbar":{
+        //$chitietquyenctl->getAllChiTietQuyen();
+        $id=$_GET['maquyen'];
+        $chitietquyenctl->getChucNang($id);
         break;
     }
     case "get":{

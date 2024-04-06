@@ -1,6 +1,6 @@
 $(document).ready(function() {
     getAllChuNangQuyen();
-    clickPage(getAllChuNangQuyen());
+    clickPage(getAllChuNangQuyen);
 })
 
 function getAllChuNangQuyen(){
@@ -11,7 +11,7 @@ function getAllChuNangQuyen(){
         method: "GET",
         dataType: "json",
         success:function(data){
-            var jsondata=data.paginattion;
+            var jsondata=data.pagination;
             var html="";
             jsondata.forEach((chucnangquyen,index) => {
                 html+=`<tr>
@@ -32,7 +32,7 @@ function getAllChuNangQuyen(){
             </tr>`
             });
             $("#show-listChucNang").html(html);
-            phanquyen("CN005");
+            //phanquyen("CN005");
             totalPage(data.count);
         }
     })

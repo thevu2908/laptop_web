@@ -29,7 +29,8 @@
 
 <body>
   <div id="admin-main">
-    <?php include "./server/src/admin/view/Taskbar.php"; ?>
+    <?php include "./server/src/admin/view/Taskbar.php";
+    //  echo '<script src="./client/pages/Taskbar.js"></script>'; ?>
     <div class="content">
       <?php include "./server/src/admin/view/Content.php" ?>
       <?php
@@ -64,12 +65,12 @@
               echo "<script src='./client/pages/NhomQuyen.js'></script>";
               echo "<script src='./client/pages/NhanVien.js'></script>'";
               break;
-            }
-          case "nhanvien": {
-            include "./server/src/admin/view/NhanVien.php";
-            break;
           }
-          case "baohanh": {
+          // case "Nhân Viên": {
+          //   include "./server/src/admin/view/NhanVien.php";
+          //   break;
+          // }
+          case "Bảo Hành": {
             include "./server/src/admin/view/BaoHanh.php";
             break;
           }
@@ -78,13 +79,13 @@
             break;
           }case "nhanvien":{
             include "./server/src/admin/view/NhanVien.php";
-              include "./server/src/admin/view/NhanVien.php";
+              // include "./server/src/admin/view/NhanVien.php";
               echo '<script src="./client/pages/TaiKhoan.js"></script>';
               echo "<script src='./client/pages/NhomQuyen.js'></script>";
               echo "<script src='./client/pages/NhanVien.js'></script>'";
               break;
             }
-          case "hoadon": {
+            case "hoadon": {
               include "./server/src/admin/view/HoaDon.php";
               break;
             }

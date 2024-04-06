@@ -11,7 +11,7 @@ class ChiTietQuyenRepo extends ConnectDB{
         return $arrChiTietQuyen;
     }
     function getChucNang($id){
-        $sql = "SELECT DISTINCT ma_chuc_nang FROM chitietquyen WHERE ma_quyen='$id'";
+        $sql = "SELECT DISTINCT chitietquyen.ma_chuc_nang,chucnangquyen.ten_chuc_nang FROM chitietquyen join chucnangquyen on chitietquyen.ma_chuc_nang=chucnangquyen.ma_chuc_nang WHERE chitietquyen.ma_quyen='$id'";
         $result = mysqli_query($this->conn,$sql);
         $arrChucNang=array();
         while($row=mysqli_fetch_assoc($result)){
