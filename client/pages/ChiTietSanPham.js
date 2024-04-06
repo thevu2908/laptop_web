@@ -1,5 +1,6 @@
 $(document).ready(() => {
-    renderAdminProductDetail()
+    renderAdminProductDetail(null)
+    clickPage(renderAdminProductDetail)
     renderProductDetail()
     handleAddProductDetail()
     renderDeleteProductDetailModal()
@@ -7,7 +8,7 @@ $(document).ready(() => {
     searchProductDetail()
 })
 
-function getProductDetailData(productId) {
+function getProductDetails(productId) {
     return new Promise((resolve, reject) => {
         $.ajax({
             url: 'server/src/controller/CTSanPhamController.php',
@@ -18,9 +19,26 @@ function getProductDetailData(productId) {
                 if (productDetails && productDetails.length > 0) {
                     resolve(productDetails)
                 } else {
-                    resolve([])
+                    resolve(null)
                 }
             },
+            error: (xhr, status, error) => {
+                console.log(error)
+                reject(error)
+            }
+        })
+    })
+}
+
+function getPaginationProductDetails(productId) {
+    return new Promise((resolve, reject) => {
+        const page = $('#currentpage').val()
+        $.ajax({
+            url: 'server/src/controller/PaginationController.php',
+            method: 'GET',
+            data: { action: 'pagination', table: 'chitietsanpham', page, id: productId },
+            dataType: 'JSON',
+            success: productDetails => resolve(productDetails),
             error: (xhr, status, error) => {
                 console.log(error)
                 reject(error)
@@ -51,59 +69,55 @@ function getProductDetail(productDetailId) {
     })
 }
 
-function renderAdminProductDetail() {
+async function renderAdminProductDetail(data) {
     let productId = $('#admin-product-detail-main #product-id').val()
 
     if (productId) {
         productId = productId.toUpperCase().trim()
         renderProductName(productId)
 
-        getProductDetailData(productId)
-            .then(data => {
-                let html = ''
-                data.forEach((item, index) => {
-                    html += `
-                        <tr>
-                            <td>
-                                <span class="custom-checkbox">
-                                    <input type="checkbox" id="checkbox-${item.ma_ctsp}" name="chk[]" value="${item.ma_ctsp}">
-                                    <label for="checkbox-${item.ma_ctsp}"></label>
-                                </span>
-                            </td>
-                            <td>${item.ma_ctsp}</td>
-                            <td class="product-detail-color-name-${index}"></td>
-                            <td class="product-detail-cpu-name-${index}"></td>
-                            <td class="product-detail-gpu-name-${index}"></td>
-                            <td>${item.ram.toUpperCase()}</td>
-                            <td>${item.rom.toUpperCase()}</td>
-                            <td class="d-flex justify-content-center"">
-                                <ul class="product-detail-${index} mb-0" style="width: fit-content;">
-                                    
-                                </ul>
-                            </td>
-                            <td>${item.gia_tien}</td>
-                            <td>${item.so_luong}</td>
-                            <td>
-                                <a href="#deleteProductDetailModal" class="delete btn-delete-product-detail-modal" data-toggle="modal" data-id=${item.ma_ctsp}>
-                                    <i class="material-icons" data-toggle="tooltip" title="Xóa">&#xE872;</i>
-                                </a>
-                            </td>
-                        </tr>
-                    `
+        const productDetails = data ? data : await getPaginationProductDetails(productId)
 
-                    renderColorName(item.ma_mau, index)
-                    renderCPUName(item.ma_chip_xu_ly, index)
-                    renderGPUName(item.ma_carddohoa, index)
-                    renderProductDetailPlug(item.ma_ctsp, index)
-                })
+        if (productDetails && productDetails.pagination && productDetails.pagination.length > 0) {
+            let html = ''
+            productDetails.pagination.forEach((productDetail, index) => {
+                html += `
+                    <tr>
+                        <td>
+                            <span class="custom-checkbox">
+                                <input type="checkbox" id="checkbox-${productDetail.ma_ctsp}" name="chk[]" value="${productDetail.ma_ctsp}">
+                                <label for="checkbox-${productDetail.ma_ctsp}"></label>
+                            </span>
+                        </td>
+                        <td>${productDetail.ma_ctsp}</td>
+                        <td>${productDetail.ten_mau}</td>
+                        <td>${productDetail.ten_chip}</td>
+                        <td>${productDetail.ten_card}</td>
+                        <td>${productDetail.ram.toUpperCase()}</td>
+                        <td>${productDetail.rom.toUpperCase()}</td>
+                        <td class="d-flex justify-content-center"">
+                            <ul class="product-detail-${index} mb-0" style="width: fit-content;">
+                                
+                            </ul>
+                        </td>
+                        <td>${productDetail.gia_tien}</td>
+                        <td>${productDetail.so_luong}</td>
+                        <td>
+                            <a href="#deleteProductDetailModal" class="delete btn-delete-product-detail-modal" data-toggle="modal" data-id=${productDetail.ma_ctsp}>
+                                <i class="material-icons" data-toggle="tooltip" title="Xóa">&#xE872;</i>
+                            </a>
+                        </td>
+                    </tr>
+                `
 
-                if (html) {
-                    $('.admin-product-detail-list').html(html)
-                } else {
-                    $('.admin-product-detail-list').html('')
-                }
+                renderProductDetailPlug(productDetail.ma_ctsp, index)
             })
-            .catch(error => console.log(error))
+
+            $('.admin-product-detail-list').html(html)
+            totalPage(productDetails.count)
+        } else {
+            $('.admin-product-detail-list').html('')
+        }
     } else {
         $('.admin-product-detail-list').html('')
     }
@@ -318,38 +332,17 @@ function getProductDetailByProductId(productId) {
 
 function searchProductDetail() {
     $(document).on('keyup', '.admin-search-info', e => {
-        const info = e.target.value.toLowerCase()
+        const search = e.target.value.toLowerCase()
+        const page = $('#currentpage').val()
+        const productId = $('#admin-product-detail-main #product-id').val() ? $('#admin-product-detail-main #product-id').val().toUpperCase().trim() : ''
 
-        $('.admin-product-detail-table tr').each(function(index) {
-            if (index !== 0) {
-                $row = $(this)
-
-                const tdElement = $row.find('td')
-                const id = tdElement[1].innerText.toLowerCase()
-                const color = tdElement[2].innerText.toLowerCase()
-                const cpu = tdElement[3].innerText.toLowerCase()
-                const gpu = tdElement[4].innerText.toLowerCase()
-                const ram = tdElement[5].innerText.toLowerCase()
-                const rom = tdElement[6].innerText.toLowerCase()
-                const plug = tdElement[7].innerText.toLowerCase()
-                const quantity = tdElement[9].innerText.toLowerCase()
-
-                const matchId = id.indexOf(info)
-                const matchCPU = cpu.indexOf(info)
-                const matchColor = color.indexOf(info)
-                const matchGPU = gpu.indexOf(info)
-                const matchRam = ram.indexOf(info)
-                const matchRom = rom.indexOf(info)
-                const matchPlug = plug.indexOf(info)
-                const machQuantity = quantity.indexOf(info)
-
-
-                if (matchId < 0 && matchCPU < 0 && matchColor < 0 && matchGPU < 0 && matchRam < 0 && matchRom < 0 && matchPlug < 0 && machQuantity < 0) {
-                    $row.hide()
-                } else {
-                    $row.show()
-                }
-            }
+        $.ajax({
+            url: 'server/src/controller/SearchController.php',
+            method: 'GET',
+            data: { action: 'search', search, table: 'chitietsanpham', page, id: productId },
+            dataType: 'JSON',
+            success: productDetails => renderAdminProductDetail(productDetails),
+            error: (xhr, status, error) => console.log(error)
         })
     })
 }

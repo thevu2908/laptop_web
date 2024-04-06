@@ -32,6 +32,10 @@ class SanPhamController {
         echo json_encode($this->sanPhamRepo->getProduct($productId));
     }
 
+    public function getProductFullInfo($productId) {
+        echo json_encode($this->sanPhamRepo->getProductFullInfo($productId));
+    }
+
     public function getProductsLength(): int {
         return $this->sanPhamRepo->getProductsLength();
     }
@@ -93,6 +97,10 @@ switch ($action) {
     case 'get':
         $productId = $_POST['productId'];
         $sanPhamCtl->getProduct($productId);
+        break;
+    case 'get-full-info':
+        $productId = $_POST['productId'];
+        $sanPhamCtl->getProductFullInfo($productId);
         break;
     case 'add':
         $length = $sanPhamCtl->getProductsLength();

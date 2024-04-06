@@ -1,5 +1,6 @@
 $(document).ready(() => {
     renderAccountData(null)
+    clickPage(renderAccountData)
     handleAddAccount()
     showUpdateAccountModal()
     handleUpdateAccount()
@@ -10,7 +11,7 @@ $(document).ready(() => {
     searchAccount()
 })
 
-function getAccountData() {
+function getAccounts() {
     return new Promise((resolve, reject) => {
         $.ajax({
             url: 'server/src/controller/TaiKhoanController.php',
@@ -26,13 +27,30 @@ function getAccountData() {
     })
 }
 
-async function renderAccountData(data) {
-    const accounts = data === null ? await getAccountData() : data
+function getPaginationAccounts() {
+    return new Promise((resolve, reject) => {
+        const page = $('#currentpage').val()
+        $.ajax({
+            url: 'server/src/controller/PaginationController.php',
+            method: 'GET',
+            data: { action: 'pagination', table: 'taikhoan', page },
+            dataType: 'JSON',
+            success: accounts => resolve(accounts),
+            error: (xhr, status, error) => {
+                console.log(error)
+                reject(error)   
+            }
+        })
+    })
+}
 
-    if (accounts && accounts.length > 0) {
+async function renderAccountData(data) {
+    const accounts = data ? data : await getPaginationAccounts()
+
+    if (accounts && accounts.pagination.length > 0) {
         let html = ''
 
-        accounts.forEach((accounnt, index) => {
+        accounts.pagination.forEach((accounnt, index) => {
             html += `
                 <tr>
                     <td>
@@ -62,6 +80,7 @@ async function renderAccountData(data) {
         })
 
         $('.admin-account-list').html(html)
+        totalPage(accounts.count)
     }
 }
 

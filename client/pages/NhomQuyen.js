@@ -350,7 +350,6 @@ function searchNhomQuyen() {
             method: "POST",
             data: { action: "Search", search: search },
             success: function (data) {
-                console.log(data)
                 if (data) {
                     render(data);
                 }
@@ -361,7 +360,7 @@ function searchNhomQuyen() {
 function render(data) {
     var html = "";
     if (true) {
-        var jsonData = data.paginattion;
+        var jsonData = data.pagination;
 
         jsonData.forEach((nhomquyen, index) => {
             html += `<tr>

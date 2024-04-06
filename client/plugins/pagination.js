@@ -1,6 +1,6 @@
-function totalPage(count) {
+function totalPage(count, perPage = 8) {
     let total = count
-    let totalpages = Math.ceil(parseInt(total) / 8)
+    let totalpages = Math.ceil(parseInt(total) / perPage)
     const currentpage = $("#currentpage").val()
     pagination(totalpages, currentpage)
 }
