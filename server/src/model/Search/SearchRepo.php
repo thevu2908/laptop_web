@@ -1,7 +1,7 @@
 <?php
 
 class SearchRepo extends ConnectDB {
-    public function search($search, $table, $start = 0, $limit = 8) {
+    public function search($search, $table, $start = 0, $limit = 8) : array | null {
         try {
             $searchs = [];
             $search_term = $this->conn->real_escape_string($search);

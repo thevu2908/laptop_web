@@ -8,15 +8,10 @@ class PaginationController {
         $this->paginationRepo = new PaginationRepo();
     }
 
-    function getPagination($table, $start, $limit) {
-        $pagination = $this->paginationRepo->getPagination($table, $start, $limit);
-        $paginationJson = ['count' => $this->paginationRepo->getCount($table), 'pagination' => $pagination];
+    function getPagination($table, $start, $limit, $id) {
+        $pagination = $this->paginationRepo->getPagination($table, $start, $limit, $id);
+        $paginationJson = ['count' => $this->paginationRepo->getCount($table, $id), 'pagination' => $pagination];
         echo json_encode($paginationJson);
-    }
-
-    function getSize($table) {
-        $size = $this->paginationRepo->getCount($table);
-        echo json_encode($size);
     }
 }
 
@@ -32,8 +27,9 @@ switch ($action) {
         } else {
             $limit = 8;
         }
+        $id = isset($_GET['id']) ? $_GET['id'] : '';
         $start = ($page - 1) * $limit;
-        $paginationCtl->getPagination($table, $start, $limit);
+        $paginationCtl->getPagination($table, $start, $limit, $id);
         break;
     default:
         echo json_encode("Error");
