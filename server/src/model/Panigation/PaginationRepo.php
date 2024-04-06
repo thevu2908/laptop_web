@@ -15,7 +15,7 @@ class PaginationRepo extends ConnectDB {
                     WHERE sp.trang_thai = '0'
                     ORDER BY sp.ma_sp ASC LIMIT {$start},{$limit}
                 ";
-            } else if ($table == "chitietsapham") {
+            } else if ($table == "chitietsanpham") {
                 $query = "
                     SELECT ctsp.*, ms.ten_mau, cxl.ten_chip, cdh.ten_card FROM chitietsanpham ctsp
                     JOIN mausac ms ON ctsp.ma_mau = ms.ma_mau
@@ -46,7 +46,7 @@ class PaginationRepo extends ConnectDB {
         try {
             if ($table == "chitietquyen") {
                 $query = "SELECT count(DISTINCT ma_quyen, ma_chuc_nang) as num FROM chitietquyen";
-            } else if ($table = "chitietsanpham") {
+            } else if ($table == "chitietsanpham") {
                 $query = "SELECT count(*) as num FROM chitietsanpham WHERE ma_sp = '$id' AND trang_thai = '0'";
             } else {
                 $query = "SELECT count(*) as num FROM $table WHERE trang_thai = '0'";

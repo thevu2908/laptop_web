@@ -1,5 +1,6 @@
 $(document).ready(() => {
     renderAdminProductDetail()
+    clickPage(renderAdminProductDetail)
     renderProductDetail()
     handleAddProductDetail()
     renderDeleteProductDetailModal()
@@ -35,7 +36,7 @@ function getPaginationProductDetails(productId) {
         $.ajax({
             url: 'server/src/controller/PaginationController.php',
             method: 'GET',
-            data: { action: 'pagination', table: 'chitietsapham', page, id: productId },
+            data: { action: 'pagination', table: 'chitietsanpham', page, id: productId },
             dataType: 'JSON',
             success: productDetails => resolve(productDetails),
             error: (xhr, status, error) => {
@@ -76,6 +77,7 @@ async function renderAdminProductDetail() {
         renderProductName(productId)
 
         const productDetails = await getPaginationProductDetails(productId)
+        console.log(productDetails)
         if (productDetails && productDetails.pagination && productDetails.pagination.length > 0) {
             let html = ''
             productDetails.pagination.forEach((productDetail, index) => {
