@@ -33,6 +33,7 @@ function getAllChuNangQuyen(){
             });
             $("#show-listChucNang").html(html);
             //phanquyen("CN005");
+            phanquyen_chucnang("Chức Năng");
             totalPage(data.count);
         }
     })

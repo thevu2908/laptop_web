@@ -6,14 +6,17 @@ include("server/src/model/ChiTietQuyen/ChiTietQuyenRepo.php");
 include("server/src/model/ChucNangQuyen/ChucNangQuyenRepo.php");
 $chitietquyen=new ChiTietQuyenRepo();
 $chucnang=new ChucNangQuyenRepo();
-if(isset($_SESSION['maquyen'])){
-  $maquyen=$_SESSION['maquyen'];
-  $tmp=$chitietquyen->getChucNang($maquyen);
-  $arr=json_decode(json_encode($tmp),true);
-  //echo $_SESSION['maquyen'];
-}else{
-  $maquyen="";
-}
+// if(isset($_SESSION['maquyen'])){
+//   $maquyen=$_SESSION['maquyen'];
+//   $tmp=$chitietquyen->getChucNang($maquyen);
+//   $arr=json_decode(json_encode($tmp),true);
+//   //echo $_SESSION['maquyen'];
+// }else{
+//   $maquyen="";
+// }
+$maquyen="NQ02";
+$tmp=$chitietquyen->getChucNang($maquyen);
+$arr=json_decode(json_encode($tmp),true);
 $page = "";
 if (isset($_REQUEST['controller'])) {
   $page = $_REQUEST['controller'];
@@ -122,50 +125,50 @@ function kiemtraquyen($arr,$chucnang){
       </a>
     </li>
   </ul>
-  <?php
-    // if(!empty($maquyen)){
-    //   if(kiemtraquyen($arr,"CN001") && $chitietquyen->kiemtrahangdong($maquyen,"CN001","Xem")){
-    //     echo "<li class='side-menu-item ".($page === 'taikhoan' ? 'active' : '')."'>
-    //     <a href='/admin.php?controller=taikhoan' class='nav-link'>
-    //       <i class='fas fa-shopping-cart'></i>
-    //       <span class='text'>Tài Khoản</span>
-    //     </a>
-    //   </li>";
-    //   }
-    //   if(kiemtraquyen($arr,"CN002") && $chitietquyen->kiemtrahangdong($maquyen,"CN002","Xem")){
-    //     echo "<li class='side-menu-item ".($page === 'nhomquyen' ? 'active' : '' )."'>
-    //     <a href='/admin.php?controller=nhomquyen' class='nav-link'>
-    //       <i class='fas fa-chart-simple'></i>
-    //       <span class='text'>Nhóm Quyền</span>
-    //     </a>
-    //   </li>";
-    //   }
-    //   if(kiemtraquyen($arr,"CN003") && $chitietquyen->kiemtrahangdong($maquyen,"CN003","Xem")){
-    //     echo " <li class='side-menu-item ".($page === 'sanpham' ? 'active' : '')."'>
-    //     <a href='/admin.php?controller=sanpham' class='nav-link'>
-    //       <i class='fas fa-message'></i>
-    //       <span class='text'>Sản Phẩm</span>
-    //     </a>
-    //   </li>";
-    //   }
-    //   if(kiemtraquyen($arr,"CN004")){
-    //     echo " <li class='side-menu-item ".($page === 'phanquyen' ? 'active' : '')."'>
-    //     <a href='/admin.php?controller=phanquyen' class='nav-link'>
-    //       <i class='fas fa-message'></i>
-    //       <span class='text'>Phân Quyền</span>
-    //     </a>
-    //   </li>";
-    //   }
-    //   if(kiemtraquyen($arr,"CN005") && $chitietquyen->kiemtrahangdong($maquyen,"CN005","Xem")){
-    //     echo " <li class='side-menu-item ".( $page === 'chucnang' ? 'active' : '')."'>
-    //     <a href='/admin.php?controller=chucnang' class='nav-link'>
-    //       <i class='fas fa-message'></i>
-    //       <span class='text'>Chức Năng</span>
-    //     </a>
-    //   </li>";
-    //   }
-    // }
-    ?>
+  <!-- <?php
+    if(!empty($maquyen)){
+      if(kiemtraquyen($arr,"Tài Khoản") && $chitietquyen->kiemtrahangdong($maquyen,"CN001","Xem")){
+        echo "<li class='side-menu-item ".($page === 'taikhoan' ? 'active' : '')."'>
+        <a href='/admin.php?controller=taikhoan' class='nav-link'>
+          <i class='fas fa-shopping-cart'></i>
+          <span class='text'>Tài Khoản</span>
+        </a>
+      </li>";
+      }
+      if(kiemtraquyen($arr,"Nhóm Quyền") && $chitietquyen->kiemtrahangdong($maquyen,"CN002","Xem")){
+        echo "<li class='side-menu-item ".($page === 'nhomquyen' ? 'active' : '' )."'>
+        <a href='/admin.php?controller=nhomquyen' class='nav-link'>
+          <i class='fas fa-chart-simple'></i>
+          <span class='text'>Nhóm Quyền</span>
+        </a>
+      </li>";
+      }
+      if(kiemtraquyen($arr,"Sản Phẩm") && $chitietquyen->kiemtrahangdong($maquyen,"CN003","Xem")){
+        echo " <li class='side-menu-item ".($page === 'sanpham' ? 'active' : '')."'>
+        <a href='/admin.php?controller=sanpham' class='nav-link'>
+          <i class='fas fa-message'></i>
+          <span class='text'>Sản Phẩm</span>
+        </a>
+      </li>";
+      }
+      if(kiemtraquyen($arr,"Phân Quyền")){
+        echo " <li class='side-menu-item ".($page === 'phanquyen' ? 'active' : '')."'>
+        <a href='/admin.php?controller=phanquyen' class='nav-link'>
+          <i class='fas fa-message'></i>
+          <span class='text'>Phân Quyền</span>
+        </a>
+      </li>";
+      }
+      if(kiemtraquyen($arr,"Chức Năng") && $chitietquyen->kiemtrahangdong($maquyen,"CN005","Xem")){
+        echo " <li class='side-menu-item ".( $page === 'chucnang' ? 'active' : '')."'>
+        <a href='/admin.php?controller=chucnang' class='nav-link'>
+          <i class='fas fa-message'></i>
+          <span class='text'>Chức Năng</span>
+        </a>
+      </li>";
+      }
+    }
+    ?> -->
   <ul class="side-menu">
     <li>
       <a href="#" style="text-decoration: none;">

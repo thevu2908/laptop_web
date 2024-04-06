@@ -21,7 +21,7 @@
 									<span>Export Excel</span>
 								</a>
 							</div>
-							<a href="#addProductModal" class="btn btn-success" data-toggle="modal">
+							<a href="#addProductModal" class="btn btn-success add" data-toggle="modal">
 								<i class="material-icons">&#xE147;</i>
 								<span>Thêm</span>
 							</a>

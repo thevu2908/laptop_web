@@ -25,7 +25,6 @@ class PaginationRepo extends ConnectDB {
             } else {
                 $query = "SELECT * from  $table ORDER BY 1 ASC LIMIT {$start},{$limit}";
             }
-    
             $result = mysqli_query($this->conn, $query);
             $arrPagination = array();
     

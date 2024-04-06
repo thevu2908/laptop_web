@@ -1,7 +1,19 @@
+function phanquyen_chucnang(tenchucnang){
+    $.ajax({
+        url: "server/src/controller/ChucNangQuyenController.php",
+        data: {action:"machucnang",tenchucnang:tenchucnang},
+        method: "post",
+        dataType:'json',
+        success: function (data) {
+            console.log(data['ma_chuc_nang']);
+            phanquyen(data['ma_chuc_nang']);
+        }
+    })
+}
 function phanquyen(machucnang){
     $.ajax({
         url:"server/src/controller/CTQuyenController.php",
-        data:{action:"kiemtra" ,maquyen:$("#ad-maquyen").val(),machucnang:machucnang},
+        data:{action:"kiemtra" ,maquyen:$("#admin-nhomquyen").val(),machucnang:machucnang},
         method:"POST",
         success:function(data){
             var jsonData = JSON.parse(data);

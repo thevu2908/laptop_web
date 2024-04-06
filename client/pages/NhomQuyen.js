@@ -98,6 +98,7 @@ function render(data) {
         });
     }
     $("#show-listNhomQuyen").html(html);
+    phanquyen_chucnang("Nhóm Quyền");
     totalPage(data.count);
 }
 

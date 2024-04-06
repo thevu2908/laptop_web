@@ -170,6 +170,7 @@ async function renderAdminProductTable(data) {
             `
         })
         $('.admin-product-list').html(html)
+        phanquyen_chucnang("Sản Phẩm");
         totalPage(products.count)
     }
 }

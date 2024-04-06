@@ -71,6 +71,7 @@
 
     <script src="server/src/assets/js/main.js"></script>
     <script src="./client/plugins/pagination.js"></script>
+    <script src="./client/plugins/pagination.js"></script>
 </body>
 
 </html>

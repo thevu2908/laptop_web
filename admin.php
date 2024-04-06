@@ -29,6 +29,7 @@
 
 <body>
   <div id="admin-main">
+    <input type="hidden" value="NQ02" id="admin-nhomquyen">
     <?php include "./server/src/admin/view/Taskbar.php";
     //  echo '<script src="./client/pages/Taskbar.js"></script>'; ?>
     <div class="content">
@@ -70,7 +71,7 @@
           //   include "./server/src/admin/view/NhanVien.php";
           //   break;
           // }
-          case "Bảo Hành": {
+          case "baohanh": {
             include "./server/src/admin/view/BaoHanh.php";
             break;
           }
@@ -137,5 +138,6 @@
   <script src="./server/src/admin/assets/js/productColor.js"></script>
   <script src="./client/utils/formatCurrency.js"></script>
   <script src="./client/plugins/pagination.js"></script>
+  <script src="./client/plugins/PhanQuyen.js"></script>
 </body>
 </html>
