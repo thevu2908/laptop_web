@@ -47,6 +47,33 @@ class SanPhamRepo extends ConnectDB {
         return null;
     }
 
+    public function getProductFullInfo($productId) {
+        try {
+            $product = [];
+            $query = "
+                SELECT sp.*, ctsp.*, th.ten_thuong_hieu, tl.ten_loai, hdh.ten_hdh, ms.ten_mau, cxl.ten_chip, cdh.ten_card FROM sanpham sp 
+                JOIN chitietsanpham ctsp ON sp.ma_sp = ctsp.ma_sp
+                JOIN thuonghieu th ON sp.ma_thuong_hieu = th.ma_thuong_hieu
+                JOIN theloai tl ON sp.ma_the_loai = tl.ma_the_loai
+                JOIN hedieuhanh hdh ON sp.ma_hdh = hdh.ma_hdh
+                JOIN mausac ms ON ctsp.ma_mau = ms.ma_mau
+                JOIN chipxuly cxl ON ctsp.ma_chip_xu_ly = cxl.ma_chip_xu_ly
+                JOIN carddohoa cdh ON ctsp.ma_carddohoa = cdh.ma_card
+                WHERE sp.ma_sp = '$productId'
+            ";
+            $statement = mysqli_query($this->conn, $query);
+
+            while ($row = mysqli_fetch_assoc($statement)) {
+                $product[] = $row;
+            }
+
+            return $product;
+        } catch (Exception $e) {
+            echo 'Error: ' . $e->getMessage() . '<br>';
+        }
+        return null;
+    }
+
     public function getProductsLength() : int {
         try {
             $query = "SELECT COUNT(*) as count FROM sanpham";
