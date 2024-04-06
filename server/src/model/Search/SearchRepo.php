@@ -1,17 +1,27 @@
 <?php
 
 class SearchRepo extends ConnectDB {
-    public function search($search, $table, $start = 0, $limit = 8) : array | null {
+    public function search($search, $table, $start = 0, $limit = 8, $id) : array | null {
         try {
             $searchs = [];
             $search_term = $this->conn->real_escape_string($search);
             if ($table == "sanpham") {
-                $query = "SELECT sp.*, ten_thuong_hieu, ten_loai, ten_hdh FROM sanpham sp
-                        JOIN thuonghieu th ON sp.ma_thuong_hieu = th.ma_thuong_hieu
-                        JOIN theloai tl ON sp.ma_the_loai = tl.ma_the_loai
-                        JOIN hedieuhanh hdh ON sp.ma_hdh = hdh.ma_hdh
-                        WHERE CONCAT(ma_sp, ten_sp, ten_thuong_hieu, gia_nhap, gia_ban, so_luong_ton) LIKE '%$search_term%'
-                        ORDER BY ma_sp LIMIT {$start},{$limit}
+                $query = "
+                    SELECT sp.*, ten_thuong_hieu, ten_loai, ten_hdh FROM sanpham sp
+                    JOIN thuonghieu th ON sp.ma_thuong_hieu = th.ma_thuong_hieu
+                    JOIN theloai tl ON sp.ma_the_loai = tl.ma_the_loai
+                    JOIN hedieuhanh hdh ON sp.ma_hdh = hdh.ma_hdh
+                    WHERE CONCAT(ma_sp, ten_sp, ten_thuong_hieu) LIKE '%$search_term%'
+                    ORDER BY ma_sp LIMIT {$start},{$limit}
+                ";
+            } else if ($table == "chitietsanpham") {
+                $query = "
+                    SELECT ctsp.*, ms.ten_mau, cxl.ten_chip, cdh.ten_card FROM chitietsanpham ctsp
+                    JOIN mausac ms ON ctsp.ma_mau = ms.ma_mau
+                    JOIN chipxuly cxl ON ctsp.ma_chip_xu_ly = cxl.ma_chip_xu_ly
+                    JOIN carddohoa cdh ON ctsp.ma_carddohoa = cdh.ma_card
+                    WHERE ctsp.ma_sp = '$id' AND CONCAT(ctsp.ma_ctsp, ms.ten_mau, cxl.ten_chip, cdh.ten_card, ram, rom) LIKE '%$search_term%'
+                    ORDER BY ctsp.ma_ctsp ASC LIMIT {$start},{$limit}
                 ";
             } else {
                 $query = "SELECT * FROM $table WHERE CONCAT(";
@@ -37,15 +47,24 @@ class SearchRepo extends ConnectDB {
         return null;
     }
 
-    public function getCount($table, $search) {
+    public function getCount($table, $search, $id) {
         try {
             $search_term = $this->conn->real_escape_string($search);
             if ($table == 'sanpham') {
-                $query = "SELECT count(*) as num FROM sanpham sp
-                        JOIN thuonghieu th ON sp.ma_thuong_hieu = th.ma_thuong_hieu
-                        JOIN theloai tl ON sp.ma_the_loai = tl.ma_the_loai
-                        JOIN hedieuhanh hdh ON sp.ma_hdh = hdh.ma_hdh
-                        WHERE CONCAT(ma_sp, ten_sp, ten_thuong_hieu, gia_nhap, gia_ban, so_luong_ton) LIKE '%$search_term%'
+                $query = "
+                    SELECT count(*) as num FROM sanpham sp
+                    JOIN thuonghieu th ON sp.ma_thuong_hieu = th.ma_thuong_hieu
+                    JOIN theloai tl ON sp.ma_the_loai = tl.ma_the_loai
+                    JOIN hedieuhanh hdh ON sp.ma_hdh = hdh.ma_hdh
+                    WHERE CONCAT(ma_sp, ten_sp, ten_thuong_hieu) LIKE '%$search_term%'
+                ";
+            } else if ($table == "chitietsanpham") {
+                $query = "
+                    SELECT count(*) as num FROM chitietsanpham ctsp
+                    JOIN mausac ms ON ctsp.ma_mau = ms.ma_mau
+                    JOIN chipxuly cxl ON ctsp.ma_chip_xu_ly = cxl.ma_chip_xu_ly
+                    JOIN carddohoa cdh ON ctsp.ma_carddohoa = cdh.ma_card
+                    WHERE ctsp.ma_sp = '$id' AND CONCAT(ctsp.ma_ctsp, ms.ten_mau, cxl.ten_chip, cdh.ten_card, ram, rom) LIKE '%$search_term%'
                 ";
             } else {
                 $query = "SELECT count(*) as num FROM $table WHERE CONCAT(";

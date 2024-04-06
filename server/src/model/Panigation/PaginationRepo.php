@@ -21,7 +21,7 @@ class PaginationRepo extends ConnectDB {
                     JOIN mausac ms ON ctsp.ma_mau = ms.ma_mau
                     JOIN chipxuly cxl ON ctsp.ma_chip_xu_ly = cxl.ma_chip_xu_ly
                     JOIN carddohoa cdh ON ctsp.ma_carddohoa = cdh.ma_card
-                    WHERE ctsp.ma_sp = '$id' and ctsp.trang_thai = '0'
+                    WHERE ctsp.ma_sp = '$id' AND ctsp.trang_thai = '0'
                     ORDER BY ctsp.ma_ctsp ASC LIMIT {$start},{$limit}
                 ";
             } else {

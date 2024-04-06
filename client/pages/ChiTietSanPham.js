@@ -1,5 +1,5 @@
 $(document).ready(() => {
-    renderAdminProductDetail()
+    renderAdminProductDetail(null)
     clickPage(renderAdminProductDetail)
     renderProductDetail()
     handleAddProductDetail()
@@ -69,15 +69,15 @@ function getProductDetail(productDetailId) {
     })
 }
 
-async function renderAdminProductDetail() {
+async function renderAdminProductDetail(data) {
     let productId = $('#admin-product-detail-main #product-id').val()
 
     if (productId) {
         productId = productId.toUpperCase().trim()
         renderProductName(productId)
 
-        const productDetails = await getPaginationProductDetails(productId)
-        console.log(productDetails)
+        const productDetails = data ? data : await getPaginationProductDetails(productId)
+
         if (productDetails && productDetails.pagination && productDetails.pagination.length > 0) {
             let html = ''
             productDetails.pagination.forEach((productDetail, index) => {
@@ -115,6 +115,8 @@ async function renderAdminProductDetail() {
 
             $('.admin-product-detail-list').html(html)
             totalPage(productDetails.count)
+        } else {
+            $('.admin-product-detail-list').html('')
         }
     } else {
         $('.admin-product-detail-list').html('')
@@ -330,38 +332,17 @@ function getProductDetailByProductId(productId) {
 
 function searchProductDetail() {
     $(document).on('keyup', '.admin-search-info', e => {
-        const info = e.target.value.toLowerCase()
+        const search = e.target.value.toLowerCase()
+        const page = $('#currentpage').val()
+        const productId = $('#admin-product-detail-main #product-id').val() ? $('#admin-product-detail-main #product-id').val().toUpperCase().trim() : ''
 
-        $('.admin-product-detail-table tr').each(function(index) {
-            if (index !== 0) {
-                $row = $(this)
-
-                const tdElement = $row.find('td')
-                const id = tdElement[1].innerText.toLowerCase()
-                const color = tdElement[2].innerText.toLowerCase()
-                const cpu = tdElement[3].innerText.toLowerCase()
-                const gpu = tdElement[4].innerText.toLowerCase()
-                const ram = tdElement[5].innerText.toLowerCase()
-                const rom = tdElement[6].innerText.toLowerCase()
-                const plug = tdElement[7].innerText.toLowerCase()
-                const quantity = tdElement[9].innerText.toLowerCase()
-
-                const matchId = id.indexOf(info)
-                const matchCPU = cpu.indexOf(info)
-                const matchColor = color.indexOf(info)
-                const matchGPU = gpu.indexOf(info)
-                const matchRam = ram.indexOf(info)
-                const matchRom = rom.indexOf(info)
-                const matchPlug = plug.indexOf(info)
-                const machQuantity = quantity.indexOf(info)
-
-
-                if (matchId < 0 && matchCPU < 0 && matchColor < 0 && matchGPU < 0 && matchRam < 0 && matchRom < 0 && matchPlug < 0 && machQuantity < 0) {
-                    $row.hide()
-                } else {
-                    $row.show()
-                }
-            }
+        $.ajax({
+            url: 'server/src/controller/SearchController.php',
+            method: 'GET',
+            data: { action: 'search', search, table: 'chitietsanpham', page, id: productId },
+            dataType: 'JSON',
+            success: productDetails => renderAdminProductDetail(productDetails),
+            error: (xhr, status, error) => console.log(error)
         })
     })
 }
