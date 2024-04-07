@@ -123,6 +123,10 @@
               echo '<script src="./client/pages/ChiTietCongKetNoi.js"></script>';
               break;
             }
+            default: {
+              include "./server/src/admin/view/notfound.php";
+              break;
+            }
         }
       } else {
         include "./server/src/admin/view/DashBoard.php";
