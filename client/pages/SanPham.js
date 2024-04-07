@@ -440,13 +440,13 @@ async function renderProductInfo() {
                         </span>
                         ${product.detail[0].cpu}
                     </span>
-                    <span title="RAM" class="product-detail-info d-flex col-6">
+                    <span title="RAM" class="product-detail-info ram d-flex col-6">
                         <span class="material-symbols-outlined">
                             memory_alt
                         </span>
                         ${product.detail[0].ram.toUpperCase()}
                     </span>
-                    <span title="Ổ cứng" class="product-detail-info d-flex col-6">
+                    <span title="Ổ cứng" class="product-detail-info rom d-flex col-6">
                         <span class="material-symbols-outlined">
                             hard_drive_2
                         </span>
@@ -521,6 +521,8 @@ async function renderProductInfo() {
             const active = index === 0 ? 'active' : ''
             colorHtml += `<li class="product-color-item ${active}" title="${color.name}" style="background-color: ${color.id};"><i class="fa-solid fa-check"></i></li>`
         })
+                
+        selectEndUserConfig(product)
 
         html = `
             <h2 class="product-name">${product.name} ${product.detail[0].ram.toUpperCase()}/${product.detail[0].rom.toUpperCase()}</h2>
@@ -570,6 +572,44 @@ function renderProductConfigModal(product, color, ram, rom) {
 
     const html = product.detail[0].plugs.map(plug => `<li class="modal-row-item">${plug}</li>`).join('')
     $('.product-config-modal .product-plug').html(html)
+}
+
+function selectEndUserConfig(product) {
+    let ram = product.detail[0].ram
+    let rom = product.detail[0].rom
+    let color = product.detail[0].color
+
+    $(document).on('click', '.product-select-item.ram', function() {
+        $('.product-select-item.ram').removeClass('active')
+        $(this).addClass('active')
+        $(this).find('input[type="radio"]').prop('checked', true)
+        ram = $(this).find('input[type="radio"]').val()
+        changeEndUserConfig()
+    })
+
+    $(document).on('click', '.product-select-item.rom', function() {
+        $('.product-select-item.rom').removeClass('active')
+        $(this).addClass('active')
+        $(this).find('input[type="radio"]').prop('checked', true)
+        rom = $(this).find('input[type="radio"]').val()
+        changeEndUserConfig()
+    })
+
+    $(document).on('click', '.product-color-box .product-color-item', function() {
+        $('.product-color-box .product-color-item').removeClass('active')
+        $(this).addClass('active')
+        color = $(this).attr('title')
+        changeEndUserConfig()
+    })
+
+    function changeEndUserConfig() {
+        $('.product-info-right .product-name').text(`${product.name} ${ram}/${rom}`)
+        $('.product-detail-info.ram').html(`<span class="material-symbols-outlined">memory_alt</span> ${ram}`)
+        $('.product-detail-info.rom').html(`<span class="material-symbols-outlined">hard_drive_2</span> SSD ${rom}`)
+        $('.product-config-modal .product-ram').text(ram)
+        $('.product-config-modal .product-rom').text(rom)
+        $('.product-config-modal .product-color').text(color)
+    }
 }
 
 async function renderFooter() {
