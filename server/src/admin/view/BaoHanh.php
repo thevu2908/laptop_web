@@ -51,39 +51,120 @@
 	</div>
 	<!-- Add Modal HTML -->
 	<div id="addNhomQuyen" class="modal fade">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<form>
-					<div class="modal-header">
-						<h4 class="modal-title">Tạo Phiếu Bảo Hành</h4>
-						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-					</div>
-					<div class="modal-body">
-						<input type="hidden" class="form-control" required id="action" value="Add">
-						<div class="form-group">
-							<p id="mess_maquyen"></p>
-							<label>Mã Hóa Đơn</label>
-							<select class="form-select" aria-label="Default select example" id="admin-select-mahoadon">
-                                <option value="1">1</option>
-                                <option value="1">2</option>
-                                <option value="1">3</option>
-                                <option value="1">4</option>
-                            </select>
-						</div>
-						<div class="form-group">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form>
+                <div class="modal-header">
+                    <h4 class="modal-title">Tạo Phiếu Bảo Hành</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" class="form-control" required id="action" value="Add">
+                    <div class="form-group">
+                        <p id="mess_maquyen"></p>
+                        <label>Mã Hóa Đơn</label>
+                        <select class="form-control" aria-label="Default select example" id="admin-select-mahoadon">
+                            <option value="1">1</option>
+                            <option value="1">2</option>
+                            <option value="1">3</option>
+                            <option value="1">4</option>
+                        </select>
+                    </div>
+                    <!-- <div class="form-group">
+                        <p id="mess_tenquyen"></p>
+                        <label>Tên Quyền</label>
+                        <input type="text" class="form-control" required id="ten_quyen">
+                    </div> -->
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
 							<p id="mess_tenquyen"></p>
-							<label>Tên Quyền</label>
-							<input type="text" class="form-control" required id="ten_quyen">
+								<label>Nhân Viên</label>
+								<input type="text" class="form-control" required id="ten_quyen" id="admin-baohanh-manhanvien">
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+							<p id="mess_tenquyen"></p>
+								<label>Khách Hàng</label>
+								<input type="text" class="form-control" required id="ten_quyen" id="admin-baohanh-makhachhang">
+							</div>
 						</div>
 					</div>
-					<div class="modal-footer">
-						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-						<input type="button" class="btn btn-success" value="Thêm" id="addNhomQuyen">
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+							<p id="mess_tenquyen"></p>
+								<label>Tên Quyền</label>
+								<input type="text" class="form-control" required id="ten_quyen">
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+							<p id="mess_tenquyen"></p>
+								<label>Tên Quyền</label>
+								<input type="text" class="form-control" required id="ten_quyen">
+							</div>
+						</div>
 					</div>
-				</form>
-			</div>
-		</div>
-	</div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="table1">Chi Tiết Bảo Hành</label>
+                                <table class="table" id="table1">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Mã Sản Phẩm</th>
+                                            <th scope="col">Tên Sản Phẩm</th>
+                                            <th scope="col">Lý Do Bảo Hành</th>
+											<th scope="col">Nội Dung Bảo Hành</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">1</th>
+                                            <td>Mark</td>
+                                            <td>Otto</td>
+                                            <td>@mdo</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-md-6"> <!-- Chia modal thành hai phần bằng lớp col-md-6 -->
+                            <div class="form-group">
+                                <label for="table2">Sản Phẩm</label>
+                                <table class="table" id="table2">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Mã IME</th>
+                                            <th scope="col">Mã Sản Phẩm</th>
+                                            <th scope="col">Tên Sản Phẩm</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">1</th>
+                                            <td>Mark</td>
+                                            <td>Otto</td>
+                                            <td>@mdo</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                    <input type="button" class="btn btn-success" value="Thêm" id="addNhomQuyen">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 	<!-- Edit Modal HTML -->
 	<div id="editNhomQuyen" class="modal fade">
 		<div class="modal-dialog">
