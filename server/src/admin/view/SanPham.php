@@ -25,7 +25,7 @@
 								<i class="material-icons">&#xE147;</i>
 								<span>Thêm</span>
 							</a>
-							<a href="#deleteProductModal" class="btn btn-danger btn-delete-checked-product-modal" data-toggle="modal">
+							<a href="#deleteProductModal" class="btn btn-danger btn-delete-checked-product-modal delete" data-toggle="modal">
 								<i class="material-icons">&#xE15C;</i>
 								<span>Xóa</span>
 							</a>
