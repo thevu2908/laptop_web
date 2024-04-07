@@ -22,11 +22,11 @@
                                     </button>
                                 </div>
                             </form>
-                            <a href="#addProductDetailModal" class="btn btn-success btn-add-product-detail-modal" data-toggle="modal">
+                            <a href="#addProductDetailModal" class="btn btn-success btn-add-product-detail-modal add" data-toggle="modal">
                                 <i class="material-icons">&#xE147;</i>
                                 <span>Thêm</span>
                             </a>
-                            <a href="#deleteProductDetailModal" class="btn btn-danger btn-delete-checked-product-detail-modal" data-toggle="modal">
+                            <a href="#deleteProductDetailModal" class="btn btn-danger btn-delete-checked-product-detail-modal delete" data-toggle="modal">
 								<i class="material-icons">&#xE15C;</i>
 								<span>Xóa</span>
 							</a>

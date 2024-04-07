@@ -29,7 +29,7 @@
 
 <body>
   <div id="admin-main">
-    <input type="hidden" value="NQ02" id="admin-nhomquyen">
+    <input type="hidden" value="NQ01" id="admin-nhomquyen">
     <?php include "./server/src/admin/view/Taskbar.php";
     //  echo '<script src="./client/pages/Taskbar.js"></script>'; ?>
     <div class="content">
@@ -59,7 +59,7 @@
               include "./server/src/admin/view/DSSanPham.php";
               echo '<script src="./client/pages/DanhGia.js"></script>';
               break;
-            }
+          }
           case "taikhoan": {
               include "./server/src/admin/view/TaiKhoan.php";
               echo '<script src="./client/pages/TaiKhoan.js"></script>';
@@ -80,10 +80,9 @@
             break;
           }case "nhanvien":{
             include "./server/src/admin/view/NhanVien.php";
-              // include "./server/src/admin/view/NhanVien.php";
+              echo "<script src='./client/pages/NhanVien.js'></script>'";
               echo '<script src="./client/pages/TaiKhoan.js"></script>';
               echo "<script src='./client/pages/NhomQuyen.js'></script>";
-              echo "<script src='./client/pages/NhanVien.js'></script>'";
               break;
             }
             case "hoadon": {
