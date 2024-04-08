@@ -18,6 +18,9 @@ class ChucNangQuyenController{
     public function getMaChucNang($tenchucnang){
        echo json_encode($this->chucNangQuyenRepo->getMaChucNang($tenchucnang));
     }
+    public function addChucNang($machucnang,$tenchucnang){
+       echo json_encode($this->chucNangQuyenRepo->addChucNang($machucnang,$tenchucnang));
+    }
 }
 $chucnangquyenctl=new ChucNangQuyenController();
 $tmp=$_POST['action'];
@@ -34,6 +37,10 @@ switch($tmp){
         $tenchucnang=$_POST['tenchucnang'];
         $chucnangquyenctl->getMaChucNang($tenchucnang);
         break;
+    }case "add":{
+        $maChucNang=$_POST['maChucNang'];
+        $tenChucNang=$_POST['tenChucNang'];
+        $chucnangquyenctl->addChucNang($maChucNang,$tenChucNang);
     }
 }
 ?>

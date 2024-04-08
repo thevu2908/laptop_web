@@ -5,6 +5,7 @@ $(document).ready(function(){
     deletePhanQuyen();
 })
 var listitemRemove = [];
+var listitemAdd = [];
 function loadPhanQuyen(){
     selectNhomQuyen();
     var pageno = $("#currentpage").val();
@@ -75,18 +76,35 @@ function selectNhomQuyen(){
     })
 }
 function addPhanQuyen(){
-    getAllListChucNang();
-    getAllListNhomQuyen();
+    // getAllListChucNang();
+    // getAllListNhomQuyen();
+    // $(document).on("click","#add_PhanQuyen",function(){
+    //     var maquyen=$("#select_nhomquyen").val();
+    //     var machucnang=$("#select_chucnang").val();
+    //     $.ajax({
+    //         url: "server/src/controller/CTQuyenController.php",
+    //         data: {action:"add",maquyen:maquyen,machucnang:machucnang},
+    //         method: "post",
+    //         success: function (data) {
+    //             //$("form").reset();
+    //             $("#addPhanQuyenModal").modal("hide");
+    //             loadPhanQuyen();
+    //         }
+    //     })
+    // })
+    getAllListNhomQuyen()
+    getAllListChucNang()
     $(document).on("click","#add_PhanQuyen",function(){
-        var maquyen=$("#select_nhomquyen").val();
-        var machucnang=$("#select_chucnang").val();
+        var maquyen=$("#admin-select-MaNhomQuyen").val();
+        console.log(maquyen)
+        console.log(listitemAdd)
         $.ajax({
             url: "server/src/controller/CTQuyenController.php",
-            data: {action:"add",maquyen:maquyen,machucnang:machucnang},
+            data: {action:"add",maquyen:maquyen,listitemAdd:listitemAdd},
             method: "post",
             success: function (data) {
                 //$("form").reset();
-                $("#addPhanQuyenModal").modal("hide");
+                //$("#addPhanQuyenModal").modal("hide");
                 loadPhanQuyen();
             }
         })
@@ -127,7 +145,7 @@ function getAllListNhomQuyen(){
             jsonData.forEach((nhomquyen,index) => {
                 html+=`<option value="${nhomquyen['ma_quyen']}">${nhomquyen['ten_quyen']}</option>`;
             })
-            $("#select_nhomquyen").html(html);
+            $("#admin-select-MaNhomQuyen").html(html);
         }
 
     })
@@ -140,10 +158,13 @@ function getAllListChucNang(){
         success: function (data) {
             var jsonData=JSON.parse(data);
             var html="";
-            jsonData.forEach((nhomquyen,index) => {
-                html+=`<option value="${nhomquyen['ma_chuc_nang']}">${nhomquyen['ten_chuc_nang']}</option>`;
+            jsonData.forEach((chucnang,index) => {
+                html+=`<tr data-row="${chucnang['ma_chuc_nang']}">
+                <td data-column="#">${chucnang['ten_chuc_nang']}</td>
+                <td><input type="checkbox" class="form-check-input" data-row="${chucnang['ma_chuc_nang']}" onclick="addMulChucNang(this)"></td>
+            </tr>`;
             })
-            $("#select_chucnang").html(html);
+            $("#admin-show-ChucNang").html(html);
         }
 
     })
@@ -202,7 +223,6 @@ function update(action,maquyen,machucnang,hanhdong){
         }
     })
 }
-
 function removeList(checkbox) {
     var isChecked = checkbox.checked;
     var maquyen = checkbox.dataset.row;
@@ -210,11 +230,21 @@ function removeList(checkbox) {
     if (isChecked) {
         listitemRemove.push({ maquyen: maquyen, machucnang: machucnang });
     } else {
-        //console.log(maquyen, machucnang);
         var indexToRemove = listitemRemove.findIndex(item => item.maquyen === maquyen && item.machucnang === machucnang);
         if (indexToRemove !== -1) {
             listitemRemove.splice(indexToRemove, 1);
         }
     }
-    //console.log(listitemRemove);
+}
+function addMulChucNang(checkbox){
+    var isChecked = checkbox.checked;
+    var machucnang = checkbox.dataset.row;
+    if (isChecked) {
+        listitemAdd.push({machucnang: machucnang });
+    } else {
+        var indexToAdd = listitemAdd.findIndex(item => item.machucnang === machucnang);
+        if (indexToAdd !== -1) {
+            listitemAdd.splice(indexToAdd, 1);
+        }
+    }
 }

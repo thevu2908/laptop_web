@@ -4,6 +4,7 @@ $(document).ready(function() {
 })
 
 function getValue(){
+    getNhanVien();
     $(document).on("click","#admin-add-BaoHanh",function(){
         var mahoadon=$("#admin-select-mahoadon").val()
         var makhachhang=$("#admin-baohanh-makhachhang").val()
@@ -21,7 +22,6 @@ function getValue(){
             console.log("ID:", id);
             console.log("Lý Do Bảo Hành:", lyDoBaoHanh);
             console.log("Nội Dung Bảo Hành:", noiDungBaoHanh);
-            
         });
 
     
@@ -30,6 +30,21 @@ function getValue(){
 function selectMaHoaDon(){
     $(document).on("change","#admin-select-mahoadon",function(){
         loadChiTietHoaDon($(this).val())
+    })
+}
+function getNhanVien(){
+    $.ajax({
+        url:"server/src/controller/NhanVienController.php",
+        data:{action:"load"},
+        method:"POST",
+        success:function(data){
+            var html="";
+            var jsonData = JSON.parse(data);
+            jsonData.forEach((nhanvien,index) => {
+                html+=`<option value="${nhanvien['0']}">${nhanvien['0']}-${nhanvien['1']}</option>`;
+            });
+            $("#admin-baohanh-manhanvien").html(html);
+        }
     })
 }
 function loadChiTietHoaDon(mahoadon){

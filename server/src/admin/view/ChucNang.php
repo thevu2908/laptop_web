@@ -10,7 +10,7 @@
 						<div class="col-sm-6">
 							<a href="#" class="btn btn-secondary"><i class="material-icons">&#xE24D;</i> <span>Import Excel</span></a>
 							<a href="#" class="btn btn-secondary"><i class="material-icons">&#xE24D;</i> <span>Export Excel</span></a>
-							<a href="#addEmployeeModal" class="btn btn-success add" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Thêm</span></a>
+							<a href="#addChucNang" class="btn btn-success add" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Thêm</span></a>
 							<a href="#deleteEmployeeModal" class="btn btn-danger delete" data-toggle="modal"><i class="material-icons">&#xE15C;</i> <span>Xóa</span></a>
 						</div>
 					</div>
@@ -43,7 +43,7 @@
 		</div>
 	</div>
 	<!-- Add Modal HTML -->
-	<div id="addEmployeeModal" class="modal fade">
+	<div id="addChucNang" class="modal fade">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<form>
@@ -53,25 +53,17 @@
 					</div>
 					<div class="modal-body">
 						<div class="form-group">
-							<label>Name</label>
-							<input type="text" class="form-control" required>
+							<label>Mã Chức Năng</label>
+							<input type="text" class="form-control" required id="admin-MaChucNang">
 						</div>
 						<div class="form-group">
-							<label>Email</label>
-							<input type="email" class="form-control" required>
-						</div>
-						<div class="form-group">
-							<label>Address</label>
-							<textarea class="form-control" required></textarea>
-						</div>
-						<div class="form-group">
-							<label>Phone</label>
-							<input type="text" class="form-control" required>
+							<label>Chức Năng</label>
+							<input type="text" class="form-control" required id="admin-TenChucNang">
 						</div>
 					</div>
 					<div class="modal-footer">
-						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-						<input type="submit" class="btn btn-success" value="Add">
+						<input type="button" class="btn btn-danger" data-dismiss="modal" value="Cancel">
+						<input type="button" class="btn btn-success" value="Add" id="admin-addChucNang">
 					</div>
 				</form>
 			</div>

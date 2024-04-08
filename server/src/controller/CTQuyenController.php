@@ -22,8 +22,8 @@ class ChiTietQuyenController{
     function getHanhDong($maquyen,$machucnang){
         echo json_encode($this->chitietquyenRepo->getHanhDong($maquyen,$machucnang));
     }
-    function addPhanQuyen($maquyen,$machucnang,$hanhdong){
-        echo json_encode($this->chitietquyenRepo->addPhanQuyen($maquyen,$machucnang,$hanhdong));
+    function addPhanQuyen($maquyen,$listitemAdd,$hanhdong){
+        echo json_encode($this->chitietquyenRepo->addPhanQuyen($maquyen,$listitemAdd,$hanhdong));
     }
     function updatePhanQuyen($maquyen,$machucnang,$hanhdong){
         echo json_encode($this->chitietquyenRepo->updatePhanQuyen($maquyen,$machucnang,$hanhdong));
@@ -57,9 +57,10 @@ switch ($tmp){
         break;
     }case "add":{
         $maquyen=$_POST['maquyen'];
-        $machucnang=$_POST['machucnang'];
+        //$machucnang=$_POST['machucnang'];
+        $listitemAdd=json_decode(json_encode($_POST['listitemAdd']), true);
         $hanhdong=$_POST['hanhdong']==''?'X':$_POST['hanhdong'];
-        $chitietquyenctl->addPhanQuyen($maquyen,$machucnang,$hanhdong);
+        $chitietquyenctl->addPhanQuyen($maquyen,$listitemAdd,$hanhdong);
         break;
     }case "update":{
         $maquyen=$_POST['maquyen'];

@@ -117,14 +117,22 @@ function kiemtraquyen($arr,$chucnang){
         </a>
       </li>";
       }
-      if(kiemtraquyen($arr,"Đổi Trả") && $chitietquyen->kiemtrahangdong($maquyen,"Đổi Trả","Xem")){
-        echo " <li class='side-menu-item ".( $page === 'doitra' ? 'active' : '')."'>
-        <a href='/admin.php?controller=doitra' class='nav-link'>
+      if(kiemtraquyen($arr,"Nhân Viên") && $chitietquyen->kiemtrahangdong($maquyen,"Nhân Viên","Xem")){
+        echo " <li class='side-menu-item ".( $page === 'nhanvien' ? 'active' : '')."'>
+        <a href='/admin.php?controller=nhanvien' class='nav-link'>
           <i class='fas fa-message'></i>
-          <span class='text'>Đổi Trả</span>
+          <span class='text'>Nhân Viên</span>
         </a>
       </li>";
       }
+      // if(kiemtraquyen($arr,"Đổi Trả") && $chitietquyen->kiemtrahangdong($maquyen,"Đổi Trả","Xem")){
+      //   echo " <li class='side-menu-item ".( $page === 'doitra' ? 'active' : '')."'>
+      //   <a href='/admin.php?controller=doitra' class='nav-link'>
+      //     <i class='fas fa-message'></i>
+      //     <span class='text'>Đổi Trả</span>
+      //   </a>
+      // </li>";
+      // }
       if(kiemtraquyen($arr,"Thống Kê") && $chitietquyen->kiemtrahangdong($maquyen,"Thống Kê","Xem")){
         echo " <li class='side-menu-item ".( $page === 'thongke' ? 'active' : '')."'>
         <a href='/admin.php?controller=thongke' class='nav-link'>
@@ -236,7 +244,7 @@ function kiemtraquyen($arr,$chucnang){
         </a>
       </li>";
       }
-      if(kiemtraquyen($arr,"Sản Phẩm") && $chitietquyen->kiemtrahangdong($maquyen,"Nhóm Quyền","Xem")){
+      if(kiemtraquyen($arr,"Sản Phẩm") && $chitietquyen->kiemtrahangdong($maquyen,"Sản Phẩm","Xem")){
         echo " <li class='side-menu-item ".($page === 'sanpham' ? 'active' : '')."'>
         <a href='/admin.php?controller=sanpham' class='nav-link'>
           <i class='fas fa-message'></i>

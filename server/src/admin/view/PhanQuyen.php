@@ -13,7 +13,8 @@
 						<div class="col-sm-6">
 							<a href="#" class="btn btn-secondary"><i class="material-icons">&#xE24D;</i> <span>Import Excel</span></a>
 							<a href="#" class="btn btn-secondary"><i class="material-icons">&#xE24D;</i> <span>Export Excel</span></a>
-							<a href="#addPhanQuyenModal" id="admin-add-phanquyen" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Thêm</span></a>
+							<!-- <a href="#addPhanQuyenModal" id="admin-add-phanquyen" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Thêm</span></a> -->
+							<a href="#addMulPhanQuyen" id="admin-add-phanquyen" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Thêm</span></a>
 							<a href="#deletePhanQuyenModal" class="btn btn-danger delete" data-toggle="modal" id="admin-delete-phanquyen"><i class="material-icons">&#xE15C;</i> <span>Xóa</span></a>
 						</div>
 					</div>
@@ -78,49 +79,34 @@
 		</div>
 	</div>
 	<!-- Edit Modal HTML -->
-	<div id="editEmployeeModal" class="modal fade">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<form>
-					<div class="modal-header">
-						<h4 class="modal-title">Sửa Tài Khoản</h4>
-						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-					</div>
-					<div class="modal-body">
-						<input type="hidden" name="ma_tk">
-						<div class="form-group">
-							<div class="form-group">
-								<label>Mã Tài Khoản</label>
-								<input class="form-control" type="text" name="password" required>
-							</div>
-							<!-- <input type="text" class="form-control" required> -->
-							<select name="" id="" class="form-control" required>
-								<option value="">A</option>
-								<option value="">B</option>
-								<option value="">C</option>
-							</select>
-						</div>
-						<div class="form-group">
-							<label>Username</label>
-							<input type="text" class="form-control" name="username" required>
-						</div>
-						<div class="form-group">
-							<label>Password</label>
-							<input class="form-control" type="password" name="password" required>
-						</div>
-						<!-- <div class="form-group">
-						<label>Phone</label>
-						<input type="text" class="form-control" required>
-					</div>					 -->
-					</div>
-					<div class="modal-footer">
-						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-						<input type="submit" class="btn btn-info" value="Save">
-					</div>
-				</form>
-			</div>
-		</div>
-	</div>
+	<div id="addMulPhanQuyen" class="modal fade">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Thêm Phân Quyền</h5>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <select class="form-control mb-3" id="admin-select-MaNhomQuyen">
+                </select>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Chức Năng</th>
+                            <th scope="col">Quyền</th>
+                        </tr>
+                    </thead>
+                    <tbody id="admin-show-ChucNang">
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" id="add_PhanQuyen">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
 	<!-- Delete Modal HTML -->
 	<div id="deletePhanQuyenModal" class="modal fade">
 		<div class="modal-dialog">

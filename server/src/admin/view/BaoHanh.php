@@ -63,7 +63,7 @@
                     <div class="form-group">
                         <p id="mess_maquyen"></p>
                         <label>Mã Hóa Đơn</label>
-                        <select class="form-control" aria-label="Default select example" id="admin-select-mahoadon">
+                        <select class="form-control form-control-sm" aria-label="Default select example" id="admin-select-mahoadon">
 						    <option value="choose" selected>Choose</option>
                             <option value="1">1</option>
                             <option value="2">2</option>
@@ -76,14 +76,21 @@
 							<div class="form-group">
 							<p id="mess_tenquyen"></p>
 								<label>Nhân Viên</label>
-								<input type="text" class="form-control" required id="admin-baohanh-manhanvien">
+								<select class="form-control form-control-sm" aria-label="Default select example" id="admin-baohanh-manhanvien">
+									<option value="choose" selected>Choose</option>
+									<option value="1">1</option>
+									<option value="2">2</option>
+									<option value="3">3</option>
+									<option value="4">4</option>
+                                </select>
+								<!-- <input type="text" class="form-control form-control-sm" required id="admin-baohanh-manhanvien"> -->
 							</div>
 						</div>
 						<div class="col-md-6">
 							<div class="form-group">
 							<p id="mess_tenquyen"></p>
 								<label>Khách Hàng</label>
-								<input type="text" class="form-control" required id="admin-baohanh-makhachhang">
+								<input type="text" class="form-control form-control-sm" required id="admin-baohanh-makhachhang">
 							</div>
 						</div>
 					</div>

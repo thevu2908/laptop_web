@@ -39,11 +39,13 @@ class ChiTietQuyenRepo extends ConnectDB{
         }
         return $arrHanhDong;
     }
-    function addPhanQuyen($maquyen,$machucnang,$hanhdong){
-        $sql = "INSERT INTO chitietquyen(ma_quyen,ma_chuc_nang,hanh_dong) VALUES('$maquyen','$machucnang','$hanhdong')";
-        $result = mysqli_query($this->conn,$sql);
-        if($result){
-            return true;
+    function addPhanQuyen($maquyen,$listitemAdd,$hanhdong){
+        foreach($listitemAdd as $key){
+            $sql = "INSERT INTO chitietquyen(ma_quyen,ma_chuc_nang,hanh_dong) VALUES('$maquyen','$key[machucnang]','$hanhdong')";
+            $result = mysqli_query($this->conn,$sql);
+            if(!$result){
+                return true;
+            }
         }
         return false;
     }
