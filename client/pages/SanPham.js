@@ -23,9 +23,6 @@ function formatProduct(products) {
                 material: current.chat_lieu,
                 screen: current.kich_co_man_hinh,
                 resolution: current.do_phan_giai,
-                importPrice: current.gia_nhap,
-                chietkhau: current.chiet_khau,
-                price: current.gia_ban,
                 image: current.hinh_anh,
                 battery: current.pin,
                 os: current.ten_hdh,
@@ -48,6 +45,8 @@ function formatProduct(products) {
                 ram: current.ram,
                 rom: current.rom,
                 quantity: current.so_luong,
+                importPrice: current.gia_nhap,
+                chietkhau: current.chiet_khau,
                 price: current.gia_tien,
                 plugs: current.plugs
             }
@@ -172,9 +171,6 @@ async function renderAdminProductTable(data) {
                     <td>${product.ma_sp}</td>
                     <td>${product.ten_sp}</td>
                     <td>${product.ten_thuong_hieu}</td>
-                    <td>${product.gia_nhap}</td>
-                    <td>${product.chiet_khau}</td>
-                    <td>${product.gia_ban}</td>
                     <td>${product.so_luong_ton}</td>
                     <td>
                         <a href="#editProductModal" class="edit btn-update-product-modal" data-toggle="modal" data-id=${product.ma_sp}>
@@ -202,7 +198,7 @@ async function renderHomePageProduct() {
         let html = ''
 
         for (let product of products.pagination) {
-            const productDetails = await getProductDetailByProductId(products.pagination[0].ma_sp)
+            const productDetails = await getProductDetailByProductId(product.ma_sp)
             const productDetail = productDetails[0]
 
             html += `
@@ -213,7 +209,7 @@ async function renderHomePageProduct() {
                         </div>
                         <div class="product-info">
                             <div class="product-price">
-                                <p class="product-price-number">₫${formatCurrency(product.gia_ban)}</p>
+                                <p class="product-price-number">₫${formatCurrency(productDetail.gia_tien)}</p>
                             </div>
                             <div class="product-name">
                                 <p>${product.ten_sp} ${productDetail.ram} ${productDetail.rom}</p>
@@ -275,7 +271,7 @@ async function renderEndUserProduct() {
         let html = ''
 
         for (let product of products.pagination) {
-            const productDetails = await getProductDetailByProductId(products.pagination[0].ma_sp)
+            const productDetails = await getProductDetailByProductId(product.ma_sp)
             const productDetail = productDetails[0]
 
             html += `
@@ -286,7 +282,7 @@ async function renderEndUserProduct() {
                         </div>
                         <div class="product-info">
                             <div class="product-price">
-                                <p class="product-price-number">₫${formatCurrency(product.gia_ban)}</p>
+                                <p class="product-price-number">₫${formatCurrency(productDetail.gia_tien)}</p>
                             </div>
                             <div class="product-name">
                                 <p>${product.ten_sp} ${productDetail.ram} ${productDetail.rom}</p>
@@ -474,10 +470,10 @@ async function renderProductInfo() {
         let roms = product.detail.map(productDetail => {return { rom: productDetail.rom, price: productDetail.price }})
         let colors = product.detail.map(productDetail => {return { id: productDetail.colorId, name: productDetail.color }})
 
-        rams = removeDuplicateObject(rams)
-        roms = removeDuplicateObject(roms)
-        colors = removeDuplicateObject(colors)
-        
+        rams = removeDuplicateObject(rams, 'ram')
+        roms = removeDuplicateObject(roms, 'rom')
+        colors = removeDuplicateObject(colors, 'id')
+
         let ramSelect = ''
         if (rams.length > 1) {
             ramSelect = '<div class="product-select">'
@@ -487,7 +483,7 @@ async function renderProductInfo() {
                 ramSelect += `
                     <div class="product-select-item ram ${active}">
                         <div class="product-radio">
-                            <input type="radio" name="product-rom" id="product-${ram.ram.toLowerCase()}" value="${ram.ram}" ${checked}>
+                            <input type="radio" name="product-ram" id="product-${ram.ram.toLowerCase()}" value="${ram.ram}" ${checked}>
                             ${ram.ram}
                         </div>
                         <p>₫${formatCurrency(ram.price)}</p>
@@ -527,8 +523,8 @@ async function renderProductInfo() {
         html = `
             <h2 class="product-name">${product.name} ${product.detail[0].ram.toUpperCase()}/${product.detail[0].rom.toUpperCase()}</h2>
             <h3 class="product-price">
-                ₫${formatCurrency(product.price)}
-                <del class="product-origin-price">₫${formatCurrency(product.importPrice)}</del>
+                ₫${formatCurrency(product.detail[0].price)}
+                <del class="product-origin-price">₫${formatCurrency(product.detail[0].price)}</del>
             </h3>
             ${ramSelect}
             ${romSelect}
@@ -584,6 +580,7 @@ function selectEndUserConfig(product) {
         $(this).addClass('active')
         $(this).find('input[type="radio"]').prop('checked', true)
         ram = $(this).find('input[type="radio"]').val()
+        price = $(this).find('p').text()
         changeEndUserConfig()
     })
 
@@ -592,6 +589,7 @@ function selectEndUserConfig(product) {
         $(this).addClass('active')
         $(this).find('input[type="radio"]').prop('checked', true)
         rom = $(this).find('input[type="radio"]').val()
+        price = $(this).find('p').text()
         changeEndUserConfig()
     })
 
@@ -606,6 +604,7 @@ function selectEndUserConfig(product) {
         $('.product-info-right .product-name').text(`${product.name} ${ram}/${rom}`)
         $('.product-detail-info.ram').html(`<span class="material-symbols-outlined">memory_alt</span> ${ram}`)
         $('.product-detail-info.rom').html(`<span class="material-symbols-outlined">hard_drive_2</span> SSD ${rom}`)
+        $('.product-info-right .product-price').html(`${price} <del class="product-origin-price">${price}</del>`)
         $('.product-config-modal .product-ram').text(ram)
         $('.product-config-modal .product-rom').text(rom)
         $('.product-config-modal .product-color').text(color)

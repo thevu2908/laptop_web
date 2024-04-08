@@ -90,8 +90,8 @@ class SanPhamRepo extends ConnectDB {
 
     public function addProduct($product) : bool {
         try {
-            $query = "INSERT INTO sanpham(ma_sp, ma_thuong_hieu, ma_the_loai, ma_hdh, ten_sp, hinh_anh, kich_co_man_hinh, do_phan_giai, pin, ban_phim, gia_ban, 
-                gia_nhap, chiet_khau, trong_luong, chat_lieu, xuat_xu, so_luong_ton, trang_thai) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0)";
+            $query = "INSERT INTO sanpham(ma_sp, ma_thuong_hieu, ma_the_loai, ma_hdh, ten_sp, hinh_anh, kich_co_man_hinh, do_phan_giai, pin, ban_phim,
+                    trong_luong, chat_lieu, xuat_xu, so_luong_ton, trang_thai) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0)";
             $statement = mysqli_prepare($this->conn, $query);
 
             if (!$statement) {
@@ -108,19 +108,15 @@ class SanPhamRepo extends ConnectDB {
             $resolution = $product->getDoPhanGiai();
             $battery = $product->getPin();
             $keyboard = $product->getBanPhim();
-            $importPrice = $product->getGiaNhap();
-            $chietkhau = $product->getChietKhau();
-            $price = $product->getGiaBan();
             $weight = $product->getTrongLuong();
             $material = $product->getChatLieu();
             $origin = $product->getXuatXu();
             $quantity = $product->getSoLuongTon();
 
             $result = $statement->bind_param(
-                "ssssssssssddddssi", 
+                "ssssssssssdssi", 
                 $productId, $brandId, $typeId, $osId,
                 $productName, $productImage, $screen, $resolution, $battery, $keyboard,
-                $price, $importPrice, $chietkhau,
                 $weight, $material, $origin, $quantity
             );
             
@@ -142,7 +138,7 @@ class SanPhamRepo extends ConnectDB {
     public function updateProduct($product) : bool {
         try {
             $query = "UPDATE sanpham SET ma_thuong_hieu = ?, ma_the_loai = ?, ma_hdh = ?, ten_sp = ?, hinh_anh = ?, kich_co_man_hinh = ?, do_phan_giai = ?, pin = ?,
-                ban_phim = ?, gia_ban = ?, gia_nhap = ?, chiet_khau = ?, trong_luong = ?, chat_lieu = ?, xuat_xu = ?, so_luong_ton = ? WHERE ma_sp = ?";
+                ban_phim = ?, trong_luong = ?, chat_lieu = ?, xuat_xu = ?, so_luong_ton = ? WHERE ma_sp = ?";
             $statement = mysqli_prepare($this->conn, $query);
             
             if (!$statement) {
@@ -159,19 +155,15 @@ class SanPhamRepo extends ConnectDB {
             $resolution = $product->getDoPhanGiai();
             $battery = $product->getPin();
             $keyboard = $product->getBanPhim();
-            $importPrice = $product->getGiaNhap();
-            $chietkhau = $product->getChietKhau();
-            $price = $product->getGiaBan();
             $weight = $product->getTrongLuong();
             $material = $product->getChatLieu();
             $origin = $product->getXuatXu();
             $quantity = $product->getSoLuongTon();
 
             $result = $statement->bind_param(
-                "sssssssssddddssis", 
+                "sssssssssdssis", 
                 $brandId, $typeId, $osId,
                 $productName, $productImage, $screen, $resolution, $battery, $keyboard,
-                $price, $importPrice, $chietkhau,
                 $weight, $material, $origin, $quantity,
                 $productId
             );

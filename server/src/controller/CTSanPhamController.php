@@ -84,6 +84,8 @@ switch ($action) {
             $productDetailId = 'CTSP'.sprintf('%04d', $length);
             $obj = json_decode(json_encode($_POST['productDetail']));
             $productId = $_POST['productId'];
+            $importPrice = 0;
+            $chietkhau  = 0;
             $price = 0;
             $quantity = 0;
             
@@ -95,6 +97,8 @@ switch ($action) {
                 $obj->{'gpuId'},
                 $obj->{'ram'},
                 $obj->{'rom'},
+                $importPrice,
+                $chietkhau,
                 $price,
                 $quantity,
                 0
