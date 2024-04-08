@@ -188,6 +188,9 @@ function change(checkbox){
     } else {
         update("update",maquyen,machucnang,hanhdong);
     }
+    if((!isChecked || isChecked) && hanhdong==="Xem"){
+        location.reload();
+    }
 }
 function update(action,maquyen,machucnang,hanhdong){
     $.ajax({

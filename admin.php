@@ -67,12 +67,9 @@
               echo "<script src='./client/pages/NhanVien.js'></script>'";
               break;
           }
-          // case "Nhân Viên": {
-          //   include "./server/src/admin/view/NhanVien.php";
-          //   break;
-          // }
           case "baohanh": {
             include "./server/src/admin/view/BaoHanh.php";
+            echo "<script src='./client/pages/BaoHanh.js'></script>";
             break;
           }
           case "doitra": {

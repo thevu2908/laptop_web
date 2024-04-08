@@ -61,12 +61,28 @@ function kiemtraquyen($arr,$chucnang){
         </a>
       </li>";
       }
-      if(kiemtraquyen($arr,"Sản Phẩm") && $chitietquyen->kiemtrahangdong($maquyen,"Nhóm Quyền","Xem")){
-        echo " <li class='side-menu-item ".($page === 'sanpham' ? 'active' : '')."'>
-        <a href='/admin.php?controller=sanpham' class='nav-link'>
-          <i class='fas fa-message'></i>
-          <span class='text'>Sản Phẩm</span>
-        </a>
+      if(kiemtraquyen($arr,"Sản Phẩm") && $chitietquyen->kiemtrahangdong($maquyen,"Sản Phẩm","Xem")){
+        echo "<li class='side-menu-item pr-0'>
+        <button class='btn btn-toggle align-items-center rounded collapsed' data-toggle='collapse' data-target='#dashboard-collapse' aria-expanded='<?php echo $page === 'sanpham' || $page === 'chitietsanpham' ? 'true' : 'false'; ?>
+          <i class='fa-solid fa-chevron-right'></i>
+          Sản phẩm
+        </button>
+        <div class='collapse ".($page === 'sanpham' || $page === 'chitietsanpham' ? 'show' : 'hide')."' id='dashboard-collapse'>
+          <ul class='btn-toggle-nav list-unstyled fw-normal pb-1 small'>
+            <li class='side-menu-item ".($page === 'sanpham' ? 'active' : '')."'>
+              <a href='/admin.php?controller=sanpham' class='nav-link'>
+                <i class='fa-solid fa-laptop'></i>
+                <span class='text'>Sản Phẩm</span>
+              </a>
+            </li>
+            <li class='side-menu-item ".($page === 'chitietsanpham' ? 'active' : '')."'>
+              <a href='/admin.php?controller=chitietsanpham' class='nav-link'>
+                <i class='fa-solid fa-laptop-code'></i>
+                <span class='text'>Chi Tiết Sản Phẩm</span>
+              </a>
+            </li>
+          </ul>
+        </div>
       </li>";
       }
       if(kiemtraquyen($arr,"Phân Quyền")){

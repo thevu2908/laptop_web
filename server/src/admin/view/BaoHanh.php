@@ -12,7 +12,7 @@
 									Excel</span></a>
 							<a href="#" class="btn btn-secondary"><i class="material-icons">&#xE24D;</i> <span>Export
 									Excel</span></a>
-							<a href="#addNhomQuyen" id="add_NhomQuyen" class="btn btn-success add" data-toggle="modal"><i
+							<a href="#addNhomQuyen" id="admin-addBaoHanh" class="btn btn-success add" data-toggle="modal"><i
 									class="material-icons">&#xE147;</i> <span>Thêm</span></a>
 							<a href="#deleteNhomQuyen" class="btn btn-danger delete" data-toggle="modal"><i
 									class="material-icons">&#xE15C;</i> <span>Xóa</span></a>
@@ -64,30 +64,26 @@
                         <p id="mess_maquyen"></p>
                         <label>Mã Hóa Đơn</label>
                         <select class="form-control" aria-label="Default select example" id="admin-select-mahoadon">
+						    <option value="choose" selected>Choose</option>
                             <option value="1">1</option>
-                            <option value="1">2</option>
-                            <option value="1">3</option>
-                            <option value="1">4</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
                         </select>
                     </div>
-                    <!-- <div class="form-group">
-                        <p id="mess_tenquyen"></p>
-                        <label>Tên Quyền</label>
-                        <input type="text" class="form-control" required id="ten_quyen">
-                    </div> -->
 					<div class="row">
 						<div class="col-md-6">
 							<div class="form-group">
 							<p id="mess_tenquyen"></p>
 								<label>Nhân Viên</label>
-								<input type="text" class="form-control" required id="ten_quyen" id="admin-baohanh-manhanvien">
+								<input type="text" class="form-control" required id="admin-baohanh-manhanvien">
 							</div>
 						</div>
 						<div class="col-md-6">
 							<div class="form-group">
 							<p id="mess_tenquyen"></p>
 								<label>Khách Hàng</label>
-								<input type="text" class="form-control" required id="ten_quyen" id="admin-baohanh-makhachhang">
+								<input type="text" class="form-control" required id="admin-baohanh-makhachhang">
 							</div>
 						</div>
 					</div>
@@ -95,28 +91,30 @@
 						<div class="col-md-6">
 							<div class="form-group">
 							<p id="mess_tenquyen"></p>
-								<label>Tên Quyền</label>
-								<input type="text" class="form-control" required id="ten_quyen">
+								<label>Ngày Bảo Hành</label>
+								<br>
+								<input type="datetime" name="" id="" class="form-control" value="">
 							</div>
 						</div>
 						<div class="col-md-6">
 							<div class="form-group">
 							<p id="mess_tenquyen"></p>
-								<label>Tên Quyền</label>
-								<input type="text" class="form-control" required id="ten_quyen">
+								<label>Ngày Trả</label>
+								<br>
+								<input type="datetime" name="" id="" class="form-control">
 							</div>
 						</div>
 					</div>
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col">
                             <div class="form-group">
                                 <label for="table1">Chi Tiết Bảo Hành</label>
-                                <table class="table" id="table1">
+                                <table class="table" id="tableChiTietBaoHanh">
                                     <thead>
                                         <tr>
                                             <th scope="col">#</th>
-                                            <th scope="col">Mã Sản Phẩm</th>
-                                            <th scope="col">Tên Sản Phẩm</th>
+											<th scope="col">Mã IME</th>
+                                            <th scope="col">ID</th>
                                             <th scope="col">Lý Do Bảo Hành</th>
 											<th scope="col">Nội Dung Bảo Hành</th>
                                         </tr>
@@ -125,31 +123,16 @@
                                         <tr>
                                             <th scope="row">1</th>
                                             <td>Mark</td>
-                                            <td>Otto</td>
-                                            <td>@mdo</td>
+											<td>IME1</td>
+                                            <td><input type="text" class="form-control"></td>
+                                            <td><input type="text" class="form-control"></td>
                                         </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        <div class="col-md-6"> <!-- Chia modal thành hai phần bằng lớp col-md-6 -->
-                            <div class="form-group">
-                                <label for="table2">Sản Phẩm</label>
-                                <table class="table" id="table2">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">#</th>
-                                            <th scope="col">Mã IME</th>
-                                            <th scope="col">Mã Sản Phẩm</th>
-                                            <th scope="col">Tên Sản Phẩm</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
+										<tr>
                                             <th scope="row">1</th>
                                             <td>Mark</td>
-                                            <td>Otto</td>
-                                            <td>@mdo</td>
+											<td>IME2</td>
+                                            <td><input type="text" class="form-control"></td>
+                                            <td><input type="text" class="form-control"></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -157,9 +140,36 @@
                         </div>
                     </div>
                 </div>
+				<div class="row">
+				        <div class="col">
+                            <div class="form-group">
+                                <label for="table1">Chi Tiết Bảo Hành</label>
+                                <table class="table" id="tableChiTietHoaDon">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+											<th scope="col">Mã IME</th>
+                                            <th scope="col">ID</th>
+                                            <th scope="col">Lý Do Bảo Hành</th>
+											<th scope="col">Nội Dung Bảo Hành</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="admin-showChitiethoadon">
+                                        <!-- <tr>
+                                            <th scope="row">1</th>
+                                            <td>Mark</td>
+											<td>IME1</td>
+                                            <td><input type="text" class="form-control"></td>
+                                            <td><input type="text" class="form-control"></td>
+                                        </tr> -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+				</div>
                 <div class="modal-footer">
-                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-                    <input type="button" class="btn btn-success" value="Thêm" id="addNhomQuyen">
+                    <input type="button" class="btn btn-danger" data-dismiss="modal" value="Cancel">
+                    <input type="button" class="btn btn-success" value="Thêm" id="admin-add-BaoHanh">
                 </div>
             </form>
         </div>
