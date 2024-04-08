@@ -1,5 +1,5 @@
 <main id="admin-product-detail-main">
-    <div class="container-xl">
+    <div class="px-3">
         <div class="table-responsive">
             <div class="table-wrapper">
                 <div class="table-title">
@@ -49,7 +49,9 @@
                             <th>RAM</th>
                             <th>ROM</th>
                             <th>Cổng kết nối</th>
-                            <th>Giá</th>
+							<th>Giá nhập</th>
+							<th>Chiết khấu(%)</th>
+                            <th>Giá bán</th>
                             <th>Số lượng tồn</th>
                             <th>Actions</th>
                         </tr>

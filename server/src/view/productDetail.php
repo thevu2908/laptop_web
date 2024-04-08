@@ -39,6 +39,10 @@ include "header.php";
                                 Thương hiệu:
                                 <span></span>
                             </li>
+                            <li class="modal-row-item product-type">
+                                Loại:
+                                <span></span>
+                            </li>
                             <li class="modal-row-item">Thời gian bảo hành (tháng): 12</li>
                             <li class="modal-row-item">Hướng dẫn bảo quản: Để nơi khô ráo, nhẹ tay, dễ vỡ</li>
                         </ul>

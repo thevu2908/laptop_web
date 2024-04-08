@@ -81,6 +81,7 @@ async function renderAdminProductDetail(data) {
         if (productDetails && productDetails.pagination && productDetails.pagination.length > 0) {
             let html = ''
             productDetails.pagination.forEach((productDetail, index) => {
+                console.log(formatCurrency(productDetail.gia_nhap))
                 html += `
                     <tr>
                         <td>
@@ -100,7 +101,9 @@ async function renderAdminProductDetail(data) {
                                 
                             </ul>
                         </td>
-                        <td>${productDetail.gia_tien}</td>
+                        <td>${formatCurrency(productDetail.gia_nhap)}</td>
+                        <td>${productDetail.chiet_khau}</td>
+                        <td>${formatCurrency(productDetail.gia_tien)}</td>
                         <td>${productDetail.so_luong}</td>
                         <td>
                             <a href="#deleteProductDetailModal" class="delete btn-delete-product-detail-modal" data-toggle="modal" data-id=${productDetail.ma_ctsp}>

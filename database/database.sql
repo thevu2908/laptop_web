@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 02, 2024 at 10:44 AM
--- Server version: 10.4.28-MariaDB
--- PHP Version: 8.2.4
+-- Generation Time: Apr 08, 2024 at 09:35 AM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.0.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -249,7 +249,7 @@ INSERT INTO `chitietcongketnoi` (`ma_cong`, `ma_ctsp`) VALUES
 
 CREATE TABLE `chitiethoadon` (
   `ma_hd` varchar(20) NOT NULL,
-  `ma_ctsp` varchar(20) NOT NULL,
+  `ma_imei` varchar(20) NOT NULL,
   `gia_sp` double NOT NULL,
   `so_luong` int(11) NOT NULL,
   `thanh_tien` double NOT NULL
@@ -335,7 +335,9 @@ CREATE TABLE `chitietsanpham` (
   `ma_carddohoa` varchar(20) NOT NULL,
   `ram` varchar(50) NOT NULL,
   `rom` varchar(50) NOT NULL,
-  `gia_tien` float NOT NULL,
+  `gia_nhap` double NOT NULL,
+  `chiet_khau` float NOT NULL,
+  `gia_tien` double NOT NULL,
   `so_luong` int(11) NOT NULL,
   `trang_thai` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -344,51 +346,51 @@ CREATE TABLE `chitietsanpham` (
 -- Dumping data for table `chitietsanpham`
 --
 
-INSERT INTO `chitietsanpham` (`ma_ctsp`, `ma_sp`, `ma_chip_xu_ly`, `ma_mau`, `ma_carddohoa`, `ram`, `rom`, `gia_tien`, `so_luong`, `trang_thai`) VALUES
-('CTSP0001', 'SP001', 'CXL005', '#000', 'CDH007', '8GB', '256GB', 0, 0, 0),
-('CTSP0002', 'SP001', 'CXL005', '#000', 'CDH007', '8GB', '512GB', 0, 0, 0),
-('CTSP0003', 'SP001', 'CXL005', '#ffff00', 'CDH007', '8GB', '256GB', 0, 0, 0),
-('CTSP0004', 'SP001', 'CXL005', '#ffff00', 'CDH007', '8GB', '512GB', 0, 0, 0),
-('CTSP0005', 'SP002', 'CXL003', '#c0c0c0', 'CDH004', '8GB', '256GB', 0, 0, 0),
-('CTSP0006', 'SP003', 'CXL001', '#000', 'CDH005', '16GB', '512GB', 0, 0, 0),
-('CTSP0007', 'SP004', 'CXL004', '#000', 'CDH006', '16GB', '512GB', 0, 0, 0),
-('CTSP0008', 'SP005', 'CXL003', '#000', 'CDH004', '16GB', '512GB', 0, 0, 0),
-('CTSP0009', 'SP006', 'CXL002', '#808080', 'CDH008', '16GB', '512GB', 0, 0, 0),
-('CTSP0010', 'SP007', 'CXL003', '#c0c0c0', 'CDH004', '16GB', '512GB', 0, 0, 0),
-('CTSP0011', 'SP008', 'CXL006', '#c0c0c0', 'CDH004', '16GB', '512GB', 0, 0, 0),
-('CTSP0012', 'SP009', 'CXL007', '#c0c0c0', 'CDH009', '16GB', '512GB', 0, 0, 0),
-('CTSP0013', 'SP010', 'CXL006', '#c0c0c0', 'CDH004', '8GB', '512GB', 0, 0, 0),
-('CTSP0014', 'SP011', 'CXL008', '#808080', 'CDH005', '16GB', '512GB', 0, 0, 0),
-('CTSP0015', 'SP012', 'CXL009', '#808080', 'CDH006', '16GB', '512GB', 0, 0, 0),
-('CTSP0016', 'SP012', 'CXL009', '#808080', 'CDH006', '16GB', '1TB', 0, 0, 0),
-('CTSP0017', 'SP013', 'CXL010', '#000', 'CDH006', '8GB', '512GB', 0, 0, 0),
-('CTSP0018', 'SP013', 'CXL010', '#000', 'CDH006', '16GB', '512GB', 0, 0, 0),
-('CTSP0019', 'SP014', 'CXL011', '#808080', 'CDH010', '16GB', '512GB', 0, 0, 0),
-('CTSP0020', 'SP015', 'CXL012', '#808080', 'CDH010', '32GB', '1TB', 0, 0, 0),
-('CTSP0021', 'SP016', 'CXL013', '#ffff00', 'CDH011', '8GB', '256GB', 0, 0, 0),
-('CTSP0022', 'SP016', 'CXL013', '#ffff00', 'CDH011', '8GB', '512GB', 0, 0, 0),
-('CTSP0023', 'SP017', 'CXL005', '#00008B', 'CDH012', '8GB', '256GB', 0, 0, 0),
-('CTSP0024', 'SP017', 'CXL005', '#00008B', 'CDH012', '8GB', '512GB', 0, 0, 0),
-('CTSP0025', 'SP017', 'CXL005', '#ffff00', 'CDH012', '8GB', '256GB', 0, 0, 0),
-('CTSP0026', 'SP017', 'CXL005', '#ffff00', 'CDH012', '8GB', '512GB', 0, 0, 0),
-('CTSP0027', 'SP017', 'CXL005', '#c0c0c0', 'CDH012', '8GB', '256GB', 0, 0, 0),
-('CTSP0028', 'SP017', 'CXL005', '#c0c0c0', 'CDH012', '8GB', '512GB', 0, 0, 0),
-('CTSP0029', 'SP017', 'CXL005', '#808080', 'CDH012', '8GB', '256GB', 0, 0, 0),
-('CTSP0030', 'SP017', 'CXL005', '#808080', 'CDH012', '8GB', '512GB', 0, 0, 0),
-('CTSP0031', 'SP018', 'CXL014', '#000', 'CDH013', '32GB', '512GB', 0, 0, 0),
-('CTSP0032', 'SP018', 'CXL014', '#c0c0c0', 'CDH013', '32GB', '512GB', 0, 0, 0),
-('CTSP0033', 'SP019', 'CXL015', '#c0c0c0', 'CDH006', '16GB', '512GB', 0, 0, 0),
-('CTSP0034', 'SP020', 'CXL004', '#808080', 'CDH006', '16GB', '512GB', 0, 0, 0),
-('CTSP0035', 'SP021', 'CXL016', '#000', 'CDH006', '8GB', '512GB', 0, 0, 0),
-('CTSP0036', 'SP022', 'CXL002', '#000', 'CDH014', '16GB', '512GB', 0, 0, 0),
-('CTSP0037', 'SP023', 'CXL017', '#808080', 'CDH015', '64GB', '2TB', 0, 0, 0),
-('CTSP0038', 'SP024', 'CXL018', '#000', 'CDH014', '16GB', '512GB', 0, 0, 0),
-('CTSP0039', 'SP025', 'CXL002', '#000', 'CDH008', '8GB', '512GB', 0, 0, 0),
-('CTSP0040', 'SP026', 'CXL001', '#000', 'CDH002', '8GB', '512GB', 0, 0, 0),
-('CTSP0041', 'SP027', 'CXL019', '#ADD8E6', 'CDH004', '16GB', '1TB', 0, 0, 0),
-('CTSP0042', 'SP028', 'CXL012', '#000', 'CDH016', '16GB', '2TB', 0, 0, 0),
-('CTSP0043', 'SP029', 'CXL018', '#00008B', 'CDH017', '32GB', '1TB', 0, 0, 0),
-('CTSP0044', 'SP030', 'CXL020', '#c0c0c0', 'CDH008', '16GB', '512GB', 0, 0, 0);
+INSERT INTO `chitietsanpham` (`ma_ctsp`, `ma_sp`, `ma_chip_xu_ly`, `ma_mau`, `ma_carddohoa`, `ram`, `rom`, `gia_nhap`, `chiet_khau`, `gia_tien`, `so_luong`, `trang_thai`) VALUES
+('CTSP0001', 'SP001', 'CXL005', '#000', 'CDH007', '8GB', '256GB', 24990000, 5, 26239500, 2, 0),
+('CTSP0002', 'SP001', 'CXL005', '#000', 'CDH007', '8GB', '512GB', 29990000, 5, 31489500, 1, 0),
+('CTSP0003', 'SP001', 'CXL005', '#ffff00', 'CDH007', '8GB', '256GB', 24990000, 5, 26239500, 1, 0),
+('CTSP0004', 'SP001', 'CXL005', '#ffff00', 'CDH007', '8GB', '512GB', 29990000, 5, 31489500, 1, 0),
+('CTSP0005', 'SP002', 'CXL003', '#c0c0c0', 'CDH004', '8GB', '256GB', 10190000, 5, 10699500, 5, 0),
+('CTSP0006', 'SP003', 'CXL001', '#000', 'CDH005', '16GB', '512GB', 19990000, 5, 20989500, 5, 0),
+('CTSP0007', 'SP004', 'CXL004', '#000', 'CDH006', '16GB', '512GB', 14490000, 5, 15214500, 5, 0),
+('CTSP0008', 'SP005', 'CXL003', '#000', 'CDH004', '16GB', '512GB', 12490000, 5, 13114500, 5, 0),
+('CTSP0009', 'SP006', 'CXL002', '#808080', 'CDH008', '16GB', '512GB', 15690000, 5, 16474500, 5, 0),
+('CTSP0010', 'SP007', 'CXL003', '#c0c0c0', 'CDH004', '16GB', '512GB', 13290000, 5, 13954500, 5, 0),
+('CTSP0011', 'SP008', 'CXL006', '#c0c0c0', 'CDH004', '16GB', '512GB', 11990000, 5, 12589500, 5, 0),
+('CTSP0012', 'SP009', 'CXL007', '#c0c0c0', 'CDH009', '16GB', '512GB', 20490000, 5, 21514500, 5, 0),
+('CTSP0013', 'SP010', 'CXL006', '#c0c0c0', 'CDH004', '8GB', '512GB', 12490000, 5, 13114500, 5, 0),
+('CTSP0014', 'SP011', 'CXL008', '#808080', 'CDH005', '16GB', '512GB', 19490000, 5, 20464500, 5, 0),
+('CTSP0015', 'SP012', 'CXL009', '#808080', 'CDH006', '16GB', '512GB', 17990000, 5, 18889500, 3, 0),
+('CTSP0016', 'SP012', 'CXL009', '#808080', 'CDH006', '16GB', '1TB', 18990000, 5, 19939500, 2, 0),
+('CTSP0017', 'SP013', 'CXL010', '#000', 'CDH006', '8GB', '512GB', 18090000, 5, 18994500, 2, 0),
+('CTSP0018', 'SP013', 'CXL010', '#000', 'CDH006', '16GB', '512GB', 20190000, 5, 21199500, 3, 0),
+('CTSP0019', 'SP014', 'CXL011', '#808080', 'CDH010', '16GB', '512GB', 38990000, 5, 40939500, 5, 0),
+('CTSP0020', 'SP015', 'CXL012', '#808080', 'CDH010', '32GB', '1TB', 47990000, 5, 50389500, 5, 0),
+('CTSP0021', 'SP016', 'CXL013', '#ffff00', 'CDH011', '8GB', '256GB', 18490000, 5, 19414500, 2, 0),
+('CTSP0022', 'SP016', 'CXL013', '#ffff00', 'CDH011', '8GB', '512GB', 30999000, 5, 32548950, 3, 0),
+('CTSP0023', 'SP017', 'CXL005', '#00008B', 'CDH012', '8GB', '256GB', 27990000, 5, 29389500, 1, 0),
+('CTSP0024', 'SP017', 'CXL005', '#00008B', 'CDH012', '8GB', '512GB', 32990000, 5, 34639500, 1, 0),
+('CTSP0025', 'SP017', 'CXL005', '#ffff00', 'CDH012', '8GB', '256GB', 27990000, 5, 29389500, 1, 0),
+('CTSP0026', 'SP017', 'CXL005', '#ffff00', 'CDH012', '8GB', '512GB', 32990000, 5, 34639500, 1, 0),
+('CTSP0027', 'SP017', 'CXL005', '#c0c0c0', 'CDH012', '8GB', '256GB', 27990000, 5, 29389500, 1, 0),
+('CTSP0028', 'SP017', 'CXL005', '#c0c0c0', 'CDH012', '8GB', '512GB', 32990000, 5, 34639500, 2, 0),
+('CTSP0029', 'SP017', 'CXL005', '#808080', 'CDH012', '8GB', '256GB', 27990000, 5, 29389500, 3, 0),
+('CTSP0030', 'SP017', 'CXL005', '#808080', 'CDH012', '8GB', '512GB', 32990000, 5, 34639500, 4, 0),
+('CTSP0031', 'SP018', 'CXL014', '#000', 'CDH013', '32GB', '512GB', 44990000, 5, 47239500, 5, 0),
+('CTSP0032', 'SP018', 'CXL014', '#c0c0c0', 'CDH013', '32GB', '512GB', 44990000, 5, 47239500, 5, 0),
+('CTSP0033', 'SP019', 'CXL015', '#c0c0c0', 'CDH006', '16GB', '512GB', 28190000, 5, 29599500, 5, 0),
+('CTSP0034', 'SP020', 'CXL004', '#808080', 'CDH006', '16GB', '512GB', 15490000, 5, 16264500, 5, 0),
+('CTSP0035', 'SP021', 'CXL016', '#000', 'CDH006', '8GB', '512GB', 21399000, 5, 22468950, 5, 0),
+('CTSP0036', 'SP022', 'CXL002', '#000', 'CDH014', '16GB', '512GB', 21990000, 5, 23089500, 5, 0),
+('CTSP0037', 'SP023', 'CXL017', '#808080', 'CDH015', '64GB', '2TB', 89990000, 5, 94489500, 5, 0),
+('CTSP0038', 'SP024', 'CXL018', '#000', 'CDH014', '16GB', '512GB', 30490000, 5, 32014500, 5, 0),
+('CTSP0039', 'SP025', 'CXL002', '#000', 'CDH008', '8GB', '512GB', 11990000, 5, 12589500, 5, 0),
+('CTSP0040', 'SP026', 'CXL001', '#000', 'CDH002', '8GB', '512GB', 21990000, 5, 23089500, 5, 0),
+('CTSP0041', 'SP027', 'CXL019', '#ADD8E6', 'CDH004', '16GB', '1TB', 34990000, 5, 36739500, 5, 0),
+('CTSP0042', 'SP028', 'CXL012', '#000', 'CDH016', '64GB', '2TB', 120000000, 5, 126000000, 5, 0),
+('CTSP0043', 'SP029', 'CXL018', '#00008B', 'CDH017', '32GB', '1TB', 33190000, 5, 34849500, 5, 0),
+('CTSP0044', 'SP030', 'CXL020', '#c0c0c0', 'CDH008', '16GB', '512GB', 20490000, 5, 21514500, 5, 0);
 
 -- --------------------------------------------------------
 
@@ -1328,7 +1330,8 @@ CREATE TABLE `nhanvien` (
 INSERT INTO `nhanvien` (`ma_nv`, `ten_nv`, `tuoi`, `so_dien_thoai`, `hinh_anh`, `trang_thai`) VALUES
 ('NV01', 'Nguyễn Thế Vũ', 20, '0976124506', '', 0),
 ('NV02', 'Mai Văn Tài', 20, '0123456789', '', 0),
-('NV03', 'Lê Ngọc Giàu', 20, '0123456788', '', 0);
+('NV03', 'Lê Ngọc Giàu', 20, '0123456788', '', 0),
+('NV04', 'Đỗ Minh Quân', 20, '0111111111', '', 0);
 
 -- --------------------------------------------------------
 
@@ -1414,9 +1417,6 @@ CREATE TABLE `sanpham` (
   `do_phan_giai` varchar(50) NOT NULL,
   `pin` varchar(50) NOT NULL,
   `ban_phim` varchar(50) NOT NULL,
-  `gia_ban` double NOT NULL,
-  `gia_nhap` double NOT NULL,
-  `chiet_khau` double NOT NULL,
   `trong_luong` double NOT NULL,
   `chat_lieu` varchar(50) NOT NULL,
   `xuat_xu` varchar(50) NOT NULL,
@@ -1428,37 +1428,37 @@ CREATE TABLE `sanpham` (
 -- Dumping data for table `sanpham`
 --
 
-INSERT INTO `sanpham` (`ma_sp`, `ma_thuong_hieu`, `ma_the_loai`, `ma_hdh`, `ten_sp`, `hinh_anh`, `kich_co_man_hinh`, `do_phan_giai`, `pin`, `ban_phim`, `gia_ban`, `gia_nhap`, `chiet_khau`, `trong_luong`, `chat_lieu`, `xuat_xu`, `so_luong_ton`, `trang_thai`) VALUES
-('SP001', 'TH005', 'TL002', 'HDH002', 'MacBook Air M2 2022', 'server/src/assets/images/products/SP001.png', '13.6 inch', '2560 x 1644 Pixels', 'Lithium polymer', 'English International Backlit Keyboard', 0, 0, 0, 1.24, 'Kim loại', 'Trung Quốc', 0, 0),
-('SP002', 'TH004', 'TL002', 'HDH001', 'HP 245 G10', 'server/src/assets/images/products/SP002.png', '14 inch', '1920 x 1080 Pixels', 'Lithium polymer', 'English International Backlit Keyboard', 0, 0, 0, 1.36, 'Nhựa', 'Trung Quốc', 0, 0),
-('SP003', 'TH003', 'TL001', 'HDH001', 'Asus TUF Gaming', 'server/src/assets/images/products/SP003.png', '15.6 inch', '1920 x 1080 Pixels', 'Lithium polymer', 'Backlit Chiclet Keyboard', 0, 0, 0, 2.3, 'Nhôm + Nhựa cao cấp', 'Trung Quốc', 0, 0),
-('SP004', 'TH001', 'TL002', 'HDH001', 'Dell Inspiron 15 N3520', 'server/src/assets/images/products/SP004.png', '15.6 inch', '1920 x 1200 Pixels', 'Lithium polymer', 'English International Non-backlit Keyboard', 0, 0, 0, 1.9, 'Nhựa', 'Trung Quốc', 0, 0),
-('SP005', 'TH003', 'TL002', 'HDH001', 'Asus Vivobook', 'server/src/assets/images/products/SP005.png', '14 inch', '1920 x 1080 Pixels', 'Lithium-ion', 'Chiclet Keyboard', 0, 0, 0, 1.3, 'Nhựa', 'Trung Quốc', 0, 0),
-('SP006', 'TH007', 'TL002', 'HDH001', 'Lenovo IdeaPad 3', 'server/src/assets/images/products/SP006.png', '15 inch', '1920 x 1080 Pixels', 'Lithium-ion', 'Bàn phím cứng', 0, 0, 0, 1.37, 'Nhựa ABS', 'Trung Quốc', 0, 0),
-('SP007', 'TH004', 'TL002', 'HDH001', 'HP 14s-em0086AU', 'server/src/assets/images/products/SP007.png', '14 inch', '1920 x 1080 Pixels', 'Lithium-ion', 'Chiclet Keyboard', 0, 0, 0, 1.4, 'Nhựa', 'Trung Quốc', 0, 0),
-('SP008', 'TH002', 'TL002', 'HDH001', 'Acer Aspire 3', 'server/src/assets/images/products/SP008.png', '15.6 inch', '1920 x 1080 Pixels', 'Lithium-ion', 'English International Backlit Keyboard', 0, 0, 0, 1.7, 'Nhựa Polycarbonate', 'Trung Quốc', 0, 0),
-('SP009', 'TH001', 'TL002', 'HDH001', 'Dell Inspiron 15 N3530', 'server/src/assets/images/products/SP009.png', '15.6 inch', 'FHD (1920 x 1080)', 'Lithium polymer', 'English International Non-backlit Keyboard', 0, 0, 0, 1.66, 'Nhựa', 'Trung Quốc', 0, 0),
-('SP010', 'TH008', 'TL002', 'HDH001', 'Huawei MateBook', 'server/src/assets/images/products/SP010.png', '15.6 inch', '1920 x 1080 Pixels', 'Lithium-ion', 'English International Backlit Keyboard', 0, 0, 0, 1.53, 'Hợp kim nhôm', 'Trung Quốc', 0, 0),
-('SP011', 'TH007', 'TL001', 'HDH001', 'Lenovo Gaming LOQ', 'server/src/assets/images/products/SP011.png', '15.6 inch', '1920 x 1080 Pixels', 'Lithium polymer', 'English International Backlit Keyboard', 0, 0, 0, 2.38, 'Nhựa ABS', 'Trung Quốc', 0, 0),
-('SP012', 'TH007', 'TL002', 'HDH001', 'Lenovo IdeaPad Slim 5', 'server/src/assets/images/products/SP012.png', '14 inch', '1920 x 1200 Pixels', 'Lithium polymer', 'English International Backlit Keyboard', 0, 0, 0, 1.46, 'Alumium CNC', 'Trung Quốc', 0, 0),
-('SP013', 'TH007', 'TL002', 'HDH001', 'Lenovo ThinkPad E14 Gen 4', 'server/src/assets/images/products/SP013.png', '14 inch', '1920 x 1080 Pixels', 'Lithium polymer', 'Chiclet Keyboard', 0, 0, 0, 1.64, 'Alumium CNC', 'Trung Quốc', 0, 0),
-('SP014', 'TH007', 'TL001', 'HDH001', 'Lenovo Gaming Legion Slim 5', 'server/src/assets/images/products/SP014.png', '16 inch', '2560 x 1600 Pixels', 'Lithium polymer', 'English International Backlit Keyboard', 0, 0, 0, 2.4, 'Nhôm', 'Trung Quốc', 0, 0),
-('SP015', 'TH007', 'TL001', 'HDH001', 'Lenovo Gaming Legion Pro 5', 'server/src/assets/images/products/SP015.png', '16 inch', '2560 x 1600 Pixels', 'Lithium polymer', 'English International Backlit Keyboard', 0, 0, 0, 2.55, 'Nhôm + Nhựa', 'Trung Quốc', 0, 0),
-('SP016', 'TH005', 'TL002', 'HDH002', 'MacBook Air M1 2020', 'server/src/assets/images/products/SP016.png', '13.3 inch', '2560 x 1600 Pixels', 'Lithium polymer', 'English International Backlit Keyboard', 0, 0, 0, 1.29, 'Nhôm + Nhựa', 'Trung Quốc', 0, 0),
-('SP017', 'TH005', 'TL002', 'HDH002', 'MacBook Air M2 2023', 'server/src/assets/images/products/SP017.png', '15 inch', '2880 x 1800 Pixels', 'Lithium polymer', 'English International Backlit Keyboard', 0, 0, 0, 1.51, 'Nhôm nguyên khối', 'Trung Quốc', 0, 0),
-('SP018', 'TH005', 'TL002', 'HDH002', 'MacBook Pro 16 2023 M3', 'server/src/assets/images/products/SP018.png', '16.2 inch', '3456 x 2234 Pixels', 'Lithium polymer', 'English International Backlit Keyboard', 0, 0, 0, 2.14, 'Nhôm nguyên khối', 'Trung Quốc', 0, 0),
-('SP019', 'TH001', 'TL002', 'HDH001', 'Dell Inspiron 14', 'server/src/assets/images/products/SP019.png', '14 inch', '1920 x 1200 Pixels', 'Lithium polymer', 'Backlit Chiclet Keyboard', 0, 0, 0, 1.62, 'Nhôm + Nhựa', 'Trung Quốc', 0, 0),
-('SP020', 'TH001', 'TL002', 'HDH001', 'Dell Vostro V3520', 'server/src/assets/images/products/SP020.png', '15.6 inch', 'FHD (1920 x 1080)', 'Lithium-ion', 'English International Non-backlit Keyboard', 0, 0, 0, 1.9, 'Nhựa', 'Trung Quốc', 0, 0),
-('SP021', 'TH001', 'TL002', 'HDH001', 'Dell Latitude 3420', 'server/src/assets/images/products/SP021.png', '14 inch', 'FHD (1920 x 1080)', 'Lithium-ion', 'Backlit Chiclet Keyboard', 0, 0, 0, 2, 'Nhựa', 'Trung Quốc', 0, 0),
-('SP022', 'TH006', 'TL001', 'HDH001', 'MSI Gaming Thin GF63', 'server/src/assets/images/products/SP022.png', '15.6 inch', '1920 x 1080 Pixels', 'Lithium polymer', 'Bàn phím cứng', 0, 0, 0, 1.86, 'Nhựa + Kim loại', 'Trung Quốc', 0, 0),
-('SP023', 'TH006', 'TL001', 'HDH001', 'MSI Gaming Raider', 'server/src/assets/images/products/SP023.png', '17.3 inch', '3840 x 2160 Pixels', 'Lithium polymer', '6-row, multimedia Fn keys, numeric keypad', 0, 0, 0, 2.9, 'Hợp kim', 'Trung Quốc', 0, 0),
-('SP024', 'TH006', 'TL001', 'HDH001', 'MSI Gaming Cyborg 15 AI', 'server/src/assets/images/products/SP024.png', '15.6 inch', '1920 x 1080 Pixels', 'Lithium polymer', '6-row, multimedia Fn keys, numeric keypad', 0, 0, 0, 1.98, 'Hợp chất nhựa', 'Trung Quốc', 0, 0),
-('SP025', 'TH002', 'TL001', 'HDH001', 'Acer Aspire 7 Gaming', 'server/src/assets/images/products/SP025.png', '15.6 inch', '1920 x 1080 Pixels', 'Lithium polymer', '6-row, multimedia Fn keys, numeric keypad', 0, 0, 0, 2.1, 'Nhựa Polycarbonate', 'Trung Quốc', 0, 0),
-('SP026', 'TH002', 'TL001', 'HDH001', 'Acer Nitro 5 Gaming', 'server/src/assets/images/products/SP026.png', '15.6 inch', '1920 x 1080 Pixels', 'Lithium-ion', 'Backlit Chiclet Keyboard', 0, 0, 0, 2.5, 'Nhựa Polycarbonate', 'Trung Quốc', 0, 0),
-('SP027', 'TH002', 'TL002', 'HDH001', 'Acer Swift Edge SFA', 'server/src/assets/images/products/SP027.png', '16 inch', '3840 x 2400 Pixels', 'Lithium-ion 3 viên', 'Bàn phím cứng', 0, 0, 0, 1.1, 'Nhựa + Nhôm', 'Trung Quốc', 0, 0),
-('SP028', 'TH003', 'TL001', 'HDH001', 'Asus ROG Strix Scar 18 Gaming', 'server/src/assets/images/products/SP028.png', '18 inch', '2560 x 1600 Pixels', 'Lithium polymer', 'Backlit Chiclet Keyboard', 0, 0, 0, 3.1, 'Kim loại', 'Trung Quốc', 0, 0),
-('SP029', 'TH003', 'TL002', 'HDH001', 'Asus Zenbook 14', 'server/src/assets/images/products/SP029.png', '14 inch', '2880 x 1800 Pixels', 'Lithium polymer', 'Backlit Chiclet Keyboard', 0, 0, 0, 1.2, 'Nhôm', 'Trung Quốc', 0, 0),
-('SP030', 'TH004', 'TL002', 'HDH001', 'HP ProBook 440 G10', 'server/src/assets/images/products/SP030.png', '14 inch', '1920 x 1080 Pixels', 'Lithium-ion', 'Chiclet Keyboard', 0, 0, 0, 1.38, 'Kim loại', 'Trung Quốc', 0, 0);
+INSERT INTO `sanpham` (`ma_sp`, `ma_thuong_hieu`, `ma_the_loai`, `ma_hdh`, `ten_sp`, `hinh_anh`, `kich_co_man_hinh`, `do_phan_giai`, `pin`, `ban_phim`, `trong_luong`, `chat_lieu`, `xuat_xu`, `so_luong_ton`, `trang_thai`) VALUES
+('SP001', 'TH005', 'TL002', 'HDH002', 'MacBook Air M2 2022', 'server/src/assets/images/products/SP001.png', '13.6 inch', '2560 x 1644 Pixels', 'Lithium polymer', 'English International Backlit Keyboard', 1.24, 'Kim loại', 'Trung Quốc', 5, 0),
+('SP002', 'TH004', 'TL002', 'HDH001', 'HP 245 G10', 'server/src/assets/images/products/SP002.png', '14 inch', '1920 x 1080 Pixels', 'Lithium polymer', 'English International Backlit Keyboard', 1.36, 'Nhựa', 'Trung Quốc', 5, 0),
+('SP003', 'TH003', 'TL001', 'HDH001', 'Asus TUF Gaming', 'server/src/assets/images/products/SP003.png', '15.6 inch', '1920 x 1080 Pixels', 'Lithium polymer', 'Backlit Chiclet Keyboard', 2.3, 'Nhôm + Nhựa cao cấp', 'Trung Quốc', 5, 0),
+('SP004', 'TH001', 'TL002', 'HDH001', 'Dell Inspiron 15 N3520', 'server/src/assets/images/products/SP004.png', '15.6 inch', '1920 x 1200 Pixels', 'Lithium polymer', 'English International Non-backlit Keyboard', 1.9, 'Nhựa', 'Trung Quốc', 5, 0),
+('SP005', 'TH003', 'TL002', 'HDH001', 'Asus Vivobook', 'server/src/assets/images/products/SP005.png', '14 inch', '1920 x 1080 Pixels', 'Lithium-ion', 'Chiclet Keyboard', 1.3, 'Nhựa', 'Trung Quốc', 5, 0),
+('SP006', 'TH007', 'TL002', 'HDH001', 'Lenovo IdeaPad 3', 'server/src/assets/images/products/SP006.png', '15 inch', '1920 x 1080 Pixels', 'Lithium-ion', 'Bàn phím cứng', 1.37, 'Nhựa ABS', 'Trung Quốc', 5, 0),
+('SP007', 'TH004', 'TL002', 'HDH001', 'HP 14s-em0086AU', 'server/src/assets/images/products/SP007.png', '14 inch', '1920 x 1080 Pixels', 'Lithium-ion', 'Chiclet Keyboard', 1.4, 'Nhựa', 'Trung Quốc', 5, 0),
+('SP008', 'TH002', 'TL002', 'HDH001', 'Acer Aspire 3', 'server/src/assets/images/products/SP008.png', '15.6 inch', '1920 x 1080 Pixels', 'Lithium-ion', 'English International Backlit Keyboard', 1.7, 'Nhựa Polycarbonate', 'Trung Quốc', 5, 0),
+('SP009', 'TH001', 'TL002', 'HDH001', 'Dell Inspiron 15 N3530', 'server/src/assets/images/products/SP009.png', '15.6 inch', 'FHD (1920 x 1080)', 'Lithium polymer', 'English International Non-backlit Keyboard', 1.66, 'Nhựa', 'Trung Quốc', 5, 0),
+('SP010', 'TH008', 'TL002', 'HDH001', 'Huawei MateBook', 'server/src/assets/images/products/SP010.png', '15.6 inch', '1920 x 1080 Pixels', 'Lithium-ion', 'English International Backlit Keyboard', 1.53, 'Hợp kim nhôm', 'Trung Quốc', 5, 0),
+('SP011', 'TH007', 'TL001', 'HDH001', 'Lenovo Gaming LOQ', 'server/src/assets/images/products/SP011.png', '15.6 inch', '1920 x 1080 Pixels', 'Lithium polymer', 'English International Backlit Keyboard', 2.38, 'Nhựa ABS', 'Trung Quốc', 5, 0),
+('SP012', 'TH007', 'TL002', 'HDH001', 'Lenovo IdeaPad Slim 5', 'server/src/assets/images/products/SP012.png', '14 inch', '1920 x 1200 Pixels', 'Lithium polymer', 'English International Backlit Keyboard', 1.46, 'Alumium CNC', 'Trung Quốc', 5, 0),
+('SP013', 'TH007', 'TL002', 'HDH001', 'Lenovo ThinkPad E14 Gen 4', 'server/src/assets/images/products/SP013.png', '14 inch', '1920 x 1080 Pixels', 'Lithium polymer', 'Chiclet Keyboard', 1.64, 'Alumium CNC', 'Trung Quốc', 5, 0),
+('SP014', 'TH007', 'TL001', 'HDH001', 'Lenovo Gaming Legion Slim 5', 'server/src/assets/images/products/SP014.png', '16 inch', '2560 x 1600 Pixels', 'Lithium polymer', 'English International Backlit Keyboard', 2.4, 'Nhôm', 'Trung Quốc', 5, 0),
+('SP015', 'TH007', 'TL001', 'HDH001', 'Lenovo Gaming Legion Pro 5', 'server/src/assets/images/products/SP015.png', '16 inch', '2560 x 1600 Pixels', 'Lithium polymer', 'English International Backlit Keyboard', 2.55, 'Nhôm + Nhựa', 'Trung Quốc', 5, 0),
+('SP016', 'TH005', 'TL002', 'HDH002', 'MacBook Air M1 2020', 'server/src/assets/images/products/SP016.png', '13.3 inch', '2560 x 1600 Pixels', 'Lithium polymer', 'English International Backlit Keyboard', 1.29, 'Nhôm + Nhựa', 'Trung Quốc', 5, 0),
+('SP017', 'TH005', 'TL002', 'HDH002', 'MacBook Air M2 2023', 'server/src/assets/images/products/SP017.png', '15 inch', '2880 x 1800 Pixels', 'Lithium polymer', 'English International Backlit Keyboard', 1.51, 'Nhôm nguyên khối', 'Trung Quốc', 14, 0),
+('SP018', 'TH005', 'TL002', 'HDH002', 'MacBook Pro 16 2023 M3', 'server/src/assets/images/products/SP018.png', '16.2 inch', '3456 x 2234 Pixels', 'Lithium polymer', 'English International Backlit Keyboard', 2.14, 'Nhôm nguyên khối', 'Trung Quốc', 10, 0),
+('SP019', 'TH001', 'TL002', 'HDH001', 'Dell Inspiron 14', 'server/src/assets/images/products/SP019.png', '14 inch', '1920 x 1200 Pixels', 'Lithium polymer', 'Backlit Chiclet Keyboard', 1.62, 'Nhôm + Nhựa', 'Trung Quốc', 5, 0),
+('SP020', 'TH001', 'TL002', 'HDH001', 'Dell Vostro V3520', 'server/src/assets/images/products/SP020.png', '15.6 inch', 'FHD (1920 x 1080)', 'Lithium-ion', 'English International Non-backlit Keyboard', 1.9, 'Nhựa', 'Trung Quốc', 5, 0),
+('SP021', 'TH001', 'TL002', 'HDH001', 'Dell Latitude 3420', 'server/src/assets/images/products/SP021.png', '14 inch', 'FHD (1920 x 1080)', 'Lithium-ion', 'Backlit Chiclet Keyboard', 2, 'Nhựa', 'Trung Quốc', 5, 0),
+('SP022', 'TH006', 'TL001', 'HDH001', 'MSI Gaming Thin GF63', 'server/src/assets/images/products/SP022.png', '15.6 inch', '1920 x 1080 Pixels', 'Lithium polymer', 'Bàn phím cứng', 1.86, 'Nhựa + Kim loại', 'Trung Quốc', 5, 0),
+('SP023', 'TH006', 'TL001', 'HDH001', 'MSI Gaming Raider', 'server/src/assets/images/products/SP023.png', '17.3 inch', '3840 x 2160 Pixels', 'Lithium polymer', '6-row, multimedia Fn keys, numeric keypad', 2.9, 'Hợp kim', 'Trung Quốc', 5, 0),
+('SP024', 'TH006', 'TL001', 'HDH001', 'MSI Gaming Cyborg 15 AI', 'server/src/assets/images/products/SP024.png', '15.6 inch', '1920 x 1080 Pixels', 'Lithium polymer', '6-row, multimedia Fn keys, numeric keypad', 1.98, 'Hợp chất nhựa', 'Trung Quốc', 5, 0),
+('SP025', 'TH002', 'TL001', 'HDH001', 'Acer Aspire 7 Gaming', 'server/src/assets/images/products/SP025.png', '15.6 inch', '1920 x 1080 Pixels', 'Lithium polymer', '6-row, multimedia Fn keys, numeric keypad', 2.1, 'Nhựa Polycarbonate', 'Trung Quốc', 5, 0),
+('SP026', 'TH002', 'TL001', 'HDH001', 'Acer Nitro 5 Gaming', 'server/src/assets/images/products/SP026.png', '15.6 inch', '1920 x 1080 Pixels', 'Lithium-ion', 'Backlit Chiclet Keyboard', 2.5, 'Nhựa Polycarbonate', 'Trung Quốc', 5, 0),
+('SP027', 'TH002', 'TL002', 'HDH001', 'Acer Swift Edge SFA', 'server/src/assets/images/products/SP027.png', '16 inch', '3840 x 2400 Pixels', 'Lithium-ion 3 viên', 'Bàn phím cứng', 1.1, 'Nhựa + Nhôm', 'Trung Quốc', 5, 0),
+('SP028', 'TH003', 'TL001', 'HDH001', 'Asus ROG Strix Scar 18 Gaming', 'server/src/assets/images/products/SP028.png', '18 inch', '2560 x 1600 Pixels', 'Lithium polymer', 'Backlit Chiclet Keyboard', 3.1, 'Kim loại', 'Trung Quốc', 5, 0),
+('SP029', 'TH003', 'TL002', 'HDH001', 'Asus Zenbook 14', 'server/src/assets/images/products/SP029.png', '14 inch', '2880 x 1800 Pixels', 'Lithium polymer', 'Backlit Chiclet Keyboard', 1.2, 'Nhôm', 'Trung Quốc', 5, 0),
+('SP030', 'TH004', 'TL002', 'HDH001', 'HP ProBook 440 G10', 'server/src/assets/images/products/SP030.png', '14 inch', '1920 x 1080 Pixels', 'Lithium-ion', 'Chiclet Keyboard', 1.38, 'Kim loại', 'Trung Quốc', 5, 0);
 
 -- --------------------------------------------------------
 
@@ -1482,8 +1482,8 @@ CREATE TABLE `taikhoan` (
 INSERT INTO `taikhoan` (`ma_tk`, `ma_quyen`, `username`, `password`, `otp`, `trang_thai`) VALUES
 ('admin', 'NQ01', 'admin', 'admin', 0, 0),
 ('NV01', 'NQ02', 'NV01', '123', 0, 0),
-('NV02', 'NQ03', 'NV02', '123', 0, 1),
-('NV03', 'NQ03', 'NV03', '123', 0, 1);
+('NV02', 'NQ03', 'NV02', '123', 0, 0),
+('NV03', 'NQ03', 'NV03', '123', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -12188,8 +12188,8 @@ ALTER TABLE `chitietcongketnoi`
 -- Indexes for table `chitiethoadon`
 --
 ALTER TABLE `chitiethoadon`
-  ADD PRIMARY KEY (`ma_hd`,`ma_ctsp`),
-  ADD KEY `cthd_fk_ctsp` (`ma_ctsp`);
+  ADD PRIMARY KEY (`ma_hd`,`ma_imei`),
+  ADD KEY `cthd_fk_ctsp` (`ma_imei`);
 
 --
 -- Indexes for table `chitietkhuyenmai`
@@ -12412,8 +12412,8 @@ ALTER TABLE `chitietcongketnoi`
 -- Constraints for table `chitiethoadon`
 --
 ALTER TABLE `chitiethoadon`
-  ADD CONSTRAINT `cthd_fk_ctsp` FOREIGN KEY (`ma_ctsp`) REFERENCES `chitietsanpham` (`ma_ctsp`),
-  ADD CONSTRAINT `cthd_fk_hd` FOREIGN KEY (`ma_hd`) REFERENCES `hoadon` (`ma_hd`);
+  ADD CONSTRAINT `cthd_fk_hd` FOREIGN KEY (`ma_hd`) REFERENCES `hoadon` (`ma_hd`),
+  ADD CONSTRAINT `cthd_fk_imei` FOREIGN KEY (`ma_imei`) REFERENCES `ctsp_imei` (`ma_imei`);
 
 --
 -- Constraints for table `chitietkhuyenmai`

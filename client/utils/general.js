@@ -1,12 +1,14 @@
-function removeDuplicateObject(arr) {
-    let uniqueObjects = {}
+function removeDuplicateObject(arr, key) {
+    let uniqueValues = new Set()
     let uniqueArray = []
+
     arr.forEach(obj => {
-        let key = JSON.stringify(obj);
-        if (!uniqueObjects[key]) {
-            uniqueObjects[key] = true;
-            uniqueArray.push(obj);
+        let keyValue = obj[key]
+        if (!uniqueValues.has(keyValue)) {
+            uniqueValues.add(keyValue)
+            uniqueArray.push(obj)
         }
     })
+
     return uniqueArray
 }
