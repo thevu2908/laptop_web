@@ -10,8 +10,8 @@ class KhuyenMaiRepo extends ConnectDB {
         return $arrKhuyenMai;
     }
 
-    function getKhuyenMai($id) {
-        $sql = "SELECT * FROM khuyenmai WHERE ma_km = '$id'";
+    function getKhuyenMai($ma_km) {
+        $sql = "SELECT * FROM khuyenmai WHERE ma_km = '$ma_km'";
         $result = mysqli_query($this->conn, $sql);
         if ($row = mysqli_fetch_assoc($result)) {
             return $row;
@@ -21,13 +21,14 @@ class KhuyenMaiRepo extends ConnectDB {
 
     function addKhuyenMai(KhuyenMai $khuyenmai) {
         $ma_km = $khuyenmai->getMaKm();
+        $ten_khuyen_mai = $khuyenmai->getTenKhuyenMai();
         $muc_khuyen_mai = $khuyenmai->getMucKhuyenMai();
         $dieu_kien = $khuyenmai->getDieuKien();
         $thoi_gian_bat_dau = $khuyenmai->getThoiGianBatDau();
         $thoi_gian_ket_thuc = $khuyenmai->getThoiGianKetThuc();
 
-        $sql = "INSERT INTO khuyenmai(ma_km,muc_khuyen_mai,dieu_kien,thoi_gian_bat_dau,thoi_gian_ket_thuc) 
-                VALUES ('$ma_km', '$muc_khuyen_mai', '$dieu_kien', '$thoi_gian_bat_dau', '$thoi_gian_ket_thuc')";
+        $sql = "INSERT INTO khuyenmai(ma_km,ten_khuyen_mai,muc_khuyen_mai,dieu_kien,thoi_gian_bat_dau,thoi_gian_ket_thuc) 
+                VALUES ('$ma_km', '$ten_khuyen_mai', '$muc_khuyen_mai', '$dieu_kien', '$thoi_gian_bat_dau', '$thoi_gian_ket_thuc')";
         $result = mysqli_query($this->conn, $sql);
         if ($result) {
             return true;
@@ -46,12 +47,13 @@ class KhuyenMaiRepo extends ConnectDB {
 
     function updateKhuyenMai(KhuyenMai $khuyenmai) {
         $ma_km = $khuyenmai->getMaKm();
+        $ten_khuyen_mai = $khuyenmai->getTenKhuyenMai();
         $muc_khuyen_mai = $khuyenmai->getMucKhuyenMai();
         $dieu_kien = $khuyenmai->getDieuKien();
         $thoi_gian_bat_dau = $khuyenmai->getThoiGianBatDau();
         $thoi_gian_ket_thuc = $khuyenmai->getThoiGianKetThuc();
 
-        $sql = "UPDATE khuyenmai SET muc_khuyen_mai='$muc_khuyen_mai', dieu_kien='$dieu_kien', 
+        $sql = "UPDATE khuyenmai SET ten_khuyen_mai='$ten_khuyen_mai' muc_khuyen_mai='$muc_khuyen_mai', dieu_kien='$dieu_kien', 
                 thoi_gian_bat_dau='$thoi_gian_bat_dau', thoi_gian_ket_thuc='$thoi_gian_ket_thuc'
                 WHERE ma_km='$ma_km'";
         $result = mysqli_query($this->conn, $sql);
@@ -62,7 +64,7 @@ class KhuyenMaiRepo extends ConnectDB {
     }
 
     function searchKhuyenMai($search) {
-        $sql = "SELECT * FROM khuyenmai WHERE CONCAT(ma_km,muc_khuyen_mai,dieu_kien,thoi_gian_bat_dau,thoi_gian_ket_thuc) 
+        $sql = "SELECT * FROM khuyenmai WHERE CONCAT(ma_km,ten_khuyen_mai,muc_khuyen_mai,dieu_kien,thoi_gian_bat_dau,thoi_gian_ket_thuc) 
                 LIKE '%$search%'";
         $result = mysqli_query($this->conn, $sql);
         $arrKhuyenMai = array();
@@ -72,7 +74,7 @@ class KhuyenMaiRepo extends ConnectDB {
         return $arrKhuyenMai;
     }
 
-    function getSize() {
+    function getSizeKhuyenMai() {
         $sql = "SELECT count(*) FROM khuyenmai";
         $result = mysqli_query($this->conn, $sql);
         $size = mysqli_fetch_assoc($result);

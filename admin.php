@@ -123,6 +123,8 @@
   <script src="./server/src/admin/assets/js/product.js"></script>
   <script src="./server/src/admin/assets/js/productColor.js"></script>
   <script src="./client/utils/formatCurrency.js"></script>
+  <script src="./client/utils/formatDate.js"></script>
+  <script src="./client/utils/formatPromotion.js"></script>
   <script src="./client/plugins/pagination.js"></script>
 </body>
 

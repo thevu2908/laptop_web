@@ -43,7 +43,7 @@ function loadBillData() {
                     `
                 })
 
-                $('.admin-promotion-list').html(html)
+                // $('.admin-promotion-list').html(html)
             }
         },
         error: (xhr, status, error) => {

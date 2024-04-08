@@ -29,12 +29,13 @@
 								</span>
 							</th>
 							<th>ID</th>
+							<th>Chương trình</th>
 							<th>Điều kiện</th>
-							<th>Mức khuyến mãi</th>
+							<th>Giảm</th>
 							<th>Từ ngày</th>
 							<th>Đến ngày</th>
 							<th>Status</th>
-							<th>Actions</th>
+							<th class="w-auto">Actions</th>
 						</tr>
 					</thead>
 					<tbody class="admin-promotion-list">
@@ -86,46 +87,37 @@
 								<li class="modal-row-item row align-items-center justify-content-between">
 									<label for="promotion-percent" class="col-sm-3 px-0 mb-0">Mức giảm:</label>
 									<div class="col-sm-8 px-0">
-										<input type="text" class="form-control" name="promotion-percent" id="promotion-percent">
+										<input type="number" class="form-control" name="promotion-percent" id="promotion-percent">
 									</div>
 								</li>
 								<li class="modal-row-item row align-items-center justify-content-between">
 									<label for="promotion-condition" class="col-sm-3 px-0 mb-0">Điều kiện:</label>
-									<div class="col-sm-8 px-0">
-										<input type="text" class="form-control" name="promotion-condition" id="promotion-condition">
+									<div class="input-group col-sm-8 px-0">
+										<div class="input-group-prepend">
+											<div class="input-group-text">≥</div>
+										</div>
+										<input type="number" class="form-control" name="promotion-condition" id="promotion-condition">
 									</div>
 								</li>
-								
+								<li class="modal-row-item row align-items-center justify-content-between">
+									<label for="promotion-date-from" class="col-sm-3 px-0 mb-0">Từ ngày:</label>
+									<div class="col-sm-8 px-0">
+										<input type="date" class="form-control" name="promotion-date-from" id="promotion-date-from">
+									</div>
+								</li>
+								<li class="modal-row-item row align-items-center justify-content-between">
+									<label for="promotion-date-to" class="col-sm-3 px-0 mb-0">Đến ngày:</label>
+									<div class="col-sm-8 px-0">
+										<input type="date" class="form-control" name="promotion-date-to" id="promotion-date-to">
+									</div>
+								</li>
+								<li class="modal-row-item row align-items-center justify-content-between">
+									<label for="promotion-status" class="col-sm-3 px-0 mb-0">Trạng thái:</label>
+									<div class="col-sm-8 px-0">
+										<input type="text" readonly class="form-control" name="promotion-status" id="promotion-status">
+									</div>
+								</li>
 							</ul>
-						</div>
-						<div class="modal-row">
-							<h5 class="modal-row-title">Thời gian khuyến mãi</h5>
-							<table class="modal-row-table">
-								<tbody>
-									<tr>
-										<td>Từ ngày	:</td>
-										<td>
-											<input type="date" class="form-control" name="promotion-date-from" id="promotion-date-from">
-										</td>
-										<td>
-											<button href="#addProductColorModal" data-toggle="modal" type="button" class="btn btn-outline-primary btn-ssm br-50 ml-2">
-												<i class="fa fa-calendar" aria-hidden="true"></i>
-											</button>
-										</td>
-									</tr>
-									<tr>
-										<td>Đến ngày:</td>
-										<td>
-											<input type="date" class="form-control" name="promotion-date-to" id="promotion-date-to">
-										</td>
-										<td>
-											<button href="#addProductColorModal" data-toggle="modal" type="button" class="btn btn-outline-primary btn-ssm br-50 ml-2">
-												<i class="fa fa-calendar" aria-hidden="true"></i>
-											</button>
-										</td>
-									</tr>
-								</tbody>
-							</table>
 						</div>
 						<div class="modal-footer">
 							<input type="button" class="btn btn-secondary" data-dismiss="modal" value="Hủy">
@@ -186,12 +178,12 @@
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 					</div>
 					<div class="modal-body">
-						<p>Are you sure you want to delete these Records?</p>
-						<p class="text-warning"><small>This action cannot be undone.</small></p>
+						<p>Bạn có chắc chắn muốn xóa khuyến mãi này không?</p>
+						<p class="text-warning"><small>Hành động này không thể hoàn tác.</small></p>
 					</div>
 					<div class="modal-footer">
 						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-						<input type="submit" class="btn btn-danger" value="Delete">
+						<input id="confirm-delete" type="submit" class="btn btn-danger" value="Delete">
 					</div>
 				</form>
 			</div>
