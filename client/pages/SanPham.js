@@ -209,7 +209,9 @@ async function renderHomePageProduct() {
                         </div>
                         <div class="product-info">
                             <div class="product-price">
-                                <p class="product-price-number">₫${formatCurrency(productDetail.gia_tien)}</p>
+                                <p class="product-price-number">
+                                    ${product.so_luong_ton > 0 ? `₫${formatCurrency(productDetail.gia_tien)}` : 'Hàng sắp về'}
+                                </p>
                             </div>
                             <div class="product-name">
                                 <p>${product.ten_sp} ${productDetail.ram} ${productDetail.rom}</p>
@@ -282,7 +284,9 @@ async function renderEndUserProduct() {
                         </div>
                         <div class="product-info">
                             <div class="product-price">
-                                <p class="product-price-number">₫${formatCurrency(productDetail.gia_tien)}</p>
+                                <p class="product-price-number">
+                                    ${product.so_luong_ton > 0 ? `₫${formatCurrency(productDetail.gia_tien)}` : 'Hàng sắp về'}
+                                </p>
                             </div>
                             <div class="product-name">
                                 <p>${product.ten_sp} ${productDetail.ram} ${productDetail.rom}</p>
@@ -416,7 +420,6 @@ async function renderProductInfo() {
 
     if (urlParams.has('san-pham') && productId) {
         const product = await getProductFullInfo(productId)
-        console.log(product)
 
         let html = `
             <div class="product-image-container">
@@ -466,9 +469,15 @@ async function renderProductInfo() {
         `
         $('.produt-info-left').html(html)
 
-        let rams = product.detail.map(productDetail => {return { ram: productDetail.ram, price: productDetail.price }})
-        let roms = product.detail.map(productDetail => {return { rom: productDetail.rom, price: productDetail.price }})
-        let colors = product.detail.map(productDetail => {return { id: productDetail.colorId, name: productDetail.color }})
+        let rams = product.detail
+            .filter(productDetail => productDetail.quantity > 0)
+            .map(productDetail => ({ ram: productDetail.ram, price: productDetail.price }))
+        let roms = product.detail
+            .filter(productDetail => productDetail.quantity > 0)
+            .map(productDetail => ({ rom: productDetail.rom, price: productDetail.price }))
+        let colors = product.detail
+            .filter(productDetail => productDetail.quantity > 0)
+            .map(productDetail => ({ id: productDetail.colorId, name: productDetail.color }))
 
         rams = removeDuplicateObject(rams, 'ram')
         roms = removeDuplicateObject(roms, 'rom')
