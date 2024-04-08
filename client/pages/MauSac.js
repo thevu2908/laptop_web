@@ -17,7 +17,7 @@ function loadColorData() {
                     html += `<option value="${item.ma_mau}">${item.ten_mau}</option>`
                 })
 
-                if ($('#admin-product-main #product-color').length > 0) {
+                if ($('#admin-product-main #product-color').length > 0 || $('#admin-product-detail-main #product-color').length > 0) {
                     $('#admin-product-main #product-color').html(html)
                     $('#admin-product-main #product-color').selectpicker('refresh')
                     $('#admin-product-detail-main #product-color').html(html)

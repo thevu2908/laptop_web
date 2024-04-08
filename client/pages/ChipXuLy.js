@@ -26,7 +26,7 @@ async function renderAdminCPU() {
     if (cpus && cpus.length > 0) {
         let html = ''
         cpus.forEach(cpu => html += `<option value="${cpu.ma_chip_xu_ly}">${cpu.ten_chip}</option>`)
-        if ($('#admin-product-main #product-cpu').length > 0) {
+        if ($('#admin-product-main #product-cpu').length > 0 || $('#admin-product-detail-main #product-cpu').length > 0) {
             $('#admin-product-main #product-cpu').html(html)
             $('#admin-product-main #product-cpu').selectpicker('refresh')
             $('#admin-product-detail-main #product-cpu').html(html)
