@@ -179,8 +179,11 @@ async function renderAdminProductTable(data) {
                         <a href="#deleteProductModal" class="delete btn-delete-product-modal" data-toggle="modal" data-id=${product.ma_sp}>
                             <i class="material-icons" data-toggle="tooltip" title="Xóa">&#xE872;</i>
                         </a>
-                        <a href="#viewProductModal" class="view btn-view-product-modal" title="View" data-toggle="modal" data-id=${product.ma_sp}>
+                        <a href="#viewProductModal" class="view btn-view-product-modal" data-toggle="modal" data-id=${product.ma_sp}>
                             <i class="material-icons" data-toggle="tooltip" title="Xem thông tin">&#xE417;</i>
+                        </a>
+                        <a href="/admin.php?controller=chitietsanpham&id=${product.ma_sp}" class="info btn-product-detail" data-id=${product.ma_sp}>
+                            <i class="fa-solid fa-circle-info" title="Chi tiết sản phẩm" ></i>
                         </a>
                     </td>
                 </tr>
@@ -563,6 +566,7 @@ function renderProductConfigModal(product, color, ram, rom) {
     $('.product-config-detail-img').attr('src', product.image)
     $('.product-config-modal .product-origin span').text(product.origin)
     $('.product-config-modal .product-brand span').text(product.brand)
+    $('.product-config-modal .product-type span').text(product.type)
     $('.product-config-modal .product-weight').text(`${product.weight} kg`)
     $('.product-config-modal .product-color').text(color)
     $('.product-config-modal .product-material').text(product.material)
@@ -1228,9 +1232,6 @@ function exportExcel() {
                     'Tên sản phẩm': product.name,
                     'Thương hiệu': product.brand,
                     'Loại sản phẩm': product.type,
-                    'Giá nhập': product.importPrice,
-                    'Chiết khấu': product.chietkhau,
-                    'Giá bán': product.price,
                     'Số lượng tồn': product.quantity,
                     'CPU': cpuName,
                     'Card đồ họa': gpuName,
