@@ -11,6 +11,7 @@ $(document).ready(() => {
     importExcel()
     exportExcel()
     searchAdminProduct()
+    handleFilterEndUserProduct()
 })
 
 function formatProduct(products) {
@@ -146,8 +147,8 @@ function renderProducts() {
         clickPage(renderAdminProductTable)
     } else if (window.location.pathname === '/index.php') {
         if (urlParams.has('san-pham')) {
-            renderEndUserProduct()
-            clickPage(renderEndUserProduct)
+            renderEndUserProductPage()
+            clickPage(renderEndUserProductList)
         } else {
             renderHomePageProduct()
         }
@@ -267,14 +268,20 @@ async function renderHomePageProduct() {
     }
 }
 
-async function renderEndUserProduct() {
+async function renderEndUserProductPage() {
     NProgress.start()
-    const currentPage = $('#currentpage').val()
-    const products = await getPaginationProducts(6)
+    renderEndUserProductFilter()
+    renderEndUserProductList()
+    renderFooter()
+    NProgress.done()
+}
 
-    if (products) {
+async function renderEndUserProductList(data) {
+    const products = data ? data : await getPaginationProducts(6)
+    console.log(products)
+    if (products && products.pagination && products.pagination.length > 0) {
+        const currentPage = $('#currentpage').val()
         let html = ''
-
         for (let product of products.pagination) {
             const productDetails = await getProductDetailByProductId(product.ma_sp)
             const productDetail = productDetails[0]
@@ -337,12 +344,8 @@ async function renderEndUserProduct() {
                 </div>
             `
         }
-
-        renderEndUserProductFilter()
         $('.product-main .product-list').html(html)
         enduserTotalPage(products.count, 6, currentPage)
-        renderFooter()
-        NProgress.done()
     }
 }
 
@@ -351,19 +354,26 @@ function renderEndUserProductFilter() {
         <div class="d-flex align-items-center sort-filter-container show-sort-filter">
             <i class="fa-solid fa-filter"></i>
             <div class="sort-filter-list">
-                <p class="sort-filter-item-default">Mặc định</p>
+                <p class="sort-filter-item-default">
+                    Mặc định
+                    <input type="hidden" value="">
+                </p>
                 <ul class="sort-filter-menu">
                     <li class="sort-filter-item active">
-                        <a class="sort-filter-item-link" href="index.php?san-pham&sort=default">Mặc định</a>
+                        <a class="sort-filter-item-link">Mặc định</a>
+                        <input type="hidden" value="" >
                     </li>
                     <li class="sort-filter-item">
-                        <a class="sort-filter-item-link" href="index.php?san-pham&sort=ban-chay">Bán chạy</a>
+                        <a class="sort-filter-item-link">Bán chạy</a>
+                        <input type="hidden" value="best-seller" >
                     </li>
                     <li class="sort-filter-item">
-                        <a class="sort-filter-item-link" href="index.php?san-pham&sort=gia-cao-thap">Giá từ cao đến thấp</a>
+                        <a class="sort-filter-item-link">Giá từ cao đến thấp</a>
+                        <input type="hidden" value="high-low" >
                     </li>
                     <li class="sort-filter-item">
-                        <a class="sort-filter-item-link" href="index.php?san-pham&sort=gia-thap-cao">Giá từ thấp đến cao</a>
+                        <a class="sort-filter-item-link">Giá từ thấp đến cao</a>
+                        <input type="hidden" value="low-high" >
                     </li>
                 </ul>
             </div>
@@ -376,45 +386,108 @@ function renderEndUserProductFilter() {
         <h5>Mức giá</h5>
         <div class="filter-list row">
             <div class="filter-item col-12">
-                <a href="index.php?san-pham" class="filter-item-link active">
+                <button href="index.php?san-pham" class="filter-item-link active">
                     <i class="fa-regular fa-square"></i>
                     Tất cả
-                </a>
+                    <input type="hidden" value="" >
+                </button>
             </div>
             <div class="filter-item col-12">
-                <a href="index.php?san-pham&muc-gia=duoi-10-trieu" class="filter-item-link">
+                <button class="filter-item-link">
                     <i class="fa-regular fa-square"></i>
                     Dưới 10 triệu
-                </a>
+                    <input type="hidden" value="<10" >
+                </button>
             </div>
             <div class="filter-item col-12">
-                <a href="index.php?san-pham&muc-gia=tu-10-15-trieu" class="filter-item-link">
+                <button class="filter-item-link">
                     <i class="fa-regular fa-square"></i>
                     Từ 10 - 15 triệu
-                </a>
+                    <input type="hidden" value="10-15" >
+                </button>
             </div>
             <div class="filter-item col-12">
-                <a href="index.php?san-pham&muc-gia=tu-15-20-trieu" class="filter-item-link">
+                <button class="filter-item-link">
                     <i class="fa-regular fa-square"></i>
                     Từ 15 - 20 triệu
-                </a>
+                    <input type="hidden" value="15-20" >
+                </button>
             </div>
             <div class="filter-item col-12">
-                <a href="index.php?san-pham&muc-gia=tu-20-25-trieu" class="filter-item-link">
+                <button class="filter-item-link">
                     <i class="fa-regular fa-square"></i>
                     Từ 20 - 25 triệu
-                </a>
+                    <input type="hidden" value="20-25" >
+                </button>
             </div>
             <div class="filter-item col-12">
-                <a href="index.php?san-pham&muc-gia=tren-25-trieu" class="filter-item-link">
+                <button class="filter-item-link">
                     <i class="fa-regular fa-square"></i>
                     Trên 25 triệu
-                </a>
+                    <input type="hidden" value=">25" >
+                </button>
             </div>
         </div>
     `)
 
     renderFilterCPU()
+}
+
+function filterProduct(brandId, price, cpu, search, order) {
+    const page = $('#currentpage').val()
+    $.ajax({
+        url: 'server/src/controller/SanPhamController.php',
+        method: 'GET',
+        data: { action: 'filter', brandId, price, cpu, search, order, page, limit: 6 },
+        dataType: 'JSON',
+        success: async products => {
+            if (products && products.pagination && products.pagination.length > 0) {
+                for (let product of products.pagination) {
+                    const plugs = await getProductDetailPlug(product.ma_ctsp)
+                    product.plugs = plugs.map(plug => plug.ten_cong)
+                }
+            }
+            products.pagination = formatProduct(products.pagination)
+            console.log(products)
+            renderEndUserProductList(products)
+        },
+        error: (xhr, status, error) => console.log(error)
+    })
+}
+
+function handleFilterEndUserProduct() {
+    let brandId = $('.filter-brand .filter-item-link.active').find('input').val() ? $('.filter-brand .filter-item-link.active').find('input').val() : ''
+    let price =  $('.filter-price .filter-item-link.active').find('input').val() ? $('.filter-price .filter-item-link.active').find('input').val() : ''
+    let cpu = $('.filter-cpu .filter-item-link.active').find('input').val() ? $('.filter-cpu .filter-item-link.active').find('input').val() : ''
+    let order = $('.sort-filter-container .sort-filter-item.active').find('input').val() ? $('.sort-filter-container .sort-filter-item.active').find('input').val() : ''
+    let search = ''
+
+    $(document).on('click', '.filter-brand .filter-item-link', function(e) {
+        $('.filter-brand .filter-item-link').removeClass('active')
+        $(this).addClass('active')
+        brandId = $(this).find('input').val()
+        filterProduct(brandId, price, cpu, search, order)
+    })
+    $(document).on('click', '.filter-price .filter-item-link', function(e) {
+        $('.filter-price .filter-item-link').removeClass('active')
+        $(this).addClass('active')
+        price = $(this).find('input').val()
+        filterProduct(brandId, price, cpu, search, order)
+    })
+    $(document).on('click', '.filter-cpu .filter-item-link', function(e) {
+        $('.filter-cpu .filter-item-link').removeClass('active')
+        $(this).addClass('active')
+        cpu = $(this).find('input').val()
+        filterProduct(brandId, price, cpu, search, order)
+    })
+    $(document).on('click', '.sort-filter-container .sort-filter-item', function(e) {
+        $('.sort-filter-container .sort-filter-item').removeClass('active')
+        $(this).addClass('active')
+        const text = $(this).find('a').text()
+        const order = $(this).find('input').val()
+        $('.sort-filter-container .sort-filter-item-default').html(`${text} <input type="hidden" value="${order}">`)
+        filterProduct(brandId, price, cpu, search, order)
+    })
 }
 
 async function renderProductInfo() {

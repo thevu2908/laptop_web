@@ -82,10 +82,17 @@ class SanPhamController {
             echo 'no image updated';
         }
     }
+
+    public function filterProducts($brandId, $startPrice, $endPrice, $cpu, $search, $orderBy, $orderType, $start, $limit) {
+        echo json_encode([
+            'count' => $this->sanPhamRepo->getFilterProductsCount($brandId, $startPrice, $endPrice, $cpu, $search, $orderBy, $orderType),
+            'pagination' => $this->sanPhamRepo->filterProducts($brandId, $startPrice, $endPrice, $cpu, $search, $orderBy, $orderType, $start, $limit)
+        ]);
+    }
 }
 
 $sanPhamCtl = new SanPhamController();
-$action = $_POST['action'];
+$action = $_REQUEST['action'];
 
 switch ($action) {
     case 'get-data':
@@ -178,6 +185,72 @@ switch ($action) {
                 $sanPhamCtl->saveImage("fileInputName", $name);
             }
         }
+        break;
+    case 'filter':
+        $brandId = $_GET['brandId'];
+        $price = $_GET['price'];
+        $cpu = $_GET['cpu'];
+        $search = $_GET['search'];
+        $order = $_GET['order'];
+        $page = $_GET['page'];
+        $limit = $_GET['limit'];
+        $start = ($page - 1) * $limit;
+        $startPrice = 0;
+        $endPrice = PHP_INT_MAX;
+        $orderBy = 'sp.ma_sp';
+        $orderType = 'ASC';
+        
+        switch ($price) {
+            case '':
+                $startPrice = 0;
+                $endPrice = PHP_INT_MAX;
+                break;
+            case '<10':
+                $startPrice = 0;
+                $endPrice = 10000000 + 1;
+                break;
+            case '10-15':
+                $startPrice = 10000000;
+                $endPrice = 15000000;
+                break;
+            case '15-20':
+                $startPrice = 15000000;
+                $endPrice = 20000000;
+                break;
+            case '20-25':
+                $startPrice = 20000000;
+                $endPrice = 25000000;
+                break;
+            case '>25':
+                $startPrice = 25000000 + 1;
+                $endPrice = 100000000;
+                break;
+            default:
+                $startPrice = 0;
+                $endPrice = PHP_INT_MAX;
+                break;
+        }
+
+        switch ($order) {
+            case '':
+                $orderBy = 'sp.ma_sp';
+                $orderType = 'ASC';
+                break;
+            case 'high-low':
+                $orderBy = 'ctsp.gia_tien';
+                $orderType = 'DESC';
+                break;
+            case 'low-high':
+                $orderBy = 'ctsp.gia_tien';
+                $orderType = 'ASC';
+                break;
+            default:
+                $orderBy = 'sp.ma_sp';
+                $orderType = 'ASC';
+                break;
+        }
+
+        $sanPhamCtl->filterProducts($brandId, $startPrice, $endPrice, $cpu, $search, $orderBy, $orderType, $start, $limit);
         break;
     default:
         break;
