@@ -10,13 +10,13 @@ class SearchController {
         $this->searchRepo = new SearchRepo();
     }
 
-    public function search($search, $table, $start, $limit) {
+    public function search($search, $table, $start, $limit, $id) {
         $results = [];
-        $data = $this->searchRepo->search($search, $table, $start, $limit);
+        $data = $this->searchRepo->search($search, $table, $start, $limit, $id);
         foreach ($data as $item) {
             if ($item['trang_thai'] == 0) $results[] = $item;
         }
-        echo json_encode(['count'=>$this->searchRepo->getCount($table, $search), "pagination"=>$results]);
+        echo json_encode(['count'=>$this->searchRepo->getCount($table, $search, $id), "pagination"=>$results]);
     }
 }
 
@@ -29,8 +29,9 @@ switch ($action) {
         $table = $_GET['table'];
         $page = !empty($_GET['page']) ? $_GET['page'] : 1;
         $limit = isset($_GET['$limit']) ? $_GET['limit'] : 8;
+        $id = isset($_GET['id']) ? $_GET['id'] : '';
         $start = ($page - 1) * $limit;
-        $searchController->search($search, $table, $start, $limit);
+        $searchController->search($search, $table, $start, $limit, $id);
         break;
     default:
         break;

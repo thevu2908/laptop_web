@@ -1,5 +1,6 @@
 $(document).ready(() => {
     renderAccountData(null)
+    clickPage(renderAccountData)
     handleAddAccount()
     showUpdateAccountModal()
     handleUpdateAccount()

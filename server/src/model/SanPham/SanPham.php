@@ -10,9 +10,6 @@ class SanPham {
     private $do_phan_giai;
     private $pin;
     private $ban_phim;
-    private $gia_ban;
-    private $gia_nhap;
-    private $chiet_khau;
     private $trong_luong;
     private $chat_lieu;
     private $xuat_xu;
@@ -20,7 +17,7 @@ class SanPham {
     private $trang_thai;
 
     // Constructor
-    public function __construct($ma_sp, $ma_thuong_hieu, $ma_the_loai, $ma_hdh, $ten_sp, $hinh_anh, $kich_co_man_hinh, $do_phan_giai, $pin, $ban_phim, $gia_ban, $gia_nhap, $chiet_khau, $trong_luong, $chat_lieu, $xuat_xu, $so_luong_ton, $trang_thai) {
+    public function __construct($ma_sp, $ma_thuong_hieu, $ma_the_loai, $ma_hdh, $ten_sp, $hinh_anh, $kich_co_man_hinh, $do_phan_giai, $pin, $ban_phim, $trong_luong, $chat_lieu, $xuat_xu, $so_luong_ton, $trang_thai) {
         $this->ma_sp = $ma_sp;
         $this->ma_thuong_hieu = $ma_thuong_hieu;
         $this->ma_the_loai = $ma_the_loai;
@@ -31,9 +28,6 @@ class SanPham {
         $this->do_phan_giai = $do_phan_giai;
         $this->pin = $pin;
         $this->ban_phim = $ban_phim;
-        $this->gia_ban = $gia_ban;
-        $this->gia_nhap = $gia_nhap;
-        $this->chiet_khau = $chiet_khau;
         $this->trong_luong = $trong_luong;
         $this->chat_lieu = $chat_lieu;
         $this->xuat_xu = $xuat_xu;
@@ -82,18 +76,6 @@ class SanPham {
         return $this->ban_phim;
     }
 
-    public function getGiaBan() {
-        return $this->gia_ban;
-    }
-
-    public function getGiaNhap() {
-        return $this->gia_nhap;
-    }
-
-    public function getChietKhau() {
-        return $this->chiet_khau;
-    }
-
     public function getTrongLuong() {
         return $this->trong_luong;
     }
@@ -114,4 +96,3 @@ class SanPham {
         return $this->trang_thai;
     }
 }
-?>

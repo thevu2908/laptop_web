@@ -1,3 +1,3 @@
 function formatCurrency(number) {
-    return number.toLocaleString('en-US').replace(/,/g, '.');
+    return Number(number).toLocaleString('en-US').replace(/,/g, '.')
 }

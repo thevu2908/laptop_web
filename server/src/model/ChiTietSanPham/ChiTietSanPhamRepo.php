@@ -33,11 +33,12 @@ class ChiTietSanPhamRepo extends ConnectDB {
 
     public function getProductDetailByProductId($productId) {
         try {
-            $query = "SELECT ctsp.*, ten_mau, ten_chip, ten_card, ram, rom FROM chitietsanpham ctsp 
-                        JOIN mausac ms ON ctsp.ma_mau = ms.ma_mau
-                        JOIN chipxuly cxl ON ctsp.ma_chip_xu_ly = cxl.ma_chip_xu_ly
-                        JOIN carddohoa cdh ON ctsp.ma_carddohoa = cdh.ma_card
-                        WHERE ma_sp = '$productId' AND ctsp.trang_thai = '0'
+            $query = "
+                SELECT ctsp.*, ten_mau, ten_chip, ten_card, ram, rom FROM chitietsanpham ctsp 
+                JOIN mausac ms ON ctsp.ma_mau = ms.ma_mau
+                JOIN chipxuly cxl ON ctsp.ma_chip_xu_ly = cxl.ma_chip_xu_ly
+                JOIN carddohoa cdh ON ctsp.ma_carddohoa = cdh.ma_card
+                WHERE ma_sp = '$productId' AND ctsp.trang_thai = '0'
             ";
             $statement = mysqli_query($this->conn, $query);
 
@@ -69,7 +70,7 @@ class ChiTietSanPhamRepo extends ConnectDB {
 
     public function addProductDetail($productDetail) : bool {
         try {
-            $query = "INSERT INTO chitietsanpham(ma_ctsp, ma_sp, ma_chip_xu_ly, ma_mau, ma_carddohoa, ram, rom, gia_tien, so_luong, trang_thai) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 0)";
+            $query = "INSERT INTO chitietsanpham(ma_ctsp, ma_sp, ma_chip_xu_ly, ma_mau, ma_carddohoa, ram, rom, gia_nhap, chiet_khau, gia_tien, so_luong, trang_thai) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0)";
             $statement = mysqli_prepare($this->conn, $query);
 
             if (!$statement) {
@@ -83,14 +84,16 @@ class ChiTietSanPhamRepo extends ConnectDB {
             $gpuId = $productDetail->getMaCardDoHoa();
             $ram = $productDetail->getRam();
             $rom = $productDetail->getRom();
+            $importPrice = $productDetail->getGiaNhap();
+            $chietkhau = $productDetail->getChietKhau();
             $price = $productDetail->getGiaTien();
             $quantity = $productDetail->getSoLuong();
 
             $result = $statement->bind_param(
-                "sssssssdi", 
+                "sssssssdddi", 
                 $productDetailId, $productId, $cpuId, $colorId, $gpuId,
                 $ram, $rom,
-                $price, $quantity
+                $importPrice, $chietkhau, $price, $quantity
             );
             
             if (!$result) {
@@ -102,6 +105,28 @@ class ChiTietSanPhamRepo extends ConnectDB {
             } else {
                 throw new Exception("Execution of query failed: " . mysqli_error($this->conn));
             }
+        } catch (Exception $e) {
+            echo 'Error: ' . $e->getMessage() . '<br>';
+            return false;
+        }
+    }
+
+    public function updateProductDetailPrice($productDetailId, $chietkhau, $price) {
+        try {
+            $query = "UPDATE chitietsanpham SET chiet_khau = ?, gia_tien = ? WHERE ma_ctsp = ?";
+            $statement = mysqli_prepare($this->conn, $query);
+
+            if (!$statement) {
+                throw new Exception("Query preparation failed: " . mysqli_error($this->conn));
+            }
+
+            $result = $statement->bind_param("dds", $chietkhau, $price, $productDetailId);
+
+            if (!$result) {
+                throw new Exception("Binding parameters failed: " . $statement->error);
+            }
+
+            return $statement->execute();
         } catch (Exception $e) {
             echo 'Error: ' . $e->getMessage() . '<br>';
             return false;

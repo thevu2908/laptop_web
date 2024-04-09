@@ -18,7 +18,7 @@ function loadPlugData() {
                     html += `<option value="${item.ma_cong}">${item.ten_cong}</option>`
                 })
 
-                if ($('#admin-product-main #product-plug').length > 0) {
+                if ($('#admin-product-main #product-plug').length > 0 || $('#admin-product-detail-main #product-plug').length > 0) {
                     $('#admin-product-main #product-plug').html(html)
                     $('#admin-product-main #product-plug').selectpicker('refresh')
                     $('#admin-product-detail-main #product-plug').html(html)

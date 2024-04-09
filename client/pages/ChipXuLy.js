@@ -26,7 +26,7 @@ async function renderAdminCPU() {
     if (cpus && cpus.length > 0) {
         let html = ''
         cpus.forEach(cpu => html += `<option value="${cpu.ma_chip_xu_ly}">${cpu.ten_chip}</option>`)
-        if ($('#admin-product-main #product-cpu').length > 0) {
+        if ($('#admin-product-main #product-cpu').length > 0 || $('#admin-product-detail-main #product-cpu').length > 0) {
             $('#admin-product-main #product-cpu').html(html)
             $('#admin-product-main #product-cpu').selectpicker('refresh')
             $('#admin-product-detail-main #product-cpu').html(html)
@@ -39,52 +39,60 @@ function renderFilterCPU() {
         <h5>CPU</h5>
         <div class="filter-list row">
             <div class="filter-item col-12">
-                <a href="index.php?san-pham" class="filter-item-link active">
+                <button class="filter-item-link active">
                     <i class="fa-regular fa-square"></i>
                     Tất cả
-                </a>
+                    <input type="hidden" value="" >
+                </button>
             </div>
             <div class="filter-item col-12">
-                <a href="index.php?san-pham&cpu=intel-core-i3" class="filter-item-link">
+                <button class="filter-item-link">
                     <i class="fa-regular fa-square"></i>
                     Intel core i3
-                </a>
+                    <input type="hidden" value="i3" >
+                </button>
             </div>
             <div class="filter-item col-12">
-                <a href="index.php?san-pham&cpu=intel-core-i5" class="filter-item-link">
+                <button class="filter-item-link">
                     <i class="fa-regular fa-square"></i>
                     Intel core i5
-                </a>
+                    <input type="hidden" value="i5" >
+                </button>
             </div>
             <div class="filter-item col-12">
-                <a href="index.php?san-pham&cpu=intel-core-i7" class="filter-item-link">
+                <button class="filter-item-link">
                     <i class="fa-regular fa-square"></i>
                     Intel core i7
-                </a>
+                    <input type="hidden" value="i7" >
+                </button>
             </div>
             <div class="filter-item col-12">
-                <a href="index.php?san-pham&cpu=intel-core-i7" class="filter-item-link">
+                <button class="filter-item-link">
                     <i class="fa-regular fa-square"></i>
                     Intel core i9
-                </a>
+                    <input type="hidden" value="i9" >
+                </button>
             </div>
             <div class="filter-item col-12">
-                <a href="index.php?san-pham&cpu=amd-ryzen-3" class="filter-item-link">
+                <button class="filter-item-link">
                     <i class="fa-regular fa-square"></i>
                     AMD ryzen 3
-                </a>
+                    <input type="hidden" value="r3" >
+                </button>
             </div>
             <div class="filter-item col-12">
-                <a href="index.php?san-pham&cpu=amd-ryzen-5" class="filter-item-link">
+                <button class="filter-item-link">
                     <i class="fa-regular fa-square"></i>
                     AMD ryzen 5
-                </a>
+                    <input type="hidden" value="r5" >
+                </button>
             </div>
             <div class="filter-item col-12">
-                <a href="index.php?san-pham&cpu=amd-ryzen-7" class="filter-item-link">
+                <button class="filter-item-link">
                     <i class="fa-regular fa-square"></i>
                     AMD ryzen 7
-                </a>
+                    <input type="hidden" value="r7" >
+                </button>
             </div>
         </div>
     `)

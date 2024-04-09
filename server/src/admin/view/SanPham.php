@@ -44,9 +44,6 @@
 							<th>ID</th>
 							<th>Tên sản phẩm</th>
 							<th>Thương hiệu</th>
-							<th>Giá nhập</th>
-							<th>Chiết khấu(%)</th>
-							<th>Giá bán</th>
 							<th>Số lượng tồn</th>
 							<th>Actions</th>
 						</tr>
@@ -151,7 +148,7 @@
 									<tr>
 										<td>Màu sắc:</td>
 										<td>
-											<select id="product-color" class="form-control selectpicker" multiple data-live-search="true">
+											<select id="product-color" class="form-control selectpicker" data-size="5" multiple data-live-search="true" data-live-search="startsWith">
 
 											</select>
 										</td>
@@ -177,7 +174,7 @@
 									<tr>
 										<td>CPU:</td>
 										<td>
-											<select id="product-cpu" class="form-control selectpicker" multiple data-live-search="true">
+											<select id="product-cpu" class="form-control selectpicker" data-size="5" multiple data-live-search="true" data-live-search="startsWith">
 
 											</select>
 										</td>
@@ -248,7 +245,7 @@
 									<tr>
 										<td>Card đồ họa:</td>
 										<td>
-											<select id="product-gpu" class="form-control selectpicker" multiple data-live-search="true">
+											<select id="product-gpu" class="form-control selectpicker" data-size="5" multiple data-live-search="true" data-live-search="startsWith">
 
 											</select>
 										</td>
@@ -271,7 +268,7 @@
 									<tr>
 										<td>Cổng kết nối:</td>
 										<td>
-											<select id="product-plug" class="form-control selectpicker" multiple data-live-search="true">
+											<select id="product-plug" class="form-control selectpicker" data-size="5" multiple data-live-search="true" data-live-search="startsWith">
 
 											</select>
 										</td>
@@ -413,29 +410,6 @@
 									<button href="#deleteProductTypeModal" data-toggle="modal" type="button" class="btn-open-delete-type-modal btn btn-outline-danger btn-ssm br-50 ml-1">
 										<i class="fa-solid fa-minus"></i>
 									</button>
-								</li>
-							</ul>
-						</div>
-						<div class="modal-row">
-							<h5 class="modal-row-title">Giá:</h5>
-							<ul class="modal-row-list">
-								<li class="modal-row-item row align-items-center">
-									<label for="product-import-price" class="col-sm-3 px-0 mb-0">Giá nhập:</label>
-									<div class="col-sm-8 px-0">
-										<input type="number" class="form-control" name="product-import-price" id="product-import-price" disabled>
-									</div>
-								</li>
-								<li class="modal-row-item row align-items-center">
-									<label for="product-chietkhau" class="col-sm-4 px-0 mb-0">Chiết khấu(%):</label>
-									<div class="col-sm-8 px-0">
-										<input type="number" class="form-control" name="product-chietkhau" id="product-chietkhau">
-									</div>
-								</li>
-								<li class="modal-row-item row align-items-center">
-									<label for="product-price" class="col-sm-3 px-0 mb-0">Giá bán:</label>
-									<div class="col-sm-8 px-0">
-										<input type="number" class="form-control" name="product-price" id="product-price" disabled>
-									</div>
 								</li>
 							</ul>
 						</div>

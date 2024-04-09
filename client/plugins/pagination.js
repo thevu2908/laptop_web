@@ -1,12 +1,8 @@
-function totalPage(count){
-  let total = count;
-  console.log(total);
-  let totalpages = Math.ceil(parseInt(total) / 8);
-  const currentpage = $("#currentpage").val();
-  $("#cur").text(currentpage);
-  $("#total").text(totalpages);
-  console.log(currentpage);
-  pagination(totalpages, currentpage);
+function totalPage(count, perPage = 8) {
+    let total = count
+    let totalpages = Math.ceil(parseInt(total) / perPage)
+    const currentpage = $("#currentpage").val()
+    pagination(totalpages, currentpage)
 }
 function pagination(totalpages, currentpage) {
     var pagelist = ""

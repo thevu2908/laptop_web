@@ -1,5 +1,5 @@
 <main id="admin-product-detail-main">
-    <div class="container-xl">
+    <div class="px-3">
         <div class="table-responsive">
             <div class="table-wrapper">
                 <div class="table-title">
@@ -49,7 +49,9 @@
                             <th>RAM</th>
                             <th>ROM</th>
                             <th>Cổng kết nối</th>
-                            <th>Giá</th>
+							<th>Giá nhập</th>
+							<th>Chiết khấu(%)</th>
+                            <th>Giá bán</th>
                             <th>Số lượng tồn</th>
                             <th>Actions</th>
                         </tr>
@@ -60,29 +62,10 @@
                 </table>
                 <div class="clearfix">
                     <div class="hint-text">Hiển thị <b>5</b> trong <b>25</b> chi tiết</div>
-                    <ul class="pagination">
-                        <li class="page-item disabled">
-                            <a href="#">Previous</a>
-                        </li>
-                        <li class="page-item active">
-                            <a href="#" class="page-link">1</a>
-                        </li>
-                        <li class="page-item">
-                            <a href="#" class="page-link">2</a>
-                        </li>
-                        <li class="page-item">
-                            <a href="#" class="page-link">3</a>
-                        </li>
-                        <li class="page-item">
-                            <a href="#" class="page-link">4</a>
-                        </li>
-                        <li class="page-item">
-                            <a href="#" class="page-link">5</a>
-                        </li>
-                        <li class="page-item">
-                            <a href="#" class="page-link">Next</a>
-                        </li>
-                    </ul>
+                    <div id="pagination">
+						
+					</div>
+					<input type="hidden" name="currentpage" id="currentpage" value="1">
                 </div>
             </div>
         </div>
@@ -104,7 +87,7 @@
 									<tr>
 										<td>Màu sắc:</td>
 										<td>
-											<select id="product-color" class="form-control">
+											<select id="product-color" class="selectpicker" data-size="5" data-live-search="true" data-live-search-style="startsWith">
 												
 											</select>
 										</td>
@@ -124,7 +107,7 @@
 									<tr>
 										<td>CPU:</td>
 										<td>
-											<select id="product-cpu" class="form-control">
+											<select id="product-cpu" class="selectpicker" data-size="5" data-live-search="true" data-live-search-style="startsWith">
 												
 											</select>
 										</td>
@@ -176,7 +159,7 @@
 									<tr>
 										<td>Card đồ họa:</td>
 										<td>
-											<select id="product-gpu" class="form-control">
+											<select id="product-gpu" class="selectpicker" data-size="5" data-live-search="true" data-live-search-style="startsWith">
 												
 											</select>
 										</td>
@@ -199,7 +182,7 @@
 									<tr>
 										<td>Cổng kết nối:</td>
 										<td>
-											<select id="product-plug" class="form-control selectpicker" multiple data-live-search="true">
+											<select id="product-plug" class="form-control selectpicker" data-size="5" multiple data-live-search="true" data-live-search-style="startsWith">
 												
 											</select>
 										</td>
@@ -221,6 +204,37 @@
 					<input type="button" class="btn btn-secondary" data-dismiss="modal" value="Hủy">
 					<input type="button" class="btn btn-primary btn-add-product-detail" value="Thêm">
 				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="editProductDetailModal" class="modal fade" data-backdrop="static">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<form>
+					<div class="modal-header">
+						<h4 class="modal-title">Sửa thông tin <b class="product-detail-id"></b></h4>
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					</div>
+					<div class="modal-body">
+						<div class="form-group">
+							<label for="product-detail-import-price">Giá nhập</label>
+							<input type="number" class="form-control" id="product-detail-import-price" disabled >
+						</div>
+						<div class="form-group">
+							<label for="product-detail-chietkhau">Chiết khấu(%)</label>
+							<input type="number" class="form-control" id="product-detail-chietkhau" >
+						</div>
+						<div class="form-group">
+							<label for="product-detail-price">Giá bán</label>
+							<input type="number" class="form-control" id="product-detail-price" disabled >
+						</div>
+					</div>
+					<div class="modal-footer">
+						<input type="button" class="btn btn-secondary" data-dismiss="modal" value="Hủy">
+						<input type="button" class="btn btn-primary btn-update-product-detail" value="Lưu">
+					</div>
+				</form>
 			</div>
 		</div>
 	</div>

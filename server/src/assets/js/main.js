@@ -22,14 +22,9 @@ if (showhidePassword) {
 }
 
 // show filter product
-const showSortFilter = document.querySelector('.show-sort-filter')
-const sortFilterList = document.querySelector('.sort-filter-menu')
-
-if (showSortFilter) {
-    showSortFilter.addEventListener('click', e => {
-        sortFilterList.classList.toggle('active')
-    })
-}
+$(document).on('click', '.show-sort-filter', e => {
+    document.querySelector('.sort-filter-menu').classList.toggle('active')
+})
 
 // add quantity
 $('input.input-qty').each(function () {
