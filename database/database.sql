@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 08, 2024 at 09:35 AM
+-- Generation Time: Apr 09, 2024 at 10:02 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -275,7 +275,7 @@ CREATE TABLE `chitietkhuyenmai` (
 
 CREATE TABLE `chitietphieubaohanh` (
   `ma_pbh` varchar(20) NOT NULL,
-  `ma_ctsp` varchar(20) NOT NULL,
+  `ma_imei` varchar(20) NOT NULL,
   `ly_do` varchar(150) NOT NULL,
   `noi_dung_bao_hanh` varchar(150) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -390,7 +390,7 @@ INSERT INTO `chitietsanpham` (`ma_ctsp`, `ma_sp`, `ma_chip_xu_ly`, `ma_mau`, `ma
 ('CTSP0041', 'SP027', 'CXL019', '#ADD8E6', 'CDH004', '16GB', '1TB', 34990000, 5, 36739500, 5, 0),
 ('CTSP0042', 'SP028', 'CXL012', '#000', 'CDH016', '64GB', '2TB', 120000000, 5, 126000000, 5, 0),
 ('CTSP0043', 'SP029', 'CXL018', '#00008B', 'CDH017', '32GB', '1TB', 33190000, 5, 34849500, 5, 0),
-('CTSP0044', 'SP030', 'CXL020', '#c0c0c0', 'CDH008', '16GB', '512GB', 20490000, 5, 21514500, 5, 0);
+('CTSP0044', 'SP030', 'CXL020', '#c0c0c0', 'CDH008', '16GB', '512GB', 20490000, 5, 21514500, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -1540,7 +1540,7 @@ INSERT INTO `sanpham` (`ma_sp`, `ma_thuong_hieu`, `ma_the_loai`, `ma_hdh`, `ten_
 ('SP027', 'TH002', 'TL002', 'HDH001', 'Acer Swift Edge SFA', 'server/src/assets/images/products/SP027.png', '16 inch', '3840 x 2400 Pixels', 'Lithium-ion 3 viên', 'Bàn phím cứng', 1.1, 'Nhựa + Nhôm', 'Trung Quốc', 5, 0),
 ('SP028', 'TH003', 'TL001', 'HDH001', 'Asus ROG Strix Scar 18 Gaming', 'server/src/assets/images/products/SP028.png', '18 inch', '2560 x 1600 Pixels', 'Lithium polymer', 'Backlit Chiclet Keyboard', 3.1, 'Kim loại', 'Trung Quốc', 5, 0),
 ('SP029', 'TH003', 'TL002', 'HDH001', 'Asus Zenbook 14', 'server/src/assets/images/products/SP029.png', '14 inch', '2880 x 1800 Pixels', 'Lithium polymer', 'Backlit Chiclet Keyboard', 1.2, 'Nhôm', 'Trung Quốc', 5, 0),
-('SP030', 'TH004', 'TL002', 'HDH001', 'HP ProBook 440 G10', 'server/src/assets/images/products/SP030.png', '14 inch', '1920 x 1080 Pixels', 'Lithium-ion', 'Chiclet Keyboard', 1.38, 'Kim loại', 'Trung Quốc', 5, 0);
+('SP030', 'TH004', 'TL002', 'HDH001', 'HP ProBook 440 G10', 'server/src/assets/images/products/SP030.png', '14 inch', '1920 x 1080 Pixels', 'Lithium-ion', 'Chiclet Keyboard', 1.38, 'Kim loại', 'Trung Quốc', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -12286,8 +12286,8 @@ ALTER TABLE `chitietkhuyenmai`
 -- Indexes for table `chitietphieubaohanh`
 --
 ALTER TABLE `chitietphieubaohanh`
-  ADD PRIMARY KEY (`ma_pbh`,`ma_ctsp`),
-  ADD KEY `ctpbh_fk_ctsp` (`ma_ctsp`);
+  ADD PRIMARY KEY (`ma_pbh`,`ma_imei`),
+  ADD KEY `ctpbh_fk_ctsp` (`ma_imei`);
 
 --
 -- Indexes for table `chitietphieudoitra`
@@ -12544,7 +12544,7 @@ ALTER TABLE `chitietkhuyenmai`
 -- Constraints for table `chitietphieubaohanh`
 --
 ALTER TABLE `chitietphieubaohanh`
-  ADD CONSTRAINT `ctpbh_fk_ctsp` FOREIGN KEY (`ma_ctsp`) REFERENCES `chitietsanpham` (`ma_ctsp`),
+  ADD CONSTRAINT `ctpbh_fk_imei` FOREIGN KEY (`ma_imei`) REFERENCES `ctsp_imei` (`ma_imei`),
   ADD CONSTRAINT `ctpbh_fk_pbh` FOREIGN KEY (`ma_pbh`) REFERENCES `phieubaohanh` (`ma_pbh`);
 
 --
