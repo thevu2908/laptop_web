@@ -125,14 +125,14 @@ function kiemtraquyen($arr,$chucnang){
         </a>
       </li>";
       }
-      // if(kiemtraquyen($arr,"Đổi Trả") && $chitietquyen->kiemtrahangdong($maquyen,"Đổi Trả","Xem")){
-      //   echo " <li class='side-menu-item ".( $page === 'doitra' ? 'active' : '')."'>
-      //   <a href='/admin.php?controller=doitra' class='nav-link'>
-      //     <i class='fas fa-message'></i>
-      //     <span class='text'>Đổi Trả</span>
-      //   </a>
-      // </li>";
-      // }
+      if(kiemtraquyen($arr,"Đổi Trả") && $chitietquyen->kiemtrahangdong($maquyen,"Đổi Trả","Xem")){
+        echo " <li class='side-menu-item ".( $page === 'doitra' ? 'active' : '')."'>
+        <a href='/admin.php?controller=doitra' class='nav-link'>
+          <i class='fas fa-message'></i>
+          <span class='text'>Đổi Trả</span>
+        </a>
+      </li>";
+      }
       if(kiemtraquyen($arr,"Thống Kê") && $chitietquyen->kiemtrahangdong($maquyen,"Thống Kê","Xem")){
         echo " <li class='side-menu-item ".( $page === 'thongke' ? 'active' : '')."'>
         <a href='/admin.php?controller=thongke' class='nav-link'>

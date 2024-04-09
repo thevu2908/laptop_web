@@ -93,18 +93,18 @@ function addPhanQuyen(){
     //     })
     // })
     getAllListNhomQuyen()
-    getAllListChucNang()
+    selectChangeItem()
     $(document).on("click","#add_PhanQuyen",function(){
         var maquyen=$("#admin-select-MaNhomQuyen").val();
         console.log(maquyen)
         console.log(listitemAdd)
         $.ajax({
             url: "server/src/controller/CTQuyenController.php",
-            data: {action:"add",maquyen:maquyen,listitemAdd:listitemAdd},
+            data: {action:"addMul",maquyen:maquyen,listitemAdd:listitemAdd},
             method: "post",
             success: function (data) {
                 //$("form").reset();
-                //$("#addPhanQuyenModal").modal("hide");
+                $("#addMulPhanQuyen").modal("hide");
                 loadPhanQuyen();
             }
         })
@@ -150,10 +150,16 @@ function getAllListNhomQuyen(){
 
     })
 }
-function getAllListChucNang(){
+function selectChangeItem(){
+    $(document).on("change","#admin-select-MaNhomQuyen",function(){
+        console.log($(this).val());
+        getAllListChucNang($(this).val());
+    })
+}
+function getAllListChucNang($maquyen){
     $.ajax({
-        url: "server/src/controller/ChucNangQuyenController.php",
-        data: {action:"get"},
+        url: "server/src/controller/CTQuyenController.php",
+        data: {action:"dschucnang",maquyen:$("#admin-select-MaNhomQuyen").val()},
         method: "post",
         success: function (data) {
             var jsonData=JSON.parse(data);
@@ -195,6 +201,7 @@ function deletePhanQuyen(){
                        pagination(totalPages, currentPage);
                     }
                 })
+                location.reload();
             })
         }
     })
@@ -209,8 +216,11 @@ function change(checkbox){
     } else {
         update("update",maquyen,machucnang,hanhdong);
     }
-    if((!isChecked || isChecked) && hanhdong==="Xem"){
-        location.reload();
+    console.log($("#admin-nhomquyen"))
+    if($("#admin-nhomquyen").val()===maquyen){
+        if((!isChecked || isChecked) && hanhdong==="Xem"){
+            location.reload();
+        }
     }
 }
 function update(action,maquyen,machucnang,hanhdong){
@@ -247,4 +257,5 @@ function addMulChucNang(checkbox){
             listitemAdd.splice(indexToAdd, 1);
         }
     }
+    console.log(listitemAdd)
 }

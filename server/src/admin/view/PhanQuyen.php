@@ -11,8 +11,8 @@
                             </select>
 						</div>
 						<div class="col-sm-6">
-							<a href="#" class="btn btn-secondary"><i class="material-icons">&#xE24D;</i> <span>Import Excel</span></a>
-							<a href="#" class="btn btn-secondary"><i class="material-icons">&#xE24D;</i> <span>Export Excel</span></a>
+							<!-- <a href="#" class="btn btn-secondary"><i class="material-icons">&#xE24D;</i> <span>Import Excel</span></a>
+							<a href="#" class="btn btn-secondary"><i class="material-icons">&#xE24D;</i> <span>Export Excel</span></a> -->
 							<!-- <a href="#addPhanQuyenModal" id="admin-add-phanquyen" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Thêm</span></a> -->
 							<a href="#addMulPhanQuyen" id="admin-add-phanquyen" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Thêm</span></a>
 							<a href="#deletePhanQuyenModal" class="btn btn-danger delete" data-toggle="modal" id="admin-delete-phanquyen"><i class="material-icons">&#xE15C;</i> <span>Xóa</span></a>

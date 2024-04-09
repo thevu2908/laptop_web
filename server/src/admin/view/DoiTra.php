@@ -8,11 +8,7 @@
 							<h2>Quản Lý <b id="ad-NhomQuyen">Đổi Trả</b></h2>
 						</div>
 						<div class="col-sm-6">
-							<a href="#" class="btn btn-secondary"><i class="material-icons">&#xE24D;</i> <span>Import
-									Excel</span></a>
-							<a href="#" class="btn btn-secondary"><i class="material-icons">&#xE24D;</i> <span>Export
-									Excel</span></a>
-							<a href="#addNhomQuyen" id="add_NhomQuyen" class="btn btn-success add" data-toggle="modal"><i
+							<a href="#adminDoiTra" id="add_NhomQuyen" class="btn btn-success add" data-toggle="modal"><i
 									class="material-icons">&#xE147;</i> <span>Thêm</span></a>
 							<a href="#deleteNhomQuyen" class="btn btn-danger delete" data-toggle="modal"><i
 									class="material-icons">&#xE15C;</i> <span>Xóa</span></a>
@@ -51,40 +47,138 @@
 		</div>
 	</div>
 	<!-- Add Modal HTML -->
-	<div id="addNhomQuyen" class="modal fade">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<form>
-					<div class="modal-header">
-						<h4 class="modal-title">Tạo Phiếu Bảo Hành</h4>
-						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-					</div>
-					<div class="modal-body">
-						<input type="hidden" class="form-control" required id="action" value="Add">
-						<div class="form-group">
-							<p id="mess_maquyen"></p>
-							<label>Mã Hóa Đơn</label>
-							<select class="form-select" aria-label="Default select example" id="admin-select-mahoadon">
-                                <option value="1">1</option>
-                                <option value="1">2</option>
-                                <option value="1">3</option>
-                                <option value="1">4</option>
-                            </select>
-						</div>
-						<div class="form-group">
+	<div id="adminDoiTra" class="modal fade">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form>
+                <div class="modal-header">
+                    <h4 class="modal-title">Tạo Phiếu Đổi Trả</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" class="form-control" required id="action" value="Add">
+                    <div class="form-group">
+                        <p id="mess_maquyen"></p>
+                        <label>Mã Hóa Đơn</label>
+                        <select class="form-control form-control-sm" aria-label="Default select example" id="admin-select-mahoadon">
+						    <option value="choose" selected>Choose</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                        </select>
+                    </div>
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
 							<p id="mess_tenquyen"></p>
-							<label>Tên Quyền</label>
-							<input type="text" class="form-control" required id="ten_quyen">
+								<label>Nhân Viên</label>
+								<select class="form-control form-control-sm" aria-label="Default select example" id="admin-doitra-manhanvien">
+									<option value="choose" selected>Choose</option>
+									<option value="1">1</option>
+									<option value="2">2</option>
+									<option value="3">3</option>
+									<option value="4">4</option>
+                                </select>
+								<!-- <input type="text" class="form-control form-control-sm" required id="admin-baohanh-manhanvien"> -->
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+							<p id="mess_tenquyen"></p>
+								<label>Khách Hàng</label>
+								<input type="text" class="form-control form-control-sm" required id="admin-doitra-makhachhang">
+							</div>
 						</div>
 					</div>
-					<div class="modal-footer">
-						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-						<input type="button" class="btn btn-success" value="Thêm" id="addNhomQuyen">
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+							<p id="mess_tenquyen"></p>
+								<label>Ngày Đổi Trả</label>
+								<br>
+								<input type="datetime" name="" id="" class="form-control" value="">
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+							<p id="mess_tenquyen"></p>
+								<label>Ngày Trả</label>
+								<br>
+								<input type="datetime" name="" id="" class="form-control">
+							</div>
+						</div>
 					</div>
-				</form>
-			</div>
-		</div>
-	</div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="table1">Chi Tiết Đổi Trả</label>
+                                <table class="table" id="tableChiTietBaoHanh">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+											<th scope="col">Mã IME</th>
+                                            <th scope="col">ID</th>
+                                            <th scope="col">Lý Do Bảo Hành</th>
+											<th scope="col">Nội Dung Bảo Hành</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">1</th>
+                                            <td>Mark</td>
+											<td>IME1</td>
+                                            <td><input type="text" class="form-control"></td>
+                                            <td><input type="text" class="form-control"></td>
+                                        </tr>
+										<tr>
+                                            <th scope="row">1</th>
+                                            <td>Mark</td>
+											<td>IME2</td>
+                                            <td><input type="text" class="form-control"></td>
+                                            <td><input type="text" class="form-control"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+				<div class="row">
+				        <div class="col">
+                            <div class="form-group">
+                                <label for="table1">Chi Tiết Bảo Hành</label>
+                                <table class="table" id="tableChiTietHoaDon">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+											<th scope="col">Mã IME</th>
+                                            <th scope="col">ID</th>
+                                            <th scope="col">Lý Do Bảo Hành</th>
+											<th scope="col">Nội Dung Bảo Hành</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="admin-showChitiethoadon">
+                                        <!-- <tr>
+                                            <th scope="row">1</th>
+                                            <td>Mark</td>
+											<td>IME1</td>
+                                            <td><input type="text" class="form-control"></td>
+                                            <td><input type="text" class="form-control"></td>
+                                        </tr> -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+				</div>
+                <div class="modal-footer">
+                    <input type="button" class="btn btn-danger" data-dismiss="modal" value="Cancel">
+                    <input type="button" class="btn btn-success" value="Thêm" id="admin-add-BaoHanh">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 	<!-- Edit Modal HTML -->
 	<div id="editNhomQuyen" class="modal fade">
 		<div class="modal-dialog">

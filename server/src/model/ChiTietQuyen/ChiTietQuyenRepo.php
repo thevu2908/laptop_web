@@ -39,7 +39,15 @@ class ChiTietQuyenRepo extends ConnectDB{
         }
         return $arrHanhDong;
     }
-    function addPhanQuyen($maquyen,$listitemAdd,$hanhdong){
+    function addPhanQuyen($maquyen,$machucnang,$hanhdong){
+        $sql = "INSERT INTO chitietquyen(ma_quyen,ma_chuc_nang,hanh_dong) VALUES('$maquyen','$machucnang','$hanhdong')";
+        $result = mysqli_query($this->conn,$sql);
+        if($result){
+            return true;
+        }
+        return false;
+    }
+    function addMulPhanQuyen($maquyen,$listitemAdd,$hanhdong){
         foreach($listitemAdd as $key){
             $sql = "INSERT INTO chitietquyen(ma_quyen,ma_chuc_nang,hanh_dong) VALUES('$maquyen','$key[machucnang]','$hanhdong')";
             $result = mysqli_query($this->conn,$sql);
@@ -66,6 +74,16 @@ class ChiTietQuyenRepo extends ConnectDB{
             }
         }
         return true;
+    }
+    function getDSChucNang($maquyen){
+        $sql = "SELECT * from chucnangquyen where ma_chuc_nang not in (select chitietquyen.ma_chuc_nang from chitietquyen WHERE chitietquyen.ma_quyen='$maquyen')";
+        $result = mysqli_query($this->conn,$sql);
+        $arrChucNang=array();
+        while($row=mysqli_fetch_assoc($result)){
+            
+            $arrChucNang[]=$row;
+        }
+        return $arrChucNang;
     }
     function kiemtraquyenhanhdong($maquyen,$machucnang){
         $sql = "SELECT hanh_dong FROM chitietquyen WHERE ma_quyen='$maquyen' AND ma_chuc_nang='$machucnang'";
