@@ -5,7 +5,6 @@ function phanquyen_chucnang(tenchucnang){
         method: "post",
         dataType:'json',
         success: function (data) {
-            console.log(data['ma_chuc_nang']);
             phanquyen(data['ma_chuc_nang']);
         }
     })
@@ -17,7 +16,6 @@ function phanquyen(machucnang){
         method:"POST",
         success:function(data){
             var jsonData = JSON.parse(data);
-            console.log(jsonData);
             jsonData.some(item => item.hanh_dong === "Thêm")?$(".btn.btn-success.add").show():$(".btn.btn-success.add").hide();
             jsonData.some(item => item.hanh_dong === "Xóa")?$(".delete").show():$(".delete").hide();
             jsonData.some(item => item.hanh_dong === "Sửa")?$(".edit").show():$(".edit").hide();

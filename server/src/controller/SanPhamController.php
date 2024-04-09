@@ -193,7 +193,7 @@ switch ($action) {
         $search = $_GET['search'];
         $order = $_GET['order'];
         $page = $_GET['page'];
-        $limit = $_GET['limit'];
+        $limit = isset($_GET['limit']) ? $_GET['limit'] : 6;
         $start = ($page - 1) * $limit;
         $startPrice = 0;
         $endPrice = PHP_INT_MAX;

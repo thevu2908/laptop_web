@@ -1,7 +1,7 @@
 <?php
 
 class SanPhamRepo extends ConnectDB {
-    public function getProducts() {
+    public function getProducts() : array | null {
         $products = [];
         try {
             $query = "
@@ -208,7 +208,7 @@ class SanPhamRepo extends ConnectDB {
     public function filterProducts($brandId, $startPrice, $endPrice, $cpu, $search, $orderBy, $orderType, $start = 0, $limit = 6) {
         try {
             $query = "
-                SELECT sp.*, ctsp.*, ten_thuong_hieu, ten_loai, ten_hdh, ten_mau, ten_chip, ten_card, ram, rom 
+                SELECT DISTINCT sp.*, ten_thuong_hieu, ten_loai, ten_hdh
                 FROM chitietsanpham ctsp
                 JOIN (
                     SELECT sp.*, ten_thuong_hieu, ten_loai, ten_hdh
@@ -242,7 +242,7 @@ class SanPhamRepo extends ConnectDB {
     public function getFilterProductsCount($brandId, $startPrice, $endPrice, $cpu, $search, $orderBy, $orderType) {
         try {
             $query = "
-                SELECT count(*) as count
+                SELECT count(DISTINCT sp.ma_sp) as count
                 FROM chitietsanpham ctsp
                 JOIN (
                     SELECT sp.*, ten_thuong_hieu, ten_loai, ten_hdh

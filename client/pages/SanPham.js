@@ -10,7 +10,7 @@ $(document).ready(() => {
     renderViewProductModal()
     importExcel()
     exportExcel()
-    searchAdminProduct()
+    handleSearchAdminProduct()
     handleFilterEndUserProduct()
 })
 
@@ -156,7 +156,12 @@ function renderProducts() {
 }
 
 async function renderAdminProductTable(data) {
-    const products = data ? data : await getPaginationProducts(null)
+    let products = null
+    if ($('.admin-search-info').val()) {
+        products = await searchAdminProduct($('.admin-search-info').val())
+    } else {
+        products = data ? data : await getPaginationProducts()
+    }
 
     if (products && products.pagination.length > 0) {
         let html = ''
@@ -191,7 +196,7 @@ async function renderAdminProductTable(data) {
             `
         })
         $('.admin-product-list').html(html)
-        phanquyen_chucnang("Sản Phẩm");
+        phanquyen_chucnang("Sản Phẩm")
         totalPage(products.count)
     }
 }
@@ -277,12 +282,17 @@ async function renderEndUserProductPage() {
     NProgress.done()
 }
 
-async function renderEndUserProductList(data) {
-    const products = data ? data : await getPaginationProducts(6)
-    console.log(products)
+async function renderEndUserProductList() {
+    const brandId = $('.filter-brand .filter-item-link.active').find('input').val() || ''
+    const price =  $('.filter-price .filter-item-link.active').find('input').val() || ''
+    const cpu = $('.filter-cpu .filter-item-link.active').find('input').val() || ''
+    const search = ''
+    const order = $('.sort-filter-container .sort-filter-item.active').find('input').val() || ''
+    const page = $('#currentpage').val() || ''
+    const products = await getFilterProducts(brandId, price, cpu, search, order, page)
+    let html = ''
+
     if (products && products.pagination && products.pagination.length > 0) {
-        const currentPage = $('#currentpage').val()
-        let html = ''
         for (let product of products.pagination) {
             const productDetails = await getProductDetailByProductId(product.ma_sp)
             const productDetail = productDetails[0]
@@ -345,9 +355,9 @@ async function renderEndUserProductList(data) {
                 </div>
             `
         }
-        $('.product-main .product-list').html(html)
-        enduserTotalPage(products.count, 6, currentPage)
+        enduserTotalPage(products.count, 6, page)
     }
+    $('.product-main .product-list').html(html)
 }
 
 function renderEndUserProductFilter() {
@@ -434,60 +444,54 @@ function renderEndUserProductFilter() {
     renderFilterCPU()
 }
 
-function filterProduct(brandId, price, cpu, search, order) {
-    const page = $('#currentpage').val()
-    $.ajax({
-        url: 'server/src/controller/SanPhamController.php',
-        method: 'GET',
-        data: { action: 'filter', brandId, price, cpu, search, order, page, limit: 6 },
-        dataType: 'JSON',
-        success: async products => {
-            if (products && products.pagination && products.pagination.length > 0) {
-                for (let product of products.pagination) {
-                    const plugs = await getProductDetailPlug(product.ma_ctsp)
-                    product.plugs = plugs.map(plug => plug.ten_cong)
-                }
+function getFilterProducts(brandId, price, cpu, search, order, page) {
+    return new Promise((resolve, reject) => {    
+        $.ajax({
+            url: 'server/src/controller/SanPhamController.php',
+            method: 'GET',
+            data: { action: 'filter', brandId, price, cpu, search, order, page },
+            dataType: 'JSON',
+            success: products => resolve(products),
+            error: (xhr, status, error) => {
+                console.log(error)
+                reject(error)
             }
-            products.pagination = formatProduct(products.pagination)
-            console.log(products)
-            renderEndUserProductList(products)
-        },
-        error: (xhr, status, error) => console.log(error)
+        })
     })
 }
 
 function handleFilterEndUserProduct() {
-    let brandId = $('.filter-brand .filter-item-link.active').find('input').val() ? $('.filter-brand .filter-item-link.active').find('input').val() : ''
-    let price =  $('.filter-price .filter-item-link.active').find('input').val() ? $('.filter-price .filter-item-link.active').find('input').val() : ''
-    let cpu = $('.filter-cpu .filter-item-link.active').find('input').val() ? $('.filter-cpu .filter-item-link.active').find('input').val() : ''
-    let order = $('.sort-filter-container .sort-filter-item.active').find('input').val() ? $('.sort-filter-container .sort-filter-item.active').find('input').val() : ''
+    let brandId = $('.filter-brand .filter-item-link.active').find('input').val() || ''
+    let price =  $('.filter-price .filter-item-link.active').find('input').val() || ''
+    let cpu = $('.filter-cpu .filter-item-link.active').find('input').val() || ''
     let search = ''
+    let order = $('.sort-filter-container .sort-filter-item.active').find('input').val() || ''
 
     $(document).on('click', '.filter-brand .filter-item-link', function(e) {
         $('.filter-brand .filter-item-link').removeClass('active')
         $(this).addClass('active')
         brandId = $(this).find('input').val()
-        filterProduct(brandId, price, cpu, search, order)
+        renderEndUserProductList()
     })
     $(document).on('click', '.filter-price .filter-item-link', function(e) {
         $('.filter-price .filter-item-link').removeClass('active')
         $(this).addClass('active')
         price = $(this).find('input').val()
-        filterProduct(brandId, price, cpu, search, order)
+        renderEndUserProductList()
     })
     $(document).on('click', '.filter-cpu .filter-item-link', function(e) {
         $('.filter-cpu .filter-item-link').removeClass('active')
         $(this).addClass('active')
         cpu = $(this).find('input').val()
-        filterProduct(brandId, price, cpu, search, order)
+        renderEndUserProductList()
     })
     $(document).on('click', '.sort-filter-container .sort-filter-item', function(e) {
         $('.sort-filter-container .sort-filter-item').removeClass('active')
         $(this).addClass('active')
         const text = $(this).find('a').text()
-        const order = $(this).find('input').val()
+        order = $(this).find('input').val()
         $('.sort-filter-container .sort-filter-item-default').html(`${text} <input type="hidden" value="${order}">`)
-        filterProduct(brandId, price, cpu, search, order)
+        renderEndUserProductList()
     })
 }
 
@@ -1334,18 +1338,26 @@ function exportExcel() {
     })
 }
 
-function searchAdminProduct() {
-    $(document).on('keyup', '.admin-search-info', e => {
-        const search = e.target.value.toLowerCase()
+function searchAdminProduct(search) {
+    return new Promise((resolve, reject) => {
         const page = $('#currentpage').val()
-
         $.ajax({
             url: 'server/src/controller/SearchController.php',
             method: 'GET',
             data: { action: 'search', search, table: 'sanpham', page },
             dataType: 'JSON',
-            success: products => renderAdminProductTable(products),
-            error: (xhr, status, error) => console.log(error)
+            success: products => resolve(products),
+            error: (xhr, status, error) => {
+                console.log(error)
+                reject(error)
+            }
         })
+    })
+}
+
+function handleSearchAdminProduct() {
+    $(document).on('keyup', '.admin-search-info', async e => {
+        const products = await searchAdminProduct(e.target.value.toLowerCase())
+        renderAdminProductTable(products)
     })
 }
