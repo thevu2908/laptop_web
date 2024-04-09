@@ -141,6 +141,14 @@ function kiemtraquyen($arr,$chucnang){
         </a>
       </li>";
       }
+      if(kiemtraquyen($arr,"Đánh Giá") && $chitietquyen->kiemtrahangdong($maquyen,"Đánh Giá","Xem")){
+        echo " <li class='side-menu-item ".( $page === 'danhgia' ? 'active' : '')."'>
+        <a href='/admin.php?controller=danhgia' class='nav-link'>
+          <i class='fas fa-message'></i>
+          <span class='text'>Đánh Giá</span>
+        </a>
+      </li>";
+      }
     }
     ?>
     <!-- <li class="side-menu-item <?php echo $page === 'taikhoan' ? 'active' : ''?>">

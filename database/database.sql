@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 09, 2024 at 10:02 AM
+-- Generation Time: Apr 09, 2024 at 10:16 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -321,6 +321,101 @@ CREATE TABLE `chitietquyen` (
   `hanh_dong` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `chitietquyen`
+--
+
+INSERT INTO `chitietquyen` (`ma_quyen`, `ma_chuc_nang`, `hanh_dong`) VALUES
+('NQ01', 'CN01', 'Thêm'),
+('NQ01', 'CN01', 'X'),
+('NQ01', 'CN01', 'Xem'),
+('NQ01', 'CN01', 'Xóa'),
+('NQ01', 'CN02', 'Thêm'),
+('NQ01', 'CN02', 'X'),
+('NQ01', 'CN02', 'Xem'),
+('NQ01', 'CN03', 'X'),
+('NQ01', 'CN04', 'Sửa'),
+('NQ01', 'CN04', 'Thêm'),
+('NQ01', 'CN04', 'X'),
+('NQ01', 'CN04', 'Xem'),
+('NQ01', 'CN04', 'Xóa'),
+('NQ01', 'CN05', 'Sửa'),
+('NQ01', 'CN05', 'X'),
+('NQ01', 'CN05', 'Xem'),
+('NQ01', 'CN06', 'X'),
+('NQ01', 'CN06', 'Xem'),
+('NQ01', 'CN07', 'Thêm'),
+('NQ01', 'CN07', 'X'),
+('NQ01', 'CN07', 'Xem'),
+('NQ01', 'CN08', 'Thêm'),
+('NQ01', 'CN08', 'X'),
+('NQ01', 'CN08', 'Xem'),
+('NQ01', 'CN08', 'Xóa'),
+('NQ01', 'CN10', 'X'),
+('NQ01', 'CN10', 'Xem'),
+('NQ01', 'CN10', 'Xóa'),
+('NQ01', 'CN11', 'Sửa'),
+('NQ01', 'CN11', 'X'),
+('NQ01', 'CN11', 'Xem'),
+('NQ01', 'CN11', 'Xóa'),
+('NQ01', 'CN12', 'X'),
+('NQ01', 'CN12', 'Xem'),
+('NQ02', 'CN01', 'Thêm'),
+('NQ02', 'CN01', 'X'),
+('NQ02', 'CN01', 'Xem'),
+('NQ02', 'CN01', 'Xóa'),
+('NQ02', 'CN02', 'Thêm'),
+('NQ02', 'CN02', 'X'),
+('NQ02', 'CN02', 'Xem'),
+('NQ02', 'CN04', 'X'),
+('NQ02', 'CN04', 'Xem'),
+('NQ02', 'CN05', 'X'),
+('NQ02', 'CN05', 'Xem'),
+('NQ02', 'CN05', 'Xóa'),
+('NQ02', 'CN06', 'X'),
+('NQ02', 'CN07', 'Thêm'),
+('NQ02', 'CN07', 'X'),
+('NQ02', 'CN07', 'Xem'),
+('NQ02', 'CN08', 'Thêm'),
+('NQ02', 'CN08', 'X'),
+('NQ02', 'CN08', 'Xem'),
+('NQ02', 'CN08', 'Xóa'),
+('NQ02', 'CN09', 'Thêm'),
+('NQ02', 'CN09', 'X'),
+('NQ02', 'CN09', 'Xem'),
+('NQ02', 'CN10', 'Thêm'),
+('NQ02', 'CN10', 'X'),
+('NQ02', 'CN10', 'Xem'),
+('NQ02', 'CN10', 'Xóa'),
+('NQ03', 'CN05', 'X'),
+('NQ03', 'CN07', 'Thêm'),
+('NQ03', 'CN07', 'X'),
+('NQ03', 'CN07', 'Xem'),
+('NQ03', 'CN08', 'Thêm'),
+('NQ03', 'CN08', 'X'),
+('NQ03', 'CN08', 'Xem'),
+('NQ04', 'CN01', 'X'),
+('NQ04', 'CN01', 'Xem'),
+('NQ04', 'CN02', 'Sửa'),
+('NQ04', 'CN02', 'Thêm'),
+('NQ04', 'CN02', 'X'),
+('NQ04', 'CN02', 'Xóa'),
+('NQ04', 'CN04', 'Sửa'),
+('NQ04', 'CN04', 'X'),
+('NQ04', 'CN04', 'Xem'),
+('NQ04', 'CN04', 'Xóa'),
+('NQ04', 'CN05', 'X'),
+('NQ04', 'CN05', 'Xem'),
+('NQ04', 'CN06', 'Sửa'),
+('NQ04', 'CN06', 'Thêm'),
+('NQ04', 'CN06', 'X'),
+('NQ04', 'CN06', 'Xóa'),
+('NQ06', 'CN01', 'X'),
+('NQ06', 'CN02', 'X'),
+('NQ06', 'CN04', 'X'),
+('NQ06', 'CN05', 'X'),
+('NQ06', 'CN06', 'X');
+
 -- --------------------------------------------------------
 
 --
@@ -403,6 +498,24 @@ CREATE TABLE `chucnangquyen` (
   `ten_chuc_nang` varchar(100) NOT NULL,
   `trang_thai` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `chucnangquyen`
+--
+
+INSERT INTO `chucnangquyen` (`ma_chuc_nang`, `ten_chuc_nang`, `trang_thai`) VALUES
+('CN01', 'Nhóm Quyền', 0),
+('CN02', 'Chức Năng', 0),
+('CN03', 'Phân Quyền', 0),
+('CN04', 'Khuyến Mãi', 0),
+('CN05', 'Sản Phẩm', 0),
+('CN06', 'Phiếu Nhập', 0),
+('CN07', 'Đổi Trả', 0),
+('CN08', 'Bảo Hành', 0),
+('CN09', 'Phiếu Đổi Trả', 0),
+('CN10', 'Tài Khoản', 0),
+('CN11', 'Nhân Viên', 0),
+('CN12', 'Đánh Giá', 0);
 
 -- --------------------------------------------------------
 
@@ -1323,16 +1436,6 @@ CREATE TABLE `nhanvien` (
   `trang_thai` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `nhanvien`
---
-
-INSERT INTO `nhanvien` (`ma_nv`, `ten_nv`, `tuoi`, `so_dien_thoai`, `hinh_anh`, `trang_thai`) VALUES
-('NV01', 'Nguyễn Thế Vũ', 20, '0976124506', '', 0),
-('NV02', 'Mai Văn Tài', 20, '0123456789', '', 0),
-('NV03', 'Lê Ngọc Giàu', 20, '0123456788', '', 0),
-('NV04', 'Đỗ Minh Quân', 20, '0111111111', '', 0);
-
 -- --------------------------------------------------------
 
 --
@@ -1352,7 +1455,10 @@ CREATE TABLE `nhomquyen` (
 INSERT INTO `nhomquyen` (`ma_quyen`, `ten_quyen`, `trang_thai`) VALUES
 ('NQ01', 'Admin', 0),
 ('NQ02', 'Quản lý', 0),
-('NQ03', 'Nhân viên bán hàng', 0);
+('NQ03', 'Nhân viên bán hàng', 0),
+('NQ04', 'Nhân Viên', 0),
+('NQ05', 'Nhân Viên Nhập Hàng', 0),
+('NQ06', 'ABC', 0);
 
 -- --------------------------------------------------------
 
@@ -1556,16 +1662,6 @@ CREATE TABLE `taikhoan` (
   `otp` int(6) NOT NULL,
   `trang_thai` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `taikhoan`
---
-
-INSERT INTO `taikhoan` (`ma_tk`, `ma_quyen`, `username`, `password`, `otp`, `trang_thai`) VALUES
-('admin', 'NQ01', 'admin', 'admin', 0, 0),
-('NV01', 'NQ02', 'NV01', '123', 0, 0),
-('NV02', 'NQ03', 'NV02', '123', 0, 0),
-('NV03', 'NQ03', 'NV03', '123', 0, 0);
 
 -- --------------------------------------------------------
 
