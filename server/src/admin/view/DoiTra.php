@@ -27,7 +27,6 @@
 							<th>Mã Phiếu Đổi Trả</th>
                             <th>Mã Hóa Đơn</th>
 							<th>Nhân Viên</th>
-							<th>Khách Hàng</th>
                             <th>Ngày Trả</th>
                             <th>Số Lượng Trả</th>
                             <th>Tổng Tiền Trả</th>
@@ -91,25 +90,8 @@
 							</div>
 						</div>
 					</div>
-					<!-- <div class="row">
-						<div class="col-md-6">
-							<div class="form-group">
-							<p id="mess_tenquyen"></p>
-								<label>Ngày Đổi Trả</label>
-								<br>
-								<input type="datetime" name="" id="" class="form-control" value="">
-							</div>
-						</div>
-						<div class="col-md-6">
-							<div class="form-group">
-							<p id="mess_tenquyen"></p>
-								<label>Ngày Trả</label>
-								<br>
-								<input type="datetime" name="" id="" class="form-control">
-							</div>
-						</div>
-					</div> -->
-                    <div class="row">
+					<div class="form-group">
+					<div class="row">
                         <div class="col">
                             <div class="form-group">
                                 <label for="table1">Chi Tiết Đổi Trả</label>
@@ -118,53 +100,86 @@
                                         <tr>
                                             <th scope="col">#</th>
 											<th scope="col">Mã IME</th>
-											<th scope="col">Tên</th>
+											<th scope="col">ID</th>
                                             <th scope="col">Lý Do</th>
                                             <th scope="col">Giá Sản Phẩm</th>
-											<th scope="col">Thành Tiền</th>
 											<th scope="col">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody id="admin-showDoiTra">
-                                        <!-- <tr data-row="IME1">
-                                            <th scope="row">1</th>
-											<td scope="row">IME1</td>
-                                            <td scope="row">Mark</td>
-                                            <td scope="row"><input type="text" class="form-control"></td>
-                                            <td scope="row">20000000</td>
-											<td scope="row">20000000</td>
-											<td data-row="IME1" onclick=removeItem(this)><i class="material-icons" data-toggle="tooltip" title="Remove">&#xE872;</i></td>
-                                        </tr>
-										<tr data-row="IME2">
-                                            <th scope="row">2</th>
-											<td scope="row">IME2</td>
-                                            <td scope="row">Mark</td>
-                                            <td scope="row"><input type="text" class="form-control"></td>
-                                            <td scope="row">30500000</td>
-											<td scope="row">30500000</td>
-											<td data-row="IME2" onclick=removeItem(this)><i class="material-icons" data-toggle="tooltip" title="Remove">&#xE872;</i></td>
-                                        </tr> -->
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
+					</div>
                 </div>
+				   <div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+							<p id="mess_tenquyen"></p>
+								<label>Tổng Số Lượng</label>
+								<br>
+								<input type="datetime" name="" id="admin-DoiTra-tongsoluong" class="form-control" readonly='false'>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+							<p id="mess_tenquyen"></p>
+								<label>Tổng Tiền Trả</label>
+								<br>
+								<input type="datetime" name="" id="admin-DoiTra-tongtientra" class="form-control" readonly='false'>
+							</div>
+						</div>
+					</div>
 				<div class="row">
 				        <div class="col">
                             <div class="form-group">
-                                <label for="table1">Chi Tiết Bảo Hành</label>
+                                <label for="table1">Chi Tiết Hóa Đơn</label>
                                 <table class="table" id="tableChiTietHoaDon">
                                     <thead>
                                         <tr>
                                             <th scope="col">#</th>
 											<th scope="col">Mã IME</th>
                                             <th scope="col">ID</th>
-                                            <th scope="col">Lý Do Bảo Hành</th>
-											<th scope="col">Nội Dung Bảo Hành</th>
+                                            <th scope="col">Tên</th>
+											<th scope="col">Giá</th>
+											<th scope="col">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody id="admin-showChitiethoadon">
+										<tr>
+										    <th scope="row">1</th>
+											<td scope="row">IME4</td>
+                                            <td scope="row">SP1</td>
+                                            <td scope="row">LapTop</td>
+                                            <td scope="row">30500000</td>
+											<td scope="row"><i class="material-icons">&#xE147;</i></td>
+										</tr>
+										<tr>
+										    <th scope="row">2</th>
+											<td scope="row">IME5</td>
+                                            <td scope="row">SP1</td>
+                                            <td scope="row">LapTop</td>
+                                            <td scope="row">30500000</td>
+											<td scope="row"><i class="material-icons">&#xE147;</i></td>
+										</tr>
+										<tr>
+										    <th scope="row">3</th>
+											<td scope="row">IME7</td>
+                                            <td scope="row">SP1</td>
+                                            <td scope="row">LapTop</td>
+                                            <td scope="row">30500000</td>
+											<td scope="row"><i class="material-icons">&#xE147;</i></td>
+										</tr>
+										<tr>
+										    <th scope="row">4</th>
+											<td scope="row">IME6</td>
+                                            <td scope="row">SP3</td>
+                                            <td scope="row">LapTop</td>
+                                            <td scope="row">30500000</td>
+											<td scope="row"><i class="material-icons">&#xE147;</i></td>
+										</tr>
                                     </tbody>
                                 </table>
                             </div>
