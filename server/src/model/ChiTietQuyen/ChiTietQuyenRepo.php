@@ -11,7 +11,7 @@ class ChiTietQuyenRepo extends ConnectDB{
         return $arrChiTietQuyen;
     }
     function getChucNang($id){
-        $sql = "SELECT DISTINCT ma_chuc_nang FROM chitietquyen WHERE ma_quyen='$id'";
+        $sql = "SELECT DISTINCT chitietquyen.ma_chuc_nang,chucnangquyen.ten_chuc_nang FROM chitietquyen join chucnangquyen on chitietquyen.ma_chuc_nang=chucnangquyen.ma_chuc_nang WHERE chitietquyen.ma_quyen='$id'";
         $result = mysqli_query($this->conn,$sql);
         $arrChucNang=array();
         while($row=mysqli_fetch_assoc($result)){
@@ -47,6 +47,16 @@ class ChiTietQuyenRepo extends ConnectDB{
         }
         return false;
     }
+    function addMulPhanQuyen($maquyen,$listitemAdd,$hanhdong){
+        foreach($listitemAdd as $key){
+            $sql = "INSERT INTO chitietquyen(ma_quyen,ma_chuc_nang,hanh_dong) VALUES('$maquyen','$key[machucnang]','$hanhdong')";
+            $result = mysqli_query($this->conn,$sql);
+            if(!$result){
+                return true;
+            }
+        }
+        return false;
+    }
     function updatePhanQuyen($maquyen,$machucnang,$hanhdong){
         $sql = "DELETE FROM chitietquyen where ma_quyen='$maquyen' AND ma_chuc_nang='$machucnang' AND hanh_dong='$hanhdong'";
         $result = mysqli_query($this->conn,$sql);
@@ -65,6 +75,16 @@ class ChiTietQuyenRepo extends ConnectDB{
         }
         return true;
     }
+    function getDSChucNang($maquyen){
+        $sql = "SELECT * from chucnangquyen where ma_chuc_nang not in (select chitietquyen.ma_chuc_nang from chitietquyen WHERE chitietquyen.ma_quyen='$maquyen')";
+        $result = mysqli_query($this->conn,$sql);
+        $arrChucNang=array();
+        while($row=mysqli_fetch_assoc($result)){
+            
+            $arrChucNang[]=$row;
+        }
+        return $arrChucNang;
+    }
     function kiemtraquyenhanhdong($maquyen,$machucnang){
         $sql = "SELECT hanh_dong FROM chitietquyen WHERE ma_quyen='$maquyen' AND ma_chuc_nang='$machucnang'";
         $result = mysqli_query($this->conn,$sql);
@@ -74,8 +94,10 @@ class ChiTietQuyenRepo extends ConnectDB{
         }
         return $arrChiTietQuyen;
     }
-    function kiemtrahangdong($maquyen,$machucnang,$hanhdong):bool{
-        $sql = "SELECT * FROM chitietquyen WHERE ma_quyen='$maquyen' AND ma_chuc_nang='$machucnang' AND hanh_dong='$hanhdong'";
+    function kiemtrahangdong($maquyen,$tenchucnang,$hanhdong):bool{
+        //$sql = "SELECT * FROM chitietquyen WHERE ma_quyen='$maquyen' AND ma_chuc_nang='$machucnang' AND hanh_dong='$hanhdong'";
+        $sql="SELECT * FROM chitietquyen join chucnangquyen on chitietquyen.ma_chuc_nang=chucnangquyen.ma_chuc_nang
+        WHERE chitietquyen.ma_quyen='$maquyen' AND chitietquyen.ma_chuc_nang=(select ma_chuc_nang from chucnangquyen WHERE ten_chuc_nang='$tenchucnang') AND chitietquyen.hanh_dong='$hanhdong'";
         $result = mysqli_query($this->conn,$sql);
         if(mysqli_num_rows($result) > 0){
             return true;

@@ -8,11 +8,11 @@
 							<h2>Quản Lý <b>Tài Khoản</b></h2>
 						</div>
 						<div class="col-sm-6">
-							<a href="#addAccountModal" class="btn btn-success btn-open-add-account-modal" data-toggle="modal">
+							<a href="#addAccountModal" class="btn btn-success btn-open-add-account-modal add" data-toggle="modal">
 								<i class="material-icons">&#xE147;</i>
 								<span>Thêm</span>
 							</a>
-							<a href="#deleteAccountModal" class="btn btn-danger btn-delete-checked-account-modal" data-toggle="modal">
+							<a href="#deleteAccountModal" class="btn btn-danger btn-delete-checked-account-modal delete" data-toggle="modal">
 								<i class="material-icons">&#xE15C;</i>
 								<span>Xóa</span>
 							</a>

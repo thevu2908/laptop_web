@@ -1,6 +1,7 @@
 
 $(document).ready(function () {
     loadNhomQuyen();
+    clickPage(loadNhomQuyen);
     loadNhomQuyenDataAccount()
     $(document).on("click", "ul.pagination li a", function (e) {
         e.preventDefault();
@@ -97,25 +98,8 @@ function render(data) {
         });
     }
     $("#show-listNhomQuyen").html(html);
-    // $.ajax({
-    //     url:"server/src/controller/CTQuyenController.php",
-    //     data:{action:"kiemtra" ,maquyen:$("#ad-maquyen").val(),machucnang:"CN002"},
-    //     method:"POST",
-    //     success:function(data){
-    //         var jsonData = JSON.parse(data);
-    //         console.log(jsonData);
-    //         jsonData.some(item => item.hanh_dong === "Thêm")?$(".btn.btn-success.add").show():$(".btn.btn-success.add").hide();
-    //         jsonData.some(item => item.hanh_dong === "Xóa")?$(".delete").show():$(".delete").hide();
-    //         jsonData.some(item => item.hanh_dong === "Sửa")?$(".edit").show():$(".edit").hide();
-    //     }
-    // })
-    // phanquyen("CN002")
-    // totalPage(data.count);
-    // let total = data.count;
-    // console.log(total);
-    // let totalpages = Math.ceil(parseInt(total) / 4);
-    // const currentpage = $("#currentpage").val();
-    // pagination(totalpages, currentpage);
+    phanquyen_chucnang("Nhóm Quyền");
+    totalPage(data.count);
 }
 
 function loadNhomQuyenDataAccount() {
@@ -219,6 +203,24 @@ function detailNhomQuyen() {
                 $("#detail_maquyen").val(data.ma_quyen);
                 $("#detail_tenquyen").val(data.ten_quyen);
 
+            }
+        })
+    })
+}
+
+function detailNhomQuyen() {
+    $(document).on("click","#btnDetail",function(){
+        var id=$(this).attr("data-id2");
+        console.log(id);
+        $.ajax({
+            url:"server/src/controller/NhomQuyenController.php",
+            method:"POST",
+            data:{action:"Get",id:id},
+            dataType:"JSON",
+            success:function(data){
+                $("#detail_maquyen").val(data.ma_quyen);
+                $("#detail_tenquyen").val(data.ten_quyen);
+                
             }
         })
     })

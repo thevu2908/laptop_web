@@ -52,8 +52,8 @@ async function renderEmployeeData() {
                 </tr>
             `
         })
-
         $('.admin-employee-list').html(html)
+        
     }
 }
 

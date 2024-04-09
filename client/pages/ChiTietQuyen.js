@@ -1,19 +1,11 @@
 $(document).ready(function(){
     loadPhanQuyen();
-    $(document).on("click", "ul.pagination li a", function (e) {
-        e.preventDefault();
-        var $this = $(this);
-        const pagenum = $this.data("page");
-        $("#currentpage").val(pagenum);
-        loadPhanQuyen();
-        $this.parent().siblings().removeClass("active");
-        $this.parent().addClass("active");
-    });
+    clickPage(loadPhanQuyen);
     addPhanQuyen();
     deletePhanQuyen();
-    //getAction();
 })
 var listitemRemove = [];
+var listitemAdd = [];
 function loadPhanQuyen(){
     selectNhomQuyen();
     var pageno = $("#currentpage").val();
@@ -23,7 +15,7 @@ function loadPhanQuyen(){
         method: "GET",
         dataType: "json",
         success: function (data) {
-            var jsonData=data.paginattion;
+            var jsonData=data.pagination;
             var html="";
             jsonData.forEach((chitietquyen,index) => {
                 html+=`<tr data-row="${chitietquyen['ma_quyen']}" data-row1="${chitietquyen['ma_chuc_nang']}">
@@ -64,11 +56,6 @@ function loadPhanQuyen(){
             })
             $("#show-ListPhanQuyen").html(html);
             totalPage(data.count);
-            // let total = data.count;
-            // console.log(total);
-            // let totalpages = Math.ceil(parseInt(total) / 4);
-            // const currentpage = $("#currentpage").val();
-            // pagination(totalpages, currentpage);
         }
     });
 }
@@ -89,18 +76,35 @@ function selectNhomQuyen(){
     })
 }
 function addPhanQuyen(){
-    getAllListChucNang();
-    getAllListNhomQuyen();
+    // getAllListChucNang();
+    // getAllListNhomQuyen();
+    // $(document).on("click","#add_PhanQuyen",function(){
+    //     var maquyen=$("#select_nhomquyen").val();
+    //     var machucnang=$("#select_chucnang").val();
+    //     $.ajax({
+    //         url: "server/src/controller/CTQuyenController.php",
+    //         data: {action:"add",maquyen:maquyen,machucnang:machucnang},
+    //         method: "post",
+    //         success: function (data) {
+    //             //$("form").reset();
+    //             $("#addPhanQuyenModal").modal("hide");
+    //             loadPhanQuyen();
+    //         }
+    //     })
+    // })
+    getAllListNhomQuyen()
+    selectChangeItem()
     $(document).on("click","#add_PhanQuyen",function(){
-        var maquyen=$("#select_nhomquyen").val();
-        var machucnang=$("#select_chucnang").val();
+        var maquyen=$("#admin-select-MaNhomQuyen").val();
+        console.log(maquyen)
+        console.log(listitemAdd)
         $.ajax({
             url: "server/src/controller/CTQuyenController.php",
-            data: {action:"add",maquyen:maquyen,machucnang:machucnang},
+            data: {action:"addMul",maquyen:maquyen,listitemAdd:listitemAdd},
             method: "post",
             success: function (data) {
                 //$("form").reset();
-                $("#addPhanQuyenModal").modal("hide");
+                $("#addMulPhanQuyen").modal("hide");
                 loadPhanQuyen();
             }
         })
@@ -141,23 +145,32 @@ function getAllListNhomQuyen(){
             jsonData.forEach((nhomquyen,index) => {
                 html+=`<option value="${nhomquyen['ma_quyen']}">${nhomquyen['ten_quyen']}</option>`;
             })
-            $("#select_nhomquyen").html(html);
+            $("#admin-select-MaNhomQuyen").html(html);
         }
 
     })
 }
-function getAllListChucNang(){
+function selectChangeItem(){
+    $(document).on("change","#admin-select-MaNhomQuyen",function(){
+        console.log($(this).val());
+        getAllListChucNang($(this).val());
+    })
+}
+function getAllListChucNang($maquyen){
     $.ajax({
-        url: "server/src/controller/ChucNangQuyenController.php",
-        data: {action:"get"},
+        url: "server/src/controller/CTQuyenController.php",
+        data: {action:"dschucnang",maquyen:$("#admin-select-MaNhomQuyen").val()},
         method: "post",
         success: function (data) {
             var jsonData=JSON.parse(data);
             var html="";
-            jsonData.forEach((nhomquyen,index) => {
-                html+=`<option value="${nhomquyen['ma_chuc_nang']}">${nhomquyen['ten_chuc_nang']}</option>`;
+            jsonData.forEach((chucnang,index) => {
+                html+=`<tr data-row="${chucnang['ma_chuc_nang']}">
+                <td data-column="#">${chucnang['ten_chuc_nang']}</td>
+                <td><input type="checkbox" class="form-check-input" data-row="${chucnang['ma_chuc_nang']}" onclick="addMulChucNang(this)"></td>
+            </tr>`;
             })
-            $("#select_chucnang").html(html);
+            $("#admin-show-ChucNang").html(html);
         }
 
     })
@@ -188,6 +201,7 @@ function deletePhanQuyen(){
                        pagination(totalPages, currentPage);
                     }
                 })
+                location.reload();
             })
         }
     })
@@ -202,6 +216,12 @@ function change(checkbox){
     } else {
         update("update",maquyen,machucnang,hanhdong);
     }
+    console.log($("#admin-nhomquyen"))
+    if($("#admin-nhomquyen").val()===maquyen){
+        if((!isChecked || isChecked) && hanhdong==="Xem"){
+            location.reload();
+        }
+    }
 }
 function update(action,maquyen,machucnang,hanhdong){
     $.ajax({
@@ -213,7 +233,6 @@ function update(action,maquyen,machucnang,hanhdong){
         }
     })
 }
-
 function removeList(checkbox) {
     var isChecked = checkbox.checked;
     var maquyen = checkbox.dataset.row;
@@ -221,11 +240,22 @@ function removeList(checkbox) {
     if (isChecked) {
         listitemRemove.push({ maquyen: maquyen, machucnang: machucnang });
     } else {
-        //console.log(maquyen, machucnang);
         var indexToRemove = listitemRemove.findIndex(item => item.maquyen === maquyen && item.machucnang === machucnang);
         if (indexToRemove !== -1) {
             listitemRemove.splice(indexToRemove, 1);
         }
     }
-    //console.log(listitemRemove);
+}
+function addMulChucNang(checkbox){
+    var isChecked = checkbox.checked;
+    var machucnang = checkbox.dataset.row;
+    if (isChecked) {
+        listitemAdd.push({machucnang: machucnang });
+    } else {
+        var indexToAdd = listitemAdd.findIndex(item => item.machucnang === machucnang);
+        if (indexToAdd !== -1) {
+            listitemAdd.splice(indexToAdd, 1);
+        }
+    }
+    console.log(listitemAdd)
 }

@@ -12,9 +12,9 @@
 									Excel</span></a>
 							<a href="#" class="btn btn-secondary"><i class="material-icons">&#xE24D;</i> <span>Export
 									Excel</span></a>
-							<a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i
+							<a href="#addEmployeeModal" class="btn btn-success add" data-toggle="modal"><i
 									class="material-icons">&#xE147;</i> <span>Thêm</span></a>
-							<a href="#deleteEmployeeModal" class="btn btn-danger" data-toggle="modal"><i
+							<a href="#deleteEmployeeModal" class="btn btn-danger delete" data-toggle="modal"><i
 									class="material-icons">&#xE15C;</i> <span>Xóa</span></a>
 						</div>
 					</div>

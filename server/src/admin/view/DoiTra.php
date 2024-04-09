@@ -5,14 +5,10 @@
 				<div class="table-title">
 					<div class="row">
 						<div class="col-sm-6">
-							<h2>Quản Lý <b id="ad-NhomQuyen">Bảo Hành</b></h2>
+							<h2>Quản Lý <b id="ad-NhomQuyen">Đổi Trả</b></h2>
 						</div>
 						<div class="col-sm-6">
-							<a href="#" class="btn btn-secondary"><i class="material-icons">&#xE24D;</i> <span>Import
-									Excel</span></a>
-							<a href="#" class="btn btn-secondary"><i class="material-icons">&#xE24D;</i> <span>Export
-									Excel</span></a>
-							<a href="#addBaoHanh" id="admin-addBaoHanh" class="btn btn-success add" data-toggle="modal"><i
+							<a href="#adminDoiTra" id="add_NhomQuyen" class="btn btn-success add" data-toggle="modal"><i
 									class="material-icons">&#xE147;</i> <span>Thêm</span></a>
 							<a href="#deleteNhomQuyen" class="btn btn-danger delete" data-toggle="modal"><i
 									class="material-icons">&#xE15C;</i> <span>Xóa</span></a>
@@ -28,12 +24,13 @@
 									<label for="selectAll"></label>
 								</span>
 							</th>
-							<th>Mã Phiếu Bảo Hành</th>
+							<th>Mã Phiếu Đổi Trả</th>
                             <th>Mã Hóa Đơn</th>
 							<th>Nhân Viên</th>
 							<th>Khách Hàng</th>
-                            <th>Ngày Bảo Hành</th>
                             <th>Ngày Trả</th>
+                            <th>Số Lượng Trả</th>
+                            <th>Tổng Tiền Trả</th>
 							<th>Actions</th>
 						</tr>
 					</thead>
@@ -50,12 +47,12 @@
 		</div>
 	</div>
 	<!-- Add Modal HTML -->
-	<div id="addBaoHanh" class="modal fade">
+	<div id="adminDoiTra" class="modal fade">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <form>
                 <div class="modal-header">
-                    <h4 class="modal-title">Tạo Phiếu Bảo Hành</h4>
+                    <h4 class="modal-title">Tạo Phiếu Đổi Trả</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 </div>
                 <div class="modal-body">
@@ -76,7 +73,7 @@
 							<div class="form-group">
 							<p id="mess_tenquyen"></p>
 								<label>Nhân Viên</label>
-								<select class="form-control form-control-sm" aria-label="Default select example" id="admin-baohanh-manhanvien">
+								<select class="form-control form-control-sm" aria-label="Default select example" id="admin-doitra-manhanvien">
 									<option value="choose" selected>Choose</option>
 									<option value="1">1</option>
 									<option value="2">2</option>
@@ -90,15 +87,15 @@
 							<div class="form-group">
 							<p id="mess_tenquyen"></p>
 								<label>Khách Hàng</label>
-								<input type="text" class="form-control form-control-sm" required id="admin-baohanh-makhachhang">
+								<input type="text" class="form-control form-control-sm" required id="admin-doitra-makhachhang">
 							</div>
 						</div>
 					</div>
-					<div class="row">
+					<!-- <div class="row">
 						<div class="col-md-6">
 							<div class="form-group">
 							<p id="mess_tenquyen"></p>
-								<label>Ngày Bảo Hành</label>
+								<label>Ngày Đổi Trả</label>
 								<br>
 								<input type="datetime" name="" id="" class="form-control" value="">
 							</div>
@@ -111,38 +108,41 @@
 								<input type="datetime" name="" id="" class="form-control">
 							</div>
 						</div>
-					</div>
+					</div> -->
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
-                                <label for="table1">Chi Tiết Bảo Hành</label>
-                                <table class="table" id="tableChiTietBaoHanh">
+                                <label for="table1">Chi Tiết Đổi Trả</label>
+                                <table class="table" id="tableChiTietDoiTra">
                                     <thead>
                                         <tr>
                                             <th scope="col">#</th>
 											<th scope="col">Mã IME</th>
-                                            <th scope="col">ID</th>
-                                            <th scope="col">Lý Do Bảo Hành</th>
-											<th scope="col">Nội Dung Bảo Hành</th>
+											<th scope="col">Tên</th>
+                                            <th scope="col">Lý Do</th>
+                                            <th scope="col">Giá Sản Phẩm</th>
+											<th scope="col">Thành Tiền</th>
 											<th scope="col">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
+                                        <tr data-row="IME1">
                                             <th scope="row">1</th>
-                                            <td>Mark</td>
-											<td>IME1</td>
-                                            <td><input type="text" class="form-control"></td>
-                                            <td><input type="text" class="form-control"></td>
-											<td><i class="material-icons" data-toggle="tooltip" title="Remove" onclick=removeItem(this)>&#xE872;</i></td>
+											<td scope="row">IME1</td>
+                                            <td scope="row">Mark</td>
+                                            <td scope="row"><input type="text" class="form-control"></td>
+                                            <td scope="row">20000000</td>
+											<td scope="row">20000000</td>
+											<td data-row="IME1" onclick=removeItem(this)><i class="material-icons" data-toggle="tooltip" title="Remove">&#xE872;</i></td>
                                         </tr>
-										<tr>
-                                            <th scope="row">1</th>
-                                            <td>Mark</td>
-											<td>IME2</td>
-                                            <td><input type="text" class="form-control"></td>
-                                            <td><input type="text" class="form-control"></td>
-											<td><i class="material-icons" data-toggle="tooltip" title="Remove" onclick=removeItem(this)>&#xE872;</i></td>
+										<tr data-row="IME2">
+                                            <th scope="row">2</th>
+											<td scope="row">IME2</td>
+                                            <td scope="row">Mark</td>
+                                            <td scope="row"><input type="text" class="form-control"></td>
+                                            <td scope="row">30500000</td>
+											<td scope="row">30500000</td>
+											<td data-row="IME2" onclick=removeItem(this)><i class="material-icons" data-toggle="tooltip" title="Remove">&#xE872;</i></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -165,13 +165,6 @@
                                         </tr>
                                     </thead>
                                     <tbody id="admin-showChitiethoadon">
-                                        <!-- <tr>
-                                            <th scope="row">1</th>
-                                            <td>Mark</td>
-											<td>IME1</td>
-                                            <td><input type="text" class="form-control"></td>
-                                            <td><input type="text" class="form-control"></td>
-                                        </tr> -->
                                     </tbody>
                                 </table>
                             </div>
@@ -179,7 +172,7 @@
 				</div>
                 <div class="modal-footer">
                     <input type="button" class="btn btn-danger" data-dismiss="modal" value="Cancel">
-                    <input type="button" class="btn btn-success" value="Thêm" id="admin-add-BaoHanh">
+                    <input type="button" class="btn btn-success" value="Thêm" id="admin-add-DoiTra">
                 </div>
             </form>
         </div>

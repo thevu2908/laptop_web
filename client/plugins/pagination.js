@@ -4,7 +4,6 @@ function totalPage(count, perPage = 8) {
     const currentpage = $("#currentpage").val()
     pagination(totalpages, currentpage)
 }
-
 function pagination(totalpages, currentpage) {
     var pagelist = ""
     if (totalpages > 1) {

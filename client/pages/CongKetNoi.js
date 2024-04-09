@@ -14,7 +14,6 @@ function loadPlugData() {
         success: data => {
             if (data && data.length > 0) {
                 let html = ''
-                
                 data.forEach(item => {
                     html += `<option value="${item.ma_cong}">${item.ten_cong}</option>`
                 })

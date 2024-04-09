@@ -7,6 +7,9 @@ class PaginationRepo extends ConnectDB {
                 $query = "SELECT DISTINCT ma_quyen,ma_chuc_nang FROM chitietquyen ORDER BY 1 ASC LIMIT {$start},{$limit}";
             } else if ($table == "sanpham") {
                 $query = "
+                SELECT sp.*, ctsp.ma_ctsp, ten_thuong_hieu, ten_loai, ten_hdh, ten_mau, ten_chip, ten_card, ram, rom 
+                FROM chitietsanpham ctsp
+                JOIN (
                     SELECT sp.*, ten_thuong_hieu, ten_loai, ten_hdh
                     FROM sanpham sp 
                     JOIN thuonghieu th ON sp.ma_thuong_hieu = th.ma_thuong_hieu
@@ -27,7 +30,6 @@ class PaginationRepo extends ConnectDB {
             } else {
                 $query = "SELECT * from $table WHERE trang_thai = '0' ORDER BY 1 ASC LIMIT {$start},{$limit}";
             }
-    
             $result = mysqli_query($this->conn, $query);
             $arrPagination = array();
     
@@ -42,12 +44,10 @@ class PaginationRepo extends ConnectDB {
         }
     }
 
-    public function getCount($table, $id) {
+    public function getCount($table) {
         try {
             if ($table == "chitietquyen") {
                 $query = "SELECT count(DISTINCT ma_quyen, ma_chuc_nang) as num FROM chitietquyen";
-            } else if ($table == "chitietsanpham") {
-                $query = "SELECT count(*) as num FROM chitietsanpham WHERE ma_sp = '$id' AND trang_thai = '0'";
             } else {
                 $query = "SELECT count(*) as num FROM $table WHERE trang_thai = '0'";
             }
