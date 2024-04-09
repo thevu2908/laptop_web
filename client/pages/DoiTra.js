@@ -1,4 +1,31 @@
 $(document).ready(function() {
+    var html=`<tr data-row="IME1">
+    <th scope="row">1</th>
+    <td scope="row">IME1</td>
+    <td scope="row">Mark</td>
+    <td scope="row"><input type="text" class="form-control"></td>
+    <td scope="row">20000000</td>
+    <td scope="row">20000000</td>
+    <td data-row="IME1" onclick=removeItem(this)><i class="material-icons" data-toggle="tooltip" title="Remove">&#xE872;</i></td>
+</tr>
+<tr data-row="IME2">
+    <th scope="row">2</th>
+    <td scope="row">IME2</td>
+    <td scope="row">Mark</td>
+    <td scope="row"><input type="text" class="form-control"></td>
+    <td scope="row">30500000</td>
+    <td scope="row">30500000</td>
+    <td data-row="IME2" onclick=removeItem(this)><i class="material-icons" data-toggle="tooltip" title="Remove">&#xE872;</i></td>
+</tr><tr data-row="IME3">
+<th scope="row">2</th>
+<td scope="row">IME2</td>
+<td scope="row">Mark</td>
+<td scope="row"><input type="text" class="form-control"></td>
+<td scope="row">40500000</td>
+<td scope="row">40500000</td>
+<td data-row="IME3" onclick=removeItem(this)><i class="material-icons" data-toggle="tooltip" title="Remove">&#xE872;</i></td>
+</tr>`;
+    $("#admin-showDoiTra").html(html)
     phanquyen_chucnang("Đổi Trả")
     getValue()
 })

@@ -125,8 +125,8 @@
 											<th scope="col">Action</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        <tr data-row="IME1">
+                                    <tbody id="admin-showDoiTra">
+                                        <!-- <tr data-row="IME1">
                                             <th scope="row">1</th>
 											<td scope="row">IME1</td>
                                             <td scope="row">Mark</td>
@@ -143,7 +143,7 @@
                                             <td scope="row">30500000</td>
 											<td scope="row">30500000</td>
 											<td data-row="IME2" onclick=removeItem(this)><i class="material-icons" data-toggle="tooltip" title="Remove">&#xE872;</i></td>
-                                        </tr>
+                                        </tr> -->
                                     </tbody>
                                 </table>
                             </div>
