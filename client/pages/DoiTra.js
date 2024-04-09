@@ -30,5 +30,11 @@ function getValue(){
     })
 }
 function removeItem(element){
+    var ime=element.dataset.row;
+    console.log(ime);
     $(element).closest("tr").remove();
+    var indexToRemove = listitemDoiTra.findIndex(item => item.ime === ime);
+    if (indexToRemove !== -1) {
+        listitemDoiTra.splice(indexToRemove, 1);
+    }
 }
