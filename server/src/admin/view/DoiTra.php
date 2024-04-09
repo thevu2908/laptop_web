@@ -91,7 +91,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="row">
+					<!-- <div class="row">
 						<div class="col-md-6">
 							<div class="form-group">
 							<p id="mess_tenquyen"></p>
@@ -108,35 +108,41 @@
 								<input type="datetime" name="" id="" class="form-control">
 							</div>
 						</div>
-					</div>
+					</div> -->
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
                                 <label for="table1">Chi Tiết Đổi Trả</label>
-                                <table class="table" id="tableChiTietBaoHanh">
+                                <table class="table" id="tableChiTietDoiTra">
                                     <thead>
                                         <tr>
                                             <th scope="col">#</th>
 											<th scope="col">Mã IME</th>
-                                            <th scope="col">ID</th>
-                                            <th scope="col">Lý Do Bảo Hành</th>
-											<th scope="col">Nội Dung Bảo Hành</th>
+											<th scope="col">Tên</th>
+                                            <th scope="col">Lý Do</th>
+                                            <th scope="col">Giá Sản Phẩm</th>
+											<th scope="col">Thành Tiền</th>
+											<th scope="col">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
                                             <th scope="row">1</th>
-                                            <td>Mark</td>
-											<td>IME1</td>
-                                            <td><input type="text" class="form-control"></td>
-                                            <td><input type="text" class="form-control"></td>
+											<td scope="row">IME1</td>
+                                            <td scope="row">Mark</td>
+                                            <td scope="row"><input type="text" class="form-control"></td>
+                                            <td scope="row">20000000</td>
+											<td scope="row">20000000</td>
+											<td><i class="material-icons" data-toggle="tooltip" title="Remove" onclick=removeItem(this)>&#xE872;</i></td>
                                         </tr>
 										<tr>
-                                            <th scope="row">1</th>
-                                            <td>Mark</td>
-											<td>IME2</td>
-                                            <td><input type="text" class="form-control"></td>
-                                            <td><input type="text" class="form-control"></td>
+                                            <th scope="row">2</th>
+											<td scope="row">IME2</td>
+                                            <td scope="row">Mark</td>
+                                            <td scope="row"><input type="text" class="form-control"></td>
+                                            <td scope="row">30500000</td>
+											<td scope="row">30500000</td>
+											<td onclick=removeItem(this)><i class="material-icons" data-toggle="tooltip" title="Remove">&#xE872;</i></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -159,13 +165,6 @@
                                         </tr>
                                     </thead>
                                     <tbody id="admin-showChitiethoadon">
-                                        <!-- <tr>
-                                            <th scope="row">1</th>
-                                            <td>Mark</td>
-											<td>IME1</td>
-                                            <td><input type="text" class="form-control"></td>
-                                            <td><input type="text" class="form-control"></td>
-                                        </tr> -->
                                     </tbody>
                                 </table>
                             </div>
@@ -173,7 +172,7 @@
 				</div>
                 <div class="modal-footer">
                     <input type="button" class="btn btn-danger" data-dismiss="modal" value="Cancel">
-                    <input type="button" class="btn btn-success" value="Thêm" id="admin-add-BaoHanh">
+                    <input type="button" class="btn btn-success" value="Thêm" id="admin-add-DoiTra">
                 </div>
             </form>
         </div>

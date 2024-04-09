@@ -74,6 +74,7 @@
           }
           case "doitra": {
             include "./server/src/admin/view/DoiTra.php";
+            echo "<script src='./client/pages/DoiTra.js'></script>";
             break;
           }case "nhanvien":{
             include "./server/src/admin/view/NhanVien.php";

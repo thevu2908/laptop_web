@@ -12,7 +12,7 @@
 									Excel</span></a>
 							<a href="#" class="btn btn-secondary"><i class="material-icons">&#xE24D;</i> <span>Export
 									Excel</span></a>
-							<a href="#addNhomQuyen" id="admin-addBaoHanh" class="btn btn-success add" data-toggle="modal"><i
+							<a href="#addBaoHanh" id="admin-addBaoHanh" class="btn btn-success add" data-toggle="modal"><i
 									class="material-icons">&#xE147;</i> <span>Thêm</span></a>
 							<a href="#deleteNhomQuyen" class="btn btn-danger delete" data-toggle="modal"><i
 									class="material-icons">&#xE15C;</i> <span>Xóa</span></a>
@@ -50,7 +50,7 @@
 		</div>
 	</div>
 	<!-- Add Modal HTML -->
-	<div id="addNhomQuyen" class="modal fade">
+	<div id="addBaoHanh" class="modal fade">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <form>
@@ -124,6 +124,7 @@
                                             <th scope="col">ID</th>
                                             <th scope="col">Lý Do Bảo Hành</th>
 											<th scope="col">Nội Dung Bảo Hành</th>
+											<th scope="col">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -133,6 +134,7 @@
 											<td>IME1</td>
                                             <td><input type="text" class="form-control"></td>
                                             <td><input type="text" class="form-control"></td>
+											<td><i class="material-icons" data-toggle="tooltip" title="Remove" onclick=removeItem(this)>&#xE872;</i></td>
                                         </tr>
 										<tr>
                                             <th scope="row">1</th>
@@ -140,6 +142,7 @@
 											<td>IME2</td>
                                             <td><input type="text" class="form-control"></td>
                                             <td><input type="text" class="form-control"></td>
+											<td><i class="material-icons" data-toggle="tooltip" title="Remove" onclick=removeItem(this)>&#xE872;</i></td>
                                         </tr>
                                     </tbody>
                                 </table>

@@ -1,4 +1,5 @@
 $(document).ready(function() {
+    phanquyen_chucnang("Bảo Hành")
     getValue();
     //selectMaHoaDon();
 })
