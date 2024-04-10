@@ -29,7 +29,7 @@ function addDoiTra(){
         var thanhtienSP=thanhtien;
         var tongsoluongSP=soluong;
         $.ajax({
-            url:"",
+            url:"server/src/controller/PhieuDoiTraController.php",
             data:{action:"add",
             maphieudoitra:maphieudoitra,
             manhanvien:manhanvien,
@@ -44,14 +44,8 @@ function addDoiTra(){
             }
         })
         $.ajax({
-            url:"",
-            data:{action:"add",
-            maphieudoitra:maphieudoitra,
-            manhanvien:manhanvien,
-            mahoadon:mahoadon,
-            ngaydoitra:ngaydoitra,
-            tongsoluongSP:tongsoluongSP,
-            thanhtienSP:thanhtienSP},
+            url:"server/src/controller/CTPhieuDoiTraController.php",
+            data:{action:"add",maphieudoitra:maphieudoitra,listitemDoiTra:listitemDoiTra},
             method:"POST",
             dataType:"json",
             success:function(data){

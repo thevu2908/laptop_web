@@ -7,8 +7,8 @@ class ChiTietPhieuDoiTraController{
     public function __construct(){
         $this->chitietphieuDoiTraRepo = new ChiTietPhieuDoiTraRepo();
     }
-    public function addChiTietPhieuDoiTra($mapdt,$ma_imei,$lydo,$giasp,$soluong,$thanhtien,$masanpham){
-        echo json_encode($this->chitietphieuDoiTraRepo->addChiTietPhieuDoiTra($mapdt,$ma_imei,$lydo,$giasp,$soluong,$thanhtien,$masanpham));
+    public function addChiTietPhieuDoiTra($maphieudoitra,$listitemDoiTra){
+        echo json_encode($this->chitietphieuDoiTraRepo->addChiTietPhieuDoiTra($maphieudoitra,$listitemDoiTra));
     }
 }
 $chitietphieuDoiTractl=new ChiTietPhieuDoiTraController();
@@ -16,13 +16,8 @@ $action=$_POST['action'];
 switch($action){
     case "add":{
         $maphieudoitra=$_POST['maphieudoitra'];
-        $imei=$_POST['ime'];
-        $lydo=$_POST['lydo'];
-        $giasanpham=$_POST['giasanpham'];
-        $soluong=$_POST['soluong'];
-        $thanhtien=$_POST['thanhtien'];
-        $masanpham=$_POST['masanpham'];
-        $chitietphieuDoiTractl->addChiTietPhieuDoiTra($maphieudoitra,$imei,$lydo,$giasanpham,$soluong,$thanhtien,$masanpham);
+        $listitemDoiTra=json_decode(json_encode($_POST['listitemDoiTra']), true);
+        $chitietphieuDoiTractl->addChiTietPhieuDoiTra($maphieudoitra,$listitemDoiTra);
         break;
     }
 }
