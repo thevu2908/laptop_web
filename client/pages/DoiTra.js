@@ -32,6 +32,7 @@ $(document).ready(function() {
 var listitemDoiTra=[]
 function getValue(){
     //getNhanVien();
+    selectMaHoaDon();
     $(document).on("click","#admin-add-DoiTra",function(){
         listitemDoiTra=[];
         $('#tableChiTietDoiTra tbody tr').each(function() {
@@ -72,6 +73,28 @@ function removeItem(element){
         listitemDoiTra.splice(indexToRemove, 1);
     }
     console.log(listitemDoiTra)
+}
+function selectMaHoaDon(){
+    $(document).on("change","#admin-select-mahoadon",function(){
+        console.log($(this).val());
+        $.ajax({
+            url:"server/src/controller/CTHDController.php",
+            method:"POST",
+            data:{action:"getcthd",mahoadon:$(this).val()},
+            success:function(data){
+                console.log(data);
+                var html=`<tr>
+                <th scope="row">1</th>
+                <td scope="row">IME4</td>
+                <td scope="row">SP1</td>
+                <td scope="row">LapTop</td>
+                <td scope="row">30500000</td>
+                <td scope="row"><i class="material-icons">&#xE147;</i></td>
+                </tr>`;
+                //$("#admin-showChitiethoadon").html("");
+            }
+        })
+    })
 }
 $("#tableChiTietHoaDon tbody").on("click", "tr", function(){
     var ime = $(this).find("td:eq(0)").text();

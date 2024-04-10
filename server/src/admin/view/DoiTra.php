@@ -120,7 +120,7 @@
 							<p id="mess_tenquyen"></p>
 								<label>Tổng Số Lượng</label>
 								<br>
-								<input type="datetime" name="" id="admin-DoiTra-tongsoluong" class="form-control" readonly='false'>
+								<input type="text" name="" id="admin-DoiTra-tongsoluong" class="form-control" readonly='false'>
 							</div>
 						</div>
 						<div class="col-md-6">
@@ -128,7 +128,7 @@
 							<p id="mess_tenquyen"></p>
 								<label>Tổng Tiền Trả</label>
 								<br>
-								<input type="datetime" name="" id="admin-DoiTra-tongtientra" class="form-control" readonly='false'>
+								<input type="text" name="" id="admin-DoiTra-tongtientra" class="form-control" readonly='false'>
 							</div>
 						</div>
 					</div>
