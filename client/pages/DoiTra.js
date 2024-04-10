@@ -4,8 +4,7 @@ $(document).ready(function() {
 })
 var listitemDoiTra=[]
 function addDoiTra(){
-    //getNhanVien();
-    $("#admin-baohanh-manhanvien").val($("#admin-nhomquyen").val())
+    $("#admin-doitra-manhanvien").val("NV01")
     loadMaHoaDon();
     selectMaHoaDon();
     $(document).on("click","#admin-add-DoiTra",function(){
@@ -18,7 +17,7 @@ function addDoiTra(){
             listitemDoiTra.push({ime:ime,masanpham:masanpham,lydo:lydo,giasanpham:giasanpham,soluong:1,thanhtien:giasanpham})
         });
         var date=new Date()
-        var ngaydoitra=date.getFullYear()+"/"+(date.getMonth()+1)+"/"+date.getDate()+":"+date.getHours()+"h-"+date.getMinutes()+"m-"+date.getSeconds()+"s"
+        var ngaydoitra = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
         var maphieudoitra="PDT01";
         var mahoadon=$("#admin-select-mahoadon").val()
         var manhanvien=$("#admin-doitra-manhanvien").val()
@@ -28,31 +27,8 @@ function addDoiTra(){
         listitemDoiTra.forEach(item=>soluong+=Number.parseInt(item.soluong))
         var thanhtienSP=thanhtien;
         var tongsoluongSP=soluong;
-        $.ajax({
-            url:"server/src/controller/PhieuDoiTraController.php",
-            data:{action:"add",
-            maphieudoitra:maphieudoitra,
-            manhanvien:manhanvien,
-            mahoadon:mahoadon,
-            ngaydoitra:ngaydoitra,
-            tongsoluongSP:tongsoluongSP,
-            thanhtienSP:thanhtienSP},
-            method:"POST",
-            dataType:"json",
-            success:function(data){
-                console.log(data);
-            }
-        })
-        $.ajax({
-            url:"server/src/controller/CTPhieuDoiTraController.php",
-            data:{action:"add",maphieudoitra:maphieudoitra,listitemDoiTra:listitemDoiTra},
-            method:"POST",
-            dataType:"json",
-            success:function(data){
-                console.log(data);
-            }
-        })
-          
+        console.log(thanhtienSP,tongsoluongSP,manhanvien)
+        callAddPhieuDoiTra(maphieudoitra,manhanvien,mahoadon,ngaydoitra,tongsoluongSP,thanhtienSP)
     })
 }
 function loadDoiTra(){
@@ -91,6 +67,41 @@ function loadDoiTra(){
             $("#show-listDoiTra").html(html);
             phanquyen_chucnang("Đổi Trả");
             totalPage(data.count);
+        }
+    })
+}
+function callAddPhieuDoiTra(maphieudoitra,manhanvien,mahoadon,ngaydoitra,tongsoluongSP,thanhtienSP){
+    console.log("ajax-1")
+    $.ajax({
+        url:"server/src/controller/PhieuDoiTraController.php",
+        method:"POST",
+        data:{action:"add",
+        maphieudoitra:maphieudoitra,
+        manhanvien:manhanvien,
+        mahoadon:mahoadon,
+        ngaydoitra:ngaydoitra,
+        tongsoluongSP:tongsoluongSP,
+        thanhtienSP:thanhtienSP},
+        dataType:"json",
+        success:function(data){
+            console.log(data);
+            callAddChiTietPhieuDoiTra(maphieudoitra,listitemDoiTra)
+        },error:function(xhr,status,error){
+            console.error(xhr.responseText); 
+        }
+    })
+}
+function callAddChiTietPhieuDoiTra(maphieudoitra,listitemDoiTra){
+    console.log("ajax-2")
+    $.ajax({
+        url:"server/src/controller/CTPhieuDoiTraController.php",
+        method:"POST",
+        data:{action:"add",maphieudoitra:maphieudoitra,listitemDoiTra:listitemDoiTra},
+        dataType:"json",
+        success:function(data){
+            console.log(data);
+        },error:function(xhr,status,error){
+            console.error(xhr.responseText); 
         }
     })
 }

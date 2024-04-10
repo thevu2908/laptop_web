@@ -66,7 +66,7 @@
 							<div class="form-group">
 							<p id="mess_tenquyen"></p>
 								<label>Nhân Viên</label>
-								<input type="text" class="form-control form-control-sm" required id="admin-baohanh-manhanvien" readonly='false'>
+								<input type="text" class="form-control form-control-sm" required id="admin-doitra-manhanvien" readonly='false'>
 							</div>
 						</div>
 						<div class="col-md-6">
@@ -135,38 +135,7 @@
                                         </tr>
                                     </thead>
                                     <tbody id="admin-showChitiethoadon">
-										<!-- <tr>
-										    <th scope="row">1</th>
-											<td scope="row">IME4</td>
-                                            <td scope="row">SP1</td>
-                                            <td scope="row">LapTop</td>
-                                            <td scope="row">30500000</td>
-											<td scope="row"><i class="material-icons">&#xE147;</i></td>
-										</tr>
-										<tr>
-										    <th scope="row">2</th>
-											<td scope="row">IME5</td>
-                                            <td scope="row">SP1</td>
-                                            <td scope="row">LapTop</td>
-                                            <td scope="row">30500000</td>
-											<td scope="row"><i class="material-icons">&#xE147;</i></td>
-										</tr>
-										<tr>
-										    <th scope="row">3</th>
-											<td scope="row">IME7</td>
-                                            <td scope="row">SP1</td>
-                                            <td scope="row">LapTop</td>
-                                            <td scope="row">30500000</td>
-											<td scope="row"><i class="material-icons">&#xE147;</i></td>
-										</tr>
-										<tr>
-										    <th scope="row">4</th>
-											<td scope="row">IME6</td>
-                                            <td scope="row">SP3</td>
-                                            <td scope="row">LapTop</td>
-                                            <td scope="row">30500000</td>
-											<td scope="row"><i class="material-icons">&#xE147;</i></td>
-										</tr> -->
+										
                                     </tbody>
                                 </table>
                             </div>

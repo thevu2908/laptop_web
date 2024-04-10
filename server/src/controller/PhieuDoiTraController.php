@@ -7,22 +7,22 @@ class PhieuDoiTraController{
     public function __construct(){
         $this->phieuDoiTraRepo = new PhieuDoiTraRepo();
     }
-    public function addPhieuDoiTra($mapdt,$manhanvien,$mahoadon,$ngaytra,$tongsoluong,$tongtientra,$trangthai){
-        json_encode($this->phieuDoiTraRepo->addPhieuDoiTra($mapdt,$manhanvien,$mahoadon,$ngaytra,$tongsoluong,$tongtientra,$trangthai));
+    public function themPhieuDoiTra($mapdt,$manhanvien,$mahoadon,$ngaytra,$tongsoluong,$tongtientra,$trangthai){
+        echo json_encode($this->phieuDoiTraRepo->addPhieuDoiTra($mapdt,$manhanvien,$mahoadon,$ngaytra,$tongsoluong,$tongtientra,$trangthai));
     }
 }
 $phieuDoiTractl=new PhieuDoiTraController();
-$action=$_POST['action'];
-switch($action){
+$tmp=$_POST['action'];
+switch($tmp){
     case "add":{
         $mapdt=$_POST['maphieudoitra'];
         $manhanvien=$_POST['manhanvien'];
         $mahoadon=$_POST['mahoadon'];
-        $ngaytra=$_POST['ngaydoitra'];
-        $tongsoluong=$_POST['tongsoluongSP'];
-        $tongtientra=$_POST['thanhtienSP'];
+        $ngaytra=date("Y-m-d H:i:s");
+        $tongsoluong=(int)$_POST['tongsoluongSP'];
+        $tongtientra=(float)$_POST['thanhtienSP'];
         $trangthai=0;
-        $phieuDoiTractl->addPhieuDoiTra($mapdt,$manhanvien,$mahoadon,$ngaytra,$tongsoluong,$tongtientra,$trangthai);
+        $phieuDoiTractl->themPhieuDoiTra($mapdt,$manhanvien,$mahoadon,$ngaytra,$tongsoluong,$tongtientra,$trangthai);
         break;
     }
 }
