@@ -1,37 +1,12 @@
 $(document).ready(function() {
-//     var html=`<tr data-row="IME1">
-//     <th scope="row">1</th>
-//     <td scope="row">IME1</td>
-//     <td scope="row">Mark</td>
-//     <td scope="row"><input type="text" class="form-control"></td>
-//     <td scope="row">20000000</td>
-//     <td scope="row">20000000</td>
-//     <td data-row="IME1" onclick=removeItem(this)><i class="material-icons" data-toggle="tooltip" title="Remove">&#xE872;</i></td>
-// </tr>
-// <tr data-row="IME2">
-//     <th scope="row">2</th>
-//     <td scope="row">IME2</td>
-//     <td scope="row">Mark</td>
-//     <td scope="row"><input type="text" class="form-control"></td>
-//     <td scope="row">30500000</td>
-//     <td scope="row">30500000</td>
-//     <td data-row="IME2" onclick=removeItem(this)><i class="material-icons" data-toggle="tooltip" title="Remove">&#xE872;</i></td>
-// </tr><tr data-row="IME3">
-// <th scope="row">2</th>
-// <td scope="row">IME3</td>
-// <td scope="row">Mark</td>
-// <td scope="row"><input type="text" class="form-control"></td>
-// <td scope="row">40500000</td>
-// <td scope="row">40500000</td>
-// <td data-row="IME3" onclick=removeItem(this)><i class="material-icons" data-toggle="tooltip" title="Remove">&#xE872;</i></td>
-// </tr>`;
-//     $("#admin-showDoiTra").html(html)
-    phanquyen_chucnang("Đổi Trả")
-    getValue()
+    loadDoiTra()
+    addDoiTra()
 })
 var listitemDoiTra=[]
-function getValue(){
+function addDoiTra(){
     //getNhanVien();
+    $("#admin-baohanh-manhanvien").val($("#admin-nhomquyen").val())
+    loadMaHoaDon();
     selectMaHoaDon();
     $(document).on("click","#admin-add-DoiTra",function(){
         listitemDoiTra=[];
@@ -53,15 +28,76 @@ function getValue(){
         listitemDoiTra.forEach(item=>soluong+=Number.parseInt(item.soluong))
         var thanhtienSP=thanhtien;
         var tongsoluongSP=soluong;
-        console.log("--------------")
-        console.log(maphieudoitra)
-        console.log(mahoadon)
-        console.log(manhanvien)
-        console.log(ngaydoitra)
-        console.log(thanhtienSP)
-        console.log(tongsoluongSP)
-        console.log(listitemDoiTra) 
-        console.log("--------------")   
+        $.ajax({
+            url:"",
+            data:{action:"add",
+            maphieudoitra:maphieudoitra,
+            manhanvien:manhanvien,
+            mahoadon:mahoadon,
+            ngaydoitra:ngaydoitra,
+            tongsoluongSP:tongsoluongSP,
+            thanhtienSP:thanhtienSP},
+            method:"POST",
+            dataType:"json",
+            success:function(data){
+                console.log(data);
+            }
+        })
+        $.ajax({
+            url:"",
+            data:{action:"add",
+            maphieudoitra:maphieudoitra,
+            manhanvien:manhanvien,
+            mahoadon:mahoadon,
+            ngaydoitra:ngaydoitra,
+            tongsoluongSP:tongsoluongSP,
+            thanhtienSP:thanhtienSP},
+            method:"POST",
+            dataType:"json",
+            success:function(data){
+                console.log(data);
+            }
+        })
+          
+    })
+}
+function loadDoiTra(){
+    var pageno = $("#currentpage").val();
+    $.ajax({
+        url:"server/src/controller/PaginationController.php",
+        data: {action:"pagination", page: pageno,table:"phieudoitra"},
+        method: "GET",
+        dataType: "json",
+        success:function(data){
+            var jsondata=data.pagination;
+            var html="";
+            jsondata.forEach((phieudoitra,index) => {
+                html+=`<tr>
+                <td>
+                    <span class="custom-checkbox">
+                        <input type="checkbox" id="checkbox1" name="options[]" value="1">
+                        <label for="checkbox1"></label>
+                    </span>
+                </td>
+                <td>${phieudoitra['ma_pdt']}</td>
+                <td>${phieudoitra['ma_hd']}</td>
+                <td>${phieudoitra['ma_nv']}</td>
+                <td>${phieudoitra['ngay_tra']}</td>
+                <td>${phieudoitra['ma_hd']}</td>
+                <td>${phieudoitra['tong_so_luong']}</td>
+                <td>${phieudoitra['tong_tien_tra']}</td>
+                <td><span class="status text-success">&bull;</span> Active</td>
+                <td>
+                    <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                    <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                    <a href="#" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
+                </td>
+            </tr>`
+            });
+            $("#show-listDoiTra").html(html);
+            phanquyen_chucnang("Đổi Trả");
+            totalPage(data.count);
+        }
     })
 }
 function removeItem(element){
@@ -74,6 +110,21 @@ function removeItem(element){
     }
     console.log(listitemDoiTra)
 }
+function loadMaHoaDon(){
+    $.ajax({
+        url:"server/src/controller/HoaDonController.php",
+        method:"POST",
+        data:{action:"getmahoadon"},
+        dataType:"json",
+        success:function(data){
+            var html="<option value='choose' selected>Choose</option>";
+            data.forEach((hoadon,index)=>{
+                html+=`<option value="${hoadon['ma_hd']}">${hoadon['ma_hd']}</option>`
+            })
+            $("#admin-select-mahoadon").html(html)
+        }
+    })
+}
 function selectMaHoaDon(){
     $(document).on("change","#admin-select-mahoadon",function(){
         console.log($(this).val());
@@ -81,17 +132,21 @@ function selectMaHoaDon(){
             url:"server/src/controller/CTHDController.php",
             method:"POST",
             data:{action:"getcthd",mahoadon:$(this).val()},
+            dataType:"json",
             success:function(data){
                 console.log(data);
-                var html=`<tr>
-                <th scope="row">1</th>
-                <td scope="row">IME4</td>
-                <td scope="row">SP1</td>
-                <td scope="row">LapTop</td>
-                <td scope="row">30500000</td>
-                <td scope="row"><i class="material-icons">&#xE147;</i></td>
-                </tr>`;
-                //$("#admin-showChitiethoadon").html("");
+                var html="";
+                data.forEach((cthd,index)=>{
+                    html+=`<tr>
+                    <th scope="row">${index+1}</th>
+                    <td scope="row">${cthd['ma_imei']}</td>
+                    <td scope="row">${cthd['ma_ctsp']}</td>
+                    <td scope="row">${cthd['ten_sp']}</td>
+                    <td scope="row">${cthd['gia_sp']}</td>
+                    <td scope="row"><i class="material-icons">&#xE147;</i></td>
+                    </tr>`
+                })
+                $("#admin-showChitiethoadon").html(html);
             }
         })
     })

@@ -9,7 +9,7 @@
 						</div>
 						<div class="col-sm-6">
 							<a href="#adminDoiTra" id="add_NhomQuyen" class="btn btn-success add" data-toggle="modal"><i
-									class="material-icons">&#xE147;</i> <span>Thêm</span></a>
+									class="material-icons">&#xE147;</i><span>Thêm</span></a>
 							<a href="#deleteNhomQuyen" class="btn btn-danger delete" data-toggle="modal"><i
 									class="material-icons">&#xE15C;</i> <span>Xóa</span></a>
 						</div>
@@ -33,15 +33,14 @@
 							<th>Actions</th>
 						</tr>
 					</thead>
-					<tbody id="show-listNhomQuyen">
+					<tbody id="show-listDoiTra">
 					</tbody>
 				</table>
 				<div class="clearfix">
 				<div class="hint-text">Showing <b id="cur">5</b> out of <b id="total">25</b> entries</div>
-					<nav id="panigation">
-                    </nav>
+					<div id="pagination">
+					</div>
 					<input type="hidden" name="currentpage" id="currentpage" value="1">
-				</div>
 			</div>
 		</div>
 	</div>
@@ -60,11 +59,6 @@
                         <p id="mess_maquyen"></p>
                         <label>Mã Hóa Đơn</label>
                         <select class="form-control form-control-sm" aria-label="Default select example" id="admin-select-mahoadon">
-						    <option value="choose" selected>Choose</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
                         </select>
                     </div>
 					<div class="row">
@@ -72,14 +66,7 @@
 							<div class="form-group">
 							<p id="mess_tenquyen"></p>
 								<label>Nhân Viên</label>
-								<select class="form-control form-control-sm" aria-label="Default select example" id="admin-doitra-manhanvien">
-									<option value="choose" selected>Choose</option>
-									<option value="1">1</option>
-									<option value="2">2</option>
-									<option value="3">3</option>
-									<option value="4">4</option>
-                                </select>
-								<!-- <input type="text" class="form-control form-control-sm" required id="admin-baohanh-manhanvien"> -->
+								<input type="text" class="form-control form-control-sm" required id="admin-baohanh-manhanvien" readonly='false'>
 							</div>
 						</div>
 						<div class="col-md-6">
@@ -148,7 +135,7 @@
                                         </tr>
                                     </thead>
                                     <tbody id="admin-showChitiethoadon">
-										<tr>
+										<!-- <tr>
 										    <th scope="row">1</th>
 											<td scope="row">IME4</td>
                                             <td scope="row">SP1</td>
@@ -179,7 +166,7 @@
                                             <td scope="row">LapTop</td>
                                             <td scope="row">30500000</td>
 											<td scope="row"><i class="material-icons">&#xE147;</i></td>
-										</tr>
+										</tr> -->
                                     </tbody>
                                 </table>
                             </div>

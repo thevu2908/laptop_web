@@ -19,7 +19,7 @@ $ctHDctl=new CTHDController();
 $action=$_POST['action'];
 switch($action){
     case "getcthd":{
-        $ma_hd=$_POST['ma_hd'];
+        $ma_hd=$_POST['mahoadon'];
         $ctHDctl->getChiTietHoaDonInHoaDon($ma_hd);
         break;
     }

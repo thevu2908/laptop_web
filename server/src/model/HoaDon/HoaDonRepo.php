@@ -5,7 +5,7 @@ class HoaDonRepo extends ConnectDB {
         $result = mysqli_query($this->conn, $sql);
         $arrHoaDon = array();
         while($row = mysqli_fetch_assoc($result)) {
-            $arrHoaDon = $row;
+            $arrHoaDon[] = $row;
         }
         return $arrHoaDon;
     }
