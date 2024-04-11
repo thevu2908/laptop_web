@@ -149,3 +149,16 @@ $('.modal-cart').click((e) => {
 $(".modal-cart-dialog").click((e) => {
     e.stopPropagation();
 });
+
+// show search dropdown
+$(document).on('click', '.search-product-main .sort-dropdown-button', function (e) {
+    $('.search-product-main .sort-dropdown-button').not($(this)).removeClass('show')
+    $(this).toggleClass('show')
+    e.stopPropagation()
+})
+
+document.addEventListener('click', function (e) {
+    if (!e.target.classList.contains('sort-dropdown-button') && !e.target.closest('div').classList.contains('sort-dropdown-button')) {
+        $('.search-product-main .sort-dropdown-button').removeClass('show')
+    }
+})

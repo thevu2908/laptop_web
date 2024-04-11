@@ -12,6 +12,7 @@ $(document).ready(() => {
     exportExcel()
     handleSearchAdminProduct()
     handleFilterEndUserProduct()
+    handleFilterSearchEndUserProduct()
 })
 
 function formatProduct(products) {
@@ -149,6 +150,9 @@ function renderProducts() {
         if (urlParams.has('san-pham')) {
             renderEndUserProductPage()
             clickPage(renderEndUserProductList)
+        } else if (urlParams.has('tim-kiem')) {
+            renderSearchEndUserProduct()
+            clickPage(renderSearchEndUserProductList)
         } else {
             renderHomePageProduct()
         }
@@ -284,12 +288,11 @@ async function renderEndUserProductPage() {
 
 async function renderEndUserProductList() {
     const brandId = $('.filter-brand .filter-item-link.active').find('input').val() || ''
-    const price =  $('.filter-price .filter-item-link.active').find('input').val() || ''
+    const price = $('.filter-price .filter-item-link.active').find('input').val() || ''
     const cpu = $('.filter-cpu .filter-item-link.active').find('input').val() || ''
-    const search = ''
     const order = $('.sort-filter-container .sort-filter-item.active').find('input').val() || ''
     const page = $('#currentpage').val() || ''
-    const products = await getFilterProducts(brandId, price, cpu, search, order, page)
+    const products = await getFilterProducts(brandId, price, cpu, order, page)
     let html = ''
 
     if (products && products.pagination && products.pagination.length > 0) {
@@ -355,9 +358,10 @@ async function renderEndUserProductList() {
                 </div>
             `
         }
-        enduserTotalPage(products.count, 6, page)
     }
+
     $('.product-main .product-list').html(html)
+    enduserTotalPage(products.count, 6, page)
 }
 
 function renderEndUserProductFilter() {
@@ -444,12 +448,12 @@ function renderEndUserProductFilter() {
     renderFilterCPU()
 }
 
-function getFilterProducts(brandId, price, cpu, search, order, page) {
-    return new Promise((resolve, reject) => {    
+function getFilterProducts(brandId, price, cpu, order, page) {
+    return new Promise((resolve, reject) => {
         $.ajax({
             url: 'server/src/controller/SanPhamController.php',
             method: 'GET',
-            data: { action: 'filter', brandId, price, cpu, search, order, page },
+            data: { action: 'filter', brandId, price, cpu, order, page },
             dataType: 'JSON',
             success: products => resolve(products),
             error: (xhr, status, error) => {
@@ -461,37 +465,146 @@ function getFilterProducts(brandId, price, cpu, search, order, page) {
 }
 
 function handleFilterEndUserProduct() {
-    let brandId = $('.filter-brand .filter-item-link.active').find('input').val() || ''
-    let price =  $('.filter-price .filter-item-link.active').find('input').val() || ''
-    let cpu = $('.filter-cpu .filter-item-link.active').find('input').val() || ''
-    let search = ''
-    let order = $('.sort-filter-container .sort-filter-item.active').find('input').val() || ''
-
-    $(document).on('click', '.filter-brand .filter-item-link', function(e) {
+    $(document).on('click', '.filter-brand .filter-item-link', function() {
         $('.filter-brand .filter-item-link').removeClass('active')
         $(this).addClass('active')
-        brandId = $(this).find('input').val()
         renderEndUserProductList()
     })
-    $(document).on('click', '.filter-price .filter-item-link', function(e) {
+    $(document).on('click', '.filter-price .filter-item-link', function() {
         $('.filter-price .filter-item-link').removeClass('active')
         $(this).addClass('active')
-        price = $(this).find('input').val()
         renderEndUserProductList()
     })
-    $(document).on('click', '.filter-cpu .filter-item-link', function(e) {
+    $(document).on('click', '.filter-cpu .filter-item-link', function() {
         $('.filter-cpu .filter-item-link').removeClass('active')
         $(this).addClass('active')
-        cpu = $(this).find('input').val()
         renderEndUserProductList()
     })
-    $(document).on('click', '.sort-filter-container .sort-filter-item', function(e) {
+    $(document).on('click', '.sort-filter-container .sort-filter-item', function() {
         $('.sort-filter-container .sort-filter-item').removeClass('active')
         $(this).addClass('active')
         const text = $(this).find('a').text()
-        order = $(this).find('input').val()
+        const order = $(this).find('input').val()
         $('.sort-filter-container .sort-filter-item-default').html(`${text} <input type="hidden" value="${order}">`)
         renderEndUserProductList()
+    })
+}
+
+async function renderSearchEndUserProduct() {
+    const products = await getSearchEndUserProduct()
+    products.count > 0 ? renderFilterType() : $('.search-empty').addClass('active')
+    renderSearchEndUserProductList(products)
+}
+
+async function renderSearchEndUserProductList(data) {
+    const products = data || await getSearchEndUserProduct()
+    const page = $('#currentpage').val() || ''
+    const search = $('.search-form .search-input').val() || ''
+
+    let html = ''
+    if (products && products.pagination && products.pagination.length > 0) {
+        for (let product of products.pagination) {
+            const productDetails = await getProductDetailByProductId(product.ma_sp)
+            const productDetail = productDetails[0]
+
+            html += `
+                <div class="product-item col-3">
+                    <a href="index.php?san-pham&id=${product.ma_sp}" class="product-item-link">
+                        <div class="product-image-wrapper">
+                            <img src="${product.hinh_anh}">
+                        </div>
+                        <div class="product-info">
+                            <div class="product-price">
+                                <p class="product-price-number">
+                                    ${product.so_luong_ton > 0 ? `₫${formatCurrency(productDetail.gia_tien)}` : 'Hàng sắp về'}
+                                </p>
+                            </div>
+                            <div class="product-name">
+                                <p>${product.ten_sp} ${productDetail.ram} ${productDetail.rom}</p>
+                            </div>
+                            <div class="product-detail row">
+                                <span title="Màn hình" class="product-detail-info d-flex col-6">
+                                    <span class="material-symbols-outlined">
+                                        laptop_windows
+                                    </span>
+                                    ${product.kich_co_man_hinh}
+                                </span>
+                                <span title="CPU" class="product-detail-info d-flex col-6">
+                                    <span class="material-symbols-outlined">
+                                        memory
+                                    </span>
+                                    ${productDetail.ten_chip}
+                                </span>
+                                <span title="RAM" class="product-detail-info d-flex col-6">
+                                    <span class="material-symbols-outlined">
+                                        memory_alt
+                                    </span>
+                                    ${productDetail.ram}
+                                </span>
+                                <span title="Ổ cứng" class="product-detail-info d-flex col-6">
+                                    <span class="material-symbols-outlined">
+                                        hard_drive_2
+                                    </span>
+                                    SSD ${productDetail.rom}
+                                </span>
+                                <span title="Card đồ họa" class="product-detail-info d-flex col-6">
+                                    <span class="material-symbols-outlined">
+                                        developer_board
+                                    </span>
+                                    ${productDetail.ten_card}
+                                </span>
+                                <span title="Trọng lượng" class="product-detail-info d-flex col-6">
+                                    <span class="material-symbols-outlined">
+                                        weight
+                                    </span>
+                                    ${product.trong_luong} kg
+                                </span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            `
+        }
+    }
+    $('.search-product-main .search-info').html(search ? `<h1>Tìm thấy <b>${products.count}</b> kết quả với từ khóa <b>"${search.toLowerCase()}"</b></h1>` : '')
+    $('.search-product-main .search-product-list').html(html)
+    enduserTotalPage(products.count, 8, page)
+}
+
+function getSearchEndUserProduct() {
+    return new Promise((resolve, reject) => {
+        $('.search-form .search-input').val(new URLSearchParams(window.location.search).get('tim-kiem'))
+        const search = $('.search-form .search-input').val() || ''
+        const type = $('.search-product-main .filter-item h2').text() || ''
+        const page = $('#currentpage').val()
+        $.ajax({
+            url: 'server/src/controller/SanPhamController.php',
+            method: 'GET',
+            data: { action: 'search', search, type, page },
+            dataType: 'JSON',
+            success: products => resolve(products),
+            error: (xhr, status, error) => {
+                console.log(error)
+                reject(error)
+            }
+        })
+    })
+}
+
+function handleFilterSearchEndUserProduct() {
+    $(document).on('click', '.search-product-main .sort-dropdown-item', function() {
+        const type = $(this).text()
+        $('.search-product-main .filter-list').html(`
+            <div class="filter-item">
+                <h2>${type}</h2>
+                <i class="fa-solid fa-xmark"></i>
+            </div>
+        `)
+        renderSearchEndUserProductList()
+    })
+    $(document).on('click', '.search-product-main .filter-item', function() {
+        $('.search-product-main .filter-list').html('')
+        renderSearchEndUserProductList()
     })
 }
 
@@ -607,7 +720,7 @@ async function renderProductInfo() {
             const active = index === 0 ? 'active' : ''
             colorHtml += `<li class="product-color-item ${active}" title="${color.name}" style="background-color: ${color.id};"><i class="fa-solid fa-check"></i></li>`
         })
-                
+
         selectEndUserConfig(product)
 
         html = `

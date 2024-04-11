@@ -51,6 +51,18 @@
         } else if (isset($_REQUEST["thanh-toan"])) {
             include "./server/src/view/checkout.php";
             echo '<script src="client/pages/DiaChi.js"></script>';
+        } else if (isset($_REQUEST['tim-kiem'])) {
+            include "./server/src/view/search-product.php";
+            echo '<script src="./client/pages/ThuongHieu.js"></script>';
+            echo '<script src="./client/pages/TheLoai.js"></script>';
+            echo '<script src="./client/pages/MauSac.js"></script>';
+            echo '<script src="./client/pages/ChipXuLy.js"></script>';
+            echo '<script src="./client/pages/CardDoHoa.js"></script>';
+            echo '<script src="./client/pages/CongKetNoi.js"></script>';
+            echo '<script src="./client/pages/HeDieuHanh.js"></script>';
+            echo '<script src="./client/pages/SanPham.js"></script>';
+            echo '<script src="./client/pages/ChiTietSanPham.js"></script>';
+            echo '<script src="./client/pages/ChiTietCongKetNoi.js"></script>';
         } else {
             include "./server/src/view/homepage.php";
             echo '<script src="./client/pages/ThuongHieu.js"></script>';
