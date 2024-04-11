@@ -27,7 +27,7 @@ class PaginationRepo extends ConnectDB {
             } else {
                 $query = "SELECT * from $table WHERE trang_thai = '0' ORDER BY 1 ASC LIMIT {$start},{$limit}";
             }
-    
+
             $result = mysqli_query($this->conn, $query);
             $arrPagination = array();
     

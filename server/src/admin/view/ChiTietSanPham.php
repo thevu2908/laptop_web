@@ -22,11 +22,11 @@
                                     </button>
                                 </div>
                             </form>
-                            <a href="#addProductDetailModal" class="btn btn-success btn-add-product-detail-modal" data-toggle="modal">
+                            <a href="#addProductDetailModal" class="btn btn-success btn-add-product-detail-modal add" data-toggle="modal">
                                 <i class="material-icons">&#xE147;</i>
                                 <span>Thêm</span>
                             </a>
-                            <a href="#deleteProductDetailModal" class="btn btn-danger btn-delete-checked-product-detail-modal" data-toggle="modal">
+                            <a href="#deleteProductDetailModal" class="btn btn-danger btn-delete-checked-product-detail-modal delete" data-toggle="modal">
 								<i class="material-icons">&#xE15C;</i>
 								<span>Xóa</span>
 							</a>
@@ -87,7 +87,7 @@
 									<tr>
 										<td>Màu sắc:</td>
 										<td>
-											<select id="product-color" class="form-control">
+											<select id="product-color" class="selectpicker" data-size="5" data-live-search="true" data-live-search-style="startsWith">
 												
 											</select>
 										</td>
@@ -107,7 +107,7 @@
 									<tr>
 										<td>CPU:</td>
 										<td>
-											<select id="product-cpu" class="form-control">
+											<select id="product-cpu" class="selectpicker" data-size="5" data-live-search="true" data-live-search-style="startsWith">
 												
 											</select>
 										</td>
@@ -159,7 +159,7 @@
 									<tr>
 										<td>Card đồ họa:</td>
 										<td>
-											<select id="product-gpu" class="form-control">
+											<select id="product-gpu" class="selectpicker" data-size="5" data-live-search="true" data-live-search-style="startsWith">
 												
 											</select>
 										</td>
@@ -182,7 +182,7 @@
 									<tr>
 										<td>Cổng kết nối:</td>
 										<td>
-											<select id="product-plug" class="form-control selectpicker" multiple data-live-search="true">
+											<select id="product-plug" class="form-control selectpicker" data-size="5" multiple data-live-search="true" data-live-search-style="startsWith">
 												
 											</select>
 										</td>
@@ -204,6 +204,37 @@
 					<input type="button" class="btn btn-secondary" data-dismiss="modal" value="Hủy">
 					<input type="button" class="btn btn-primary btn-add-product-detail" value="Thêm">
 				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="editProductDetailModal" class="modal fade" data-backdrop="static">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<form>
+					<div class="modal-header">
+						<h4 class="modal-title">Sửa thông tin <b class="product-detail-id"></b></h4>
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					</div>
+					<div class="modal-body">
+						<div class="form-group">
+							<label for="product-detail-import-price">Giá nhập</label>
+							<input type="number" class="form-control" id="product-detail-import-price" disabled >
+						</div>
+						<div class="form-group">
+							<label for="product-detail-chietkhau">Chiết khấu(%)</label>
+							<input type="number" class="form-control" id="product-detail-chietkhau" >
+						</div>
+						<div class="form-group">
+							<label for="product-detail-price">Giá bán</label>
+							<input type="number" class="form-control" id="product-detail-price" disabled >
+						</div>
+					</div>
+					<div class="modal-footer">
+						<input type="button" class="btn btn-secondary" data-dismiss="modal" value="Hủy">
+						<input type="button" class="btn btn-primary btn-update-product-detail" value="Lưu">
+					</div>
+				</form>
 			</div>
 		</div>
 	</div>

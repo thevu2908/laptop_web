@@ -38,20 +38,22 @@ async function renderFilterBrand() {
             <h5>Hãng sản xuất</h5>
             <div class="filter-list row">
                 <div class="filter-item col-6">
-                    <a href="index.php?san-pham" class="filter-item-link active">
+                    <button class="filter-item-link active">
                         <i class="fa-regular fa-square"></i>
                         Tất cả
-                    </a>
+                        <input type="hidden" value="" >
+                    </button>
                 </div>
         `
 
         for (let index in brands) {
             html += `
                 <div class="filter-item col-6">
-                    <a href="index.php?san-pham&loai=${brands[index].ten_thuong_hieu.toLowerCase()}" class="filter-item-link">
+                    <button class="filter-item-link">
                         <i class="fa-regular fa-square"></i>
                         ${brands[index].ten_thuong_hieu}
-                    </a>
+                        <input type="hidden" value=${brands[index].ma_thuong_hieu}>
+                    </button>
                 </div>
             `
             if (index > 5) break
@@ -79,10 +81,11 @@ function renderMoreBrand() {
         for (let i = 7; i < brands.length; i++) {
             html += `
                 <div class="filter-item col-6">
-                    <a href="index.php?san-pham&loai=${brands[i].ten_thuong_hieu.toLowerCase()}" class="filter-item-link">
+                    <button class="filter-item-link">
                         <i class="fa-regular fa-square"></i>
                         ${brands[i].ten_thuong_hieu}
-                    </a>
+                        <input type="hidden" value=${brands[i].ma_thuong_hieu}>
+                    </button>
                 </div
             `
         }

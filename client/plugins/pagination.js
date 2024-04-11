@@ -4,7 +4,6 @@ function totalPage(count, perPage = 8) {
     const currentpage = $("#currentpage").val()
     pagination(totalpages, currentpage)
 }
-
 function pagination(totalpages, currentpage) {
     var pagelist = ""
     if (totalpages > 1) {
@@ -41,9 +40,10 @@ function enduserTotalPage(total, perPage, currentpage) {
 }
 
 function enduserPagination(totalPages, currentpage) {
+    let html = ''
     if (totalPages > 1) {
         let disabled = currentpage == 1 ? 'disabled' : ''
-        let html = `
+        html = `
             <ul class="pagination">
                 <li class="page-item ${disabled}"><a class="page-link btn-prev" data-page=${Number(currentpage) - 1} aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
         `
@@ -58,7 +58,6 @@ function enduserPagination(totalPages, currentpage) {
                 <li class="page-item ${disabled}"><a class="page-link btn-next" data-page=${Number(currentpage) + 1} aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
             </ul>
         `
-
-        $('.product-main .enduser-pagination').html(html)
     }
+    $('.product-main .enduser-pagination').html(html)
 }

@@ -29,7 +29,9 @@
 
 <body>
   <div id="admin-main">
-    <?php include "./server/src/admin/view/Taskbar.php"; ?>
+    <input type="hidden" value="NQ01" id="admin-nhomquyen">
+    <?php include "./server/src/admin/view/Taskbar.php";
+    //  echo '<script src="./client/pages/Taskbar.js"></script>'; ?>
     <div class="content">
       <?php include "./server/src/admin/view/Content.php" ?>
       <?php
@@ -57,22 +59,31 @@
               include "./server/src/admin/view/DanhGia.php";
               echo '<script src="./client/pages/DanhGia.js"></script>';
               break;
-            }
+          }
           case "taikhoan": {
               include "./server/src/admin/view/TaiKhoan.php";
               echo '<script src="./client/pages/TaiKhoan.js"></script>';
               echo "<script src='./client/pages/NhomQuyen.js'></script>";
               echo "<script src='./client/pages/NhanVien.js'></script>'";
               break;
-            }
-          case "nhanvien": {
-              include "./server/src/admin/view/NhanVien.php";
+          }
+          case "baohanh": {
+            include "./server/src/admin/view/BaoHanh.php";
+            echo "<script src='./client/pages/BaoHanh.js'></script>";
+            break;
+          }
+          case "doitra": {
+            include "./server/src/admin/view/DoiTra.php";
+            echo "<script src='./client/pages/DoiTra.js'></script>";
+            break;
+          }case "nhanvien":{
+            include "./server/src/admin/view/NhanVien.php";
+              echo "<script src='./client/pages/NhanVien.js'></script>'";
               echo '<script src="./client/pages/TaiKhoan.js"></script>';
               echo "<script src='./client/pages/NhomQuyen.js'></script>";
-              echo "<script src='./client/pages/NhanVien.js'></script>'";
               break;
             }
-          case "hoadon": {
+            case "hoadon": {
               include "./server/src/admin/view/HoaDon.php";
               break;
             }
@@ -110,6 +121,10 @@
               echo '<script src="./client/pages/ChiTietCongKetNoi.js"></script>';
               break;
             }
+            default: {
+              include "./server/src/admin/view/notfound.php";
+              break;
+            }
         }
       } else {
         include "./server/src/admin/view/DashBoard.php";
@@ -126,6 +141,6 @@
   <script src="./client/utils/formatDate.js"></script>
   <script src="./client/utils/formatPromotion.js"></script>
   <script src="./client/plugins/pagination.js"></script>
+  <script src="./client/plugins/PhanQuyen.js"></script>
 </body>
-
 </html>

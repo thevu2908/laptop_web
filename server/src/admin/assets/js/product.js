@@ -150,12 +150,12 @@ if (updateOpenFileChooser) {
 }
 
 // update product price
-const productChietKhau = document.querySelector('#editProductModal #product-chietkhau')
+const productChietKhau = document.querySelector('#product-detail-chietkhau')
 
 if (productChietKhau) {
     productChietKhau.oninput = e => {
-        const productImportPrice = document.querySelector('#editProductModal #product-import-price')
-        let productPrice = document.querySelector('#editProductModal #product-price')
+        const productImportPrice = document.querySelector('#product-detail-import-price')
+        let productPrice = document.querySelector('#product-detail-price')
 
         productPrice.value = Number(productImportPrice.value) * (100 + Number(productChietKhau.value)) / 100
     }

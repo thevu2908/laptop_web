@@ -21,11 +21,11 @@
 									<span>Export Excel</span>
 								</a>
 							</div>
-							<a href="#addProductModal" class="btn btn-success" data-toggle="modal">
+							<a href="#addProductModal" class="btn btn-success add" data-toggle="modal">
 								<i class="material-icons">&#xE147;</i>
 								<span>Thêm</span>
 							</a>
-							<a href="#deleteProductModal" class="btn btn-danger btn-delete-checked-product-modal" data-toggle="modal">
+							<a href="#deleteProductModal" class="btn btn-danger btn-delete-checked-product-modal delete" data-toggle="modal">
 								<i class="material-icons">&#xE15C;</i>
 								<span>Xóa</span>
 							</a>
@@ -148,7 +148,7 @@
 									<tr>
 										<td>Màu sắc:</td>
 										<td>
-											<select id="product-color" class="form-control selectpicker" multiple data-live-search="true">
+											<select id="product-color" class="form-control selectpicker" data-size="5" multiple data-live-search="true" data-live-search="startsWith">
 
 											</select>
 										</td>
@@ -174,7 +174,7 @@
 									<tr>
 										<td>CPU:</td>
 										<td>
-											<select id="product-cpu" class="form-control selectpicker" multiple data-live-search="true">
+											<select id="product-cpu" class="form-control selectpicker" data-size="5" multiple data-live-search="true" data-live-search="startsWith">
 
 											</select>
 										</td>
@@ -245,7 +245,7 @@
 									<tr>
 										<td>Card đồ họa:</td>
 										<td>
-											<select id="product-gpu" class="form-control selectpicker" multiple data-live-search="true">
+											<select id="product-gpu" class="form-control selectpicker" data-size="5" multiple data-live-search="true" data-live-search="startsWith">
 
 											</select>
 										</td>
@@ -268,7 +268,7 @@
 									<tr>
 										<td>Cổng kết nối:</td>
 										<td>
-											<select id="product-plug" class="form-control selectpicker" multiple data-live-search="true">
+											<select id="product-plug" class="form-control selectpicker" data-size="5" multiple data-live-search="true" data-live-search="startsWith">
 
 											</select>
 										</td>
