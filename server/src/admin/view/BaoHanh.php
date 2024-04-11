@@ -29,21 +29,22 @@
 								</span>
 							</th>
 							<th>Mã Phiếu Bảo Hành</th>
-                            <th>Mã Hóa Đơn</th>
 							<th>Nhân Viên</th>
+                            <th>Mã Hóa Đơn</th>
 							<th>Khách Hàng</th>
                             <th>Ngày Bảo Hành</th>
-                            <th>Ngày Trả</th>
+							<th>Ngày Trả</th>
+                            <th>Trạng Thái</th>
 							<th>Actions</th>
 						</tr>
 					</thead>
-					<tbody id="show-listNhomQuyen">
+					<tbody id="show-listBaoHanh">
 					</tbody>
 				</table>
 				<div class="clearfix">
-				<div class="hint-text">Showing <b id="cur">5</b> out of <b id="total">25</b> entries</div>
-					<nav id="panigation">
-                    </nav>
+				<div class="hint-text">Showing <b id="cur">5</b> out of <b id="total">25</b> entries</div>					
+				   <div id="pagination">
+                    </div>
 					<input type="hidden" name="currentpage" id="currentpage" value="1">
 				</div>
 			</div>
@@ -78,7 +79,6 @@
 									<option value="3">3</option>
 									<option value="4">4</option>
                                 </select>
-								<!-- <input type="text" class="form-control form-control-sm" required id="admin-baohanh-manhanvien"> -->
 							</div>
 						</div>
 						<div class="col-md-6">
@@ -89,7 +89,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="row">
+					<!-- <div class="row">
 						<div class="col-md-6">
 							<div class="form-group">
 							<p id="mess_tenquyen"></p>
@@ -106,7 +106,7 @@
 								<input type="datetime" name="" id="" class="form-control">
 							</div>
 						</div>
-					</div>
+					</div> -->
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
@@ -129,6 +129,15 @@
                                 </table>
                             </div>
                         </div>
+                    </div>
+					<div class="form-group">
+                        <p id="mess_maquyen"></p>
+                        <label>Trình Trạng</label>
+                        <select class="form-control form-control-sm" aria-label="Default select example" id="admin-select-trinhtrang">
+							<option value="Đang Bảo Hành" selected>Đang Bảo Hành</option>
+							<option value="Đã Bảo Hành">Đã Bảo Hành</option>
+							<option value="Từ Chối Bảo Hành">Từ Chối Bảo Hành</option>
+                        </select>
                     </div>
                 </div>
 				<div class="row">
@@ -236,7 +245,6 @@
 					</div>
 					<div class="modal-footer">
 						<input type="button" class="btn btn-danger" data-dismiss="modal" value="Cancel">
-						<!-- <input type="button" class="btn btn-info" id="btnUpdate" value="Update"> -->
 					</div>
 				</form>
 			</div>

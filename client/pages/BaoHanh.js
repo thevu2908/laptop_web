@@ -1,33 +1,58 @@
 $(document).ready(function() {
-    phanquyen_chucnang("Bảo Hành")
-    getAdd();
+    loadBaoHanh()
+    addBaoHanh();
 })
 var listitemBaoHanh=[];
-function getAdd(){
+function addBaoHanh(){
     loadMaHoaDon()
     selectMaHoaDon();
     //getNhanVien();
     $(document).on("click","#admin-add-BaoHanh",function(){
-        var mahoadon=$("#admin-select-mahoadon").val()
-        var makhachhang=$("#admin-baohanh-makhachhang").val()
-        var manhanvien=$("#admin-baohanh-manhanvien").val()
+        var maphieubaohanh="BH01";
+        var mahoadon=$("#admin-select-mahoadon").val();
+        var makhachhang=$("#admin-baohanh-makhachhang").val();
+        var manhanvien="NV01";
         var date=new Date()
-        var ngaybaohanh=date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate()+":"+date.getHours()+"h-"+date.getMinutes()+"m-"+date.getSeconds()+"s"
+        var ngaybaohanh=date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate()+":"+date.getHours()+"h-"+date.getMinutes()+"m-"+date.getSeconds()+"s";
+        var tinhtrangbaohanh=$("#admin-select-trinhtrang").val();
         console.log(mahoadon+" "+makhachhang+" "+manhanvien+" "+ngaybaohanh)
         listitemBaoHanh=[];
         $('#tableChiTietBaoHanh tbody tr').each(function() {
             var ime = $(this).find('td:nth-child(2)').text();
-            var id = $(this).find('td:nth-child(3)').text();
+            var masanpham = $(this).find('td:nth-child(3)').text();
             var lyDoBaoHanh = $(this).find('td:nth-child(4) input').val();
             var noiDungBaoHanh = $(this).find('td:nth-child(5) input').val();
             console.log("IME:", ime);
-            console.log("ID:", id);
+            console.log("ID:", masanpham);
             console.log("Lý Do Bảo Hành:", lyDoBaoHanh);
             console.log("Nội Dung Bảo Hành:", noiDungBaoHanh);
-            listitemBaoHanh.push({ime:ime,id:id,lyDoBaoHanh:lyDoBaoHanh,noiDungBaoHanh:noiDungBaoHanh,soluong:1})
+            listitemBaoHanh.push({ime:ime,masanpham:masanpham,lyDoBaoHanh:lyDoBaoHanh,noiDungBaoHanh:noiDungBaoHanh,soluong:1})
         });
+        console.log(tinhtrangbaohanh);
         console.log(listitemBaoHanh);
     
+    })
+}
+function addPhieuBaoHanh(){
+    $.ajax({
+        url:"server/src/controller/PhieuBaoHanhController.php",
+        data:{action:"add"},
+        method:"POST",
+        dataType:"json",
+        success:function(data){
+            console.log(data);
+        }
+    })
+}
+function addChiTietPhieuBaoHanh(){
+    $.ajax({
+        url:"server/src/controller/CTPhieuBaoHanhController.php",
+        data:{action:"add"},
+        method:"POST",
+        dataType:"json",
+        success:function(data){
+            console.log(data);
+        }
     })
 }
 function removeItem(element){
@@ -92,6 +117,44 @@ function loadMaHoaDon(){
                 html+=`<option value="${hoadon['ma_hd']}">${hoadon['ma_hd']}</option>`
             })
             $("#admin-select-mahoadon").html(html)
+        }
+    })
+}
+function loadBaoHanh(){
+    var pageno = $("#currentpage").val();
+    $.ajax({
+        url:"server/src/controller/PaginationController.php",
+        data: {action:"pagination", page: pageno,table:"phieubaohanh"},
+        method: "GET",
+        dataType: "json",
+        success:function(data){
+            var jsondata=data.pagination;
+            var html="";
+            jsondata.forEach((phieubaohanh,index) => {
+                html+=`<tr>
+                <td>
+                    <span class="custom-checkbox">
+                        <input type="checkbox" id="checkbox1" name="options[]" value="1">
+                        <label for="checkbox1"></label>
+                    </span>
+                </td>
+                <td>${phieubaohanh['ma_pbh']}</td>
+                <td>${phieubaohanh['ma_nv']}</td>
+                <td>${phieubaohanh['ma_kh']}</td>
+                <td>${phieubaohanh['ma_hd']}</td>
+                <td>${phieubaohanh['ngay_bao_hanh']}</td>
+                <td>${phieubaohanh['ngay_tra']}</td>
+                <td>${phieubaohanh['trang_thai']}</td>
+                <td>
+                    <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                    <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                    <a href="#detailPhieuBaoHanh" class="view" data-toggle="modal" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
+                </td>
+            </tr>`
+            });
+            $("#show-listBaoHanh").html(html);
+            phanquyen_chucnang("Bảo Hành");
+            totalPage(data.count);
         }
     })
 }
