@@ -54,7 +54,7 @@
               break;
             }
           case "danhgia": {
-              include "./server/src/admin/view/DSSanPham.php";
+              include "./server/src/admin/view/DanhGia.php";
               echo '<script src="./client/pages/DanhGia.js"></script>';
               break;
             }

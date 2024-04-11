@@ -22,7 +22,7 @@
                     </span>
                 </div>
                 <ul class="cart__left-product">
-                    <li class="d-flex justify-content-between w-100 align-items-center">
+                    <!-- <li class="d-flex justify-content-between w-100 align-items-center">
                         <div class="cart__left-product-name d-flex p-2">
                             <img src=".\server\src\assets\images\laptop-1.png" alt="">
                             <span>MacBook Air M2 13 2022 8CPU 8GPU 8GB 256GB</span>
@@ -73,7 +73,7 @@
                             <input class="plus is-form" type="button" style="border-left: transparent !important;" value="+">
                         </div>
                         <div class="cart__left-product-total p-2">₫45.190.000</div>
-                    </li>
+                    </li> -->
                 </ul>
             </div>
             <div class="cart__right d-flex flex-column col-4">
@@ -83,8 +83,8 @@
                         <a href="#"class="openmodal">Chọn khuyến mãi</a>
                     </div>
                     <div class="cart__right-condition">Đơn hàng chưa đủ điều kiện áp dụng khuyến mãi. Vui lòng mua thêm để áp dụng</div>
-                    <ul class="modal-cart-list" style="max-height: 270px;" >
-                        <li class="modal-promo-item p-2" >
+                    <ul class="cart-list-promo" style="max-height: 270px;" >
+                        <!-- <li class="modal-promo-item p-2" >
                             <div class="modal-promo-name d-flex align-items-center" >
                                 <div class="modal-promo-code">KM0012</div>
                                 <div class="modal-promo-name2 ms-2" style="font-weight: 500;">Khuyến mãi siêu sốc</div>
@@ -148,7 +148,7 @@
                                 <div class="modal-promo-expiry" >HSD: 31/4/2024</div>
                                 <div class="modal-promo-add" >Bỏ chọn</div>
                             </div>
-                        </li>
+                        </li> -->
                     </ul>
                 </div>
                 <div class="cart__right-pay bg-white mb-4 p-4 rounded-3">
@@ -185,7 +185,7 @@
                     </div>
 
                     <ul class="modal-cart-list" style="max-height: 400px;" >
-                        <li class="modal-promo-item" >
+                        <!-- <li class="modal-promo-item" >
                             <div class="modal-promo-name d-flex align-items-center" >
                                 <div class="modal-promo-code">KM0012</div>
                                 <div class="modal-promo-name2 ms-2" style="font-weight: 500;">Khuyến mãi siêu sốc</div>
@@ -262,7 +262,7 @@
                                 <div class="modal-promo-expiry" >HSD: 31/4/2024</div>
                                 <div class="modal-promo-add" >Áp dụng</div>
                             </div>
-                        </li>
+                        </li> -->
                     </ul>
                 </div>
 
@@ -282,18 +282,6 @@
             button.classList.add('disabled');
         } else {
             button.classList.remove('disabled');
-        }
-    });
-
-    window.addEventListener('DOMContentLoaded', () => {
-        const listContainer = document.querySelector('.modal-cart-body');
-        const list = document.querySelector('.modal-cart-list');
-
-        const minHeight = parseInt(getComputedStyle(list).minHeight, 10);
-        const containerHeight = listContainer.offsetHeight;
-
-        if (containerHeight < minHeight) {
-            listContainer.style.overflow = 'initial'; // Không cần hiển thị thanh cuộn
         }
     });
 </script>

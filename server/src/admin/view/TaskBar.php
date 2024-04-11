@@ -111,14 +111,14 @@ function kiemtraquyen($arr,$chucnang){
               <span class="text">Chi Tiết Sản Phẩm</span>
             </a>
           </li>
+          <li class="side-menu-item <?php echo $page === 'danhgia' ? 'active' : '' ?>">
+            <a href="/admin.php?controller=danhgia" class="nav-link">
+              <i class="fa-solid fa-laptop-code"></i>
+              <span class="text">Đánh giá</span>
+            </a>
+          </li>
         </ul>
       </div>
-    </li>
-    <li class="side-menu-item <?php echo $page === 'danhgia' ? 'active' : '' ?>">
-      <a href="/admin.php?controller=danhgia" class="nav-link">
-        <i class="fas fa-message"></i>
-        <span class="text">Đánh Giá</span>
-      </a>
     </li>
     <li class="side-menu-item <?php echo $page === 'nhanvien' ? 'active' : '' ?>">
       <a href="/admin.php?controller=nhanvien" class="nav-link">

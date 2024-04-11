@@ -46,8 +46,11 @@
             echo '<script src="./client/pages/SanPham.js"></script>';
             echo '<script src="./client/pages/ChiTietSanPham.js"></script>';
             echo '<script src="./client/pages/ChiTietCongKetNoi.js"></script>';
+            echo '<script src="./client/pages/DanhGia.js"></script>';
         } else if (isset($_REQUEST["gio-hang"])) {
             include "./server/src/view/cart.php";
+            include "./client/pages/DanhGia.js";
+            echo '<script src="./client/pages/KhuyenMai.js"></script>';
         } else if (isset($_REQUEST["thanh-toan"])) {
             include "./server/src/view/checkout.php";
             echo '<script src="client/pages/DiaChi.js"></script>';
@@ -67,10 +70,13 @@
         ?>
     </div>
 
+    <script src="./client/pages/GioHang.js"></script>
     <script src="server/src/assets/js/main.js"></script>
     <script src="./client/plugins/pagination.js"></script>
     <script src="./client/utils/general.js"></script>
     <script src="./client/utils/formatCurrency.js"></script>
+    <script src="./client/utils/formatPromotion.js"></script>
+    <script src="./client/utils/formatDate.js"></script>
 </body>
 
 </html>

@@ -11,24 +11,24 @@ class KhuyenMaiController {
         $this->khuyenMaiRepo = new KhuyenMaiRepo();
     }
 
-    // public function getAllKhuyenMai() {
-    //     $promotions = $this->khuyenMaiRepo->getAllKhuyenMai();
-    //     $result = [];
-
-    //     foreach($promotions as $promotion) {
-    //         if($promotion['tinh_trang'] ==  0) {
-    //             $result[] = $promotion;
-    //         }
-    //     }
-
-    //     echo json_encode($result);
-    // }
-
     public function getAllKhuyenMai() {
-        echo json_encode($this->khuyenMaiRepo->getAllKhuyenMai());
+        $promotions = $this->khuyenMaiRepo->getAllKhuyenMai();
+        $result = [];
+
+        foreach($promotions as $promotion) {
+            if($promotion['trang_thai'] ==  0) {
+                $result[] = $promotion;
+            }
+        }
+
+        echo json_encode($result);
     }
 
     public function getKhuyenMai($ma_km) {
+        return $this->khuyenMaiRepo->getKhuyenMai($ma_km);
+    }
+
+    public function getKhuyenMai2($ma_km) {
         echo json_encode($this->khuyenMaiRepo->getKhuyenMai($ma_km));
     }
 
@@ -36,7 +36,11 @@ class KhuyenMaiController {
         return $this->khuyenMaiRepo->getSizeKhuyenMai();
     }
 
-    public function addKhuyenMai(KhuyenMai $khuyenmai) {
+    public function getSize() {
+        echo $this->khuyenMaiRepo->getSizeKhuyenMai();
+    }
+
+    public function addKhuyenMai($khuyenmai) {
         if ($this->khuyenMaiRepo->addKhuyenMai($khuyenmai)) {
             echo $khuyenmai->getMaKm();
         } else {
@@ -44,19 +48,23 @@ class KhuyenMaiController {
         }
     }
 
-    public function updateKhuyenMai(KhuyenMai $khuyenmai) {
+    public function updateKhuyenMai($khuyenmai) {
         if ($this->khuyenMaiRepo->updateKhuyenMai($khuyenmai)) {
             echo 'success';
-        } else {
+        } 
+        else {
             echo 'fail';
         }
     }
 
     public function deleteKhuyenMai($ma_km) {
-        if ($this->khuyenMaiRepo->deleteKhuyenMai($ma_km)) {
-            echo 'success';
-        } else {
+        $promo = $this->khuyenMaiRepo->getKhuyenMai($ma_km);
+        if($promo['tinh_trang'] == 'Đang diễn ra') {
             echo 'fail';
+        }
+        else {
+            $this->khuyenMaiRepo->deleteKhuyenMai($ma_km);
+            echo 'success';
         }
     }
 }
@@ -66,8 +74,11 @@ $action = $_POST['action'];
 
 switch($action) {
     case 'get':
-        $ma_km = $_POST['get'];
-        $khuyenMaiCtl->getKhuyenMai($ma_km);
+        $ma_km = $_POST['promoId'];
+        $khuyenMaiCtl->getKhuyenMai2($ma_km);
+        break;
+    case 'get-size':
+        $khuyenMaiCtl->getSize();
         break;
     case 'get-all':
         $khuyenMaiCtl->getAllKhuyenMai();
@@ -78,35 +89,40 @@ switch($action) {
             $size += 1;
             $promoId = 'KM'.sprintf("%03d", $size);
             $obj = json_decode(json_encode($_POST['promo']));
-            $dateFrom = $obj->{'thoi_gian_bat_dau'};
-            $dateTo = $obj->{'thoi_gian_ket_thuc'};
-
-            $today = date('Y-m-d');
-            if ($today >= $startDate && $today <= $endDate) {
-                $status = 'Đang diễn ra';
-            } elseif ($today < $startDate) {
-                $status = 'Chưa bắt đầu';
-            } else {
-                $status = 'Đã kết thúc';
-            }
             
             $promo = new KhuyenMai(
                 $promoId,
-                $obj->{'ten_khuyen_mai'},
-                $obj->{'muc_khuyen_mai'},
-                $obj->{'dieu_kien'},
-                $dateFrom,
-                $dateTo,
-                $status
+                $obj->{'promoName'},
+                $obj->{'promoPercent'},
+                $obj->{'promoCondition'},
+                $obj->{'promoDateFrom'},
+                $obj->{'promoDateTo'},
+                $obj->{'promoStatus'},
+                0
             );
             
             $khuyenMaiCtl->addKhuyenMai($promo);
         }
         break;
-    // case 'update':
-    //     $khuyenMaiCtl->updateKhuyenMai();
-    //     break;
-    // case 'delete':
-    //     $khuyenMaiCtl->deleteKhuyenMai();
-    //     break;
+    case 'delete':
+        $promoId = $_POST['promoId'];
+        $khuyenMaiCtl->deleteKhuyenMai($promoId);
+        break;
+    case 'update':
+        $obj = json_decode(json_encode($_POST['promo']));
+        $promoId = $obj->{'promoId'};
+
+        $promo = new KhuyenMai(
+            $promoId,
+            $obj->{'promoName'},
+            $obj->{'promoPercent'},
+            $obj->{'promoCondition'},
+            $obj->{'promoDateFrom'},
+            $obj->{'promoDateTo'},
+            $obj->{'promoStatus'},
+            0
+        );
+
+        $khuyenMaiCtl->updateKhuyenMai($promo);
+        break;
 }

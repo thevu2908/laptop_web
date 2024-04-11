@@ -927,7 +927,7 @@ INSERT INTO `district` (`district_id`, `province_id`, `name`) VALUES
 (446, 40, 'Huyện Đắk Hà'),
 (447, 40, 'Huyện Sa Thầy'),
 (448, 40, 'Huyện Tu Mơ Rông'),
-(449, 40, 'Huyện Ia H\'Drai''),
+(449, 40, 'Huyện Ia H\' Drai'),
 (450, 41, 'Thành phố Pleiku'),
 (451, 41, 'Thị xã An Khê'),
 (452, 41, 'Thị xã Ayun Pa'),
@@ -947,14 +947,14 @@ INSERT INTO `district` (`district_id`, `province_id`, `name`) VALUES
 (466, 41, 'Huyện Chư Pưh'),
 (467, 42, 'Thành phố Buôn Ma Thuột'),
 (468, 42, 'Thị Xã Buôn Hồ'),
-(469, 42, 'Huyện Ea H\'leo''),
+(469, 42, 'Huyện Ea H\'leo'),
 (470, 42, 'Huyện Ea Súp'),
 (471, 42, 'Huyện Buôn Đôn'),
-(472, 42, 'Huyện Cư M\'gar''),
+(472, 42, 'Huyện Cư M\'gar'),
 (473, 42, 'Huyện Krông Búk'),
 (474, 42, 'Huyện Krông Năng'),
 (475, 42, 'Huyện Ea Kar'),
-(476, 42, 'Huyện M\'Đrắk''),
+(476, 42, 'Huyện M\'Đrắk'),
 (477, 42, 'Huyện Krông Bông'),
 (478, 42, 'Huyện Krông Pắc'),
 (479, 42, 'Huyện Krông A Na'),
@@ -966,7 +966,7 @@ INSERT INTO `district` (`district_id`, `province_id`, `name`) VALUES
 (485, 43, 'Huyện Đắk Mil'),
 (486, 43, 'Huyện Krông Nô'),
 (487, 43, 'Huyện Đắk Song'),
-(488, 43, 'Huyện Đắk R\'Lấp''),
+(488, 43, 'Huyện Đắk R\'Lấp'),
 (489, 43, 'Huyện Tuy Đức'),
 (490, 44, 'Thành phố Đà Lạt'),
 (491, 44, 'Thành phố Bảo Lộc'),
@@ -1401,6 +1401,88 @@ CREATE TABLE `phieunhap` (
   `tinh_trang` varchar(50) NOT NULL,
   `trang_thai` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `province`
+--
+
+CREATE TABLE `province` (
+  `province_id` int(11) NOT NULL,
+  `name` varchar(64) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Tỉnh thành';
+
+--
+-- Dumping data for table `province`
+--
+
+INSERT INTO `province` (`province_id`, `name`) VALUES
+(1, ' Hà Nội'),
+(2, ' Hà Giang'),
+(3, ' Cao Bằng'),
+(4, ' Bắc Kạn'),
+(5, ' Tuyên Quang'),
+(6, ' Lào Cai'),
+(7, ' Điện Biên'),
+(8, ' Lai Châu'),
+(9, ' Sơn La'),
+(10, ' Yên Bái'),
+(11, ' Hoà Bình'),
+(12, ' Thái Nguyên'),
+(13, ' Lạng Sơn'),
+(14, ' Quảng Ninh'),
+(15, ' Bắc Giang'),
+(16, ' Phú Thọ'),
+(17, ' Vĩnh Phúc'),
+(18, ' Bắc Ninh'),
+(19, ' Hải Dương'),
+(20, ' Hải Phòng'),
+(21, ' Hưng Yên'),
+(22, ' Thái Bình'),
+(23, ' Hà Nam'),
+(24, ' Nam Định'),
+(25, ' Ninh Bình'),
+(26, ' Thanh Hóa'),
+(27, ' Nghệ An'),
+(28, ' Hà Tĩnh'),
+(29, ' Quảng Bình'),
+(30, ' Quảng Trị'),
+(31, ' Thừa Thiên Huế'),
+(32, ' Đà Nẵng'),
+(33, ' Quảng Nam'),
+(34, ' Quảng Ngãi'),
+(35, ' Bình Định'),
+(36, ' Phú Yên'),
+(37, ' Khánh Hòa'),
+(38, ' Ninh Thuận'),
+(39, ' Bình Thuận'),
+(40, ' Kon Tum'),
+(41, ' Gia Lai'),
+(42, ' Đắk Lắk'),
+(43, ' Đắk Nông'),
+(44, ' Lâm Đồng'),
+(45, ' Bình Phước'),
+(46, ' Tây Ninh'),
+(47, ' Bình Dương'),
+(48, ' Đồng Nai'),
+(49, ' Bà Rịa - Vũng Tàu'),
+(50, ' Hồ Chí Minh'),
+(51, ' Long An'),
+(52, ' Tiền Giang'),
+(53, ' Bến Tre'),
+(54, ' Trà Vinh'),
+(55, ' Vĩnh Long'),
+(56, ' Đồng Tháp'),
+(57, ' An Giang'),
+(58, ' Kiên Giang'),
+(59, ' Cần Thơ'),
+(60, ' Hậu Giang'),
+(61, ' Sóc Trăng'),
+(62, ' Bạc Liêu'),
+(63, ' Cà Mau');
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `sanpham`
@@ -9474,7 +9556,7 @@ INSERT INTO `wards` (`wards_id`, `district_id`, `name`) VALUES
 (7897, 480, 'Xã Đắk Nuê'),
 (7898, 480, 'Xã Krông Nô'),
 (7899, 480, 'Xã Nam Ka'),
-(7900, 480, 'Xã Ea R\'Bin''),
+(7900, 480, 'Xã Ea R\'Bin'),
 (7901, 481, 'Xã Ea Ning'),
 (7902, 481, 'Xã Cư Ê Wi'),
 (7903, 481, 'Xã Ea Ktur'),
@@ -9488,17 +9570,17 @@ INSERT INTO `wards` (`wards_id`, `district_id`, `name`) VALUES
 (7911, 482, 'Phường Nghĩa Phú'),
 (7912, 482, 'Phường Nghĩa Tân'),
 (7913, 482, 'Phường Nghĩa Trung'),
-(7914, 482, 'Xã Đăk R\'Moan''),
+(7914, 482, 'Xã Đăk R\'Moan'),
 (7915, 482, 'Phường Quảng Thành'),
 (7916, 482, 'Xã Đắk Nia'),
 (7917, 483, 'Xã Quảng Sơn'),
 (7918, 483, 'Xã Quảng Hoà'),
 (7919, 483, 'Xã Đắk Ha'),
-(7920, 483, 'Xã Đắk R\'Măng''),
+(7920, 483, 'Xã Đắk R\'Măng'),
 (7921, 483, 'Xã Quảng Khê'),
 (7922, 483, 'Xã Đắk Plao'),
 (7923, 483, 'Xã Đắk Som'),
-(7924, 484, 'Thị trấn Ea T\'Ling''),
+(7924, 484, 'Thị trấn Ea T\'Ling'),
 (7925, 484, 'Xã Đắk Wil'),
 (7926, 484, 'Xã Ea Pô'),
 (7927, 484, 'Xã Nam Dong'),
@@ -9508,10 +9590,10 @@ INSERT INTO `wards` (`wards_id`, `district_id`, `name`) VALUES
 (7931, 484, 'Xã Trúc Sơn'),
 (7932, 485, 'Thị trấn Đắk Mil'),
 (7933, 485, 'Xã  Đắk Lao'),
-(7934, 485, 'Xã Đắk R\'La''),
+(7934, 485, 'Xã Đắk R\'La'),
 (7935, 485, 'Xã Đắk Gằn'),
 (7936, 485, 'Xã Đức Mạnh'),
-(7937, 485, 'Xã Đắk N\'Drót''),
+(7937, 485, 'Xã Đắk N\'Drót'),
 (7938, 485, 'Xã Long Sơn'),
 (7939, 485, 'Xã Đắk Sắk'),
 (7940, 485, 'Xã Thuận An'),
@@ -9527,7 +9609,7 @@ INSERT INTO `wards` (`wards_id`, `district_id`, `name`) VALUES
 (7950, 486, 'Xã Đức Xuyên'),
 (7951, 486, 'Xã Đắk Nang'),
 (7952, 486, 'Xã Quảng Phú'),
-(7953, 486, 'Xã Nâm N\'Đir''),
+(7953, 486, 'Xã Nâm N\'Đir'),
 (7954, 487, 'Thị trấn Đức An'),
 (7955, 487, 'Xã Đắk Môl'),
 (7956, 487, 'Xã Đắk Hòa'),
@@ -9551,7 +9633,7 @@ INSERT INTO `wards` (`wards_id`, `district_id`, `name`) VALUES
 (7974, 489, 'Xã Quảng Trực'),
 (7975, 489, 'Xã Đắk Búk So'),
 (7976, 489, 'Xã Quảng Tâm'),
-(7977, 489, 'Xã Đắk R\'Tíh''),
+(7977, 489, 'Xã Đắk R\'Tíh'),
 (7978, 489, 'Xã Đắk Ngo'),
 (7979, 489, 'Xã Quảng Tân'),
 (7980, 490, 'Phường 7'),
@@ -9574,7 +9656,7 @@ INSERT INTO `wards` (`wards_id`, `district_id`, `name`) VALUES
 (7997, 491, 'Phường Lộc Tiến'),
 (7998, 491, 'Phường 2'),
 (7999, 491, 'Phường 1'),
-(8000, 491, 'Phường B\'lao''),
+(8000, 491, 'Phường B\'lao'),
 (8001, 491, 'Phường Lộc Sơn'),
 (8002, 491, 'Xã Đạm Bri'),
 (8003, 491, 'Xã Lộc Thanh'),
@@ -9583,12 +9665,12 @@ INSERT INTO `wards` (`wards_id`, `district_id`, `name`) VALUES
 (8006, 491, 'Xã Đại Lào'),
 (8007, 492, 'Xã Đạ Tông'),
 (8008, 492, 'Xã Đạ Long'),
-(8009, 492, 'Xã Đạ M\' Rong''),
+(8009, 492, 'Xã Đạ M\' Rong'),
 (8010, 492, 'Xã Liêng Srônh'),
 (8011, 492, 'Xã Đạ Rsal'),
 (8012, 492, 'Xã Rô Men'),
 (8013, 492, 'Xã Phi Liêng'),
-(8014, 492, 'Xã Đạ K\' Nàng''),
+(8014, 492, 'Xã Đạ K\' Nàng'),
 (8015, 493, 'Thị trấn Lạc Dương'),
 (8016, 493, 'Xã Đạ Chais'),
 (8017, 493, 'Xã Đạ Nhim'),
@@ -9611,7 +9693,7 @@ INSERT INTO `wards` (`wards_id`, `district_id`, `name`) VALUES
 (8034, 494, 'Xã Liên Hà'),
 (8035, 494, 'Xã Đan Phượng'),
 (8036, 494, 'Xã Nam Hà'),
-(8037, 495, 'Thị trấn D\'Ran''),
+(8037, 495, 'Thị trấn D\'Ran'),
 (8038, 495, 'Thị trấn Thạnh Mỹ'),
 (8039, 495, 'Xã Lạc Xuân'),
 (8040, 495, 'Xã Đạ Ròn'),
@@ -9626,7 +9708,7 @@ INSERT INTO `wards` (`wards_id`, `district_id`, `name`) VALUES
 (8049, 496, 'Xã Liên Hiệp'),
 (8050, 496, 'Xã Hiệp Thạnh'),
 (8051, 496, 'Xã Bình Thạnh'),
-(8052, 496, 'Xã N\'Thol Hạ''),
+(8052, 496, 'Xã N\'Thol Hạ'),
 (8053, 496, 'Xã Tân Hội'),
 (8054, 496, 'Xã Tân Thành'),
 (8055, 496, 'Xã Phú Hội'),
@@ -9660,7 +9742,7 @@ INSERT INTO `wards` (`wards_id`, `district_id`, `name`) VALUES
 (8083, 498, 'Xã Lộc Lâm'),
 (8084, 498, 'Xã Lộc Phú'),
 (8085, 498, 'Xã Lộc Bắc'),
-(8086, 498, 'Xã B\' Lá''),
+(8086, 498, 'Xã B\' Lá'),
 (8087, 498, 'Xã Lộc Ngãi'),
 (8088, 498, 'Xã Lộc Quảng'),
 (8089, 498, 'Xã Lộc Tân'),
@@ -9669,7 +9751,7 @@ INSERT INTO `wards` (`wards_id`, `district_id`, `name`) VALUES
 (8092, 498, 'Xã Tân Lạc'),
 (8093, 498, 'Xã Lộc Thành'),
 (8094, 498, 'Xã Lộc Nam'),
-(8095, 499, 'Thị trấn Đạ M\'ri''),
+(8095, 499, 'Thị trấn Đạ M\'ri'),
 (8096, 499, 'Thị trấn Ma Đa Guôi'),
 (8097, 499, 'Xã Hà Lâm'),
 (8098, 499, 'Xã Đạ Tồn'),
@@ -12264,6 +12346,11 @@ ALTER TABLE `danhgia`
   ADD PRIMARY KEY (`ma_ctsp`,`ma_kh`),
   ADD KEY `danhgia_fk_kh` (`ma_kh`);
 
+--
+-- Indexes for table `district`
+--
+ALTER TABLE `district`
+  ADD PRIMARY KEY (`district_id`);
 
 --
 -- Indexes for table `giohang`
@@ -12348,6 +12435,11 @@ ALTER TABLE `phieunhap`
   ADD KEY `pn_fk_ncc` (`ma_ncc`),
   ADD KEY `pn_fk_nv` (`ma_nv`);
 
+--
+-- Indexes for table `province`
+--
+ALTER TABLE `province`
+  ADD PRIMARY KEY (`province_id`);
 
 --
 -- Indexes for table `sanpham`
@@ -12395,7 +12487,33 @@ ALTER TABLE `thongbao`
 ALTER TABLE `thuonghieu`
   ADD PRIMARY KEY (`ma_thuong_hieu`);
 
+--
+-- Indexes for table `wards`
+--
+ALTER TABLE `wards`
+  ADD PRIMARY KEY (`wards_id`);
 
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `district`
+--
+ALTER TABLE `district`
+  MODIFY `district_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=706;
+
+--
+-- AUTO_INCREMENT for table `province`
+--
+ALTER TABLE `province`
+  MODIFY `province_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
+
+--
+-- AUTO_INCREMENT for table `wards`
+--
+ALTER TABLE `wards`
+  MODIFY `wards_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10585;
 
 --
 -- Constraints for dumped tables

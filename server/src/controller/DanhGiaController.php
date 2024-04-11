@@ -3,28 +3,12 @@
 include __DIR__ . '/../model/ConnectDB.php';
 include __DIR__ . '/../model/DanhGia/DanhGia.php';
 include __DIR__ . '/../model/DanhGia/DanhGiaRepo.php';
-include __DIR__ . '/../model/SanPham/SanPham.php';
-include __DIR__ . '/../model/SanPham/SanPhamRepo.php';
 
 class DanhGiaController {
     private $danhGiaRepo;
-    private $sanPhamRepo;
 
     public function __construct() {
         $this->danhGiaRepo = new DanhGiaRepo();
-        $this->sanPhamRepo = new SanPhamRepo();
-    }
-
-    public function getListProduct() {
-        $products = $this->sanPhamRepo->getData();
-        $result = [];
-        
-        foreach($products as $product) {
-            if($product['trang_thai'] ==  0) {
-                $result[] = $product;
-            }
-        }
-        echo json_encode($result);
     }
 
     public function getAllDanhGia($ma_ctsp) {
@@ -39,13 +23,49 @@ class DanhGiaController {
 
         echo json_encode($result);
     }
+
+    public function getReviewSize() : int {
+        return $this->danhGiaRepo->getSizeDanhGia();
+    }
+
+    public function addReview($danhGia) {
+        if ($this->danhGiaRepo->addDanhGia($danhGia)) {
+            echo $danhGia->getMaCTSP();
+        } 
+        else {
+            echo null;
+        }
+    }
+
+    public function deleteReview($reviewId) {
+        if ($this->danhGiaRepo->deleteDanhGia($reviewId)) {
+            echo 'success';
+        } else {
+            echo 'fail';
+        }
+    }
 }
 
 $danhGiaCtl = new DanhGiaController();
 $action = $_POST['action'];
 
 switch($action) {
-    case 'get-data':
-        $danhGiaCtl->getListProduct();
+    case 'get-all':
+        $ma_ctsp = $_POST['ctspId'];
+        $danhGiaCtl->getAllDanhGia($ma_ctsp);
+        break;
+    case 'add':
+        $obj = json_decode(json_encode($_POST['review']));
+        
+        $review = new DanhGia(
+            $obj->{'productDetailId'},
+            $obj->{'customerId'},
+            $obj->{'rating'},
+            $obj->{'time'},
+            $obj->{'content'},
+            0
+        );
+        
+        $danhGiaCtl->addReview($review);
         break;
 }

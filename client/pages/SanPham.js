@@ -168,8 +168,12 @@ async function renderAdminProductTable(data) {
                             <label for="checkbox-${product.ma_sp}"></label>
                         </span>
                     </td>
-                    <td>${product.ma_sp}</td>
-                    <td>${product.ten_sp}</td>
+                    <td>
+                        ${product.ma_sp}
+                    </td>
+                    <td>
+                        ${product.ten_sp}
+                    </td>
                     <td>${product.ten_thuong_hieu}</td>
                     <td>${product.so_luong_ton}</td>
                     <td>
@@ -548,7 +552,7 @@ async function renderProductInfo() {
             </div>
             <div class="product-buy-box">
                 <input type="number" class="product-bought-quantity" step="1" min="1" max="9" name="quantity" value="1" title="Số lượng mua" size="4">
-                <button class="btn btn-add-cart">Thêm vào giỏ</button>
+                <button class="btn btn-add-cart" data-id='${product.detail[0].id}'>Thêm vào giỏ</button>
                 <a href="index.php?gio-hang" class="btn btn-buy">Mua ngay</a>
             </div>
         `

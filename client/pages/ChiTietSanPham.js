@@ -105,10 +105,13 @@ async function renderAdminProductDetail(data) {
                         <td>${productDetail.chiet_khau}</td>
                         <td>${formatCurrency(productDetail.gia_tien)}</td>
                         <td>${productDetail.so_luong}</td>
-                        <td>
+                        <td class="d-flex">
                             <a href="#deleteProductDetailModal" class="delete btn-delete-product-detail-modal" data-toggle="modal" data-id=${productDetail.ma_ctsp}>
                                 <i class="material-icons" data-toggle="tooltip" title="Xóa">&#xE872;</i>
                             </a>
+                            <a href="/admin.php?controller=danhgia&id=${productDetail.ma_ctsp}" class="info btn-product-detail" data-id=${productDetail.ma_ctsp}>
+                            <i class="fa-solid fa-circle-info" title="Xem đánh giá" ></i>
+                        </a>
                         </td>
                     </tr>
                 `
