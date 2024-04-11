@@ -491,16 +491,17 @@ function handleFilterEndUserProduct() {
 }
 
 async function renderSearchEndUserProduct() {
+    NProgress.start()
     const products = await getSearchEndUserProduct()
     products.count > 0 ? renderFilterType() : $('.search-empty').addClass('active')
     renderSearchEndUserProductList(products)
+    NProgress.done()
 }
 
 async function renderSearchEndUserProductList(data) {
     const products = data || await getSearchEndUserProduct()
     const page = $('#currentpage').val() || ''
     const search = $('.search-form .search-input').val() || ''
-
     let html = ''
     if (products && products.pagination && products.pagination.length > 0) {
         for (let product of products.pagination) {
