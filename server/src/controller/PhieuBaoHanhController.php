@@ -19,8 +19,11 @@ switch($tmp){
         $mahoadon=$_POST['mahoadon'];
         $manhanvien=$_POST['manhanvien'];
         $makhachhang=$_POST['makhachhang'];
-        $ngaybaohanh=$_POST['ngaybaohanh'];
-        $phieubaohanhctl->themPhieuBaoHanh();
+        $ngaybaohanh=date("Y-m-d H:i:s");
+        $ngaytra="";
+        $trangthai=$_POST['trangthai'];
+        $tinhtrang="Đang Xử Lý";
+        $phieubaohanhctl->themPhieuBaoHanh($maphieubaohanh,$manhanvien,$makhachhang,$mahoadon,$ngaybaohanh,$ngaytra,$trangthai,$tinhtrang);
         break;
     }
 }
