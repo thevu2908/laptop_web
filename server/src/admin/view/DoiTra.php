@@ -150,34 +150,35 @@
     </div>
 </div>
 	<!-- Edit Modal HTML -->
-	<div id="editNhomQuyen" class="modal fade">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<form>
-					<div class="modal-header">
-						<h4 class="modal-title">Sửa Nhóm Quyền</h4>
-						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-					</div>
-					<div class="modal-body">
-						<div class="form-group">
-							<div class="form-group">
-								<label>Mã Nhóm Quyền</label>
-								<input class="form-control" type="text" name="" id="maquyen" required>
-							</div>
-						</div>
-						<div class="form-group">
-							<label>Tên Nhóm Quyền</label>
-							<input type="text" class="form-control" name="" id="tenquyen" required>
-						</div>
-					</div>
-					<div class="modal-footer">
-						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-						<input type="button" class="btn btn-info" id="btnUpdate" value="Update">
-					</div>
-				</form>
-			</div>
-		</div>
-	</div>
+	<div id="detailPhieuDoiTra" class="modal fade">
+    <div class="modal-dialog modal-lg"> <!-- Sử dụng lớp modal-lg để làm cho modal lớn hơn -->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Chi Tiết Phiếu Đổi Trả</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div class="form-group">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">STT</th>
+                            <th scope="col">Mã IME</th>
+							<th scope="col">Sản Phẩm</th>
+                            <th scope="col">Lý Do</th>
+                            <th scope="col">Giá Sản Phẩm</th>
+							<th scope="col">Số Lượng</th>
+							<th scope="col">Thành Tiền</th>
+                        </tr>
+                    </thead>
+                    <tbody id="admin-showChiTietDoiTra">
+                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+   </div>
+
 	<!-- Delete Modal HTML -->
 	<div id="deleteNhomQuyen" class="modal fade">
 		<div class="modal-dialog">

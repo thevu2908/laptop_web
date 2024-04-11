@@ -53,14 +53,12 @@ function loadDoiTra(){
                 <td>${phieudoitra['ma_hd']}</td>
                 <td>${phieudoitra['ma_nv']}</td>
                 <td>${phieudoitra['ngay_tra']}</td>
-                <td>${phieudoitra['ma_hd']}</td>
                 <td>${phieudoitra['tong_so_luong']}</td>
                 <td>${phieudoitra['tong_tien_tra']}</td>
-                <td><span class="status text-success">&bull;</span> Active</td>
                 <td>
                     <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
                     <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-                    <a href="#" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
+                    <a href="#detailPhieuDoiTra" class="view" data-toggle="modal" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
                 </td>
             </tr>`
             });
@@ -86,6 +84,8 @@ function callAddPhieuDoiTra(maphieudoitra,manhanvien,mahoadon,ngaydoitra,tongsol
         success:function(data){
             console.log(data);
             callAddChiTietPhieuDoiTra(maphieudoitra,listitemDoiTra)
+            $("#adminDoiTra").modal('hide');
+            loadDoiTra()
         },error:function(xhr,status,error){
             console.error(xhr.responseText); 
         }
@@ -155,6 +155,9 @@ function selectMaHoaDon(){
             }
         })
     })
+}
+function chitietPhieuDoiTra(){
+    
 }
 $("#tableChiTietHoaDon tbody").on("click", "tr", function(){
     var ime = $(this).find("td:eq(0)").text();

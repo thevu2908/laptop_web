@@ -20,6 +20,8 @@ function pagination(totalpages, currentpage) {
         pagelist += `</ul>`
     }
     $("#pagination").html(pagelist)
+    $("#cur").val(currentpage)
+    $("#total").val(totalpages)
 }
 
 function clickPage(func) {

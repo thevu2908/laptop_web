@@ -64,11 +64,6 @@
                         <p id="mess_maquyen"></p>
                         <label>Mã Hóa Đơn</label>
                         <select class="form-control form-control-sm" aria-label="Default select example" id="admin-select-mahoadon">
-						    <option value="choose" selected>Choose</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
                         </select>
                     </div>
 					<div class="row">
@@ -122,28 +117,14 @@
                                             <th scope="col">#</th>
 											<th scope="col">Mã IME</th>
                                             <th scope="col">ID</th>
-                                            <th scope="col">Lý Do Bảo Hành</th>
-											<th scope="col">Nội Dung Bảo Hành</th>
+                                            <th scope="col">Lý Do</th>
+											<th scope="col">Nội Dung</th>
+											<th scope="col">Giá</th>
 											<th scope="col">Action</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        <tr>
-                                            <th scope="row">1</th>
-                                            <td>Mark</td>
-											<td>IME1</td>
-                                            <td><input type="text" class="form-control"></td>
-                                            <td><input type="text" class="form-control"></td>
-											<td><i class="material-icons" data-toggle="tooltip" title="Remove" onclick=removeItem(this)>&#xE872;</i></td>
-                                        </tr>
-										<tr>
-                                            <th scope="row">1</th>
-                                            <td>Mark</td>
-											<td>IME2</td>
-                                            <td><input type="text" class="form-control"></td>
-                                            <td><input type="text" class="form-control"></td>
-											<td><i class="material-icons" data-toggle="tooltip" title="Remove" onclick=removeItem(this)>&#xE872;</i></td>
-                                        </tr>
+                                    <tbody id="show-adminBaoHanh">
+                                        
                                     </tbody>
                                 </table>
                             </div>
@@ -160,18 +141,13 @@
                                             <th scope="col">#</th>
 											<th scope="col">Mã IME</th>
                                             <th scope="col">ID</th>
-                                            <th scope="col">Lý Do Bảo Hành</th>
-											<th scope="col">Nội Dung Bảo Hành</th>
+											<th scope="col">Tên</th>
+                                            <th scope="col">Giá</th>
+											<th scope="col">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody id="admin-showChitiethoadon">
-                                        <!-- <tr>
-                                            <th scope="row">1</th>
-                                            <td>Mark</td>
-											<td>IME1</td>
-                                            <td><input type="text" class="form-control"></td>
-                                            <td><input type="text" class="form-control"></td>
-                                        </tr> -->
+                                       
                                     </tbody>
                                 </table>
                             </div>
