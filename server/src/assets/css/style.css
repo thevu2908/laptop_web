@@ -1093,7 +1093,6 @@ ul, li {
     font-size: 38px;
     line-height: 48px;
     margin-bottom: 0px;
-    font-family: "Poppins", sans-serif;
     font-weight: 600;
     text-transform: capitalize;
 }
@@ -1128,10 +1127,9 @@ ul, li {
     color: #1b1b1b;
     text-align: left;
     letter-spacing: -.05em;
-    font-family: Epilogue, sans-serif;
-    font-size: 4rem;
+    font-size: 48px;
     font-weight: 600;
-    line-height: 1.1em;
+    line-height: 1.3em;
     margin-top: 0;
     margin-bottom: 0;
 }
@@ -1168,17 +1166,16 @@ ul, li {
 
 .contact-info-item span:first-child {
     color: var(--primary-color);
-    font-family: Epilogue, sans-serif;
     font-size: 1.125rem;
     font-weight: 600;
     line-height: 1.2em;
+    margin-bottom: 6px;
 }
 
 .contact-info-item span {
-    font-family: Epilogue, sans-serif;
     font-size: 1.125rem;
     font-weight: 500;
-    line-height: 1.8em;
+    line-height: 1.4em;
 }
 
 .contact-info-item svg {
