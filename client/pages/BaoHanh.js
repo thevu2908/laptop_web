@@ -105,6 +105,17 @@ function getNhanVien(){
         }
     })
 }
+function getKhachHang(){
+    $.ajax({
+        url:"server/src/controller/KhachHangController.php",
+        data:{action:"get-khachhang"},
+        method:"POST",
+        dataType:"json",
+        success:function(data){
+            $("#admin-baohanh-manhanvien").html(html);
+        }
+    })
+}
 function loadMaHoaDon(){
     $.ajax({
         url:"server/src/controller/HoaDonController.php",

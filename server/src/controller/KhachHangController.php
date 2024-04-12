@@ -38,6 +38,9 @@ class KhachHangController {
 
         echo json_encode($this->khachHangRepo->getWard($district_id));
     }
+    public function getKH($id){
+        echo json_encode($this->khachHangRepo->getKhachHang($id));
+    }
 }
 
 $khachHangCtl = new KhachHangController();
@@ -53,4 +56,9 @@ switch($action) {
     case 'get-ward':
         $khachHangCtl->getWard();
         break;
+    case "get-khachhang":{
+        $id=$_POST['id'];
+        $khachHangCtl->getKH($id);
+        break;
+    }    
 }

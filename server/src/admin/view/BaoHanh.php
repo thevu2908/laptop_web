@@ -89,24 +89,6 @@
 							</div>
 						</div>
 					</div>
-					<!-- <div class="row">
-						<div class="col-md-6">
-							<div class="form-group">
-							<p id="mess_tenquyen"></p>
-								<label>Ngày Bảo Hành</label>
-								<br>
-								<input type="datetime" name="" id="" class="form-control" value="">
-							</div>
-						</div>
-						<div class="col-md-6">
-							<div class="form-group">
-							<p id="mess_tenquyen"></p>
-								<label>Ngày Trả</label>
-								<br>
-								<input type="datetime" name="" id="" class="form-control">
-							</div>
-						</div>
-					</div> -->
                     <div class="row">
                         <div class="col">
                             <div class="form-group">

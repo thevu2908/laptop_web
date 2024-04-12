@@ -79,7 +79,6 @@ class HoaDonRepo extends ConnectDB {
         }
         return $arrHoaDon;
     }
-
     function getSize() {
         $sql = "SELECT count(*) FROM hoadon";
         $result = mysqli_query($this->conn, $sql);
