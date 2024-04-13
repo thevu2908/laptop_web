@@ -1200,7 +1200,7 @@ ul, li {
     font-size: 16px;
     font-weight: 700;
     line-height: 24px;
-    color: #cb1c22;
+    color: var(--primary-color);
     text-align: left;
 }
 
@@ -1534,7 +1534,7 @@ ul, li {
 
 .product-price-number {
     color: var(--primary-color);
-    font-family: "Poppins", sans-serif;
+    font-family: Roboto, Helvetica, Arial, sans-serif;
     font-size: 1.875rem;
     font-weight: 600;
     line-height: 1em;
@@ -1909,6 +1909,12 @@ ul, li {
     padding: 32px 0;
     border-bottom: 1px solid #ccc;
     width: 100%;
+}
+
+.product-detail-container .product-name span {
+    color: var(--primary-color);
+    font-size: 24px;
+    margin-left: 10px;
 }
 
 .product-detail-container .product-price {

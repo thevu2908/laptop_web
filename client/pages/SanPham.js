@@ -311,7 +311,7 @@ async function renderEndUserProductList() {
                         <div class="product-info">
                             <div class="product-price">
                                 <p class="product-price-number">
-                                    ${product.so_luong_ton > 0 ? `₫${formatCurrency(productDetail.gia_tien)}` : 'Hàng sắp về'}
+                                    ${product.so_luong_ton > 0 ? `₫${formatCurrency(productDetail.gia_tien)}` : 'TẠM HẾT HÀNG'}
                                 </p>
                             </div>
                             <div class="product-name">
@@ -519,7 +519,7 @@ async function renderSearchEndUserProductList(data) {
                         <div class="product-info">
                             <div class="product-price">
                                 <p class="product-price-number">
-                                    ${product.so_luong_ton > 0 ? `₫${formatCurrency(productDetail.gia_tien)}` : 'Hàng sắp về'}
+                                    ${product.so_luong_ton > 0 ? `₫${formatCurrency(productDetail.gia_tien)}` : 'TẠM HẾT HÀNG'}
                                 </p>
                             </div>
                             <div class="product-name">
@@ -612,6 +612,7 @@ function handleFilterSearchEndUserProduct() {
 }
 
 async function renderProductInfo() {
+    NProgress.start()
     const urlParams = new URLSearchParams(window.location.search)
     const productId = urlParams.get('id')
 
@@ -667,13 +668,13 @@ async function renderProductInfo() {
         $('.produt-info-left').html(html)
 
         let rams = product.detail
-            .filter(productDetail => productDetail.quantity > 0)
+            .filter(productDetail => product.quantity > 0 ? productDetail.quantity > 0 : true)
             .map(productDetail => ({ ram: productDetail.ram, price: productDetail.price }))
         let roms = product.detail
-            .filter(productDetail => productDetail.quantity > 0)
+            .filter(productDetail => product.quantity > 0 ? productDetail.quantity > 0 : true)
             .map(productDetail => ({ rom: productDetail.rom, price: productDetail.price }))
         let colors = product.detail
-            .filter(productDetail => productDetail.quantity > 0)
+            .filter(productDetail => product.quantity > 0 ? productDetail.quantity > 0 : true)
             .map(productDetail => ({ id: productDetail.colorId, name: productDetail.color }))
 
         rams = removeDuplicateObject(rams, 'ram')
@@ -727,7 +728,10 @@ async function renderProductInfo() {
         selectEndUserConfig(product)
 
         html = `
-            <h2 class="product-name">${product.name} ${product.detail[0].ram.toUpperCase()}/${product.detail[0].rom.toUpperCase()}</h2>
+            <h2 class="product-name">
+                ${product.name} ${product.detail[0].ram.toUpperCase()}/${product.detail[0].rom.toUpperCase()}
+                ${product.quantity > 0 ? '' : '<span>TẠM HẾT HÀNG</span>'}
+            </h2>
             <h3 class="product-price">
                 ₫${formatCurrency(product.detail[0].price)}
                 <del class="product-origin-price">₫${formatCurrency(product.detail[0].price)}</del>
@@ -741,9 +745,14 @@ async function renderProductInfo() {
                 </ul>
             </div>
             <div class="product-buy-box">
-                <input type="number" class="product-bought-quantity" step="1" min="1" max="9" name="quantity" value="1" title="Số lượng mua" size="4">
-                <button class="btn btn-add-cart">Thêm vào giỏ</button>
-                <a href="index.php?gio-hang" class="btn btn-buy">Mua ngay</a>
+                ${product.quantity > 0 
+                    ? `
+                        <input type="number" class="product-bought-quantity" step="1" min="1" max="9" name="quantity" value="1" title="Số lượng mua" size="4">
+                        <button class="btn btn-add-cart">Thêm vào giỏ</button>
+                        <a href="index.php?gio-hang" class="btn btn-buy">Mua ngay</a>
+                    `
+                    : ''
+                }
             </div>
         `
         $('.product-info-right').html(html)
@@ -753,6 +762,7 @@ async function renderProductInfo() {
         const rom = roms.length > 1 ? $('.product-select-item.rom.active').find('input').val() : roms[0].rom
         renderProductConfigModal(product, color, ram, rom)
     }
+    NProgress.done()
 }
 
 function renderProductConfigModal(product, color, ram, rom) {
