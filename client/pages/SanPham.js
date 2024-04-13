@@ -1452,7 +1452,7 @@ function exportExcel() {
             })
 
             const ws = XLSX.utils.json_to_sheet(excelDatas)
-            const wb = XLSX.utils.book_new();
+            const wb = XLSX.utils.book_new()
             XLSX.utils.book_append_sheet(wb, ws, "Sheet1")
             const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' })
             saveAs(new Blob([wbout], { type: 'application/octet-stream' }), 'dssp.xlsx')
