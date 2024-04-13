@@ -260,8 +260,8 @@ switch ($action) {
         break;
     case 'search':
         $search = $_GET['search'];
-        $type = $_GET['type'];
-        $page = $_GET['page'];
+        $type = isset($_GET['type']) ? $_GET['type'] : '';
+        $page = isset($_GET['page']) ? $_GET['page'] : 1;
         $limit = isset($_GET['limit']) ? $_GET['limit'] : 8;
         $start = ($page - 1) * $limit;
         $sanPhamCtl->searchProduct($search, $type, $start, $limit);

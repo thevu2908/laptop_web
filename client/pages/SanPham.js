@@ -147,14 +147,16 @@ function renderProducts() {
         renderAdminProductTable(null)
         clickPage(renderAdminProductTable)
     } else if (window.location.pathname === '/index.php') {
-        if (urlParams.has('san-pham')) {
-            renderEndUserProductPage()
-            clickPage(renderEndUserProductList)
-        } else if (urlParams.has('tim-kiem')) {
-            renderSearchEndUserProduct()
-            clickPage(renderSearchEndUserProductList)
-        } else {
-            renderHomePageProduct()
+        if (!urlParams.has('id')) {
+            if (urlParams.has('san-pham')) {
+                renderEndUserProductPage()
+                clickPage(renderEndUserProductList)
+            } else if (urlParams.has('tim-kiem')) {
+                renderSearchEndUserProduct()
+                clickPage(renderSearchEndUserProductList)
+            } else {
+                renderHomePageProduct()
+            }
         }
     }
 }

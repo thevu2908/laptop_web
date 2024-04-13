@@ -1,3 +1,14 @@
+// hide element when click outside
+$(document).on('click', function (e) {
+    if (!e.target.classList.contains('sort-dropdown-button') && !e.target.closest('div').classList.contains('sort-dropdown-button')) {
+        $('.search-product-main .sort-dropdown-button').removeClass('show')
+    }
+    $('.search-suggest-container').hide()
+    const overSuggest = $('.over-suggest')
+    overSuggest.css('opacity', '0')
+    overSuggest.css('visibility', 'hidden')
+})
+
 // show hide password
 const showhidePassword = document.querySelector('.showhide-pwd-icon')
 const passwordElement = document.querySelector('.login-password')
@@ -155,10 +166,4 @@ $(document).on('click', '.search-product-main .sort-dropdown-button', function (
     $('.search-product-main .sort-dropdown-button').not($(this)).removeClass('show')
     $(this).toggleClass('show')
     e.stopPropagation()
-})
-
-document.addEventListener('click', function (e) {
-    if (!e.target.classList.contains('sort-dropdown-button') && !e.target.closest('div').classList.contains('sort-dropdown-button')) {
-        $('.search-product-main .sort-dropdown-button').removeClass('show')
-    }
 })

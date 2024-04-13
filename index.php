@@ -84,6 +84,7 @@
     <script src="./client/plugins/pagination.js"></script>
     <script src="./client/utils/general.js"></script>
     <script src="./client/utils/formatCurrency.js"></script>
+    <script src="./client/pages/TimKiem.js"></script>
 </body>
 
 </html>
