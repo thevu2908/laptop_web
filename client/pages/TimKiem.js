@@ -50,6 +50,9 @@ async function renderSearchSuggest(search, searchSuggest) {
                 </li>
             `
         }
+        searchSuggest.find('.suggest-empty').css('display', 'none')
+        suggestLeft.css('display', 'block')
+        suggestRight.css('display', 'block')
         suggestLeft.find('ul').html(leftHtml)
         suggestRight.find('ul').html(rightHtml)
     } else {
