@@ -830,11 +830,11 @@ function selectEndUserConfig(product) {
 
 async function renderFooter() {
     try {
-        const footerResponse = await fetch('server/src/view/footer.php');
-        const footerHtml = await footerResponse.text();
-        $('#footer-main').html(footerHtml);
+        const footerResponse = await fetch('server/src/view/footer.php')
+        const footerHtml = await footerResponse.text()
+        $('#footer-main').html(footerHtml)
     } catch (error) {
-        console.error(error);
+        console.error(error)
     }
 }
 
