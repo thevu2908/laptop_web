@@ -24,19 +24,19 @@ class GioHangController {
         echo json_encode($result);
     }
 
-    public function getSizeGioHang($ma_kh): int {
-        return $this->gioHangRepo->getSizeGioHang($ma_kh);
+    public function getGioHang($ma_ctsp, $ma_kh) {
+        echo json_encode($this->gioHangRepo->getGioHang($ma_ctsp, $ma_kh));
     }
-
-    public function getSize($ma_kh) {
-        echo $this->gioHangRepo->getSizeGioHang($ma_kh);
+    
+    public function getSizeGioHang($ma_kh) {
+        echo json_encode($this->gioHangRepo->getSizeGioHang($ma_kh));
     }
 
     public function addGioHang($giohang) {
         if ($this->gioHangRepo->addGioHang($giohang)) {
-            echo $giohang->getMaKH();
+            echo 'success';
         } else {
-            echo null;
+            echo 'fail';
         }
     }
 
@@ -77,6 +77,12 @@ switch($action) {
         $gioHangCtl->getAllGioHang($maKH);
         break;
 
+    case 'get':
+        $maCTSP = $_POST['productDetailId'];
+        $maKH = $_POST['customerId'];
+        $gioHangCtl->getGioHang($maCTSP, $maKH);
+        break;
+
     case 'get-product':
         $ma_ctsp = $_POST['maCTSP'];
         $gioHangCtl->getFullProduct($ma_ctsp);
@@ -88,7 +94,6 @@ switch($action) {
         $cart = new GioHang(
             $obj->{'productDetailId'},
             $obj->{'customerId'},
-            $obj->{'image'},
             $obj->{'price'},
             $obj->{'quantity'},
             0
@@ -104,20 +109,16 @@ switch($action) {
         break;
 
     case 'update':
-        // $obj = json_decode(json_encode($_POST['promo']));
-        // $promoId = $obj->{'promoId'};
-
-        // $promo = new GioHang(
-        //     $promoId,
-        //     $obj->{'promoName'},
-        //     $obj->{'promoPercent'},
-        //     $obj->{'promoCondition'},
-        //     $obj->{'promoDateFrom'},
-        //     $obj->{'promoDateTo'},
-        //     $obj->{'promoStatus'},
-        //     0
-        // );
-
-        // $gioHangCtl->updateGioHang($promo);
+        $obj = json_decode(json_encode($_POST['cart']));
+        
+        $cart = new GioHang(
+            $obj->{'productDetailId'},
+            $obj->{'customerId'},
+            $obj->{'price'},
+            $obj->{'quantity'},
+            0
+        );
+        
+        $gioHangCtl->updateGioHang($cart);
         break;
 }

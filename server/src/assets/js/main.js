@@ -155,28 +155,28 @@ $(".modal-cart-dialog").click((e) => {
     e.stopPropagation();
 });
 
-// Chọn số sao
+// Đánh giá số sao
 $(function() {
 	
 	$(document).on({
 		mouseover: function(event) {
-			$(this).find('.far').addClass('star-over');
-			$(this).prevAll().find('.far').addClass('star-over');
+			$(this).find('.far.review').addClass('star-over');
+			$(this).prevAll().find('.far.review').addClass('star-over');
 		},
 		mouseleave: function(event) {
-			$(this).find('.far').removeClass('star-over');
-			$(this).prevAll().find('.far').removeClass('star-over');
+			$(this).find('.far.review').removeClass('star-over');
+			$(this).prevAll().find('.far.review').removeClass('star-over');
 		}
 	}, '.rate');
 
 
 	$(document).on('click', '.rate', function() {
-		if ( !$(this).find('.star').hasClass('rate-active') ) {
-			$(this).siblings().find('.star').addClass('far').removeClass('fas rate-active');
+		if ( !$(this).find('.star.review').hasClass('rate-active') ) {
+			$(this).siblings().find('.star.review').addClass('far review').removeClass('fas rate-active');
 			$(this).siblings().find('input').removeClass('rate-active');
-			$(this).find('.star').addClass('rate-active fas').removeClass('far star-over');
+			$(this).find('.star.review').addClass('rate-active fas').removeClass('far star-over');
             $(this).find('input').addClass('rate-active');
-			$(this).prevAll().find('.star').addClass('fas').removeClass('far star-over');
+			$(this).prevAll().find('.star.review').addClass('fas').removeClass('far star-over');
 		} else {
 			console.log('has');
 		}

@@ -1,6 +1,7 @@
 $(document).ready(() => {
     maKH = getMaKH()
     loadCart(maKH)
+    loadCartNumber(maKH)
     handleAddCart()
 })
 
@@ -20,6 +21,22 @@ function getFullInfoProduct(maCTSP) {
     })
 }
 
+function loadCartNumber(maKH) {
+    $.ajax({
+        url: 'server/src/controller/GioHangController.php',
+        method: 'POST',
+        data: { action: 'get-size' , maKH},
+        dataType: "JSON",
+        success: size => {
+            $('.cart__footer-text').text(`Tổng tiền (${size}) sản phẩm: `)
+            $('.cart-number').text(size)
+        },
+        error: (xhr, status, error) => {
+            console.log(error)
+        }
+    })
+}
+
 function loadCart(maKH) {
     $.ajax({
         url: 'server/src/controller/GioHangController.php',
@@ -30,6 +47,7 @@ function loadCart(maKH) {
             if (carts && carts.length > 0) {
                 let html = ''
                 let html2 = ''
+                let tongTien = 0
 
                 carts.forEach((cart) => {
                     getFullInfoProduct(cart.ma_ctsp)
@@ -39,9 +57,9 @@ function loadCart(maKH) {
                                     <img src="${product.hinh_anh}" alt="Hình ảnh">
                                     <div class="cart__item-info">
                                         <div class="cart__item-name text-start">${product.ten_sp} ${product.ram}/${product.rom}</div>
-                                        <div class="cart__item-total">
+                                        <div class="cart__item-total w-100 justify-content-start">
                                             <div class="cart__item-price">₫${formatCurrency(cart.gia_sp)}</div>
-                                            <div class="cart__item-quantity">x ${cart.so_luong}</div>
+                                            <div class="cart__item-quantity" style="margin-left: 10px;">x ${cart.so_luong}</div>
                                         </div>
                                     </div>
                                 </li>
@@ -63,6 +81,9 @@ function loadCart(maKH) {
                                 </li>
                             `
 
+                            tongTien += cart.gia_sp * cart.so_luong
+                            
+                            $('.cart__footer-money').text("₫" + formatCurrency(tongTien))
                             $('.cart__list-product').html(html)
                             $('.cart__left-product').html(html2)
                         })
@@ -78,6 +99,25 @@ function loadCart(maKH) {
 
 function getMaKH() {
     return 'KH001'
+}
+
+function getCart(productDetailId, customerId) {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: 'server/src/controller/GioHangController.php',
+            method: 'POST',
+            data: { action: 'get', productDetailId, customerId },
+            success: res => {
+                if(res) {
+                    resolve(res)
+                }
+            },
+            error: (xhr, status, error) => {
+                console.log(error)
+                reject(error)
+            }
+        })
+    })
 }
 
 function addCart(cart) {
@@ -105,27 +145,61 @@ function handleAddCart() {
         
         const cart = {
             productDetailId: ctspId,
-            image: $('.produt-info-left .product-image').attr('src'),
-            productName: $('.product-info-right .product-name').text().trim(),
             customerId: 'KH001',
-            price: $('.product-info-right .product-price').contents().first().text().trim(),
+            price: $('.product-info-right .product-price').contents().first().text().trim().replace(/[₫.]/g, ""),
             quantity: $('.product-info-right .product-bought-quantity').val().trim(),
         }
-
-        // if(!validateCart(cart)) {
-        //     return
-        // }
-
-        addCart(cart)
+        
+        getCart(cart.productDetailId, cart.customerId)
             .then(res => {
-                if (res) {
-                    alert('Đã thêm sản phẩm vào giỏ hàng')
-                    loadCart()
-                } 
+                const objectData = JSON.parse(res);
+                if(objectData != null) {
+                    cart.quantity = parseInt(objectData.so_luong) + parseInt(cart.quantity)
+                    updateCart(cart)
+                        .then(res => {
+                            if (res == 'success') {
+                                alert('Đã thêm sản phẩm vào giỏ hàng')
+                                loadCartNumber(cart.customerId)
+                                loadCart(cart.customerId)
+                            } 
+                            else {
+                                alert('Xảy ra lỗi trong quá trình thêm sản phẩm vào giỏ hàng')
+                            }
+                        })
+                        .catch(error => console.log(error))
+                }
                 else {
-                    alert('Xảy ra lỗi trong quá trình thêm khuyến mãi')
+                    addCart(cart)
+                        .then(res => {
+                            if (res == 'success') {
+                                alert('Đã thêm sản phẩm vào giỏ hàng')
+                                loadCartNumber(cart.customerId)
+                                loadCart(cart.customerId)
+                            } 
+                            else {
+                                alert('Xảy ra lỗi trong quá trình thêm sản phẩm vào giỏ hàng')
+                            }
+                        })
+                        .catch(error => console.log(error))
                 }
             })
             .catch(error => console.log(error))
+    })
+}
+
+function updateCart(cart) {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: 'server/src/controller/GioHangController.php',
+            method: 'POST',
+            data: { action: 'update', cart },
+            success: res => {
+                resolve(res)
+            },
+            error: (xhr, status, error) => {
+                console.log(error)
+                reject(error)
+            }
+        })
     })
 }

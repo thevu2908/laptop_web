@@ -31,9 +31,10 @@ class DanhGiaRepo extends ConnectDB {
         $rating = $danhgia->getRating();
         $thoi_gian_danh_gia = $danhgia->getThoiGian();
         $noi_dung = $danhgia->getNoiDung();
+        $trang_thai = $danhgia->getTrangThai();
 
-        $sql = "INSERT INTO danhgia(ma_ctsp,ma_kh,rating,thoi_gian_danh_gia, noi_dung) 
-                VALUES ('$ma_ctsp', '$ma_kh', '$rating', '$thoi_gian_danh_gia', '$noi_dung')";
+        $sql = "INSERT INTO danhgia(ma_ctsp,ma_kh,rating,thoi_gian_danh_gia, noi_dung, trang_thai) 
+                VALUES ('$ma_ctsp', '$ma_kh', '$rating', '$thoi_gian_danh_gia', '$noi_dung', '$trang_thai')";
         $result = mysqli_query($this->conn, $sql);
         if ($result) {
             return true;
@@ -42,7 +43,7 @@ class DanhGiaRepo extends ConnectDB {
     }
 
     function deleteDanhGia($ma_kh) {
-        $sql = "UPDATE danhgia SET trang_thai=0 WHERE ma_kh='$ma_kh'";
+        $sql = "UPDATE danhgia SET trang_thai=1 WHERE ma_kh='$ma_kh'";
         $result = mysqli_query($this->conn, $sql);
         if ($result) {
             return true;

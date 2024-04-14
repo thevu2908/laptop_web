@@ -12,12 +12,12 @@ class DanhGiaController {
     }
 
     public function getAllDanhGia($ma_ctsp) {
-        $evaluates = $this->danhGiaRepo->getAllDanhGia($ma_ctsp);
+        $reviews = $this->danhGiaRepo->getAllDanhGia($ma_ctsp);
         $result = [];
 
-        foreach($evaluates as $evaluate) {
-            if($evaluate['trang_thai'] ==  0) {
-                $result[] = $evaluate;
+        foreach($reviews as $review) {
+            if($review['trang_thai'] ==  0) {
+                $result[] = $review;
             }
         }
 
@@ -51,7 +51,7 @@ $action = $_POST['action'];
 
 switch($action) {
     case 'get-all':
-        $ma_ctsp = $_POST['ctspId'];
+        $ma_ctsp = json_encode($_POST['ctspId']);
         $danhGiaCtl->getAllDanhGia($ma_ctsp);
         break;
     case 'add':
