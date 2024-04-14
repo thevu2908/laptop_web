@@ -1,7 +1,7 @@
 <?php
 
 class SanPhamRepo extends ConnectDB {
-    public function getProducts() {
+    public function getProducts() : array | null {
         $products = [];
         try {
             $query = "
@@ -203,5 +203,123 @@ class SanPhamRepo extends ConnectDB {
             echo 'Error: ' . $e->getMessage() . '<br>';
             return false;
         }
+    }
+
+    public function filterProducts($brandId, $startPrice, $endPrice, $cpu, $orderBy, $orderType, $start = 0, $limit = 6) {
+        try {
+            $query = "
+                SELECT DISTINCT sp.*, ten_thuong_hieu, ten_loai, ten_hdh
+                FROM chitietsanpham ctsp
+                JOIN (
+                    SELECT sp.*, ten_thuong_hieu, ten_loai, ten_hdh
+                    FROM sanpham sp 
+                    JOIN thuonghieu th ON sp.ma_thuong_hieu = th.ma_thuong_hieu
+                    JOIN theloai tl ON sp.ma_the_loai = tl.ma_the_loai
+                    JOIN hedieuhanh hdh ON sp.ma_hdh = hdh.ma_hdh
+                    WHERE sp.trang_thai = '0'
+                ) AS sp ON ctsp.ma_sp = sp.ma_sp  
+                JOIN mausac ms ON ctsp.ma_mau = ms.ma_mau
+                JOIN chipxuly cxl ON ctsp.ma_chip_xu_ly = cxl.ma_chip_xu_ly
+                JOIN carddohoa cdh ON ctsp.ma_carddohoa = cdh.ma_card
+                WHERE sp.ma_thuong_hieu LIKE '%$brandId%' AND ctsp.gia_tien >= '$startPrice' AND ctsp.gia_tien <= '$endPrice' AND cxl.ten_chip LIKE '$cpu%'
+                ORDER BY $orderBy $orderType LIMIT $start, $limit
+            ";
+
+            $result = mysqli_query($this->conn, $query);
+            $arr = [];
+    
+            while ($row = mysqli_fetch_array($result)) {
+                $arr[] = $row;
+            }
+    
+            return $arr;
+        } catch (Exception $e) {
+            echo 'Error: ' . $e->getMessage() . '<br>';
+        }
+        return null;
+    }
+
+    public function getFilterProductsCount($brandId, $startPrice, $endPrice, $cpu, $orderBy, $orderType) {
+        try {
+            $query = "
+                SELECT count(DISTINCT sp.ma_sp) as count
+                FROM chitietsanpham ctsp
+                JOIN (
+                    SELECT sp.*, ten_thuong_hieu, ten_loai, ten_hdh
+                    FROM sanpham sp 
+                    JOIN thuonghieu th ON sp.ma_thuong_hieu = th.ma_thuong_hieu
+                    JOIN theloai tl ON sp.ma_the_loai = tl.ma_the_loai
+                    JOIN hedieuhanh hdh ON sp.ma_hdh = hdh.ma_hdh
+                    WHERE sp.trang_thai = '0'
+                ) AS sp ON ctsp.ma_sp = sp.ma_sp  
+                JOIN mausac ms ON ctsp.ma_mau = ms.ma_mau
+                JOIN chipxuly cxl ON ctsp.ma_chip_xu_ly = cxl.ma_chip_xu_ly
+                JOIN carddohoa cdh ON ctsp.ma_carddohoa = cdh.ma_card
+                WHERE sp.ma_thuong_hieu LIKE '%$brandId%' AND ctsp.gia_tien >= '$startPrice' AND ctsp.gia_tien <= '$endPrice' AND cxl.ten_chip LIKE '$cpu%'
+                ORDER BY $orderBy $orderType
+            ";
+            
+            $result = mysqli_query($this->conn, $query);
+            if (!$result) {
+                return -1;
+            }
+    
+            if ($row = mysqli_fetch_array($result)) {
+                return $row['count'];
+            }
+            return 0;
+        } catch (Exception $e) {
+            echo 'Error: ' . $e->getMessage() . '<br>';
+            return -1;
+        }
+    }
+
+    public function searchProduct($search, $type, $start = 0, $limit = 8) {
+        try {
+            $search_term = $this->conn->real_escape_string($search);
+            $searchs = [];
+            $query = "
+                SELECT sp.*, ten_thuong_hieu, ten_loai, ten_hdh FROM sanpham sp
+                JOIN thuonghieu th ON sp.ma_thuong_hieu = th.ma_thuong_hieu
+                JOIN theloai tl ON sp.ma_the_loai = tl.ma_the_loai
+                JOIN hedieuhanh hdh ON sp.ma_hdh = hdh.ma_hdh
+                WHERE ten_sp LIKE '%$search_term%' AND ten_loai LIKE '%$type%'
+                ORDER BY ma_sp LIMIT {$start},{$limit}
+            ";
+
+            $result = $this->conn->query($query);
+            while ($row = $result->fetch_assoc()) {
+                $searchs[] = $row;
+            }
+
+            return $searchs;
+        } catch (Exception $e) {
+            echo 'Error: ' . $e->getMessage() . '<br>';
+        }
+        return null;
+    }
+
+    public function getSearchProductCount($search, $type) {
+        try {
+            $search_term = $this->conn->real_escape_string($search);
+            $query = "
+                SELECT count(*) as num FROM sanpham sp
+                JOIN thuonghieu th ON sp.ma_thuong_hieu = th.ma_thuong_hieu
+                JOIN theloai tl ON sp.ma_the_loai = tl.ma_the_loai
+                JOIN hedieuhanh hdh ON sp.ma_hdh = hdh.ma_hdh
+                WHERE ten_sp LIKE '%$search_term%' AND ten_loai LIKE '%$type%'
+            ";
+
+            $result = $this->conn->query($query);
+            if (!$result) return -1;
+    
+            if ($row = $result->fetch_assoc()) {
+                return $row['num'];
+            }
+            return 0;
+        } catch (Exception $e) {
+            echo 'Error: ' . $e->getMessage() . '<br>';
+        }
+        return -1;
     }
 }

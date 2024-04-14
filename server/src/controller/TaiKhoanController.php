@@ -59,6 +59,10 @@ class TaiKhoanController {
             echo 'fail';
         }
     }
+
+    public function checkExistUsername($username) {
+        echo $this->taiKhoanRepo->checkExistUsername($username);
+    }
 }
 
 $taiKhoanCTL = new TaiKhoanController();
@@ -96,6 +100,10 @@ switch ($action) {
     case 'delete':
         $accountId = $_POST['accountId'];
         $taiKhoanCTL->deleteAccount($accountId);
+        break;
+    case 'check-exist':
+        $username = $_POST['username'];
+        $taiKhoanCTL->checkExistUsername($username);
         break;
     default:
         break;

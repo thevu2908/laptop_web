@@ -18,6 +18,9 @@ include "header.php";
             </div>
             <div class="product-list-container col-10">
                 <div class="row">
+                    <div class="col-12 search-info">
+                        
+                    </div>
                     <div class="col-12 d-flex justify-content-end sort-filter pe-5">
 
                     </div>

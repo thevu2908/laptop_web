@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css">
     <link rel="stylesheet" href="./server/src/assets/css/style.css">
     <link rel="stylesheet" href="./server/src/assets/css/base.css">
+    <link rel="stylesheet" href="./server/src/assets/css/responsive.css">
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
@@ -25,11 +26,9 @@
         if (isset($_REQUEST["dang-nhap"])) {
             include "./server/src/view/login.php";
         } else if (isset($_REQUEST["dang-ky"])) {
-            if (isset($_REQUEST["xac-minh-otp"]) || isset($_REQUEST["tao-mat-khau"]) || isset($_REQUEST["tao-thanh-cong"])) {
-                include "./server/src/view/verify.php";
-            } else {
-                include "./server/src/view/signup.php";
-            }
+            include "./server/src/view/signup.php";
+            echo '<script src="./client/pages/SignUp.js"></script>';
+            echo '<script src="./client/pages/TaiKhoan.js"></script>';
         } else if (isset($_REQUEST["san-pham"])) {
             if (isset($_REQUEST["id"])) {
                 include "./server/src/view/productDetail.php";
@@ -54,6 +53,18 @@
         } else if (isset($_REQUEST["thanh-toan"])) {
             include "./server/src/view/checkout.php";
             echo '<script src="client/pages/DiaChi.js"></script>';
+        } else if (isset($_REQUEST['tim-kiem'])) {
+            include "./server/src/view/search-product.php";
+            echo '<script src="./client/pages/ThuongHieu.js"></script>';
+            echo '<script src="./client/pages/TheLoai.js"></script>';
+            echo '<script src="./client/pages/MauSac.js"></script>';
+            echo '<script src="./client/pages/ChipXuLy.js"></script>';
+            echo '<script src="./client/pages/CardDoHoa.js"></script>';
+            echo '<script src="./client/pages/CongKetNoi.js"></script>';
+            echo '<script src="./client/pages/HeDieuHanh.js"></script>';
+            echo '<script src="./client/pages/SanPham.js"></script>';
+            echo '<script src="./client/pages/ChiTietSanPham.js"></script>';
+            echo '<script src="./client/pages/ChiTietCongKetNoi.js"></script>';
         } else {
             include "./server/src/view/homepage.php";
             echo '<script src="./client/pages/ThuongHieu.js"></script>';
@@ -73,10 +84,12 @@
     <script src="./client/pages/GioHang.js"></script>
     <script src="server/src/assets/js/main.js"></script>
     <script src="./client/plugins/pagination.js"></script>
+    <script src="./client/plugins/validation.js"></script>
     <script src="./client/utils/general.js"></script>
     <script src="./client/utils/formatCurrency.js"></script>
     <script src="./client/utils/formatPromotion.js"></script>
     <script src="./client/utils/formatDate.js"></script>
+    <script src="./client/pages/TimKiem.js"></script>
 </body>
 
 </html>

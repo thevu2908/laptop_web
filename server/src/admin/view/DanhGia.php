@@ -7,6 +7,7 @@
 						<div class="col-sm-6">
 							<h2>Quản Lý <b>ĐÁNH GIÁ</b></h2>
 						</div>
+<<<<<<< HEAD
 						<div class="col-sm-6 d-flex justify-content-end">
 							<form>
                                 <div class="d-flex align-items-center">
@@ -24,6 +25,16 @@
                                 </div>
                             </form>
 							<a href="#deleteReviewModal" class="btn btn-danger" data-toggle="modal"><i
+=======
+						<div class="col-sm-6">
+							<a href="#" class="btn btn-secondary"><i class="material-icons">&#xE24D;</i> <span>Import
+									Excel</span></a>
+							<a href="#" class="btn btn-secondary"><i class="material-icons">&#xE24D;</i> <span>Export
+									Excel</span></a>
+							<a href="#addEmployeeModal" class="btn btn-success add" data-toggle="modal"><i
+									class="material-icons">&#xE147;</i> <span>Thêm</span></a>
+							<a href="#deleteEmployeeModal" class="btn btn-danger delete" data-toggle="modal"><i
+>>>>>>> 913ac71c297beda4e0da6a8ae4273d6aab8c92a4
 									class="material-icons">&#xE15C;</i> <span>Xóa</span></a>
 						</div>
 					</div>

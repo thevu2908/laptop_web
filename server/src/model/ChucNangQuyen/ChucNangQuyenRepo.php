@@ -17,5 +17,21 @@ class ChucNangQuyenRepo extends ConnectDB{
         }
         return null;
     }
+    public function getMaChucNang($tenchucnang){
+        $query="SELECT ma_chuc_nang from chucnangquyen where ten_chuc_nang = '$tenchucnang'";
+        $result=mysqli_query($this->conn,$query);
+        if($row=mysqli_fetch_array($result)){
+            return $row;
+        }
+        return null;
+    }
+    public function addChucNang($machucnang,$tenchucnang){
+        $query="INSERT INTO chucnangquyen(ma_chuc_nang,ten_chuc_nang) VALUES('$machucnang','$tenchucnang')";
+        $result=mysqli_query($this->conn,$query);
+        if($result){
+            return true;
+        }
+        return false;
+    }
 }
 ?>

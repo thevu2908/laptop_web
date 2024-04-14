@@ -3,6 +3,8 @@ $(document).ready(() => {
     clickPage(renderAdminProductDetail)
     renderProductDetail()
     handleAddProductDetail()
+    renderUpdateProductDetailModal()
+    handleUpdateProductDetailPrice()
     renderDeleteProductDetailModal()
     handleDeleteProductDetail()
     searchProductDetail()
@@ -36,7 +38,7 @@ function getPaginationProductDetails(productId) {
         $.ajax({
             url: 'server/src/controller/PaginationController.php',
             method: 'GET',
-            data: { action: 'pagination', table: 'chitietsanpham', page, id: productId },
+            data: { action: 'pagination', table: 'chitietsanpham', page, id: productId, limit: 3 },
             dataType: 'JSON',
             success: productDetails => resolve(productDetails),
             error: (xhr, status, error) => {
@@ -54,13 +56,7 @@ function getProductDetail(productDetailId) {
             method: 'POST',
             data: { action: 'get', productDetailId },
             dataType: 'JSON',
-            success: data => {
-                if (data) {
-                    resolve(data)
-                } else {
-                    resolve(null)
-                }
-            },
+            success: productDetail => resolve(productDetail),
             error: (xhr, status, error) => {
                 console.log(error)
                 reject(error)
@@ -81,7 +77,6 @@ async function renderAdminProductDetail(data) {
         if (productDetails && productDetails.pagination && productDetails.pagination.length > 0) {
             let html = ''
             productDetails.pagination.forEach((productDetail, index) => {
-                console.log(formatCurrency(productDetail.gia_nhap))
                 html += `
                     <tr>
                         <td>
@@ -106,12 +101,15 @@ async function renderAdminProductDetail(data) {
                         <td>${formatCurrency(productDetail.gia_tien)}</td>
                         <td>${productDetail.so_luong}</td>
                         <td class="d-flex">
+                            <a href="#editProductDetailModal" class="edit btn-update-product-detail-modal" data-toggle="modal" data-id=${productDetail.ma_ctsp}>
+                                <i class="material-icons" data-toggle="tooltip" title="Sửa thông tin">&#xE254;</i>
+                            </a>
                             <a href="#deleteProductDetailModal" class="delete btn-delete-product-detail-modal" data-toggle="modal" data-id=${productDetail.ma_ctsp}>
                                 <i class="material-icons" data-toggle="tooltip" title="Xóa">&#xE872;</i>
                             </a>
                             <a href="/admin.php?controller=danhgia&id=${productDetail.ma_ctsp}" class="info btn-product-detail" data-id=${productDetail.ma_ctsp}>
-                            <i class="fa-solid fa-circle-info" title="Xem đánh giá" ></i>
-                        </a>
+                                <i class="fa-solid fa-circle-info" title="Xem đánh giá" ></i>
+                            </a>
                         </td>
                     </tr>
                 `
@@ -120,7 +118,7 @@ async function renderAdminProductDetail(data) {
             })
 
             $('.admin-product-detail-list').html(html)
-            totalPage(productDetails.count)
+            totalPage(productDetails.count, 3)
         } else {
             $('.admin-product-detail-list').html('')
         }
@@ -204,22 +202,67 @@ function validateProductDetailEmpty(productDetail) {
         $('#admin-product-detail-main #product-id').focus()
         return false
     }
-    if (!productDetail.cpuId) {
-        alert('Vui lòng chọn CPU')
-        $('#editProductDetailModal #product-cpu').focus()
-        return false
-    }
-    if (!productDetail.gpuId) {
-        alert('Vui lòng chọn card đồ họa')
-        $('#editProductDetailModal #product-gpu').focus()
-        return false
-    }
     if (productDetail.plugs.length === 0) {
         alert('Vui lòng chọn cổng kết nối')
-        $('#editProductDetailModal #product-plug').focus()
+        $('#addProductDetailModal #product-plug').focus()
         return false
     }
     return true
+}
+
+function renderUpdateProductDetailModal() {
+    $(document).on('click', '.btn-update-product-detail-modal', async e => {
+        const id = e.target.closest('.btn-update-product-detail-modal').dataset.id
+        const productDetail = await getProductDetail(id)
+
+        if (productDetail) {
+            $('#editProductDetailModal .product-detail-id').text(productDetail.ma_ctsp)
+            $('#product-detail-import-price').val(productDetail.gia_nhap)
+            $('#product-detail-chietkhau').val(productDetail.chiet_khau)
+            $('#product-detail-price').val(productDetail.gia_tien)
+        }
+    })
+}
+
+function updateProductDetaiPrice(productDetailId, chietkhau, price) {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: 'server/src/controller/CTSanPhamController.php',
+            method: 'POST',
+            data: { action: 'update-price', productDetailId, chietkhau, price },
+            success: res => {
+                if (res === 'success') {
+                    resolve(true)
+                } else {
+                    resolve(false)
+                }
+            },
+            error: (xhr, status, error) => {
+                console.log(error)
+                reject(error)
+            }
+        })
+    })
+
+}
+
+function handleUpdateProductDetailPrice() {
+    $(document).on('click', '.btn-update-product-detail', async e => {
+        const productDetailId = $('#editProductDetailModal .product-detail-id').text()
+        const chietkhau = $('#product-detail-chietkhau').val()
+        const price = $('#product-detail-price').val()
+
+        if (productDetailId && chietkhau && price) {
+            const res = await updateProductDetaiPrice(productDetailId, chietkhau, price)
+            if (res) {
+                alert('Cập nhật giá thành công')
+                $('#editProductDetailModal').modal('hide')
+                renderAdminProductDetail()
+            } else {
+                alert('Xảy ra lỗi trong quá trình cập nhật giá')
+            }
+        }
+    })
 }
 
 function renderDeleteProductDetailModal() {

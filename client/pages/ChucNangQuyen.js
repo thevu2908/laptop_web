@@ -1,17 +1,10 @@
 $(document).ready(function() {
-    getAllChuNangQuyen();
-    $(document).on("click", "ul.pagination li a", function (e) {
-        e.preventDefault();
-        var $this = $(this);
-        const pagenum = $this.data("page");
-        $("#currentpage").val(pagenum);
-        getAllChuNangQuyen();
-        $this.parent().siblings().removeClass("active");
-        $this.parent().addClass("active");
-    });
+    loadChuNangQuyen()
+    clickPage(loadChuNangQuyen)
+    addChucNang();
 })
 
-function getAllChuNangQuyen(){
+function loadChuNangQuyen(){
     var pageno = $("#currentpage").val();
     $.ajax({
         url:"server/src/controller/PaginationController.php",
@@ -19,7 +12,7 @@ function getAllChuNangQuyen(){
         method: "GET",
         dataType: "json",
         success:function(data){
-            var jsondata=data.paginattion;
+            var jsondata=data.pagination;
             var html="";
             jsondata.forEach((chucnangquyen,index) => {
                 html+=`<tr>
@@ -40,27 +33,26 @@ function getAllChuNangQuyen(){
             </tr>`
             });
             $("#show-listChucNang").html(html);
-            // $.ajax({
-            //     url:"server/src/controller/CTQuyenController.php",
-            //     data:{action:"kiemtra" ,maquyen:$("#ad-maquyen").val(),
-            //     machucnang:"CN005"},
-            //     method:"POST",
-            //     success:function(data){
-            //         var jsonData = JSON.parse(data);
-            //         console.log(jsonData);
-            //         jsonData.some(item => item.hanh_dong === "Thêm")?$(".btn.btn-success.add").show():$(".btn.btn-success.add").hide();
-            //         jsonData.some(item => item.hanh_dong === "Xóa")?$(".delete").show():$(".delete").hide();
-            //         jsonData.some(item => item.hanh_dong === "Sửa")?$(".edit").show():$(".edit").hide();
-            //         //jsonData.some(item => item.hanh_dong === "Xem")?$(".btn.btn-success.add").show():$(".btn.btn-success.add").hide();
-            //     }
-            // })
-            phanquyen("CN005");
+            phanquyen_chucnang("Chức Năng");
             totalPage(data.count);
-            // let total = data.count;
-            // console.log(total);
-            // let totalpages = Math.ceil(parseInt(total) / 4);
-            // const currentpage = $("#currentpage").val();
-            // pagination(totalpages, currentpage);
         }
+    })
+}
+function addChucNang(){
+    $(document).on("click","#admin-addChucNang",function(){
+        var maChucNang=$("#admin-MaChucNang").val();
+        var tenChucNang=$("#admin-TenChucNang").val();
+        $.ajax({
+            url:"server/src/controller/ChucNangQuyenController.php",
+            method:"POST",
+            data:{action:"add",maChucNang:maChucNang,tenChucNang:tenChucNang},
+            dataType:"json",
+            success:function(data){
+                $("form").trigger('reset');
+                $("#addChucNang").modal("hide");
+                loadChuNangQuyen()
+            }
+        })
+
     })
 }

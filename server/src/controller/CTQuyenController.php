@@ -25,18 +25,26 @@ class ChiTietQuyenController{
     function addPhanQuyen($maquyen,$machucnang,$hanhdong){
         echo json_encode($this->chitietquyenRepo->addPhanQuyen($maquyen,$machucnang,$hanhdong));
     }
+    function addMulPhanQuyen($maquyen,$listitemAdd,$hanhdong){
+        echo json_encode($this->chitietquyenRepo->addMulPhanQuyen($maquyen,$listitemAdd,$hanhdong));
+    }
     function updatePhanQuyen($maquyen,$machucnang,$hanhdong){
         echo json_encode($this->chitietquyenRepo->updatePhanQuyen($maquyen,$machucnang,$hanhdong));
     }
     function deletePhanQuyen($listitemRemove){
         echo json_encode($this->chitietquyenRepo->deletePhanQuyen($listitemRemove));
     }
+    function getDSChucNang($maquyen){
+        echo json_encode($this->chitietquyenRepo->getDSChucNang($maquyen));
+    }
 }
-$tmp=$_POST['action'];
+$tmp=$_REQUEST['action'];
 $chitietquyenctl=new ChiTietQuyenController();
 switch ($tmp){
-    case "load":{
-        $chitietquyenctl->getAllChiTietQuyen();
+    case "taskbar":{
+        //$chitietquyenctl->getAllChiTietQuyen();
+        $id=$_GET['maquyen'];
+        $chitietquyenctl->getChucNang($id);
         break;
     }
     case "get":{
@@ -59,7 +67,15 @@ switch ($tmp){
         $hanhdong=$_POST['hanhdong']==''?'X':$_POST['hanhdong'];
         $chitietquyenctl->addPhanQuyen($maquyen,$machucnang,$hanhdong);
         break;
-    }case "update":{
+    }case "addMul":{
+        $maquyen=$_POST['maquyen'];
+        //$machucnang=$_POST['machucnang'];
+        $listitemAdd=json_decode(json_encode($_POST['listitemAdd']), true);
+        $hanhdong="X";
+        $chitietquyenctl->addMulPhanQuyen($maquyen,$listitemAdd,$hanhdong);
+        break;
+    }
+    case "update":{
         $maquyen=$_POST['maquyen'];
         $machucnang=$_POST['machucnang'];
         $hanhdong=$_POST['hanhdong'];
@@ -68,6 +84,10 @@ switch ($tmp){
     }case "delete":{
         $listitemRemove = json_decode(json_encode($_POST['listitemRemove']), true);
         $chitietquyenctl->deletePhanQuyen($listitemRemove);
+        break;
+    }case "dschucnang":{
+        $maquyen=$_POST['maquyen'];
+        $chitietquyenctl->getDSChucNang($maquyen);
         break;
     }
 }

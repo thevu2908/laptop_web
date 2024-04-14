@@ -1,0 +1,9 @@
+@media (min-width: 1024px) and (max-width: 1400px) {
+    .content-banner-image-box {
+        top: 15%;
+    }
+
+    .content-banner-text {
+        top: 60%;
+    }
+}

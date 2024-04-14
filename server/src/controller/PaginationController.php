@@ -21,6 +21,7 @@ $action = $_REQUEST['action'];
 switch ($action) {
     case 'pagination':
         $table = $_GET['table'];
+        $id = isset($_GET['id']) ? $_GET['id'] : '';
         $page = !empty($_GET['page']) ? $_GET['page'] : 1;
         if (isset($_GET['limit'])) {
             $limit = $_GET['limit'] !== '' ? $_GET['limit'] : 8;

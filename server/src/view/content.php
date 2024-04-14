@@ -25,7 +25,7 @@
 
     <div class="content-product container">
         <div class="content-product-title text-center">
-            <h2>New Arrivals</h2>
+            <h2>Sản phẩm mới</h2>
         </div>
 
         <div class="content-product-list row">
@@ -39,21 +39,21 @@
 
     <div class="content-map container">
         <div class="content-product-title text-center">
-            <h2>Location</h2>
+            <h2>Địa chỉ</h2>
         </div>
         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.669726976184!2d106.67968337480465!3d10.759917089387864!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752f1b7c3ed289%3A0xa06651894598e488!2zVHLGsOG7nW5nIMSQ4bqhaSBo4buNYyBTw6BpIEfDsm4!5e0!3m2!1svi!2s!4v1709630826710!5m2!1svi!2s" width="100%" height="500" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
     </div>
 
     <div class="content-feedback container">
         <div class="content-product-title text-center">
-            <h2>Contacts</h2>
+            <h2>Liên hệ</h2>
         </div>
         <div class="row">
             <div class="col-6">
                 <div class="contact-text-container">
                     <h1 class="contact-text">
-                        Get in touch with
-                        <span>us and lets talk</span>
+                        Liên lạc với chúng tôi để
+                        <span>biết nhiều hơn</span>
                     </h1>
                 </div>
                 <div class="contact-info">
@@ -62,16 +62,16 @@
                         <span>sgulaptop@gmail.com</span>
                     </div>
                     <div class="contact-info-item">
-                        <span>Address</span>
-                        <span>275 An Duong Vuong, Quan 5, TP Ho Chi Minh</span>
+                        <span>Địa chỉ</span>
+                        <span>273 An Dương Vương, Quan 5, TP Hồ Chí Minh</span>
                     </div>
                     <div class="contact-info-item">
-                        <span>Hotline</span>
+                        <span>Số điện thoại</span>
                         <span>(+84) 123456789</span>
                     </div>
                     <div class="contact-info-item">
-                        <span>Platforms</span>
-                        <div class="d-flex mt-3">
+                        <span>Nền tảng</span>
+                        <div class="d-flex">
                             <a href="https://www.facebook.com/" target="_blank">
                                 <svg class="platform-facebook" xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 100 100" viewBox="0 0 100 100" id="facebook">
                                     <g>

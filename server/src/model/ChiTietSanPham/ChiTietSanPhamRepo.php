@@ -111,6 +111,28 @@ class ChiTietSanPhamRepo extends ConnectDB {
         }
     }
 
+    public function updateProductDetailPrice($productDetailId, $chietkhau, $price) {
+        try {
+            $query = "UPDATE chitietsanpham SET chiet_khau = ?, gia_tien = ? WHERE ma_ctsp = ?";
+            $statement = mysqli_prepare($this->conn, $query);
+
+            if (!$statement) {
+                throw new Exception("Query preparation failed: " . mysqli_error($this->conn));
+            }
+
+            $result = $statement->bind_param("dds", $chietkhau, $price, $productDetailId);
+
+            if (!$result) {
+                throw new Exception("Binding parameters failed: " . $statement->error);
+            }
+
+            return $statement->execute();
+        } catch (Exception $e) {
+            echo 'Error: ' . $e->getMessage() . '<br>';
+            return false;
+        }
+    }
+
     public function deleteProductDetail($productDetailId) : bool {
         try {
             $query = "UPDATE chitietsanpham SET trang_thai = 1 WHERE ma_ctsp = ?";

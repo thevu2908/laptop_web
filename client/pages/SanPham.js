@@ -10,7 +10,9 @@ $(document).ready(() => {
     renderViewProductModal()
     importExcel()
     exportExcel()
-    searchAdminProduct()
+    handleSearchAdminProduct()
+    handleFilterEndUserProduct()
+    handleFilterSearchEndUserProduct()
 })
 
 function formatProduct(products) {
@@ -145,17 +147,27 @@ function renderProducts() {
         renderAdminProductTable(null)
         clickPage(renderAdminProductTable)
     } else if (window.location.pathname === '/index.php') {
-        if (urlParams.has('san-pham')) {
-            renderEndUserProduct()
-            clickPage(renderEndUserProduct)
-        } else {
-            renderHomePageProduct()
+        if (!urlParams.has('id')) {
+            if (urlParams.has('san-pham')) {
+                renderEndUserProductPage()
+                clickPage(renderEndUserProductList)
+            } else if (urlParams.has('tim-kiem')) {
+                renderSearchEndUserProduct()
+                clickPage(renderSearchEndUserProductList)
+            } else {
+                renderHomePageProduct()
+            }
         }
     }
 }
 
 async function renderAdminProductTable(data) {
-    const products = data ? data : await getPaginationProducts(null)
+    let products = null
+    if ($('.admin-search-info').val()) {
+        products = await searchAdminProduct($('.admin-search-info').val())
+    } else {
+        products = data ? data : await getPaginationProducts()
+    }
 
     if (products && products.pagination.length > 0) {
         let html = ''
@@ -194,6 +206,7 @@ async function renderAdminProductTable(data) {
             `
         })
         $('.admin-product-list').html(html)
+        phanquyen_chucnang("Sản Phẩm")
         totalPage(products.count)
     }
 }
@@ -271,14 +284,24 @@ async function renderHomePageProduct() {
     }
 }
 
-async function renderEndUserProduct() {
+async function renderEndUserProductPage() {
     NProgress.start()
-    const currentPage = $('#currentpage').val()
-    const products = await getPaginationProducts(6)
+    renderEndUserProductFilter()
+    renderEndUserProductList()
+    renderFooter()
+    NProgress.done()
+}
 
-    if (products) {
-        let html = ''
+async function renderEndUserProductList() {
+    const brandId = $('.filter-brand .filter-item-link.active').find('input').val() || ''
+    const price = $('.filter-price .filter-item-link.active').find('input').val() || ''
+    const cpu = $('.filter-cpu .filter-item-link.active').find('input').val() || ''
+    const order = $('.sort-filter-container .sort-filter-item.active').find('input').val() || ''
+    const page = $('#currentpage').val() || ''
+    const products = await getFilterProducts(brandId, price, cpu, order, page)
+    let html = ''
 
+    if (products && products.pagination && products.pagination.length > 0) {
         for (let product of products.pagination) {
             const productDetails = await getProductDetailByProductId(product.ma_sp)
             const productDetail = productDetails[0]
@@ -292,7 +315,7 @@ async function renderEndUserProduct() {
                         <div class="product-info">
                             <div class="product-price">
                                 <p class="product-price-number">
-                                    ${product.so_luong_ton > 0 ? `₫${formatCurrency(productDetail.gia_tien)}` : 'Hàng sắp về'}
+                                    ${product.so_luong_ton > 0 ? `₫${formatCurrency(productDetail.gia_tien)}` : 'TẠM HẾT HÀNG'}
                                 </p>
                             </div>
                             <div class="product-name">
@@ -341,13 +364,10 @@ async function renderEndUserProduct() {
                 </div>
             `
         }
-
-        renderEndUserProductFilter()
-        $('.product-main .product-list').html(html)
-        enduserTotalPage(products.count, 6, currentPage)
-        renderFooter()
-        NProgress.done()
     }
+
+    $('.product-main .product-list').html(html)
+    enduserTotalPage(products.count, 6, page)
 }
 
 function renderEndUserProductFilter() {
@@ -355,19 +375,26 @@ function renderEndUserProductFilter() {
         <div class="d-flex align-items-center sort-filter-container show-sort-filter">
             <i class="fa-solid fa-filter"></i>
             <div class="sort-filter-list">
-                <p class="sort-filter-item-default">Mặc định</p>
+                <p class="sort-filter-item-default">
+                    Mặc định
+                    <input type="hidden" value="">
+                </p>
                 <ul class="sort-filter-menu">
                     <li class="sort-filter-item active">
-                        <a class="sort-filter-item-link" href="index.php?san-pham&sort=default">Mặc định</a>
+                        <a class="sort-filter-item-link">Mặc định</a>
+                        <input type="hidden" value="" >
                     </li>
                     <li class="sort-filter-item">
-                        <a class="sort-filter-item-link" href="index.php?san-pham&sort=ban-chay">Bán chạy</a>
+                        <a class="sort-filter-item-link">Bán chạy</a>
+                        <input type="hidden" value="best-seller" >
                     </li>
                     <li class="sort-filter-item">
-                        <a class="sort-filter-item-link" href="index.php?san-pham&sort=gia-cao-thap">Giá từ cao đến thấp</a>
+                        <a class="sort-filter-item-link">Giá từ cao đến thấp</a>
+                        <input type="hidden" value="high-low" >
                     </li>
                     <li class="sort-filter-item">
-                        <a class="sort-filter-item-link" href="index.php?san-pham&sort=gia-thap-cao">Giá từ thấp đến cao</a>
+                        <a class="sort-filter-item-link">Giá từ thấp đến cao</a>
+                        <input type="hidden" value="low-high" >
                     </li>
                 </ul>
             </div>
@@ -380,40 +407,46 @@ function renderEndUserProductFilter() {
         <h5>Mức giá</h5>
         <div class="filter-list row">
             <div class="filter-item col-12">
-                <a href="index.php?san-pham" class="filter-item-link active">
+                <button href="index.php?san-pham" class="filter-item-link active">
                     <i class="fa-regular fa-square"></i>
                     Tất cả
-                </a>
+                    <input type="hidden" value="" >
+                </button>
             </div>
             <div class="filter-item col-12">
-                <a href="index.php?san-pham&muc-gia=duoi-10-trieu" class="filter-item-link">
+                <button class="filter-item-link">
                     <i class="fa-regular fa-square"></i>
                     Dưới 10 triệu
-                </a>
+                    <input type="hidden" value="<10" >
+                </button>
             </div>
             <div class="filter-item col-12">
-                <a href="index.php?san-pham&muc-gia=tu-10-15-trieu" class="filter-item-link">
+                <button class="filter-item-link">
                     <i class="fa-regular fa-square"></i>
                     Từ 10 - 15 triệu
-                </a>
+                    <input type="hidden" value="10-15" >
+                </button>
             </div>
             <div class="filter-item col-12">
-                <a href="index.php?san-pham&muc-gia=tu-15-20-trieu" class="filter-item-link">
+                <button class="filter-item-link">
                     <i class="fa-regular fa-square"></i>
                     Từ 15 - 20 triệu
-                </a>
+                    <input type="hidden" value="15-20" >
+                </button>
             </div>
             <div class="filter-item col-12">
-                <a href="index.php?san-pham&muc-gia=tu-20-25-trieu" class="filter-item-link">
+                <button class="filter-item-link">
                     <i class="fa-regular fa-square"></i>
                     Từ 20 - 25 triệu
-                </a>
+                    <input type="hidden" value="20-25" >
+                </button>
             </div>
             <div class="filter-item col-12">
-                <a href="index.php?san-pham&muc-gia=tren-25-trieu" class="filter-item-link">
+                <button class="filter-item-link">
                     <i class="fa-regular fa-square"></i>
                     Trên 25 triệu
-                </a>
+                    <input type="hidden" value=">25" >
+                </button>
             </div>
         </div>
     `)
@@ -421,7 +454,169 @@ function renderEndUserProductFilter() {
     renderFilterCPU()
 }
 
+function getFilterProducts(brandId, price, cpu, order, page) {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: 'server/src/controller/SanPhamController.php',
+            method: 'GET',
+            data: { action: 'filter', brandId, price, cpu, order, page },
+            dataType: 'JSON',
+            success: products => resolve(products),
+            error: (xhr, status, error) => {
+                console.log(error)
+                reject(error)
+            }
+        })
+    })
+}
+
+function handleFilterEndUserProduct() {
+    $(document).on('click', '.filter-brand .filter-item-link', function() {
+        $('.filter-brand .filter-item-link').removeClass('active')
+        $(this).addClass('active')
+        renderEndUserProductList()
+    })
+    $(document).on('click', '.filter-price .filter-item-link', function() {
+        $('.filter-price .filter-item-link').removeClass('active')
+        $(this).addClass('active')
+        renderEndUserProductList()
+    })
+    $(document).on('click', '.filter-cpu .filter-item-link', function() {
+        $('.filter-cpu .filter-item-link').removeClass('active')
+        $(this).addClass('active')
+        renderEndUserProductList()
+    })
+    $(document).on('click', '.sort-filter-container .sort-filter-item', function() {
+        $('.sort-filter-container .sort-filter-item').removeClass('active')
+        $(this).addClass('active')
+        const text = $(this).find('a').text()
+        const order = $(this).find('input').val()
+        $('.sort-filter-container .sort-filter-item-default').html(`${text} <input type="hidden" value="${order}">`)
+        renderEndUserProductList()
+    })
+}
+
+async function renderSearchEndUserProduct() {
+    NProgress.start()
+    const products = await getSearchEndUserProduct()
+    products.count > 0 ? renderFilterType() : $('.search-empty').addClass('active')
+    renderSearchEndUserProductList(products)
+    NProgress.done()
+}
+
+async function renderSearchEndUserProductList(data) {
+    const products = data || await getSearchEndUserProduct()
+    const page = $('#currentpage').val() || ''
+    const search = $('.search-form .search-input').val() || ''
+    let html = ''
+    if (products && products.pagination && products.pagination.length > 0) {
+        for (let product of products.pagination) {
+            const productDetails = await getProductDetailByProductId(product.ma_sp)
+            const productDetail = productDetails[0]
+
+            html += `
+                <div class="product-item col-3">
+                    <a href="index.php?san-pham&id=${product.ma_sp}" class="product-item-link">
+                        <div class="product-image-wrapper">
+                            <img src="${product.hinh_anh}">
+                        </div>
+                        <div class="product-info">
+                            <div class="product-price">
+                                <p class="product-price-number">
+                                    ${product.so_luong_ton > 0 ? `₫${formatCurrency(productDetail.gia_tien)}` : 'TẠM HẾT HÀNG'}
+                                </p>
+                            </div>
+                            <div class="product-name">
+                                <p>${product.ten_sp} ${productDetail.ram} ${productDetail.rom}</p>
+                            </div>
+                            <div class="product-detail row">
+                                <span title="Màn hình" class="product-detail-info d-flex col-6">
+                                    <span class="material-symbols-outlined">
+                                        laptop_windows
+                                    </span>
+                                    ${product.kich_co_man_hinh}
+                                </span>
+                                <span title="CPU" class="product-detail-info d-flex col-6">
+                                    <span class="material-symbols-outlined">
+                                        memory
+                                    </span>
+                                    ${productDetail.ten_chip}
+                                </span>
+                                <span title="RAM" class="product-detail-info d-flex col-6">
+                                    <span class="material-symbols-outlined">
+                                        memory_alt
+                                    </span>
+                                    ${productDetail.ram}
+                                </span>
+                                <span title="Ổ cứng" class="product-detail-info d-flex col-6">
+                                    <span class="material-symbols-outlined">
+                                        hard_drive_2
+                                    </span>
+                                    SSD ${productDetail.rom}
+                                </span>
+                                <span title="Card đồ họa" class="product-detail-info d-flex col-6">
+                                    <span class="material-symbols-outlined">
+                                        developer_board
+                                    </span>
+                                    ${productDetail.ten_card}
+                                </span>
+                                <span title="Trọng lượng" class="product-detail-info d-flex col-6">
+                                    <span class="material-symbols-outlined">
+                                        weight
+                                    </span>
+                                    ${product.trong_luong} kg
+                                </span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            `
+        }
+    }
+    $('.search-product-main .search-info').html(search ? `<h1>Tìm thấy <b>${products.count}</b> kết quả với từ khóa <b>"${search.toLowerCase()}"</b></h1>` : '')
+    $('.search-product-main .search-product-list').html(html)
+    enduserTotalPage(products.count, 8, page)
+}
+
+function getSearchEndUserProduct() {
+    return new Promise((resolve, reject) => {
+        $('.search-form .search-input').val(new URLSearchParams(window.location.search).get('tim-kiem'))
+        const search = $('.search-form .search-input').val() || ''
+        const type = $('.search-product-main .filter-item h2').text() || ''
+        const page = $('#currentpage').val()
+        $.ajax({
+            url: 'server/src/controller/SanPhamController.php',
+            method: 'GET',
+            data: { action: 'search', search, type, page },
+            dataType: 'JSON',
+            success: products => resolve(products),
+            error: (xhr, status, error) => {
+                console.log(error)
+                reject(error)
+            }
+        })
+    })
+}
+
+function handleFilterSearchEndUserProduct() {
+    $(document).on('click', '.search-product-main .sort-dropdown-item', function() {
+        const type = $(this).text()
+        $('.search-product-main .filter-list').html(`
+            <div class="filter-item">
+                <h2>${type}</h2>
+                <i class="fa-solid fa-xmark"></i>
+            </div>
+        `)
+        renderSearchEndUserProductList()
+    })
+    $(document).on('click', '.search-product-main .filter-item', function() {
+        $('.search-product-main .filter-list').html('')
+        renderSearchEndUserProductList()
+    })
+}
+
 async function renderProductInfo() {
+    NProgress.start()
     const urlParams = new URLSearchParams(window.location.search)
     const productId = urlParams.get('id')
 
@@ -477,13 +672,13 @@ async function renderProductInfo() {
         $('.produt-info-left').html(html)
 
         let rams = product.detail
-            .filter(productDetail => productDetail.quantity > 0)
+            .filter(productDetail => product.quantity > 0 ? productDetail.quantity > 0 : true)
             .map(productDetail => ({ ram: productDetail.ram, price: productDetail.price }))
         let roms = product.detail
-            .filter(productDetail => productDetail.quantity > 0)
+            .filter(productDetail => product.quantity > 0 ? productDetail.quantity > 0 : true)
             .map(productDetail => ({ rom: productDetail.rom, price: productDetail.price }))
         let colors = product.detail
-            .filter(productDetail => productDetail.quantity > 0)
+            .filter(productDetail => product.quantity > 0 ? productDetail.quantity > 0 : true)
             .map(productDetail => ({ id: productDetail.colorId, name: productDetail.color }))
 
         rams = removeDuplicateObject(rams, 'ram')
@@ -533,11 +728,14 @@ async function renderProductInfo() {
             const active = index === 0 ? 'active' : ''
             colorHtml += `<li class="product-color-item ${active}" title="${color.name}" style="background-color: ${color.id};"><i class="fa-solid fa-check"></i></li>`
         })
-                
+
         selectEndUserConfig(product)
 
         html = `
-            <h2 class="product-name">${product.name} ${product.detail[0].ram.toUpperCase()}/${product.detail[0].rom.toUpperCase()}</h2>
+            <h2 class="product-name">
+                ${product.name} ${product.detail[0].ram.toUpperCase()}/${product.detail[0].rom.toUpperCase()}
+                ${product.quantity > 0 ? '' : '<span>TẠM HẾT HÀNG</span>'}
+            </h2>
             <h3 class="product-price">
                 ₫${formatCurrency(product.detail[0].price)}
                 <del class="product-origin-price">₫${formatCurrency(product.detail[0].price)}</del>
@@ -551,9 +749,14 @@ async function renderProductInfo() {
                 </ul>
             </div>
             <div class="product-buy-box">
-                <input type="number" class="product-bought-quantity" step="1" min="1" max="9" name="quantity" value="1" title="Số lượng mua" size="4">
-                <button class="btn btn-add-cart" data-id='${product.detail[0].id}'>Thêm vào giỏ</button>
-                <a href="index.php?gio-hang" class="btn btn-buy">Mua ngay</a>
+                ${product.quantity > 0 
+                    ? `
+                        <input type="number" class="product-bought-quantity" step="1" min="1" max="9" name="quantity" value="1" title="Số lượng mua" size="4">
+                        <button class="btn btn-add-cart">Thêm vào giỏ</button>
+                        <a href="index.php?gio-hang" class="btn btn-buy">Mua ngay</a>
+                    `
+                    : ''
+                }
             </div>
         `
         $('.product-info-right').html(html)
@@ -563,6 +766,7 @@ async function renderProductInfo() {
         const rom = roms.length > 1 ? $('.product-select-item.rom.active').find('input').val() : roms[0].rom
         renderProductConfigModal(product, color, ram, rom)
     }
+    NProgress.done()
 }
 
 function renderProductConfigModal(product, color, ram, rom) {
@@ -630,11 +834,11 @@ function selectEndUserConfig(product) {
 
 async function renderFooter() {
     try {
-        const footerResponse = await fetch('server/src/view/footer.php');
-        const footerHtml = await footerResponse.text();
-        $('#footer-main').html(footerHtml);
+        const footerResponse = await fetch('server/src/view/footer.php')
+        const footerHtml = await footerResponse.text()
+        $('#footer-main').html(footerHtml)
     } catch (error) {
-        console.error(error);
+        console.error(error)
     }
 }
 
@@ -1252,7 +1456,7 @@ function exportExcel() {
             })
 
             const ws = XLSX.utils.json_to_sheet(excelDatas)
-            const wb = XLSX.utils.book_new();
+            const wb = XLSX.utils.book_new()
             XLSX.utils.book_append_sheet(wb, ws, "Sheet1")
             const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' })
             saveAs(new Blob([wbout], { type: 'application/octet-stream' }), 'dssp.xlsx')
@@ -1264,18 +1468,26 @@ function exportExcel() {
     })
 }
 
-function searchAdminProduct() {
-    $(document).on('keyup', '.admin-search-info', e => {
-        const search = e.target.value.toLowerCase()
+function searchAdminProduct(search) {
+    return new Promise((resolve, reject) => {
         const page = $('#currentpage').val()
-
         $.ajax({
             url: 'server/src/controller/SearchController.php',
             method: 'GET',
             data: { action: 'search', search, table: 'sanpham', page },
             dataType: 'JSON',
-            success: products => renderAdminProductTable(products),
-            error: (xhr, status, error) => console.log(error)
+            success: products => resolve(products),
+            error: (xhr, status, error) => {
+                console.log(error)
+                reject(error)
+            }
         })
+    })
+}
+
+function handleSearchAdminProduct() {
+    $(document).on('keyup', '.admin-search-info', async e => {
+        const products = await searchAdminProduct(e.target.value.toLowerCase())
+        renderAdminProductTable(products)
     })
 }
