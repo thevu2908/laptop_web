@@ -53,7 +53,7 @@ function addPhieuBaoHanh(maphieubaohanh,mahoadon,makhachhang,manhanvien,tinhtran
     })
 }
 function addChiTietPhieuBaoHanh(maphieubaohanh,listitemBaoHanh){
-    console.log("BBBBBBBBb")
+    console.log("BBBBBBBBB")
     $.ajax({
         url:"server/src/controller/CTPhieuBaoHanhController.php",
         data:{action:"add",maphieubaohanh:maphieubaohanh,listitemBaoHanh:listitemBaoHanh},
@@ -193,8 +193,8 @@ function loadBaoHanh(){
                 <td>${phieubaohanh['ma_kh']}</td>
                 <td>${phieubaohanh['ma_hd']}</td>
                 <td>${phieubaohanh['ngay_bao_hanh']}</td>
-                <td>${phieubaohanh['ngay_tra']}</td>
-                <td>${phieubaohanh['trang_thai']}</td>
+                <td>${checkTime(phieubaohanh['ngay_tra'])?" ":phieubaohanh['ngay_tra']}</td>
+                <td>${phieubaohanh['tinh_trang']}</td>
                 <td>
                     <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
                     <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
@@ -235,3 +235,11 @@ $("#tableChiTietHoaDon tbody").on("click", "tr", function(){
         $("#tableChiTietBaoHanh tbody").append(newRow);
     }
 });
+function checkTime(str){
+    console.log(str);
+    if (str.startsWith('0000')) {
+        return true;
+    } else {
+        return false;
+    }
+}

@@ -30,7 +30,7 @@
 							<th>Khách Hàng</th>
                             <th>Ngày Bảo Hành</th>
 							<th>Ngày Trả</th>
-                            <th>Trạng Thái</th>
+                            <th>Tình Trạng</th>
 							<th>Actions</th>
 						</tr>
 					</thead>
