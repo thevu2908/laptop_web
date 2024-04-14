@@ -243,3 +243,15 @@ function checkTime(str){
         return false;
     }
 }
+function TraCuuBaoHanh(makhachhang,ime){
+    $.ajax({
+        url:"server/src/controller/PhieuBaoHanhController.php",
+        data:{action:"tracuubaohanh",makhachhang:makhachhang,ime:ime},
+        method:"POST",
+        dataType:"json",
+        success:function(data){
+            var html="";
+            
+        }
+    })
+}

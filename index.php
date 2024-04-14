@@ -51,6 +51,9 @@
         } else if (isset($_REQUEST["thanh-toan"])) {
             include "./server/src/view/checkout.php";
             echo '<script src="client/pages/DiaChi.js"></script>';
+        }else if (isset($_REQUEST["bao-hanh"])) {
+            include "./server/src/view/repair.php";
+            echo '<script src="client/pages/BaoHanh.js"></script>';
         } else {
             include "./server/src/view/homepage.php";
             echo '<script src="./client/pages/ThuongHieu.js"></script>';

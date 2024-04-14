@@ -29,6 +29,9 @@
                 <a href="index.php?dang-nhap" class="login-btn">
                     <i class="fa-regular fa-user"></i>
                 </a>
+                <a href="index.php?bao-hanh" class="login-btn">
+                    <i class="fa-solid fa-screwdriver-wrench"></i>
+                </a>
             </div>
         </div>
     </nav>
