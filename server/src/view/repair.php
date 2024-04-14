@@ -3,9 +3,10 @@
   <form>
     <div class="form-group">
       <label for="serialNumber">Nhập số IMEI:</label>
+      <p id="show-err"></p>
       <input type="text" class="form-control" id="imei" placeholder="Nhập mã imei">
     </div>
-    <button type="submit" class="btn btn-primary">Tra cứu</button>
+    <button type="button" class="btn btn-primary" id="tracuu">Tra cứu</button>
   </form>
   <div id="searchResult" class="mt-4">
     <table class="table table-striped table-hover">

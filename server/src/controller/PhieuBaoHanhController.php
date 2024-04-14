@@ -10,6 +10,9 @@ class PhieuBaoHanhController{
     public function themPhieuBaoHanh($maphieubaohanh,$manhanvien,$makhachhang,$mahoadon,$ngaybaohanh,$ngaytra,$trangthai,$tinhtrang){
         echo json_encode($this->phieubaohanhRepo->addPhieuBaoHanh($maphieubaohanh,$manhanvien,$makhachhang,$mahoadon,$ngaybaohanh,$ngaytra,$trangthai,$tinhtrang));
     }
+    public function kiemtraBaoHanh($ma_imei){
+        echo json_encode($this->phieubaohanhRepo->tracuuBaoHanh($ma_imei));
+    }
 }
 $phieubaohanhctl=new PhieuBaoHanhController();
 $tmp=$_POST['action'];
@@ -24,6 +27,10 @@ switch($tmp){
         $tinhtrang=$_POST['tinhtrangbaohanh'];
         $ngaytra=$tinhtrang=="Đang Bảo Hành"?NULL:date("Y-m-d H:i:s");
         $phieubaohanhctl->themPhieuBaoHanh($maphieubaohanh,$manhanvien,$makhachhang,$mahoadon,$ngaybaohanh,$ngaytra,$trangthai,$tinhtrang);
+        break;
+    }case "tracuubaohanh":{
+        $ma_imei=$_POST['ma_imei'];
+        $phieubaohanhctl->kiemtraBaoHanh($ma_imei);
         break;
     }
 }

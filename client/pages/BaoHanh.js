@@ -1,6 +1,7 @@
 $(document).ready(function() {
     loadBaoHanh()
-    addBaoHanh();
+    addBaoHanh()
+    TraCuu()
 })
 var listitemBaoHanh=[];
 function addBaoHanh(){
@@ -243,15 +244,42 @@ function checkTime(str){
         return false;
     }
 }
-function TraCuuBaoHanh(makhachhang,ime){
+function TraCuu(){
+    $(document).on('click',"#tracuu",function(){
+        var ime=$("#imei").val();
+        if(ime==""){
+            $("#show-err").text("Please input");
+        }else{
+            TraCuuBaoHanh(ime);
+        }
+    })
+}
+function TraCuuBaoHanh(ime){
     $.ajax({
         url:"server/src/controller/PhieuBaoHanhController.php",
-        data:{action:"tracuubaohanh",makhachhang:makhachhang,ime:ime},
+        data:{action:"tracuubaohanh",ma_imei:ime},
         method:"POST",
         dataType:"json",
         success:function(data){
             var html="";
-            
+            console.log(data['hinh_anh']);
+            if(data!==null){
+                    html=`<tr>
+                    <td>${data['ma_imei']}</td>
+                    <td>${data['ten_sp']}</td>
+                    <td>${data['ngay_bao_hanh']}</td>
+                    <td>${checkTime(data['ngay_tra'])?" ":data['ngay_tra']}</td>
+                    <td>${data['ly_do']}</td>
+                    <td>${data['noi_dung_bao_hanh']}</td>
+                    <td>${data['tinh_trang']}</td>
+                    <td><img src="${data['hinh_anh']}" alt="Hình ảnh sản phẩm" style="max-width: 100px; max-height: 100px;"></td>
+                    </tr>`;
+                    $("#show-listTraCuu").html(html);
+            }else{
+
+            }
+        },error:function(xhr,status,error){
+            console.error(xhr.responseText); 
         }
     })
 }
