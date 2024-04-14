@@ -604,8 +604,14 @@ ul, li {
     color: var(--primary-color);
 }
 
+#main-footer {
+    margin-top: 24px;
+    padding-top: 2.5rem;
+    display: none;
+}
+
 .verify-container {
-    display: flex;
+    display: none;
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -650,7 +656,7 @@ ul, li {
     width: 2rem;
 }
 
-.verify-step-number.active {
+.verify-step-item.active .verify-step-number {
     background-color: #6c0;
     border-color: #6c0;
     color: #fff;
@@ -663,7 +669,7 @@ ul, li {
     font-family: Helvetica Neue, Helvetica, Arial;
 }
 
-.verify-step-text.active {
+.verify-step-item.active .verify-step-text {
     color: #6c0;
 }
 
@@ -769,12 +775,12 @@ ul, li {
     font-size: 14px;
 }
 
-.verify-otp-phone-box {
+.verify-otp-email-box {
     display: flex;
     margin-top: 8px;
 }
 
-.verify-otp-phone {
+.verify-otp-email {
     font-size: 1rem;
     font-weight: 500;
     line-height: 1.5rem;
@@ -945,7 +951,7 @@ ul, li {
     margin-top: 44px;
 }
 
-.signup-success-phone {
+.signup-success-email {
     color: var(--primary-color);
 }
 

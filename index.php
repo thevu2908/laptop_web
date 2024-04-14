@@ -26,11 +26,9 @@
         if (isset($_REQUEST["dang-nhap"])) {
             include "./server/src/view/login.php";
         } else if (isset($_REQUEST["dang-ky"])) {
-            if (isset($_REQUEST["xac-minh-otp"]) || isset($_REQUEST["tao-mat-khau"]) || isset($_REQUEST["tao-thanh-cong"])) {
-                include "./server/src/view/verify.php";
-            } else {
-                include "./server/src/view/signup.php";
-            }
+            include "./server/src/view/signup.php";
+            echo '<script src="./client/pages/SignUp.js"></script>';
+            echo '<script src="./client/pages/TaiKhoan.js"></script>';
         } else if (isset($_REQUEST["san-pham"])) {
             if (isset($_REQUEST["id"])) {
                 include "./server/src/view/productDetail.php";
@@ -82,6 +80,7 @@
 
     <script src="server/src/assets/js/main.js"></script>
     <script src="./client/plugins/pagination.js"></script>
+    <script src="./client/plugins/validation.js"></script>
     <script src="./client/utils/general.js"></script>
     <script src="./client/utils/formatCurrency.js"></script>
     <script src="./client/pages/TimKiem.js"></script>

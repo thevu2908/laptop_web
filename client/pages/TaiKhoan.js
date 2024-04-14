@@ -1,14 +1,16 @@
 $(document).ready(() => {
-    renderAccountData(null)
-    clickPage(renderAccountData)
-    handleAddAccount()
-    showUpdateAccountModal()
-    handleUpdateAccount()
-    showDeleteAccountModal()
-    handleDeleteAccount()
-    showDeleteCheckedAccountModal()
-    showViewAccountModal()
-    searchAccount()
+    if (window.location.pathname === '/admin.php') {
+        renderAccountData()
+        clickPage(renderAccountData)
+        handleAddAccount()
+        showUpdateAccountModal()
+        handleUpdateAccount()
+        showDeleteAccountModal()
+        handleDeleteAccount()
+        showDeleteCheckedAccountModal()
+        showViewAccountModal()
+        searchAccount()
+    }
 })
 
 function getAccounts() {
@@ -371,6 +373,21 @@ function searchAccount() {
             dataType: 'JSON',
             success: accounts => renderAccountData(accounts),
             error: (xhr, status, error) => console.log(error)
+        })
+    })
+}
+
+function checkExistUsername(username) {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: 'server/src/controller/TaiKhoanController.php',
+            method: 'POST',
+            data: { action: 'check-exist', username },
+            success: res => resolve(res),
+            error: (xhr, status, error) => {
+                console.log(error)
+                reject(error)
+            }
         })
     })
 }

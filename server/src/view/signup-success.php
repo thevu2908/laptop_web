@@ -5,8 +5,8 @@
             <i class="fa-regular fa-circle-check"></i>
         </div>
         <div class="signup-success-noti">
-            <span>Bạn đã tạo thành công tài khoản Laptop với số</span>
-            <span class="signup-success-phone">(+84) 976 124 506</span>
+            <span>Bạn đã tạo thành công tài khoản Laptop với email</span>
+            <span class="signup-success-email"></span>
         </div>
         <div class="signup-success-noti">
             <span class="signup-success-homepage">Bạn sẽ trở về trang chủ trong 5 giây</span>

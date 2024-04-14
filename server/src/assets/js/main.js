@@ -1,7 +1,7 @@
 // hide element when click outside
 $(document).on('click', function (e) {
-    if (!e.target.classList.contains('sort-dropdown-button') && !e.target.closest('div').classList.contains('sort-dropdown-button')) {
-        $('.search-product-main .sort-dropdown-button').removeClass('show')
+    if (e.target && !e.target.classList.contains('sort-dropdown-button') && e.target.closest('div') && !e.target.closest('div').classList.contains('sort-dropdown-button')) {
+        $('.search-product-main .sort-dropdown-button').removeClass('show') 
     }
     $('.search-suggest-container').hide()
     const overSuggest = $('.over-suggest')
@@ -62,71 +62,51 @@ $('input.input-qty').each(function () {
 });
 
 // verify otp when sign up
-const verifyOtpInput = document.querySelector('.verify-otp-input')
-const btnToCreatePwd = document.querySelector('.btn-to-create-pwd')
-
-if (verifyOtpInput && btnToCreatePwd) {
-    verifyOtpInput.addEventListener('input', e => {
-        verifyOtpInput.setAttribute('value', verifyOtpInput.value)
-
-        if (verifyOtpInput.value.length >= 6) {
-            verifyOtpInput.classList.add('full')
-            btnToCreatePwd.classList.remove('disabled')
-            btnToCreatePwd.removeAttribute('disabled')
-        } else {
-            verifyOtpInput.classList.remove('full')
-            btnToCreatePwd.classList.add('disabled')
-            btnToCreatePwd.setAttribute('disabled', true)
-        }
-    })
-}
+$(document).on('input', '.verify-otp-input', e => {
+    $('.verify-otp-input').attr('value', $('.verify-otp-input').val())
+    if ($('.verify-otp-input').val().length >= 6) {
+        $('.verify-otp-input').addClass('full')
+        $('.btn-to-create-pwd').removeClass('disabled')
+        $('.btn-to-create-pwd').removeAttr('disabled')
+    } else {
+        $('.verify-otp-input').removeClass('full')
+        $('.btn-to-create-pwd').addClass('disabled')
+        $('.btn-to-create-pwd').attr('disabled', true)
+    }
+})
 
 // count down to confirm otp
-const resendOtp = document.querySelector('.verify-otp-confirm')
-
-if (resendOtp) {
+function countDownConfirmOtp() {
     let time = 60;
     const countdown = setInterval(() => {
-        resendOtp.innerHTML = `Vui lòng xác nhận mã trong ${time} giây`
+        $('.verify-otp-confirm').html(`Vui lòng xác nhận mã trong ${time} giây`)
         time--
         if (time < 0) {
             clearInterval(countdown)
-            const html = `
-                <span>Bạn vẫn chưa nhận được?</span>
-                <button class="btn-resend-otp">Gửi lại mã</button>
-            `
-            document.querySelector('.verify-otp-resend-title').innerHTML = html
-            resendOtp.style.display = 'none'
+            $('.verify-otp-resend-title')
+                .html(`
+                    <span>Bạn vẫn chưa nhận được?</span>
+                    <button type="button" class="btn-resend-otp">Gửi lại mã</button>
+                `)
+            $('.verify-otp-confirm').css('display', 'none')
         }
     }, 1000)
 }
 
 // show signup password
-const showHidePwdSignup = document.querySelector('#signup-show-pwd')
-
-if (showHidePwdSignup) {
-    const signUpPassword = document.querySelectorAll('.create-password-form .signup-password')
-
-    showHidePwdSignup.addEventListener('change', e => {
-        if (showHidePwdSignup.checked) {
-            signUpPassword.forEach(password => {
-                password.type = 'text'
-            })
-        } else {
-            signUpPassword.forEach(password => {
-                password.type = 'password'
-            })
-        }
-    })
-}
+$(document).on('change', '#signup-show-pwd', e => {
+    if ($('#signup-show-pwd').prop('checked')) {
+        $('.create-password-form .signup-password').attr('type', 'text')
+    } else {
+        $('.create-password-form .signup-password').attr('type', 'password')
+    }
+})
 
 // count down back homepage when signup success
-const backHomePage = document.querySelector('.signup-success-homepage')
-
-if (backHomePage) {
+function countDownBackHomePage() {
     let time = 5;
     const countdown = setInterval(() => {
-        backHomePage.innerHTML = `Bạn sẽ trở về trang chủ trong ${time} giây`
+        $('.signup-success-homepage').html(`Bạn sẽ trở về trang chủ trong ${time} giây`)
         time--
         if (time < 0) {
             clearInterval(countdown)
