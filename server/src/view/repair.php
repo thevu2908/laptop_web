@@ -2,7 +2,7 @@
   <h1 class="mt-5 mb-4 text-center">Tra cứu bảo hành sản phẩm</h1>
   <form>
     <div class="form-group">
-      <label for="serialNumber">Nhập số IMEI:</label>
+      <label for="serialNumber">Nhập số IMEI(Phía Dưới Đế LapTop):</label>
       <p id="show-err"></p>
       <input type="text" class="form-control" id="imei" placeholder="Nhập mã imei">
     </div>

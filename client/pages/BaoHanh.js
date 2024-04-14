@@ -250,6 +250,7 @@ function TraCuu(){
         if(ime==""){
             $("#show-err").text("Please input");
         }else{
+            $("#show-err").text("");
             TraCuuBaoHanh(ime);
         }
     })
