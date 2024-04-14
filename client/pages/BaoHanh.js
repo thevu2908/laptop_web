@@ -263,7 +263,7 @@ function TraCuuBaoHanh(ime){
         dataType:"json",
         success:function(data){
             var html="";
-            console.log(data['hinh_anh']);
+            console.log(data);
             if(data!==null){
                     html=`<tr>
                     <td>${data['ma_imei']}</td>
@@ -277,7 +277,7 @@ function TraCuuBaoHanh(ime){
                     </tr>`;
                     $("#show-listTraCuu").html(html);
             }else{
-
+                $("#show-listTraCuu").html(html);
             }
         },error:function(xhr,status,error){
             console.error(xhr.responseText); 
