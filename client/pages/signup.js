@@ -82,7 +82,7 @@ function verifyEmailOtp(otp) {
         const createPassword = await fetch('server/src/view/create-password.php')
         const createPasswordHtml = await createPassword.text()
         $('.verify-step-line:eq(0)').addClass('active')
-        $('.verify-step-item:eq(1) ').addClass('active')
+        $('.verify-step-item:eq(1)').addClass('active')
         $('.verify-container .verify-content').html(createPasswordHtml)
         signUp(email)
     })
