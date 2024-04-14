@@ -8,7 +8,7 @@ function addBaoHanh(){
     loadMaHoaDon()
     selectMaHoaDon();
     $(document).on("click","#admin-add-BaoHanh",function(){
-        var maphieubaohanh="BH01";
+        var maphieubaohanh="BH02";
         var mahoadon=$("#admin-select-mahoadon").val();
         var makhachhang=$("#admin-baohanh-makhachhang").val().split("-")[0];
         var manhanvien="NV01";
@@ -191,8 +191,8 @@ function loadBaoHanh(){
                 </td>
                 <td>${phieubaohanh['ma_pbh']}</td>
                 <td>${phieubaohanh['ma_nv']}</td>
-                <td>${phieubaohanh['ma_kh']}</td>
                 <td>${phieubaohanh['ma_hd']}</td>
+                <td>${phieubaohanh['ma_kh']}</td>
                 <td>${phieubaohanh['ngay_bao_hanh']}</td>
                 <td>${checkTime(phieubaohanh['ngay_tra'])?" ":phieubaohanh['ngay_tra']}</td>
                 <td>${phieubaohanh['tinh_trang']}</td>
@@ -273,7 +273,7 @@ function TraCuuBaoHanh(ime){
                     <td>${data['ly_do']}</td>
                     <td>${data['noi_dung_bao_hanh']}</td>
                     <td>${data['tinh_trang']}</td>
-                    <td><img src="${data['hinh_anh']}" alt="Hình ảnh sản phẩm" style="max-width: 100px; max-height: 100px;"></td>
+                    <td><img src="${data['hinh_anh']}" alt="Hình ảnh" style="max-width: 100px; max-height: 100px;"></td>
                     </tr>`;
                     $("#show-listTraCuu").html(html);
             }else{
