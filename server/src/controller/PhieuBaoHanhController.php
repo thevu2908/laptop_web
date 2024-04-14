@@ -1,7 +1,7 @@
 <?php
 include("../model/ConnectDB.php");
-include("../model/NhomQuyen/NhomQuyen.php");
-include("../model/NhomQuyen/NhomQuyenRepo.php");
+include("../model/PhieuBaoHanh/PhieuBaoHanh.php");
+include("../model/PhieuBaoHanh/PhieuBaoHanhRepo.php");
 class PhieuBaoHanhController{
     private $phieubaohanhRepo;
     public function __construct(){
@@ -20,9 +20,9 @@ switch($tmp){
         $manhanvien=$_POST['manhanvien'];
         $makhachhang=$_POST['makhachhang'];
         $ngaybaohanh=date("Y-m-d H:i:s");
-        $ngaytra="";
-        $trangthai=$_POST['trangthai'];
-        $tinhtrang="Đang Xử Lý";
+        $trangthai=0;
+        $tinhtrang=$_POST['tinhtrangbaohanh'];
+        $ngaytra=$tinhtrang=="Đang Bảo Hành"?NULL:date("Y-m-d H:i:s");
         $phieubaohanhctl->themPhieuBaoHanh($maphieubaohanh,$manhanvien,$makhachhang,$mahoadon,$ngaybaohanh,$ngaytra,$trangthai,$tinhtrang);
         break;
     }

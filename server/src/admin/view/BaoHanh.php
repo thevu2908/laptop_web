@@ -8,10 +8,6 @@
 							<h2>Quản Lý <b id="ad-NhomQuyen">Bảo Hành</b></h2>
 						</div>
 						<div class="col-sm-6">
-							<a href="#" class="btn btn-secondary"><i class="material-icons">&#xE24D;</i> <span>Import
-									Excel</span></a>
-							<a href="#" class="btn btn-secondary"><i class="material-icons">&#xE24D;</i> <span>Export
-									Excel</span></a>
 							<a href="#addBaoHanh" id="admin-addBaoHanh" class="btn btn-success add" data-toggle="modal"><i
 									class="material-icons">&#xE147;</i> <span>Thêm</span></a>
 							<a href="#deleteNhomQuyen" class="btn btn-danger delete" data-toggle="modal"><i
@@ -40,6 +36,7 @@
 					</thead>
 					<tbody id="show-listBaoHanh">
 					</tbody>
+					<p id="show-mess"></p>
 				</table>
 				<div class="clearfix">
 				<div class="hint-text">Showing <b id="cur">5</b> out of <b id="total">25</b> entries</div>					
@@ -72,20 +69,15 @@
 							<div class="form-group">
 							<p id="mess_tenquyen"></p>
 								<label>Nhân Viên</label>
-								<select class="form-control form-control-sm" aria-label="Default select example" id="admin-baohanh-manhanvien">
-									<option value="choose" selected>Choose</option>
-									<option value="1">1</option>
-									<option value="2">2</option>
-									<option value="3">3</option>
-									<option value="4">4</option>
-                                </select>
+								<input type="text" name="" id="admin-baohanh-manhanvien" class="form-control form-control-sm">
+								
 							</div>
 						</div>
 						<div class="col-md-6">
 							<div class="form-group">
 							<p id="mess_tenquyen"></p>
 								<label>Khách Hàng</label>
-								<input type="text" class="form-control form-control-sm" required id="admin-baohanh-makhachhang">
+								<input type="text" class="form-control form-control-sm" required id="admin-baohanh-makhachhang" readonly='false'>
 							</div>
 						</div>
 					</div>

@@ -18,7 +18,14 @@ class HoaDonRepo extends ConnectDB {
         }
         return null;
     }
-
+    function getThongTinKhachHang($id) {
+        $sql = "SELECT khachhang.ma_kh,khachhang.ten_kh FROM hoadon JOIN khachhang on khachhang.ma_kh=hoadon.ma_kh WHERE hoadon.ma_hd='$id'";
+        $result = mysqli_query($this->conn, $sql);
+        if ($row = mysqli_fetch_assoc($result)) {
+            return $row;
+        }
+        return null;
+    }
     function addHoaDon(HoaDon $hoadon) {
         $ma_hd = $hoadon->getMaHd();
         $ma_kh = $hoadon->getMaKh();

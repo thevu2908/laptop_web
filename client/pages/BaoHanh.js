@@ -6,16 +6,14 @@ var listitemBaoHanh=[];
 function addBaoHanh(){
     loadMaHoaDon()
     selectMaHoaDon();
-    //getNhanVien();
     $(document).on("click","#admin-add-BaoHanh",function(){
         var maphieubaohanh="BH01";
         var mahoadon=$("#admin-select-mahoadon").val();
-        var makhachhang=$("#admin-baohanh-makhachhang").val();
+        var makhachhang=$("#admin-baohanh-makhachhang").val().split("-")[0];
         var manhanvien="NV01";
         var date=new Date()
         var ngaybaohanh=date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate()+":"+date.getHours()+"h-"+date.getMinutes()+"m-"+date.getSeconds()+"s";
         var tinhtrangbaohanh=$("#admin-select-trinhtrang").val();
-        console.log(mahoadon+" "+makhachhang+" "+manhanvien+" "+ngaybaohanh)
         listitemBaoHanh=[];
         $('#tableChiTietBaoHanh tbody tr').each(function() {
             var ime = $(this).find('td:nth-child(2)').text();
@@ -26,32 +24,45 @@ function addBaoHanh(){
             console.log("ID:", masanpham);
             console.log("Lý Do Bảo Hành:", lyDoBaoHanh);
             console.log("Nội Dung Bảo Hành:", noiDungBaoHanh);
-            listitemBaoHanh.push({ime:ime,masanpham:masanpham,lyDoBaoHanh:lyDoBaoHanh,noiDungBaoHanh:noiDungBaoHanh,soluong:1})
+            listitemBaoHanh.push({ime:ime,masanpham:masanpham,lyDoBaoHanh:lyDoBaoHanh,noiDungBaoHanh:noiDungBaoHanh})
         });
+        console.log(maphieubaohanh);
+        console.log(mahoadon);
+        console.log(makhachhang+"------")
+        console.log(manhanvien);
         console.log(tinhtrangbaohanh);
         console.log(listitemBaoHanh);
+        addPhieuBaoHanh(maphieubaohanh,mahoadon,makhachhang,manhanvien,tinhtrangbaohanh);
     
     })
 }
-function addPhieuBaoHanh(){
+function addPhieuBaoHanh(maphieubaohanh,mahoadon,makhachhang,manhanvien,tinhtrangbaohanh) {
+    console.log("AAAAAAAAAAAA")
     $.ajax({
         url:"server/src/controller/PhieuBaoHanhController.php",
-        data:{action:"add"},
+        data:{action:"add",maphieubaohanh:maphieubaohanh,mahoadon:mahoadon,makhachhang:makhachhang,manhanvien:manhanvien,tinhtrangbaohanh:tinhtrangbaohanh},
         method:"POST",
         dataType:"json",
         success:function(data){
             console.log(data);
+            addChiTietPhieuBaoHanh(maphieubaohanh,listitemBaoHanh);
+            loadBaoHanh();
+        },error:function(xhr,status,error){
+            console.error(xhr.responseText); 
         }
     })
 }
-function addChiTietPhieuBaoHanh(){
+function addChiTietPhieuBaoHanh(maphieubaohanh,listitemBaoHanh){
+    console.log("BBBBBBBBb")
     $.ajax({
         url:"server/src/controller/CTPhieuBaoHanhController.php",
-        data:{action:"add"},
+        data:{action:"add",maphieubaohanh:maphieubaohanh,listitemBaoHanh:listitemBaoHanh},
         method:"POST",
         dataType:"json",
         success:function(data){
             console.log(data);
+        },error:function(xhr,status,error){
+            console.error(xhr.responseText); 
         }
     })
 }
@@ -66,56 +77,84 @@ function removeItem(element){
     console.log(listitemBaoHanh)
 }
 function selectMaHoaDon(){
+    $("#show-mess").text("")
     $(document).on("change","#admin-select-mahoadon",function(){
+        var mahoadon=$(this).val();
         $.ajax({
             url:"server/src/controller/CTHDController.php",
             method:"POST",
-            data:{action:"getcthd",mahoadon:$(this).val()},
+            data:{action:"getcthd",mahoadon:mahoadon},
             dataType:"json",
             success:function(data){
-                console.log(data);
-                var html="";
-                data.forEach((cthd,index)=>{
-                    html+=`<tr>
-                    <th scope="row">${index+1}</th>
-                    <td scope="row">${cthd['ma_imei']}</td>
-                    <td scope="row">${cthd['ma_ctsp']}</td>
-                    <td scope="row">${cthd['ten_sp']}</td>
-                    <td scope="row">${cthd['gia_sp']}</td>
-                    <td scope="row"><i class="material-icons">&#xE147;</i></td>
-                    </tr>`
-                })
-                $("#admin-showChitiethoadon").html(html);
+                var count=0;
+                if(data!==null){
+                    var html="";
+                    data.forEach((cthd,index)=>{
+                        count++;
+                        html+=`<tr>
+                        <th scope="row">${index+1}</th>
+                        <td scope="row">${cthd['ma_imei']}</td>
+                        <td scope="row">${cthd['ma_ctsp']}</td>
+                        <td scope="row">${cthd['ten_sp']}</td>
+                        <td scope="row">${cthd['gia_sp']}</td>
+                        <td scope="row"><i class="material-icons">&#xE147;</i></td>
+                        </tr>`
+                    })
+                    $("#admin-showChitiethoadon").html(html);
+                }else{
+                    $("#show-mess").text("Sản Phẩm Thuộc Hóa Đơn Đã Được Đổi Hoặc Trả");
+                }
+                if(count==0){
+                    $("#show-mess").val("Sản Phẩm Thuộc Hóa Đơn Đã Được Đổi Hoặc Trả");
+                }
+                ThongTinKhachHang(mahoadon);
             }
         })
     })
 }
-function getNhanVien(){
+function ThongTinKhachHang(mahoadon){
     $.ajax({
-        url:"server/src/controller/NhanVienController.php",
-        data:{action:"load"},
+        url:"server/src/controller/HoaDonController.php",
         method:"POST",
-        success:function(data){
-            var html="";
-            var jsonData = JSON.parse(data);
-            jsonData.forEach((nhanvien,index) => {
-                html+=`<option value="${nhanvien['0']}">${nhanvien['0']}-${nhanvien['1']}</option>`;
-            });
-            $("#admin-baohanh-manhanvien").html(html);
-        }
-    })
-}
-function getKhachHang(){
-    $.ajax({
-        url:"server/src/controller/KhachHangController.php",
-        data:{action:"get-khachhang"},
-        method:"POST",
+        data:{action:"getkhachhang",id:mahoadon},
         dataType:"json",
         success:function(data){
-            $("#admin-baohanh-manhanvien").html(html);
+            if(data!==null){
+                var khachhang=data['ma_kh']+"-"+data['ten_kh'];
+                console.log(khachhang)
+                $("#admin-baohanh-makhachhang").val(khachhang);
+            }else{
+                $("#admin-baohanh-makhachhang").val("");
+            }
         }
     })
 }
+// function getNhanVien(){
+//     $.ajax({
+//         url:"server/src/controller/NhanVienController.php",
+//         data:{action:"load"},
+//         method:"POST",
+//         success:function(data){
+//             var html="";
+//             var jsonData = JSON.parse(data);
+//             jsonData.forEach((nhanvien,index) => {
+//                 html+=`<option value="${nhanvien['0']}">${nhanvien['0']}-${nhanvien['1']}</option>`;
+//             });
+//             $("#admin-baohanh-manhanvien").html(html);
+//         }
+//     })
+// }
+// function getKhachHang(){
+//     $.ajax({
+//         url:"server/src/controller/KhachHangController.php",
+//         data:{action:"get-khachhang"},
+//         method:"POST",
+//         dataType:"json",
+//         success:function(data){
+//             $("#admin-baohanh-manhanvien").html(html);
+//         }
+//     })
+// }
 function loadMaHoaDon(){
     $.ajax({
         url:"server/src/controller/HoaDonController.php",
