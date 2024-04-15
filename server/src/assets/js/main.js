@@ -141,6 +141,35 @@ $(".modal-cart-dialog").click((e) => {
     e.stopPropagation();
 });
 
+// Đánh giá số sao
+$(function() {
+	
+	$(document).on({
+		mouseover: function(event) {
+			$(this).find('.far.review').addClass('star-over');
+			$(this).prevAll().find('.far.review').addClass('star-over');
+		},
+		mouseleave: function(event) {
+			$(this).find('.far.review').removeClass('star-over');
+			$(this).prevAll().find('.far.review').removeClass('star-over');
+		}
+	}, '.rate');
+
+
+	$(document).on('click', '.rate', function() {
+		if ( !$(this).find('.star.review').hasClass('rate-active') ) {
+			$(this).siblings().find('.star.review').addClass('far review').removeClass('fas rate-active');
+			$(this).siblings().find('input').removeClass('rate-active');
+			$(this).find('.star.review').addClass('rate-active fas').removeClass('far star-over');
+            $(this).find('input').addClass('rate-active');
+			$(this).prevAll().find('.star.review').addClass('fas').removeClass('far star-over');
+		} else {
+			console.log('has');
+		}
+	});
+	
+});
+
 // show search dropdown
 $(document).on('click', '.search-product-main .sort-dropdown-button', function (e) {
     $('.search-product-main .sort-dropdown-button').not($(this)).removeClass('show')

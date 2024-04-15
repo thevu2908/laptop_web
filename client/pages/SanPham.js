@@ -180,8 +180,12 @@ async function renderAdminProductTable(data) {
                             <label for="checkbox-${product.ma_sp}"></label>
                         </span>
                     </td>
-                    <td>${product.ma_sp}</td>
-                    <td>${product.ten_sp}</td>
+                    <td>
+                        ${product.ma_sp}
+                    </td>
+                    <td>
+                        ${product.ten_sp}
+                    </td>
                     <td>${product.ten_thuong_hieu}</td>
                     <td>${product.so_luong_ton}</td>
                     <td>

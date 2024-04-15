@@ -176,21 +176,36 @@ function kiemtraquyen($arr,$chucnang){
               <span class="text">Chi Tiết Sản Phẩm</span>
             </a>
           </li>
+          <li class="side-menu-item <?php echo $page === 'danhgia' ? 'active' : '' ?>">
+            <a href="/admin.php?controller=danhgia" class="nav-link">
+              <i class="fa-solid fa-laptop-code"></i>
+              <span class="text">Đánh giá</span>
+            </a>
+          </li>
         </ul>
       </div>
     </li>
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> 82a437012b574acf9a4997e6473098f826169dc2
     <li class="side-menu-item <?php echo $page === 'chucnang' ? 'active' : ''?>">
       <a href="/admin.php?controller=chucnang" class="nav-link">
         <i class="fas fa-shopping-cart"></i>
         <span class="text">Chức Năng</span>
       </a>
     </li>
+<<<<<<< HEAD
     <li class="side-menu-item <?php echo $page === 'danhgia' ? 'active' : '' ?>">
       <a href="/admin.php?controller=danhgia" class="nav-link">
         <i class="fas fa-message"></i>
         <span class="text">Đánh Giá</span>
       </a>
     </li>
+>>>>>>> 913ac71c297beda4e0da6a8ae4273d6aab8c92a4
+=======
+>>>>>>> 82a437012b574acf9a4997e6473098f826169dc2
     <li class="side-menu-item <?php echo $page === 'nhanvien' ? 'active' : '' ?>">
       <a href="/admin.php?controller=nhanvien" class="nav-link">
         <i class="fas fa-people-group"></i>
