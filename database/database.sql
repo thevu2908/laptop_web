@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 09, 2024 at 10:16 AM
+-- Generation Time: Apr 15, 2024 at 04:58 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -340,8 +340,10 @@ INSERT INTO `chitietquyen` (`ma_quyen`, `ma_chuc_nang`, `hanh_dong`) VALUES
 ('NQ01', 'CN04', 'Xem'),
 ('NQ01', 'CN04', 'Xóa'),
 ('NQ01', 'CN05', 'Sửa'),
+('NQ01', 'CN05', 'Thêm'),
 ('NQ01', 'CN05', 'X'),
 ('NQ01', 'CN05', 'Xem'),
+('NQ01', 'CN05', 'Xóa'),
 ('NQ01', 'CN06', 'X'),
 ('NQ01', 'CN06', 'Xem'),
 ('NQ01', 'CN07', 'Thêm'),
@@ -1361,7 +1363,7 @@ CREATE TABLE `khachhang` (
   `ma_kh` varchar(20) NOT NULL,
   `ten_kh` varchar(100) NOT NULL,
   `so_dien_thoai` varchar(10) NOT NULL,
-  `tuoi` int(11) NOT NULL,
+  `email` varchar(100) NOT NULL,
   `dia_chi` varchar(150) NOT NULL,
   `trang_thai` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -1379,7 +1381,8 @@ CREATE TABLE `khuyenmai` (
   `dieu_kien` varchar(50) NOT NULL,
   `thoi_gian_bat_dau` date NOT NULL,
   `thoi_gian_ket_thuc` date NOT NULL,
-  `tinh_trang` varchar(50) NOT NULL
+  `tinh_trang` varchar(50) NOT NULL,
+  `trang_thai` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -1456,9 +1459,10 @@ INSERT INTO `nhomquyen` (`ma_quyen`, `ten_quyen`, `trang_thai`) VALUES
 ('NQ01', 'Admin', 0),
 ('NQ02', 'Quản lý', 0),
 ('NQ03', 'Nhân viên bán hàng', 0),
-('NQ04', 'Nhân Viên', 0),
-('NQ05', 'Nhân Viên Nhập Hàng', 0),
-('NQ06', 'ABC', 0);
+('NQ04', 'Nhân viên', 0),
+('NQ05', 'Nhân viên nhập hàng', 0),
+('NQ06', 'ABC', 0),
+('user', 'Khách hàng', 0);
 
 -- --------------------------------------------------------
 
@@ -1662,6 +1666,15 @@ CREATE TABLE `taikhoan` (
   `otp` int(6) NOT NULL,
   `trang_thai` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `taikhoan`
+--
+
+INSERT INTO `taikhoan` (`ma_tk`, `ma_quyen`, `username`, `password`, `otp`, `trang_thai`) VALUES
+('admin', 'NQ01', 'admin', 'admin', 0, 0),
+('thevu1073@gmail.com', 'user', 'thevu1073@gmail.com', '123456', 0, 0),
+('vnguyen132az@gmail.c', 'user', 'vnguyen132az@gmail.com', '123456', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -12439,7 +12452,7 @@ ALTER TABLE `ctsp_imei`
 -- Indexes for table `danhgia`
 --
 ALTER TABLE `danhgia`
-  ADD PRIMARY KEY (`ma_ctsp`,`ma_kh`),
+  ADD PRIMARY KEY (`ma_ctsp`,`ma_kh`,`thoi_gian_danh_gia`),
   ADD KEY `danhgia_fk_kh` (`ma_kh`);
 
 --
