@@ -10,6 +10,9 @@ class PhieuDoiTraController{
     public function themPhieuDoiTra($mapdt,$manhanvien,$mahoadon,$ngaytra,$tongsoluong,$tongtientra,$trangthai){
         echo json_encode($this->phieuDoiTraRepo->addPhieuDoiTra($mapdt,$manhanvien,$mahoadon,$ngaytra,$tongsoluong,$tongtientra,$trangthai));
     }
+    public function kiemtraDoiTra($sodienthoai){
+        echo json_encode($this->phieuDoiTraRepo->tracuuDoiTra($sodienthoai));
+    }
 }
 $phieuDoiTractl=new PhieuDoiTraController();
 $tmp=$_POST['action'];
@@ -23,6 +26,10 @@ switch($tmp){
         $tongtientra=(float)$_POST['thanhtienSP'];
         $trangthai=0;
         $phieuDoiTractl->themPhieuDoiTra($mapdt,$manhanvien,$mahoadon,$ngaytra,$tongsoluong,$tongtientra,$trangthai);
+        break;
+    }case "tracuudoitra":{
+        $sodienthoai=$_POST['sodienthoai'];
+        $phieuDoiTractl->kiemtraDoiTra($sodienthoai);
         break;
     }
 }

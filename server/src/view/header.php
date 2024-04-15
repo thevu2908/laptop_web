@@ -32,6 +32,9 @@
                 <a href="index.php?bao-hanh" class="login-btn">
                     <i class="fa-solid fa-screwdriver-wrench"></i>
                 </a>
+                <a href="index.php?doi-tra" class="login-btn">
+                    <i class="fa-solid fa-right-left"></i>
+                </a>
             </div>
         </div>
     </nav>

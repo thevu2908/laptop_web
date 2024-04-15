@@ -1,6 +1,7 @@
 $(document).ready(function() {
     loadDoiTra()
     addDoiTra()
+    TraCuu()
 })
 var listitemDoiTra=[]
 function addDoiTra(){
@@ -156,8 +157,52 @@ function selectMaHoaDon(){
         })
     })
 }
-function chitietPhieuDoiTra(){
-    
+function TraCuu(){
+    $(document).on("click","#tracuudoitra",function(){
+        var sodienthoai=$("#sodienthoai").val();
+        var phoneNumberPattern = /^\d{10}$/;
+        if(sodienthoai==""){
+            $("#show-err").text("Please input");
+            $("#show-listTraCuuDoiTra").html("");
+        }else if(!phoneNumberPattern.test(sodienthoai)){
+            $("#show-err").text("Please input parttern")
+            $("#show-listTraCuuDoiTra").html("");
+        }else{
+            $("#show-err").text("");
+            TraCuuDoiTra(sodienthoai);
+        }
+    })
+}
+function TraCuuDoiTra(sodienthoai){
+    $.ajax({
+        url:"server/src/controller/PhieuDoiTraController.php",
+        data:{action:"tracuudoitra",sodienthoai:sodienthoai},
+        method:"POST",
+        dataType:"json",
+        success:function(data){
+            var html="";
+            console.log(data);
+            if(data!=[]){
+                data.forEach((phieudoitra,index)=>{
+                    html+=`<tr>
+                    <td>${phieudoitra['ma_imei']}</td>
+                    <td>${phieudoitra['ten_sp']}</td>
+                    <td>${phieudoitra['ngay_tra']}</td>
+                    <td>${phieudoitra['ly_do']}</td>
+                    <td>${phieudoitra['gia_sp']}</td>
+                    <td>${phieudoitra['so_luong']}</td>
+                    <td>${phieudoitra['thanh_tien']}</td>
+                    <td><img src="${phieudoitra['hinh_anh']}" alt="Hình ảnh" style="max-width: 100px; max-height: 100px;"></td>
+                    </tr>`;
+                })
+                $("#show-listTraCuuDoiTra").html(html);
+            }else{
+                $("#show-listTraCuuDoiTra").html(html);
+            }
+        },error:function(xhr,status,error){
+            console.error(xhr.responseText); 
+        }
+    })
 }
 $("#tableChiTietHoaDon tbody").on("click", "tr", function(){
     var ime = $(this).find("td:eq(0)").text();

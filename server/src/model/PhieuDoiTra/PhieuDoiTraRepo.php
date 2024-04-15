@@ -10,5 +10,19 @@ class PhieuDoiTraRepo extends ConnectDB {
         }
         return false;
     }
+    public function tracuuDoiTra($sodienthoai){
+        $query="SELECT chitietphieudoitra.ma_imei,sanpham.ten_sp,phieudoitra.ngay_tra,chitietphieudoitra.ly_do,
+        chitietphieudoitra.gia_sp,chitietphieudoitra.so_luong,chitietphieudoitra.thanh_tien,sanpham.hinh_anh
+        FROM phieudoitra join chitietphieudoitra on phieudoitra.ma_pdt=chitietphieudoitra.ma_pdt join
+        ctsp_imei on ctsp_imei.ma_imei=chitietphieudoitra.ma_imei join chitietsanpham on chitietsanpham.ma_ctsp=ctsp_imei.ma_ctsp
+        join sanpham on sanpham.ma_sp=chitietsanpham.ma_sp join hoadon on hoadon.ma_hd=phieudoitra.ma_hd
+        join khachhang on khachhang.ma_kh=hoadon.ma_kh where khachhang.so_dien_thoai='$sodienthoai'";
+        $result=mysqli_query($this->conn,$query);
+        $arrDoiTra=array();
+        while ($row=mysqli_fetch_array($result)){
+            $arrDoiTra[]=$row;
+        }
+        return $arrDoiTra;
+    }
 }
 ?>
