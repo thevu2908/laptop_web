@@ -726,7 +726,7 @@ async function renderProductInfo() {
         let colorHtml = ''
         colors.forEach((color, index) => {
             const active = index === 0 ? 'active' : ''
-            colorHtml += `<li class="product-color-item ${active}" title="${color.name}" style="background-color: ${color.id};"><i class="fa-solid fa-check"></i></li>`
+            colorHtml += `<li class="product-color-item ${active}" data-id="${color.id}" title="${color.name}" style="background-color: ${color.id};"><i class="fa-solid fa-check"></i></li>`
         })
 
         selectEndUserConfig(product)
@@ -752,8 +752,8 @@ async function renderProductInfo() {
                 ${product.quantity > 0 
                     ? `
                         <input type="number" class="product-bought-quantity" step="1" min="1" max="9" name="quantity" value="1" title="Số lượng mua" size="4">
-                        <button class="btn btn-add-cart">Thêm vào giỏ</button>
-                        <a href="index.php?gio-hang" class="btn btn-buy">Mua ngay</a>
+                        <button class="btn btn-add-cart" data-id=${product.id}>Thêm vào giỏ</button>
+                        <a href="index.php?gio-hang" class="btn btn-buy" data-id=${product.id}>Mua ngay</a>
                     `
                     : ''
                 }
@@ -795,6 +795,7 @@ function selectEndUserConfig(product) {
     let ram = product.detail[0].ram
     let rom = product.detail[0].rom
     let color = product.detail[0].color
+    let price = product.detail[0].price
 
     $(document).on('click', '.product-select-item.ram', function() {
         $('.product-select-item.ram').removeClass('active')

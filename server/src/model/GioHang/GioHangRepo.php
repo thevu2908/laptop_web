@@ -24,7 +24,6 @@ class GioHangRepo extends ConnectDB {
         return null;
     }
 
-
     function addGioHang($giohang) {
         $ma_ctsp = $giohang->getMaCTSP();
         $ma_kh = $giohang->getMaKH();
@@ -97,5 +96,4 @@ class GioHangRepo extends ConnectDB {
         }
         return null;
     }
-    
 }

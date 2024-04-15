@@ -91,9 +91,7 @@ function loadCart(maKH) {
                 })
             }
         },
-        error: (xhr, status, error) => {
-            console.log(error)
-        }
+        error: (xhr, status, error) => console.log(error)
     })
 }
 
@@ -107,11 +105,7 @@ function getCart(productDetailId, customerId) {
             url: 'server/src/controller/GioHangController.php',
             method: 'POST',
             data: { action: 'get', productDetailId, customerId },
-            success: res => {
-                if(res) {
-                    resolve(res)
-                }
-            },
+            success: res => resolve(res),
             error: (xhr, status, error) => {
                 console.log(error)
                 reject(error)
@@ -126,9 +120,7 @@ function addCart(cart) {
             url: 'server/src/controller/GioHangController.php',
             method: 'POST',
             data: { action: 'add', cart },
-            success: res => {
-                resolve(res)
-            },
+            success: res => resolve(res),
             error: (xhr, status, error) => {
                 console.log(error)
                 reject(error)
@@ -138,52 +130,87 @@ function addCart(cart) {
 }
 
 function handleAddCart() {
-    $(document).on('click', '.btn-add-cart', e => {
+    $(document).on('click', '.btn-add-cart', async e => {
         e.preventDefault();
         
-        ctspId = e.target.closest('.btn-add-cart').dataset.id;
+        const productId = e.target.closest('.btn-add-cart').dataset.id;
+        const ram = $('span.product-detail-info.ram').contents().filter(function() {
+            return this.nodeType === 3
+        }).text().trim()
+        const rom = $('span.product-detail-info.rom').contents().filter(function() {
+            return this.nodeType === 3
+        }).text().replace('SSD', '').trim()
+        const color = $('.product-color-item.active').data('id')
         
-        const cart = {
-            productDetailId: ctspId,
-            customerId: 'KH001',
-            price: $('.product-info-right .product-price').contents().first().text().trim().replace(/[₫.]/g, ""),
-            quantity: $('.product-info-right .product-bought-quantity').val().trim(),
+        try {
+            const ctspId = await getProductDetailId(productId, color, ram, rom)
+            const cart = {
+                productDetailId: ctspId,
+                customerId: 'KH001',
+                price: $('.product-info-right .product-price').contents().first().text().trim().replace(/[₫.]/g, ""),
+                quantity: $('.product-info-right .product-bought-quantity').val().trim(),
+            }
+            
+            const getCartRes = await getCart(cart.productDetailId, cart.customerId)
+            const objectData = JSON.parse(getCartRes)
+
+            if (objectData != null) {
+                cart.quantity = parseInt(objectData.so_luong) + parseInt(cart.quantity)
+                const updateRes = await updateCart(cart)
+                if (updateRes === 'success') {
+                    alert('Đã thêm sản phẩm vào giỏ hàng')
+                    loadCartNumber(cart.customerId)
+                    loadCart(cart.customerId)
+                } else {
+                    alert('Xảy ra lỗi trong quá trình thêm sản phẩm vào giỏ hàng')
+                }
+            } else {
+                const addRes = await addCart(cart)
+                if (addRes === 'success') {
+                    alert('Đã thêm sản phẩm vào giỏ hàng')
+                    loadCartNumber(cart.customerId)
+                    loadCart(cart.customerId)
+                } else {
+                    alert('Xảy ra lỗi trong quá trình thêm sản phẩm vào giỏ hàng')
+                }
+            }
+        } catch (error) {
+            console.log(error)
         }
         
-        getCart(cart.productDetailId, cart.customerId)
-            .then(res => {
-                const objectData = JSON.parse(res);
-                if(objectData != null) {
-                    cart.quantity = parseInt(objectData.so_luong) + parseInt(cart.quantity)
-                    updateCart(cart)
-                        .then(res => {
-                            if (res == 'success') {
-                                alert('Đã thêm sản phẩm vào giỏ hàng')
-                                loadCartNumber(cart.customerId)
-                                loadCart(cart.customerId)
-                            } 
-                            else {
-                                alert('Xảy ra lỗi trong quá trình thêm sản phẩm vào giỏ hàng')
-                            }
-                        })
-                        .catch(error => console.log(error))
-                }
-                else {
-                    addCart(cart)
-                        .then(res => {
-                            if (res == 'success') {
-                                alert('Đã thêm sản phẩm vào giỏ hàng')
-                                loadCartNumber(cart.customerId)
-                                loadCart(cart.customerId)
-                            } 
-                            else {
-                                alert('Xảy ra lỗi trong quá trình thêm sản phẩm vào giỏ hàng')
-                            }
-                        })
-                        .catch(error => console.log(error))
-                }
-            })
-            .catch(error => console.log(error))
+        // getCart(cart.productDetailId, cart.customerId)
+        //     .then(res => {
+        //         const objectData = JSON.parse(res);
+        //         if (objectData != null) {
+        //             cart.quantity = parseInt(objectData.so_luong) + parseInt(cart.quantity)
+        //             updateCart(cart)
+        //                 .then(res => {
+        //                     if (res == 'success') {
+        //                         alert('Đã thêm sản phẩm vào giỏ hàng')
+        //                         loadCartNumber(cart.customerId)
+        //                         loadCart(cart.customerId)
+        //                     } 
+        //                     else {
+        //                         alert('Xảy ra lỗi trong quá trình thêm sản phẩm vào giỏ hàng')
+        //                     }
+        //                 })
+        //                 .catch(error => console.log(error))
+        //         } else {
+        //             addCart(cart)
+        //                 .then(res => {
+        //                     if (res == 'success') {
+        //                         alert('Đã thêm sản phẩm vào giỏ hàng')
+        //                         loadCartNumber(cart.customerId)
+        //                         loadCart(cart.customerId)
+        //                     } 
+        //                     else {
+        //                         alert('Xảy ra lỗi trong quá trình thêm sản phẩm vào giỏ hàng')
+        //                     }
+        //                 })
+        //                 .catch(error => console.log(error))
+        //         }
+        //     })
+        //     .catch(error => console.log(error))
     })
 }
 
