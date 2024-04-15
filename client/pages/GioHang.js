@@ -177,40 +177,6 @@ function handleAddCart() {
         } catch (error) {
             console.log(error)
         }
-        
-        // getCart(cart.productDetailId, cart.customerId)
-        //     .then(res => {
-        //         const objectData = JSON.parse(res);
-        //         if (objectData != null) {
-        //             cart.quantity = parseInt(objectData.so_luong) + parseInt(cart.quantity)
-        //             updateCart(cart)
-        //                 .then(res => {
-        //                     if (res == 'success') {
-        //                         alert('Đã thêm sản phẩm vào giỏ hàng')
-        //                         loadCartNumber(cart.customerId)
-        //                         loadCart(cart.customerId)
-        //                     } 
-        //                     else {
-        //                         alert('Xảy ra lỗi trong quá trình thêm sản phẩm vào giỏ hàng')
-        //                     }
-        //                 })
-        //                 .catch(error => console.log(error))
-        //         } else {
-        //             addCart(cart)
-        //                 .then(res => {
-        //                     if (res == 'success') {
-        //                         alert('Đã thêm sản phẩm vào giỏ hàng')
-        //                         loadCartNumber(cart.customerId)
-        //                         loadCart(cart.customerId)
-        //                     } 
-        //                     else {
-        //                         alert('Xảy ra lỗi trong quá trình thêm sản phẩm vào giỏ hàng')
-        //                     }
-        //                 })
-        //                 .catch(error => console.log(error))
-        //         }
-        //     })
-        //     .catch(error => console.log(error))
     })
 }
 
