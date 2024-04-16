@@ -3,6 +3,7 @@
 include __DIR__ . '/../model/ConnectDB.php';
 include __DIR__ . '/../model/TaiKhoan/Taikhoan.php';
 include __DIR__ . '/../model/TaiKhoan/TaiKhoanRepo.php';
+require '../../../lib/login-google/vendor/autoload.php';
 
 class TaiKhoanController {
     private $taiKhoanRepo;
@@ -77,6 +78,24 @@ class TaiKhoanController {
         } else {
             echo 'fail';
         }
+    }
+
+    private function clientGoogle() {
+        $client_id = "78974785377-k43qqdovtiluh2r1edmt9eu0bb47qfpj.apps.googleusercontent.com";
+        $client_secret = "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";
+        $redirect_uri = "http://localhost/xulyGoogle.php";
+        $client = new Google_Client();
+        $client->setClientId($client_id);
+        $client->setClientSecret($client_secret);
+        $client->setRedirectUri($redirect_uri);
+        $client->addScope("email");
+        $client->addScope("profile");
+        return $client;
+    }
+
+    public function googleLogin() {
+        $client = $this->clientGoogle();
+        $url = $client->createAuthUrl();
     }
 
     public function logout() {
