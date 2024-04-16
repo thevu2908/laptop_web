@@ -65,6 +65,18 @@ function getProductDetail(productDetailId) {
     })
 }
 
+function getProductDetailId(productId, colorId, ram, rom) {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: 'server/src/controller/CTSanPhamController.php',
+            method: 'POST',
+            data: { action: 'get-id', productId, colorId, ram, rom },
+            success: productDetailId => resolve(productDetailId),
+            error: (xhr, status, error) => reject(error)
+        })
+    })
+}
+
 async function renderAdminProductDetail(data) {
     let productId = $('#admin-product-detail-main #product-id').val()
 
@@ -100,12 +112,19 @@ async function renderAdminProductDetail(data) {
                         <td>${productDetail.chiet_khau}</td>
                         <td>${formatCurrency(productDetail.gia_tien)}</td>
                         <td>${productDetail.so_luong}</td>
-                        <td>
+<<<<<<< HEAD
+=======
+                        
+>>>>>>> 82a437012b574acf9a4997e6473098f826169dc2
+                        <td class="d-flex">
                             <a href="#editProductDetailModal" class="edit btn-update-product-detail-modal" data-toggle="modal" data-id=${productDetail.ma_ctsp}>
                                 <i class="material-icons" data-toggle="tooltip" title="Sửa thông tin">&#xE254;</i>
                             </a>
                             <a href="#deleteProductDetailModal" class="delete btn-delete-product-detail-modal" data-toggle="modal" data-id=${productDetail.ma_ctsp}>
                                 <i class="material-icons" data-toggle="tooltip" title="Xóa">&#xE872;</i>
+                            </a>
+                            <a href="/admin.php?controller=danhgia&id=${productDetail.ma_ctsp}" class="info btn-product-detail" data-id=${productDetail.ma_ctsp}>
+                                <i class="fa-solid fa-circle-info" title="Xem đánh giá" ></i>
                             </a>
                         </td>
                     </tr>

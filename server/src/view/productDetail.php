@@ -12,6 +12,76 @@ include "header.php";
                 
             </div>
         </div>
+        <div class="row" id="review-index" >
+            <div class="col-5 mt-5">
+                <div class="mb-5 text-dark">
+                    <div class="row" style="margin: 15px 0;">
+                        <div class="col-md-10 col-lg-8 col-xl-6 w-100">
+                            <div class="card">
+                                <div class="card-body p-4">
+                                    <div class="d-flex flex-start w-100">
+                                        <img class="rounded-circle shadow-1-strong me-3"
+                                            src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(32).webp" alt="avatar" width="65"
+                                            height="65" />
+                                        <div class="w-100">
+                                            <ul class="rating d-flex">
+                                                <li class="rate">
+                                                    <input type="radio" name="radio1" id="star1" value="1">
+                                                    <div class="face"></div>
+                                                    <i class="far review fa-star star one-star"></i>
+                                                </li>
+                                                <li class="rate">
+                                                    <input type="radio" name="radio1" id="star2" value="2">
+                                                    <div class="face"></div>
+                                                    <i class="far review fa-star star two-star"></i>
+                                                </li>
+                                                <li class="rate">
+                                                    <input type="radio" name="radio1" id="star3" value="3">
+                                                    <div class="face"></div>
+                                                    <i class="far review fa-star star three-star"></i>
+                                                </li>
+                                                <li class="rate">
+                                                    <input type="radio" name="radio1" id="star4" value="4">
+                                                    <div class="face"></div>
+                                                    <i class="far review fa-star star four-star"></i>
+                                                </li>
+                                                <li class="rate">
+                                                    <input type="radio" name="radio1" id="star5" value="5">
+                                                    <div class="face"></div>
+                                                    <i class="far review fa-star star five-star"></i>
+                                                </li>
+                                            </ul>
+                                            <h5>Đánh giá của bạn</h5>
+                                            <div class="form-outline">
+                                                <textarea class="form-control" style="min-height: 100px; max-height: 100px;" id="content-review" rows="4"></textarea>
+                                                <!-- <label class="form-label" for="textAreaExample">Hãy nêu cảm nhận của bạn?</label> -->
+                                            </div>
+                                            <div class="d-flex justify-content-end mt-3">
+                                                <button id="btn-add-review" type="button" class="btn btn-danger">
+                                                    Gửi
+                                                    <i class="fas fa-long-arrow-alt-right ms-1"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 py-3">
+                <section>
+                    <div class="container my-5 text-dark">
+                        <div class="row d-flex justify-content-center">
+                            <div class="list-review col-md-11 col-lg-9 col-xl-7 w-100">
+
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
     </div>
 
     <div class="modal fade product-config-modal" id="product-config-detail-modal" tabindex="-1" aria-labelledby="productConfigDetailModal" aria-hidden="true">

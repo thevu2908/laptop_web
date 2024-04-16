@@ -193,8 +193,9 @@ input[type="color" i] {
   color: var(--blue);
 }
 
-.sidebar .side-menu li a.logout {
+.sidebar .side-menu li a.btn-logout {
   color: var(--red);
+  cursor: pointer;
 }
 
 .sidebar .side-menu li a i,

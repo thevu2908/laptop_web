@@ -1,6 +1,6 @@
 <div class="verify-content-header">
     <div class="verify-content-header-box">
-        <a href="index.php?dang-ky" class="btn-back-verify">
+        <a class="btn-back-verify">
             <i class="fa-solid fa-arrow-left"></i>
         </a>
         <div class="verify-content-header-title-box">
@@ -8,11 +8,11 @@
         </div>
     </div>
 </div>
-<form class="verify-otp-form" method="POST" action="index.php?dang-ky&tao-mat-khau&id=1">
+<form class="verify-otp-form">
     <div class="verify-otp-form-container">
-        <div class="verify-otp-title">Mã xác minh của bạn sẽ được gửi bằng tin nhắn đến</div>
-        <div class="verify-otp-phone-box">
-            <div class="verify-otp-phone">(+84) 976 124 506</div>
+        <div class="verify-otp-title">Mã xác minh của bạn đã được gửi đến</div>
+        <div class="verify-otp-email-box">
+            <div class="verify-otp-email"></div>
         </div>
         <div class="verify-otp-input-container">
             <div class="verify-otp-input-box">
@@ -33,6 +33,6 @@
                 <span class="verify-otp-confirm">Vui lòng xác nhận mã trong 60 giây</span>
             </div>
         </div>
-        <button type="submit" class="btn-to-create-pwd disabled" disabled>Kế tiếp</button>
+        <button type="button" class="btn-to-create-pwd disabled" disabled>Kế tiếp</button>
     </div>
 </form>

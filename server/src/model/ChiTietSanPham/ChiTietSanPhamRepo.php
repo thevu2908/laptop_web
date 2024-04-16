@@ -31,6 +31,20 @@ class ChiTietSanPhamRepo extends ConnectDB {
         return null;
     }
 
+    public function getProductDetailId($productId, $colorId, $ram, $rom) {
+        try {
+            $query = "SELECT ma_ctsp FROM chitietsanpham WHERE ma_sp = '$productId' AND ma_mau = '$colorId' AND ram = '$ram' AND rom = '$rom'";
+            $statement = mysqli_query($this->conn, $query);
+
+            if ($row = mysqli_fetch_assoc($statement)) {
+                return $row['ma_ctsp'];
+            }
+        } catch (Exception $e) {
+            echo 'Error: ' . $e->getMessage() . '<br>';
+        }
+        return null;
+    }
+
     public function getProductDetailByProductId($productId) {
         try {
             $query = "

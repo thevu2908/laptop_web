@@ -83,10 +83,17 @@ class SanPhamController {
         }
     }
 
-    public function filterProducts($brandId, $startPrice, $endPrice, $cpu, $search, $orderBy, $orderType, $start, $limit) {
+    public function filterProducts($brandId, $startPrice, $endPrice, $cpu, $orderBy, $orderType, $start, $limit) {
         echo json_encode([
-            'count' => $this->sanPhamRepo->getFilterProductsCount($brandId, $startPrice, $endPrice, $cpu, $search, $orderBy, $orderType),
-            'pagination' => $this->sanPhamRepo->filterProducts($brandId, $startPrice, $endPrice, $cpu, $search, $orderBy, $orderType, $start, $limit)
+            'count' => $this->sanPhamRepo->getFilterProductsCount($brandId, $startPrice, $endPrice, $cpu, $orderBy, $orderType),
+            'pagination' => $this->sanPhamRepo->filterProducts($brandId, $startPrice, $endPrice, $cpu, $orderBy, $orderType, $start, $limit)
+        ]);
+    }
+
+    public function searchProduct($search, $type, $start, $limit) {
+        echo json_encode([
+            'count' => $this->sanPhamRepo->getSearchProductCount($search, $type),
+            'pagination' => $this->sanPhamRepo->searchProduct($search, $type, $start, $limit)
         ]);
     }
 }
@@ -190,10 +197,9 @@ switch ($action) {
         $brandId = $_GET['brandId'];
         $price = $_GET['price'];
         $cpu = $_GET['cpu'];
-        $search = $_GET['search'];
         $order = $_GET['order'];
         $page = $_GET['page'];
-        $limit = $_GET['limit'];
+        $limit = isset($_GET['limit']) ? $_GET['limit'] : 6;
         $start = ($page - 1) * $limit;
         $startPrice = 0;
         $endPrice = PHP_INT_MAX;
@@ -223,7 +229,7 @@ switch ($action) {
                 break;
             case '>25':
                 $startPrice = 25000000 + 1;
-                $endPrice = 100000000;
+                $endPrice = PHP_INT_MAX;
                 break;
             default:
                 $startPrice = 0;
@@ -250,7 +256,15 @@ switch ($action) {
                 break;
         }
 
-        $sanPhamCtl->filterProducts($brandId, $startPrice, $endPrice, $cpu, $search, $orderBy, $orderType, $start, $limit);
+        $sanPhamCtl->filterProducts($brandId, $startPrice, $endPrice, $cpu, $orderBy, $orderType, $start, $limit);
+        break;
+    case 'search':
+        $search = $_GET['search'];
+        $type = isset($_GET['type']) ? $_GET['type'] : '';
+        $page = isset($_GET['page']) ? $_GET['page'] : 1;
+        $limit = isset($_GET['limit']) ? $_GET['limit'] : 8;
+        $start = ($page - 1) * $limit;
+        $sanPhamCtl->searchProduct($search, $type, $start, $limit);
         break;
     default:
         break;

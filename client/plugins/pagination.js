@@ -4,8 +4,9 @@ function totalPage(count, perPage = 8) {
     const currentpage = $("#currentpage").val()
     pagination(totalpages, currentpage)
 }
+
 function pagination(totalpages, currentpage) {
-    var pagelist = ""
+    let pagelist = ""
     if (totalpages > 1) {
         currentpage = parseInt(currentpage)
         pagelist += `<ul class="pagination justify-content-center">`
@@ -27,12 +28,13 @@ function pagination(totalpages, currentpage) {
 function clickPage(func) {
     $(document).on("click", "ul.pagination li a", function(e) {
         e.preventDefault()
-        var $this = $(this)
+        const $this = $(this)
         const pagenum = $this.data("page")
         $("#currentpage").val(pagenum)
         func()
         $this.parent().siblings().removeClass("active")
         $this.parent().addClass("active")
+        $(window).scrollTop(0)
     })
 }
 
@@ -42,9 +44,10 @@ function enduserTotalPage(total, perPage, currentpage) {
 }
 
 function enduserPagination(totalPages, currentpage) {
+    let html = ''
     if (totalPages > 1) {
         let disabled = currentpage == 1 ? 'disabled' : ''
-        let html = `
+        html = `
             <ul class="pagination">
                 <li class="page-item ${disabled}"><a class="page-link btn-prev" data-page=${Number(currentpage) - 1} aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
         `
@@ -59,7 +62,6 @@ function enduserPagination(totalPages, currentpage) {
                 <li class="page-item ${disabled}"><a class="page-link btn-next" data-page=${Number(currentpage) + 1} aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
             </ul>
         `
-
-        $('.product-main .enduser-pagination').html(html)
     }
+    $('.enduser-pagination').html(html)
 }

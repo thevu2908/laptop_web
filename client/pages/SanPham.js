@@ -10,8 +10,9 @@ $(document).ready(() => {
     renderViewProductModal()
     importExcel()
     exportExcel()
-    searchAdminProduct()
+    handleSearchAdminProduct()
     handleFilterEndUserProduct()
+    handleFilterSearchEndUserProduct()
 })
 
 function formatProduct(products) {
@@ -146,17 +147,27 @@ function renderProducts() {
         renderAdminProductTable(null)
         clickPage(renderAdminProductTable)
     } else if (window.location.pathname === '/index.php') {
-        if (urlParams.has('san-pham')) {
-            renderEndUserProductPage()
-            clickPage(renderEndUserProductList)
-        } else {
-            renderHomePageProduct()
+        if (!urlParams.has('id')) {
+            if (urlParams.has('san-pham')) {
+                renderEndUserProductPage()
+                clickPage(renderEndUserProductList)
+            } else if (urlParams.has('tim-kiem')) {
+                renderSearchEndUserProduct()
+                clickPage(renderSearchEndUserProductList)
+            } else {
+                renderHomePageProduct()
+            }
         }
     }
 }
 
 async function renderAdminProductTable(data) {
-    const products = data ? data : await getPaginationProducts(null)
+    let products = null
+    if ($('.admin-search-info').val()) {
+        products = await searchAdminProduct($('.admin-search-info').val())
+    } else {
+        products = data ? data : await getPaginationProducts()
+    }
 
     if (products && products.pagination.length > 0) {
         let html = ''
@@ -169,8 +180,12 @@ async function renderAdminProductTable(data) {
                             <label for="checkbox-${product.ma_sp}"></label>
                         </span>
                     </td>
-                    <td>${product.ma_sp}</td>
-                    <td>${product.ten_sp}</td>
+                    <td>
+                        ${product.ma_sp}
+                    </td>
+                    <td>
+                        ${product.ten_sp}
+                    </td>
                     <td>${product.ten_thuong_hieu}</td>
                     <td>${product.so_luong_ton}</td>
                     <td>
@@ -191,7 +206,7 @@ async function renderAdminProductTable(data) {
             `
         })
         $('.admin-product-list').html(html)
-        phanquyen_chucnang("Sản Phẩm");
+        phanquyen_chucnang("Sản Phẩm")
         totalPage(products.count)
     }
 }
@@ -277,12 +292,16 @@ async function renderEndUserProductPage() {
     NProgress.done()
 }
 
-async function renderEndUserProductList(data) {
-    const products = data ? data : await getPaginationProducts(6)
-    console.log(products)
+async function renderEndUserProductList() {
+    const brandId = $('.filter-brand .filter-item-link.active').find('input').val() || ''
+    const price = $('.filter-price .filter-item-link.active').find('input').val() || ''
+    const cpu = $('.filter-cpu .filter-item-link.active').find('input').val() || ''
+    const order = $('.sort-filter-container .sort-filter-item.active').find('input').val() || ''
+    const page = $('#currentpage').val() || ''
+    const products = await getFilterProducts(brandId, price, cpu, order, page)
+    let html = ''
+
     if (products && products.pagination && products.pagination.length > 0) {
-        const currentPage = $('#currentpage').val()
-        let html = ''
         for (let product of products.pagination) {
             const productDetails = await getProductDetailByProductId(product.ma_sp)
             const productDetail = productDetails[0]
@@ -296,7 +315,7 @@ async function renderEndUserProductList(data) {
                         <div class="product-info">
                             <div class="product-price">
                                 <p class="product-price-number">
-                                    ${product.so_luong_ton > 0 ? `₫${formatCurrency(productDetail.gia_tien)}` : 'Hàng sắp về'}
+                                    ${product.so_luong_ton > 0 ? `₫${formatCurrency(productDetail.gia_tien)}` : 'TẠM HẾT HÀNG'}
                                 </p>
                             </div>
                             <div class="product-name">
@@ -345,9 +364,10 @@ async function renderEndUserProductList(data) {
                 </div>
             `
         }
-        $('.product-main .product-list').html(html)
-        enduserTotalPage(products.count, 6, currentPage)
     }
+
+    $('.product-main .product-list').html(html)
+    enduserTotalPage(products.count, 6, page)
 }
 
 function renderEndUserProductFilter() {
@@ -434,64 +454,169 @@ function renderEndUserProductFilter() {
     renderFilterCPU()
 }
 
-function filterProduct(brandId, price, cpu, search, order) {
-    const page = $('#currentpage').val()
-    $.ajax({
-        url: 'server/src/controller/SanPhamController.php',
-        method: 'GET',
-        data: { action: 'filter', brandId, price, cpu, search, order, page, limit: 6 },
-        dataType: 'JSON',
-        success: async products => {
-            if (products && products.pagination && products.pagination.length > 0) {
-                for (let product of products.pagination) {
-                    const plugs = await getProductDetailPlug(product.ma_ctsp)
-                    product.plugs = plugs.map(plug => plug.ten_cong)
-                }
+function getFilterProducts(brandId, price, cpu, order, page) {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: 'server/src/controller/SanPhamController.php',
+            method: 'GET',
+            data: { action: 'filter', brandId, price, cpu, order, page },
+            dataType: 'JSON',
+            success: products => resolve(products),
+            error: (xhr, status, error) => {
+                console.log(error)
+                reject(error)
             }
-            products.pagination = formatProduct(products.pagination)
-            console.log(products)
-            renderEndUserProductList(products)
-        },
-        error: (xhr, status, error) => console.log(error)
+        })
     })
 }
 
 function handleFilterEndUserProduct() {
-    let brandId = $('.filter-brand .filter-item-link.active').find('input').val() ? $('.filter-brand .filter-item-link.active').find('input').val() : ''
-    let price =  $('.filter-price .filter-item-link.active').find('input').val() ? $('.filter-price .filter-item-link.active').find('input').val() : ''
-    let cpu = $('.filter-cpu .filter-item-link.active').find('input').val() ? $('.filter-cpu .filter-item-link.active').find('input').val() : ''
-    let order = $('.sort-filter-container .sort-filter-item.active').find('input').val() ? $('.sort-filter-container .sort-filter-item.active').find('input').val() : ''
-    let search = ''
-
-    $(document).on('click', '.filter-brand .filter-item-link', function(e) {
+    $(document).on('click', '.filter-brand .filter-item-link', function() {
         $('.filter-brand .filter-item-link').removeClass('active')
         $(this).addClass('active')
-        brandId = $(this).find('input').val()
-        filterProduct(brandId, price, cpu, search, order)
+        renderEndUserProductList()
     })
-    $(document).on('click', '.filter-price .filter-item-link', function(e) {
+    $(document).on('click', '.filter-price .filter-item-link', function() {
         $('.filter-price .filter-item-link').removeClass('active')
         $(this).addClass('active')
-        price = $(this).find('input').val()
-        filterProduct(brandId, price, cpu, search, order)
+        renderEndUserProductList()
     })
-    $(document).on('click', '.filter-cpu .filter-item-link', function(e) {
+    $(document).on('click', '.filter-cpu .filter-item-link', function() {
         $('.filter-cpu .filter-item-link').removeClass('active')
         $(this).addClass('active')
-        cpu = $(this).find('input').val()
-        filterProduct(brandId, price, cpu, search, order)
+        renderEndUserProductList()
     })
-    $(document).on('click', '.sort-filter-container .sort-filter-item', function(e) {
+    $(document).on('click', '.sort-filter-container .sort-filter-item', function() {
         $('.sort-filter-container .sort-filter-item').removeClass('active')
         $(this).addClass('active')
         const text = $(this).find('a').text()
         const order = $(this).find('input').val()
         $('.sort-filter-container .sort-filter-item-default').html(`${text} <input type="hidden" value="${order}">`)
-        filterProduct(brandId, price, cpu, search, order)
+        renderEndUserProductList()
+    })
+}
+
+async function renderSearchEndUserProduct() {
+    NProgress.start()
+    const products = await getSearchEndUserProduct()
+    products.count > 0 ? renderFilterType() : $('.search-empty').addClass('active')
+    renderSearchEndUserProductList(products)
+    NProgress.done()
+}
+
+async function renderSearchEndUserProductList(data) {
+    const products = data || await getSearchEndUserProduct()
+    const page = $('#currentpage').val() || ''
+    const search = $('.search-form .search-input').val() || ''
+    let html = ''
+    if (products && products.pagination && products.pagination.length > 0) {
+        for (let product of products.pagination) {
+            const productDetails = await getProductDetailByProductId(product.ma_sp)
+            const productDetail = productDetails[0]
+
+            html += `
+                <div class="product-item col-3">
+                    <a href="index.php?san-pham&id=${product.ma_sp}" class="product-item-link">
+                        <div class="product-image-wrapper">
+                            <img src="${product.hinh_anh}">
+                        </div>
+                        <div class="product-info">
+                            <div class="product-price">
+                                <p class="product-price-number">
+                                    ${product.so_luong_ton > 0 ? `₫${formatCurrency(productDetail.gia_tien)}` : 'TẠM HẾT HÀNG'}
+                                </p>
+                            </div>
+                            <div class="product-name">
+                                <p>${product.ten_sp} ${productDetail.ram} ${productDetail.rom}</p>
+                            </div>
+                            <div class="product-detail row">
+                                <span title="Màn hình" class="product-detail-info d-flex col-6">
+                                    <span class="material-symbols-outlined">
+                                        laptop_windows
+                                    </span>
+                                    ${product.kich_co_man_hinh}
+                                </span>
+                                <span title="CPU" class="product-detail-info d-flex col-6">
+                                    <span class="material-symbols-outlined">
+                                        memory
+                                    </span>
+                                    ${productDetail.ten_chip}
+                                </span>
+                                <span title="RAM" class="product-detail-info d-flex col-6">
+                                    <span class="material-symbols-outlined">
+                                        memory_alt
+                                    </span>
+                                    ${productDetail.ram}
+                                </span>
+                                <span title="Ổ cứng" class="product-detail-info d-flex col-6">
+                                    <span class="material-symbols-outlined">
+                                        hard_drive_2
+                                    </span>
+                                    SSD ${productDetail.rom}
+                                </span>
+                                <span title="Card đồ họa" class="product-detail-info d-flex col-6">
+                                    <span class="material-symbols-outlined">
+                                        developer_board
+                                    </span>
+                                    ${productDetail.ten_card}
+                                </span>
+                                <span title="Trọng lượng" class="product-detail-info d-flex col-6">
+                                    <span class="material-symbols-outlined">
+                                        weight
+                                    </span>
+                                    ${product.trong_luong} kg
+                                </span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            `
+        }
+    }
+    $('.search-product-main .search-info').html(search ? `<h1>Tìm thấy <b>${products.count}</b> kết quả với từ khóa <b>"${search.toLowerCase()}"</b></h1>` : '')
+    $('.search-product-main .search-product-list').html(html)
+    enduserTotalPage(products.count, 8, page)
+}
+
+function getSearchEndUserProduct() {
+    return new Promise((resolve, reject) => {
+        $('.search-form .search-input').val(new URLSearchParams(window.location.search).get('tim-kiem'))
+        const search = $('.search-form .search-input').val() || ''
+        const type = $('.search-product-main .filter-item h2').text() || ''
+        const page = $('#currentpage').val()
+        $.ajax({
+            url: 'server/src/controller/SanPhamController.php',
+            method: 'GET',
+            data: { action: 'search', search, type, page },
+            dataType: 'JSON',
+            success: products => resolve(products),
+            error: (xhr, status, error) => {
+                console.log(error)
+                reject(error)
+            }
+        })
+    })
+}
+
+function handleFilterSearchEndUserProduct() {
+    $(document).on('click', '.search-product-main .sort-dropdown-item', function() {
+        const type = $(this).text()
+        $('.search-product-main .filter-list').html(`
+            <div class="filter-item">
+                <h2>${type}</h2>
+                <i class="fa-solid fa-xmark"></i>
+            </div>
+        `)
+        renderSearchEndUserProductList()
+    })
+    $(document).on('click', '.search-product-main .filter-item', function() {
+        $('.search-product-main .filter-list').html('')
+        renderSearchEndUserProductList()
     })
 }
 
 async function renderProductInfo() {
+    NProgress.start()
     const urlParams = new URLSearchParams(window.location.search)
     const productId = urlParams.get('id')
 
@@ -547,13 +672,13 @@ async function renderProductInfo() {
         $('.produt-info-left').html(html)
 
         let rams = product.detail
-            .filter(productDetail => productDetail.quantity > 0)
+            .filter(productDetail => product.quantity > 0 ? productDetail.quantity > 0 : true)
             .map(productDetail => ({ ram: productDetail.ram, price: productDetail.price }))
         let roms = product.detail
-            .filter(productDetail => productDetail.quantity > 0)
+            .filter(productDetail => product.quantity > 0 ? productDetail.quantity > 0 : true)
             .map(productDetail => ({ rom: productDetail.rom, price: productDetail.price }))
         let colors = product.detail
-            .filter(productDetail => productDetail.quantity > 0)
+            .filter(productDetail => product.quantity > 0 ? productDetail.quantity > 0 : true)
             .map(productDetail => ({ id: productDetail.colorId, name: productDetail.color }))
 
         rams = removeDuplicateObject(rams, 'ram')
@@ -601,13 +726,16 @@ async function renderProductInfo() {
         let colorHtml = ''
         colors.forEach((color, index) => {
             const active = index === 0 ? 'active' : ''
-            colorHtml += `<li class="product-color-item ${active}" title="${color.name}" style="background-color: ${color.id};"><i class="fa-solid fa-check"></i></li>`
+            colorHtml += `<li class="product-color-item ${active}" data-id="${color.id}" title="${color.name}" style="background-color: ${color.id};"><i class="fa-solid fa-check"></i></li>`
         })
-                
+
         selectEndUserConfig(product)
 
         html = `
-            <h2 class="product-name">${product.name} ${product.detail[0].ram.toUpperCase()}/${product.detail[0].rom.toUpperCase()}</h2>
+            <h2 class="product-name">
+                ${product.name} ${product.detail[0].ram.toUpperCase()}/${product.detail[0].rom.toUpperCase()}
+                ${product.quantity > 0 ? '' : '<span>TẠM HẾT HÀNG</span>'}
+            </h2>
             <h3 class="product-price">
                 ₫${formatCurrency(product.detail[0].price)}
                 <del class="product-origin-price">₫${formatCurrency(product.detail[0].price)}</del>
@@ -621,9 +749,14 @@ async function renderProductInfo() {
                 </ul>
             </div>
             <div class="product-buy-box">
-                <input type="number" class="product-bought-quantity" step="1" min="1" max="9" name="quantity" value="1" title="Số lượng mua" size="4">
-                <button class="btn btn-add-cart">Thêm vào giỏ</button>
-                <a href="index.php?gio-hang" class="btn btn-buy">Mua ngay</a>
+                ${product.quantity > 0 
+                    ? `
+                        <input type="number" class="product-bought-quantity" step="1" min="1" max="9" name="quantity" value="1" title="Số lượng mua" size="4">
+                        <button class="btn btn-add-cart" data-id=${product.id}>Thêm vào giỏ</button>
+                        <a href="index.php?gio-hang" class="btn btn-buy" data-id=${product.id}>Mua ngay</a>
+                    `
+                    : ''
+                }
             </div>
         `
         $('.product-info-right').html(html)
@@ -633,6 +766,7 @@ async function renderProductInfo() {
         const rom = roms.length > 1 ? $('.product-select-item.rom.active').find('input').val() : roms[0].rom
         renderProductConfigModal(product, color, ram, rom)
     }
+    NProgress.done()
 }
 
 function renderProductConfigModal(product, color, ram, rom) {
@@ -661,6 +795,7 @@ function selectEndUserConfig(product) {
     let ram = product.detail[0].ram
     let rom = product.detail[0].rom
     let color = product.detail[0].color
+    let price = product.detail[0].price
 
     $(document).on('click', '.product-select-item.ram', function() {
         $('.product-select-item.ram').removeClass('active')
@@ -700,11 +835,11 @@ function selectEndUserConfig(product) {
 
 async function renderFooter() {
     try {
-        const footerResponse = await fetch('server/src/view/footer.php');
-        const footerHtml = await footerResponse.text();
-        $('#footer-main').html(footerHtml);
+        const footerResponse = await fetch('server/src/view/footer.php')
+        const footerHtml = await footerResponse.text()
+        $('#footer-main').html(footerHtml)
     } catch (error) {
-        console.error(error);
+        console.error(error)
     }
 }
 
@@ -1322,7 +1457,7 @@ function exportExcel() {
             })
 
             const ws = XLSX.utils.json_to_sheet(excelDatas)
-            const wb = XLSX.utils.book_new();
+            const wb = XLSX.utils.book_new()
             XLSX.utils.book_append_sheet(wb, ws, "Sheet1")
             const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' })
             saveAs(new Blob([wbout], { type: 'application/octet-stream' }), 'dssp.xlsx')
@@ -1334,18 +1469,26 @@ function exportExcel() {
     })
 }
 
-function searchAdminProduct() {
-    $(document).on('keyup', '.admin-search-info', e => {
-        const search = e.target.value.toLowerCase()
+function searchAdminProduct(search) {
+    return new Promise((resolve, reject) => {
         const page = $('#currentpage').val()
-
         $.ajax({
             url: 'server/src/controller/SearchController.php',
             method: 'GET',
             data: { action: 'search', search, table: 'sanpham', page },
             dataType: 'JSON',
-            success: products => renderAdminProductTable(products),
-            error: (xhr, status, error) => console.log(error)
+            success: products => resolve(products),
+            error: (xhr, status, error) => {
+                console.log(error)
+                reject(error)
+            }
         })
+    })
+}
+
+function handleSearchAdminProduct() {
+    $(document).on('keyup', '.admin-search-info', async e => {
+        const products = await searchAdminProduct(e.target.value.toLowerCase())
+        renderAdminProductTable(products)
     })
 }
