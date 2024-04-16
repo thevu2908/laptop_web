@@ -130,11 +130,14 @@ function signUp(email) {
             if (res) {
                 const sinupSuccess = await fetch('server/src/view/signup-success.php')
                 const sinupSuccessHtml = await sinupSuccess.text()
-                $('.verify-step-line:eq(1)').addClass('active')
-                $('.verify-step-item:eq(2) ').addClass('active')
-                $('.verify-container .verify-content').html(sinupSuccessHtml)
-                $('.signup-success-email').text(email)
-                countDownBackHomePage()
+                const loginRes = await login(email, password)
+                if (loginRes) {
+                    $('.verify-step-line:eq(1)').addClass('active')
+                    $('.verify-step-item:eq(2) ').addClass('active')
+                    $('.verify-container .verify-content').html(sinupSuccessHtml)
+                    $('.signup-success-email').text(email)
+                    countDownBackHomePage()
+                }
             }
         } catch (error) {
             console.error(error)
