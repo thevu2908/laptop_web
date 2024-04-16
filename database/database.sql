@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 16, 2024 at 04:09 AM
+-- Generation Time: Apr 16, 2024 at 08:33 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -1314,14 +1314,6 @@ CREATE TABLE `giohang` (
   `trang_thai` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `giohang`
---
-
-INSERT INTO `giohang` (`ma_ctsp`, `ma_kh`, `gia_sp`, `so_luong`, `trang_thai`) VALUES
-('CTSP0001', 'KH001', 26239500, 1, 0),
-('CTSP0007', 'KH001', 15214500, 1, 0);
-
 -- --------------------------------------------------------
 
 --
@@ -1689,6 +1681,7 @@ CREATE TABLE `taikhoan` (
 INSERT INTO `taikhoan` (`ma_tk`, `ma_quyen`, `username`, `password`, `otp`, `trang_thai`) VALUES
 ('admin', 'NQ01', 'admin', 'admin', 0, 0),
 ('hoquoccuong945@gmail', 'user', 'hoquoccuong945@gmail.com', '123', 0, 0),
+('nthevu290803@gmail.com', 'user', 'nthevu290803@gmail.com', '123', 0, 0),
 ('thevu1073@gmail.com', 'user', 'thevu1073@gmail.com', '123456', 0, 0),
 ('vnguyen132az@gmail.com', 'user', 'vnguyen132az@gmail.com', '123456', 0, 0);
 
@@ -1733,6 +1726,19 @@ CREATE TABLE `thongbao` (
   `ma_chuc_nang` varchar(20) NOT NULL,
   `noi_dung` varchar(200) NOT NULL,
   `trang_thai` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `thongtinnhanhang`
+--
+
+CREATE TABLE `thongtinnhanhang` (
+  `ma_kh` varchar(20) NOT NULL,
+  `ho_ten` varchar(150) NOT NULL,
+  `so_dien_thoai` int(10) NOT NULL,
+  `dia_chi` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -12607,6 +12613,12 @@ ALTER TABLE `thongbao`
   ADD KEY `tb_fk_chucnang` (`ma_chuc_nang`);
 
 --
+-- Indexes for table `thongtinnhanhang`
+--
+ALTER TABLE `thongtinnhanhang`
+  ADD PRIMARY KEY (`ma_kh`);
+
+--
 -- Indexes for table `thuonghieu`
 --
 ALTER TABLE `thuonghieu`
@@ -12781,6 +12793,12 @@ ALTER TABLE `thongbao`
   ADD CONSTRAINT `tb_fk_quyen` FOREIGN KEY (`ma_quyen`) REFERENCES `nhomquyen` (`ma_quyen`),
   ADD CONSTRAINT `tb_fk_sp` FOREIGN KEY (`ma_sp`) REFERENCES `sanpham` (`ma_sp`),
   ADD CONSTRAINT `tb_fk_tk` FOREIGN KEY (`ma_tk`) REFERENCES `taikhoan` (`ma_tk`);
+
+--
+-- Constraints for table `thongtinnhanhang`
+--
+ALTER TABLE `thongtinnhanhang`
+  ADD CONSTRAINT `ttnh_fk_kh` FOREIGN KEY (`ma_kh`) REFERENCES `khachhang` (`ma_kh`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
