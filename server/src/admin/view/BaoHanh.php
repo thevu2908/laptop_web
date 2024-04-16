@@ -164,14 +164,16 @@
 						<div class="form-group" id="sdt">
 							<div class="form-group">
 								<label>Số Điện Thoại</label>
-								<input class="form-control" type="text" name="" id="thoigian-sdt" required>
+								<input class="form-control" type="text" name="" id="thoigian-sdt">
 							</div>
 						</div>
 						<div class="form-group" id="imei">
 							<label>IMEI(Phía Dưới Đế LapTop)</label>
-							<input type="text" class="form-control" name="" id="thoigian-imei" required>
+							<input type="text" class="form-control" name="" id="thoigian-imei">
 						</div>
 					</div>
+					<div id="ketqua-tracuu" class="modal-body">
+                    </div>
 					<div class="modal-footer">
 						<input type="button" class="btn btn-danger" data-dismiss="modal" value="Cancel">
 						<input type="button" class="btn btn-info" id="btnTraCuuThoiGian" value="Tra cứu">

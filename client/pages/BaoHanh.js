@@ -234,33 +234,29 @@ function checkTime(str){
     }
 }
 function tinhNgayBaoHanh(ngaymua){
-    var ngaymua=new Date(ngaymua);
+    ngaymua=new Date(ngaymua);
     var ngayhethan=new Date(ngaymua);
     ngayhethan.setFullYear(ngaymua.getFullYear() + 1);
     var ngayHienTai = new Date();
     var soNgayConLai = Math.floor((ngayhethan - ngayHienTai) / (1000 * 60 * 60 * 24));
-    console.log("Số ngày còn lại bảo hành: " + soNgayConLai);
+    return soNgayConLai;
 }
 function kiemtrathoigianbaohanh(){
     $("#sdt").hide();
     $("#imei").show();
-    var hinhthuctracuu="imei";
-    var data=$("#thoigian-imei").val();
+    hinhthuctracuu="imei";
     $(document).on("change","#admin-select-hinhthuctracuu", function(){
-        hinhthuctracuu=$("#admin-select-hinhthuctracuu").val();
-        if(hinhthuctracuu=="imei"){
-            data=$("#thoigian-imei").val();
+        hinhthuctracuu=$(this).val();
+        if(hinhthuctracuu==="imei"){
             $("#sdt").hide()
             $("#imei").show()
         }else{
-            data=$("#thoigian-sdt")/val();
             $("#sdt").show()
             $("#imei").hide()
         }
-        $(document).on("click","#btnTraCuuThoiGian",function(){
-            thoigianbaohanh(hinhthuctracuu,data)
-        })
-
+    })
+    $(document).on("click","#btnTraCuuThoiGian",function(){
+        thoigianbaohanh(hinhthuctracuu,$("#thoigian-imei").val())
     })
 }
 function thoigianbaohanh(hinhthuc,data){
@@ -270,7 +266,12 @@ function thoigianbaohanh(hinhthuc,data){
         method:"POST",
         dataType:"json",
         success:function(data){
+            var html="";
             console.log(data);
+            data.forEach((item,index)=>{
+                html+=`<p>Ngày Mua:${item['ngay_tao']}<br>Mã IMEI: ${item['ma_imei']}<br>Sản Phẩm: ${item['ten_sp']}<br>Thời Gian Bảo Hành: 12 tháng<br>Thời Gian Bảo Hành Còn Lại: ${tinhNgayBaoHanh(item['ngay_tao'])}</p>`;
+            })
+            $("#ketqua-tracuu").html(html);
         }
     })
 }
