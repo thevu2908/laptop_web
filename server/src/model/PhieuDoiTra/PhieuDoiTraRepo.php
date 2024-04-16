@@ -24,5 +24,19 @@ class PhieuDoiTraRepo extends ConnectDB {
         }
         return $arrDoiTra;
     }
+    public function xemChiTietPhieuDoiTra($ma_pdt){
+        $query="SELECT chitietphieudoitra.ma_imei,sanpham.ten_sp,chitietphieudoitra.ly_do,chitietphieudoitra.thanh_tien,
+        chitietphieudoitra.so_luong,chitietphieudoitra.thanh_tien from chitietphieudoitra
+        JOIN phieudoitra on phieudoitra.ma_pdt=chitietphieudoitra.ma_pdt JOIN ctsp_imei
+        on ctsp_imei.ma_imei=chitietphieudoitra.ma_imei join chitietsanpham
+        on chitietsanpham.ma_ctsp=ctsp_imei.ma_ctsp join sanpham
+        on chitietsanpham.ma_sp=sanpham.ma_sp where chitietphieudoitra.ma_pdt='$ma_pdt'";
+        $result=mysqli_query($this->conn,$query);
+        $arrDoiTra=array();
+        while ($row=mysqli_fetch_array($result)){
+            $arrDoiTra[]=$row;
+        }
+        return $arrDoiTra;
+    }
 }
 ?>

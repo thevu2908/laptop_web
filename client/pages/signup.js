@@ -36,6 +36,7 @@ function inputEmail() {
         NProgress.start()
         try {
             const emailExist = await checkExistUsername(email)
+            console.log(emailExist)
             if (emailExist) {
                 alert('Email này đã được sử dụng')
                 NProgress.done()

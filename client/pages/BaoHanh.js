@@ -1,5 +1,6 @@
 $(document).ready(function() {
     loadBaoHanh()
+    clickPage(loadBaoHanh)
     addBaoHanh()
     TraCuu()
     kiemtrathoigianbaohanh()

@@ -13,6 +13,9 @@ class PhieuDoiTraController{
     public function kiemtraDoiTra($sodienthoai){
         echo json_encode($this->phieuDoiTraRepo->tracuuDoiTra($sodienthoai));
     }
+    public function xemChiTietPhieuDoiTra($ma_pdt){
+        echo json_encode($this->phieuDoiTraRepo->xemChiTietPhieuDoiTra($ma_pdt));
+    }
 }
 $phieuDoiTractl=new PhieuDoiTraController();
 $tmp=$_POST['action'];
@@ -30,6 +33,11 @@ switch($tmp){
     }case "tracuudoitra":{
         $sodienthoai=$_POST['sodienthoai'];
         $phieuDoiTractl->kiemtraDoiTra($sodienthoai);
+        break;
+    }
+    case "xemchitietphieudoitra":{
+        $mapdt=$_POST['maphieudoitra'];
+        $phieuDoiTractl->xemChiTietPhieuDoiTra($mapdt);
         break;
     }
 }

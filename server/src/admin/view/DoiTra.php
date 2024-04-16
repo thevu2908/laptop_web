@@ -151,34 +151,37 @@
     </div>
 </div>
 	<!-- Edit Modal HTML -->
-	<div id="detailPhieuDoiTra" class="modal fade">
+<div id="detailPhieuDoiTra" class="modal fade">
     <div class="modal-dialog modal-lg"> <!-- Sử dụng lớp modal-lg để làm cho modal lớn hơn -->
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Chi Tiết Phiếu Đổi Trả</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
             </div>
-            <div class="form-group">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">STT</th>
-                            <th scope="col">Mã IME</th>
-							<th scope="col">Sản Phẩm</th>
-                            <th scope="col">Lý Do</th>
-                            <th scope="col">Giá Sản Phẩm</th>
-							<th scope="col">Số Lượng</th>
-							<th scope="col">Thành Tiền</th>
-                        </tr>
-                    </thead>
-                    <tbody id="admin-showChiTietDoiTra">
-                        
-                    </tbody>
-                </table>
+            <div class="modal-body"> <!-- Thêm lớp modal-body để chứa nội dung của modal -->
+                <div class="table-responsive"> <!-- Thêm lớp table-responsive để tạo bảng có khả năng cuộn ngang -->
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">STT</th>
+                                <th scope="col">Mã IME</th>
+                                <th scope="col">Sản Phẩm</th>
+                                <th scope="col">Lý Do</th>
+                                <th scope="col">Giá Sản Phẩm</th>
+                                <th scope="col">Số Lượng</th>
+                                <th scope="col">Thành Tiền</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-showChiTietDoiTra">
+                            
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
-   </div>
+</div>
+
 
 	<!-- Delete Modal HTML -->
 	<div id="deleteNhomQuyen" class="modal fade">

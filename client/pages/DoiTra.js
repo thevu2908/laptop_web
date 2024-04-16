@@ -1,5 +1,6 @@
 $(document).ready(function() {
     loadDoiTra()
+    clickPage(loadDoiTra)
     addDoiTra()
     TraCuu()
 })
@@ -78,7 +79,7 @@ function loadDoiTra(){
                 <td>
                     <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
                     <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-                    <a href="#detailPhieuDoiTra" class="view" data-toggle="modal" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
+                    <a href="#detailPhieuDoiTra" class="view" data-row=${phieudoitra['ma_pdt']} data-toggle="modal" title="View" data-toggle="tooltip" onclick='showDetail(this)'><i class="material-icons">&#xE417;</i></a>
                 </td>
             </tr>`
             });
@@ -86,6 +87,29 @@ function loadDoiTra(){
             getSizeinTable("phieudoitra","PDT","#admin-maphieudoitra")
             phanquyen_chucnang("Đổi Trả");
             totalPage(data.count);
+        }
+    })
+}
+function showDetail(phieudoitra){
+    var mapdt=phieudoitra.dataset.row;
+    $.ajax({
+        url:"server/src/controller/PhieuDoiTraController.php",
+        method:"POST",
+        data:{action:"xemchitietphieudoitra",maphieudoitra:mapdt},
+        dataType:"json",
+        success:function(data){
+            var html="";
+            console.log(data)
+            data.forEach((ctphieudoitra,index) => {
+                html+=`<tr><td>${index+1}</td>
+                <td>${ctphieudoitra['ma_imei']}</td>
+                <td>${ctphieudoitra['ten_sp']}</td>
+                <td>${ctphieudoitra['ly_do']}</td>
+                <td>${ctphieudoitra['3']}</td>
+                <td>${ctphieudoitra['so_luong']}</td>
+                <td>${ctphieudoitra['5']}</td></tr>`;;
+            })
+            $("#admin-showChiTietDoiTra").html(html);
         }
     })
 }
@@ -105,6 +129,7 @@ function callAddPhieuDoiTra(maphieudoitra,manhanvien,mahoadon,ngaydoitra,tongsol
             console.log(data);
             callAddChiTietPhieuDoiTra(maphieudoitra,listitemDoiTra)
             $("#adminDoiTra").modal('hide');
+            clearModal()
             loadDoiTra()
         },error:function(xhr,status,error){
             console.error(xhr.responseText); 
