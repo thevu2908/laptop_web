@@ -1098,9 +1098,12 @@ ul, li {
     margin: 50px 0 10px;
 }
 
-.signup-user-name,
 .signup-password {
     font-size: 16px;
+}
+
+.signup-user-name {
+    font-size: 14px;
 }
 
 .signup-password::placeholder {

@@ -30,6 +30,7 @@
             include "./server/src/view/signup.php";
             echo '<script src="./client/pages/SignUp.js"></script>';
             echo '<script src="./client/pages/TaiKhoan.js"></script>';
+            echo '<script src="./client/pages/KhachHang.js"></script>';
         } else if (isset($_REQUEST["san-pham"])) {
             if (isset($_REQUEST["id"])) {
                 include "./server/src/view/productDetail.php";

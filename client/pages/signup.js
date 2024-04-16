@@ -107,8 +107,15 @@ function resendEmailOtp() {
 
 function signUp(email) {
     $('.btn-signup').off('click').on('click', async () => {
+        const name = $('#signup-user-name').val()
         const password = $('#signup-password').val()
         const confirmPassword = $('#signup-confirm-password').val()
+
+        if (!name) {
+            alert('Vui lòng nhập họ tên')
+            $('#signup-user-name').focus()
+            return
+        }
         if (!password) {
             alert('Vui lòng nhập mật khẩu')
             $('#signup-password').focus()
@@ -126,8 +133,9 @@ function signUp(email) {
 
         NProgress.start()
         try {
-            const res = await addAccount(email, 'user', email, password)
-            if (res) {
+            const addAccountRes = await addAccount(email, 'user', email, password)
+            const addCustomerRes = await addCustomer(name, '', email, '')
+            if (addAccountRes && addCustomerRes) {
                 const sinupSuccess = await fetch('server/src/view/signup-success.php')
                 const sinupSuccessHtml = await sinupSuccess.text()
                 const loginRes = await login(email, password)
@@ -138,6 +146,8 @@ function signUp(email) {
                     $('.signup-success-email').text(email)
                     countDownBackHomePage()
                 }
+            } else {
+                alert('Đã xảy ra lỗi')
             }
         } catch (error) {
             console.error(error)

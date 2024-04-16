@@ -24,6 +24,10 @@ class KhachHangController {
         echo json_encode($result);
     }
 
+    public function getKhachhangLength() : int {
+        return $this->khachHangRepo->getKhachhangLength();
+    }
+
     public function getProvince() {
         echo json_encode($this->khachHangRepo->getProvince());
     }
@@ -38,12 +42,33 @@ class KhachHangController {
 
         echo json_encode($this->khachHangRepo->getWard($district_id));
     }
+
+    public function addKhachHang($customer) {
+        if($this->khachHangRepo->addKhachHang($customer)) {
+            echo 'success';
+        } else {
+            echo 'fail';
+        }
+    }
 }
 
 $khachHangCtl = new KhachHangController();
 $action = $_POST["action"];
 
 switch($action) {
+    case 'add':
+        $length = $khachHangCtl->getKhachhangLength();
+        if ($length >= 0) {
+            $length += 1;
+            $id = 'KH'.sprintf("%04d", $length);
+            $name = $_POST['name'];
+            $phone = $_POST['phone'];
+            $email = $_POST['email'];
+            $address = $_POST['address'];
+            $customer = new KhachHang($id, $name, $phone, $email, $address, 0);
+            $khachHangCtl->addKhachHang($customer);
+        }
+        break;
     case 'get-province':
         $khachHangCtl->getProvince();
         break;
@@ -52,5 +77,7 @@ switch($action) {
         break;
     case 'get-ward':
         $khachHangCtl->getWard();
+        break;
+    default:
         break;
 }
