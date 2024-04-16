@@ -20,17 +20,22 @@ class KhachHangRepo extends ConnectDB {
     }
 	
     function addKhachHang(KhachHang $khachhang) {
-        $ma_kh = $khachhang->getMaKh();
-        $ten_kh = $khachhang->getTenKh();
-        $so_dien_thoai = $khachhang->getSoDienThoai();
-        $email = $khachhang->getEmail();
-        $dia_chi = $khachhang->getDiaChi();
-
-        $sql = "INSERT INTO khachhang(ma_kh,ten_kh,so_dien_thoai,email,dia_chi) 
-                VALUES ('$ma_kh', '$ten_kh', '$so_dien_thoai', '$email', '$dia_chi')";
-        $result = mysqli_query($this->conn, $sql);
-        if ($result) {
-            return true;
+        try {
+            $ma_kh = $khachhang->getMaKh();
+            $ten_kh = $khachhang->getTenKh();
+            $so_dien_thoai = $khachhang->getSoDienThoai();
+            $email = $khachhang->getEmail();
+            $dia_chi = $khachhang->getDiaChi();
+    
+            $sql = "INSERT INTO khachhang(ma_kh,ten_kh,so_dien_thoai,email,dia_chi) 
+                    VALUES ('$ma_kh', '$ten_kh', '$so_dien_thoai', '$email', '$dia_chi')";
+            $result = mysqli_query($this->conn, $sql);
+            
+            if ($result) {
+                return true;
+            }
+        } catch (Exception $e) {
+            echo 'Error:'. $e->getMessage();
         }
         return false;
     }

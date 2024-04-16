@@ -1,11 +1,3 @@
-<?php
-session_start();
-if(isset($_POST['submit'])){
-    $_SESSION['maquyen']=$_POST['login-password'];
-    header('location:admin.php');
-}
-
-?>
 <section class="vh-100">
     <div class="py-3 h-100">
         <div class="container login-header">
@@ -22,8 +14,8 @@ if(isset($_POST['submit'])){
                 <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1 py-5">
                     <form class="login-form" method="post" autocomplete="off" id="login-form">
                         <div class="mb-4">
-                            <label class="form-label" for="login-phone">Số điện thoại</label>
-                            <input type="email" id="login-phone" name="login-phone" class="form-control form-control-lg" />
+                            <label class="form-label" for="login-username">Email</label>
+                            <input type="email" id="login-username" name="login-username" class="form-control form-control-lg" />
                         </div>
                         <div class="mb-4">
                             <div class="password-form">
@@ -38,7 +30,7 @@ if(isset($_POST['submit'])){
                         <div class="d-flex justify-content-end align-items-center mb-4">
                             <a href="#!">Quên mật khẩu?</a>
                         </div>
-                        <button type="submit" class="btn btn-primary btn-lg btn-block btn-login" id="submit-login" name="submit">Đăng nhập</button>
+                        <button type="button" class="btn btn-primary btn-lg btn-block btn-login" class="btn-login">Đăng nhập</button>
 
                         <div class="divider d-flex align-items-center my-4">
                             <p class="text-center fw-bold mx-3 mb-0 text-muted">Hoặc</p>
@@ -61,22 +53,16 @@ if(isset($_POST['submit'])){
             </div>
         </div>
         <div class="d-flex flex-column flex-md-row text-center text-md-start justify-content-between py-4 px-4 px-xl-5 bg-primary login-footer">
-            <div class="text-white mb-3 mb-md-0">
-                Copyright © 2024. All rights reserved.
-            </div>
-
+            <div class="text-white mb-3 mb-md-0">Copyright © Laptop | Designed by SGU</div>
             <div>
-                <a href="#!" class="text-white me-4">
+                <a href="https://www.facebook.com/" class="text-white me-4">
                     <i class="fab fa-facebook-f"></i>
                 </a>
-                <a href="#!" class="text-white me-4">
-                    <i class="fab fa-twitter"></i>
+                <a href="https://www.instagram.com/" class="text-white me-4">
+                    <i class="fa-brands fa-instagram"></i>
                 </a>
-                <a href="#!" class="text-white me-4">
-                    <i class="fab fa-google"></i>
-                </a>
-                <a href="#!" class="text-white">
-                    <i class="fab fa-linkedin-in"></i>
+                <a href="https://www.tiktok.com/" class="text-white me-4">
+                    <i class="fa-brands fa-tiktok"></i>
                 </a>
             </div>
         </div>

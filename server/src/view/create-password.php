@@ -10,8 +10,11 @@
 </div>
 <form class="create-password-form">
     <div class="create-password-form-container">
-        <div class="create-password-title">Bước cuối! Thiết lập mật khẩu để hoàn tất việc đăng ký</div>
+        <div class="create-password-title">Bước cuối! Thiết lập họ tên và mật khẩu để hoàn tất việc đăng ký</div>
         <div class="create-password-input-container">
+            <div class="mb-4">
+                <input type="text" id="signup-user-name" class="form-control form-control-lg signup-user-name" placeholder="Họ tên" />
+            </div>
             <div class="mb-4">
                 <input type="password" id="signup-password" class="form-control form-control-lg signup-password" placeholder="Mật khẩu" />
             </div>

@@ -1,3 +1,11 @@
+<?php
+session_start();
+$username = '';
+if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
+    $username = isset($_SESSION['username']) ? $_SESSION['username'] : 'unknown';
+}
+?>
+
 <header class="header">
     <nav class="navbar navbar-expand-lg navbar-light container">
         <div class="container-fluid">
@@ -20,12 +28,7 @@
                             <div class="suggest-name">
                                 <div class="suggest-title">Từ khóa</div>
                                 <ul>
-                                    <!-- <li>
-                                        <a href="index.php?tim-kiem=macbook">macbook</a>
-                                    </li>
-                                    <li>
-                                        <a href="index.php?tim-kiem=macbook-air">macbook air m2 2022</a>
-                                    </li> -->
+
                                 </ul>
                             </div>
                         </div>
@@ -33,38 +36,7 @@
                             <div class="suggest-product">
                                 <div class="suggest-title">Sản phẩm</div>
                                 <ul>
-                                    <!-- <li>
-                                        <a href="index.php?san-pham&id=SP001">
-                                            <div class="product-item">
-                                                <div class="product-item__img me-2">
-                                                    <img src="server/src/assets/images/products/SP001.png">
-                                                </div>
-                                                <div class="product-item__info">
-                                                    <h3 class="product-item__name">Macbook mini 2023 M2 8CPU 10GPU 8GB/512GB</h3>
-                                                    <div class="product-item__price">
-                                                        19.690.000
-                                                        <del>21.990.000</del>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="index.php?san-pham&id=SP001">
-                                            <div class="product-item">
-                                                <div class="product-item__img me-2">
-                                                    <img src="server/src/assets/images/products/SP001.png">
-                                                </div>
-                                                <div class="product-item__info">
-                                                    <h3 class="product-item__name">Macbook mini 2023 M2 8CPU 10GPU 8GB/512GB</h3>
-                                                    <div class="product-item__price">
-                                                        19.690.000
-                                                        <del>21.990.000</del>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </li> -->
+
                                 </ul>
                             </div>
                         </div>
@@ -81,9 +53,22 @@
                     <div class="cart-pseudo"></div>
                     <?php include "cart-dropdown.php" ?>
                 </button>
-                <a href="index.php?dang-nhap" class="login-btn">
-                    <i class="fa-regular fa-user"></i>
-                </a>
+
+                <?php echo $username
+                    ? "
+                        <div class='header-account'>
+                            <span class='header-username'>$username</span>
+                            <div class='header__account-menu'>
+                                <a href='index.html?thong-tin-tai-khoan' class='header__account-link'>Tài khoản</a>
+                                <a href='index.html?don-hang' class='header__account-link'>Đơn hàng đã đặt</a>
+                                <a href='index.html?tra-cuu-bao-hanh' class='header__account-link'>Tra cứu bảo hành</a>
+                                <a href='index.html?doi-tra' class='header__account-link'>Tra cứu đổi trả</a>
+                                <a class='header__account-link btn-logout'>Đăng xuất</a>
+                            </div>
+                        </div>
+                    "
+                    : '<a href="index.php?dang-nhap" class="login-btn"><i class="fa-regular fa-user"></i></a>';
+                ?>
             </div>
         </div>
     </nav>

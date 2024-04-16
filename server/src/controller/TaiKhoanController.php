@@ -63,6 +63,29 @@ class TaiKhoanController {
     public function checkExistUsername($username) {
         echo $this->taiKhoanRepo->checkExistUsername($username);
     }
+
+    public function login($username, $password) {
+        $account = $this->taiKhoanRepo->login($username);
+        if ($password === $account['password']) {
+            session_start();
+
+            $_SESSION['loggedin'] = true;
+            $_SESSION['id'] = $account['ma_tk'];
+            $_SESSION['username'] = $username;
+
+            echo 'success';
+        } else {
+            echo 'fail';
+        }
+    }
+
+    public function logout() {
+        session_start();
+        unset($_SESSION['loggedin']);
+        unset($_SESSION['id']);
+        unset($_SESSION['username']);
+        exit();
+    }
 }
 
 $taiKhoanCTL = new TaiKhoanController();
@@ -104,6 +127,14 @@ switch ($action) {
     case 'check-exist':
         $username = $_POST['username'];
         $taiKhoanCTL->checkExistUsername($username);
+        break;
+    case 'login':
+        $username = $_POST['username'];
+        $password = $_POST['password'];
+        $taiKhoanCTL->login($username, $password);
+        break;
+    case 'logout':
+        $taiKhoanCTL->logout();
         break;
     default:
         break;

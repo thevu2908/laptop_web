@@ -17,12 +17,86 @@
     font-size: 24px;
 }
 
+.header-account {
+    position: relative;
+    cursor: pointer;
+}
+
+.header-account:hover {
+    color: #595656;
+}
+
+.header-account:hover .header__account-menu {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.header-username {
+    max-width: 9.375rem;
+    overflow: hidden;
+    padding-left: .3125rem;
+    text-overflow: ellipsis;
+    font-size: 14px;
+}
+
+.header__account-menu {
+    min-width: 150px;
+    position: absolute;
+    top: calc(100% + 6px);
+    right: 0;
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+    background-color: #fff;
+    transform: scale(0);
+    transform-origin: 100% top;
+    opacity: 0;
+    transition: all 0.3s;
+    border-radius: 2px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.header__account-menu::before {
+    content: "";
+    border-width: 6px 10px;
+    border-style: solid;
+    border-color: transparent transparent #fff transparent;
+    position: absolute;
+    bottom: 100%;
+    right: 30px;
+}
+
+.header__account-menu::after {
+    content: "";
+    width: 90px;
+    height: 10px;
+    position: absolute;
+    bottom: 100%;
+    right: 0;
+}
+
+.header__account-link {
+    display: block;
+    text-decoration: none;
+    color: #333;
+    padding: 8px 12px;
+}
+
+.header__account-link:last-child {
+    border-top: 1px solid #ddd;
+}
+
+.header__account-link:hover {
+    background-color: #fafafa;
+}
+
 .nav-content {
     justify-content: center !important;
 }
 
 .search-box {
     display: flex;
+    align-items: center;
     gap: 10px;
 }
 
@@ -73,13 +147,31 @@
     font-weight: 500;
     color: black;
     width: 330px;
-    z-index: 100;
     cursor: default;
     transform: scale(0);
     transform-origin: 100% top;
     opacity: 0;
     transition: all 0.3s;
     box-shadow: 0 0 5px 1px #888888;
+}
+
+.cart-dropdown::before {
+    content: "";
+    border-width: 8px 10px;
+    border-style: solid;
+    border-color: transparent transparent #fff transparent;
+    position: absolute;
+    bottom: 100%;
+    right: 10px;
+}
+
+.cart-dropdown::after {
+    content: "";
+    width: 90px;
+    height: 10px;
+    position: absolute;
+    bottom: 100%;
+    right: 0;
 }
 
 .cart-btn:hover .cart-dropdown {
@@ -675,6 +767,7 @@ ul, li {
     position: absolute;
     right: 10px;
     top: 55%;
+    cursor: pointer;
 }
 
 .showhide-pwd-icon .open {
@@ -1005,6 +1098,7 @@ ul, li {
     margin: 50px 0 10px;
 }
 
+.signup-user-name,
 .signup-password {
     font-size: 16px;
 }

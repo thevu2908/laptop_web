@@ -137,4 +137,27 @@ class TaiKhoanRepo extends ConnectDB {
             return false;
         }
     }
+
+    public function login($username) {
+        try {
+            $query = "SELECT ma_tk, username, password FROM taikhoan WHERE username = ?";
+            $statement = mysqli_prepare($this->conn, $query);
+
+            if (!$statement) {
+                throw new Exception("Statement preparation failed: " . mysqli_error($this->conn));
+            }
+
+            mysqli_stmt_bind_param($statement, 's', $username);
+            mysqli_stmt_execute($statement);
+
+            $result = mysqli_stmt_get_result($statement);
+            $row = mysqli_fetch_assoc($result);
+            mysqli_stmt_close($statement);
+
+            return $row;
+        } catch (Exception $e) {
+            echo 'Error: ' . $e->getMessage() . '<br>';
+            return null;
+        }
+    }
 }

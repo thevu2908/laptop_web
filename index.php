@@ -25,6 +25,7 @@
         <?php
         if (isset($_REQUEST["dang-nhap"])) {
             include "./server/src/view/login.php";
+            echo '<script src="./client/pages/TaiKhoan.js"></script>';
         } else if (isset($_REQUEST["dang-ky"])) {
             include "./server/src/view/signup.php";
             echo '<script src="./client/pages/SignUp.js"></script>';
@@ -90,6 +91,7 @@
     <script src="./client/utils/formatPromotion.js"></script>
     <script src="./client/utils/formatDate.js"></script>
     <script src="./client/pages/TimKiem.js"></script>
+    <script src="./client/pages/Login.js"></script>
 </body>
 
 </html>

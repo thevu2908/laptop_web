@@ -142,5 +142,6 @@
   <script src="./client/utils/formatPromotion.js"></script>
   <script src="./client/plugins/pagination.js"></script>
   <script src="./client/plugins/PhanQuyen.js"></script>
+  <script src="./client/pages/Login.js"></script>
 </body>
 </html>
