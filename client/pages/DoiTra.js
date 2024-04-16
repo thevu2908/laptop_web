@@ -5,6 +5,7 @@ $(document).ready(function() {
 })
 var listitemDoiTra=[]
 function addDoiTra(){
+    getSizeinTable("phieudoitra","PDT","#admin-maphieudoitra")
     $("#admin-doitra-manhanvien").val("NV01")
     loadMaHoaDon();
     selectMaHoaDon();
@@ -14,12 +15,12 @@ function addDoiTra(){
             var ime = $(this).find('td:nth-child(2)').text();
             var masanpham = $(this).find('td:nth-child(3)').text();
             var lydo = $(this).find('td:nth-child(4) input').val()
-            var giasanpham = $(this).find('td:nth-child(5)').text()
+            var giasanpham = $(this).find('td:nth-child(5) input').val()
             listitemDoiTra.push({ime:ime,masanpham:masanpham,lydo:lydo,giasanpham:giasanpham,soluong:1,thanhtien:giasanpham})
         });
         var date=new Date()
         var ngaydoitra = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
-        var maphieudoitra="PDT01";
+        var maphieudoitra=$("#admin-maphieudoitra").val();
         var mahoadon=$("#admin-select-mahoadon").val()
         var manhanvien=$("#admin-doitra-manhanvien").val()
         var thanhtien=0;
@@ -28,9 +29,27 @@ function addDoiTra(){
         listitemDoiTra.forEach(item=>soluong+=Number.parseInt(item.soluong))
         var thanhtienSP=thanhtien;
         var tongsoluongSP=soluong;
-        console.log(thanhtienSP,tongsoluongSP,manhanvien)
-        callAddPhieuDoiTra(maphieudoitra,manhanvien,mahoadon,ngaydoitra,tongsoluongSP,thanhtienSP)
+        console.log(thanhtienSP,tongsoluongSP,manhanvien,maphieudoitra)
+        console.log(listitemDoiTra)
+        if(mahoadon=="choose"){
+            alert("Vui lòng chọn hóa đơn")
+        }else if(listitemDoiTra.length===0){
+            alert("Vui lòng chọn sản phẩm đổi trả")
+        }else{
+            callAddPhieuDoiTra(maphieudoitra,manhanvien,mahoadon,ngaydoitra,tongsoluongSP,thanhtienSP)
+        }
     })
+}
+function tinh(){
+    var tongtien=0;
+    var soluong=0;
+    $('#tableChiTietDoiTra tbody tr').each(function() {
+        var giasanpham = $(this).find('td:nth-child(5) input').val()
+        tongtien+=Number.parseFloat(giasanpham);
+        soluong+=1;
+    });
+    $("#admin-DoiTra-tongsoluong").val(soluong);
+    $("#admin-DoiTra-tongtientra").val(tongtien);
 }
 function loadDoiTra(){
     var pageno = $("#currentpage").val();
@@ -64,13 +83,13 @@ function loadDoiTra(){
             </tr>`
             });
             $("#show-listDoiTra").html(html);
+            getSizeinTable("phieudoitra","PDT","#admin-maphieudoitra")
             phanquyen_chucnang("Đổi Trả");
             totalPage(data.count);
         }
     })
 }
 function callAddPhieuDoiTra(maphieudoitra,manhanvien,mahoadon,ngaydoitra,tongsoluongSP,thanhtienSP){
-    console.log("ajax-1")
     $.ajax({
         url:"server/src/controller/PhieuDoiTraController.php",
         method:"POST",
@@ -93,7 +112,6 @@ function callAddPhieuDoiTra(maphieudoitra,manhanvien,mahoadon,ngaydoitra,tongsol
     })
 }
 function callAddChiTietPhieuDoiTra(maphieudoitra,listitemDoiTra){
-    console.log("ajax-2")
     $.ajax({
         url:"server/src/controller/CTPhieuDoiTraController.php",
         method:"POST",
@@ -113,8 +131,8 @@ function removeItem(element){
     $(element).closest("tr").remove();
     if (indexToRemove !== -1) {
         listitemDoiTra.splice(indexToRemove, 1);
+        tinh();
     }
-    console.log(listitemDoiTra)
 }
 function loadMaHoaDon(){
     $.ajax({
@@ -134,6 +152,7 @@ function loadMaHoaDon(){
 function selectMaHoaDon(){
     $(document).on("change","#admin-select-mahoadon",function(){
         console.log($(this).val());
+        $("#admin-showDoiTra").html("");
         $.ajax({
             url:"server/src/controller/CTHDController.php",
             method:"POST",
@@ -223,9 +242,15 @@ $("#tableChiTietHoaDon tbody").on("click", "tr", function(){
                 <td scope="row">${ime}</td>
                 <td scope="row">${ID}</td>
                 <td scope="row"><input type="text" class="form-control"></td>
-                <td scope="row">${giasanpham}</td>
+                <td scope="row"><input type="text" class="form-control" value='${giasanpham}'></td>
                 <td data-row="IME1" onclick="removeItem(this)"><i class="material-icons" data-toggle="tooltip" title="Remove">&#xE872;</i></td>
                 </tr>`;
         $("#tableChiTietDoiTra tbody").append(newRow);
+        tinh();
     }
 });
+function clearModal(){
+    $("#admin-showDoiTra").html("");
+    $("#admin-showChitiethoadon").html("");
+    $("#admin-select-mahoadon").prop("selectedIndex", 0);    
+}

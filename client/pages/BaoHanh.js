@@ -2,18 +2,19 @@ $(document).ready(function() {
     loadBaoHanh()
     addBaoHanh()
     TraCuu()
+    kiemtrathoigianbaohanh()
 })
 var listitemBaoHanh=[];
 function addBaoHanh(){
+    getSizeinTable("phieubaohanh","BH","#admin-mabaohanh");
     loadMaHoaDon()
     selectMaHoaDon();
     $(document).on("click","#admin-add-BaoHanh",function(){
-        var maphieubaohanh="BH02";
+        var maphieubaohanh=$("#admin-mabaohanh").val();
         var mahoadon=$("#admin-select-mahoadon").val();
         var makhachhang=$("#admin-baohanh-makhachhang").val().split("-")[0];
         var manhanvien="NV01";
         var date=new Date()
-        var ngaybaohanh=date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate()+":"+date.getHours()+"h-"+date.getMinutes()+"m-"+date.getSeconds()+"s";
         var tinhtrangbaohanh=$("#admin-select-trinhtrang").val();
         listitemBaoHanh=[];
         $('#tableChiTietBaoHanh tbody tr').each(function() {
@@ -33,12 +34,21 @@ function addBaoHanh(){
         console.log(manhanvien);
         console.log(tinhtrangbaohanh);
         console.log(listitemBaoHanh);
-        addPhieuBaoHanh(maphieubaohanh,mahoadon,makhachhang,manhanvien,tinhtrangbaohanh);
+        if(checkSpace(manhanvien) && checkSpace(mahoadon)){
+            alert("Vui lòng chọn nhân viên");
+        }else if(mahoadon=="choose"){
+            alert("Vui lòng chọn mã hóa đơn");
+        }else if(checkSpace(manhanvien)){
+            alert("Vui lòng chọn nhân viên");
+        }else if(listitemBaoHanh.length===0){
+            alert("Vui lòng chọn sản phẩm cần bảo hành");
+        }else{
+            addPhieuBaoHanh(maphieubaohanh,mahoadon,makhachhang,manhanvien,tinhtrangbaohanh)
+        }
     
     })
 }
 function addPhieuBaoHanh(maphieubaohanh,mahoadon,makhachhang,manhanvien,tinhtrangbaohanh) {
-    console.log("AAAAAAAAAAAA")
     $.ajax({
         url:"server/src/controller/PhieuBaoHanhController.php",
         data:{action:"add",maphieubaohanh:maphieubaohanh,mahoadon:mahoadon,makhachhang:makhachhang,manhanvien:manhanvien,tinhtrangbaohanh:tinhtrangbaohanh},
@@ -47,6 +57,8 @@ function addPhieuBaoHanh(maphieubaohanh,mahoadon,makhachhang,manhanvien,tinhtran
         success:function(data){
             console.log(data);
             addChiTietPhieuBaoHanh(maphieubaohanh,listitemBaoHanh);
+            clearModal()
+            $("#addBaoHanh").modal("hide");
             loadBaoHanh();
         },error:function(xhr,status,error){
             console.error(xhr.responseText); 
@@ -54,7 +66,6 @@ function addPhieuBaoHanh(maphieubaohanh,mahoadon,makhachhang,manhanvien,tinhtran
     })
 }
 function addChiTietPhieuBaoHanh(maphieubaohanh,listitemBaoHanh){
-    console.log("BBBBBBBBB")
     $.ajax({
         url:"server/src/controller/CTPhieuBaoHanhController.php",
         data:{action:"add",maphieubaohanh:maphieubaohanh,listitemBaoHanh:listitemBaoHanh},
@@ -130,32 +141,6 @@ function ThongTinKhachHang(mahoadon){
         }
     })
 }
-// function getNhanVien(){
-//     $.ajax({
-//         url:"server/src/controller/NhanVienController.php",
-//         data:{action:"load"},
-//         method:"POST",
-//         success:function(data){
-//             var html="";
-//             var jsonData = JSON.parse(data);
-//             jsonData.forEach((nhanvien,index) => {
-//                 html+=`<option value="${nhanvien['0']}">${nhanvien['0']}-${nhanvien['1']}</option>`;
-//             });
-//             $("#admin-baohanh-manhanvien").html(html);
-//         }
-//     })
-// }
-// function getKhachHang(){
-//     $.ajax({
-//         url:"server/src/controller/KhachHangController.php",
-//         data:{action:"get-khachhang"},
-//         method:"POST",
-//         dataType:"json",
-//         success:function(data){
-//             $("#admin-baohanh-manhanvien").html(html);
-//         }
-//     })
-// }
 function loadMaHoaDon(){
     $.ajax({
         url:"server/src/controller/HoaDonController.php",
@@ -191,7 +176,7 @@ function loadBaoHanh(){
                 </td>
                 <td>${phieubaohanh['ma_pbh']}</td>
                 <td>${phieubaohanh['ma_nv']}</td>
-                <td>${phieubaohanh['ma_hd']}</td>
+                <td id='ma_nv_${index}'>${phieubaohanh['ma_hd']}</td>
                 <td>${phieubaohanh['ma_kh']}</td>
                 <td>${phieubaohanh['ngay_bao_hanh']}</td>
                 <td>${checkTime(phieubaohanh['ngay_tra'])?" ":phieubaohanh['ngay_tra']}</td>
@@ -203,7 +188,11 @@ function loadBaoHanh(){
                 </td>
             </tr>`
             });
+            jsondata.forEach((phieubaohanh,index) => {
+                getTenNhanVien(phieubaohanh['ma_kh'],index)
+            })
             $("#show-listBaoHanh").html(html);
+            getSizeinTable("phieudoitra","PDT","#admin-maphieudoitra")
             phanquyen_chucnang("Bảo Hành");
             totalPage(data.count);
         }
@@ -237,18 +226,60 @@ $("#tableChiTietHoaDon tbody").on("click", "tr", function(){
     }
 });
 function checkTime(str){
-    console.log(str);
+    console.log(typeof str);
     if (str.startsWith('0000')) {
         return true;
     } else {
         return false;
     }
 }
+function tinhNgayBaoHanh(ngaymua){
+    var ngaymua=new Date(ngaymua);
+    var ngayhethan=new Date(ngaymua);
+    ngayhethan.setFullYear(ngaymua.getFullYear() + 1);
+    var ngayHienTai = new Date();
+    var soNgayConLai = Math.floor((ngayhethan - ngayHienTai) / (1000 * 60 * 60 * 24));
+    console.log("Số ngày còn lại bảo hành: " + soNgayConLai);
+}
+function kiemtrathoigianbaohanh(){
+    $("#sdt").hide();
+    $("#imei").show();
+    var hinhthuctracuu="imei";
+    var data=$("#thoigian-imei").val();
+    $(document).on("change","#admin-select-hinhthuctracuu", function(){
+        hinhthuctracuu=$("#admin-select-hinhthuctracuu").val();
+        if(hinhthuctracuu=="imei"){
+            data=$("#thoigian-imei").val();
+            $("#sdt").hide()
+            $("#imei").show()
+        }else{
+            data=$("#thoigian-sdt")/val();
+            $("#sdt").show()
+            $("#imei").hide()
+        }
+        $(document).on("click","#btnTraCuuThoiGian",function(){
+            thoigianbaohanh(hinhthuctracuu,data)
+        })
+
+    })
+}
+function thoigianbaohanh(hinhthuc,data){
+    $.ajax({
+        url:"server/src/controller/PhieuBaoHanhController.php",
+        data:{action:"tracuuthoigianbaohanh",hinhthuc:hinhthuc,data:data},
+        method:"POST",
+        dataType:"json",
+        success:function(data){
+            console.log(data);
+        }
+    })
+}
 function TraCuu(){
     $(document).on('click',"#tracuu",function(){
         var ime=$("#imei").val();
         if(ime==""){
             $("#show-err").text("Please input");
+            $("#show-listTraCuu").html("")
         }else{
             $("#show-err").text("");
             TraCuuBaoHanh(ime);
@@ -264,18 +295,20 @@ function TraCuuBaoHanh(ime){
         success:function(data){
             var html="";
             console.log(data);
-            if(data!==null){
-                    html=`<tr>
-                    <td>${data['ma_imei']}</td>
-                    <td>${data['ten_sp']}</td>
-                    <td>${data['ngay_bao_hanh']}</td>
-                    <td>${checkTime(data['ngay_tra'])?" ":data['ngay_tra']}</td>
-                    <td>${data['ly_do']}</td>
-                    <td>${data['noi_dung_bao_hanh']}</td>
-                    <td>${data['tinh_trang']}</td>
-                    <td><img src="${data['hinh_anh']}" alt="Hình ảnh" style="max-width: 100px; max-height: 100px;"></td>
+            if(data!=[]){
+                data.forEach((phieubaohanh,index) => {
+                    html+=`<tr>
+                    <td>${phieubaohanh['ma_imei']}</td>
+                    <td>${phieubaohanh['ten_sp']}</td>
+                    <td>${phieubaohanh['ngay_bao_hanh']}</td>
+                    <td>${checkTime(phieubaohanh['ngay_tra'])?" ":phieubaohanh['ngay_tra']}</td>
+                    <td>${phieubaohanh['ly_do']}</td>
+                    <td>${phieubaohanh['noi_dung_bao_hanh']}</td>
+                    <td>${phieubaohanh['tinh_trang']}</td>
+                    <td><img src="${phieubaohanh['hinh_anh']}" alt="Hình ảnh" style="max-width: 100px; max-height: 100px;"></td>
                     </tr>`;
-                    $("#show-listTraCuu").html(html);
+                })
+                $("#show-listTraCuu").html(html);
             }else{
                 $("#show-listTraCuu").html(html);
             }
@@ -283,4 +316,22 @@ function TraCuuBaoHanh(ime){
             console.error(xhr.responseText); 
         }
     })
+}
+function getTenNhanVien(makhachhang,index){
+    $.ajax({
+        url:"server/src/controller/KhachHangController.php",
+        data:{action:"get-khachhang",id:makhachhang},
+        method:"POST",
+        dataType:"json",
+        success:function(data){
+            $("#ma_nv_"+index+"").text(data['ten_kh'])
+        }
+    })
+}
+function clearModal(){
+    $("#admin-select-mahoadon").prop("selectedIndex", 0);
+    $("#admin-baohanh-manhanvien").val('');
+    $("#admin-baohanh-makhachhang").val('');
+    $("#show-adminBaoHanh").html("");
+    $("#admin-showChitiethoadon").html("");
 }

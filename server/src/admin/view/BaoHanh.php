@@ -12,6 +12,8 @@
 									class="material-icons">&#xE147;</i> <span>Thêm</span></a>
 							<a href="#deleteNhomQuyen" class="btn btn-danger delete" data-toggle="modal"><i
 									class="material-icons">&#xE15C;</i> <span>Xóa</span></a>
+							<a href="#tracuuThoiGianBaoHanh" id="admin-tracuuThoiGianBaoHanh" class="btn btn-success" data-toggle="modal"><i
+							class="material-icons">&#xE147;</i> <span>Tra cứu thời gian bảo hành</span></a>
 						</div>
 					</div>
 				</div>
@@ -58,6 +60,7 @@
                 </div>
                 <div class="modal-body">
                     <input type="hidden" class="form-control" required id="action" value="Add">
+					<input type="hidden" class="form-control" id="admin-mabaohanh">
                     <div class="form-group">
                         <p id="mess_maquyen"></p>
                         <label>Mã Hóa Đơn</label>
@@ -144,6 +147,39 @@
         </div>
     </div>
 </div>
+<!-- Tra Cuu Modal HTML -->
+<div id="tracuuThoiGianBaoHanh" class="modal fade">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<form>
+					<div class="modal-header">
+						<h4 class="modal-title">Tra Cứu Thời Hạn Bảo Hành</h4>
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					</div>
+					<select class="form-control form-control-sm" aria-label="Default select example" id="admin-select-hinhthuctracuu">
+					<option value="imei" selected>Mã IMEI</option>
+					<option value="sdt">Số Điện Thoại</option>
+                    </select>
+					<div class="modal-body">
+						<div class="form-group" id="sdt">
+							<div class="form-group">
+								<label>Số Điện Thoại</label>
+								<input class="form-control" type="text" name="" id="thoigian-sdt" required>
+							</div>
+						</div>
+						<div class="form-group" id="imei">
+							<label>IMEI(Phía Dưới Đế LapTop)</label>
+							<input type="text" class="form-control" name="" id="thoigian-imei" required>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<input type="button" class="btn btn-danger" data-dismiss="modal" value="Cancel">
+						<input type="button" class="btn btn-info" id="btnTraCuuThoiGian" value="Tra cứu">
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
 	<!-- Edit Modal HTML -->
 	<div id="editNhomQuyen" class="modal fade">
 		<div class="modal-dialog">

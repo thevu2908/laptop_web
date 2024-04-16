@@ -77,6 +77,7 @@
     <script src="./client/plugins/pagination.js"></script>
     <script src="./client/utils/general.js"></script>
     <script src="./client/utils/formatCurrency.js"></script>
+    <script src="./client/plugins/getsize.js"></script>
 </body>
 
 </html>

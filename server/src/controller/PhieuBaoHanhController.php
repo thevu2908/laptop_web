@@ -13,6 +13,9 @@ class PhieuBaoHanhController{
     public function kiemtraBaoHanh($ma_imei){
         echo json_encode($this->phieubaohanhRepo->tracuuBaoHanh($ma_imei));
     }
+    public function tracuuThoiGianBaoHanh($hinhthuc,$data){
+        echo json_encode($this->phieubaohanhRepo->tracuuThoiGianBaoHanh($hinhthuc,$data));
+    }
 }
 $phieubaohanhctl=new PhieuBaoHanhController();
 $tmp=$_POST['action'];
@@ -31,6 +34,12 @@ switch($tmp){
     }case "tracuubaohanh":{
         $ma_imei=$_POST['ma_imei'];
         $phieubaohanhctl->kiemtraBaoHanh($ma_imei);
+        break;
+    }
+    case "tracuuthoigianbaohanh":{
+        $hinhthuc=$_POST['hinhthuc'];
+        $data=$_POST['data'];
+        $phieubaohanhctl->tracuuThoiGianBaoHanh($hinhthuc,$data);
         break;
     }
 }

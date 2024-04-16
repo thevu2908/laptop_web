@@ -16,10 +16,30 @@ class PhieuBaoHanhRepo extends ConnectDB{
         join chitietsanpham on chitietsanpham.ma_ctsp=ctsp_imei.ma_ctsp join sanpham ON
         sanpham.ma_sp=chitietsanpham.ma_sp where chitietphieubaohanh.ma_imei='$ma_imei'";
         $result=mysqli_query($this->conn,$query);
-        if($row=mysqli_fetch_array($result)){
-            return $row;
+        $arrChiTietPhieuBaoHanh=array();
+        while($row=mysqli_fetch_array($result)){
+            $arrChiTietPhieuBaoHanh[]=$row;
         }
-        return null;
+        return $arrChiTietPhieuBaoHanh;
+    }
+    public function tracuuThoiGianBaoHanh($hinhthuc,$data){
+        if($hinhthuc=='imei'){
+            $query="SELECT hoadon.ngay_tao,chitiethoadon.ma_imei,sanpham.ten_sp from hoadon join chitiethoadon
+            on hoadon.ma_hd=chitiethoadon.ma_hd join ctsp_imei on ctsp_imei.ma_imei=chitiethoadon.ma_imei
+            join chitietsanpham on chitietsanpham.ma_ctsp=ctsp_imei.ma_ctsp
+            join sanpham on sanpham.ma_sp=chitietsanpham.ma_sp where chitiethoadon.ma_imei='$data'";
+        }else{
+            $query="SELECT hoadon.ngay_tao,chitiethoadon.ma_imei,sanpham.ten_sp from hoadon join chitiethoadon
+            on hoadon.ma_hd=chitiethoadon.ma_hd join ctsp_imei on ctsp_imei.ma_imei=chitiethoadon.ma_imei
+            join chitietsanpham on chitietsanpham.ma_ctsp=ctsp_imei.ma_ctsp
+            join sanpham on sanpham.ma_sp=chitietsanpham.ma_sp where chitiethoadon.ma_imei='$data'";
+        }
+        $result=mysqli_query($this->conn,$query);
+        $arrChiTietPhieuBaoHanh=array();
+        while($row=mysqli_fetch_array($result)){
+            $arrChiTietPhieuBaoHanh[]=$row;
+        }
+        return $arrChiTietPhieuBaoHanh;
     }
 }
 ?>

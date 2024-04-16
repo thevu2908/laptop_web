@@ -1,10 +1,10 @@
 $(document).ready(function() {
-    loadChuNangQuyen()
-    clickPage(loadChuNangQuyen)
+    loadChucNangQuyen()
+    clickPage(loadChucNangQuyen)
     addChucNang();
 })
 
-function loadChuNangQuyen(){
+function loadChucNangQuyen(){
     var pageno = $("#currentpage").val();
     $.ajax({
         url:"server/src/controller/PaginationController.php",
@@ -33,12 +33,14 @@ function loadChuNangQuyen(){
             </tr>`
             });
             $("#show-listChucNang").html(html);
+            getSizeinTable("chucnangquyen","CN","#admin-MaChucNang");
             phanquyen_chucnang("Chức Năng");
             totalPage(data.count);
         }
     })
 }
 function addChucNang(){
+    getSizeinTable("chucnangquyen","CN","#admin-MaChucNang");
     $(document).on("click","#admin-addChucNang",function(){
         var maChucNang=$("#admin-MaChucNang").val();
         var tenChucNang=$("#admin-TenChucNang").val();
@@ -50,7 +52,7 @@ function addChucNang(){
             success:function(data){
                 $("form").trigger('reset');
                 $("#addChucNang").modal("hide");
-                loadChuNangQuyen()
+                loadChucNangQuyen()
             }
         })
 

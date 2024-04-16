@@ -55,6 +55,7 @@
                 </div>
                 <div class="modal-body">
                     <input type="hidden" class="form-control" required id="action" value="Add">
+					<input type="hidden" class="form-control" required id="admin-maphieudoitra">
                     <div class="form-group">
                         <p id="mess_maquyen"></p>
                         <label>Mã Hóa Đơn</label>
@@ -102,7 +103,7 @@
 					</div>
                 </div>
 				   <div class="row">
-						<div class="col-md-6">
+						<div class="col">
 							<div class="form-group">
 							<p id="mess_tenquyen"></p>
 								<label>Tổng Số Lượng</label>
@@ -110,7 +111,7 @@
 								<input type="text" name="" id="admin-DoiTra-tongsoluong" class="form-control" readonly='false'>
 							</div>
 						</div>
-						<div class="col-md-6">
+						<div class="col">
 							<div class="form-group">
 							<p id="mess_tenquyen"></p>
 								<label>Tổng Tiền Trả</label>

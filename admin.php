@@ -139,5 +139,7 @@
   <script src="./client/utils/formatCurrency.js"></script>
   <script src="./client/plugins/pagination.js"></script>
   <script src="./client/plugins/PhanQuyen.js"></script>
+  <script src="./client/plugins/getsize.js"></script>
+  <script src="./client/plugins/validation.js"></script>
 </body>
 </html>
