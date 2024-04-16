@@ -1,3 +1,13 @@
+<?php
+session_start();
+$username = '';
+if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
+  $ma_tk = isset($_SESSION['id']) ? $_SESSION['id'] : '';
+  $username = isset($_SESSION['username']) ? $_SESSION['username'] : '';
+  $ma_quyen = isset($_SESSION['ma_quyen']) ? $_SESSION['ma_quyen'] : '';
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -29,7 +39,7 @@
 
 <body>
   <div id="admin-main">
-    <input type="hidden" value="NQ01" id="admin-nhomquyen">
+    <input type="hidden" value="<?= $ma_quyen ?>" id="admin-nhomquyen">
     <?php include "./server/src/admin/view/Taskbar.php";
     //  echo '<script src="./client/pages/Taskbar.js"></script>'; ?>
     <div class="content">

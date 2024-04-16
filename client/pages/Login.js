@@ -33,13 +33,14 @@ function handleLogin() {
             $('#login-password').focus()
             return
         }
-        if (username !== 'admin' && !validateEmail(username)) {
+        
+        const account = await getAccount(username)
+        if (account.ma_quyen === 'user' && !validateEmail(username)) {
             alert('Email không hợp lệ')
             $('#login-username').focus()
             return
         }
-    
-        const account = await getAccount(username)
+        
         if (!account) {
             alert('Email bạn nhập không kết nối với tài khoản nào')
             return

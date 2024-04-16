@@ -73,6 +73,7 @@ class TaiKhoanController {
             $_SESSION['loggedin'] = true;
             $_SESSION['id'] = $account['ma_tk'];
             $_SESSION['username'] = $username;
+            $_SESSION['ma_quyen'] = $account['ma_quyen'];
 
             echo 'success';
         } else {
@@ -104,64 +105,59 @@ class TaiKhoanController {
         unset($_SESSION['loggedin']);
         unset($_SESSION['id']);
         unset($_SESSION['username']);
+        unset($_SESSION['ma_quyen']);
         exit();
     }
 }
 
 $taiKhoanCTL = new TaiKhoanController();
-// $action = $_POST['action'];
+$action = $_POST['action'];
 
-// switch ($action) {
-//     case 'load':
-//         $taiKhoanCTL->getData();
-//         break;
-//     case 'get-all':
-//         $taiKhoanCTL->getAllAccount();
-//         break;
-//     case 'get':
-//         $accountId = $_POST['accountId'];
-//         $taiKhoanCTL->getAccount($accountId);
-//         break;
-//     case 'add':
-//         $accountId = $_POST['accountId'];
-//         $accessId = $_POST['accessId'];
-//         $username = $_POST['username'];
-//         $password = $_POST['password'];
-//         $account = new TaiKhoan($accountId, $accessId, $username, $password, 0);
+switch ($action) {
+    case 'load':
+        $taiKhoanCTL->getData();
+        break;
+    case 'get-all':
+        $taiKhoanCTL->getAllAccount();
+        break;
+    case 'get':
+        $accountId = $_POST['accountId'];
+        $taiKhoanCTL->getAccount($accountId);
+        break;
+    case 'add':
+        $accountId = $_POST['accountId'];
+        $accessId = $_POST['accessId'];
+        $username = $_POST['username'];
+        $password = $_POST['password'];
+        $account = new TaiKhoan($accountId, $accessId, $username, $password, 0);
 
-//         $taiKhoanCTL->addAccount($account);
-//         break;
-//     case 'update':
-//         $accountId = $_POST['accountId'];
-//         $accessId = $_POST['accessId'];
-//         $username = $_POST['username'];
-//         $password = $_POST['password'];
-//         $account = new TaiKhoan($accountId, $accessId, $username, $password, 0);
+        $taiKhoanCTL->addAccount($account);
+        break;
+    case 'update':
+        $accountId = $_POST['accountId'];
+        $accessId = $_POST['accessId'];
+        $username = $_POST['username'];
+        $password = $_POST['password'];
+        $account = new TaiKhoan($accountId, $accessId, $username, $password, 0);
 
-//         $taiKhoanCTL->updateAccount($account);
-//         break;
-//     case 'delete':
-//         $accountId = $_POST['accountId'];
-//         $taiKhoanCTL->deleteAccount($accountId);
-//         break;
-//     case 'check-exist':
-//         $username = $_POST['username'];
-//         $taiKhoanCTL->checkExistUsername($username);
-//         break;
-//     case 'login':
-//         $username = $_POST['username'];
-//         $password = $_POST['password'];
-//         $taiKhoanCTL->login($username, $password);
-//         break;
-//     case 'logout':
-//         $taiKhoanCTL->logout();
-//         break;
-//     default:
-//         break;
-// }
-
-$url = $taiKhoanCTL->googleLogin();
-
-?>
-
-<a href="<?= $url ?>">Google</a>
+        $taiKhoanCTL->updateAccount($account);
+        break;
+    case 'delete':
+        $accountId = $_POST['accountId'];
+        $taiKhoanCTL->deleteAccount($accountId);
+        break;
+    case 'check-exist':
+        $username = $_POST['username'];
+        $taiKhoanCTL->checkExistUsername($username);
+        break;
+    case 'login':
+        $username = $_POST['username'];
+        $password = $_POST['password'];
+        $taiKhoanCTL->login($username, $password);
+        break;
+    case 'logout':
+        $taiKhoanCTL->logout();
+        break;
+    default:
+        break;
+}

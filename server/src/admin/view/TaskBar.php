@@ -1,5 +1,4 @@
 <?php
-session_start();
 include("server/src/model/ConnectDB.php");                                                                                                                                                                                                               
 include("server/src/model/ChiTietQuyen/ChiTietQuyen.php");
 include("server/src/model/ChiTietQuyen/ChiTietQuyenRepo.php");
@@ -8,7 +7,7 @@ include("server/src/model/ChucNangQuyen/ChucNangQuyenRepo.php");
 $chitietquyen = new ChiTietQuyenRepo();
 $chucnang = new ChucNangQuyenRepo();
 
-$maquyen = "NQ01";
+$maquyen = $_SESSION['ma_quyen'];
 $tmp = $chitietquyen->getChucNang($maquyen);
 $arr = json_decode(json_encode($tmp),true);
 

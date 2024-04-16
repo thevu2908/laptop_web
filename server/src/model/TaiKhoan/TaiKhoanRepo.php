@@ -140,7 +140,7 @@ class TaiKhoanRepo extends ConnectDB {
 
     public function login($username) {
         try {
-            $query = "SELECT ma_tk, username, password FROM taikhoan WHERE username = ?";
+            $query = "SELECT ma_tk, ma_quyen, username, password FROM taikhoan WHERE username = ?";
             $statement = mysqli_prepare($this->conn, $query);
 
             if (!$statement) {
