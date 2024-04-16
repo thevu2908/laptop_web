@@ -161,21 +161,15 @@
 					<option value="sdt">Số Điện Thoại</option>
                     </select>
 					<div class="modal-body">
-						<div class="form-group" id="sdt">
-							<div class="form-group">
-								<label>Số Điện Thoại</label>
-								<input class="form-control" type="text" name="" id="thoigian-sdt">
-							</div>
-						</div>
 						<div class="form-group" id="imei">
-							<label>IMEI(Phía Dưới Đế LapTop)</label>
+							<label>Số Điện Thoại hoặc IMEI(Phía Dưới Đế LapTop)</label>
 							<input type="text" class="form-control" name="" id="thoigian-imei">
 						</div>
 					</div>
 					<div id="ketqua-tracuu" class="modal-body">
                     </div>
 					<div class="modal-footer">
-						<input type="button" class="btn btn-danger" data-dismiss="modal" value="Cancel">
+						<input type="button" class="btn btn-danger" data-dismiss="modal" id="btnCancelTraCuu" value="Cancel">
 						<input type="button" class="btn btn-info" id="btnTraCuuThoiGian" value="Tra cứu">
 					</div>
 				</form>
@@ -256,6 +250,50 @@
 						</div>
 					</div>
 					<div class="modal-footer">
+						<input type="button" class="btn btn-danger" data-dismiss="modal" value="Cancel">
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<!-- LyDo Modal HTML -->
+	<div id="lydobaohanh" class="modal fade">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<form>
+					<div class="modal-header">
+						<h4 class="modal-title">Lý Do Bảo Hành</h4>
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					</div>
+					<div class="modal-body">
+						<div class="form-group">
+							<textarea name="" id="lydoBH" cols="30" rows="10" class="form-control"></textarea>
+						</div>
+					</div>
+					<div class="modal-footer">
+					    <input type="button" class="btn btn-primary" data-dismiss="modal" value="Save" id="save-lydoBH">
+						<input type="button" class="btn btn-danger" data-dismiss="modal" value="Cancel">
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<!-- NoiDung Modal HTML -->
+	<div id="noidungbaohanh" class="modal fade">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<form>
+					<div class="modal-header">
+						<h4 class="modal-title">Nội Dung Bảo Hành</h4>
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					</div>
+					<div class="modal-body">
+						<div class="form-group">
+							<textarea name="" id="noidungBH" cols="30" rows="10" class="form-control"></textarea>
+						</div>
+					</div>
+					<div class="modal-footer">
+					    <input type="button" class="btn btn-primary" data-dismiss="modal" value="Save" id="save-noidungBH">
 						<input type="button" class="btn btn-danger" data-dismiss="modal" value="Cancel">
 					</div>
 				</form>

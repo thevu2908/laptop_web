@@ -24,15 +24,16 @@ class PhieuBaoHanhRepo extends ConnectDB{
     }
     public function tracuuThoiGianBaoHanh($hinhthuc,$data){
         if($hinhthuc=='imei'){
-            $query="SELECT hoadon.ngay_tao,chitiethoadon.ma_imei,sanpham.ten_sp from hoadon join chitiethoadon
+            $query="SELECT hoadon.ma_hd,hoadon.ngay_tao,chitiethoadon.ma_imei,sanpham.ten_sp from hoadon join chitiethoadon
             on hoadon.ma_hd=chitiethoadon.ma_hd join ctsp_imei on ctsp_imei.ma_imei=chitiethoadon.ma_imei
             join chitietsanpham on chitietsanpham.ma_ctsp=ctsp_imei.ma_ctsp
             join sanpham on sanpham.ma_sp=chitietsanpham.ma_sp where chitiethoadon.ma_imei='$data'";
         }else{
-            $query="SELECT hoadon.ngay_tao,chitiethoadon.ma_imei,sanpham.ten_sp from hoadon join chitiethoadon
+            $query="SELECT hoadon.ma_hd,hoadon.ngay_tao,chitiethoadon.ma_imei,sanpham.ten_sp from hoadon join chitiethoadon
             on hoadon.ma_hd=chitiethoadon.ma_hd join ctsp_imei on ctsp_imei.ma_imei=chitiethoadon.ma_imei
             join chitietsanpham on chitietsanpham.ma_ctsp=ctsp_imei.ma_ctsp
-            join sanpham on sanpham.ma_sp=chitietsanpham.ma_sp where chitiethoadon.ma_imei='$data'";
+            join sanpham on sanpham.ma_sp=chitietsanpham.ma_sp join khachhang on khachhang.ma_kh=hoadon.ma_kh
+            where khachhang.so_dien_thoai='$data'";
         }
         $result=mysqli_query($this->conn,$query);
         $arrChiTietPhieuBaoHanh=array();

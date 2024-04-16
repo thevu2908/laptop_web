@@ -26,7 +26,8 @@ function addBaoHanh(){
             console.log("ID:", masanpham);
             console.log("Lý Do Bảo Hành:", lyDoBaoHanh);
             console.log("Nội Dung Bảo Hành:", noiDungBaoHanh);
-            listitemBaoHanh.push({ime:ime,masanpham:masanpham,lyDoBaoHanh:lyDoBaoHanh,noiDungBaoHanh:noiDungBaoHanh})
+            //listitemBaoHanh.push({ime:ime,masanpham:masanpham,lyDoBaoHanh:lyDoBaoHanh,noiDungBaoHanh:noiDungBaoHanh})
+            listitemBaoHanh.push({ime:ime,masanpham:masanpham,lyDoBaoHanh:"Bung Chân Ốc Bản Lề",noiDungBaoHanh:noiDungBaoHanh})
         });
         console.log(maphieubaohanh);
         console.log(mahoadon);
@@ -192,7 +193,7 @@ function loadBaoHanh(){
                 getTenNhanVien(phieubaohanh['ma_kh'],index)
             })
             $("#show-listBaoHanh").html(html);
-            getSizeinTable("phieudoitra","PDT","#admin-maphieudoitra")
+            getSizeinTable("phieubaohanh","BH","#admin-mabaohanh");
             phanquyen_chucnang("Bảo Hành");
             totalPage(data.count);
         }
@@ -217,8 +218,8 @@ $("#tableChiTietHoaDon tbody").on("click", "tr", function(){
                 <th scope="row">1</th>
                 <td scope="row">${ime}</td>
                 <td scope="row">${ID}</td>
-                <td scope="row"><input type="text" class="form-control"></td>
-                <td scope="row"><input type="text" class="form-control"></td>
+                <td scope="row"><input type="text" class="form-control" href="#lydobaohanh" data-toggle="modal"></td>
+                <td scope="row"><input type="text" class="form-control" href="#noidungbaohanh" data-toggle="modal"></td>
                 <td scope="row">${giasanpham}</td>
                 <td data-row="IME1" onclick="removeItem(this)"><i class="material-icons" data-toggle="tooltip" title="Remove">&#xE872;</i></td>
                 </tr>`;
@@ -242,18 +243,28 @@ function tinhNgayBaoHanh(ngaymua){
     return soNgayConLai;
 }
 function kiemtrathoigianbaohanh(){
-    $("#sdt").hide();
-    $("#imei").show();
+    // $("#sdt").hide();
+    // $("#imei").show();
+    // hinhthuctracuu="imei";
+    // $(document).on("change","#admin-select-hinhthuctracuu", function(){
+    //     hinhthuctracuu=$(this).val();
+    //     if(hinhthuctracuu==="imei"){
+    //         $("#sdt").hide()
+    //         $("#imei").show()
+    //     }else{
+    //         $("#sdt").show()
+    //         $("#imei").hide()
+    //     }
+    // })
+    // $(document).on("click","#btnTraCuuThoiGian",function(){
+    //     thoigianbaohanh(hinhthuctracuu,$("#thoigian-imei").val())
+    // })
     hinhthuctracuu="imei";
     $(document).on("change","#admin-select-hinhthuctracuu", function(){
         hinhthuctracuu=$(this).val();
-        if(hinhthuctracuu==="imei"){
-            $("#sdt").hide()
-            $("#imei").show()
-        }else{
-            $("#sdt").show()
-            $("#imei").hide()
-        }
+        $("#ketqua-tracuu").html("");
+        $("#thoigian-imei").val("")
+
     })
     $(document).on("click","#btnTraCuuThoiGian",function(){
         thoigianbaohanh(hinhthuctracuu,$("#thoigian-imei").val())
@@ -269,7 +280,7 @@ function thoigianbaohanh(hinhthuc,data){
             var html="";
             console.log(data);
             data.forEach((item,index)=>{
-                html+=`<p>Ngày Mua:${item['ngay_tao']}<br>Mã IMEI: ${item['ma_imei']}<br>Sản Phẩm: ${item['ten_sp']}<br>Thời Gian Bảo Hành: 12 tháng<br>Thời Gian Bảo Hành Còn Lại: ${tinhNgayBaoHanh(item['ngay_tao'])}</p>`;
+                html+=`<p>Mã Hóa Đơn: ${item['ma_hd']}<br>Ngày Mua:${item['ngay_tao']}<br>Mã IMEI: ${item['ma_imei']}<br>Sản Phẩm: ${item['ten_sp']}<br>Thời Gian Bảo Hành: 12 tháng<br>Thời Gian Bảo Hành Còn Lại: ${tinhNgayBaoHanh(item['ngay_tao'])}</p>`;
             })
             $("#ketqua-tracuu").html(html);
         }
@@ -336,3 +347,7 @@ function clearModal(){
     $("#show-adminBaoHanh").html("");
     $("#admin-showChitiethoadon").html("");
 }
+$(document).on("click","#btnCancelTraCuu",function(){
+    $("#ketqua-tracuu").html("");
+    $("#thoigian-imei").val("")
+})
