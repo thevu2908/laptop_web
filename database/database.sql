@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 15, 2024 at 04:58 AM
+-- Generation Time: Apr 16, 2024 at 04:09 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -1314,6 +1314,14 @@ CREATE TABLE `giohang` (
   `trang_thai` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `giohang`
+--
+
+INSERT INTO `giohang` (`ma_ctsp`, `ma_kh`, `gia_sp`, `so_luong`, `trang_thai`) VALUES
+('CTSP0001', 'KH001', 26239500, 1, 0),
+('CTSP0007', 'KH001', 15214500, 1, 0);
+
 -- --------------------------------------------------------
 
 --
@@ -1367,6 +1375,13 @@ CREATE TABLE `khachhang` (
   `dia_chi` varchar(150) NOT NULL,
   `trang_thai` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `khachhang`
+--
+
+INSERT INTO `khachhang` (`ma_kh`, `ten_kh`, `so_dien_thoai`, `email`, `dia_chi`, `trang_thai`) VALUES
+('KH001', 'test', '0123456789', 'test@gmail.com', 'hcm', 0);
 
 -- --------------------------------------------------------
 
@@ -1659,9 +1674,9 @@ INSERT INTO `sanpham` (`ma_sp`, `ma_thuong_hieu`, `ma_the_loai`, `ma_hdh`, `ten_
 --
 
 CREATE TABLE `taikhoan` (
-  `ma_tk` varchar(20) NOT NULL,
+  `ma_tk` varchar(100) NOT NULL,
   `ma_quyen` varchar(20) NOT NULL,
-  `username` varchar(50) NOT NULL,
+  `username` varchar(100) NOT NULL,
   `password` varchar(50) NOT NULL,
   `otp` int(6) NOT NULL,
   `trang_thai` int(11) NOT NULL
@@ -1673,8 +1688,9 @@ CREATE TABLE `taikhoan` (
 
 INSERT INTO `taikhoan` (`ma_tk`, `ma_quyen`, `username`, `password`, `otp`, `trang_thai`) VALUES
 ('admin', 'NQ01', 'admin', 'admin', 0, 0),
+('hoquoccuong945@gmail', 'user', 'hoquoccuong945@gmail.com', '123', 0, 0),
 ('thevu1073@gmail.com', 'user', 'thevu1073@gmail.com', '123456', 0, 0),
-('vnguyen132az@gmail.c', 'user', 'vnguyen132az@gmail.com', '123456', 0, 0);
+('vnguyen132az@gmail.com', 'user', 'vnguyen132az@gmail.com', '123456', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -1706,7 +1722,7 @@ CREATE TABLE `thongbao` (
   `ma_sp` varchar(20) NOT NULL,
   `ma_kh` varchar(20) NOT NULL,
   `ma_nv` varchar(20) NOT NULL,
-  `ma_tk` varchar(20) NOT NULL,
+  `ma_tk` varchar(100) NOT NULL,
   `ma_hd` varchar(20) NOT NULL,
   `ma_pn` varchar(20) NOT NULL,
   `ma_pdt` varchar(20) NOT NULL,
