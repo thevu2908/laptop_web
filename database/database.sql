@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 16, 2024 at 08:33 AM
+-- Generation Time: Apr 16, 2024 at 10:07 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -288,7 +288,7 @@ CREATE TABLE `chitietphieubaohanh` (
 
 CREATE TABLE `chitietphieudoitra` (
   `ma_pdt` varchar(20) NOT NULL,
-  `ma_ctsp` varchar(20) NOT NULL,
+  `ma_imei` varchar(20) NOT NULL,
   `ly_do` varchar(150) NOT NULL,
   `gia_sp` double NOT NULL,
   `so_luong` int(11) NOT NULL,
@@ -1373,7 +1373,8 @@ CREATE TABLE `khachhang` (
 --
 
 INSERT INTO `khachhang` (`ma_kh`, `ten_kh`, `so_dien_thoai`, `email`, `dia_chi`, `trang_thai`) VALUES
-('KH001', 'test', '0123456789', 'test@gmail.com', 'hcm', 0);
+('KH0001', 'test', '0123456789', 'test@gmail.com', 'hcm', 0),
+('KH0002', 'Thế Vũ', '', 'vnguyen132az@gmail.com', '', 0);
 
 -- --------------------------------------------------------
 
@@ -1484,6 +1485,7 @@ CREATE TABLE `phieubaohanh` (
   `ma_hd` varchar(20) NOT NULL,
   `ngay_bao_hanh` date NOT NULL,
   `ngay_tra` date NOT NULL,
+  `tinh_trang` varchar(100) NOT NULL,
   `trang_thai` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -1680,9 +1682,6 @@ CREATE TABLE `taikhoan` (
 
 INSERT INTO `taikhoan` (`ma_tk`, `ma_quyen`, `username`, `password`, `otp`, `trang_thai`) VALUES
 ('admin', 'NQ01', 'admin', 'admin', 0, 0),
-('hoquoccuong945@gmail', 'user', 'hoquoccuong945@gmail.com', '123', 0, 0),
-('nthevu290803@gmail.com', 'user', 'nthevu290803@gmail.com', '123', 0, 0),
-('thevu1073@gmail.com', 'user', 'thevu1073@gmail.com', '123456', 0, 0),
 ('vnguyen132az@gmail.com', 'user', 'vnguyen132az@gmail.com', '123456', 0, 0);
 
 -- --------------------------------------------------------
@@ -12424,8 +12423,8 @@ ALTER TABLE `chitietphieubaohanh`
 -- Indexes for table `chitietphieudoitra`
 --
 ALTER TABLE `chitietphieudoitra`
-  ADD PRIMARY KEY (`ma_pdt`,`ma_ctsp`),
-  ADD KEY `ctpdt_fk_ctsp` (`ma_ctsp`);
+  ADD PRIMARY KEY (`ma_pdt`,`ma_imei`),
+  ADD KEY `ctpdt_fk_ctsp` (`ma_imei`);
 
 --
 -- Indexes for table `chitietphieunhap`
@@ -12688,7 +12687,7 @@ ALTER TABLE `chitietphieubaohanh`
 -- Constraints for table `chitietphieudoitra`
 --
 ALTER TABLE `chitietphieudoitra`
-  ADD CONSTRAINT `ctpdt_fk_ctsp` FOREIGN KEY (`ma_ctsp`) REFERENCES `chitietsanpham` (`ma_ctsp`),
+  ADD CONSTRAINT `ctpdt_fk_imei` FOREIGN KEY (`ma_imei`) REFERENCES `ctsp_imei` (`ma_imei`),
   ADD CONSTRAINT `ctpdt_fk_pdt` FOREIGN KEY (`ma_pdt`) REFERENCES `phieudoitra` (`ma_pdt`);
 
 --
