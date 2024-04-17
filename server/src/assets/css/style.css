@@ -118,6 +118,28 @@
     position: relative;
 }
 
+.btn-gg-login {
+    background-color: #fff;
+    border: 1px solid rgba(0, 0, 0, .26);
+    border-radius: 2px;
+    box-sizing: border-box;
+    color: rgba(0, 0, 0, .87);
+    font-size: 16px;
+    height: 40px;
+    outline: none;
+    padding: 0 2px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-gg-login div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .login-btn i {
     font-size: 18px;
     margin-top: 2px;

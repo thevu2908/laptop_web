@@ -1,9 +1,8 @@
 <?php
 
-include __DIR__ . '/../model/ConnectDB.php';
+require_once __DIR__ . '/../model/ConnectDB.php';
 include __DIR__ . '/../model/TaiKhoan/Taikhoan.php';
 include __DIR__ . '/../model/TaiKhoan/TaiKhoanRepo.php';
-require_once __DIR__ . '/../../../lib/google/vendor/autoload.php';
 
 class TaiKhoanController {
     private $taiKhoanRepo;
@@ -65,53 +64,34 @@ class TaiKhoanController {
         echo $this->taiKhoanRepo->checkExistUsername($username);
     }
 
+    public function getLoginInfo($username) {
+        return $this->taiKhoanRepo->login($username);
+    }
+
     public function login($username, $password) {
-        $account = $this->taiKhoanRepo->login($username);
+        $account = $this->getLoginInfo($username);
         if ($password === $account['password']) {
             session_start();
-
             $_SESSION['loggedin'] = true;
             $_SESSION['id'] = $account['ma_tk'];
+            $_SESSION['customerId'] = $account['ma_kh'];
             $_SESSION['username'] = $username;
-            $_SESSION['ma_quyen'] = $account['ma_quyen'];
-
+            $_SESSION['accessId'] = $account['ma_quyen'];
             echo 'success';
         } else {
             echo 'fail';
         }
     }
 
-    private function clientGoogle() {
-        $client_id = '78974785377-k43qqdovtiluh2r1edmt9eu0bb47qfpj.apps.googleusercontent.com';
-        $client_secret = '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';
-        $redirect_uri = 'http://localhost:3000/index.php';
-        $client = new Google_Client();
-        $client->setClientId($client_id);
-        $client->setClientSecret($client_secret);
-        $client->setRedirectUri($redirect_uri);
-        $client->addScope('email');
-        $client->addScope('profile');
-        return $client;
-    }
-
-    public function googleLogin() {
-        $client = $this->clientGoogle();
-        $url = $client->createAuthUrl();
-        return $url;
-    }
-
     public function logout() {
         session_start();
-        unset($_SESSION['loggedin']);
-        unset($_SESSION['id']);
-        unset($_SESSION['username']);
-        unset($_SESSION['ma_quyen']);
+        session_destroy();
         exit();
     }
 }
 
 $taiKhoanCTL = new TaiKhoanController();
-$action = $_POST['action'];
+$action = isset($_REQUEST['action']) ? $_REQUEST['action'] : '';
 
 switch ($action) {
     case 'load':
@@ -130,7 +110,6 @@ switch ($action) {
         $username = $_POST['username'];
         $password = $_POST['password'];
         $account = new TaiKhoan($accountId, $accessId, $username, $password, 0);
-
         $taiKhoanCTL->addAccount($account);
         break;
     case 'update':
@@ -139,7 +118,6 @@ switch ($action) {
         $username = $_POST['username'];
         $password = $_POST['password'];
         $account = new TaiKhoan($accountId, $accessId, $username, $password, 0);
-
         $taiKhoanCTL->updateAccount($account);
         break;
     case 'delete':

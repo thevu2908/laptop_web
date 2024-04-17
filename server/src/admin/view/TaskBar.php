@@ -7,7 +7,7 @@ include("server/src/model/ChucNangQuyen/ChucNangQuyenRepo.php");
 $chitietquyen = new ChiTietQuyenRepo();
 $chucnang = new ChucNangQuyenRepo();
 
-$maquyen = $_SESSION['ma_quyen'];
+$maquyen = $_SESSION['accessId'];
 $tmp = $chitietquyen->getChucNang($maquyen);
 $arr = json_decode(json_encode($tmp),true);
 

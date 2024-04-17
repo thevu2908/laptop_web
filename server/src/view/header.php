@@ -3,6 +3,10 @@ session_start();
 $username = '';
 if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
     $username = isset($_SESSION['username']) ? $_SESSION['username'] : 'unknown';
+    $access = isset($_SESSION['accessId']) ? $_SESSION['accessId'] : '';
+    if ($access !== 'user') {
+        header('Location: admin.php');
+    }
 }
 ?>
 
@@ -59,7 +63,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
                         <div class='header-account'>
                             <span class='header-username'>$username</span>
                             <div class='header__account-menu'>
-                                <a href='index.html?thong-tin-tai-khoan' class='header__account-link'>Tài khoản</a>
+                                <a href='index.html?thong-tin-tai-khoan' class='header__account-link'>Thông tin cá nhân</a>
                                 <a href='index.html?don-hang' class='header__account-link'>Đơn hàng đã đặt</a>
                                 <a href='index.html?tra-cuu-bao-hanh' class='header__account-link'>Tra cứu bảo hành</a>
                                 <a href='index.html?doi-tra' class='header__account-link'>Tra cứu đổi trả</a>

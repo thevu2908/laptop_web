@@ -3,8 +3,8 @@ session_start();
 $username = '';
 if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
   $ma_tk = isset($_SESSION['id']) ? $_SESSION['id'] : '';
-  $username = isset($_SESSION['username']) ? $_SESSION['username'] : '';
-  $ma_quyen = isset($_SESSION['ma_quyen']) ? $_SESSION['ma_quyen'] : '';
+  $username = isset($_SESSION['username']) ? $_SESSION['username'] : 'unknown';
+  $ma_quyen = isset($_SESSION['accessId']) ? $_SESSION['accessId'] : '';
 }
 ?>
 

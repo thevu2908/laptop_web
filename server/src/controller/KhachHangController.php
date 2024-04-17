@@ -1,6 +1,6 @@
 <?php
 
-include __DIR__ . '/../model/ConnectDB.php';
+require_once __DIR__ . '/../model/ConnectDB.php';
 include __DIR__ . '/../model/KhachHang/KhachHang.php';
 include __DIR__ . '/../model/KhachHang/KhachHangRepo.php';
 
@@ -44,16 +44,20 @@ class KhachHangController {
     }
 
     public function addKhachHang($customer) {
-        if($this->khachHangRepo->addKhachHang($customer)) {
+        if ($this->khachHangRepo->addKhachHang($customer)) {
             echo 'success';
         } else {
             echo 'fail';
         }
     }
+
+    public function getKhachHang($id) {
+        return $this->khachHangRepo->getKhachHang($id);
+    }
 }
 
 $khachHangCtl = new KhachHangController();
-$action = $_POST["action"];
+$action = isset($_POST["action"]) ? $_POST["action"] : '';
 
 switch($action) {
     case 'add':
@@ -68,6 +72,10 @@ switch($action) {
             $customer = new KhachHang($id, $name, $phone, $email, $address, 0);
             $khachHangCtl->addKhachHang($customer);
         }
+        break;
+    case 'get-customer':
+        $id = $_POST['id'];
+        echo json_encode($khachHangCtl->getKhachHang($id));
         break;
     case 'get-province':
         $khachHangCtl->getProvince();

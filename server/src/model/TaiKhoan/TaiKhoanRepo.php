@@ -140,14 +140,20 @@ class TaiKhoanRepo extends ConnectDB {
 
     public function login($username) {
         try {
-            $query = "SELECT ma_tk, ma_quyen, username, password FROM taikhoan WHERE username = ?";
+            $query = "
+                SELECT * FROM khachhang kh LEFT JOIN taikhoan tk ON kh.email = tk.ma_tk 
+                WHERE kh.email = ? OR tk.username = ? AND kh.trang_thai = 0 AND tk.trang_thai = 0
+                UNION
+                SELECT * FROM nhanvien nv JOIN taikhoan tk ON nv.ma_nv = tk.ma_tk 
+                WHERE nv.ma_nv = ? OR tk.username = ? AND nv.trang_thai = 0 AND tk.trang_thai = 0
+            ";
             $statement = mysqli_prepare($this->conn, $query);
 
             if (!$statement) {
                 throw new Exception("Statement preparation failed: " . mysqli_error($this->conn));
             }
 
-            mysqli_stmt_bind_param($statement, 's', $username);
+            mysqli_stmt_bind_param($statement, 'ssss', $username, $username, $username, $username);
             mysqli_stmt_execute($statement);
 
             $result = mysqli_stmt_get_result($statement);
