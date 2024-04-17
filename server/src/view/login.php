@@ -22,8 +22,8 @@
                                 <label class="form-label" for="login-password">Mật khẩu</label>
                                 <input type="password" id="login-password" name="login-password" class="form-control form-control-lg login-password" />
                                 <span class="showhide-pwd-icon">
-                                    <i class="fa-regular fa-eye open"></i>
-                                    <i class="fa-regular fa-eye-slash"></i>
+                                    <i class="fa-regular fa-eye-slash open"></i>
+                                    <i class="fa-regular fa-eye"></i>
                                 </span>
                             </div>
                         </div>

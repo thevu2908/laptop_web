@@ -20,12 +20,12 @@ if (showhidePassword) {
 
         if (passwordElement.type === 'password') {
             passwordElement.type = 'text'
-            passwordIcon.classList.remove('open')
-            hidePasswordIcon.classList.add('open')
-        } else {
-            passwordElement.type = 'password'
             passwordIcon.classList.add('open')
             hidePasswordIcon.classList.remove('open')
+        } else {
+            passwordElement.type = 'password'
+            passwordIcon.classList.remove('open')
+            hidePasswordIcon.classList.add('open')
         }
 
         passwordElement.focus()
