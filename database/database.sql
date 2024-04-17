@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 16, 2024 at 10:07 AM
+-- Generation Time: Apr 17, 2024 at 04:26 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -1373,8 +1373,8 @@ CREATE TABLE `khachhang` (
 --
 
 INSERT INTO `khachhang` (`ma_kh`, `ten_kh`, `so_dien_thoai`, `email`, `dia_chi`, `trang_thai`) VALUES
-('KH0001', 'test', '0123456789', 'test@gmail.com', 'hcm', 0),
-('KH0002', 'Thế Vũ', '', 'vnguyen132az@gmail.com', '', 0);
+('KH0002', 'Thế Vũ', '', 'vnguyen132az@gmail.com', '', 0),
+('KH0003', 'Vu', '', 'thevu1073@gmail.com', '', 0);
 
 -- --------------------------------------------------------
 
@@ -1446,6 +1446,13 @@ CREATE TABLE `nhanvien` (
   `hinh_anh` varchar(200) NOT NULL,
   `trang_thai` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `nhanvien`
+--
+
+INSERT INTO `nhanvien` (`ma_nv`, `ten_nv`, `tuoi`, `so_dien_thoai`, `hinh_anh`, `trang_thai`) VALUES
+('admin', 'admin', 0, '', '', 0);
 
 -- --------------------------------------------------------
 
