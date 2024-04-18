@@ -86,9 +86,7 @@ class KhachHangRepo extends ConnectDB {
             $email = $khachhang->getEmail();
             $dia_chi = $khachhang->getDiaChi();
     
-            $sql = "UPDATE khachhang SET ten_kh='$ten_kh', so_dien_thoai='$so_dien_thoai', 
-                    email='$email', dia_chi='$dia_chi'
-                    WHERE ma_kh='$ma_kh'";
+            $sql = "UPDATE khachhang SET ten_kh='$ten_kh', so_dien_thoai='$so_dien_thoai', email='$email', dia_chi='$dia_chi' WHERE ma_kh='$ma_kh'";
             $result = mysqli_query($this->conn, $sql);
             if ($result) {
                 return true;

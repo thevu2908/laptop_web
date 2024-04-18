@@ -134,8 +134,9 @@ function signUp(email) {
         NProgress.start()
         try {
             const addAccountRes = await addAccount(email, 'user', email, password)
-            const addCustomerRes = await addCustomer(name, '', email, '')
-            if (addAccountRes && addCustomerRes) {
+            const customer = await getCustomer(email)
+            const customerRes = !customer ? await addCustomer(name, '', email, '') : await updateCustomer(customer.ma_kh, name, '', email, '')
+            if (addAccountRes && customerRes) {
                 const sinupSuccess = await fetch('server/src/view/signup-success.php')
                 const sinupSuccessHtml = await sinupSuccess.text()
                 const loginRes = await login(email, password)

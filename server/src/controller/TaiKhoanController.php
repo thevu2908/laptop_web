@@ -75,7 +75,7 @@ class TaiKhoanController {
             $_SESSION['loggedin'] = true;
             $_SESSION['id'] = $account['ma_tk'];
             $_SESSION['customerId'] = $account['ma_kh'];
-            $_SESSION['username'] = $username;
+            $_SESSION['username'] = $account['ten_kh'];
             $_SESSION['accessId'] = $account['ma_quyen'];
             echo 'success';
         } else {
