@@ -117,10 +117,22 @@
             <div class="col-6">
                 <form class="contact-form">
                     <div class="contact-form-inputs">
-                        <input type="text" class="contact-form-input" id="customer-name" placeholder="Nhập họ tên của bạn">
-                        <input type="text" class="contact-form-input" id="customer-email" placeholder="Nhập email của bạn">
-                        <input type="text" class="contact-form-input" id="customer-phone" placeholder="Nhập số điện thoại của bạn">
-                        <textarea class="contact-message contact-form-input" id="customer-feedback" placeholder="Nhập lời nhắn"></textarea>
+                        <div>
+                            <input type="text" class="contact-form-input form-control" id="customer-name" placeholder="Nhập họ tên của bạn">
+                            <div id="name-error" class="invalid-feedback" style="color: #000; font-weight: 600;">Vui lòng nhập họ tên</div>
+                        </div>
+                        <div>
+                            <input type="email" class="contact-form-input form-control" id="customer-email" placeholder="Nhập email của bạn">
+                            <div id="email-error" class="invalid-feedback" style="color: #000; font-weight: 600;">Vui lòng nhập email</div>
+                        </div>
+                        <div>
+                            <input type="tel" class="contact-form-input form-control" id="customer-phone" placeholder="Nhập số điện thoại của bạn">
+                            <div id="phone-error" class="invalid-feedback" style="color: #000; font-weight: 600;">Vui lòng nhập số điện thoại</div>
+                        </div>
+                        <div>
+                            <textarea class="contact-message contact-form-input form-control" id="customer-feedback" placeholder="Nhập lời nhắn"></textarea>
+                            <div id="feedback-error" class="invalid-feedback" style="color: #000; font-weight: 600;">Vui lòng để lại lời nhắn</div>
+                        </div>
                     </div>
                     <input type="submit" class="btn btn-send-feedback" value="Gửi phản hồi">
                 </form>

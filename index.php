@@ -79,6 +79,7 @@
             echo '<script src="./client/pages/SanPham.js"></script>';
             echo '<script src="./client/pages/ChiTietSanPham.js"></script>';
             echo '<script src="./client/pages/ChiTietCongKetNoi.js"></script>';
+            echo '<script src="./client/pages/FeedBack.js"></script>';
         }
         ?>
     </div>
