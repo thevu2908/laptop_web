@@ -1,9 +1,13 @@
 $(document).ready(() => {
-    maKH = getMaKH()
-    loadCart(maKH)
-    loadCartNumber(maKH)
+    loadCart()
+    loadCartNumber()
     handleAddCart()
 })
+
+async function getMaKH() {
+    const loginSession = await getLoginSession()
+    return loginSession ? loginSession.customerId : ''
+}
 
 function getFullInfoProduct(maCTSP) {
     return new Promise((resolve, reject) => {
@@ -21,11 +25,12 @@ function getFullInfoProduct(maCTSP) {
     })
 }
 
-function loadCartNumber(maKH) {
+async function loadCartNumber() {
+    const maKH = await getMaKH()
     $.ajax({
         url: 'server/src/controller/GioHangController.php',
         method: 'POST',
-        data: { action: 'get-size' , maKH},
+        data: { action: 'get-size' , maKH },
         dataType: "JSON",
         success: size => {
             $('.cart__footer-text').text(`Tổng tiền (${size}) sản phẩm: `)
@@ -37,11 +42,12 @@ function loadCartNumber(maKH) {
     })
 }
 
-function loadCart(maKH) {
+async function loadCart() {
+    const maKH = await getMaKH()
     $.ajax({
         url: 'server/src/controller/GioHangController.php',
         method: 'POST',
-        data: { action: 'get-all' , maKH},
+        data: { action: 'get-all' , maKH },
         dataType: 'JSON',
         success: carts => {
             if (carts && carts.length > 0) {
@@ -95,10 +101,6 @@ function loadCart(maKH) {
     })
 }
 
-function getMaKH() {
-    return 'KH001'
-}
-
 function getCart(productDetailId, customerId) {
     return new Promise((resolve, reject) => {
         $.ajax({
@@ -132,25 +134,26 @@ function addCart(cart) {
 function handleAddCart() {
     $(document).on('click', '.btn-add-cart', async e => {
         e.preventDefault();
-        
-        const productId = e.target.closest('.btn-add-cart').dataset.id;
-        const ram = $('span.product-detail-info.ram').contents().filter(function() {
-            return this.nodeType === 3
-        }).text().trim()
-        const rom = $('span.product-detail-info.rom').contents().filter(function() {
-            return this.nodeType === 3
-        }).text().replace('SSD', '').trim()
-        const color = $('.product-color-item.active').data('id')
-        
+    
         try {
-            const ctspId = await getProductDetailId(productId, color, ram, rom)
+            const loginSession = await getLoginSession()
+            if (!loginSession) {
+                alert('Vui lòng đăng nhập để tiếp tục')
+                window.location.href = 'index.php?dang-nhap'
+                return
+            }
+
+            const productId = e.target.closest('.btn-add-cart').dataset.id;
+            const ram = $('span.product-detail-info.ram').contents().filter(function() { return this.nodeType === 3 }).text().trim()
+            const rom = $('span.product-detail-info.rom').contents().filter(function() { return this.nodeType === 3 }).text().replace('SSD', '').trim()
+            const color = $('.product-color-item.active').data('id')
+            const productDetailId = await getProductDetailId(productId, color, ram, rom)
             const cart = {
-                productDetailId: ctspId,
-                customerId: 'KH001',
+                productDetailId,
+                customerId: loginSession.customerId,
                 price: $('.product-info-right .product-price').contents().first().text().trim().replace(/[₫.]/g, ""),
                 quantity: $('.product-info-right .product-bought-quantity').val().trim(),
             }
-            
             const getCartRes = await getCart(cart.productDetailId, cart.customerId)
             const objectData = JSON.parse(getCartRes)
 

@@ -68,13 +68,10 @@ class GioHangRepo extends ConnectDB {
 
     function getSizeGioHang($ma_kh): int {
         try {
-            $sql = "SELECT SUM(IFNULL(so_luong, 0)) AS total_quantity FROM giohang WHERE ma_kh='$ma_kh'";
+            $sql = "SELECT COUNT(*) AS total_quantity FROM giohang WHERE ma_kh='$ma_kh'";
             $statement = mysqli_query($this->conn, $sql);
-            $result = mysqli_fetch_assoc($statement);
-    
-            $totalQuantity = $result['total_quantity'] === null ? -1 : (int) $result['total_quantity'];
-    
-            return $totalQuantity;
+            $result = mysqli_fetch_assoc($statement);    
+            return $result['total_quantity'];
         } catch (Exception $e) {
             echo 'Error: ' . $e->getMessage() . '<br>';
             return -1;

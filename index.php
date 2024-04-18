@@ -93,6 +93,7 @@
     <script src="./client/plugins/pagination.js"></script>
     <script src="./client/plugins/validation.js"></script>
     <script src="./client/plugins/SendOTP.js"></script>
+    <script src="./client/plugins/getSession.js"></script>
     <script src="./client/utils/general.js"></script>
     <script src="./client/utils/formatCurrency.js"></script>
     <script src="./client/utils/formatPromotion.js"></script>
