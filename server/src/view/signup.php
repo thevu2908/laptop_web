@@ -1,4 +1,4 @@
-<section class="vh-100 sign-up-main">
+<section class="sign-up-main">
     <div class="py-3 h-100">
         <div class="shadow-bottom">
             <div class="container login-header">
@@ -72,7 +72,7 @@
                 <div class="verify-step-list">
                     <div class="verify-step-item active">
                         <div class="verify-step-number">1</div>
-                        <p class="verify-step-text">Xác minh số điện thoại</p>
+                        <p class="verify-step-text">Xác minh email</p>
                     </div>
                     <div class="verify-step-line"></div>
                     <div class="verify-step-item">
