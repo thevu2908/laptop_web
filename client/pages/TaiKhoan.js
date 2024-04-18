@@ -1,5 +1,6 @@
 $(document).ready(() => {
-    if (window.location.pathname === '/admin.php') {
+    const urlParams = new URLSearchParams(window.location.search)
+    if (window.location.pathname === '/admin.php' && urlParams.get('controller') === 'taikhoan') {
         renderAccountData()
         clickPage(renderAccountData)
         handleAddAccount()
