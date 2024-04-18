@@ -27,7 +27,7 @@ function inputEmail() {
             $('.sign-up__email').focus()
             return
         }
-        if (!validateEmail(email)) {
+        if (!isValidEmail(email)) {
             alert('Email không hợp lệ')
             $('.sign-up__email').focus()
             return

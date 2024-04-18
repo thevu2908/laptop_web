@@ -37,7 +37,7 @@ function handleLogin() {
 
         try {
             const account = await getAccount(username)
-            if (account.ma_quyen === 'user' && !validateEmail(username)) {
+            if (account.ma_quyen === 'user' && !isValidEmail(username)) {
                 alert('Email không hợp lệ')
                 $('#login-username').focus()
                 return
