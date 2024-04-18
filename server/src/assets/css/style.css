@@ -823,14 +823,8 @@ ul, li {
     color: var(--primary-color);
 }
 
-#main-footer {
-    margin-top: 48px;
-    padding-top: 3.5rem;
-    display: none;
-}
-
 .verify-container {
-    display: none;
+    display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -838,6 +832,10 @@ ul, li {
     min-height: 600px;
     width: 1040px;
     font-family: Helvetica Neue, Helvetica, Arial;
+}
+
+.sign-up-main .verify-container {
+    display: none;
 }
 
 .verify-box {
@@ -994,11 +992,13 @@ ul, li {
     font-size: 14px;
 }
 
+.create-password-email-box,
 .verify-otp-email-box {
     display: flex;
     margin-top: 8px;
 }
 
+.create-password-email,
 .verify-otp-email {
     font-size: 1rem;
     font-weight: 500;
@@ -1092,6 +1092,7 @@ ul, li {
     cursor: pointer;
 }
 
+.btn-reset-password,
 .btn-to-create-pwd,
 .btn-signup,
 .btn-back-homepage {
@@ -1120,6 +1121,7 @@ ul, li {
     margin: 50px 0 10px;
 }
 
+.reset-password,
 .signup-password {
     font-size: 16px;
 }
@@ -1128,6 +1130,7 @@ ul, li {
     font-size: 14px;
 }
 
+.reset-password::placeholder,
 .signup-password::placeholder {
     font-size: 14px;
 }
@@ -1184,6 +1187,70 @@ ul, li {
     display: flex;
     justify-content: center;
     position: relative;
+}
+
+.forgot-password-main .email-input-container {
+    padding: 0 80px 64px;
+    overflow: hidden;
+}
+
+.email-input-container .email-input-box {
+    margin: 20px auto 5px;
+    box-shadow: 0 0 4px rgba(0,0,0,.14);
+    border: 1px solid rgba(0, 0, 0, .14);
+    border-radius: 2px;
+    box-shadow: inset 0 2px 0 rgba(0,0,0,.02);
+    box-sizing: border-box;
+    height: 2.5rem;
+    overflow: hidden;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.email-input-box:focus-within {
+    border-color: rgba(0, 0, 0, .54);
+}
+
+.email-input-box.error {
+    background: #fff6f7;
+    border-color: #ff424f;
+}
+
+.email-input-box input {
+    border: 0;
+    filter: none;
+    flex: 1;
+    flex-shrink: 0;
+    outline: none;
+    padding: .75rem;
+}
+
+.email-input-box input::placeholder {
+    font-size: 14px;
+}
+
+.forgot-password-main .btn-verify-otp {
+    margin-top: 12px;
+    font-size: 14px;
+    width: 100%;
+    box-shadow: 0 1px 1px rgba(0,0,0,.09);
+    color: #fff;
+    background-color: var(--primary-color);
+    text-transform: uppercase;
+    height: 2.5rem;
+    min-width: 8.75rem;
+    border: 0;
+    border-radius: .125rem;
+    outline: none;
+    padding: 0 .625rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.forgot-password-main .btn-verify-otp:hover:not([disabled]) {
+    opacity: 0.9;
 }
 
 .search-container {

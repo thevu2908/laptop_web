@@ -31,6 +31,11 @@ ul {
     padding: 0;
 }
 
+button.disabled {
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
 .divider:after,
 .divider:before {
     content: "";

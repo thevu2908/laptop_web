@@ -52,6 +52,14 @@ class TaiKhoanController {
         }
     }
 
+    public function updatePassword($id, $password) {
+        if ($this->taiKhoanRepo->updatePassword($id, $password)) {
+            echo 'success';
+        } else {
+            echo 'fail';
+        }
+    }
+
     public function deleteAccount($accountId) {
         if ($this->taiKhoanRepo->deleteAccount($accountId)) {
             echo 'success';
@@ -119,6 +127,11 @@ switch ($action) {
         $password = $_POST['password'];
         $account = new TaiKhoan($accountId, $accessId, $username, $password, 0);
         $taiKhoanCTL->updateAccount($account);
+        break;
+    case 'update-password':
+        $id = $_POST['id'];
+        $password = $_POST['password'];
+        $taiKhoanCTL->updatePassword($id, $password);
         break;
     case 'delete':
         $accountId = $_POST['accountId'];

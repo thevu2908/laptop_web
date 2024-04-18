@@ -177,11 +177,22 @@ function getAccount(accountId) {
     })
 }
 
+function updatePassword(id, password) {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: 'server/src/controller/TaiKhoanController.php',
+            method: 'POST',
+            data: { action: 'update-password', id, password },
+            success: res => res === 'success' ? resolve(true) : resolve(false),
+            error: (xhr, status, error) => reject(error)
+        })
+    })
+}
+
 function showUpdateAccountModal() {
     $(document).on('click', '.btn-update-account-modal', async e => {
         const accountId = e.target.closest('.btn-update-account-modal').dataset.id
         const account = await getAccount(accountId)
-        console.log(account)
         if (account) {
             $('#admin-account-id-edit').val(account.ma_tk)
             $('#admin-account-access-edit').val(account.ma_quyen)

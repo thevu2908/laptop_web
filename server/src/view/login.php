@@ -28,7 +28,7 @@
                             </div>
                         </div>
                         <div class="d-flex justify-content-end align-items-center mb-4">
-                            <a href="#!">Quên mật khẩu?</a>
+                            <a href="index.php?quen-mat-khau">Quên mật khẩu?</a>
                         </div>
                         <button type="button" class="btn btn-primary btn-lg btn-block btn-login" class="btn-login">Đăng nhập</button>
 
