@@ -2,6 +2,8 @@ function totalPage(count, perPage = 8) {
     let total = count
     let totalpages = Math.ceil(parseInt(total) / perPage)
     const currentpage = $("#currentpage").val()
+    // $("#cur").val(currentpage)
+    // $("#total").val(totalpages)
     pagination(totalpages, currentpage)
 }
 
@@ -21,8 +23,6 @@ function pagination(totalpages, currentpage) {
         pagelist += `</ul>`
     }
     $("#pagination").html(pagelist)
-    $("#cur").val(currentpage)
-    $("#total").val(totalpages)
 }
 
 function clickPage(func) {

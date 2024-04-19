@@ -45,7 +45,7 @@ function addBaoHanh(){
         }else if(listitemBaoHanh.length===0){
             alert("Vui lòng chọn sản phẩm cần bảo hành");
         }else{
-            addPhieuBaoHanh(maphieubaohanh,mahoadon,makhachhang,manhanvien,tinhtrangbaohanh)
+            //addPhieuBaoHanh(maphieubaohanh,mahoadon,makhachhang,manhanvien,tinhtrangbaohanh)
         }
     
     })
@@ -219,8 +219,8 @@ $("#tableChiTietHoaDon tbody").on("click", "tr", function(){
                 <th scope="row">1</th>
                 <td scope="row">${ime}</td>
                 <td scope="row">${ID}</td>
-                <td scope="row"><input type="text" class="form-control" href="#lydobaohanh" data-toggle="modal"></td>
-                <td scope="row"><input type="text" class="form-control" href="#noidungbaohanh" data-toggle="modal"></td>
+                <td scope="row"><input type="text" class="form-control" href="#lydobaohanh" onclick="SaveLyDo(this)" data-toggle="modal"></td>
+                <td scope="row"><input type="text" class="form-control" href="#noidungbaohanh" onclick="SaveNoiDung(this)" data-toggle="modal"></td>
                 <td scope="row">${giasanpham}</td>
                 <td data-row="IME1" onclick="removeItem(this)"><i class="material-icons" data-toggle="tooltip" title="Remove">&#xE872;</i></td>
                 </tr>`;
@@ -244,22 +244,6 @@ function tinhNgayBaoHanh(ngaymua){
     return soNgayConLai;
 }
 function kiemtrathoigianbaohanh(){
-    // $("#sdt").hide();
-    // $("#imei").show();
-    // hinhthuctracuu="imei";
-    // $(document).on("change","#admin-select-hinhthuctracuu", function(){
-    //     hinhthuctracuu=$(this).val();
-    //     if(hinhthuctracuu==="imei"){
-    //         $("#sdt").hide()
-    //         $("#imei").show()
-    //     }else{
-    //         $("#sdt").show()
-    //         $("#imei").hide()
-    //     }
-    // })
-    // $(document).on("click","#btnTraCuuThoiGian",function(){
-    //     thoigianbaohanh(hinhthuctracuu,$("#thoigian-imei").val())
-    // })
     hinhthuctracuu="imei";
     $(document).on("change","#admin-select-hinhthuctracuu", function(){
         hinhthuctracuu=$(this).val();
@@ -352,3 +336,15 @@ $(document).on("click","#btnCancelTraCuu",function(){
     $("#ketqua-tracuu").html("");
     $("#thoigian-imei").val("")
 })
+function SaveLyDo(obj){
+    console.log(obj.value)
+    $(document).on("click","#save-lydoBH",function(){
+        obj.value = $("#lydoBH").val();
+    })
+}
+function SaveNoiDung(obj){
+    console.log(obj.value)
+    $(document).on("click","#save-noidungBH",function(){
+        obj.value = $("#noidungBH").val();
+    })
+}

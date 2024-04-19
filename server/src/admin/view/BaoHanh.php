@@ -51,7 +51,7 @@
 	</div>
 	<!-- Add Modal HTML -->
 	<div id="addBaoHanh" class="modal fade">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <form>
                 <div class="modal-header">

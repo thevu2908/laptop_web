@@ -1,6 +1,9 @@
 $(document).ready(() => {
-    renderEmployeeData()
-    renderEmployeeAccountData()
+    const urlParams = new URLSearchParams(window.location.search)
+    if (window.location.pathname === '/admin.php' && urlParams.get('controller') === 'nhanvien'){
+        renderEmployeeData()
+        renderEmployeeAccountData()
+    }
 })
 
 function getEmployeeData() {
@@ -52,6 +55,7 @@ async function renderEmployeeData() {
                 </tr>
             `
         })
+        phanquyen_chucnang("Nhân Viên")
         $('.admin-employee-list').html(html)
         
     }

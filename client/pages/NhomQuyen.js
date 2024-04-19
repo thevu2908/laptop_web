@@ -1,23 +1,17 @@
 
 $(document).ready(function () {
-    loadNhomQuyen();
-    clickPage(loadNhomQuyen);
-    loadNhomQuyenDataAccount()
-    $(document).on("click", "ul.pagination li a", function (e) {
-        e.preventDefault();
-        var $this = $(this);
-        const pagenum = $this.data("page");
-        $("#currentpage").val(pagenum);
+    const urlParams = new URLSearchParams(window.location.search)
+    if (window.location.pathname === '/admin.php' && urlParams.get('controller') === 'nhomquyen') {
         loadNhomQuyen();
-        $this.parent().siblings().removeClass("active");
-        $this.parent().addClass("active");
-    });
-    addNhomQuyen();
-    deleteNhomQuyen();
-    updateNhomQuyen();
-    getNhomQuyen();
-    // searchNhomQuyen();
-    detailNhomQuyen();
+        clickPage(loadNhomQuyen);
+        loadNhomQuyenDataAccount()
+        addNhomQuyen();
+        deleteNhomQuyen();
+        updateNhomQuyen();
+        getNhomQuyen();
+        // searchNhomQuyen();
+        detailNhomQuyen();
+    }
 })
 function addNhomQuyen() {
     getSizeinTable("nhomquyen","NQ","#ma_quyen")
