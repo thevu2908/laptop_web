@@ -4,21 +4,6 @@ $(document).ready(() => {
     resendEmailOtp()
 })
 
-function sendEmailOtp(email) {
-    return new Promise((resolve, reject) => {
-        $.ajax({
-            url: 'server/src/controller/SignUpController.php',
-            method: 'POST',
-            data: { action: 'send-otp', email },
-            success: otp => resolve(otp),
-            error: (xhr, status, error) => {
-                console.log(error)
-                reject(error)
-            }
-        })
-    })
-}
-
 function inputEmail() {
     $('.btn-continue-verify').on('click', async () => {
         const email = $('.sign-up__email').val()
@@ -27,7 +12,7 @@ function inputEmail() {
             $('.sign-up__email').focus()
             return
         }
-        if (!validateEmail(email)) {
+        if (!isValidEmail(email)) {
             alert('Email không hợp lệ')
             $('.sign-up__email').focus()
             return
@@ -107,8 +92,15 @@ function resendEmailOtp() {
 
 function signUp(email) {
     $('.btn-signup').off('click').on('click', async () => {
+        const name = $('#signup-user-name').val()
         const password = $('#signup-password').val()
         const confirmPassword = $('#signup-confirm-password').val()
+
+        if (!name) {
+            alert('Vui lòng nhập họ tên')
+            $('#signup-user-name').focus()
+            return
+        }
         if (!password) {
             alert('Vui lòng nhập mật khẩu')
             $('#signup-password').focus()
@@ -126,15 +118,22 @@ function signUp(email) {
 
         NProgress.start()
         try {
-            const res = await addAccount(email, 'user', email, password)
-            if (res) {
+            const addAccountRes = await addAccount(email, 'user', email, password)
+            const customer = await getCustomer(email)
+            const customerRes = !customer ? await addCustomer(name, '', email, '') : await updateCustomer(customer.ma_kh, name, '', email, '')
+            if (addAccountRes && customerRes) {
                 const sinupSuccess = await fetch('server/src/view/signup-success.php')
                 const sinupSuccessHtml = await sinupSuccess.text()
-                $('.verify-step-line:eq(1)').addClass('active')
-                $('.verify-step-item:eq(2) ').addClass('active')
-                $('.verify-container .verify-content').html(sinupSuccessHtml)
-                $('.signup-success-email').text(email)
-                countDownBackHomePage()
+                const loginRes = await login(email, password)
+                if (loginRes) {
+                    $('.verify-step-line:eq(1)').addClass('active')
+                    $('.verify-step-item:eq(2) ').addClass('active')
+                    $('.verify-container .verify-content').html(sinupSuccessHtml)
+                    $('.signup-success-email').text(email)
+                    countDownBackHomePage()
+                }
+            } else {
+                alert('Đã xảy ra lỗi')
             }
         } catch (error) {
             console.error(error)

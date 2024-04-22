@@ -1,6 +1,6 @@
 <?php
 
-include __DIR__ . '/../model/ConnectDB.php';
+require_once __DIR__ . '/../model/ConnectDB.php';
 include __DIR__ . '/../model/KhachHang/KhachHang.php';
 include __DIR__ . '/../model/KhachHang/KhachHangRepo.php';
 
@@ -24,6 +24,14 @@ class KhachHangController {
         echo json_encode($result);
     }
 
+    public function getKhachhangLength() : int {
+        return $this->khachHangRepo->getKhachhangLength();
+    }
+    
+    public function getKhachHang($id) {
+        return $this->khachHangRepo->getKhachHang($id);
+    }
+
     public function getProvince() {
         echo json_encode($this->khachHangRepo->getProvince());
     }
@@ -38,12 +46,54 @@ class KhachHangController {
 
         echo json_encode($this->khachHangRepo->getWard($district_id));
     }
+
+    public function addKhachHang($customer) {
+        if ($this->khachHangRepo->addKhachHang($customer)) {
+            echo 'success';
+        } else {
+            echo 'fail';
+        }
+    }
+
+    public function updateKhachHang($customer) {
+        if ($this->khachHangRepo->updateKhachHang($customer)) {
+            echo 'success';
+        } else {
+            echo 'fail';
+        }
+    }
 }
 
 $khachHangCtl = new KhachHangController();
-$action = $_POST["action"];
+$action = isset($_POST['action']) ? $_POST['action'] : '';
 
 switch($action) {
+    case 'add':
+        $length = $khachHangCtl->getKhachhangLength();
+        if ($length >= 0) {
+            $length += 1;
+            $id = 'KH'.sprintf('%04d', $length);
+            $name = $_POST['name'];
+            $phone = $_POST['phone'];
+            $email = $_POST['email'];
+            $address = $_POST['address'];
+            $customer = new KhachHang($id, $name, $phone, $email, $address, 0);
+            $khachHangCtl->addKhachHang($customer);
+        }
+        break;
+    case 'update':
+        $id = $_POST['id'];
+        $name = $_POST['name'];
+        $phone = isset($_POST['phone']) ? $_POST['phone'] : '';
+        $email = $_POST['email'];
+        $address = isset($_POST['address']) ? $_POST['address'] : '';
+        $customer = new KhachHang($id, $name, $phone, $email, $address, 0);
+        $khachHangCtl->updateKhachHang($customer);
+        break;
+    case 'get-customer':
+        $id = $_POST['id'];
+        echo json_encode($khachHangCtl->getKhachHang($id));
+        break;
     case 'get-province':
         $khachHangCtl->getProvince();
         break;
@@ -52,5 +102,7 @@ switch($action) {
         break;
     case 'get-ward':
         $khachHangCtl->getWard();
+        break;
+    default:
         break;
 }

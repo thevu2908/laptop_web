@@ -36,6 +36,10 @@ class CTSanPhamController {
         echo json_encode($this->ctspRepo->getProductDetailByProductId($productDetailId));
     }
 
+    public function getProductDetailId($productId, $colorId, $ram, $rom) {
+        echo $this->ctspRepo->getProductDetailId($productId, $colorId, $ram, $rom);
+    }
+
     public function getProductDetailsLength() : int {
         return $this->ctspRepo->getProductDetailsLength();
     }
@@ -84,6 +88,13 @@ switch ($action) {
     case 'get-by-product-id':
         $productId = $_POST['productId'];
         $ctspCtl->getProductDetailByProductId($productId);
+        break;
+    case 'get-id':
+        $productId = $_POST['productId'];
+        $colorId = $_POST['colorId'];
+        $ram = $_POST['ram'];
+        $rom = $_POST['rom'];
+        $ctspCtl->getProductDetailId($productId, $colorId, $ram, $rom);
         break;
     case 'add':
         $length = $ctspCtl->getProductDetailsLength();

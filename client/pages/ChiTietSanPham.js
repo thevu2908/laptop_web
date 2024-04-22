@@ -65,6 +65,18 @@ function getProductDetail(productDetailId) {
     })
 }
 
+function getProductDetailId(productId, colorId, ram, rom) {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: 'server/src/controller/CTSanPhamController.php',
+            method: 'POST',
+            data: { action: 'get-id', productId, colorId, ram, rom },
+            success: productDetailId => resolve(productDetailId),
+            error: (xhr, status, error) => reject(error)
+        })
+    })
+}
+
 async function renderAdminProductDetail(data) {
     let productId = $('#admin-product-detail-main #product-id').val()
 

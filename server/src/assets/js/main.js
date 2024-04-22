@@ -20,12 +20,12 @@ if (showhidePassword) {
 
         if (passwordElement.type === 'password') {
             passwordElement.type = 'text'
-            passwordIcon.classList.remove('open')
-            hidePasswordIcon.classList.add('open')
-        } else {
-            passwordElement.type = 'password'
             passwordIcon.classList.add('open')
             hidePasswordIcon.classList.remove('open')
+        } else {
+            passwordElement.type = 'password'
+            passwordIcon.classList.remove('open')
+            hidePasswordIcon.classList.add('open')
         }
 
         passwordElement.focus()
@@ -93,12 +93,14 @@ function countDownConfirmOtp() {
     }, 1000)
 }
 
-// show signup password
+// show signup, forget-password password
 $(document).on('change', '#signup-show-pwd', e => {
     if ($('#signup-show-pwd').prop('checked')) {
         $('.create-password-form .signup-password').attr('type', 'text')
+        $('.forgot-password-main .reset-password').attr('type', 'text')
     } else {
         $('.create-password-form .signup-password').attr('type', 'password')
+        $('.forgot-password-main .reset-password').attr('type', 'password')
     }
 })
 

@@ -23,17 +23,23 @@
 <body>
     <div id="main">
         <?php
-        if (isset($_REQUEST["dang-nhap"])) {
-            include "./server/src/view/login.php";
-        } else if (isset($_REQUEST["dang-ky"])) {
-            include "./server/src/view/signup.php";
+        if (isset($_REQUEST['dang-nhap'])) {
+            include './server/src/view/login.php';
+            echo '<script src="./client/pages/TaiKhoan.js"></script>';
+        } else if (isset($_REQUEST['dang-ky'])) {
+            include './server/src/view/signup.php';
             echo '<script src="./client/pages/SignUp.js"></script>';
             echo '<script src="./client/pages/TaiKhoan.js"></script>';
-        } else if (isset($_REQUEST["san-pham"])) {
-            if (isset($_REQUEST["id"])) {
-                include "./server/src/view/productDetail.php";
+            echo '<script src="./client/pages/KhachHang.js"></script>';
+        } else if (isset($_REQUEST['quen-mat-khau'])) {
+            include './server/src/view/forget-password.php';
+            echo '<script src="./client/pages/ForgetPassword.js"></script>';
+            echo '<script src="./client/pages/TaiKhoan.js"></script>';
+        } else if (isset($_REQUEST['san-pham'])) {
+            if (isset($_REQUEST['id'])) {
+                include './server/src/view/productDetail.php';
             } else {
-                include "./server/src/view/product.php";
+                include './server/src/view/product.php';
             }
             echo '<script src="./client/pages/ThuongHieu.js"></script>';
             echo '<script src="./client/pages/TheLoai.js"></script>';
@@ -46,15 +52,15 @@
             echo '<script src="./client/pages/ChiTietSanPham.js"></script>';
             echo '<script src="./client/pages/ChiTietCongKetNoi.js"></script>';
             echo '<script src="./client/pages/DanhGia.js"></script>';
-        } else if (isset($_REQUEST["gio-hang"])) {
-            include "./server/src/view/cart.php";
-            include "./client/pages/DanhGia.js";
+        } else if (isset($_REQUEST['gio-hang'])) {
+            include './server/src/view/cart.php';
+            include './client/pages/DanhGia.js';
             echo '<script src="./client/pages/KhuyenMai.js"></script>';
-        } else if (isset($_REQUEST["thanh-toan"])) {
-            include "./server/src/view/checkout.php";
+        } else if (isset($_REQUEST['thanh-toan'])) {
+            include './server/src/view/checkout.php';
             echo '<script src="client/pages/DiaChi.js"></script>';
         } else if (isset($_REQUEST['tim-kiem'])) {
-            include "./server/src/view/search-product.php";
+            include './server/src/view/search-product.php';
             echo '<script src="./client/pages/ThuongHieu.js"></script>';
             echo '<script src="./client/pages/TheLoai.js"></script>';
             echo '<script src="./client/pages/MauSac.js"></script>';
@@ -66,7 +72,7 @@
             echo '<script src="./client/pages/ChiTietSanPham.js"></script>';
             echo '<script src="./client/pages/ChiTietCongKetNoi.js"></script>';
         } else {
-            include "./server/src/view/homepage.php";
+            include './server/src/view/homepage.php';
             echo '<script src="./client/pages/ThuongHieu.js"></script>';
             echo '<script src="./client/pages/TheLoai.js"></script>';
             echo '<script src="./client/pages/MauSac.js"></script>';
@@ -77,6 +83,7 @@
             echo '<script src="./client/pages/SanPham.js"></script>';
             echo '<script src="./client/pages/ChiTietSanPham.js"></script>';
             echo '<script src="./client/pages/ChiTietCongKetNoi.js"></script>';
+            echo '<script src="./client/pages/FeedBack.js"></script>';
         }
         ?>
     </div>
@@ -85,11 +92,14 @@
     <script src="server/src/assets/js/main.js"></script>
     <script src="./client/plugins/pagination.js"></script>
     <script src="./client/plugins/validation.js"></script>
+    <script src="./client/plugins/SendOTP.js"></script>
+    <script src="./client/plugins/getSession.js"></script>
     <script src="./client/utils/general.js"></script>
     <script src="./client/utils/formatCurrency.js"></script>
     <script src="./client/utils/formatPromotion.js"></script>
     <script src="./client/utils/formatDate.js"></script>
     <script src="./client/pages/TimKiem.js"></script>
+    <script src="./client/pages/Login.js"></script>
 </body>
 
 </html>

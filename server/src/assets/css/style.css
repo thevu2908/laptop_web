@@ -17,12 +17,86 @@
     font-size: 24px;
 }
 
+.header-account {
+    position: relative;
+    cursor: pointer;
+}
+
+.header-account:hover {
+    color: #595656;
+}
+
+.header-account:hover .header__account-menu {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.header-username {
+    max-width: 9.375rem;
+    overflow: hidden;
+    padding-left: .3125rem;
+    text-overflow: ellipsis;
+    font-size: 14px;
+}
+
+.header__account-menu {
+    min-width: 150px;
+    position: absolute;
+    top: calc(100% + 6px);
+    right: 0;
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+    background-color: #fff;
+    transform: scale(0);
+    transform-origin: 100% top;
+    opacity: 0;
+    transition: all 0.3s;
+    border-radius: 2px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.header__account-menu::before {
+    content: "";
+    border-width: 6px 10px;
+    border-style: solid;
+    border-color: transparent transparent #fff transparent;
+    position: absolute;
+    bottom: 100%;
+    right: 30px;
+}
+
+.header__account-menu::after {
+    content: "";
+    width: 90px;
+    height: 10px;
+    position: absolute;
+    bottom: 100%;
+    right: 0;
+}
+
+.header__account-link {
+    display: block;
+    text-decoration: none;
+    color: #333;
+    padding: 8px 12px;
+}
+
+.header__account-link:last-child {
+    border-top: 1px solid #ddd;
+}
+
+.header__account-link:hover {
+    background-color: #fafafa;
+}
+
 .nav-content {
     justify-content: center !important;
 }
 
 .search-box {
     display: flex;
+    align-items: center;
     gap: 10px;
 }
 
@@ -42,6 +116,28 @@
     justify-content: center;
     align-items: center;
     position: relative;
+}
+
+.btn-gg-login {
+    background-color: #fff;
+    border: 1px solid rgba(0, 0, 0, .26);
+    border-radius: 2px;
+    box-sizing: border-box;
+    color: rgba(0, 0, 0, .87);
+    font-size: 16px;
+    height: 40px;
+    outline: none;
+    padding: 0 2px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-gg-login div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .login-btn i {
@@ -73,13 +169,31 @@
     font-weight: 500;
     color: black;
     width: 330px;
-    z-index: 100;
     cursor: default;
     transform: scale(0);
     transform-origin: 100% top;
     opacity: 0;
     transition: all 0.3s;
     box-shadow: 0 0 5px 1px #888888;
+}
+
+.cart-dropdown::before {
+    content: "";
+    border-width: 8px 10px;
+    border-style: solid;
+    border-color: transparent transparent #fff transparent;
+    position: absolute;
+    bottom: 100%;
+    right: 10px;
+}
+
+.cart-dropdown::after {
+    content: "";
+    width: 90px;
+    height: 10px;
+    position: absolute;
+    bottom: 100%;
+    right: 0;
 }
 
 .cart-btn:hover .cart-dropdown {
@@ -675,6 +789,7 @@ ul, li {
     position: absolute;
     right: 10px;
     top: 55%;
+    cursor: pointer;
 }
 
 .showhide-pwd-icon .open {
@@ -708,14 +823,8 @@ ul, li {
     color: var(--primary-color);
 }
 
-#main-footer {
-    margin-top: 24px;
-    padding-top: 2.5rem;
-    display: none;
-}
-
 .verify-container {
-    display: none;
+    display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -723,6 +832,10 @@ ul, li {
     min-height: 600px;
     width: 1040px;
     font-family: Helvetica Neue, Helvetica, Arial;
+}
+
+.sign-up-main .verify-container {
+    display: none;
 }
 
 .verify-box {
@@ -879,11 +992,13 @@ ul, li {
     font-size: 14px;
 }
 
+.create-password-email-box,
 .verify-otp-email-box {
     display: flex;
     margin-top: 8px;
 }
 
+.create-password-email,
 .verify-otp-email {
     font-size: 1rem;
     font-weight: 500;
@@ -977,6 +1092,7 @@ ul, li {
     cursor: pointer;
 }
 
+.btn-reset-password,
 .btn-to-create-pwd,
 .btn-signup,
 .btn-back-homepage {
@@ -1005,10 +1121,16 @@ ul, li {
     margin: 50px 0 10px;
 }
 
+.reset-password,
 .signup-password {
     font-size: 16px;
 }
 
+.signup-user-name {
+    font-size: 14px;
+}
+
+.reset-password::placeholder,
 .signup-password::placeholder {
     font-size: 14px;
 }
@@ -1065,6 +1187,70 @@ ul, li {
     display: flex;
     justify-content: center;
     position: relative;
+}
+
+.forgot-password-main .email-input-container {
+    padding: 0 80px 64px;
+    overflow: hidden;
+}
+
+.email-input-container .email-input-box {
+    margin: 20px auto 5px;
+    box-shadow: 0 0 4px rgba(0,0,0,.14);
+    border: 1px solid rgba(0, 0, 0, .14);
+    border-radius: 2px;
+    box-shadow: inset 0 2px 0 rgba(0,0,0,.02);
+    box-sizing: border-box;
+    height: 2.5rem;
+    overflow: hidden;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.email-input-box:focus-within {
+    border-color: rgba(0, 0, 0, .54);
+}
+
+.email-input-box.error {
+    background: #fff6f7;
+    border-color: #ff424f;
+}
+
+.email-input-box input {
+    border: 0;
+    filter: none;
+    flex: 1;
+    flex-shrink: 0;
+    outline: none;
+    padding: .75rem;
+}
+
+.email-input-box input::placeholder {
+    font-size: 14px;
+}
+
+.forgot-password-main .btn-verify-otp {
+    margin-top: 12px;
+    font-size: 14px;
+    width: 100%;
+    box-shadow: 0 1px 1px rgba(0,0,0,.09);
+    color: #fff;
+    background-color: var(--primary-color);
+    text-transform: uppercase;
+    height: 2.5rem;
+    min-width: 8.75rem;
+    border: 0;
+    border-radius: .125rem;
+    outline: none;
+    padding: 0 .625rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.forgot-password-main .btn-verify-otp:hover:not([disabled]) {
+    opacity: 0.9;
 }
 
 .search-container {
@@ -1554,6 +1740,10 @@ ul, li {
     align-items: flex-start;
 }
 
+.contact-form-inputs div {
+    width: 100%;
+}
+
 .contact-form-input {
     width: 100%;
     height: 4rem;
@@ -1566,6 +1756,11 @@ ul, li {
     font-size: .875rem;
     font-weight: 500;
     line-height: 1.8em;
+}
+
+.contact-form-input.is-invalid:focus {
+    border-color: #000;
+    box-shadow: 0 0 0 0.25rem #000;
 }
 
 .contact-form-input:focus {
@@ -2092,6 +2287,7 @@ ul, li {
 
 .product-select-item p {
     margin-bottom: 0;
+    font-family: Roboto, Helvetica, Arial, sans-serif;
 }
 
 .product-color-box {

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 09, 2024 at 10:16 AM
+-- Generation Time: Apr 17, 2024 at 04:26 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -288,7 +288,7 @@ CREATE TABLE `chitietphieubaohanh` (
 
 CREATE TABLE `chitietphieudoitra` (
   `ma_pdt` varchar(20) NOT NULL,
-  `ma_ctsp` varchar(20) NOT NULL,
+  `ma_imei` varchar(20) NOT NULL,
   `ly_do` varchar(150) NOT NULL,
   `gia_sp` double NOT NULL,
   `so_luong` int(11) NOT NULL,
@@ -340,8 +340,10 @@ INSERT INTO `chitietquyen` (`ma_quyen`, `ma_chuc_nang`, `hanh_dong`) VALUES
 ('NQ01', 'CN04', 'Xem'),
 ('NQ01', 'CN04', 'Xóa'),
 ('NQ01', 'CN05', 'Sửa'),
+('NQ01', 'CN05', 'Thêm'),
 ('NQ01', 'CN05', 'X'),
 ('NQ01', 'CN05', 'Xem'),
+('NQ01', 'CN05', 'Xóa'),
 ('NQ01', 'CN06', 'X'),
 ('NQ01', 'CN06', 'Xem'),
 ('NQ01', 'CN07', 'Thêm'),
@@ -1361,10 +1363,18 @@ CREATE TABLE `khachhang` (
   `ma_kh` varchar(20) NOT NULL,
   `ten_kh` varchar(100) NOT NULL,
   `so_dien_thoai` varchar(10) NOT NULL,
-  `tuoi` int(11) NOT NULL,
+  `email` varchar(100) NOT NULL,
   `dia_chi` varchar(150) NOT NULL,
   `trang_thai` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `khachhang`
+--
+
+INSERT INTO `khachhang` (`ma_kh`, `ten_kh`, `so_dien_thoai`, `email`, `dia_chi`, `trang_thai`) VALUES
+('KH0002', 'Thế Vũ', '', 'vnguyen132az@gmail.com', '', 0),
+('KH0003', 'Vu', '', 'thevu1073@gmail.com', '', 0);
 
 -- --------------------------------------------------------
 
@@ -1379,7 +1389,8 @@ CREATE TABLE `khuyenmai` (
   `dieu_kien` varchar(50) NOT NULL,
   `thoi_gian_bat_dau` date NOT NULL,
   `thoi_gian_ket_thuc` date NOT NULL,
-  `tinh_trang` varchar(50) NOT NULL
+  `tinh_trang` varchar(50) NOT NULL,
+  `trang_thai` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -1436,6 +1447,13 @@ CREATE TABLE `nhanvien` (
   `trang_thai` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `nhanvien`
+--
+
+INSERT INTO `nhanvien` (`ma_nv`, `ten_nv`, `tuoi`, `so_dien_thoai`, `hinh_anh`, `trang_thai`) VALUES
+('admin', 'admin', 0, '', '', 0);
+
 -- --------------------------------------------------------
 
 --
@@ -1456,9 +1474,10 @@ INSERT INTO `nhomquyen` (`ma_quyen`, `ten_quyen`, `trang_thai`) VALUES
 ('NQ01', 'Admin', 0),
 ('NQ02', 'Quản lý', 0),
 ('NQ03', 'Nhân viên bán hàng', 0),
-('NQ04', 'Nhân Viên', 0),
-('NQ05', 'Nhân Viên Nhập Hàng', 0),
-('NQ06', 'ABC', 0);
+('NQ04', 'Nhân viên', 0),
+('NQ05', 'Nhân viên nhập hàng', 0),
+('NQ06', 'ABC', 0),
+('user', 'Khách hàng', 0);
 
 -- --------------------------------------------------------
 
@@ -1473,6 +1492,7 @@ CREATE TABLE `phieubaohanh` (
   `ma_hd` varchar(20) NOT NULL,
   `ngay_bao_hanh` date NOT NULL,
   `ngay_tra` date NOT NULL,
+  `tinh_trang` varchar(100) NOT NULL,
   `trang_thai` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -1655,13 +1675,21 @@ INSERT INTO `sanpham` (`ma_sp`, `ma_thuong_hieu`, `ma_the_loai`, `ma_hdh`, `ten_
 --
 
 CREATE TABLE `taikhoan` (
-  `ma_tk` varchar(20) NOT NULL,
+  `ma_tk` varchar(100) NOT NULL,
   `ma_quyen` varchar(20) NOT NULL,
-  `username` varchar(50) NOT NULL,
+  `username` varchar(100) NOT NULL,
   `password` varchar(50) NOT NULL,
   `otp` int(6) NOT NULL,
   `trang_thai` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `taikhoan`
+--
+
+INSERT INTO `taikhoan` (`ma_tk`, `ma_quyen`, `username`, `password`, `otp`, `trang_thai`) VALUES
+('admin', 'NQ01', 'admin', 'admin', 0, 0),
+('vnguyen132az@gmail.com', 'user', 'vnguyen132az@gmail.com', '123456', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -1693,7 +1721,7 @@ CREATE TABLE `thongbao` (
   `ma_sp` varchar(20) NOT NULL,
   `ma_kh` varchar(20) NOT NULL,
   `ma_nv` varchar(20) NOT NULL,
-  `ma_tk` varchar(20) NOT NULL,
+  `ma_tk` varchar(100) NOT NULL,
   `ma_hd` varchar(20) NOT NULL,
   `ma_pn` varchar(20) NOT NULL,
   `ma_pdt` varchar(20) NOT NULL,
@@ -1704,6 +1732,19 @@ CREATE TABLE `thongbao` (
   `ma_chuc_nang` varchar(20) NOT NULL,
   `noi_dung` varchar(200) NOT NULL,
   `trang_thai` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `thongtinnhanhang`
+--
+
+CREATE TABLE `thongtinnhanhang` (
+  `ma_kh` varchar(20) NOT NULL,
+  `ho_ten` varchar(150) NOT NULL,
+  `so_dien_thoai` int(10) NOT NULL,
+  `dia_chi` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -12389,8 +12430,8 @@ ALTER TABLE `chitietphieubaohanh`
 -- Indexes for table `chitietphieudoitra`
 --
 ALTER TABLE `chitietphieudoitra`
-  ADD PRIMARY KEY (`ma_pdt`,`ma_ctsp`),
-  ADD KEY `ctpdt_fk_ctsp` (`ma_ctsp`);
+  ADD PRIMARY KEY (`ma_pdt`,`ma_imei`),
+  ADD KEY `ctpdt_fk_ctsp` (`ma_imei`);
 
 --
 -- Indexes for table `chitietphieunhap`
@@ -12439,7 +12480,7 @@ ALTER TABLE `ctsp_imei`
 -- Indexes for table `danhgia`
 --
 ALTER TABLE `danhgia`
-  ADD PRIMARY KEY (`ma_ctsp`,`ma_kh`),
+  ADD PRIMARY KEY (`ma_ctsp`,`ma_kh`,`thoi_gian_danh_gia`),
   ADD KEY `danhgia_fk_kh` (`ma_kh`);
 
 --
@@ -12578,6 +12619,12 @@ ALTER TABLE `thongbao`
   ADD KEY `tb_fk_chucnang` (`ma_chuc_nang`);
 
 --
+-- Indexes for table `thongtinnhanhang`
+--
+ALTER TABLE `thongtinnhanhang`
+  ADD PRIMARY KEY (`ma_kh`);
+
+--
 -- Indexes for table `thuonghieu`
 --
 ALTER TABLE `thuonghieu`
@@ -12647,7 +12694,7 @@ ALTER TABLE `chitietphieubaohanh`
 -- Constraints for table `chitietphieudoitra`
 --
 ALTER TABLE `chitietphieudoitra`
-  ADD CONSTRAINT `ctpdt_fk_ctsp` FOREIGN KEY (`ma_ctsp`) REFERENCES `chitietsanpham` (`ma_ctsp`),
+  ADD CONSTRAINT `ctpdt_fk_imei` FOREIGN KEY (`ma_imei`) REFERENCES `ctsp_imei` (`ma_imei`),
   ADD CONSTRAINT `ctpdt_fk_pdt` FOREIGN KEY (`ma_pdt`) REFERENCES `phieudoitra` (`ma_pdt`);
 
 --
@@ -12752,6 +12799,12 @@ ALTER TABLE `thongbao`
   ADD CONSTRAINT `tb_fk_quyen` FOREIGN KEY (`ma_quyen`) REFERENCES `nhomquyen` (`ma_quyen`),
   ADD CONSTRAINT `tb_fk_sp` FOREIGN KEY (`ma_sp`) REFERENCES `sanpham` (`ma_sp`),
   ADD CONSTRAINT `tb_fk_tk` FOREIGN KEY (`ma_tk`) REFERENCES `taikhoan` (`ma_tk`);
+
+--
+-- Constraints for table `thongtinnhanhang`
+--
+ALTER TABLE `thongtinnhanhang`
+  ADD CONSTRAINT `ttnh_fk_kh` FOREIGN KEY (`ma_kh`) REFERENCES `khachhang` (`ma_kh`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
