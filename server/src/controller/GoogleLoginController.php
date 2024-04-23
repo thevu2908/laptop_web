@@ -82,6 +82,7 @@ if (isset($_GET['code'])) {
     }
 
     $info = $obj->getLoginInfo($email);
+    print_r($info);
     $_SESSION['loggedin'] = true;
     $_SESSION['id'] = $info['email'];
     $_SESSION['customerId'] = $info['ma_kh'];

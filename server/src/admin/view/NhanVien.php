@@ -5,7 +5,7 @@
 				<div class="table-title">
 					<div class="row">
 						<div class="col-sm-6">
-							<h2>Quản Lý <b>Tài Khoản</b></h2>
+							<h2>Quản Lý <b>Nhân Viên</b></h2>
 						</div>
 						<div class="col-sm-6">
 							<a href="#addEmployeeModal" class="btn btn-success add" data-toggle="modal">
@@ -29,7 +29,7 @@
 								</span>
 							</th>
 							<th>Mã nhân viên</th>
-							<th>Tên nhân viên</th>
+							<th>Nhân viên</th>
 							<th>Tuổi</th>
 							<th>Số điện thoại</th>
 							<th>Actions</th>
@@ -59,25 +59,25 @@
 					</div>
 					<div class="modal-body">
 						<div class="form-group">
-							<label>Name</label>
-							<input type="text" class="form-control" required>
+							<label>Mã Nhân Viên</label>
+							<input type="text" class="form-control" readonly="true" required id="admin-nhanvien-manhanvien">
 						</div>
 						<div class="form-group">
-							<label>Email</label>
-							<input type="email" class="form-control" required>
+							<label>Nhân Viên</label>
+							<input type="text" class="form-control" required id="admin-nhanvien-tennhanvien">
 						</div>
 						<div class="form-group">
-							<label>Address</label>
-							<textarea class="form-control" required></textarea>
+							<label>Tuổi</label>
+							<input type="text" class="form-control" required id="admin-nhanvien-tuoi">
 						</div>
 						<div class="form-group">
-							<label>Phone</label>
-							<input type="text" class="form-control" required>
+							<label>Số Điện Thoại</label>
+							<input type="text" class="form-control" required id="admin-nhanvien-sodienthoai">
 						</div>
 					</div>
 					<div class="modal-footer">
-						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-						<input type="submit" class="btn btn-success" value="Add">
+						<input type="button" class="btn btn-danger" data-dismiss="modal" value="Cancel">
+						<input type="button" class="btn btn-success" id="admin-btn-addNhanVien" value="Add">
 					</div>
 				</form>
 			</div>

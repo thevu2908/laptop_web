@@ -169,6 +169,7 @@ class TaiKhoanRepo extends ConnectDB {
                 SELECT tk.*, nv.ma_nv, nv.ten_nv FROM nhanvien nv JOIN taikhoan tk ON nv.ma_nv = tk.ma_tk 
                 WHERE nv.ma_nv = ? OR tk.username = ? AND nv.trang_thai = 0 AND tk.trang_thai = 0
             ";
+
             $statement = mysqli_prepare($this->conn, $query);
 
             if (!$statement) {
