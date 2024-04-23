@@ -16,6 +16,15 @@ class PhieuBaoHanhController{
     public function tracuuThoiGianBaoHanh($hinhthuc,$data){
         echo json_encode($this->phieubaohanhRepo->tracuuThoiGianBaoHanh($hinhthuc,$data));
     }
+    public function xemChiTietPhieuBaoHanh($ma_pbh){
+        echo json_encode($this->phieubaohanhRepo->xemChiTietPhieuBaoHanh($ma_pbh));
+    }
+    public function getTinhTrang($ma_pbh){
+        echo json_encode($this->phieubaohanhRepo->getTinhTrang($ma_pbh));
+    }
+    public function updatePhieuBaoHanh($ma_pbh,$ngaytra){
+       echo json_encode($this->phieubaohanhRepo->updatePhieuBaoHanh($ma_pbh,$ngaytra));
+    }
 }
 $phieubaohanhctl=new PhieuBaoHanhController();
 $tmp=$_POST['action'];
@@ -40,6 +49,20 @@ switch($tmp){
         $hinhthuc=$_POST['hinhthuc'];
         $data=$_POST['data'];
         $phieubaohanhctl->tracuuThoiGianBaoHanh($hinhthuc,$data);
+        break;
+    }
+    case "xemchitietphieubaohanh":{
+        $ma_pbh=$_POST['mapbh'];
+        $phieubaohanhctl->xemChiTietPhieuBaoHanh($ma_pbh);
+        break;
+    }case "tinhtrangbaohanh":{
+        $ma_pbh=$_POST['mapbh'];
+        $phieubaohanhctl->getTinhTrang($ma_pbh);
+        break;
+    }case "updatephieubaohanh":{
+        $ma_pbh=$_POST['mapbh'];
+        $ngaytra=date("Y-m-d H:i:s");
+        $phieubaohanhctl->updatePhieuBaoHanh($ma_pbh,$ngaytra);
         break;
     }
 }

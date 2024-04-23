@@ -42,5 +42,33 @@ class PhieuBaoHanhRepo extends ConnectDB{
         }
         return $arrChiTietPhieuBaoHanh;
     }
+    public function xemChiTietPhieuBaoHanh($ma_pbh){
+        $query="SELECT chitietphieubaohanh.ma_imei,sanpham.ten_sp,chitietphieubaohanh.ly_do,chitietphieubaohanh.noi_dung_bao_hanh
+        from chitietphieubaohanh join phieubaohanh on chitietphieubaohanh.ma_pbh=phieubaohanh.ma_pbh join ctsp_imei
+        on ctsp_imei.ma_imei=chitietphieubaohanh.ma_imei JOIN chitietsanpham on chitietsanpham.ma_ctsp=ctsp_imei.ma_ctsp
+        join sanpham on sanpham.ma_sp=chitietsanpham.ma_sp WHERE chitietphieubaohanh.ma_pbh='$ma_pbh'";
+        $result=mysqli_query($this->conn,$query);
+        $arrChiTietPhieuBaoHanh=array();
+        while($row=mysqli_fetch_array($result)){
+            $arrChiTietPhieuBaoHanh[]=$row;
+        }
+        return $arrChiTietPhieuBaoHanh;
+    }
+    public function getTinhTrang($ma_pbh){
+        $query="SELECT tinh_trang from phieubaohanh WHERE ma_pbh='$ma_pbh'";
+        $result=mysqli_query($this->conn,$query);
+        if($row=mysqli_fetch_array($result)){
+            return $row;
+        }
+        return null;
+    }
+    public function updatePhieuBaoHanh($ma_pbh,$ngaytra){
+        $query="UPDATE phieubaohanh SET ngay_tra='$ngaytra' WHERE ma_pbh='$ma_pbh'";
+        $result=mysqli_query($this->conn,$query);
+        if($result){
+            return true;
+        }
+        return false;
+    }
 }
 ?>

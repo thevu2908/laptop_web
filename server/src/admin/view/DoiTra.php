@@ -30,7 +30,7 @@
                             <th>Ngày Trả</th>
                             <th>Số Lượng Trả</th>
                             <th>Tổng Tiền Trả</th>
-							<th>Actions</th>
+							<th class='w-auto'>Actions</th>
 						</tr>
 					</thead>
 					<tbody id="show-listDoiTra">

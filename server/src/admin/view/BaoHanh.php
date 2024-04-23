@@ -33,7 +33,7 @@
                             <th>Ngày Bảo Hành</th>
 							<th>Ngày Trả</th>
                             <th>Tình Trạng</th>
-							<th>Actions</th>
+							<th class='w-auto'>Actions</th>
 						</tr>
 					</thead>
 					<tbody id="show-listBaoHanh">
@@ -51,7 +51,7 @@
 	</div>
 	<!-- Add Modal HTML -->
 	<div id="addBaoHanh" class="modal fade">
-    <div class="modal-dialog modal-xl">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <form>
                 <div class="modal-header">
@@ -97,11 +97,11 @@
                                             <th scope="col">Lý Do</th>
 											<th scope="col">Nội Dung</th>
 											<th scope="col">Giá</th>
-											<th scope="col">Action</th>
+											<th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody id="show-adminBaoHanh">
-                                        
+									
                                     </tbody>
                                 </table>
                             </div>
@@ -133,7 +133,7 @@
                                         </tr>
                                     </thead>
                                     <tbody id="admin-showChitiethoadon">
-                                       
+									
                                     </tbody>
                                 </table>
                             </div>
@@ -278,26 +278,43 @@
 			</div>
 		</div>
 	</div>
-	<!-- NoiDung Modal HTML -->
-	<div id="noidungbaohanh" class="modal fade">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<form>
-					<div class="modal-header">
-						<h4 class="modal-title">Nội Dung Bảo Hành</h4>
-						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-					</div>
-					<div class="modal-body">
-						<div class="form-group">
-							<textarea name="" id="noidungBH" cols="30" rows="10" class="form-control"></textarea>
-						</div>
-					</div>
-					<div class="modal-footer">
-					    <input type="button" class="btn btn-primary" data-dismiss="modal" value="Save" id="save-noidungBH">
-						<input type="button" class="btn btn-danger" data-dismiss="modal" value="Cancel">
-					</div>
-				</form>
-			</div>
-		</div>
-	</div>
+	<!-- Detail Modal HTML -->
+	<div id="detailPhieuBaoHanh" class="modal fade">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Chi Tiết Phiếu Bảo Hành</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">STT</th>
+                                <th scope="col">Mã IME</th>
+                                <th scope="col">Sản Phẩm</th>
+                                <th scope="col">Lý Do</th>
+                                <th scope="col">Nội Dung Bảo Hành</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-showChiTietBaoHanh">
+							
+                        </tbody>
+                    </table>
+					
+                </div>
+	
+				<select class="form-control form-control-sm" aria-label="Default select example" id="admin-updateBaoHanh">
+						<option value="Đang Bảo Hành" selected>Đang Bảo Hành</option>
+						<option value="Đã Bảo Hành">Đã Bảo Hành</option>
+                </select> 
+				<div class="modal-footer">
+					<input type="button" class="btn btn-primary" data-dismiss="modal" value="Save" id="admin-updateChiTietBaoHanh">
+					<input type="button" class="btn btn-danger" data-dismiss="modal" value="Cancel">
+				</div>
+            </div>
+        </div>
+    </div>
+</div>
 </main>

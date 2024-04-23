@@ -39,7 +39,6 @@ class SearchRepo extends ConnectDB {
             while ($row = $result->fetch_assoc()) {
                 $searchs[] = $row;
             }
-
             return $searchs;
         } catch (Exception $e) {
             echo 'Error: ' . $e->getMessage() . '<br>';

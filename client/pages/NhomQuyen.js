@@ -18,9 +18,7 @@ function addNhomQuyen() {
     $(document).on('click', "#addNhomQuyen", function () {
         var ma_nhomquyen = $("#ma_quyen").val();
         var ten_nhomquyen = $("#ten_quyen").val();
-        if (ten_nhomquyen == "") {
-            $("#mess_tenquyen").html("Please input tenquyen");
-        }else if (ten_nhomquyen == "") {
+        if (checkSpace(ten_nhomquyen)) {
             $("#mess_tenquyen").html("Please input tenquyen");
         } else {
             $.ajax({

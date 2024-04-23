@@ -4,6 +4,7 @@ $(document).ready(function() {
     addBaoHanh()
     TraCuu()
     kiemtrathoigianbaohanh()
+    //$('#addBaoHanh').modal({backdrop: 'static', keyboard: false})
 })
 var listitemBaoHanh=[];
 function addBaoHanh(){
@@ -21,14 +22,15 @@ function addBaoHanh(){
         $('#tableChiTietBaoHanh tbody tr').each(function() {
             var ime = $(this).find('td:nth-child(2)').text();
             var masanpham = $(this).find('td:nth-child(3)').text();
-            var lyDoBaoHanh = $(this).find('td:nth-child(4) input').val();
-            var noiDungBaoHanh = $(this).find('td:nth-child(5) input').val();
+            var lyDoBaoHanh = $(this).find('td:nth-child(4) textarea').val();
+            var noiDungBaoHanh = $(this).find('td:nth-child(5) textarea').val();
             console.log("IME:", ime);
             console.log("ID:", masanpham);
             console.log("Lý Do Bảo Hành:", lyDoBaoHanh);
             console.log("Nội Dung Bảo Hành:", noiDungBaoHanh);
-            //listitemBaoHanh.push({ime:ime,masanpham:masanpham,lyDoBaoHanh:lyDoBaoHanh,noiDungBaoHanh:noiDungBaoHanh})
-            listitemBaoHanh.push({ime:ime,masanpham:masanpham,lyDoBaoHanh:"Bung Chân Ốc Bản Lề",noiDungBaoHanh:noiDungBaoHanh})
+            listitemBaoHanh.push({ime:ime,masanpham:masanpham,lyDoBaoHanh:lyDoBaoHanh,noiDungBaoHanh:noiDungBaoHanh})
+            console.log(noiDungBaoHanh+"---"+lyDoBaoHanh)
+            //listitemBaoHanh.push({ime:ime,masanpham:masanpham,lyDoBaoHanh:"Bung Chân Ốc Bản Lề",noiDungBaoHanh:noiDungBaoHanh})
         });
         console.log(maphieubaohanh);
         console.log(mahoadon);
@@ -45,7 +47,8 @@ function addBaoHanh(){
         }else if(listitemBaoHanh.length===0){
             alert("Vui lòng chọn sản phẩm cần bảo hành");
         }else{
-            //addPhieuBaoHanh(maphieubaohanh,mahoadon,makhachhang,manhanvien,tinhtrangbaohanh)
+            addPhieuBaoHanh(maphieubaohanh,mahoadon,makhachhang,manhanvien,tinhtrangbaohanh)
+            //console.log(noiDungBaoHanh+"---"+lyDoBaoHanh)
         }
     
     })
@@ -183,10 +186,10 @@ function loadBaoHanh(){
                 <td>${phieubaohanh['ngay_bao_hanh']}</td>
                 <td>${checkTime(phieubaohanh['ngay_tra'])?" ":phieubaohanh['ngay_tra']}</td>
                 <td>${phieubaohanh['tinh_trang']}</td>
-                <td>
+                <td data-row=${phieubaohanh['ma_pbh']}>
                     <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
                     <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-                    <a href="#detailPhieuBaoHanh" class="view" data-toggle="modal" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
+                    <a href="#detailPhieuBaoHanh" class="view" data-toggle="modal" title="View" data-toggle="tooltip" data-row=${phieubaohanh['ma_pbh']} onclick="ShowChiTietBaoHanh(this)"><i class="material-icons">&#xE417;</i></a>
                 </td>
             </tr>`
             });
@@ -217,16 +220,20 @@ $("#tableChiTietHoaDon tbody").on("click", "tr", function(){
     if(!tmp){
         var newRow = `<tr data-row="${ime}">
                 <th scope="row">1</th>
-                <td scope="row">${ime}</td>
-                <td scope="row">${ID}</td>
-                <td scope="row"><input type="text" class="form-control" href="#lydobaohanh" onclick="SaveLyDo(this)" data-toggle="modal"></td>
-                <td scope="row"><input type="text" class="form-control" href="#noidungbaohanh" onclick="SaveNoiDung(this)" data-toggle="modal"></td>
-                <td scope="row">${giasanpham}</td>
+                <td>${ime}</td>
+                <td>${ID}</td>
+                <td><textarea class="form-control" rows="6" cols="100"></textarea>
+                <td><textarea class="form-control" rows="6" cols="100"></textarea>
+                <td>${giasanpham}</td>
                 <td data-row="IME1" onclick="removeItem(this)"><i class="material-icons" data-toggle="tooltip" title="Remove">&#xE872;</i></td>
                 </tr>`;
         $("#tableChiTietBaoHanh tbody").append(newRow);
     }
 });
+/*
+ <td><input type="text" class="form-control"></td>
+<td><input type="text" class="form-control"></td>
+*/
 function checkTime(str){
     console.log(typeof str);
     if (str.startsWith('0000')) {
@@ -336,15 +343,61 @@ $(document).on("click","#btnCancelTraCuu",function(){
     $("#ketqua-tracuu").html("");
     $("#thoigian-imei").val("")
 })
-function SaveLyDo(obj){
-    console.log(obj.value)
-    $(document).on("click","#save-lydoBH",function(){
-        obj.value = $("#lydoBH").val();
+function updatePhieuBaoHanh(mapbh){
+    $(document).on("click","#admin-updateChiTietBaoHanh",function(){
+        var tinhtrang=$("#admin-updateBaoHanh").val();
+        console.log(tinhtrang)
+        if(tinhtrang==="Đã Bảo Hành"){
+            $.ajax({
+                url:"server/src/controller/PhieuBaoHanhController.php",
+                data:{action:"updatephieubaohanh",mapbh:mapbh},
+                method:"POST",
+                dataType:"json",
+                success:function(data){
+                    loadBaoHanh();
+                }
+            })
+        }
     })
 }
-function SaveNoiDung(obj){
-    console.log(obj.value)
-    $(document).on("click","#save-noidungBH",function(){
-        obj.value = $("#noidungBH").val();
+function showTinhTrang(mapbh){
+    $.ajax({
+        url:"server/src/controller/PhieuBaoHanhController.php",
+        data:{action:"tinhtrangbaohanh",mapbh:mapbh},
+        method:"POST",
+        dataType:"json",
+        success:function(data){
+            $("#admin-updateBaoHanh").val(data['tinh_trang'])
+            if(data['tinh_trang']==="Đã Bảo Hành"){
+                $("#admin-updateBaoHanh").prop("disabled",true);
+            }else{
+                $("#admin-updateBaoHanh").prop("disabled",false);
+            }
+        }
     })
+}
+function ShowChiTietBaoHanh(obj){
+    var mapbh=obj.dataset.row;
+    $.ajax({
+        url:"server/src/controller/PhieuBaoHanhController.php",
+        data:{action:"xemchitietphieubaohanh",mapbh:mapbh},
+        method:"POST",
+        dataType:"json",
+        success:function(data){
+            var html="";
+            console.log(data);
+            data.forEach((item,index)=>{
+                html+=`<tr>
+                <td>${index+1}</td>
+                <td>${item['ma_imei']}</td>
+                <td>${item['ten_sp']}</td>
+                <td>${item['ly_do']}</td>
+                <td>${item['noi_dung_bao_hanh']}</td>
+                </tr>`;
+            })
+            $("#admin-showChiTietBaoHanh").html(html);
+        }
+    })
+    showTinhTrang(mapbh);
+    updatePhieuBaoHanh(mapbh)
 }

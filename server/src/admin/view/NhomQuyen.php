@@ -85,7 +85,7 @@
 						<div class="form-group">
 							<div class="form-group">
 								<label>Mã Nhóm Quyền</label>
-								<input class="form-control" type="text" name="" id="maquyen" required>
+								<input class="form-control" type="text" name="" readonly="true" id="maquyen" required>
 							</div>
 						</div>
 						<div class="form-group">

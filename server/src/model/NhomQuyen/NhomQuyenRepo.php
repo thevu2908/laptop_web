@@ -27,7 +27,7 @@ class NhomQuyenRepos extends ConnectDB{
         return false;
     }
     function deleteNhomQuyen($ma_quyen){
-        $sql = "DELETE FROM nhomquyen WHERE ma_quyen='$ma_quyen'";
+        $sql = "UPDATE nhomquyen SET trang_thai=1  WHERE ma_quyen='$ma_quyen'";
         $result = mysqli_query($this->conn,$sql);
         if($result){
             return true;

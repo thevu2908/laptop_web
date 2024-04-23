@@ -3,6 +3,7 @@ $(document).ready(function() {
     clickPage(loadDoiTra)
     addDoiTra()
     TraCuu()
+    //$('#myModal').modal({backdrop: 'static', keyboard: false})
 })
 var listitemDoiTra=[]
 function addDoiTra(){
@@ -15,7 +16,7 @@ function addDoiTra(){
         $('#tableChiTietDoiTra tbody tr').each(function() {
             var ime = $(this).find('td:nth-child(2)').text();
             var masanpham = $(this).find('td:nth-child(3)').text();
-            var lydo = $(this).find('td:nth-child(4) input').val()
+            var lydo = $(this).find('td:nth-child(4) textarea').val()
             var giasanpham = $(this).find('td:nth-child(5) input').val()
             listitemDoiTra.push({ime:ime,masanpham:masanpham,lydo:lydo,giasanpham:giasanpham,soluong:1,thanhtien:giasanpham})
         });
@@ -266,7 +267,7 @@ $("#tableChiTietHoaDon tbody").on("click", "tr", function(){
                 <th scope="row">1</th>
                 <td scope="row">${ime}</td>
                 <td scope="row">${ID}</td>
-                <td scope="row"><input type="text" class="form-control"></td>
+                <td scope="row"><textarea class="form-control" rows="4" cols="100"></textarea>
                 <td scope="row"><input type="text" class="form-control" value='${giasanpham}'></td>
                 <td data-row="IME1" onclick="removeItem(this)"><i class="material-icons" data-toggle="tooltip" title="Remove">&#xE872;</i></td>
                 </tr>`;
