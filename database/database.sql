@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 17, 2024 at 04:26 PM
+-- Generation Time: Apr 23, 2024 at 04:10 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -326,6 +326,7 @@ CREATE TABLE `chitietquyen` (
 --
 
 INSERT INTO `chitietquyen` (`ma_quyen`, `ma_chuc_nang`, `hanh_dong`) VALUES
+('NQ01', 'CN01', 'Sửa'),
 ('NQ01', 'CN01', 'Thêm'),
 ('NQ01', 'CN01', 'X'),
 ('NQ01', 'CN01', 'Xem'),
@@ -353,10 +354,13 @@ INSERT INTO `chitietquyen` (`ma_quyen`, `ma_chuc_nang`, `hanh_dong`) VALUES
 ('NQ01', 'CN08', 'X'),
 ('NQ01', 'CN08', 'Xem'),
 ('NQ01', 'CN08', 'Xóa'),
+('NQ01', 'CN10', 'Sửa'),
+('NQ01', 'CN10', 'Thêm'),
 ('NQ01', 'CN10', 'X'),
 ('NQ01', 'CN10', 'Xem'),
 ('NQ01', 'CN10', 'Xóa'),
 ('NQ01', 'CN11', 'Sửa'),
+('NQ01', 'CN11', 'Thêm'),
 ('NQ01', 'CN11', 'X'),
 ('NQ01', 'CN11', 'Xem'),
 ('NQ01', 'CN11', 'Xóa'),
@@ -1314,6 +1318,13 @@ CREATE TABLE `giohang` (
   `trang_thai` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `giohang`
+--
+
+INSERT INTO `giohang` (`ma_ctsp`, `ma_kh`, `gia_sp`, `so_luong`, `trang_thai`) VALUES
+('CTSP0001', 'KH0001', 26239500, 1, 0);
+
 -- --------------------------------------------------------
 
 --
@@ -1364,7 +1375,6 @@ CREATE TABLE `khachhang` (
   `ten_kh` varchar(100) NOT NULL,
   `so_dien_thoai` varchar(10) NOT NULL,
   `email` varchar(100) NOT NULL,
-  `dia_chi` varchar(150) NOT NULL,
   `trang_thai` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -1372,9 +1382,9 @@ CREATE TABLE `khachhang` (
 -- Dumping data for table `khachhang`
 --
 
-INSERT INTO `khachhang` (`ma_kh`, `ten_kh`, `so_dien_thoai`, `email`, `dia_chi`, `trang_thai`) VALUES
-('KH0002', 'Thế Vũ', '', 'vnguyen132az@gmail.com', '', 0),
-('KH0003', 'Vu', '', 'thevu1073@gmail.com', '', 0);
+INSERT INTO `khachhang` (`ma_kh`, `ten_kh`, `so_dien_thoai`, `email`, `trang_thai`) VALUES
+('KH0001', 'Thế Vũ', '', 'vnguyen132az@gmail.com', 0),
+('KH0002', 'Nguyễn Vũ', '', 'thevu1073@gmail.com', 0);
 
 -- --------------------------------------------------------
 
@@ -1689,7 +1699,8 @@ CREATE TABLE `taikhoan` (
 
 INSERT INTO `taikhoan` (`ma_tk`, `ma_quyen`, `username`, `password`, `otp`, `trang_thai`) VALUES
 ('admin', 'NQ01', 'admin', 'admin', 0, 0),
-('vnguyen132az@gmail.com', 'user', 'vnguyen132az@gmail.com', '123456', 0, 0);
+('thevu1073@gmail.com', 'user', 'thevu1073@gmail.com', '123456', 0, 0),
+('vnguyen132az@gmail.com', 'user', 'vnguyen132az@gmail.com', '123', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -1741,10 +1752,12 @@ CREATE TABLE `thongbao` (
 --
 
 CREATE TABLE `thongtinnhanhang` (
+  `ma_ttnh` varchar(20) NOT NULL,
   `ma_kh` varchar(20) NOT NULL,
   `ho_ten` varchar(150) NOT NULL,
   `so_dien_thoai` int(10) NOT NULL,
-  `dia_chi` varchar(200) NOT NULL
+  `dia_chi` varchar(200) NOT NULL,
+  `dia_chi_mac_dinh` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -12622,7 +12635,8 @@ ALTER TABLE `thongbao`
 -- Indexes for table `thongtinnhanhang`
 --
 ALTER TABLE `thongtinnhanhang`
-  ADD PRIMARY KEY (`ma_kh`);
+  ADD PRIMARY KEY (`ma_ttnh`),
+  ADD KEY `ttnh_fk_kh` (`ma_kh`);
 
 --
 -- Indexes for table `thuonghieu`
