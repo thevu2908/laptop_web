@@ -1,3 +1,8 @@
+function checkSpace(str){
+    var partten=/^\s*$/;
+    return partten.test(str)
+}
+
 function isValidEmail(email) {
     return String(email)
         .toLowerCase()

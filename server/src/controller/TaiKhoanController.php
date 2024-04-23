@@ -99,6 +99,7 @@ class TaiKhoanController {
 }
 
 $taiKhoanCTL = new TaiKhoanController();
+$action = $_POST['action'];
 $action = isset($_REQUEST['action']) ? $_REQUEST['action'] : '';
 
 switch ($action) {

@@ -55,6 +55,7 @@ async function renderEmployeeData() {
                 </tr>
             `
         })
+        phanquyen_chucnang("Nhân Viên")
         $('.admin-employee-list').html(html)
         
     }

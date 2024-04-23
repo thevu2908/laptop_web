@@ -1172,3 +1172,12 @@ table.table .avatar {
   cursor: pointer;
   padding: 7px 0;
 }
+/**/
+#tableChiTietBaoHanh th,
+    #tableChiTietBaoHanh td {
+        width: auto;
+    }
+#tableChiTietDoiTra th,
+#tableChiTietDoiTra td {
+    width: auto;
+} 

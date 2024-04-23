@@ -33,5 +33,13 @@ class ChucNangQuyenRepo extends ConnectDB{
         }
         return false;
     }
+    public function updateChucNang($machucnang,$tenchucnang){
+        $sql = "UPDATE chucnangquyen SET ten_chuc_nang='$tenchucnang' WHERE ma_chuc_nang='$machucnang'";
+        $result = mysqli_query($this->conn,$sql);
+        if($result){
+            return true;
+        }
+        return false;
+    }
 }
 ?>

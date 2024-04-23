@@ -2453,6 +2453,15 @@ ul, li {
     width: 200px;
     padding: 8px 0;
 }
+/**/
+#searchResult img {
+    max-width: 100px;
+    height: auto;
+}
+
+#searchResult td {
+    vertical-align: middle;
+}
 
 .sort-container {
     display: flex;

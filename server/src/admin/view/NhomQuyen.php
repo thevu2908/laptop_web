@@ -60,7 +60,7 @@
 						<div class="form-group">
 							<p id="mess_maquyen"></p>
 							<label>Mã Nhóm Quyền</label>
-							<input type="text" class="form-control" required id="ma_quyen">
+							<input type="text" class="form-control"  id="ma_quyen" readonly='false'>
 						</div>
 						<div class="form-group">
 							<p id="mess_tenquyen"></p>
@@ -89,7 +89,7 @@
 						<div class="form-group">
 							<div class="form-group">
 								<label>Mã Nhóm Quyền</label>
-								<input class="form-control" type="text" name="" id="maquyen" required>
+								<input class="form-control" type="text" name="" readonly="true" id="maquyen" required>
 							</div>
 						</div>
 						<div class="form-group">

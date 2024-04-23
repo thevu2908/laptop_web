@@ -57,6 +57,15 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
                     <div class="cart-pseudo"></div>
                     <?php include "cart-dropdown.php" ?>
                 </button>
+                <a href="index.php?dang-nhap" class="login-btn">
+                    <i class="fa-regular fa-user"></i>
+                </a>
+                <a href="index.php?bao-hanh" class="login-btn">
+                    <i class="fa-solid fa-screwdriver-wrench"></i>
+                </a>
+                <a href="index.php?doi-tra" class="login-btn">
+                    <i class="fa-solid fa-right-left"></i>
+                </a>
 
                 <?php echo $username
                     ? "
