@@ -63,10 +63,10 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
                         <div class='header-account'>
                             <span class='header-username'>$username</span>
                             <div class='header__account-menu'>
-                                <a href='index.html?thong-tin-tai-khoan' class='header__account-link'>Thông tin cá nhân</a>
-                                <a href='index.html?don-hang' class='header__account-link'>Đơn hàng đã đặt</a>
-                                <a href='index.html?tra-cuu-bao-hanh' class='header__account-link'>Tra cứu bảo hành</a>
-                                <a href='index.html?doi-tra' class='header__account-link'>Tra cứu đổi trả</a>
+                                <a href='index.php?thong-tin-tai-khoan' class='header__account-link'>Thông tin cá nhân</a>
+                                <a href='index.php?don-hang' class='header__account-link'>Đơn hàng đã đặt</a>
+                                <a href='index.php?tra-cuu-bao-hanh' class='header__account-link'>Tra cứu bảo hành</a>
+                                <a href='index.php?doi-tra' class='header__account-link'>Tra cứu đổi trả</a>
                                 <a class='header__account-link btn-logout'>Đăng xuất</a>
                             </div>
                         </div>

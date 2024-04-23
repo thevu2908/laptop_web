@@ -3,6 +3,16 @@ $(document).on('click', function (e) {
     if (e.target && !e.target.classList.contains('sort-dropdown-button') && e.target.closest('div') && !e.target.closest('div').classList.contains('sort-dropdown-button')) {
         $('.search-product-main .sort-dropdown-button').removeClass('show') 
     }
+    // custom form
+    $('.custom-form__outline').removeClass('form-outline__border')
+    $('.custom-form__outline').each(function () {
+        if ($(this).find('.custom-form__input').val() || $(this).find('.custom-form__select').val()) {
+            $(this).find('.custom-form__title').show()
+        } else {
+            $(this).find('.custom-form__title').hide()
+        }
+    })
+    
     $('.search-suggest-container').hide()
     const overSuggest = $('.over-suggest')
     overSuggest.css('opacity', '0')
@@ -173,8 +183,34 @@ $(function() {
 });
 
 // show search dropdown
-$(document).on('click', '.search-product-main .sort-dropdown-button', function (e) {
+$(document).on('click', '.search-product-main .sort-dropdown-button', function(e) {
     $('.search-product-main .sort-dropdown-button').not($(this)).removeClass('show')
     $(this).toggleClass('show')
     e.stopPropagation()
+})
+
+// custom form
+$(document).on('click', '.custom-form__outline', function(e) {
+    e.stopPropagation()
+    $('.custom-form__outline').not($(this)).removeClass('form-outline__border')
+    $(this).removeClass('error')
+    $(this).siblings('.custom-form__input-error').hide()
+    $(this).siblings('.custom-form__input-error').text('')
+    $(this).addClass('form-outline__border')
+})
+
+$(document).on('input', '.custom-form__input', function(e) {
+    if ($(this).val()) {
+        $(this).siblings('.custom-form__title').show()
+    } else {
+        $(this).siblings('.custom-form__title').hide()
+    }
+})
+
+$(document).on('change', '.custom-form__select', function(e) {
+    if ($(this).val()) {
+        $(this).siblings('.custom-form__title').show()
+    } else {
+        $(this).siblings('.custom-form__title').hide()
+    }
 })
