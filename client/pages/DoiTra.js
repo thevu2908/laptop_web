@@ -1,7 +1,10 @@
 $(document).ready(function() {
-    loadDoiTra()
-    clickPage(loadDoiTra)
-    addDoiTra()
+    const urlParams = new URLSearchParams(window.location.search)
+    if (window.location.pathname === '/admin.php' && urlParams.get('controller') === 'doitra') {
+        loadDoiTra()
+        clickPage(loadDoiTra)
+        addDoiTra()
+    }
     TraCuu()
     //$('#myModal').modal({backdrop: 'static', keyboard: false})
 })

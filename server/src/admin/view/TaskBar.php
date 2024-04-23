@@ -193,12 +193,12 @@ function kiemtraquyen($arr,$chucnang){
     }
     ?> -->
   <ul class="side-menu">
-    <li>
+    <!-- <li>
       <a href="#" style="text-decoration: none;">
         <i class="fas fa-cog"></i>
         <span class="text">Settings</span>
       </a>
-    </li>
+    </li> -->
     <li>
       <a class="btn-logout" style="text-decoration: none;">
         <i class="fas fa-right-from-bracket"></i>

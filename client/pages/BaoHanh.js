@@ -1,9 +1,17 @@
 $(document).ready(function() {
-    loadBaoHanh()
-    clickPage(loadBaoHanh)
-    addBaoHanh()
+    const urlParams = new URLSearchParams(window.location.search)
+    if (window.location.pathname === '/admin.php' && urlParams.get('controller') === 'baohanh') {
+        loadBaoHanh()
+        clickPage(loadBaoHanh)
+        addBaoHanh()
+    }
     TraCuu()
     kiemtrathoigianbaohanh()
+    // loadBaoHanh()
+    // clickPage(loadBaoHanh)
+    // addBaoHanh()
+    // TraCuu()
+    // kiemtrathoigianbaohanh()
     //$('#addBaoHanh').modal({backdrop: 'static', keyboard: false})
 })
 var listitemBaoHanh=[];
@@ -230,10 +238,6 @@ $("#tableChiTietHoaDon tbody").on("click", "tr", function(){
         $("#tableChiTietBaoHanh tbody").append(newRow);
     }
 });
-/*
- <td><input type="text" class="form-control"></td>
-<td><input type="text" class="form-control"></td>
-*/
 function checkTime(str){
     console.log(typeof str);
     if (str.startsWith('0000')) {
