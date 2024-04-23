@@ -120,17 +120,20 @@ function signUp(email) {
         try {
             const addAccountRes = await addAccount(email, 'user', email, password)
             const customer = await getCustomer(email)
-            const customerRes = !customer ? await addCustomer(name, '', email, '') : await updateCustomer(customer.ma_kh, name, '', email, '')
+            const customerRes = !customer ? await addCustomer(name, '', email) : await updateCustomer(customer.ma_kh, name, '', email)
             if (addAccountRes && customerRes) {
                 const sinupSuccess = await fetch('server/src/view/signup-success.php')
                 const sinupSuccessHtml = await sinupSuccess.text()
                 const loginRes = await login(email, password)
+                console.log(loginRes)
                 if (loginRes) {
                     $('.verify-step-line:eq(1)').addClass('active')
                     $('.verify-step-item:eq(2) ').addClass('active')
                     $('.verify-container .verify-content').html(sinupSuccessHtml)
                     $('.signup-success-email').text(email)
                     countDownBackHomePage()
+                } else {
+                    alert('Đã xảy ra lỗi')
                 }
             } else {
                 alert('Đã xảy ra lỗi')

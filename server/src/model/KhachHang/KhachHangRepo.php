@@ -49,10 +49,9 @@ class KhachHangRepo extends ConnectDB {
             $ten_kh = $khachhang->getTenKh();
             $so_dien_thoai = $khachhang->getSoDienThoai();
             $email = $khachhang->getEmail();
-            $dia_chi = $khachhang->getDiaChi();
     
-            $sql = "INSERT INTO khachhang(ma_kh,ten_kh,so_dien_thoai,email,dia_chi,trang_thai) 
-                    VALUES ('$ma_kh', '$ten_kh', '$so_dien_thoai', '$email', '$dia_chi', '0')";
+            $sql = "INSERT INTO khachhang(ma_kh,ten_kh,so_dien_thoai,email,trang_thai) 
+                    VALUES ('$ma_kh', '$ten_kh', '$so_dien_thoai', '$email', '0')";
             $result = mysqli_query($this->conn, $sql);
             
             if ($result) {
@@ -84,9 +83,8 @@ class KhachHangRepo extends ConnectDB {
             $ten_kh = $khachhang->getTenKh();
             $so_dien_thoai = $khachhang->getSoDienThoai();
             $email = $khachhang->getEmail();
-            $dia_chi = $khachhang->getDiaChi();
     
-            $sql = "UPDATE khachhang SET ten_kh='$ten_kh', so_dien_thoai='$so_dien_thoai', email='$email', dia_chi='$dia_chi' WHERE ma_kh='$ma_kh'";
+            $sql = "UPDATE khachhang SET ten_kh='$ten_kh', so_dien_thoai='$so_dien_thoai', email='$email' WHERE ma_kh='$ma_kh'";
             $result = mysqli_query($this->conn, $sql);
             if ($result) {
                 return true;
