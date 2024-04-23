@@ -1755,7 +1755,7 @@ CREATE TABLE `thongtinnhanhang` (
   `ma_ttnh` varchar(20) NOT NULL,
   `ma_kh` varchar(20) NOT NULL,
   `ho_ten` varchar(150) NOT NULL,
-  `so_dien_thoai` int(10) NOT NULL,
+  `so_dien_thoai` varchar(10) NOT NULL,
   `dia_chi` varchar(200) NOT NULL,
   `dia_chi_mac_dinh` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
