@@ -116,6 +116,12 @@ async function renderThongTinNhanHang() {
                                 <button class="btn btn-link btn-update-address__modal" data-bs-toggle="modal" data-bs-target="#address-modal">
                                     Cập nhật
                                 </button>
+                                ${item.dia_chi_mac_dinh === '0' 
+                                    ? `<button class="btn btn-link btn-delete-address__modal" data-bs-toggle="modal" data-bs-target="#address-modal">
+                                        Xóa
+                                    </button>` 
+                                : ''
+                                }
                             </div>
                         </div>
                         <div id="" class="account-profile__address-content">
@@ -204,3 +210,4 @@ function handleAddThongTinNhanhang() {
         }
     })
 }
+

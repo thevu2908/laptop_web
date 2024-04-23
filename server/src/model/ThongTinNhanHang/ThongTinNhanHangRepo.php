@@ -68,7 +68,7 @@ class ThongTinNhanHangRepo extends ConnectDB {
             $sodienthoai = $ttnh->getSoDienThoai();
             $diachi = $ttnh->getDiachi();
             $diachimacdinh = $ttnh->getDiachimacdinh();
-            $result = $statement->bind_param("sssiss", $maTtnh, $maKh, $hoTen, $sodienthoai, $diachi, $diachimacdinh);
+            $result = $statement->bind_param("ssssss", $maTtnh, $maKh, $hoTen, $sodienthoai, $diachi, $diachimacdinh);
 
             if (!$result) {
                 throw new Exception("Parameter binding failed: " . mysqli_error($this->conn));
