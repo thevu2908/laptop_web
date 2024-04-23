@@ -795,7 +795,7 @@ function selectEndUserConfig(product) {
     let ram = product.detail[0].ram
     let rom = product.detail[0].rom
     let color = product.detail[0].color
-    let price = product.detail[0].price
+    let price = `₫${formatCurrency(product.detail[0].price)}`
 
     $(document).on('click', '.product-select-item.ram', function() {
         $('.product-select-item.ram').removeClass('active')
