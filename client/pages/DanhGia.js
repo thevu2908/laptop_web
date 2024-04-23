@@ -1,17 +1,23 @@
 $(document).ready(() => {
+    // Trang Admin
     renderReviewAdmin(null)
     clickPage(renderReviewAdmin)
 
+    // Trang User
     handleAddReview()
-
-    renderListReview('CTSP0008')
 })
 
-function renderListReview(ctspId) {
+async function getMaKH() {
+    const loginSession = await getLoginSession()
+    return loginSession ? loginSession.customerId : ''
+}
+
+async function renderListReview() {
+    productId = $('.btn-add-cart').attr('data-id');
     $.ajax({
         url: 'server/src/controller/DanhGiaController.php',
         method: 'POST',
-        data: { action: 'get-all' , ctspId},
+        data: { action: 'get-all' , productId},
         dataType: 'JSON',
         success: data => {
             if (data && data.length > 0) {
@@ -68,19 +74,19 @@ function renderListReview(ctspId) {
 }
 
 async function renderReviewAdmin(data) {
-    let productDetailId = $('#admin-review-main #product-detail-id').val()
+    let productId = $('#admin-review-main #product-detail-id').val()
 
-    if (productDetailId) {
-        // productDetailId = productDetailId.toUpperCase().trim()
-        // renderProductName(productDetailId)
+    if (productId) {
+        // productId = productId.toUpperCase().trim()
+        // renderProductName(productId)
 
-        const dataReview = data ? data : await getPaginationReview(productDetailId)
+        const dataReview = data ? data : await getPaginationReview(productId)
 
         if (dataReview && dataReview.pagination && dataReview.pagination.length > 0) {
             let html = ''
 
             dataReview.pagination.forEach((review, index) => {
-                if(review.ma_ctsp === productDetailId) {
+                if(review.ma_ctsp === productId) {
                     html += `
                         <tr>
                             <td>
@@ -113,13 +119,13 @@ async function renderReviewAdmin(data) {
     }
 }
 
-function getPaginationReview(productDetailId) {
+function getPaginationReview(productId) {
     return new Promise((resolve, reject) => {
         const page = $('#currentpage').val()
         $.ajax({
             url: 'server/src/controller/PaginationController.php',
             method: 'GET',
-            data: { action: 'pagination', table: 'danhgia', page, id: productDetailId },
+            data: { action: 'pagination', table: 'danhgia', page, id: productId },
             dataType: 'JSON',
             success: review => resolve(review),
             error: (xhr, status, error) => {
@@ -131,7 +137,7 @@ function getPaginationReview(productDetailId) {
 }
 
 function validateReviewEmpty(review) {
-    if(review.productDetailId === '' || review.productDetailId == undefined) {
+    if(review.productId === '' || review.productId == undefined) {
         alert('Lỗi không tìm thấy id sản phẩm')
         return false;
     }
@@ -173,16 +179,18 @@ function addReview(review) {
     })
 }
 
-function handleAddReview() {
-    $(document).on('click', '#btn-add-review', (e) => {
+async function handleAddReview() {
+    $(document).on('click', '#btn-add-review', async (e) => {
         var currentDate = new Date();
         var formattedDate = currentDate.toISOString().slice(0, 10);
 
-        ctspId = $('.btn-add-cart').attr('data-id');
+        let productId = $('.btn-add-cart').attr('data-id');
+        let customerId = await getMaKH()
+        console.log(customerId)
 
         const dataReview = {
-            productDetailId: ctspId,
-            customerId: 'KH002',
+            productId: productId,
+            customerId: customerId,
             rating: $('#review-index .rating input[type="radio"].rate-active').val(),
             time: formattedDate,
             content: $('#review-index #content-review').val(),
@@ -192,7 +200,7 @@ function handleAddReview() {
             return
         }
 
-        console.log(dataReview.productDetailId)
+        console.log(dataReview.productId)
         console.log(dataReview.customerId)
         console.log(dataReview.rating)
         console.log(dataReview.time)

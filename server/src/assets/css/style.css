@@ -376,6 +376,7 @@
 
 .checkout__right-info span {
     font-size: 13px;
+    line-height: 8px;
 }
 
 .checkout__right-info div {
@@ -615,7 +616,8 @@ ul, li {
     color: #8D90A6;
 }
 
-.modal-promo-add {
+.modal-promo-add,
+.modal-promo-del {
     color: var(--primary-color);
     cursor: pointer;
 }

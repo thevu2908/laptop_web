@@ -83,45 +83,6 @@ class KhuyenMaiRepo extends ConnectDB {
             return true;
         }
         return false;
-
-        // try {
-        //     $sql = "UPDATE khuyenmai SET ten_khuyen_mai=?, muc_khuyen_mai=?, dieu_kien=?, 
-        //         thoi_gian_bat_dau=?, thoi_gian_ket_thuc=?, tinh_trang=?
-        //         WHERE ma_km=?";
-        //     $statement = mysqli_prepare($this->conn, $sql);
-            
-        //     if (!$statement) {
-        //         throw new Exception("Query preparation failed: " . mysqli_error($this->conn));
-        //     }
-
-        //     $ma_km = $khuyenmai->getMaKm();
-        //     $ten_khuyen_mai = $khuyenmai->getTenKhuyenMai();
-        //     $muc_khuyen_mai = $khuyenmai->getMucKhuyenMai();
-        //     $dieu_kien = $khuyenmai->getDieuKien();
-        //     $thoi_gian_bat_dau = $khuyenmai->getThoiGianBatDau();
-        //     $thoi_gian_ket_thuc = $khuyenmai->getThoiGianKetThuc();
-        //     $tinh_trang = $khuyenmai->getTinhTrang();
-
-        //     $result = $statement->bind_param(
-        //         "sssssssssdssis", 
-        //         $ma_km, $ten_khuyen_mai, $muc_khuyen_mai,
-        //         $dieu_kien, $thoi_gian_bat_dau, $thoi_gian_ket_thuc, 
-        //         $tinh_trang
-        //     );
-
-        //     if (!$result) {
-        //         throw new Exception("Binding parameters failed: " . $statement->error);
-        //     }
-
-        //     if ($statement->execute()) {
-        //         return true;
-        //     } else {
-        //         throw new Exception("Execution of query failed: " . mysqli_error($this->conn));
-        //     }
-        // } catch (Exception $e) {
-        //     echo 'Error: ' . $e->getMessage() . '<br>';
-        //     return false;
-        // }
     }
 
     function searchKhuyenMai($search) {

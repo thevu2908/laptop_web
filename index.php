@@ -59,6 +59,7 @@
         } else if (isset($_REQUEST['thanh-toan'])) {
             include './server/src/view/checkout.php';
             echo '<script src="client/pages/DiaChi.js"></script>';
+            echo '<script src="client/pages/Checkout.js"></script>';
         } else if (isset($_REQUEST['tim-kiem'])) {
             include './server/src/view/search-product.php';
             echo '<script src="./client/pages/ThuongHieu.js"></script>';
@@ -89,6 +90,7 @@
     </div>
 
     <script src="./client/pages/GioHang.js"></script>
+    <script src="./client/pages/DanhGia.js"></script>
     <script src="server/src/assets/js/main.js"></script>
     <script src="./client/plugins/pagination.js"></script>
     <script src="./client/plugins/validation.js"></script>

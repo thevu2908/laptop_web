@@ -22,58 +22,7 @@
                     </span>
                 </div>
                 <ul class="cart__left-product">
-                    <!-- <li class="d-flex justify-content-between w-100 align-items-center">
-                        <div class="cart__left-product-name d-flex p-2">
-                            <img src=".\server\src\assets\images\laptop-1.png" alt="">
-                            <span>MacBook Air M2 13 2022 8CPU 8GPU 8GB 256GB</span>
-                        </div>
-                        <div class="cart__left-product-price p-2">₫26.190.000</div>
-                        <div class="cart__left-quantity p-2" style="display: flex;">
-                            <input class="minus is-form" type="button" style="border-right: transparent !important;" value="-">
-                            <input class="input-qty" type="text" value="1" min="1" max="10" id="quantity" value="1">
-                            <input class="plus is-form" type="button" style="border-left: transparent !important;" value="+">
-                        </div>
-                        <div class="cart__left-product-total p-2">₫41.190.000</div>
-                    </li>
-                    <li class="d-flex justify-content-between w-100 align-items-center">
-                        <div class="cart__left-product-name d-flex p-2">
-                            <img src=".\server\src\assets\images\laptop-1.png" alt="">
-                            <span>MacBook Air M2 13 2022 8CPU 8GPU 8GB 256GB</span>
-                        </div>
-                        <div class="cart__left-product-price p-2">₫26.190.000</div>
-                        <div class="cart__left-quantity p-2" style="display: flex;">
-                            <input class="minus is-form" type="button" style="border-right: transparent !important;" value="-">
-                            <input class="input-qty" type="text" value="1" min="1" max="10" id="quantity" value="1">
-                            <input class="plus is-form" type="button" style="border-left: transparent !important;" value="+">
-                        </div>
-                        <div class="cart__left-product-total p-2">₫45.190.000</div>
-                    </li>
-                    <li class="d-flex justify-content-between w-100 align-items-center">
-                        <div class="cart__left-product-name d-flex p-2">
-                            <img src=".\server\src\assets\images\laptop-1.png" alt="">
-                            <span>MacBook Air M2 13 2022 8CPU 8GPU 8GB 256GB</span>
-                        </div>
-                        <div class="cart__left-product-price p-2">₫26.190.000</div>
-                        <div class="cart__left-quantity p-2" style="display: flex;">
-                            <input class="minus is-form" type="button" style="border-right: transparent !important;" value="-">
-                            <input class="input-qty" type="text" value="1" min="1" max="10" id="quantity" value="1">
-                            <input class="plus is-form" type="button" style="border-left: transparent !important;" value="+">
-                        </div>
-                        <div class="cart__left-product-total p-2">₫45.190.000</div>
-                    </li>
-                    <li class="d-flex justify-content-between w-100 align-items-center">
-                        <div class="cart__left-product-name d-flex p-2">
-                            <img src=".\server\src\assets\images\laptop-1.png" alt="">
-                            <span>MacBook Air M2 13 2022 8CPU 8GPU 8GB 256GB</span>
-                        </div>
-                        <div class="cart__left-product-price p-2">₫26.190.000</div>
-                        <div class="cart__left-quantity p-2" style="display: flex;">
-                            <input class="minus is-form" type="button" style="border-right: transparent !important;" value="-">
-                            <input class="input-qty" type="text" value="1" min="1" max="10" id="quantity" value="1">
-                            <input class="plus is-form" type="button" style="border-left: transparent !important;" value="+">
-                        </div>
-                        <div class="cart__left-product-total p-2">₫45.190.000</div>
-                    </li> -->
+                    
                 </ul>
             </div>
             <div class="cart__right d-flex flex-column col-4">
@@ -84,71 +33,7 @@
                     </div>
                     <div class="cart__right-condition">Đơn hàng chưa đủ điều kiện áp dụng khuyến mãi. Vui lòng mua thêm để áp dụng</div>
                     <ul class="cart-list-promo" style="max-height: 270px;" >
-                        <!-- <li class="modal-promo-item p-2" >
-                            <div class="modal-promo-name d-flex align-items-center" >
-                                <div class="modal-promo-code">KM0012</div>
-                                <div class="modal-promo-name2 ms-2" style="font-weight: 500;">Khuyến mãi siêu sốc</div>
-                            </div>
-                            <div class="modal-promo-percent" >
-                                Giảm 20%
-                            </div>
-                            <div class="modal-promo-bottom d-flex justify-content-between">
-                                <div class="modal-promo-expiry" >HSD: 31/4/2024</div>
-                                <div class="modal-promo-add" >Bỏ chọn</div>
-                            </div>
-                        </li>
-                        <li class="modal-promo-item p-2" >
-                            <div class="modal-promo-name d-flex align-items-center" >
-                                <div class="modal-promo-code">KM0012</div>
-                                <div class="modal-promo-name2 ms-2" style="font-weight: 500;">Khuyến mãi siêu sốc</div>
-                            </div>
-                            <div class="modal-promo-percent" >
-                                Giảm 20%
-                            </div>
-                            <div class="modal-promo-bottom d-flex justify-content-between">
-                                <div class="modal-promo-expiry" >HSD: 31/4/2024</div>
-                                <div class="modal-promo-add" >Bỏ chọn</div>
-                            </div>
-                        </li>
-                        <li class="modal-promo-item p-2" >
-                            <div class="modal-promo-name d-flex align-items-center" >
-                                <div class="modal-promo-code">KM0012</div>
-                                <div class="modal-promo-name2 ms-2" style="font-weight: 500;">Khuyến mãi siêu sốc</div>
-                            </div>
-                            <div class="modal-promo-percent" >
-                                Giảm 20%
-                            </div>
-                            <div class="modal-promo-bottom d-flex justify-content-between">
-                                <div class="modal-promo-expiry" >HSD: 31/4/2024</div>
-                                <div class="modal-promo-add" >Bỏ chọn</div>
-                            </div>
-                        </li>
-                        <li class="modal-promo-item p-2" >
-                            <div class="modal-promo-name d-flex align-items-center" >
-                                <div class="modal-promo-code">KM0012</div>
-                                <div class="modal-promo-name2 ms-2" style="font-weight: 500;">Khuyến mãi siêu sốc</div>
-                            </div>
-                            <div class="modal-promo-percent" >
-                                Giảm 20%
-                            </div>
-                            <div class="modal-promo-bottom d-flex justify-content-between">
-                                <div class="modal-promo-expiry" >HSD: 31/4/2024</div>
-                                <div class="modal-promo-add" >Bỏ chọn</div>
-                            </div>
-                        </li>
-                        <li class="modal-promo-item p-2" >
-                            <div class="modal-promo-name d-flex align-items-center" >
-                                <div class="modal-promo-code">KM0012</div>
-                                <div class="modal-promo-name2 ms-2" style="font-weight: 500;">Khuyến mãi siêu sốc</div>
-                            </div>
-                            <div class="modal-promo-percent" >
-                                Giảm 20%
-                            </div>
-                            <div class="modal-promo-bottom d-flex justify-content-between">
-                                <div class="modal-promo-expiry" >HSD: 31/4/2024</div>
-                                <div class="modal-promo-add" >Bỏ chọn</div>
-                            </div>
-                        </li> -->
+                    
                     </ul>
                 </div>
                 <div class="cart__right-pay bg-white mb-4 p-4 rounded-3">
@@ -187,79 +72,14 @@
                     <ul class="modal-cart-list" style="max-height: 400px;" >
                         <!-- <li class="modal-promo-item" >
                             <div class="modal-promo-name d-flex align-items-center" >
-                                <div class="modal-promo-code">KM0012</div>
-                                <div class="modal-promo-name2 ms-2" style="font-weight: 500;">Khuyến mãi siêu sốc</div>
+                                <div class="modal-promo-code">${item.ma_km}</div>
+                                <div class="modal-promo-name2 ms-2" style="font-weight: 500;">${item.ten_khuyen_mai}</div>
                             </div>
                             <div class="modal-promo-percent mt-2 mb-2" >
-                                Giảm 20%
+                                Giảm ${formatCurrency(convertMucKM(item.muc_khuyen_mai))}₫
                             </div>
                             <div class="modal-promo-bottom d-flex justify-content-between">
-                                <div class="modal-promo-expiry" >HSD: 31/4/2024</div>
-                                <div class="modal-promo-add" >Áp dụng</div>
-                            </div>
-                        </li>
-                        <li class="modal-promo-item" >
-                            <div class="modal-promo-name d-flex align-items-center" >
-                                <div class="modal-promo-code">KM0012</div>
-                                <div class="modal-promo-name2 ms-2" style="font-weight: 500;">Khuyến mãi siêu sốc</div>
-                            </div>
-                            <div class="modal-promo-percent mt-2 mb-2" >
-                                Giảm 20%
-                            </div>
-                            <div class="modal-promo-bottom d-flex justify-content-between">
-                                <div class="modal-promo-expiry" >HSD: 31/4/2024</div>
-                                <div class="modal-promo-add" >Áp dụng</div>
-                            </div>
-                        </li>
-                        <li class="modal-promo-item" >
-                            <div class="modal-promo-name d-flex align-items-center" >
-                                <div class="modal-promo-code">KM0012</div>
-                                <div class="modal-promo-name2 ms-2" style="font-weight: 500;">Khuyến mãi siêu sốc</div>
-                            </div>
-                            <div class="modal-promo-percent mt-2 mb-2" >
-                                Giảm 20%
-                            </div>
-                            <div class="modal-promo-bottom d-flex justify-content-between">
-                                <div class="modal-promo-expiry" >HSD: 31/4/2024</div>
-                                <div class="modal-promo-add" >Áp dụng</div>
-                            </div>
-                        </li>
-                        <li class="modal-promo-item" >
-                            <div class="modal-promo-name d-flex align-items-center" >
-                                <div class="modal-promo-code">KM0012</div>
-                                <div class="modal-promo-name2 ms-2" style="font-weight: 500;">Khuyến mãi siêu sốc</div>
-                            </div>
-                            <div class="modal-promo-percent mt-2 mb-2" >
-                                Giảm 20%
-                            </div>
-                            <div class="modal-promo-bottom d-flex justify-content-between">
-                                <div class="modal-promo-expiry" >HSD: 31/4/2024</div>
-                                <div class="modal-promo-add" >Áp dụng</div>
-                            </div>
-                        </li>
-                        <li class="modal-promo-item" >
-                            <div class="modal-promo-name d-flex align-items-center" >
-                                <div class="modal-promo-code">KM0012</div>
-                                <div class="modal-promo-name2 ms-2" style="font-weight: 500;">Khuyến mãi siêu sốc</div>
-                            </div>
-                            <div class="modal-promo-percent mt-2 mb-2" >
-                                Giảm 20%
-                            </div>
-                            <div class="modal-promo-bottom d-flex justify-content-between">
-                                <div class="modal-promo-expiry" >HSD: 31/4/2024</div>
-                                <div class="modal-promo-add" >Áp dụng</div>
-                            </div>
-                        </li>
-                        <li class="modal-promo-item" >
-                            <div class="modal-promo-name d-flex align-items-center" >
-                                <div class="modal-promo-code">KM0012</div>
-                                <div class="modal-promo-name2 ms-2" style="font-weight: 500;">Khuyến mãi siêu sốc</div>
-                            </div>
-                            <div class="modal-promo-percent mt-2 mb-2" >
-                                Giảm 20%
-                            </div>
-                            <div class="modal-promo-bottom d-flex justify-content-between">
-                                <div class="modal-promo-expiry" >HSD: 31/4/2024</div>
+                                <div class="modal-promo-expiry" >HSD: ${convertDate(item.thoi_gian_ket_thuc)}</div>
                                 <div class="modal-promo-add" >Áp dụng</div>
                             </div>
                         </li> -->

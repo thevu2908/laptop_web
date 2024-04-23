@@ -2,12 +2,8 @@ $(document).ready(() => {
     loadCart()
     loadCartNumber()
     handleAddCart()
+    updateQuantity()
 })
-
-async function getMaKH() {
-    const loginSession = await getLoginSession()
-    return loginSession ? loginSession.customerId : ''
-}
 
 function getFullInfoProduct(maCTSP) {
     return new Promise((resolve, reject) => {
@@ -39,6 +35,7 @@ async function loadCartNumber() {
             $('.cart-number').text(size)
 
             if(size == 0) {
+                // $('.cart__footer-tocart').css('pointer-events', 'none');
                 $('.cart__footer-tocart').css('cursor', 'not-allowed');
             }
         },
@@ -85,9 +82,9 @@ async function loadCart() {
                                     </div>
                                     <div class="cart__left-product-price p-2">₫${formatCurrency(cart.gia_sp)}</div>
                                     <div class="cart__left-quantity p-2" style="display: flex;">
-                                        <input class="minus is-form" type="button" style="border-right: transparent !important;" value="-">
+                                        <input data-id="${cart.ma_ctsp}" class="minus is-form" type="button" style="border-right: transparent !important;" value="-">
                                         <input class="input-qty" type="text" value="${cart.so_luong}" min="1" max="10" id="quantity" value="1">
-                                        <input class="plus is-form" type="button" style="border-left: transparent !important;" value="+">
+                                        <input data-id="${cart.ma_ctsp}" class="plus is-form" type="button" style="border-left: transparent !important;" value="+">
                                     </div>
                                     <div class="cart__left-product-total p-2">₫${formatCurrency(cart.gia_sp * cart.so_luong)}</div>
                                 </li>
@@ -98,6 +95,8 @@ async function loadCart() {
                             $('.cart__footer-money').text("₫" + formatCurrency(tongTien))
                             $('.cart__list-product').html(html)
                             $('.cart__left-product').html(html2)
+
+                            updateQuantity()
                         })
                         .catch(error => console.log(error))
                 })
@@ -173,14 +172,17 @@ function handleAddCart() {
                 } else {
                     alert('Xảy ra lỗi trong quá trình thêm sản phẩm vào giỏ hàng')
                 }
-            } else {
+            } 
+            else {
                 const addRes = await addCart(cart)
+                console.log(addRes)
                 if (addRes === 'success') {
                     alert('Đã thêm sản phẩm vào giỏ hàng')
                     loadCartNumber(cart.customerId)
                     loadCart(cart.customerId)
                 } else {
                     alert('Xảy ra lỗi trong quá trình thêm sản phẩm vào giỏ hàng')
+                    console.log('Xảy ra lỗi trong quá trình thêm sản phẩm vào giỏ hàng')
                 }
             }
         } catch (error) {
@@ -204,4 +206,52 @@ function updateCart(cart) {
             }
         })
     })
+}
+
+async function updateQuantity() {
+    $('input.input-qty').each(function () {
+        var $this = $(this),
+            qty = $this.parent().find(".is-form"),
+            min = Number($this.attr('min')),
+            max = Number($this.attr('max'));
+
+        $(qty).on('click', async function () {
+            var d = Number($this.val());
+            if ($(this).hasClass('minus')) {
+                if (d > min) d += -1;
+            } else if ($(this).hasClass('plus')) {
+                var x = Number($this.val()) + 1;
+                if (x <= max) d += 1;
+            }
+            $this.attr('value', d).val(d);
+
+            let ma_ctsp = $(this).attr('data-id')
+            let loginSession = await getLoginSession()
+            if (!loginSession) {
+                alert('Vui lòng đăng nhập để tiếp tục')
+                window.location.href = 'index.php?dang-nhap'
+                return
+            }
+
+            let cartStr = await getCart(ma_ctsp, loginSession.customerId)
+            let objectCart = JSON.parse(cartStr)
+            objectCart.so_luong = d
+            
+            let cart = {
+                productDetailId: objectCart.ma_ctsp,
+                customerId: objectCart.ma_kh,
+                price: $('.cart__left-product .cart__left-product-price').contents().first().text().trim().replace(/[₫.]/g, ""),
+                quantity: objectCart.so_luong,
+            }
+            // loadCart()
+
+            let updateRes = await updateCart(cart)
+            if (updateRes === 'success') {
+                loadCartNumber(cart.customerId)
+                loadCart(cart.customerId)
+            } else {
+                alert('Xảy ra lỗi')
+            }
+        });
+    });
 }

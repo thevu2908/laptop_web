@@ -14,7 +14,7 @@
                         <li class="col-6" >
                             <div class="checkout-address-btn select" >
                                 <div class="checkout-address__info">
-                                    <h5>ĐỖ MINH QUÂN</h5>
+                                    <h5 style="font-weight: 900;">ĐỖ MINH QUÂN</h5>
                                     <h6 class="mb-1 mt-1" >0909123456</h6>
                                     <h6>137/2 Lý Thái Tổ, Phường Tân Định, Quận 1, Thành phố Hồ Chí Minh</h6>
                                 </div>
@@ -62,45 +62,14 @@
                         <div class="">Thông tin đơn hàng</div>
                         <a href="index.php?gio-hang" class="edit-order align-self-center">Chỉnh sửa</a>
                     </h5>
-                    <ul>
-                        <li class="d-flex" >
-                            <div class="checkout__right-image">
-                                <img src=".\server\src\assets\images\laptop-1.png" alt="">
-                            </div>
-                            <div class="checkout__right-info ms-3 align-self-center">
-                                <span>MacBook Air M2 13 2022 8CPU 8GPU 8GB 256GB</span> 
-                                <div class="checkout__right-quantity" style="display: flex;">Số lượng 4</div>
-                                <div class="checkout__right-product-price">₫26.190.000</div>
-                            </div>
-                        </li>
-                        <li class="d-flex" >
-                            <div class="checkout__right-image">
-                                <img src=".\server\src\assets\images\laptop-1.png" alt="">
-                            </div>
-                            <div class="checkout__right-info ms-3 align-self-center">
-                                <span>MacBook Air M2 13 2022 8CPU 8GPU 8GB 256GB</span> 
-                                <div class="checkout__right-quantity" style="display: flex;">Số lượng 4</div>
-                                <div class="checkout__right-product-price">₫26.190.000</div>
-                            </div>
-                        </li>
-                        <li class="d-flex" >
-                            <div class="checkout__right-image">
-                                <img src=".\server\src\assets\images\laptop-1.png" alt="">
-                            </div>
-                            <div class="checkout__right-info ms-3 align-self-center">
-                                <span>MacBook Air M2 13 2022 8CPU 8GPU 8GB 256GB</span> 
-                                <div class="checkout__right-quantity" style="display: flex;">Số lượng 4</div>
-                                <div class="checkout__right-product-price">₫26.190.000</div>
-                            </div>
-                        </li>
+                    <ul class="checkout__right-cart">
+                        
                     </ul>
                 </div>
                 <div class="row bg-white mb-4 p-4 rounded-3">
                     <h5 class="checkout-header">Khuyến mãi đơn hàng</h5>
-                    <ul class="ps-4" >
-                        <li class="btn btn-warning w-100 align-self-start text-white mb-2" style="font-weight: 500; align-self: flex-start;" >DCT12563943 - Tuần lễ vàng</li>
-                        <li class="btn btn-warning w-100 align-self-start text-white mb-2" style="font-weight: 500;" >HKS45238752 - Ngày hội việc làm</li>
-                        <li class="btn btn-warning w-100 align-self-start text-white mb-2" style="font-weight: 500;" >HKS45238752 - Ngày hội việc làm</li>
+                    <ul class="checkout__right-promo" >
+                        
                     </ul>                
                 </div>
                 <div class="checkout-confirm row bg-white mb-4 p-4 rounded-3">

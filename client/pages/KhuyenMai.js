@@ -19,11 +19,13 @@ function loadPromotionData() {
         method: 'POST',
         data: { action: 'get-all' },
         dataType: 'JSON',
-        success: data => {
+        success: async data => {
             if (data && data.length > 0) {
                 let html = ''
                 let html2 = ''
                 let html3 = ''
+                let maKH = await getMaKH()
+                let khuyenMai = JSON.parse(localStorage.getItem('khuyenMai')) || {};
 
                 data.forEach((item) => {
                     html += `
@@ -52,24 +54,38 @@ function loadPromotionData() {
                         </tr>
                     `
 
-                    html2 += `
-                        <li class="modal-promo-item p-2" >
-                            <div class="modal-promo-name d-flex align-items-center" >
-                                <div class="modal-promo-code">${item.ma_km}</div>
-                                <div class="modal-promo-name2 ms-2" style="font-weight: 500;">${item.ten_khuyen_mai}</div>
-                            </div>
-                            <div class="modal-promo-percent" >
-                                Giảm ${formatCurrency(convertMucKM(item.muc_khuyen_mai))}₫
-                            </div>
-                            <div class="modal-promo-bottom d-flex justify-content-between">
-                                <div class="modal-promo-expiry" >HSD: ${convertDate(item.thoi_gian_ket_thuc)}</div>
-                                <div class="modal-promo-add" >Bỏ chọn</div>
-                            </div>
-                        </li>
-                    `
+                    if(khuyenMai[maKH]) {
+                        let promises = khuyenMai[maKH].map(maKM => {
+                            return getPromotion(maKM)
+                                .then(res => {
+                                    return `
+                                        <li class="modal-promo-item p-2" >
+                                            <div class="modal-promo-name d-flex align-items-center" >
+                                                <div class="modal-promo-code">${res.ma_km}</div>
+                                                <div class="modal-promo-name2 ms-2" style="font-weight: 500;">${res.ten_khuyen_mai}</div>
+                                            </div>
+                                            <div class="modal-promo-percent" >
+                                                Giảm ${formatCurrency(convertMucKM(res.muc_khuyen_mai))}₫
+                                            </div>
+                                            <div class="modal-promo-bottom d-flex justify-content-between">
+                                                <div class="modal-promo-expiry" >HSD: ${convertDate(res.thoi_gian_ket_thuc)}</div>
+                                                <div class="modal-promo-del" data-id="${res.ma_km}" >Bỏ chọn</div>
+                                            </div>
+                                        </li>
+                                    `;
+                                });
+                        });
+                    
+                        Promise.all(promises).then(results => {
+                            $('.cart-list-promo').html(results.join(''));
+                            delPromoToLocalStorage()
+                        }).catch(error => console.log(error));
+
+                    }
+                    
 
                     html3 += `
-                        <li class="modal-promo-item" >
+                        <li class="modal-promo-item apply" >
                             <div class="modal-promo-name d-flex align-items-center" >
                                 <div class="modal-promo-code">${item.ma_km}</div>
                                 <div class="modal-promo-name2 ms-2" style="font-weight: 500;">${item.ten_khuyen_mai}</div>
@@ -79,16 +95,16 @@ function loadPromotionData() {
                             </div>
                             <div class="modal-promo-bottom d-flex justify-content-between">
                                 <div class="modal-promo-expiry" >HSD: ${convertDate(item.thoi_gian_ket_thuc)}</div>
-                                <div class="modal-promo-add" >Áp dụng</div>
+                                <div class="modal-promo-add" data-id="${item.ma_km}" >Áp dụng</div>
                             </div>
                         </li>
                     `
                 })
 
                 $('.admin-promotion-list').html(html)
-                $('.cart-list-promo').html(html2)
                 $('.modal-cart-list').html(html3)
             }
+            addPromoToLocalStorage()
         }
     })
 }
@@ -370,37 +386,83 @@ function handleUpdatePromo() {
     })
 }
 
-function renderCartList() {
+function renderPromoByMaKH() {
     console.log("renderCartList")
     $.ajax({
         url: 'server/src/controller/KhuyenMaiController.php',
         method: 'POST',
         data: { action: 'get-all'},
-        success: data => {
+        success: async data => {
             if (data && data.length > 0) {
                 let html = ''
+                let maKH = await getMaKH()
+                let khuyenMai = JSON.parse(localStorage.getItem('khuyenMai')) || {};
                 
-                data.forEach((item, index) => {
-                    html += `
-                        <li class="modal-promo-item p-2" >
-                            <div class="modal-promo-name d-flex align-items-center" >
-                                <div class="modal-promo-code">${data.ma_km}</div>
-                                <div class="modal-promo-name2 ms-2" style="font-weight: 500;">${data.ten_khuyen_mai}</div>
-                            </div>
-                            <div class="modal-promo-percent" >
-                                ${data.muc_khuyen_mai}
-                            </div>
-                            <div class="modal-promo-bottom d-flex justify-content-between">
-                                <div class="modal-promo-expiry" >HSD: ${data.thoi_gian_ket_thuc}</div>
-                                <div class="modal-promo-add" >Bỏ chọn</div>
-                            </div>
-                        </li>
-                    `
-                })
+                if(khuyenMai[maKH]) {
+                    data.forEach((item, index) => {
+                        if(data.ma_km)
+                        html += `
+                            <li class="modal-promo-item p-2" >
+                                <div class="modal-promo-name d-flex align-items-center" >
+                                    <div class="modal-promo-code">${data.ma_km}</div>
+                                    <div class="modal-promo-name2 ms-2" style="font-weight: 500;">${data.ten_khuyen_mai}</div>
+                                </div>
+                                <div class="modal-promo-percent" >
+                                    ${data.muc_khuyen_mai}
+                                </div>
+                                <div class="modal-promo-bottom d-flex justify-content-between">
+                                    <div class="modal-promo-expiry" >HSD: ${data.thoi_gian_ket_thuc}</div>
+                                    <div class="modal-promo-del" >Bỏ chọn</div>
+                                </div>
+                            </li>
+                        `
+                    })
+                }
+                
             }
         },
         error: (xhr, status, error) => {
             console.log(error)
         }
     })
+}
+
+function addPromoToLocalStorage() {
+    $('.modal-promo-add').click(async function() {
+        const maKM = $(this).attr('data-id');
+        const maKH = await getMaKH()
+
+        let khuyenMai = JSON.parse(localStorage.getItem('khuyenMai')) || {};
+        
+        if (!khuyenMai[maKH]) {
+            khuyenMai[maKH] = [];
+        }
+
+        if (!khuyenMai[maKH].includes(maKM)) {
+            khuyenMai[maKH].push(maKM);
+            alert("Áp dụng khuyến mãi thành công")
+            loadPromotionData()
+        }
+
+        localStorage.setItem('khuyenMai', JSON.stringify(khuyenMai));
+    })
+}
+
+function delPromoToLocalStorage() {
+    $('.modal-promo-del').click(async function() {
+        const maKM = $(this).attr('data-id');
+        const maKH = await getMaKH();
+    
+        let khuyenMai = JSON.parse(localStorage.getItem('khuyenMai')) || {};
+    
+        if (khuyenMai[maKH]) {
+            const index = khuyenMai[maKH].indexOf(maKM);
+            if (index !== -1) {
+                khuyenMai[maKH].splice(index, 1);
+                localStorage.setItem('khuyenMai', JSON.stringify(khuyenMai));
+                alert("Xóa khuyến mãi thành công");
+                $(this).closest('.modal-promo-item').remove();
+            }
+        }
+    });
 }
