@@ -57,15 +57,6 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
                     <div class="cart-pseudo"></div>
                     <?php include "cart-dropdown.php" ?>
                 </button>
-                <a href="index.php?dang-nhap" class="login-btn">
-                    <i class="fa-regular fa-user"></i>
-                </a>
-                <a href="index.php?bao-hanh" class="login-btn">
-                    <i class="fa-solid fa-screwdriver-wrench"></i>
-                </a>
-                <a href="index.php?doi-tra" class="login-btn">
-                    <i class="fa-solid fa-right-left"></i>
-                </a>
 
                 <?php echo $username
                     ? "
@@ -74,7 +65,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
                             <div class='header__account-menu'>
                                 <a href='index.php?thong-tin-tai-khoan' class='header__account-link'>Thông tin cá nhân</a>
                                 <a href='index.php?don-hang' class='header__account-link'>Đơn hàng đã đặt</a>
-                                <a href='index.php?tra-cuu-bao-hanh' class='header__account-link'>Tra cứu bảo hành</a>
+                                <a href='index.php?bao-hanh' class='header__account-link'>Tra cứu bảo hành</a>
                                 <a href='index.php?doi-tra' class='header__account-link'>Tra cứu đổi trả</a>
                                 <a class='header__account-link btn-logout'>Đăng xuất</a>
                             </div>

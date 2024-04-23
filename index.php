@@ -52,7 +52,7 @@
             include './server/src/view/checkout.php';
             echo '<script src="client/pages/DiaChi.js"></script>';
         }else if (isset($_REQUEST["bao-hanh"])) {
-            include "./server/src/view/repair.php";
+            include "./server/src/view/bao-hanh.php";
             echo '<script src="client/pages/BaoHanh.js"></script>';
         }else if (isset($_REQUEST["doi-tra"])) {
             include "./server/src/view/return.php";
