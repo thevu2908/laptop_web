@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 23, 2024 at 10:16 AM
+-- Generation Time: Apr 24, 2024 at 10:36 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -1323,7 +1323,8 @@ CREATE TABLE `giohang` (
 --
 
 INSERT INTO `giohang` (`ma_ctsp`, `ma_kh`, `gia_sp`, `so_luong`, `trang_thai`) VALUES
-('CTSP0001', 'KH0001', 26239500, 1, 0);
+('CTSP0001', 'KH0001', 26239500, 4, 0),
+('CTSP0006', 'KH0001', 20989500, 2, 0);
 
 -- --------------------------------------------------------
 
@@ -1555,69 +1556,69 @@ CREATE TABLE `province` (
 --
 
 INSERT INTO `province` (`province_id`, `name`) VALUES
-(1, ' Hà Nội'),
-(2, ' Hà Giang'),
-(3, ' Cao Bằng'),
-(4, ' Bắc Kạn'),
-(5, ' Tuyên Quang'),
-(6, ' Lào Cai'),
-(7, ' Điện Biên'),
-(8, ' Lai Châu'),
-(9, ' Sơn La'),
-(10, ' Yên Bái'),
-(11, ' Hoà Bình'),
-(12, ' Thái Nguyên'),
-(13, ' Lạng Sơn'),
-(14, ' Quảng Ninh'),
-(15, ' Bắc Giang'),
-(16, ' Phú Thọ'),
-(17, ' Vĩnh Phúc'),
-(18, ' Bắc Ninh'),
-(19, ' Hải Dương'),
-(20, ' Hải Phòng'),
-(21, ' Hưng Yên'),
-(22, ' Thái Bình'),
-(23, ' Hà Nam'),
-(24, ' Nam Định'),
-(25, ' Ninh Bình'),
-(26, ' Thanh Hóa'),
-(27, ' Nghệ An'),
-(28, ' Hà Tĩnh'),
-(29, ' Quảng Bình'),
-(30, ' Quảng Trị'),
-(31, ' Thừa Thiên Huế'),
-(32, ' Đà Nẵng'),
-(33, ' Quảng Nam'),
-(34, ' Quảng Ngãi'),
-(35, ' Bình Định'),
-(36, ' Phú Yên'),
-(37, ' Khánh Hòa'),
-(38, ' Ninh Thuận'),
-(39, ' Bình Thuận'),
-(40, ' Kon Tum'),
-(41, ' Gia Lai'),
-(42, ' Đắk Lắk'),
-(43, ' Đắk Nông'),
-(44, ' Lâm Đồng'),
-(45, ' Bình Phước'),
-(46, ' Tây Ninh'),
-(47, ' Bình Dương'),
-(48, ' Đồng Nai'),
-(49, ' Bà Rịa - Vũng Tàu'),
-(50, ' Hồ Chí Minh'),
-(51, ' Long An'),
-(52, ' Tiền Giang'),
-(53, ' Bến Tre'),
-(54, ' Trà Vinh'),
-(55, ' Vĩnh Long'),
-(56, ' Đồng Tháp'),
-(57, ' An Giang'),
-(58, ' Kiên Giang'),
-(59, ' Cần Thơ'),
-(60, ' Hậu Giang'),
-(61, ' Sóc Trăng'),
-(62, ' Bạc Liêu'),
-(63, ' Cà Mau');
+(1, 'Hà Nội'),
+(2, 'Hà Giang'),
+(3, 'Cao Bằng'),
+(4, 'Bắc Kạn'),
+(5, 'Tuyên Quang'),
+(6, 'Lào Cai'),
+(7, 'Điện Biên'),
+(8, 'Lai Châu'),
+(9, 'Sơn La'),
+(10, 'Yên Bái'),
+(11, 'Hoà Bình'),
+(12, 'Thái Nguyên'),
+(13, 'Lạng Sơn'),
+(14, 'Quảng Ninh'),
+(15, 'Bắc Giang'),
+(16, 'Phú Thọ'),
+(17, 'Vĩnh Phúc'),
+(18, 'Bắc Ninh'),
+(19, 'Hải Dương'),
+(20, 'Hải Phòng'),
+(21, 'Hưng Yên'),
+(22, 'Thái Bình'),
+(23, 'Hà Nam'),
+(24, 'Nam Định'),
+(25, 'Ninh Bình'),
+(26, 'Thanh Hóa'),
+(27, 'Nghệ An'),
+(28, 'Hà Tĩnh'),
+(29, 'Quảng Bình'),
+(30, 'Quảng Trị'),
+(31, 'Thừa Thiên Huế'),
+(32, 'Đà Nẵng'),
+(33, 'Quảng Nam'),
+(34, 'Quảng Ngãi'),
+(35, 'Bình Định'),
+(36, 'Phú Yên'),
+(37, 'Khánh Hòa'),
+(38, 'Ninh Thuận'),
+(39, 'Bình Thuận'),
+(40, 'Kon Tum'),
+(41, 'Gia Lai'),
+(42, 'Đắk Lắk'),
+(43, 'Đắk Nông'),
+(44, 'Lâm Đồng'),
+(45, 'Bình Phước'),
+(46, 'Tây Ninh'),
+(47, 'Bình Dương'),
+(48, 'Đồng Nai'),
+(49, 'Bà Rịa - Vũng Tàu'),
+(50, 'Hồ Chí Minh'),
+(51, 'Long An'),
+(52, 'Tiền Giang'),
+(53, 'Bến Tre'),
+(54, 'Trà Vinh'),
+(55, 'Vĩnh Long'),
+(56, 'Đồng Tháp'),
+(57, 'An Giang'),
+(58, 'Kiên Giang'),
+(59, 'Cần Thơ'),
+(60, 'Hậu Giang'),
+(61, 'Sóc Trăng'),
+(62, 'Bạc Liêu'),
+(63, 'Cà Mau');
 
 -- --------------------------------------------------------
 
@@ -1767,11 +1768,12 @@ CREATE TABLE `thongtinnhanhang` (
 --
 
 INSERT INTO `thongtinnhanhang` (`ma_ttnh`, `ma_kh`, `ho_ten`, `so_dien_thoai`, `dia_chi`, `dia_chi_mac_dinh`) VALUES
-('TTNH0001', 'KH0001', 'Thế Vũ', '0976124506', 'Đường 21, Phường Phúc Xá, Quận Ba Đình,  Hà Nội', 1),
-('TTNH0002', 'KH0001', 'Vũ', '976124506', '23/30/23K, đường 21, Phường 8, Quận Gò Vấp,  Hồ Chí Minh', 0),
-('TTNH0003', 'KH0001', 'Nguyễn Thế Vũ', '387252609', '37 Quang Trung, Phường 1, Thành phố Tây Ninh,  Tây Ninh', 0),
-('TTNH0004', 'KH0001', 'Nam', '966763958', '28 Hai Bà Trưng, Phường Ngọc Hà, Thành phố Hà Giang,  Hà Giang', 0),
-('TTNH0005', 'KH0001', 'Minh', '876474064', 'aaa, Phường Sông Hiến, Thành phố Cao Bằng,  Cao Bằng', 0);
+('TTNH0001', 'KH0001', 'Thế Vũ', '0976124506', 'Đường 21, Phường Phúc Xá, Quận Ba Đình, Hà Nội', 1),
+('TTNH0002', 'KH0001', 'Vũ', '0976124506', '23/30/23K đường 21, Phường 8, Quận Gò Vấp, Hồ Chí Minh', 0),
+('TTNH0003', 'KH0001', 'Nguyễn Thế Vũ', '0387252609', '37 Quang Trung, Phường 1, Thành phố Tây Ninh, Tây Ninh', 0),
+('TTNH0004', 'KH0001', 'Nam', '0966763958', '28 Hai Bà Trưng, Phường Ngọc Hà, Thành phố Hà Giang, Hà Giang', 0),
+('TTNH0005', 'KH0001', 'Minh', '0876474064', 'aaa, Phường Sông Hiến, Thành phố Cao Bằng, Cao Bằng', 0),
+('TTNH0006', 'KH0001', 'Yến Nhi', '0862937296', 'Phạm Văn Chiêu, Phường 9, Quận Gò Vấp, Hồ Chí Minh', 0);
 
 -- --------------------------------------------------------
 
