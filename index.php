@@ -52,10 +52,10 @@
             include './server/src/view/checkout.php';
             echo '<script src="client/pages/DiaChi.js"></script>';
         }else if (isset($_REQUEST["bao-hanh"])) {
-            include "./server/src/view/bao-hanh.php";
+            include "./server/src/view/guarantee.php";
             echo '<script src="client/pages/BaoHanh.js"></script>';
         }else if (isset($_REQUEST["doi-tra"])) {
-            include "./server/src/view/return.php";
+            include "./server/src/view/refund.php";
             echo '<script src="client/pages/DoiTra.js"></script>';
         } else if (isset($_REQUEST['tim-kiem'])) {
             include './server/src/view/search-product.php';
