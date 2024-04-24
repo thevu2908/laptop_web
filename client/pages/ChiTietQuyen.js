@@ -209,7 +209,7 @@ function deletePhanQuyen(){
                        pagination(totalPages, currentPage);
                     }
                 })
-                location.reload();
+                //location.reload();
             })
         }
     })
