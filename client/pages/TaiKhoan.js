@@ -30,35 +30,7 @@ function getAccounts() {
         })
     })
 }
-function loadEmployee(){
-    $.ajax({
-        url: 'server/src/controller/NhanVienController.php',
-        method: 'POST',
-        data: { action: 'load' },
-        dataType: 'JSON',
-        success:function(data){
-            var html="";
-            data.forEach((item,index) => {
-                html += `<option value="${item['ma_nv']}">${item['ma_nv']}-${item['ten_nv']}</option>`
-            })
-            $("#admin-account-employee-choose").html(html)
-        }
-    })
-    $.ajax({
-        url: 'server/src/controller/NhomQuyenController.php',
-        method: 'POST',
-        data: { action: 'Load' },
-        dataType: 'JSON',
-        success:function(data){
-            var html="";
-            console.log(data)
-            data.forEach((item,index) => {
-                html += `<option value="${item['ma_quyen']}">${item['ma_quyen']}-${item['ten_quyen']}</option>`
-            })
-            $("#admin-account-access").html(html)
-        }
-    })
-}
+
 function getPaginationAccounts() {
     return new Promise((resolve, reject) => {
         const page = $('#currentpage').val()
@@ -160,7 +132,6 @@ function addAccount(accountId, accessId, username, password) {
 }
 
 function handleAddAccount() {
-    //loadEmployee()
     $('.btn-add-account').on('click', async e => {
         const accountId = $('#admin-account-id').val()
         const accessId = $('#admin-account-access').val()

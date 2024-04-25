@@ -2,8 +2,6 @@ function totalPage(count, perPage = 8) {
     let total = count
     let totalpages = Math.ceil(parseInt(total) / perPage)
     const currentpage = $("#currentpage").val()
-    // $("#cur").val(currentpage)
-    // $("#total").val(totalpages)
     pagination(totalpages, currentpage)
 }
 
@@ -30,7 +28,6 @@ function clickPage(func) {
         e.preventDefault()
         const $this = $(this)
         const pagenum = $this.data("page")
-        console.log(pagenum)
         $("#currentpage").val(pagenum)
         func()
         $this.parent().siblings().removeClass("active")
