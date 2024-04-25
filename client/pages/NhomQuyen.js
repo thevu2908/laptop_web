@@ -98,6 +98,7 @@ function loadNhomQuyenDataAccount() {
         method: "POST",
         data: { action: 'Load' },
         success: data => {
+            console.log(data)
             if (data && data.length > 0) {
                 let html = '';
                 const jsonData = JSON.parse(data);

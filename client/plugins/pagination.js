@@ -30,6 +30,7 @@ function clickPage(func) {
         e.preventDefault()
         const $this = $(this)
         const pagenum = $this.data("page")
+        console.log(pagenum)
         $("#currentpage").val(pagenum)
         func()
         $this.parent().siblings().removeClass("active")

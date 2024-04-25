@@ -3,6 +3,7 @@ $(document).ready(() => {
     if (window.location.pathname === '/admin.php' && urlParams.get('controller') === 'nhanvien') {
         renderEmployeeData()
         renderEmployeeAccountData()
+        addEmployeee()
     }
 })
 
@@ -56,6 +57,7 @@ async function renderEmployeeData() {
             `
         })
         phanquyen_chucnang("Nhân Viên")
+        getSizeinTable("nhanvien","NV","#admin-nhanvien-manhanvien")
         $('.admin-employee-list').html(html)
         
     }
@@ -90,6 +92,43 @@ function renderEmployeeAccountData() {
             })
 
             $('#admin-account-employee-choose').html(html)
+        }
+    })
+}
+function addEmployeee(){
+    getSizeinTable("nhanvien","NV","#admin-nhanvien-manhanvien")
+    $(document).on('click', '#admin-btn-addNhanVien',function(){
+        var manv=$("#admin-nhanvien-manhanvien").val();
+        var tennv=$("#admin-nhanvien-tennhanvien").val();
+        var tuoi=$("#admin-nhanvien-tuoi").val();
+        var sodienthoai=$("#admin-nhanvien-sodienthoai").val();
+        if(checkSpace(tennv) && checkSpace(tuoi) && checkSpace(sodienthoai)){
+            alert("Vui Lòng Nhập");
+        }else if(checkSpace(tennv)){
+            alert("Vui Lòng Nhập Tên Nhân Viên");
+        }else if(checkSpace(sodienthoai)){
+            alert("Vui Lòng Nhập Số Điện Thoại");
+        }else if(checkSpace(tuoi)){
+            alert("Vui Lòng Nhập Tuổi");
+        }else{
+            $.ajax({
+                url:'server/src/controller/NhanVienController.php',
+                method: 'POST',
+                data: {
+                    action: 'add',
+                    manv:manv,
+                    tennv:tennv,
+                    tuoi:tuoi,
+                    sodienthoai:sodienthoai
+                },
+                dataType: 'JSON',
+                success: function(data){
+                    console.log(data);
+                    $("form").trigger('reset');
+                    $("#addEmployeeModal").modal("hide");
+                    renderEmployeeData();
+                },
+            })
         }
     })
 }
