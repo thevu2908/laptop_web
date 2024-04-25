@@ -32,11 +32,7 @@ class ThongTinNhanHangController {
     }
     
     public function deleteThongTinNhanHang($maKh) {
-        if ($this->ttnhRepo->deleteThongTinNhanHang($maKh)) {
-            echo 'success';
-        } else {
-            echo 'fail';
-        }
+        echo $this->ttnhRepo->deleteThongTinNhanHang($maKh);
     }
 
     public function setDiaChiMacDinh($maTtnh) {

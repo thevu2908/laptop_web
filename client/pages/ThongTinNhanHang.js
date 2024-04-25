@@ -8,6 +8,8 @@ $(document).ready(() => {
     renderUpdateThongTinNhanHangModal()
     handleThongTinNhanhang()
     handleSetDiaChiMacDinh()
+    renderDeleteThongTinNhanHangModal()
+    handleDeleteThongTinNhanHang()
 })
 
 function initSelect2() {
@@ -146,7 +148,7 @@ async function renderThongTinNhanHang() {
                                     Cập nhật
                                 </button>
                                 ${item.dia_chi_mac_dinh === '0' 
-                                    ? `<button class="btn btn-link btn-delete-address__modal" data-bs-toggle="modal" data-bs-target="#address-modal" data-id="${item.ma_ttnh}">
+                                    ? `<button class="btn btn-link btn-delete-address__modal" data-bs-toggle="modal" data-bs-target="#delete-address-modal" data-id="${item.ma_ttnh}">
                                         Xóa
                                     </button>` 
                                     : ''
@@ -313,5 +315,37 @@ function handleSetDiaChiMacDinh() {
             alert('Có lỗi xảy ra, vui lòng thử lại sau')
         }
         NProgress.done()
+    })
+}
+
+function deleteThongTinNhanHang(maTtnh) {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: 'server/src/controller/ThongTinNhanHangController.php',
+            method: 'POST',
+            data: { action: 'delete', maTtnh },
+            success: res => resolve(res),
+            error: (xhr, textStatus, error) => reject(error)
+        })
+    })
+}
+
+function renderDeleteThongTinNhanHangModal() {
+    $(document).on('click', '.btn-delete-address__modal', function() {
+        $('#delete-address-modal .btn-delete-address').data('id', $(this).data('id'))
+    })
+}
+
+function handleDeleteThongTinNhanHang() {
+    $(document).on('click', '.btn-delete-address', async function() {
+        const maTtnh = $(this).data('id')
+        const res = await deleteThongTinNhanHang(maTtnh)
+        if (res === '1') {
+            $('#delete-address-modal .btn-close').click()
+            renderThongTinNhanHang()
+        } else {
+            console.log(res)
+            alert('Có lỗi xảy ra, vui lòng thử lại sau')
+        }
     })
 }
