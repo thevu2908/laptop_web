@@ -1,21 +1,26 @@
 $(document).ready(function(){
-    // selectNhomQuyen();
-    // if($("#admin-select-nhomquyen").val()==="All" || $("#admin-select-nhomquyen").val()===""){
-    //     loadPhanQuyen();
-    //     clickPage(loadPhanQuyen);
-    // }else{
-    //     selectFilterNhomQuyen();
-    //     clickPage(selectFilterNhomQuyen);
-    // }
-    loadPhanQuyen();
-    clickPage(loadPhanQuyen);
+    console.log($("#admin-select-nhomquyen").val())
+    selectNhomQuyen();
+    if($("#admin-select-nhomquyen").val()=="All" || $("#admin-select-nhomquyen").val()==null){
+        loadPhanQuyen();
+        clickPage(loadPhanQuyen);
+    }
+    $(document).on("change","#admin-select-nhomquyen",function(){
+        if($("#admin-select-nhomquyen").val()=="All"){
+            loadPhanQuyen();
+            tmp="";
+        }else{
+            filterPhanQuyen($(this).val());
+            clickPage(filterPhanQuyen);
+        }
+    })
     addPhanQuyen();
     deletePhanQuyen();
 })
+var tmp="";
 var listitemRemove = [];
 var listitemAdd = [];
 function loadPhanQuyen(){
-    selectNhomQuyen();
     var pageno = $("#currentpage").val();
     $.ajax({
         url: "server/src/controller/PaginationController.php",
@@ -23,49 +28,51 @@ function loadPhanQuyen(){
         method: "GET",
         dataType: "json",
         success: function (data) {
-            var jsonData=data.pagination;
-            var html="";
-            jsonData.forEach((chitietquyen,index) => {
-                html+=`<tr data-row="${chitietquyen['ma_quyen']}" data-row1="${chitietquyen['ma_chuc_nang']}">
-                <td>
-                    <span class="custom-checkbox">
-                        <input type="checkbox" id="checkbox2" data-row="${chitietquyen['ma_quyen']}" data-row1="${chitietquyen['ma_chuc_nang']}" onclick="removeList(this)">
-                        <label for="checkbox2"></label>
-                    </span>
-                    
-                </td>
-                <td id="admin-TenQuyen-${index}">${chitietquyen['ma_quyen']}</td>
-                <td id="admin-TenChucNang-${index}">${chitietquyen['ma_chuc_nang']}</td>
-                <td><input type="checkbox" name="xem" class="checkbox" data-row="${chitietquyen['ma_quyen']}" data-row1="${chitietquyen['ma_chuc_nang']}" data-column="Xem" id="chkxem" onclick="change(this)"></td>
-                <td><input type="checkbox" name="them" class="checkbox" data-row="${chitietquyen['ma_quyen']}" data-row1="${chitietquyen['ma_chuc_nang']}" data-column="Thêm" id="chkthem" onclick="change(this)"></td>
-                <td><input type="checkbox" name="xoa" class="checkbox" data-row="${chitietquyen['ma_quyen']}" data-row1="${chitietquyen['ma_chuc_nang']}" data-column="Xóa" id="chkxoa" onclick="change(this)"></td>
-                <td><input type="checkbox" name="sua" class="checkbox" data-row="${chitietquyen['ma_quyen']}" data-row1="${chitietquyen['ma_chuc_nang']}" data-column="Sửa" id="chksua" onclick="change(this)"></td> 
-                </tr>`;
-            })
-            // $("#show-ListPhanQuyen").html(html);
-            jsonData.forEach((chitietquyen,index) => {
-                console.log(chitietquyen['ma_quyen'],index);
-                console.log(chitietquyen['ma_chuc_nang'],index);
-                getTenQuyen(chitietquyen['ma_quyen'],index);
-                getTenChucNang(chitietquyen['ma_chuc_nang'],index);
-                $.ajax({
-                    url: "server/src/controller/CTQuyenController.php",
-                    data: {action:"get",maquyen:chitietquyen['ma_quyen'],machucnang:chitietquyen['ma_chuc_nang']},
-                    method: "post",
-                    success: function (data) {
-                        var detailData = JSON.parse(data);                       
-                        var row=$("tr[data-row='" + chitietquyen['ma_quyen'] + "'][data-row1='" + chitietquyen['ma_chuc_nang'] + "']");
-                        row.find("td:eq(3) input[type='checkbox']").prop("checked", detailData.some(item => item.hanh_dong === "Xem"));
-                        row.find("td:eq(4) input[type='checkbox']").prop("checked", detailData.some(item => item.hanh_dong === "Thêm"));
-                        row.find("td:eq(5) input[type='checkbox']").prop("checked", detailData.some(item => item.hanh_dong === "Xóa"));
-                        row.find("td:eq(6) input[type='checkbox']").prop("checked", detailData.some(item => item.hanh_dong === "Sửa"));
-                    }
-                })
-            })
-            $("#show-ListPhanQuyen").html(html);
-            totalPage(data.count);
+           renderPhanQuyen(data);
         }
     });
+}
+function renderPhanQuyen(data){
+    var jsonData=data.pagination;
+    var html="";
+    jsonData.forEach((chitietquyen,index) => {
+        html+=`<tr data-row="${chitietquyen['ma_quyen']}" data-row1="${chitietquyen['ma_chuc_nang']}">
+        <td>
+            <span class="custom-checkbox">
+                <input type="checkbox" id="checkbox2" data-row="${chitietquyen['ma_quyen']}" data-row1="${chitietquyen['ma_chuc_nang']}" onclick="removeList(this)">
+                <label for="checkbox2"></label>
+            </span>
+            
+        </td>
+        <td id="admin-TenQuyen-${index}">${chitietquyen['ma_quyen']}</td>
+        <td id="admin-TenChucNang-${index}">${chitietquyen['ma_chuc_nang']}</td>
+        <td><input type="checkbox" name="xem" class="checkbox" data-row="${chitietquyen['ma_quyen']}" data-row1="${chitietquyen['ma_chuc_nang']}" data-column="Xem" id="chkxem" onclick="change(this)"></td>
+        <td><input type="checkbox" name="them" class="checkbox" data-row="${chitietquyen['ma_quyen']}" data-row1="${chitietquyen['ma_chuc_nang']}" data-column="Thêm" id="chkthem" onclick="change(this)"></td>
+        <td><input type="checkbox" name="xoa" class="checkbox" data-row="${chitietquyen['ma_quyen']}" data-row1="${chitietquyen['ma_chuc_nang']}" data-column="Xóa" id="chkxoa" onclick="change(this)"></td>
+        <td><input type="checkbox" name="sua" class="checkbox" data-row="${chitietquyen['ma_quyen']}" data-row1="${chitietquyen['ma_chuc_nang']}" data-column="Sửa" id="chksua" onclick="change(this)"></td> 
+        </tr>`;
+    })
+    jsonData.forEach((chitietquyen,index) => {
+        console.log(chitietquyen['ma_quyen'],index);
+        console.log(chitietquyen['ma_chuc_nang'],index);
+        getTenQuyen(chitietquyen['ma_quyen'],index);
+        getTenChucNang(chitietquyen['ma_chuc_nang'],index);
+        $.ajax({
+            url: "server/src/controller/CTQuyenController.php",
+            data: {action:"get",maquyen:chitietquyen['ma_quyen'],machucnang:chitietquyen['ma_chuc_nang']},
+            method: "post",
+            success: function (data) {
+                var detailData = JSON.parse(data);                       
+                var row=$("tr[data-row='" + chitietquyen['ma_quyen'] + "'][data-row1='" + chitietquyen['ma_chuc_nang'] + "']");
+                row.find("td:eq(3) input[type='checkbox']").prop("checked", detailData.some(item => item.hanh_dong === "Xem"));
+                row.find("td:eq(4) input[type='checkbox']").prop("checked", detailData.some(item => item.hanh_dong === "Thêm"));
+                row.find("td:eq(5) input[type='checkbox']").prop("checked", detailData.some(item => item.hanh_dong === "Xóa"));
+                row.find("td:eq(6) input[type='checkbox']").prop("checked", detailData.some(item => item.hanh_dong === "Sửa"));
+            }
+        })
+    })
+    $("#show-ListPhanQuyen").html(html);
+    totalPage(data.count);
 }
 function selectNhomQuyen(){
     $.ajax({
@@ -76,7 +83,7 @@ function selectNhomQuyen(){
             var jsonData=JSON.parse(data);
             var html="<option value='All'>All</option>";
             jsonData.forEach((nhomquyen,index) => {
-                html+=`<option value="${nhomquyen['ten_quyen']}">${nhomquyen['ten_quyen']}</option>`;
+                html+=`<option value="${nhomquyen['ma_quyen']}">${nhomquyen['ten_quyen']}</option>`;
             })
             $("#admin-select-nhomquyen").html(html);
         }
@@ -267,56 +274,25 @@ function addMulChucNang(checkbox){
     }
     console.log(listitemAdd)
 }
-function selectFilterNhomQuyen(){
-    var pageno = $("#currentpage").val();
-    $(document).on("change","#admin-select-nhomquyen",function(){
-        $.ajax({
-            url: "server/src/controller/SearchController.php",
-            data: {action:"searchTb",search:$(this).val(),page: pageno,table:"chitietquyen"},
-            method: "GET",
-            dataType: "json",
-            success: function (data) {
-                var jsonData=data.pagination;
-                var html="";
-                jsonData.forEach((chitietquyen,index) => {
-                    html+=`<tr data-row="${chitietquyen['ma_quyen']}" data-row1="${chitietquyen['ma_chuc_nang']}">
-                    <td>
-                        <span class="custom-checkbox">
-                            <input type="checkbox" id="checkbox2" data-row="${chitietquyen['ma_quyen']}" data-row1="${chitietquyen['ma_chuc_nang']}" onclick="removeList(this)">
-                            <label for="checkbox2"></label>
-                        </span>
-                        
-                    </td>
-                    <td id="admin-TenQuyen-${index}">${chitietquyen['ma_quyen']}</td>
-                    <td id="admin-TenChucNang-${index}">${chitietquyen['ma_chuc_nang']}</td>
-                    <td><input type="checkbox" name="xem" class="checkbox" data-row="${chitietquyen['ma_quyen']}" data-row1="${chitietquyen['ma_chuc_nang']}" data-column="Xem" id="chkxem" onclick="change(this)"></td>
-                    <td><input type="checkbox" name="them" class="checkbox" data-row="${chitietquyen['ma_quyen']}" data-row1="${chitietquyen['ma_chuc_nang']}" data-column="Thêm" id="chkthem" onclick="change(this)"></td>
-                    <td><input type="checkbox" name="xoa" class="checkbox" data-row="${chitietquyen['ma_quyen']}" data-row1="${chitietquyen['ma_chuc_nang']}" data-column="Xóa" id="chkxoa" onclick="change(this)"></td>
-                    <td><input type="checkbox" name="sua" class="checkbox" data-row="${chitietquyen['ma_quyen']}" data-row1="${chitietquyen['ma_chuc_nang']}" data-column="Sửa" id="chksua" onclick="change(this)"></td> 
-                    </tr>`;
-                })
-                jsonData.forEach((chitietquyen,index) => {
-                    console.log(chitietquyen['ma_quyen'],index);
-                    console.log(chitietquyen['ma_chuc_nang'],index);
-                    getTenQuyen(chitietquyen['ma_quyen'],index);
-                    getTenChucNang(chitietquyen['ma_chuc_nang'],index);
-                    $.ajax({
-                        url: "server/src/controller/CTQuyenController.php",
-                        data: {action:"get",maquyen:chitietquyen['ma_quyen'],machucnang:chitietquyen['ma_chuc_nang']},
-                        method: "post",
-                        success: function (data) {
-                            var detailData = JSON.parse(data);                       
-                            var row=$("tr[data-row='" + chitietquyen['ma_quyen'] + "'][data-row1='" + chitietquyen['ma_chuc_nang'] + "']");
-                            row.find("td:eq(3) input[type='checkbox']").prop("checked", detailData.some(item => item.hanh_dong === "Xem"));
-                            row.find("td:eq(4) input[type='checkbox']").prop("checked", detailData.some(item => item.hanh_dong === "Thêm"));
-                            row.find("td:eq(5) input[type='checkbox']").prop("checked", detailData.some(item => item.hanh_dong === "Xóa"));
-                            row.find("td:eq(6) input[type='checkbox']").prop("checked", detailData.some(item => item.hanh_dong === "Sửa"));
-                        }
-                    })
-                })
-                $("#show-ListPhanQuyen").html(html);
-                totalPage(data.count);
-            }
-        })
+var tmp="";
+function filterPhanQuyen(search){
+    console.log(tmp);
+    var pageno;
+    if(tmp===""){
+        $("#currentpage").val(1);
+        pageno=$("#currentpage").val();
+        tmp=search;
+    }else if(tmp==$("#admin-select-nhomquyen").val()){
+       pageno = $("#currentpage").val();
+    }
+    console.log(pageno+'----')
+    $.ajax({
+        url:"server/src/controller/SearchController.php",
+        data: {action:"filter", page: pageno,table:"chitietquyen",search:search},
+        method:"get",
+        dataType:'json',
+        success:function(data){
+            renderPhanQuyen(data);
+        }
     })
 }
