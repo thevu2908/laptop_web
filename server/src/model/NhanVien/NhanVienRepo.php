@@ -25,4 +25,29 @@ class NhanVienRepo extends ConnectDB {
             return false;
         }
     }
+    public function deleteEmployee($manv){
+        $query="UPDATE nhanvien SET trang_thai=0 WHERE ma_nv='$manv'";
+        $result=mysqli_query($this->conn,$query);
+        if($result){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    public function getEmployee($manv){
+        $query="SELECT * FROM nhanvien WHERE ma_nv='$manv'";
+        $result=mysqli_query($this->conn,$query);
+        if($row=mysqli_fetch_array($result)){
+            return $row;
+        }
+        return null;
+    }
+    public function updateEmployee($manv,$tennv,$tuoi,$sodienthoai){
+        $query="UPDATE nhanvien SET ten_nv='$tennv',tuoi=$tuoi,so_dien_thoai='$sodienthoai' WHERE ma_nv='$manv'";
+        $result=mysqli_query($this->conn,$query);
+        if($result){
+            return true;
+        }
+        return false;
+    }
 }
