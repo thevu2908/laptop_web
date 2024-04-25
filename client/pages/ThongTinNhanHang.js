@@ -291,12 +291,12 @@ function handleThongTinNhanhang() {
     })
 }
 
-function setDiaChiMacDinh(maTtnh) {
+function setDiaChiMacDinh(maTtnh, maKh) {
     return new Promise((resolve, reject) => {
         $.ajax({
             url: 'server/src/controller/ThongTinNhanHangController.php',
             method: 'POST',
-            data: { action: 'set-default', maTtnh },
+            data: { action: 'set-default', maTtnh, maKh },
             success: res => resolve(res),
             error: (xhr, textStatus, error) => reject(error)
         })
@@ -306,8 +306,10 @@ function setDiaChiMacDinh(maTtnh) {
 function handleSetDiaChiMacDinh() {
     $(document).on('click', '.btn-set-default-address', async function() {
         NProgress.start()
+        const loginSession = await getLoginSession()
+        const maKh = loginSession.customerId
         const maTtnh = $(this).data('id')
-        const res = await setDiaChiMacDinh(maTtnh)
+        const res = await setDiaChiMacDinh(maTtnh, maKh)
         if (res === '1') {
             renderThongTinNhanHang()
         } else {

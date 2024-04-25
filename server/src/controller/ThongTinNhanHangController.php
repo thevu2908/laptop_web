@@ -39,8 +39,8 @@ class ThongTinNhanHangController {
         echo $this->ttnhRepo->setDiaChiMacDinh($maTtnh);
     }
 
-    public function unsetDiaChiMacDinh() {
-        return $this->ttnhRepo->unsetDiaChiMacDinh();
+    public function unsetDiaChiMacDinh($maKh) {
+        return $this->ttnhRepo->unsetDiaChiMacDinh($maKh);
     }
 }
 
@@ -66,10 +66,11 @@ switch ($action) {
                 $object->{'hoten'},
                 $object->{'sodienthoai'},
                 $object->{'diachi'},
-                $object->{'diachimacdinh'}
+                $object->{'diachimacdinh'},
+                0
             );
             if ($object->{'diachimacdinh'} == 1) {
-                $ttnhCtl->unsetDiaChiMacDinh();
+                $ttnhCtl->unsetDiaChiMacDinh($ttnh->getMaKh());
             }
             $ttnhCtl->addThongTinNhanHang($ttnh);
         }
@@ -77,13 +78,13 @@ switch ($action) {
     case 'update':
         $object = json_decode(json_encode($_POST['ttnh']));
         $res = $ttnhCtl->getThongTinNhanHang($object->{'maTtnh'});
-        $ttnh = new ThongTinNhanHang($res['ma_ttnh'], $res['ma_kh'], $res['ho_ten'], $res['so_dien_thoai'], $res['dia_chi'], $res['dia_chi_mac_dinh']);
+        $ttnh = new ThongTinNhanHang($res['ma_ttnh'], $res['ma_kh'], $res['ho_ten'], $res['so_dien_thoai'], $res['dia_chi'], $res['dia_chi_mac_dinh'], $res['trang_thai']);
         $ttnh->setHoTen($object->{'hoten'});
         $ttnh->setSoDienThoai($object->{'sodienthoai'});
         $ttnh->setDiachi($object->{'diachi'});
         $ttnh->setDiachimacdinh($object->{'diachimacdinh'});
         if ($object->{'diachimacdinh'} == 1) {
-            $ttnhCtl->unsetDiaChiMacDinh();
+            $ttnhCtl->unsetDiaChiMacDinh($ttnh->getMaKh());
         }
         $ttnhCtl->updateThongTinNhanHang($ttnh);
         break;
@@ -91,7 +92,7 @@ switch ($action) {
         $ttnhCtl->deleteThongTinNhanHang($_POST['maTtnh']);
         break;
     case 'set-default':
-        $ttnhCtl->unsetDiaChiMacDinh();
+        $ttnhCtl->unsetDiaChiMacDinh($_POST['maKh']);
         $ttnhCtl->setDiaChiMacDinh($_POST['maTtnh']);
         break;
     default:

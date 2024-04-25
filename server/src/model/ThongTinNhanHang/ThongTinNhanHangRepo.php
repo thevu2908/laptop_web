@@ -21,7 +21,7 @@ class ThongTinNhanHangRepo extends ConnectDB {
     public function getThongTinNhanHangByMaKhachHang($maKh) {
         try {
             $array = array();
-            $query = "SELECT * FROM thongtinnhanhang WHERE ma_kh = '$maKh' ORDER BY dia_chi_mac_dinh DESC";
+            $query = "SELECT * FROM thongtinnhanhang WHERE ma_kh = '$maKh' AND trang_thai = '0' ORDER BY dia_chi_mac_dinh DESC";
             $statement = mysqli_query($this->conn, $query);
 
             while ($row = mysqli_fetch_assoc($statement)) {
@@ -50,7 +50,7 @@ class ThongTinNhanHangRepo extends ConnectDB {
 
     public function addThongTinNhanHang(ThongTinNhanHang $ttnh) {
         try {
-            $query = "INSERT INTO thongtinnhanhang(ma_ttnh, ma_kh, ho_ten, so_dien_thoai, dia_chi, dia_chi_mac_dinh) VALUES (?, ?, ?, ?, ?, ?)";
+            $query = "INSERT INTO thongtinnhanhang(ma_ttnh, ma_kh, ho_ten, so_dien_thoai, dia_chi, dia_chi_mac_dinh, trang_thai) VALUES (?, ?, ?, ?, ?, ?, 0)";
             $statement = mysqli_prepare($this->conn, $query);
 
             if (!$statement) {
@@ -107,7 +107,7 @@ class ThongTinNhanHangRepo extends ConnectDB {
 
     public function deleteThongTinNhanHang($maTtnh) {
         try {
-            $query = "DELETE FROM thongtinnhanhang WHERE ma_ttnh = ?";
+            $query = "UPDATE thongtinnhanhang SET trang_thai = 0 WHERE ma_ttnh = ?";
             $statement = mysqli_prepare($this->conn, $query);
 
             if (!$statement) {
@@ -127,9 +127,9 @@ class ThongTinNhanHangRepo extends ConnectDB {
         }
     }
 
-    public function unsetDiaChiMacDinh() {
+    public function unsetDiaChiMacDinh($maKh) {
         try {
-            $query = "UPDATE thongtinnhanhang SET dia_chi_mac_dinh = 0";
+            $query = "UPDATE thongtinnhanhang SET dia_chi_mac_dinh = 0 WHERE ma_kh = '$maKh'";
             $statement = mysqli_prepare($this->conn, $query);
             if (!$statement) {
                 throw new Exception("Query preparation failed: " . mysqli_error($this->conn));
