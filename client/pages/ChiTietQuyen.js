@@ -8,14 +8,20 @@ $(document).ready(function(){
         loadPhanQuyen();
         clickPage(loadPhanQuyen);
     }
+    var search="";
     $(document).on("change","#admin-select-nhomquyen",function(){
         tmp="";
-        if($("#admin-select-nhomquyen").val()=="All"){
+        search=$("#admin-select-nhomquyen").val()
+        console.log(search+"--fill--")
+        if(search=="All" || search===""){
+            $("#currentpage").val(1);
             loadPhanQuyen();
             clickPage(loadPhanQuyen);
         }else{
-            filterPhanQuyen($(this).val());
-            clickPage(filterPhanQuyen);
+            if(search!="All"){
+                filterPhanQuyen(search);
+                clickPage(filterPhanQuyen);
+            }
         }
     })
     addPhanQuyen();
@@ -47,12 +53,13 @@ function renderPhanQuyen(data){
         </td>
         <td id="admin-TenQuyen-${index}">${chitietquyen['ma_quyen']}</td>
         <td id="admin-TenChucNang-${index}">${chitietquyen['ma_chuc_nang']}</td>
-        <td><input type="checkbox" name="xem" class="checkbox" data-row="${chitietquyen['ma_quyen']}" data-row1="${chitietquyen['ma_chuc_nang']}" data-column="Xem" id="chkxem" onclick="change(this)"></td>
-        <td><input type="checkbox" name="them" class="checkbox" data-row="${chitietquyen['ma_quyen']}" data-row1="${chitietquyen['ma_chuc_nang']}" data-column="Thêm" id="chkthem" onclick="change(this)"></td>
-        <td><input type="checkbox" name="xoa" class="checkbox" data-row="${chitietquyen['ma_quyen']}" data-row1="${chitietquyen['ma_chuc_nang']}" data-column="Xóa" id="chkxoa" onclick="change(this)"></td>
-        <td><input type="checkbox" name="sua" class="checkbox" data-row="${chitietquyen['ma_quyen']}" data-row1="${chitietquyen['ma_chuc_nang']}" data-column="Sửa" id="chksua" onclick="change(this)"></td> 
+        <td><input type="checkbox" class="checkbox" data-row="${chitietquyen['ma_quyen']}" data-row1="${chitietquyen['ma_chuc_nang']}" data-column="Xem" onclick="change(this)"></td>
+        <td><input type="checkbox" class="checkbox" data-row="${chitietquyen['ma_quyen']}" data-row1="${chitietquyen['ma_chuc_nang']}" data-column="Thêm" onclick="change(this)"></td>
+        <td><input type="checkbox" class="checkbox" data-row="${chitietquyen['ma_quyen']}" data-row1="${chitietquyen['ma_chuc_nang']}" data-column="Xóa" onclick="change(this)"></td>
+        <td><input type="checkbox" class="checkbox" data-row="${chitietquyen['ma_quyen']}" data-row1="${chitietquyen['ma_chuc_nang']}" data-column="Sửa" onclick="change(this)"></td> 
         </tr>`;
     })
+    $("#show-ListPhanQuyen").html(html);
     jsonData.forEach((chitietquyen,index) => {
         getTenQuyen(chitietquyen['ma_quyen'],index);
         getTenChucNang(chitietquyen['ma_chuc_nang'],index);
@@ -70,7 +77,7 @@ function renderPhanQuyen(data){
             }
         })
     })
-    $("#show-ListPhanQuyen").html(html);
+
     totalPage(data.count);
 }
 function selectNhomQuyen(){
@@ -290,7 +297,6 @@ function filterPhanQuyen(search){
         method:"get",
         dataType:'json',
         success:function(data){
-            console.log(data);
             renderPhanQuyen(data);
         }
     })
