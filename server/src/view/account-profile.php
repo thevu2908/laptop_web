@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-2">
                 <div class="account-profile__left">
-                    <h3 class="account-profile__left-title">Nguyễn Thế Vũ</h3>
+                    <h3 class="account-profile__left-title"></h3>
                     <div class="account-profile__left-list">
                         <div class="account-profile__left-item active account">
                             <i class="fa-solid fa-user"></i>
@@ -20,54 +20,7 @@
             </div>
             <div class="col-10">
                 <div class="account-profile__right">
-                    <div class="account-profile__info-container">
-                        <h3 class="account-profile__info-title">Hồ sơ cá nhân</h3>
-                        <div class="account-profile__info">
-                            <form>
-                                <table>
-                                    <tr>
-                                        <td>
-                                            <label for="account-profile__name">Họ tên</label>
-                                        </td>
-                                        <td>
-                                            <div>
-                                                <input type="text" id="account-profile__name" class="form-control" value="Nguyễn Thế Vũ" placeholder >
-                                            </div>
-                                            <div id="name-error" class="invalid-feedback" style="color: #ff424f; font-size: .75rem;"></div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <label for="account-profile__email">Email</label>
-                                        </td>
-                                        <td>
-                                            <div>
-                                                <input type="email" id="account-profile__email" class="form-control" value="vnguyen132az@gmail.com" placeholder >
-                                            </div>
-                                            <div id="email-error" class="invalid-feedback" style="color: #ff424f; font-size: .75rem;"></div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <label for="account-profile__phone">Số điện thoại</label>
-                                        </td>
-                                        <td>
-                                            <div>
-                                                <input type="tel" id="account-profile__phone" class="form-control" value="" placeholder >
-                                            </div>
-                                            <div id="phone-error" class="invalid-feedback" style="color: #ff424f; font-size: .75rem;"></div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td></td>
-                                        <td>
-                                            <button type="button" class="btn btn-update-account">Lưu</button>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </form>
-                        </div>
-                    </div>
+                    
                 </div>
             </div>
         </div>

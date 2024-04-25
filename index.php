@@ -51,11 +51,11 @@
         } else if (isset($_REQUEST['thanh-toan'])) {
             include './server/src/view/checkout.php';
             echo '<script src="client/pages/DiaChi.js"></script>';
-        }else if (isset($_REQUEST["bao-hanh"])) {
-            include "./server/src/view/guarantee.php";
+        }else if (isset($_REQUEST['bao-hanh'])) {
+            include './server/src/view/guarantee.php';
             echo '<script src="client/pages/BaoHanh.js"></script>';
-        }else if (isset($_REQUEST["doi-tra"])) {
-            include "./server/src/view/refund.php";
+        }else if (isset($_REQUEST['doi-tra'])) {
+            include './server/src/view/refund.php';
             echo '<script src="client/pages/DoiTra.js"></script>';
         } else if (isset($_REQUEST['tim-kiem'])) {
             include './server/src/view/search-product.php';
@@ -63,6 +63,7 @@
             include './server/src/view/account-profile.php';
             echo '<script src="client/pages/ThongTinNhanHang.js"></script>';
             echo '<script src="client/pages/DiaChi.js"></script>';
+            echo '<script src="./client/pages/KhachHang.js"></script>';
         } else {
             include './server/src/view/homepage.php';
             echo '<script src="./client/pages/FeedBack.js"></script>';

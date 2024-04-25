@@ -2662,6 +2662,11 @@ ul, li {
     width: 100%;
 }
 
+.account-profile__info table tr td div:first-child.error {
+    background: #fff9fa;
+    border-color: #ff424f;
+}
+
 .account-profile__info table tr td div input {
     font-size: 14px;
     background: none;
@@ -2674,7 +2679,7 @@ ul, li {
     padding: 12px;
 }
 
-.account-profile__info .btn-update-account {
+.account-profile__info .btn-update__customer-profile {
     background-color: var(--primary-color);
     color: #fff;
     padding: 0 20px;
@@ -2683,7 +2688,7 @@ ul, li {
     min-width: 70px;
 }
 
-.account-profile__info .btn-update-account:hover {
+.account-profile__info .btn-update__customer-profile:hover {
     opacity: 0.9;
 }
 
