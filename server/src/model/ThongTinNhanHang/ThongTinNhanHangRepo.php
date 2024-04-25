@@ -5,18 +5,13 @@ class ThongTinNhanHangRepo extends ConnectDB {
         try {
             $query = "SELECT * FROM thongtinnhanhang WHERE ma_ttnh = '$maTtnh'";
             $statement = mysqli_query($this->conn, $query);
-            $result = mysqli_fetch_assoc($statement);
 
-            return $result 
-                ? new ThongTinNhanHang(
-                    $result['ma_ttnh'],
-                    $result['ma_kh'],
-                    $result['ho_ten'],
-                    $result['so_dien_thoai'],
-                    $result['dia_chi'],
-                    $result['dia_chi_mac_dinh']
-                ) 
-                : null; 
+            if (!$statement) {
+                throw new Exception("Query execution failed: " . mysqli_error($this->conn));
+            }
+            
+            $result = mysqli_fetch_assoc($statement);
+            return $result;
         } catch (Exception $e) {
             echo 'Error: ' . $e->getMessage() . '<br>';
             return null;
@@ -84,7 +79,7 @@ class ThongTinNhanHangRepo extends ConnectDB {
 
     public function updateThongTinNhanHang(ThongTinNhanHang $ttnh) {
         try {
-            $query = "UPDATE thongtinnhanhang SET ho_ten = ?, sodienthoai = ?, diachi = ? WHERE ma_kh = ? AND ma_ttnh = ?";
+            $query = "UPDATE thongtinnhanhang SET ho_ten = ?, so_dien_thoai = ?, dia_chi = ?, dia_chi_mac_dinh = ? WHERE ma_kh = ? AND ma_ttnh = ?";
             $statement = mysqli_prepare($this->conn, $query);
 
             if (!$statement) {
@@ -96,7 +91,8 @@ class ThongTinNhanHangRepo extends ConnectDB {
             $hoTen = $ttnh->getHoTen();
             $sodienthoai = $ttnh->getSoDienThoai();
             $diachi = $ttnh->getDiachi();
-            $result = $statement->bind_param("sisss", $hoTen, $sodienthoai, $diachi, $maKh, $maTtnh);
+            $diachimacdinh = $ttnh->getDiachimacdinh();
+            $result = $statement->bind_param("ssssss", $hoTen, $sodienthoai, $diachi, $diachimacdinh, $maKh, $maTtnh);
 
             if (!$result) {
                 throw new Exception("Parameter binding failed: " . mysqli_error($this->conn));

@@ -28,11 +28,7 @@ class ThongTinNhanHangController {
     }
 
     public function updateThongTinNhanHang($ttnh) {
-        if ($this->ttnhRepo->updateThongTinNhanHang($ttnh)) {
-            echo 'success';
-        } else {
-            echo 'fail';
-        }
+        echo $this->ttnhRepo->updateThongTinNhanHang($ttnh);
     }
     
     public function deleteThongTinNhanHang($maKh) {
@@ -52,7 +48,7 @@ class ThongTinNhanHangController {
     }
 
     public function unsetDiaChiMacDinh() {
-        echo $this->ttnhRepo->unsetDiaChiMacDinh();
+        return $this->ttnhRepo->unsetDiaChiMacDinh();
     }
 }
 
@@ -62,6 +58,9 @@ $action = isset($_REQUEST['action']) ? $_REQUEST['action'] : '';
 switch ($action) {
     case 'get-by-maKh':
         echo json_encode($ttnhCtl->getThongTinNhanHangByMaKhachHang($_POST['maKh']));
+        break;
+    case 'get':
+        echo json_encode($ttnhCtl->getThongTinNhanHang($_POST['id']));
         break;
     case 'add':
         $length = $ttnhCtl->getThongTinNhanHangLength();
@@ -77,7 +76,7 @@ switch ($action) {
                 $object->{'diachi'},
                 $object->{'diachimacdinh'}
             );
-            if ($object->{'diachimacdinh'} === 1) {
+            if ($object->{'diachimacdinh'} == 1) {
                 $ttnhCtl->unsetDiaChiMacDinh();
             }
             $ttnhCtl->addThongTinNhanHang($ttnh);
@@ -85,10 +84,15 @@ switch ($action) {
         break;
     case 'update':
         $object = json_decode(json_encode($_POST['ttnh']));
-        $ttnh = $ttnhCtl->getThongTinNhanHang($object->{'maTtnh'});
-        $ttnh->setHoTen($object->{'hoTen'});
-        $ttnh->setSoDienThoai($object->{'soDienThoai'});
+        $res = $ttnhCtl->getThongTinNhanHang($object->{'maTtnh'});
+        $ttnh = new ThongTinNhanHang($res['ma_ttnh'], $res['ma_kh'], $res['ho_ten'], $res['so_dien_thoai'], $res['dia_chi'], $res['dia_chi_mac_dinh']);
+        $ttnh->setHoTen($object->{'hoten'});
+        $ttnh->setSoDienThoai($object->{'sodienthoai'});
         $ttnh->setDiachi($object->{'diachi'});
+        $ttnh->setDiachimacdinh($object->{'diachimacdinh'});
+        if ($object->{'diachimacdinh'} == 1) {
+            $ttnhCtl->unsetDiaChiMacDinh();
+        }
         $ttnhCtl->updateThongTinNhanHang($ttnh);
         break;
     case 'delete':

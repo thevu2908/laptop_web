@@ -73,7 +73,7 @@
         </div>
     </div>
 
-    <div id="address-modal" class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div id="address-modal" class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -140,7 +140,7 @@
                         </div>
                         <div class="row">
                             <div class="col">
-                                <div class="d-flex align-items-center">
+                                <div class="d-flex align-items-center address__default-container">
                                     <input type="checkbox" id="address__default" class="custom-form__checkbox" >
                                     <label for="address__default" class="custom-form__label">Đặt làm địa chỉ mặc định</label>
                                 </div>
@@ -150,7 +150,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
-                    <button type="button" class="btn btn-primary btn-add-address">Thêm</button>
+                    <button type="button" class="btn btn-primary btn-address" data-action="add">Thêm</button>
                 </div>
             </div>
         </div>

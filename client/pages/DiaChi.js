@@ -1,7 +1,7 @@
 $(document).ready(() => {    
     getProvince()
-    $('#address__province').on('change', changeProvinces)
-    $('#address__district').on('change', changeDistricts)
+    $(document).on('change', '#address__province', changeProvinces)
+    $(document).on('change', '#address__district', changeDistricts)
     
     $("#province").on("change", changeProvinces)
     $("#district").on("change", changeDistricts)
@@ -32,90 +32,90 @@ function getProvince() {
     });
 }
 
-function changeProvinces() {
-    const province_id = $('#province').val() || $('#address__province').val();
-    if(province_id) {
+function getDistricts(province_id) {
+    return new Promise((resolve, reject) => {
         $.ajax({
             url: 'server/src/controller/KhachHangController.php',
             method: 'POST',
-            data: {
-                action: "get-district",
-                province_id: province_id 
-            },
             dataType: 'JSON',
-            success: data => {
-                $('#district').empty();
-                $('#address__district').empty();
-                
-                $.each(data, function(i, district) {
-                    $('#district').append($('<option>', {
-                        value: district.id,
-                        text: district.name
-                    }));
-                    district.id 
-                        ? $('#address__district').append($('<option>', {
-                            value: district.id,
-                            text: district.name
-                        }))
-                        : $('#address__district').append($('<option>', {
-                            value: "",
-                            text: "Quận/Huyện"
-                        }));
-                });
-
-                $('#wards').empty();
-                $('#address__ward').empty();
-            },
-            error: function(xhr, textStatus, error) {
-                console.log('Error: ' + error);
-            }
+            data: { action: 'get-district', province_id },
+            success: districts => resolve(districts),
+            error: (xhr, textStatus, error) => reject(error)
         });
-        $("#wards").empty();
-    }
-    else
-        $('#district').empty();
+    })
 }
 
-function changeDistricts() {
-    var district_id = $('#district').val() || $('#address__district').val();
-    if(district_id) {
+async function changeProvinces() {
+    const province_id = $('#province').val() || $('#address__province').val();
+    if (province_id) {
+        const districts = await getDistricts(province_id)
+        if (districts && districts.length > 0) {
+            $('#district').empty();
+            $('#address__district').empty();
+            
+            districts.forEach(district => {
+                $('#district').append($('<option>', {
+                    value: district.id,
+                    text: district.name
+                }));
+                district.id 
+                    ? $('#address__district').append($('<option>', {
+                        value: district.id,
+                        text: district.name
+                    }))
+                    : $('#address__district').append($('<option>', {
+                        value: "",
+                        text: "Quận/Huyện"
+                    }));
+            })
+        }
+    } else {
+        $('#district').empty();
+        $('#address__district').empty();
+    }
+}
+
+function getWards(district_id) {
+    return new Promise((resolve, reject) => {
         $.ajax({
             url: 'server/src/controller/KhachHangController.php',
             method: 'POST',
-            data: {
-                action: "get-ward",
-                district_id: district_id 
-            },
             dataType: 'JSON',
-            success: data => {
-                $('#wards').empty();
-                $('#address__ward').empty();
+            data: { action: 'get-ward', district_id },
+            success: wards => resolve(wards),
+            error: (xhr, textStatus, error) => reject(error)
+        });
+    })
+}
 
-                $.each(data, function(i, ward) {
-                    $('#wards').append($('<option>', {
+async function changeDistricts() {
+    var district_id = $('#district').val() || $('#address__district').val();
+    if(district_id) {
+        const wards = await getWards(district_id)
+        if (wards && wards.length > 0) {
+            $('#wards').empty();
+            $('#address__ward').empty();
+
+            wards.forEach(ward => {
+                $('#wards').append($('<option>', {
+                    value: ward.id,
+                    text: ward.name
+                }));
+                ward.id 
+                    ? $('#address__ward').append($('<option>', {
                         value: ward.id,
                         text: ward.name
+                    }))
+                    : $('#address__ward').append($('<option>', {
+                        value: "",
+                        text: "Phường/Xã"
                     }));
-
-                    ward.id 
-                        ? $('#address__ward').append($('<option>', {
-                            value: ward.id,
-                            text: ward.name
-                        }))
-                        : $('#address__ward').append($('<option>', {
-                            value: "",
-                            text: "Phường/Xã"
-                        }));
-                });
-                
-            },
-            error: function(xhr, textStatus, error) {
-                console.log('Error: ' + error);
-            }
-        });
-    }
-    else
+            })
+        }
+    } else {
         $('#wards').empty();
+        $('#address__ward').empty();
+    }
 }
 
 function clearSelect() {

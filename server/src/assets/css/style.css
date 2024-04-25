@@ -2843,6 +2843,20 @@ ul, li {
     background-color: rgba(0, 0, 0, .02);
 }
 
+.address__default-container.disabled {
+    opacity: .5;
+    cursor: no-drop;
+}
+
+.address__default-container {
+    width: fit-content;
+}
+
+.address__default-container.disabled input,
+.address__default-container.disabled label {
+    cursor: no-drop;
+}
+
 .account-profile__address-default {
     margin-top: 4px;
     display: flex;

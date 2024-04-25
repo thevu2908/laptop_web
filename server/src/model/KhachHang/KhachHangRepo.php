@@ -109,7 +109,7 @@ class KhachHangRepo extends ConnectDB {
             return $provinces;
         } catch (Exception $e) {
             echo 'Error:'. $e->getMessage();
-            return false;
+            return null;
         }
     }
 
@@ -119,7 +119,7 @@ class KhachHangRepo extends ConnectDB {
             $result = mysqli_query($this->conn, $sql);
     
             $data[0] = [
-                'id' => null,
+                'id' => '',
                 'name' => 'Chọn một Quận/huyện'
             ];
     
@@ -133,7 +133,7 @@ class KhachHangRepo extends ConnectDB {
             return $data;
         } catch (Exception $e) {
             echo 'Error:'. $e->getMessage();
-            return false;
+            return null;
         }
     }
 
@@ -141,9 +141,9 @@ class KhachHangRepo extends ConnectDB {
         try {
             $sql = "SELECT * FROM `wards` WHERE `district_id` = {$district_id}";
             $result = mysqli_query($this->conn, $sql);
-        
+
             $data[0] = [
-                'id' => null,
+                'id' => '',
                 'name' => 'Chọn một xã/phường'
             ];
         
@@ -157,7 +157,7 @@ class KhachHangRepo extends ConnectDB {
             return $data;
         } catch (Exception $e) {
             echo 'Error:'. $e->getMessage();
-            return false;
+            return null;
         }
     }
 }
