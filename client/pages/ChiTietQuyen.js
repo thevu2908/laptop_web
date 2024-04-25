@@ -1,14 +1,18 @@
+var tmp="";
+var listitemRemove = [];
+var listitemAdd = [];
 $(document).ready(function(){
     console.log($("#admin-select-nhomquyen").val())
     selectNhomQuyen();
-    if($("#admin-select-nhomquyen").val()=="All" || $("#admin-select-nhomquyen").val()==null){
+    if($("#admin-select-nhomquyen").val()==null){
         loadPhanQuyen();
         clickPage(loadPhanQuyen);
     }
     $(document).on("change","#admin-select-nhomquyen",function(){
+        tmp="";
         if($("#admin-select-nhomquyen").val()=="All"){
             loadPhanQuyen();
-            tmp="";
+            clickPage(loadPhanQuyen);
         }else{
             filterPhanQuyen($(this).val());
             clickPage(filterPhanQuyen);
@@ -17,9 +21,6 @@ $(document).ready(function(){
     addPhanQuyen();
     deletePhanQuyen();
 })
-var tmp="";
-var listitemRemove = [];
-var listitemAdd = [];
 function loadPhanQuyen(){
     var pageno = $("#currentpage").val();
     $.ajax({
@@ -53,8 +54,6 @@ function renderPhanQuyen(data){
         </tr>`;
     })
     jsonData.forEach((chitietquyen,index) => {
-        console.log(chitietquyen['ma_quyen'],index);
-        console.log(chitietquyen['ma_chuc_nang'],index);
         getTenQuyen(chitietquyen['ma_quyen'],index);
         getTenChucNang(chitietquyen['ma_chuc_nang'],index);
         $.ajax({
@@ -274,7 +273,6 @@ function addMulChucNang(checkbox){
     }
     console.log(listitemAdd)
 }
-var tmp="";
 function filterPhanQuyen(search){
     console.log(tmp);
     var pageno;
@@ -288,10 +286,11 @@ function filterPhanQuyen(search){
     console.log(pageno+'----')
     $.ajax({
         url:"server/src/controller/SearchController.php",
-        data: {action:"filter", page: pageno,table:"chitietquyen",search:search},
+        data: {action:"filter", page: pageno,table:"chitietquyen",search:$("#admin-select-nhomquyen").val()},
         method:"get",
         dataType:'json',
         success:function(data){
+            console.log(data);
             renderPhanQuyen(data);
         }
     })
