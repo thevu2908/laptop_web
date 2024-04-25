@@ -149,31 +149,20 @@ class ThongTinNhanHangRepo extends ConnectDB {
 
     public function setDiaChiMacDinh($maTtnh) {
         try {
-            $query1 = "UPDATE thongtinnhanhang SET dia_chi_mac_dinh = 0";
-            $query2 = "UPDATE thongtinnhanhang SET dia_chi_mac_dinh = 1 WHERE ma_ttnh = ?";
+            $query = "UPDATE thongtinnhanhang SET dia_chi_mac_dinh = 1 WHERE ma_ttnh = ?";
             
-            $statement1 = mysqli_prepare($this->conn, $query1);
-            if (!$statement1) {
+            $statement = mysqli_prepare($this->conn, $query);
+            if (!$statement) {
                 throw new Exception("Query preparation failed: " . mysqli_error($this->conn));
             }
 
-            $result1 = $statement1->execute();
-            if (!$result1) {
-                throw new Exception("Query execution failed: " . mysqli_error($this->conn));
-            }
-
-            $statement2 = mysqli_prepare($this->conn, $query2);
-            if (!$statement2) {
-                throw new Exception("Query preparation failed: " . mysqli_error($this->conn));
-            }
-
-            $result2 = $statement2->bind_param("s", $maTtnh);
-            if (!$result2) {
+            $result = $statement->bind_param("s", $maTtnh);
+            if (!$result) {
                 throw new Exception("Parameter binding failed: " . mysqli_error($this->conn));
             }
 
-            $result2 = $statement2->execute();
-            if (!$result2) {
+            $result = $statement->execute();
+            if (!$result) {
                 throw new Exception("Query execution failed: " . mysqli_error($this->conn));
             }
 

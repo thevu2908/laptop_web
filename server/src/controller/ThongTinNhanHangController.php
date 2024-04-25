@@ -40,11 +40,7 @@ class ThongTinNhanHangController {
     }
 
     public function setDiaChiMacDinh($maTtnh) {
-        if ($this->ttnhRepo->setDiaChiMacDinh($maTtnh)) {
-            echo 'success';
-        } else {
-            echo 'fail';
-        }
+        echo $this->ttnhRepo->setDiaChiMacDinh($maTtnh);
     }
 
     public function unsetDiaChiMacDinh() {
@@ -99,6 +95,7 @@ switch ($action) {
         $ttnhCtl->deleteThongTinNhanHang($_POST['maTtnh']);
         break;
     case 'set-default':
+        $ttnhCtl->unsetDiaChiMacDinh();
         $ttnhCtl->setDiaChiMacDinh($_POST['maTtnh']);
         break;
     default:

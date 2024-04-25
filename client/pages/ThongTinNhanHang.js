@@ -7,6 +7,7 @@ $(document).ready(() => {
     handleRenderThongTinNhanHang()
     renderUpdateThongTinNhanHangModal()
     handleThongTinNhanhang()
+    handleSetDiaChiMacDinh()
 })
 
 function initSelect2() {
@@ -222,18 +223,6 @@ function renderUpdateThongTinNhanHangModal() {
     })
 }
 
-function setDiaChiMacDinh(maTtnh) {
-    return new Promise((resolve, reject) => {
-        $.ajax({
-            url: 'server/src/controller/ThongTinNhanHangController.php',
-            method: 'POST',
-            data: { action: 'set-default', maTtnh },
-            success: res => resolve(res),
-            error: (xhr, textStatus, error) => reject(error)
-        })
-    })
-}
-
 function addThongTinNhanHang(maKh, hoten, sodienthoai, diachi, diachimacdinh = 0) {
     return new Promise((resolve, reject) => {
         $.ajax({
@@ -259,7 +248,7 @@ function updateThongTinNhanHang(maTtnh, hoten, sodienthoai, diachi, diachimacdin
 }
 
 function handleThongTinNhanhang() {
-    $('#account-profile__main .btn-address').off('click').on('click', async () => {
+    $(document).on('click', '#account-profile__main .btn-address', async () => {
         const action = $('.btn-address').data('action')
         const hoten = $('#address__name').val()
         const sodienthoai = $('#address__phone').val()
@@ -272,6 +261,7 @@ function handleThongTinNhanhang() {
     
         if (!validateThongTinNhanHang(hoten, sodienthoai, province, district, ward, street)) return
 
+        NProgress.start()
         let res = false
         if (action === 'add') {
             const loginSession = await getLoginSession()
@@ -295,5 +285,33 @@ function handleThongTinNhanhang() {
             console.log(res)
             alert('Có lỗi xảy ra, vui lòng thử lại sau')
         }
+        NProgress.done()
+    })
+}
+
+function setDiaChiMacDinh(maTtnh) {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: 'server/src/controller/ThongTinNhanHangController.php',
+            method: 'POST',
+            data: { action: 'set-default', maTtnh },
+            success: res => resolve(res),
+            error: (xhr, textStatus, error) => reject(error)
+        })
+    })
+}
+
+function handleSetDiaChiMacDinh() {
+    $(document).on('click', '.btn-set-default-address', async function() {
+        NProgress.start()
+        const maTtnh = $(this).data('id')
+        const res = await setDiaChiMacDinh(maTtnh)
+        if (res === '1') {
+            renderThongTinNhanHang()
+        } else {
+            console.log(res)
+            alert('Có lỗi xảy ra, vui lòng thử lại sau')
+        }
+        NProgress.done()
     })
 }
