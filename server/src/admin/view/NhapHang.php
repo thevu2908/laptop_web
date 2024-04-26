@@ -55,7 +55,7 @@
       </div>
       <div class="modal-body">
         <form class="modal-form">
-          <div class="input_container">
+          <!-- <div class="input_container">
             <label for="profit-import-product" class="label fw-bold">Tỉ lệ lợi nhuận</label>
             <div class="input">
               <input
@@ -70,7 +70,7 @@
               %
             </div>
             <span class="text-danger mb-1 error"></span>
-          </div>
+          </div> -->
           <div class="input_container">
             <label for="employee-import-product" class="label fw-bold">Mã nhân viên</label>
             <div class="input">
