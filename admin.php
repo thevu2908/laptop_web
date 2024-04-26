@@ -67,6 +67,21 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
               echo '<script src="./client/pages/DanhGia.js"></script>';
               break;
           }
+          case "phieunhap": {
+            include "./server/src/admin/view/phieunhap.php";
+            echo '<script src="./client/pages/PhieuNhap.js"></script>';
+            break;
+          }
+          case "nhaphang": {
+            include "./server/src/admin/view/NhapHang.php";
+            echo '<script src="./client/pages/NhapHang.js"></script>';
+            break;
+          }
+            case "nhacungcap": {
+              include "./server/src/admin/view/NhaCungCap.php";
+              echo '<script src="./client/pages/NhaCungCap.js"></script>';
+              break;
+          }
           case "taikhoan": {
               include "./server/src/admin/view/TaiKhoan.php";
               echo '<script src="./client/pages/TaiKhoan.js"></script>';
@@ -114,6 +129,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
               echo "<script src='./client/pages/ChiTietQuyen.js'></script>";
               break;
             }
+  
           case "chitietsanpham": {
               include "./server/src/admin/view/ChiTietSanPham.php";
               echo '<script src="./client/pages/ThuongHieu.js"></script>';

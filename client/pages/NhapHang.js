@@ -1,7 +1,7 @@
 $(document).ready(() => {
     loadPromotionData()
 
-    updateStatusPromo()
+    // updateStatusPromo()
     getNextPromoId()
 
     handleAddPromotion()
@@ -11,6 +11,7 @@ $(document).ready(() => {
 
     renderUpdatePromoModal()
     handleUpdatePromo()
+    selectNhaCC()
 })
 
 function loadPromotionData() {
@@ -23,7 +24,7 @@ function loadPromotionData() {
             console.log(data)
             if (data && data.length > 0) {
                 let html = ''
-                
+
                 data.forEach((item) => {
                     html += `
                         <tr>
@@ -35,89 +36,42 @@ function loadPromotionData() {
                             </td>
                             <td>${item.ma_ncc}</td>
                             <td>${item.ten_ncc}</td>
+                            
+                            
                             <td>${item.dia_chi}</td>
                             <td>${item.so_dien_thoai}</td>
-                            
                             <td>
-                                <a href="#updatePromotion" class="edit btn-update-promo-modal" data-toggle="modal" data-id="${item.ma_km}">
+                                <a href="#updatePromotion" class="edit btn-update-promo-modal" data-toggle="modal" data-id="${item.ma_ncc}">
                                     <i class="material-icons" data-toggle="tooltip" title="Chỉnh sửa">&#xE254;</i>
                                 </a>
-                                <a href="#deletePromotion" class="delete btn-delete-promo-modal" data-toggle="modal" data-id="${item.ma_km}">
+                                <a href="#deletePromotion" class="delete btn-delete-promo-modal" data-toggle="modal" data-id="${item.ma_ncc}">
                                     <i class="material-icons" data-toggle="tooltip" title="Xóa">&#xE872;</i>
                                 </a>
                             </td>
                         </tr>
                     `
-
-                   
                 })
 
                 $('.admin-suppiler-list').html(html)
-                
+               
             }
         }
     })
 }
 
 
-function validatePromo(promo) {
-    if(promo.promoName === '' && promo.promoName != undefined) {
-        alert('Vui lòng nhập tên của Nhà Cung Cấp')
-        $("#promotion-name").focus()
-        return false;
-    }
-    if(promo.promoPercent === '' && promo.promoPercent != undefined) {
-        alert('Vui lòng nhập địa chỉ của Nhà Cung Cấp')
-        $("#promotion-percent").focus()
-        return false;
-    }
-    if(promo.promoCondition === '' && promo.promoCondition != undefined) {
-        alert('Vui lòng nhập số điện thoại Nhà Cung Cấp')
-        $("#promotion-condition").focus()
-        return false;
-    }
-
-    if (!/^\d+$/.test(promo.promoCondition)) {
-        alert('Số điện thoại không hợp lệ. Vui lòng chỉ nhập số.')
-        $("#promotion-condition").focus()
-        return false;
-    }
-
-    if (!(/^09\d{8}$/.test(promo.promoCondition))) {
-        alert('Số điện thoại không hợp lệ. Vui lòng nhập số điện thoại đúng định dạng.')
-        $("#promotion-condition").focus()
-        return false;
-    }
-    
-    return true;
-}
 
 
 
-function addPromotion(promo) {
-    return new Promise((resolve, reject) => {
-        $.ajax({
-            url: 'server/src/controller/NhaCungCapController.php',
-            method: 'POST',
-            data: { action: 'add', promo },
-            success: res => {
-                resolve(res)
-            },
-            error: (xhr, status, error) => {
-                console.log(error)
-                reject(error)
-            }
-        })
-    })
-}
+
 
 function handleAddPromotion() {
-    $(document).on('click', '.btn-add-promotion', e => {
+    $(document).on('click', '.btn btn-success', e => {
         e.preventDefault();
         const promo = {
-            promoName: $('#addPromotion #promotion-name').val().trim(),
-            promoPercent: $('#addPromotion #promotion-percent').val().trim(),
-            promoCondition: $('#addPromotion #promotion-condition').val().trim(),
+            promoName: $('#addSupplierModal #promotion-name').val().trim(),
+            promoPercent: $('#addSupplierModal #promotion-percent').val().trim(),
+            promoCondition: $('#addSupplierModal #promotion-condition').val().trim(),
         }
 
         if(!validatePromo(promo)) {
@@ -129,7 +83,7 @@ function handleAddPromotion() {
                 if (res) {
                     alert('Thêm Nhà Cung Cấp thành công')
                     $('form').trigger('reset')
-                    $('#addPromotion').modal('hide')
+                    $('#addSupplierModal').modal('hide')
                     loadPromotionData()
                 } 
                 else {
@@ -167,17 +121,17 @@ function renderDeletePromoModal() {
                         <p>Bạn có chắc chắn muốn xóa Nhà Cung Cấp có mã "<b class="promo-id">${promo.ma_ncc}</b>" không?</p>
                         <p class="text-warning"><small>Hành động này sẽ không thể hoàn tác</small></p>
                     `
-                    $('#deletePromotion .delete-body').html(html)
+                    $('#deleteSuppilerModal .delete-bodya').html(html)
                 })
         }
     })
 
     $('.btn-delete-checked-promo-modal').on('click', () => {
         const html = `
-            <p>Bạn có chắc muốn xóa các khuyến mãi được chọn không ?</p>
+            <p>Bạn có chắc muốn xóa các Nhà Cung Cấp được chọn không ?</p>
             <p class="text-warning"><small>Hành động này sẽ không thể hoàn tác</small></p>
         `
-        $('#deletePromotion .delete-body').html(html)
+        $('#deleteSuppilerModal .delete-bodya').html(html)
     })
 }
 
@@ -198,29 +152,29 @@ function deletePromotion(promoId) {
     })
 }
 
-// function handleDeletePromo() {
-//     $(document).on('click', '#confirm-delete', () => {
-//         const promoId = $('#deletePromotion .promo-id').text()
+function handleDeletePromo() {
+    $(document).on('click', '#confirm-delete', () => {
+        const promoId = $('#deletePromotion .promo-id').text()
 
-//         if (promoId) {
-//             deletePromotion(promoId)
-//                 .then(res => {
-//                     if (res === 'success') {
-//                         alert('Xóa sản phẩm thành công')
-//                         $('#deletePromotion').modal('hide')
-//                         loadPromotionData()
-//                     } 
-//                     else if(res === 'fail') {
-//                         alert('Không thể xóa khuyến mãi có chương trình "Đang diễn ra"')
-//                     }
-//                     else {
-//                         alert('Xảy ra lỗi trong quá trình xóa sản phẩm')
-//                     }
-//                 })
-//                 .catch(error => console.log(error))
-//         }
-//     })
-// }
+        if (promoId) {
+            deletePromotion(promoId)
+                .then(res => {
+                    if (res === 'success') {
+                        alert('Xóa sản phẩm thành công')
+                        $('#deletePromotion').modal('hide')
+                        loadPromotionData()
+                    } 
+                    else if(res === 'fail') {
+                        alert('Không thể xóa khuyến mãi có chương trình "Đang diễn ra"')
+                    }
+                    else {
+                        alert('Xảy ra lỗi trong quá trình xóa sản phẩm')
+                    }
+                })
+                .catch(error => console.log(error))
+        }
+    })
+}
 
 function getNextPromoId() {
     $.ajax({
@@ -238,7 +192,6 @@ function getNextPromoId() {
             console.log(error)
         }
     })
-
     return 1;
 }
 
@@ -248,10 +201,10 @@ function renderUpdatePromoModal() {
 
         getPromotion(promoId)
             .then(promo => {
-                $('#updatePromotion #promotion-id').val(promo.ma_km),
-                $('#updatePromotion #promotion-name').val(promo.ten_khuyen_mai),
-                $('#updatePromotion #promotion-percent').val(promo.muc_khuyen_mai),
-                $('#updatePromotion #promotion-condition').val(promo.dieu_kien),
+                $('#updatePromotion #promotion-id').val(promo.ma_ncc),
+                $('#updatePromotion #promotion-name').val(promo.ten_ncc),
+                $('#updatePromotion #promotion-condition').val(promo.dia_chi),
+                $('#updatePromotion #promotion-percent').val(promo.so_dien_thoai)
             })
             .catch(error => console.log(error))
     })
@@ -285,8 +238,9 @@ function handleUpdatePromo() {
         const promo = {
             promoId: $('#updatePromotion #promotion-id').val().trim(),
             promoName: $('#updatePromotion #promotion-name').val().trim(),
-            promoPercent: $('#updatePromotion #promotion-percent').val().trim(),
             promoCondition: $('#updatePromotion #promotion-condition').val().trim(),
+            promoPercent: $('#updatePromotion #promotion-percent').val().trim(),
+            
             
         }
 
@@ -303,10 +257,52 @@ function handleUpdatePromo() {
                     loadPromotionData()
                 } 
                 else {
-                    alert('Xảy ra lỗi trong quá trình cập nhật Nhà Cung Cấp')
+                    alert('Xảy ra lỗi trong quá trình cập nhật Cung Cấp')
                 }
             })
             .catch(error => console.log(error))
+    })
+}
+
+// render NCC
+function selectNhaCC(){
+    $("#employee-import-product").val($("#admin-nhomquyen").val())
+    $.ajax({
+        url: "server/src/controller/NhaCungCapController.php",
+        data: {action:"get-all"},
+        method: "post",
+        dataType: "json",
+        
+        success: function (data) {
+            console.log(data)
+            
+            var html="";
+            data.forEach((ncc,index) => {
+                html+=`<option value="${ncc['ma_ncc']}">${ncc['ten_ncc']}</option>`;
+            })
+            $("#supplier-import-product").html(html);
+        }
+
+    })
+}
+
+function selectNhaCC(){
+    $.ajax({
+        url: "server/src/controller/NhaCungCapController.php",
+        data: {action:"get-all"},
+        method: "post",
+        dataType: "json",
+        
+        success: function (data) {
+            console.log(data)
+            
+            var html="";
+            data.forEach((ncc,index) => {
+                html+=`<option value="${ncc['ma_ncc']}">${ncc['ten_ncc']}</option>`;
+            })
+            $("#supplier-import-product").html(html);
+        }
+
     })
 }
 

@@ -128,6 +128,22 @@ function kiemtraquyen($arr,$chucnang){
         </a>
       </li>";
       }
+      if(kiemtraquyen($arr,"Phiếu Nhập") && $chitietquyen->kiemtrahangdong($maquyen,"Phiếu Nhập","Xem")){
+        echo " <li class='side-menu-item ".( $page === 'phieunhap' ? 'active' : '')."'>
+        <a href='/admin.php?controller=phieunhap' class='nav-link'>
+        <i class='fa-solid fa-right-left'></i>
+          <span class='text'>Phiếu Nhập</span>
+        </a>
+      </li>";
+      }
+      if(kiemtraquyen($arr,"Nhà Cung Cấp") && $chitietquyen->kiemtrahangdong($maquyen,"Nhà Cung Cấp","Xem")){
+        echo " <li class='side-menu-item ".( $page === 'nhacungcap' ? 'active' : '')."'>
+        <a href='/admin.php?controller=nhacungcap' class='nav-link'>
+        <i class='fa-solid fa-right-left'></i>
+          <span class='text'>Nhà Cung Cấp</span>
+        </a>
+      </li>";
+      }
       if(kiemtraquyen($arr,"Thống Kê") && $chitietquyen->kiemtrahangdong($maquyen,"Thống Kê","Xem")){
         echo " <li class='side-menu-item ".( $page === 'thongke' ? 'active' : '')."'>
         <a href='/admin.php?controller=thongke' class='nav-link'>
