@@ -198,29 +198,29 @@ function deletePromotion(promoId) {
     })
 }
 
-// function handleDeletePromo() {
-//     $(document).on('click', '#confirm-delete', () => {
-//         const promoId = $('#deletePromotion .promo-id').text()
+function handleDeletePromo() {
+    $(document).on('click', '#confirm-delete', () => {
+        const promoId = $('#deletePromotion .promo-id').text()
 
-//         if (promoId) {
-//             deletePromotion(promoId)
-//                 .then(res => {
-//                     if (res === 'success') {
-//                         alert('Xóa sản phẩm thành công')
-//                         $('#deletePromotion').modal('hide')
-//                         loadPromotionData()
-//                     } 
-//                     else if(res === 'fail') {
-//                         alert('Không thể xóa khuyến mãi có chương trình "Đang diễn ra"')
-//                     }
-//                     else {
-//                         alert('Xảy ra lỗi trong quá trình xóa sản phẩm')
-//                     }
-//                 })
-//                 .catch(error => console.log(error))
-//         }
-//     })
-// }
+        if (promoId) {
+            deletePromotion(promoId)
+                .then(res => {
+                    if (res === 'success') {
+                        alert('Xóa sản phẩm thành công')
+                        $('#deletePromotion').modal('hide')
+                        loadPromotionData()
+                    } 
+                    else if(res === 'fail') {
+                        alert('Không thể xóa khuyến mãi có chương trình "Đang diễn ra"')
+                    }
+                    else {
+                        alert('Xảy ra lỗi trong quá trình xóa sản phẩm')
+                    }
+                })
+                .catch(error => console.log(error))
+        }
+    })
+}
 
 function getNextPromoId() {
     $.ajax({
@@ -251,7 +251,7 @@ function renderUpdatePromoModal() {
                 $('#updatePromotion #promotion-id').val(promo.ma_km),
                 $('#updatePromotion #promotion-name').val(promo.ten_khuyen_mai),
                 $('#updatePromotion #promotion-percent').val(promo.muc_khuyen_mai),
-                $('#updatePromotion #promotion-condition').val(promo.dieu_kien),
+                $('#updatePromotion #promotion-condition').val(promo.dieu_kien)
             })
             .catch(error => console.log(error))
     })
