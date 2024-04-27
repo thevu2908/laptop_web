@@ -7,13 +7,17 @@
                 <div class="account-profile__left">
                     <h3 class="account-profile__left-title"></h3>
                     <div class="account-profile__left-list">
-                        <div class="account-profile__left-item active account">
+                        <div class="account-profile__left-item account">
                             <i class="fa-solid fa-user"></i>
                             <span>Thông tin cá nhân</span>
                         </div>
                         <div class="account-profile__left-item address">
                             <i class="fa-solid fa-location-dot"></i>
                             <span>Địa chỉ</span>
+                        </div>
+                        <div class="account-profile__left-item order">
+                            <i class="fa-regular fa-clipboard"></i>
+                            <span>Đơn hàng</span>
                         </div>
                     </div>
                 </div>
