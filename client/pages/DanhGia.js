@@ -12,28 +12,46 @@ async function getMaKH() {
     return loginSession ? loginSession.customerId : ''
 }
 
-async function renderListReview() {
-    productId = $('.btn-add-cart').attr('data-id');
-    $.ajax({
-        url: 'server/src/controller/DanhGiaController.php',
-        method: 'POST',
-        data: { action: 'get-all' , productId},
-        dataType: 'JSON',
-        success: data => {
-            if (data && data.length > 0) {
-                let html = ''
-                console.log(data)
+function getCustomer(id) {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: 'server/src/controller/KhachHangController.php',
+            method: 'POST',
+            data: { action: 'get-customer', id },
+            dataType: 'JSON',
+            success: customer => resolve(customer),
+            error: (xhr, status, error) => {
+                console.log(error)
+                reject(error)
+            }
+        })
+    })
+}
 
-                data.forEach((item, index) => {
+async function renderListReview() {
+    const productId = $('.btn-add-cart').attr('data-id');
+    try {
+        const response = await $.ajax({
+            url: 'server/src/controller/DanhGiaController.php',
+            method: 'POST',
+            data: { action: 'get-all', productId },
+            dataType: 'JSON'
+        });
+
+        if (response && response.length > 0) {
+            let html = '';
+
+            for (const item of response) {
+                try {
+                    const res = await getCustomer(item.ma_kh);
+                    
                     html += `
                         <div class="d-flex flex-start mb-4">
-                            <img class="rounded-circle shadow-1-strong me-3"
-                                src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(32).webp" alt="avatar" width="65" height="65" />
                             <div class="card w-100">
                                 <div class="card-body">
                                     <div class="">
-                                        <h5 class="m-0">Johny Cash</h5>
-                                        <p class="small">${convertDate(item.thoi_gian_danh_gia)}</p>
+                                        <h5 class="m-0">${res.ten_kh}</h5>
+                                        <p class="small">${convertDate(item.thoi_gian_danh_gia.slice(0, 10))}</p>
                                         <p class="m-0">
                                             ${item.noi_dung}
                                         </p>
@@ -62,15 +80,16 @@ async function renderListReview() {
                             </div>
                         </div>
                     `
-                })
-
-                $('.list-review').html(html)
+                } catch (error) {
+                    console.log(error);
+                }
             }
-        },
-        error: (xhr, status, error) => {
-            console.log(error)
+
+            $('.list-review').html(html);
         }
-    })
+    } catch (error) {
+        console.log(error);
+    }
 }
 
 async function renderReviewAdmin(data) {
@@ -180,9 +199,9 @@ function addReview(review) {
 }
 
 async function handleAddReview() {
-    $(document).on('click', '#btn-add-review', async (e) => {
+    $(document).off('click', '#btn-add-review').on('click', '#btn-add-review', async (e) => {
         var currentDate = new Date();
-        var formattedDate = currentDate.toISOString().slice(0, 10);
+        var formattedDate = currentDate.toISOString();
 
         let productId = $('.btn-add-cart').attr('data-id');
         let customerId = await getMaKH()
@@ -210,6 +229,7 @@ async function handleAddReview() {
             .then(data => {
                 if (data) {
                     alert('Đánh giá thành công')
+                    renderListReview()
                 } else {
                     alert('Xảy ra lỗi trong quá trình đánh giá')
                 }

@@ -31,12 +31,13 @@ async function loadCartNumber() {
         success: size => {
             if(size == -1)
                 size = 0
+
             $('.cart__footer-text').text(`Tổng tiền (${size}) sản phẩm: `)
             $('.cart-number').text(size)
 
             if(size == 0) {
                 // $('.cart__footer-tocart').css('pointer-events', 'none');
-                $('.cart__footer-tocart').css('cursor', 'not-allowed');
+                // $('.cart__footer-tocart').css('cursor', 'not-allowed');
             }
         },
         error: (xhr, status, error) => {
@@ -93,10 +94,13 @@ async function loadCart() {
                             tongTien += cart.gia_sp * cart.so_luong
                             
                             $('.cart__footer-money').text("₫" + formatCurrency(tongTien))
+                            $('.cart__right-total-temp').text("₫" + formatCurrency(tongTien))
+                            $('.cart__right-total').text("₫" + formatCurrency(tongTien))
                             $('.cart__list-product').html(html)
                             $('.cart__left-product').html(html2)
 
                             updateQuantity()
+                            loadPromotionData()
                         })
                         .catch(error => console.log(error))
                 })
@@ -137,7 +141,7 @@ function addCart(cart) {
 }
 
 function handleAddCart() {
-    $(document).on('click', '.btn-add-cart', async e => {
+    $(document).off('click', '.btn-add-cart').on('click', '.btn-add-cart', async e => {
         e.preventDefault();
     
         try {
@@ -161,6 +165,7 @@ function handleAddCart() {
             }
             const getCartRes = await getCart(cart.productDetailId, cart.customerId)
             const objectData = JSON.parse(getCartRes)
+            console.log(objectData)
 
             if (objectData != null) {
                 cart.quantity = parseInt(objectData.so_luong) + parseInt(cart.quantity)
@@ -243,7 +248,6 @@ async function updateQuantity() {
                 price: $('.cart__left-product .cart__left-product-price').contents().first().text().trim().replace(/[₫.]/g, ""),
                 quantity: objectCart.so_luong,
             }
-            // loadCart()
 
             let updateRes = await updateCart(cart)
             if (updateRes === 'success') {

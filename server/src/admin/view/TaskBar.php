@@ -43,7 +43,7 @@ function kiemtraquyen($arr,$chucnang){
       if(kiemtraquyen($arr,"Tài Khoản") && $chitietquyen->kiemtrahangdong($maquyen,"Tài Khoản","Xem")){
         echo "<li class='side-menu-item ".($page === 'taikhoan' ? 'active' : '')."'>
         <a href='/admin.php?controller=taikhoan' class='nav-link'>
-          <i class='fas fa-shopping-cart'></i>
+        <i class='fas fa-user'></i>
           <span class='text'>Tài Khoản</span>
         </a>
       </li>";
@@ -51,7 +51,7 @@ function kiemtraquyen($arr,$chucnang){
       if(kiemtraquyen($arr,"Nhóm Quyền") && $chitietquyen->kiemtrahangdong($maquyen,"Nhóm Quyền","Xem")){
         echo "<li class='side-menu-item ".($page === 'nhomquyen' ? 'active' : '' )."'>
         <a href='/admin.php?controller=nhomquyen' class='nav-link'>
-          <i class='fas fa-chart-simple'></i>
+        <i class='fas fa-users'></i>
           <span class='text'>Nhóm Quyền</span>
         </a>
       </li>";
@@ -91,7 +91,7 @@ function kiemtraquyen($arr,$chucnang){
       if(kiemtraquyen($arr,"Chức Năng") && $chitietquyen->kiemtrahangdong($maquyen,"Chức Năng","Xem")){
         echo " <li class='side-menu-item ".( $page === 'chucnang' ? 'active' : '')."'>
         <a href='/admin.php?controller=chucnang' class='nav-link'>
-          <i class='fas fa-message'></i>
+        <i class='fas fa-cogs'></i>
           <span class='text'>Chức Năng</span>
         </a>
       </li>";
@@ -99,7 +99,7 @@ function kiemtraquyen($arr,$chucnang){
       if(kiemtraquyen($arr,"Khuyến Mãi") && $chitietquyen->kiemtrahangdong($maquyen,"Khuyến Mãi","Xem")){
         echo " <li class='side-menu-item ".( $page === 'khuyenmai' ? 'active' : '')."'>
         <a href='/admin.php?controller=khuyenmai' class='nav-link'>
-          <i class='fas fa-message'></i>
+        <i class='fa-solid fa-money-bill-1-wave'></i>
           <span class='text'>Khuyến Mãi</span>
         </a>
       </li>";
@@ -107,7 +107,7 @@ function kiemtraquyen($arr,$chucnang){
       if(kiemtraquyen($arr,"Bảo Hành") && $chitietquyen->kiemtrahangdong($maquyen,"Bảo Hành","Xem")){
         echo " <li class='side-menu-item ".( $page === 'baohanh' ? 'active' : '')."'>
         <a href='/admin.php?controller=baohanh' class='nav-link'>
-          <i class='fas fa-message'></i>
+        <i class='fa-solid fa-screwdriver-wrench'></i>
           <span class='text'>Bảo Hành</span>
         </a>
       </li>";
@@ -115,7 +115,7 @@ function kiemtraquyen($arr,$chucnang){
       if(kiemtraquyen($arr,"Nhân Viên") && $chitietquyen->kiemtrahangdong($maquyen,"Nhân Viên","Xem")){
         echo " <li class='side-menu-item ".( $page === 'nhanvien' ? 'active' : '')."'>
         <a href='/admin.php?controller=nhanvien' class='nav-link'>
-          <i class='fas fa-message'></i>
+        <i class='fa-solid fa-users-between-lines'></i>
           <span class='text'>Nhân Viên</span>
         </a>
       </li>";
@@ -123,7 +123,7 @@ function kiemtraquyen($arr,$chucnang){
       if(kiemtraquyen($arr,"Đổi Trả") && $chitietquyen->kiemtrahangdong($maquyen,"Đổi Trả","Xem")){
         echo " <li class='side-menu-item ".( $page === 'doitra' ? 'active' : '')."'>
         <a href='/admin.php?controller=doitra' class='nav-link'>
-          <i class='fas fa-message'></i>
+        <i class='fa-solid fa-right-left'></i>
           <span class='text'>Đổi Trả</span>
         </a>
       </li>";
@@ -192,12 +192,12 @@ function kiemtraquyen($arr,$chucnang){
     }
     ?> -->
   <ul class="side-menu">
-    <li>
+    <!-- <li>
       <a href="#" style="text-decoration: none;">
         <i class="fas fa-cog"></i>
         <span class="text">Settings</span>
       </a>
-    </li>
+    </li> -->
     <li>
       <a class="btn-logout" style="text-decoration: none;">
         <i class="fas fa-right-from-bracket"></i>

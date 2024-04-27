@@ -28,24 +28,28 @@
             <div class="cart__right d-flex flex-column col-4">
                 <div class="cart__right-promotion bg-white mb-4 p-4 rounded-3">
                     <div class="d-flex justify-content-between" >
-                        <h6>Khuyến mãi</h6>
-                        <a href="#"class="openmodal">Chọn khuyến mãi</a>
+                        <h6 style="font-weight: 700;" >Khuyến mãi</h6>
+                        <a href="#"class="openmodal select-promo">Chọn khuyến mãi</a>
                     </div>
-                    <div class="cart__right-condition">Đơn hàng chưa đủ điều kiện áp dụng khuyến mãi. Vui lòng mua thêm để áp dụng</div>
+                    <div class="cart__right-condition" style="color: #828EB1;" ></div>
                     <ul class="cart-list-promo" style="max-height: 270px;" >
                     
                     </ul>
                 </div>
                 <div class="cart__right-pay bg-white mb-4 p-4 rounded-3">
-                    <h6 class="cart__right-header">Thanh toán</h6>
+                    <h6 class="cart__right-header" style="font-weight: 700;">Thanh toán</h6>
                     <div class="cart__right-checkout-summary">
                         <div class="d-flex justify-content-between" >
                             <div>Tổng tạm tính</div>
-                            <div>5.593.000₫</div>
+                            <div class="cart__right-total-temp">0₫</div>
+                        </div>
+                        <div class="d-flex justify-content-between" >
+                            <div>Giảm giá</div>
+                            <div class="cart__right-price-reduce">-0₫</div>
                         </div>
                         <div class="d-flex justify-content-between" >
                             <div>Thành tiền</div>
-                            <div>5.593.000₫</div>
+                            <div class="cart__right-total">0₫</div>
                         </div>
                     </div>
                     <a href="index.php?thanh-toan" class="btn btn-success w-100" >Tiếp tục</a>
@@ -70,19 +74,7 @@
                     </div>
 
                     <ul class="modal-cart-list" style="max-height: 400px;" >
-                        <!-- <li class="modal-promo-item" >
-                            <div class="modal-promo-name d-flex align-items-center" >
-                                <div class="modal-promo-code">${item.ma_km}</div>
-                                <div class="modal-promo-name2 ms-2" style="font-weight: 500;">${item.ten_khuyen_mai}</div>
-                            </div>
-                            <div class="modal-promo-percent mt-2 mb-2" >
-                                Giảm ${formatCurrency(convertMucKM(item.muc_khuyen_mai))}₫
-                            </div>
-                            <div class="modal-promo-bottom d-flex justify-content-between">
-                                <div class="modal-promo-expiry" >HSD: ${convertDate(item.thoi_gian_ket_thuc)}</div>
-                                <div class="modal-promo-add" >Áp dụng</div>
-                            </div>
-                        </li> -->
+
                     </ul>
                 </div>
 

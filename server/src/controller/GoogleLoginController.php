@@ -83,9 +83,9 @@ if (isset($_GET['code'])) {
 
     $info = $obj->getLoginInfo($email);
     $_SESSION['loggedin'] = true;
-    $_SESSION['id'] = $info['email'];
+    $_SESSION['id'] = isset($info['email']) ? $info['email'] : $info['ma_tk'];
     $_SESSION['customerId'] = $info['ma_kh'];
-    $_SESSION['username'] = $name;
+    $_SESSION['username'] = $info['ten_kh'];
     $_SESSION['accessId'] = 'user';
     echo '<script>if (window.opener){window.opener.location.href="http://localhost:3000/index.php"; window.close();}</script>';
 }

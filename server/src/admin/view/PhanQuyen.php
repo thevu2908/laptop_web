@@ -10,7 +10,7 @@
                                 
                             </select>
 						</div>
-						<div class="col-sm-6">
+						<div class="col-sm-6 ">
 							<!-- <a href="#" class="btn btn-secondary"><i class="material-icons">&#xE24D;</i> <span>Import Excel</span></a>
 							<a href="#" class="btn btn-secondary"><i class="material-icons">&#xE24D;</i> <span>Export Excel</span></a> -->
 							<!-- <a href="#addPhanQuyenModal" id="admin-add-phanquyen" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Thêm</span></a> -->
@@ -92,8 +92,8 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th scope="col">Chức Năng</th>
-                            <th scope="col">Quyền</th>
+                            <th class='w-auto'>Chức Năng</th>
+                            <th class='w-auto'>Quyền</th>
                         </tr>
                     </thead>
                     <tbody id="admin-show-ChucNang">

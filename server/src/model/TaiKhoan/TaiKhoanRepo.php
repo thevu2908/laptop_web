@@ -163,10 +163,10 @@ class TaiKhoanRepo extends ConnectDB {
     public function login($username) {
         try {
             $query = "
-                SELECT * FROM khachhang kh LEFT JOIN taikhoan tk ON kh.email = tk.ma_tk 
+                SELECT tk.*, kh.ma_kh, kh.ten_kh FROM khachhang kh LEFT JOIN taikhoan tk ON kh.email = tk.ma_tk 
                 WHERE kh.email = ? OR tk.username = ? AND kh.trang_thai = 0 AND tk.trang_thai = 0
                 UNION
-                SELECT * FROM nhanvien nv JOIN taikhoan tk ON nv.ma_nv = tk.ma_tk 
+                SELECT tk.*, nv.ma_nv, nv.ten_nv FROM nhanvien nv JOIN taikhoan tk ON nv.ma_nv = tk.ma_tk 
                 WHERE nv.ma_nv = ? OR tk.username = ? AND nv.trang_thai = 0 AND tk.trang_thai = 0
             ";
             $statement = mysqli_prepare($this->conn, $query);

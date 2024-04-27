@@ -48,13 +48,13 @@
 			<div class="modal-content">
 				<form>
 					<div class="modal-header">
-						<h4 class="modal-title">Thêm Tài Khoản</h4>
+						<h4 class="modal-title">Thêm Chức Năng</h4>
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 					</div>
 					<div class="modal-body">
 						<div class="form-group">
 							<label>Mã Chức Năng</label>
-							<input type="text" class="form-control" required id="admin-MaChucNang">
+							<input type="text" class="form-control" id="admin-MaChucNang" readonly='false'>
 						</div>
 						<div class="form-group">
 							<label>Chức Năng</label>
@@ -70,44 +70,27 @@
 		</div>
 	</div>
 	<!-- Edit Modal HTML -->
-	<div id="editEmployeeModal" class="modal fade">
+	<div id="editChucNang" class="modal fade">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<form>
 					<div class="modal-header">
-						<h4 class="modal-title">Sửa Tài Khoản</h4>
+						<h4 class="modal-title">Sửa Chức Năng</h4>
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 					</div>
 					<div class="modal-body">
-						<input type="hidden" name="ma_tk">
 						<div class="form-group">
-							<div class="form-group">
-								<label>Mã Tài Khoản</label>
-								<input class="form-control" type="text" name="password" required>
-							</div>
-							<!-- <input type="text" class="form-control" required> -->
-							<select name="" id="" class="form-control" required>
-								<option value="">A</option>
-								<option value="">B</option>
-								<option value="">C</option>
-							</select>
+							<label>Mã Chức Năng</label>
+							<input type="text" class="form-control" readonly="true" id='admin-edit-machucnang' required>
 						</div>
 						<div class="form-group">
-							<label>Username</label>
-							<input type="text" class="form-control" name="username" required>
+							<label>Tên Chức Năng</label>
+							<input class="form-control" type="text" id='admin-edit-tenchucnang' required>
 						</div>
-						<div class="form-group">
-							<label>Password</label>
-							<input class="form-control" type="password" name="password" required>
-						</div>
-						<!-- <div class="form-group">
-						<label>Phone</label>
-						<input type="text" class="form-control" required>
-					</div>					 -->
 					</div>
 					<div class="modal-footer">
 						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-						<input type="submit" class="btn btn-info" value="Save">
+						<input type="button" class="btn btn-info" id="admin-btn-updateChucNang" value="Save">
 					</div>
 				</form>
 			</div>

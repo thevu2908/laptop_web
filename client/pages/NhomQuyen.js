@@ -14,16 +14,11 @@ $(document).ready(function () {
     }
 })
 function addNhomQuyen() {
+    getSizeinTable("nhomquyen","NQ","#ma_quyen")
     $(document).on('click', "#addNhomQuyen", function () {
         var ma_nhomquyen = $("#ma_quyen").val();
         var ten_nhomquyen = $("#ten_quyen").val();
-        if (ma_nhomquyen == "" && ten_nhomquyen == "") {
-            $("#mess_maquyen").html("Please input maquyen");
-            $("#mess_tenquyen").html("Please input tenquyen");
-        } else if (ma_nhomquyen == "") {
-            $("#mess_maquyen").html("Please input maquyen");
-        }
-        else if (ten_nhomquyen == "") {
+        if (checkSpace(ten_nhomquyen)) {
             $("#mess_tenquyen").html("Please input tenquyen");
         } else {
             $.ajax({
@@ -92,6 +87,7 @@ function render(data) {
         });
     }
     $("#show-listNhomQuyen").html(html);
+    getSizeinTable("nhomquyen","NQ","#ma_quyen")
     phanquyen_chucnang("Nhóm Quyền");
     totalPage(data.count);
 }

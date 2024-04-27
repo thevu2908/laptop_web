@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 17, 2024 at 04:26 PM
+-- Generation Time: Apr 23, 2024 at 10:16 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -326,6 +326,7 @@ CREATE TABLE `chitietquyen` (
 --
 
 INSERT INTO `chitietquyen` (`ma_quyen`, `ma_chuc_nang`, `hanh_dong`) VALUES
+('NQ01', 'CN01', 'Sửa'),
 ('NQ01', 'CN01', 'Thêm'),
 ('NQ01', 'CN01', 'X'),
 ('NQ01', 'CN01', 'Xem'),
@@ -353,10 +354,13 @@ INSERT INTO `chitietquyen` (`ma_quyen`, `ma_chuc_nang`, `hanh_dong`) VALUES
 ('NQ01', 'CN08', 'X'),
 ('NQ01', 'CN08', 'Xem'),
 ('NQ01', 'CN08', 'Xóa'),
+('NQ01', 'CN10', 'Sửa'),
+('NQ01', 'CN10', 'Thêm'),
 ('NQ01', 'CN10', 'X'),
 ('NQ01', 'CN10', 'Xem'),
 ('NQ01', 'CN10', 'Xóa'),
 ('NQ01', 'CN11', 'Sửa'),
+('NQ01', 'CN11', 'Thêm'),
 ('NQ01', 'CN11', 'X'),
 ('NQ01', 'CN11', 'Xem'),
 ('NQ01', 'CN11', 'Xóa'),
@@ -569,7 +573,7 @@ CREATE TABLE `ctsp_imei` (
 --
 
 CREATE TABLE `danhgia` (
-  `ma_ctsp` varchar(20) NOT NULL,
+  `ma_sp` varchar(20) NOT NULL,
   `ma_kh` varchar(20) NOT NULL,
   `rating` float NOT NULL,
   `thoi_gian_danh_gia` date NOT NULL,
@@ -1314,6 +1318,13 @@ CREATE TABLE `giohang` (
   `trang_thai` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `giohang`
+--
+
+INSERT INTO `giohang` (`ma_ctsp`, `ma_kh`, `gia_sp`, `so_luong`, `trang_thai`) VALUES
+('CTSP0001', 'KH0001', 26239500, 1, 0);
+
 -- --------------------------------------------------------
 
 --
@@ -1364,7 +1375,6 @@ CREATE TABLE `khachhang` (
   `ten_kh` varchar(100) NOT NULL,
   `so_dien_thoai` varchar(10) NOT NULL,
   `email` varchar(100) NOT NULL,
-  `dia_chi` varchar(150) NOT NULL,
   `trang_thai` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -1372,9 +1382,10 @@ CREATE TABLE `khachhang` (
 -- Dumping data for table `khachhang`
 --
 
-INSERT INTO `khachhang` (`ma_kh`, `ten_kh`, `so_dien_thoai`, `email`, `dia_chi`, `trang_thai`) VALUES
-('KH0002', 'Thế Vũ', '', 'vnguyen132az@gmail.com', '', 0),
-('KH0003', 'Vu', '', 'thevu1073@gmail.com', '', 0);
+INSERT INTO `khachhang` (`ma_kh`, `ten_kh`, `so_dien_thoai`, `email`, `trang_thai`) VALUES
+('KH0001', 'Thế Vũ', '', 'vnguyen132az@gmail.com', 0),
+('KH0002', 'Nguyễn Vũ', '', 'thevu1073@gmail.com', 0),
+('KH0003', 'Vũ', '', 'vunguyen290803@gmail.com', 0);
 
 -- --------------------------------------------------------
 
@@ -1689,7 +1700,9 @@ CREATE TABLE `taikhoan` (
 
 INSERT INTO `taikhoan` (`ma_tk`, `ma_quyen`, `username`, `password`, `otp`, `trang_thai`) VALUES
 ('admin', 'NQ01', 'admin', 'admin', 0, 0),
-('vnguyen132az@gmail.com', 'user', 'vnguyen132az@gmail.com', '123456', 0, 0);
+('thevu1073@gmail.com', 'user', 'thevu1073@gmail.com', '123456', 0, 0),
+('vnguyen132az@gmail.com', 'user', 'vnguyen132az@gmail.com', '123', 0, 0),
+('vunguyen290803@gmail.com', 'user', 'vunguyen290803@gmail.com', '123', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -1741,11 +1754,24 @@ CREATE TABLE `thongbao` (
 --
 
 CREATE TABLE `thongtinnhanhang` (
+  `ma_ttnh` varchar(20) NOT NULL,
   `ma_kh` varchar(20) NOT NULL,
   `ho_ten` varchar(150) NOT NULL,
-  `so_dien_thoai` int(10) NOT NULL,
-  `dia_chi` varchar(200) NOT NULL
+  `so_dien_thoai` varchar(10) NOT NULL,
+  `dia_chi` varchar(200) NOT NULL,
+  `dia_chi_mac_dinh` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `thongtinnhanhang`
+--
+
+INSERT INTO `thongtinnhanhang` (`ma_ttnh`, `ma_kh`, `ho_ten`, `so_dien_thoai`, `dia_chi`, `dia_chi_mac_dinh`) VALUES
+('TTNH0001', 'KH0001', 'Thế Vũ', '0976124506', 'Đường 21, Phường Phúc Xá, Quận Ba Đình,  Hà Nội', 1),
+('TTNH0002', 'KH0001', 'Vũ', '976124506', '23/30/23K, đường 21, Phường 8, Quận Gò Vấp,  Hồ Chí Minh', 0),
+('TTNH0003', 'KH0001', 'Nguyễn Thế Vũ', '387252609', '37 Quang Trung, Phường 1, Thành phố Tây Ninh,  Tây Ninh', 0),
+('TTNH0004', 'KH0001', 'Nam', '966763958', '28 Hai Bà Trưng, Phường Ngọc Hà, Thành phố Hà Giang,  Hà Giang', 0),
+('TTNH0005', 'KH0001', 'Minh', '876474064', 'aaa, Phường Sông Hiến, Thành phố Cao Bằng,  Cao Bằng', 0);
 
 -- --------------------------------------------------------
 
@@ -12480,7 +12506,7 @@ ALTER TABLE `ctsp_imei`
 -- Indexes for table `danhgia`
 --
 ALTER TABLE `danhgia`
-  ADD PRIMARY KEY (`ma_ctsp`,`ma_kh`,`thoi_gian_danh_gia`),
+  ADD PRIMARY KEY (`ma_sp`,`ma_kh`,`thoi_gian_danh_gia`),
   ADD KEY `danhgia_fk_kh` (`ma_kh`);
 
 --
@@ -12622,7 +12648,8 @@ ALTER TABLE `thongbao`
 -- Indexes for table `thongtinnhanhang`
 --
 ALTER TABLE `thongtinnhanhang`
-  ADD PRIMARY KEY (`ma_kh`);
+  ADD PRIMARY KEY (`ma_ttnh`),
+  ADD KEY `ttnh_fk_kh` (`ma_kh`);
 
 --
 -- Indexes for table `thuonghieu`
@@ -12730,8 +12757,8 @@ ALTER TABLE `ctsp_imei`
 -- Constraints for table `danhgia`
 --
 ALTER TABLE `danhgia`
-  ADD CONSTRAINT `danhgia_fk_ctsp` FOREIGN KEY (`ma_ctsp`) REFERENCES `chitietsanpham` (`ma_ctsp`),
-  ADD CONSTRAINT `danhgia_fk_kh` FOREIGN KEY (`ma_kh`) REFERENCES `khachhang` (`ma_kh`);
+  ADD CONSTRAINT `danhgia_fk_kh` FOREIGN KEY (`ma_kh`) REFERENCES `khachhang` (`ma_kh`),
+  ADD CONSTRAINT `danhgia_fk_sp` FOREIGN KEY (`ma_sp`) REFERENCES `sanpham` (`ma_sp`);
 
 --
 -- Constraints for table `giohang`

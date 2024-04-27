@@ -47,6 +47,10 @@ class KhachHangController {
         echo json_encode($this->khachHangRepo->getWard($district_id));
     }
 
+    public function getKH($id){
+        echo json_encode($this->khachHangRepo->getKhachHang($id));
+    }
+
     public function addKhachHang($customer) {
         if ($this->khachHangRepo->addKhachHang($customer)) {
             echo 'success';
@@ -76,8 +80,7 @@ switch($action) {
             $name = $_POST['name'];
             $phone = $_POST['phone'];
             $email = $_POST['email'];
-            $address = $_POST['address'];
-            $customer = new KhachHang($id, $name, $phone, $email, $address, 0);
+            $customer = new KhachHang($id, $name, $phone, $email, 0);
             $khachHangCtl->addKhachHang($customer);
         }
         break;
@@ -86,8 +89,7 @@ switch($action) {
         $name = $_POST['name'];
         $phone = isset($_POST['phone']) ? $_POST['phone'] : '';
         $email = $_POST['email'];
-        $address = isset($_POST['address']) ? $_POST['address'] : '';
-        $customer = new KhachHang($id, $name, $phone, $email, $address, 0);
+        $customer = new KhachHang($id, $name, $phone, $email, 0);
         $khachHangCtl->updateKhachHang($customer);
         break;
     case 'get-customer':
@@ -103,6 +105,11 @@ switch($action) {
     case 'get-ward':
         $khachHangCtl->getWard();
         break;
+    case "get-khachhang":{
+        $id=$_POST['id'];
+        $khachHangCtl->getKH($id);
+        break;
+    }    
     default:
         break;
 }
