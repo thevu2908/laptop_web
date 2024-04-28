@@ -11,6 +11,9 @@ function redirectPage() {
     } else if (url.search.includes('don-hang')) {
         handleRenderCustomerOrder()
         $('.account-profile__left-item.order').click()
+    } else if (url.search.includes('dia-chi')) {
+        handleRenderThongTinNhanHang()
+        $('.account-profile__left-item.address').click()
     }
 }
 
