@@ -18,7 +18,7 @@ class ChiTietHoaDonRepo extends ConnectDB {
 
     function getChiTietHoaDon($ma_hd) {
         try {
-            $sql = "SELECT cthd.*, ctsp.ma_ctsp, sp.ten_sp, ctsp.ram, ctsp.rom, ms.ten_mau, cxl.ten_chip, cdh.ten_card, sp.hinh_anh FROM chitiethoadon cthd
+            $sql = "SELECT cthd.*, sp.ma_sp, ctsp.ma_ctsp, sp.ten_sp, ctsp.ram, ctsp.rom, ms.ten_mau, cxl.ten_chip, cdh.ten_card, sp.hinh_anh FROM chitiethoadon cthd
                 JOIN ctsp_imei ctspi ON cthd.ma_imei = ctspi.ma_imei
                 JOIN chitietsanpham ctsp ON ctsp.ma_ctsp = ctspi.ma_ctsp
                 JOIN mausac ms ON ms.ma_mau = ctsp.ma_mau
