@@ -53,7 +53,7 @@
 							<th>Chiết khấu(%)</th>
                             <th>Giá bán</th>
                             <th>Số lượng tồn</th>
-                            <th class="w-auto" >Actions</th>
+                            <th class="w-auto">Actions</th>
                         </tr>
                     </thead>
                     <tbody class="admin-product-detail-list">

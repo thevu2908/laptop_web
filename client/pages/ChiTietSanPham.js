@@ -112,10 +112,6 @@ async function renderAdminProductDetail(data) {
                         <td>${productDetail.chiet_khau}</td>
                         <td>${formatCurrency(productDetail.gia_tien)}</td>
                         <td>${productDetail.so_luong}</td>
-<<<<<<< HEAD
-=======
-                        
->>>>>>> 82a437012b574acf9a4997e6473098f826169dc2
                         <td class="d-flex">
                             <a href="#editProductDetailModal" class="edit btn-update-product-detail-modal" data-toggle="modal" data-id=${productDetail.ma_ctsp}>
                                 <i class="material-icons" data-toggle="tooltip" title="Sửa thông tin">&#xE254;</i>
@@ -124,7 +120,7 @@ async function renderAdminProductDetail(data) {
                                 <i class="material-icons" data-toggle="tooltip" title="Xóa">&#xE872;</i>
                             </a>
                             <a href="/admin.php?controller=danhgia&id=${productDetail.ma_ctsp}" class="info btn-product-detail" data-id=${productDetail.ma_ctsp}>
-                                <i class="fa-solid fa-circle-info" title="Xem đánh giá" ></i>
+                            <i class="fa-solid fa-message" title="Xem đánh giá"></i>
                             </a>
                         </td>
                     </tr>
