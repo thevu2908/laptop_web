@@ -95,28 +95,25 @@
 					<div class="modal-body">
 						<input type="hidden" name="ma_tk">
 						<div class="form-group">
-							<div class="form-group">
-								<label>Mã nhân viên</label>
-								<input class="form-control" type="text" name="password" required>
-							</div>
-							<select name="" id="" class="form-control" required>
-								<option value="">A</option>
-								<option value="">B</option>
-								<option value="">C</option>
-							</select>
+						    <label>Mã nhân viên</label>
+							<input class="form-control" type="text" readonly='true' name="password" id='admin-update-manhanvien' required>
 						</div>
 						<div class="form-group">
-							<label>Username</label>
-							<input type="text" class="form-control" name="username" required>
+							<label>Nhân Viên</label>
+							<input type="text" class="form-control" name="username" id='admin-update-nhanvien' required>
 						</div>
 						<div class="form-group">
-							<label>Password</label>
-							<input class="form-control" type="password" name="password" required>
+							<label>Tuổi</label>
+							<input class="form-control" type="text" name="age" id='admin-update-tuoi' required>
+						</div>
+						<div class="form-group">
+							<label>Số Điện Thoại</label>
+							<input class="form-control" type="text" name="phone" id='admin-update-sodienthoai' required>
 						</div>
 					</div>
 					<div class="modal-footer">
 						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-						<input type="submit" class="btn btn-info" value="Save">
+						<input type="button" class="btn btn-info" id="admin-btn-updateNhanVien" value="Save">
 					</div>
 				</form>
 			</div>
