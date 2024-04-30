@@ -11,6 +11,7 @@ $(document).ready(() => {
         showDeleteCheckedAccountModal()
         showViewAccountModal()
         searchAccount()
+       
     }
 })
 

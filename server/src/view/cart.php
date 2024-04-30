@@ -7,7 +7,7 @@
         <div class="cart__top d-flex p-2 justify-content-between">
             <div class="d-flex justify-content-between" style="width: 68%;">
                 <div style="font-size: 24px; font-weight: 500;">Giỏ hàng</div>
-                <div class="btn btn-danger">Xóa tất cả</div>
+                <div class="btn btn-danger btn-delete-all-cart">Xóa tất cả</div>
             </div>
         </div>
 

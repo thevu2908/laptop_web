@@ -57,7 +57,9 @@ function loadPromotionData() {
 
                     // render khi đã chọn khuyến mãi phù hợp
                     if(khuyenMai[maKH]) { 
-                        var finish_money = parseFloat($('.cart__right-total-temp').text().replace(/[₫.]/g, ""));
+                        var finish_money = $('.cart__right-total-temp').length > 0 
+                                            ? parseFloat($('.cart__right-total-temp').text().replace(/[₫.]/g, ""))
+                                            : parseFloat($('.checkout-confirm__money-total').text().replace(/[₫.]/g, ""));
                         let promises = khuyenMai[maKH].map(maKM => {
                             return getPromotion(maKM)
                                 .then(res => {
@@ -91,16 +93,19 @@ function loadPromotionData() {
                             $('.cart-list-promo').html(results.join(''));
                             delPromoToLocalStorage()
 
-                            tmp_total = parseFloat($('.cart__right-total-temp').text().replace(/[₫.]/g, ""))
-                            console.log(tmp_total)
-                            console.log(finish_money)
+                            tmp_total = $('.cart__right-total-temp').length > 0 
+                                        ? parseFloat($('.cart__right-total-temp').text().replace(/[₫.]/g, ""))
+                                        : parseFloat($('.checkout-confirm__tmp-total').text().replace(/[₫.]/g, ""));
                             if(tmp_total != finish_money) {
                                 var money_reduce = tmp_total - finish_money
                                 $('.cart__right-price-reduce').text("- " + convertMucKM(money_reduce)) 
+                                $('.checkout-confirm__promo').text("- " + convertMucKM(money_reduce)) 
                                 $('.cart__right-total').text(convertMucKM(finish_money))
+                                $('.checkout-confirm__money-total').text(convertMucKM(finish_money))
                             }
                             else {
                                 $('.cart__right-price-reduce').text("-0₫")
+                                $('.checkout-confirm__promo').text("-0₫")
                             }
                         }).catch(error => console.log(error));
 
@@ -504,7 +509,7 @@ function addPromoToLocalStorage() {
             khuyenMai[maKH].push(maKM);
             alert("Áp dụng khuyến mãi thành công")
         }
-        
+
         loadPromotionData()
 
         localStorage.setItem('khuyenMai', JSON.stringify(khuyenMai));

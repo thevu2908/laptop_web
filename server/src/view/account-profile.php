@@ -5,9 +5,9 @@
         <div class="row">
             <div class="col-2">
                 <div class="account-profile__left">
-                    <h3 class="account-profile__left-title">Nguyễn Thế Vũ</h3>
+                    <h3 class="account-profile__left-title"></h3>
                     <div class="account-profile__left-list">
-                        <div class="account-profile__left-item active account">
+                        <div class="account-profile__left-item account">
                             <i class="fa-solid fa-user"></i>
                             <span>Thông tin cá nhân</span>
                         </div>
@@ -15,65 +15,22 @@
                             <i class="fa-solid fa-location-dot"></i>
                             <span>Địa chỉ</span>
                         </div>
+                        <div class="account-profile__left-item order">
+                            <i class="fa-regular fa-clipboard"></i>
+                            <span>Đơn hàng</span>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="col-10">
                 <div class="account-profile__right">
-                    <div class="account-profile__info-container">
-                        <h3 class="account-profile__info-title">Hồ sơ cá nhân</h3>
-                        <div class="account-profile__info">
-                            <form>
-                                <table>
-                                    <tr>
-                                        <td>
-                                            <label for="account-profile__name">Họ tên</label>
-                                        </td>
-                                        <td>
-                                            <div>
-                                                <input type="text" id="account-profile__name" class="form-control" value="Nguyễn Thế Vũ" placeholder >
-                                            </div>
-                                            <div id="name-error" class="invalid-feedback" style="color: #ff424f; font-size: .75rem;"></div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <label for="account-profile__email">Email</label>
-                                        </td>
-                                        <td>
-                                            <div>
-                                                <input type="email" id="account-profile__email" class="form-control" value="vnguyen132az@gmail.com" placeholder >
-                                            </div>
-                                            <div id="email-error" class="invalid-feedback" style="color: #ff424f; font-size: .75rem;"></div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <label for="account-profile__phone">Số điện thoại</label>
-                                        </td>
-                                        <td>
-                                            <div>
-                                                <input type="tel" id="account-profile__phone" class="form-control" value="" placeholder >
-                                            </div>
-                                            <div id="phone-error" class="invalid-feedback" style="color: #ff424f; font-size: .75rem;"></div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td></td>
-                                        <td>
-                                            <button type="button" class="btn btn-update-account">Lưu</button>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </form>
-                        </div>
-                    </div>
+                    
                 </div>
             </div>
         </div>
     </div>
 
-    <div id="address-modal" class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div id="address-modal" class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -140,7 +97,7 @@
                         </div>
                         <div class="row">
                             <div class="col">
-                                <div class="d-flex align-items-center">
+                                <div class="d-flex align-items-center address__default-container">
                                     <input type="checkbox" id="address__default" class="custom-form__checkbox" >
                                     <label for="address__default" class="custom-form__label">Đặt làm địa chỉ mặc định</label>
                                 </div>
@@ -150,7 +107,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
-                    <button type="button" class="btn btn-primary btn-add-address">Thêm</button>
+                    <button type="button" class="btn btn-primary btn-address" data-action="add">Thêm</button>
                 </div>
             </div>
         </div>
@@ -160,15 +117,15 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Cập nhật địa chỉ</h5>
+                    <h5 class="modal-title">Xóa địa chỉ</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    ...
+                    <h3 class="delete-address__confirm">Bạn có chắc chắn muốn xóa địa chỉ này?</h3>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
-                    <button type="button" class="btn btn-primary btn-delete-address">Xóa</button>
+                    <button type="button" class="btn btn-danger btn-delete-address">Xóa</button>
                 </div>
             </div>
         </div>

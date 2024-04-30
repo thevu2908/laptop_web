@@ -16,4 +16,13 @@ class NhanVienRepo extends ConnectDB {
         }
         return null;
     }
+    public function addEmployee($manv,$tennv,$tuoi,$sodienthoai){
+        $query="INSERT INTO nhanvien(ma_nv,ten_nv,tuoi,so_dien_thoai,hinh_anh,trang_thai) VALUES ('$manv','$tennv',$tuoi,'$sodienthoai','',0)";
+        $result=mysqli_query($this->conn,$query);
+        if($result){
+            return true;
+        }else{
+            return false;
+        }
+    }
 }

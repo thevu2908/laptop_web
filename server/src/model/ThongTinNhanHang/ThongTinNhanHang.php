@@ -7,14 +7,16 @@ class ThongTinNhanHang {
     private $sodienthoai;
     private $diachi;
     private $diachimacdinh;
+    private $trangthai;
 
-    public function __construct($maTtnh, $maKh, $hoTen, $sodienthoai, $diachi, $diachimacdinh) {
+    public function __construct($maTtnh, $maKh, $hoTen, $sodienthoai, $diachi, $diachimacdinh, $trangthai) {
         $this->maTtnh = $maTtnh;
         $this->maKh = $maKh;
         $this->hoTen = $hoTen;
         $this->sodienthoai = $sodienthoai;
         $this->diachi = $diachi;
         $this->diachimacdinh = $diachimacdinh;
+        $this->trangthai = $trangthai;
     }
 
     public function getMaTtnh() {
@@ -41,6 +43,10 @@ class ThongTinNhanHang {
         return $this->diachimacdinh;
     }
 
+    public function getTrangThai() {
+        return $this->trangthai;
+    }
+
     public function setMaTtnh($maTtnh) {
         $this->maTtnh = $maTtnh;
     }
@@ -63,5 +69,9 @@ class ThongTinNhanHang {
 
     public function setDiachimacdinh($diachimacdinh) {
         $this->diachimacdinh = $diachimacdinh;
+    }
+
+    public function setTrangThai($trangthai) {
+        $this->trangthai = $trangthai;
     }
 }

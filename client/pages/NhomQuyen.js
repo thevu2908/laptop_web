@@ -4,7 +4,6 @@ $(document).ready(function () {
     if (window.location.pathname === '/admin.php' && urlParams.get('controller') === 'nhomquyen') {
         loadNhomQuyen();
         clickPage(loadNhomQuyen);
-        loadNhomQuyenDataAccount()
         addNhomQuyen();
         deleteNhomQuyen();
         updateNhomQuyen();
@@ -12,6 +11,7 @@ $(document).ready(function () {
         // searchNhomQuyen();
         detailNhomQuyen();
     }
+    loadNhomQuyenDataAccount()
 })
 function addNhomQuyen() {
     getSizeinTable("nhomquyen","NQ","#ma_quyen")
@@ -98,6 +98,7 @@ function loadNhomQuyenDataAccount() {
         method: "POST",
         data: { action: 'Load' },
         success: data => {
+            console.log(data)
             if (data && data.length > 0) {
                 let html = '';
                 const jsonData = JSON.parse(data);
@@ -111,7 +112,8 @@ function loadNhomQuyenDataAccount() {
                 $("#admin-account-access-edit").html(html)
                 $("#admin-account-access-view").html(html)
             }
-        }
+        },
+        error: (xhr, status, error) => console.log(error)
     })
 }
 

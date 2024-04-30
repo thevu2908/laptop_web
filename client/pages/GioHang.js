@@ -3,6 +3,7 @@ $(document).ready(() => {
     loadCartNumber()
     handleAddCart()
     updateQuantity()
+    handleDeleteCart()
 })
 
 function getFullInfoProduct(maCTSP) {
@@ -34,11 +35,6 @@ async function loadCartNumber() {
 
             $('.cart__footer-text').text(`Tổng tiền (${size}) sản phẩm: `)
             $('.cart-number').text(size)
-
-            if(size == 0) {
-                // $('.cart__footer-tocart').css('pointer-events', 'none');
-                // $('.cart__footer-tocart').css('cursor', 'not-allowed');
-            }
         },
         error: (xhr, status, error) => {
             console.log(error)
@@ -54,56 +50,74 @@ async function loadCart() {
         data: { action: 'get-all' , maKH },
         dataType: 'JSON',
         success: carts => {
-            if (carts && carts.length > 0) {
+            if (carts) {
                 let html = ''
                 let html2 = ''
                 let tongTien = 0
+                if(carts.length > 0) {
 
-                carts.forEach((cart) => {
-                    getFullInfoProduct(cart.ma_ctsp)
-                        .then(product => {
-                            html += `
-                                <li class="cart__item">
-                                    <img src="${product.hinh_anh}" alt="Hình ảnh">
-                                    <div class="cart__item-info">
-                                        <div class="cart__item-name text-start">${product.ten_sp} ${product.ram}/${product.rom}</div>
-                                        <div class="cart__item-total w-100 justify-content-start">
-                                            <div class="cart__item-price">₫${formatCurrency(cart.gia_sp)}</div>
-                                            <div class="cart__item-quantity" style="margin-left: 10px;">x ${cart.so_luong}</div>
+                    carts.forEach((cart) => {
+                        getFullInfoProduct(cart.ma_ctsp)
+                            .then(product => {
+                                html += `
+                                    <li class="cart__item">
+                                        <img src="${product.hinh_anh}" alt="Hình ảnh">
+                                        <div class="cart__item-info">
+                                            <div class="cart__item-name text-start">${product.ten_sp} ${product.ram}/${product.rom}</div>
+                                            <div class="cart__item-total w-100 justify-content-start">
+                                                <div class="cart__item-price">₫${formatCurrency(cart.gia_sp)}</div>
+                                                <div class="cart__item-quantity" style="margin-left: 10px;">x ${cart.so_luong}</div>
+                                            </div>
                                         </div>
-                                    </div>
-                                </li>
-                            `
+                                    </li>
+                                `
 
-                            html2 += `
-                                <li class="d-flex justify-content-between w-100 align-items-center">
-                                    <div class="cart__left-product-name d-flex p-2">
-                                        <img src="${product.hinh_anh}" alt="">
-                                        <span>${product.ten_sp} ${product.ram}/${product.rom}</span>
-                                    </div>
-                                    <div class="cart__left-product-price p-2">₫${formatCurrency(cart.gia_sp)}</div>
-                                    <div class="cart__left-quantity p-2" style="display: flex;">
-                                        <input data-id="${cart.ma_ctsp}" class="minus is-form" type="button" style="border-right: transparent !important;" value="-">
-                                        <input class="input-qty" type="text" value="${cart.so_luong}" min="1" max="10" id="quantity" value="1">
-                                        <input data-id="${cart.ma_ctsp}" class="plus is-form" type="button" style="border-left: transparent !important;" value="+">
-                                    </div>
-                                    <div class="cart__left-product-total p-2">₫${formatCurrency(cart.gia_sp * cart.so_luong)}</div>
-                                </li>
-                            `
+                                html2 += `
+                                    <li class="d-flex justify-content-between w-100 align-items-center">
+                                        <div class="cart__left-product-name d-flex p-2">
+                                            <img src="${product.hinh_anh}" alt="">
+                                            <span>${product.ten_sp} ${product.ram}/${product.rom}</span>
+                                        </div>
+                                        <div class="cart__left-product-price p-2">₫${formatCurrency(cart.gia_sp)}</div>
+                                        <div class="cart__left-gather" >
+                                            <div class="cart__left-quantity p-2" style="display: flex;">
+                                                <input data-id="${cart.ma_ctsp}" class="minus is-form" type="button" style="border-right: transparent !important;" value="-">
+                                                <input data-id="${cart.ma_ctsp}" class="input-qty" type="text" value="${cart.so_luong}" min="1" max="${product.so_luong}" id="quantity" value="1">
+                                                <input data-id="${cart.ma_ctsp}" class="plus is-form" type="button" style="border-left: transparent !important;" value="+">
+                                            </div>
+                                            <button class="p-0 btn btn-remove-cart" data-id="${cart.ma_ctsp}">Xóa</button>
+                                        </div>
+                                        
+                                        <div class="cart__left-product-total p-2">₫${formatCurrency(cart.gia_sp * cart.so_luong)}</div>
+                                    </li>
+                                `
 
-                            tongTien += cart.gia_sp * cart.so_luong
-                            
-                            $('.cart__footer-money').text("₫" + formatCurrency(tongTien))
-                            $('.cart__right-total-temp').text("₫" + formatCurrency(tongTien))
-                            $('.cart__right-total').text("₫" + formatCurrency(tongTien))
-                            $('.cart__list-product').html(html)
-                            $('.cart__left-product').html(html2)
+                                tongTien += cart.gia_sp * cart.so_luong
+                                
+                                $('.cart__footer-money').text("₫" + formatCurrency(tongTien))
+                                $('.cart__right-total-temp').text("₫" + formatCurrency(tongTien))
+                                $('.checkout-confirm__tmp-total').text("₫" + formatCurrency(tongTien))
+                                $('.cart__right-total').text("₫" + formatCurrency(tongTien))
+                                $('.checkout-confirm__money-total').text("₫" + formatCurrency(tongTien))
+                                $('.cart__list-product').html(html)
+                                $('.cart__left-product').html(html2)
 
-                            updateQuantity()
-                            loadPromotionData()
-                        })
-                        .catch(error => console.log(error))
-                })
+                                updateQuantity()
+                                loadPromotionData()
+                            })
+                            .catch(error => console.log(error))
+                    })
+                }
+                else {
+                    html += '<div class="cart-empty"><img src="server/src/assets/images/empty-cart.png" ></div>'
+                    // $('.cart__footer-total .cart__footer-text').text("Chưa có sản phẩm trong giỏ hàng")
+                    // $('.cart__footer-total .cart__footer-tocart').text("Tiếp tục mua hàng")
+                    $('.cart__list-product').html(html)
+                    $('.cart__footer-tocart').css('pointer-events', 'none');
+                    $('.cart-number').css('border', 'none')
+                    $('.cart-number').css('background-color', 'transparent')
+
+                }
             }
         },
         error: (xhr, status, error) => console.log(error)
@@ -230,32 +244,116 @@ async function updateQuantity() {
             }
             $this.attr('value', d).val(d);
 
-            let ma_ctsp = $(this).attr('data-id')
-            let loginSession = await getLoginSession()
-            if (!loginSession) {
-                alert('Vui lòng đăng nhập để tiếp tục')
-                window.location.href = 'index.php?dang-nhap'
-                return
-            }
+            updatePriceAndTotal($(this), d)
+        });
 
-            let cartStr = await getCart(ma_ctsp, loginSession.customerId)
-            let objectCart = JSON.parse(cartStr)
-            objectCart.so_luong = d
-            
-            let cart = {
-                productDetailId: objectCart.ma_ctsp,
-                customerId: objectCart.ma_kh,
-                price: $('.cart__left-product .cart__left-product-price').contents().first().text().trim().replace(/[₫.]/g, ""),
-                quantity: objectCart.so_luong,
+        $(this).on('change', async function() {
+            var d = Number($this.val());
+            if (d < min) {
+                d = min;
+            } else if (d > max) {
+                d = max;
             }
+            $(this).attr('value', d).val(d);
 
-            let updateRes = await updateCart(cart)
-            if (updateRes === 'success') {
-                loadCartNumber(cart.customerId)
-                loadCart(cart.customerId)
-            } else {
-                alert('Xảy ra lỗi')
-            }
+            updatePriceAndTotal($(this), d)
         });
     });
+}
+
+async function updatePriceAndTotal(thisAttr, d) {
+    let ma_ctsp = thisAttr.attr('data-id')
+    let loginSession = await getLoginSession()
+    if (!loginSession) {
+        alert('Vui lòng đăng nhập để tiếp tục')
+        window.location.href = 'index.php?dang-nhap'
+        return
+    }
+
+    let cartStr = await getCart(ma_ctsp, loginSession.customerId)
+    let objectCart = JSON.parse(cartStr)
+    objectCart.so_luong = d
+    
+    let cart = {
+        productDetailId: objectCart.ma_ctsp,
+        customerId: objectCart.ma_kh,
+        price: $('.cart__left-product .cart__left-product-price').contents().first().text().trim().replace(/[₫.]/g, ""),
+        quantity: objectCart.so_luong,
+    }
+
+    let updateRes = await updateCart(cart)
+    if (updateRes === 'success') {
+        loadCartNumber(cart.customerId)
+        loadCart(cart.customerId)
+    } else {
+        alert('Xảy ra lỗi')
+    }
+}
+
+function checkSoLuongTonCTSP() {
+
+}
+
+function deleteCart(maCTSP, maKH) {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: 'server/src/controller/GioHangController.php',
+            method: 'POST',
+            data: { action: 'delete', maCTSP, maKH },
+            success: res => {
+                resolve(res)
+            },
+            error: (xhr, status, error) => {
+                console.log(error)
+                reject(error)
+            }
+        })
+    })
+}
+
+function deleteCartAll(maKH) {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: 'server/src/controller/GioHangController.php',
+            method: 'POST',
+            data: { action: 'delete-all', maKH },
+            success: res => {
+                resolve(res)
+            },
+            error: (xhr, status, error) => {
+                console.log(error)
+                reject(error)
+            }
+        })
+    })
+}
+
+function handleDeleteCart() {
+    $(document).off('click', '.btn-remove-cart').on('click', '.btn-remove-cart', async e => { 
+        const ma_ctsp = e.target.getAttribute('data-id');
+        const ma_kh = await getMaKH()
+        
+        const res = await deleteCart(ma_ctsp, ma_kh)
+        if(res === 'success') {
+            await loadCart()
+        }
+        else {
+            console.log("Xóa sản phẩm không thành công")
+        }
+    })
+
+    $(document).off('click', '.btn-delete-all-cart').on('click', '.btn-delete-all-cart', async e => { 
+        const ma_kh = await getMaKH()
+
+        const confirmDelete = confirm("Bạn có chắc muốn xóa tất cả sản phẩm trong giỏ không?")
+        if(confirmDelete) {
+            const res = await deleteCartAll(ma_kh)
+            if(res === 'success') {
+                await loadCart()
+            }
+            else {
+                console.log("Xóa sản phẩm không thành công")
+            }
+        }
+    })
 }

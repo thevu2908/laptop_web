@@ -12,3 +12,7 @@ function removeDuplicateObject(arr, key) {
 
     return uniqueArray
 }
+
+function removeRedundantSpaces(str) {
+    return str.replace(/\s+/g, ' ').trim();
+}

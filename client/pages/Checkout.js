@@ -24,7 +24,7 @@ async function loadCartToCheckout() {
                     getFullInfoProduct(cart.ma_ctsp)
                         .then(product => {
                             html += `
-                                <li class="d-flex" >
+                                <li class="d-flex checkout__right-product" data-id="${cart.ma_ctsp}" >
                                     <div class="checkout__right-image">
                                         <img src="${product.hinh_anh}" alt="">
                                     </div>
@@ -67,54 +67,62 @@ async function loadPromoToCheckout() {
     let khuyenMai = JSON.parse(localStorage.getItem('khuyenMai')) || {};
 
     if(khuyenMai[maKH]) {
-        let promises = khuyenMai[maKH].map(maKM => {
+        let promises = khuyenMai[maKH].map(async maKM => {
             return getPromotion(maKM)
                 .then(res => {
-                    return `
-                        <li class="modal-promo-item p-2" >
-                            <div class="modal-promo-name d-flex align-items-center" >
-                                <div class="modal-promo-code">${res.ma_km}</div>
-                                <div class="modal-promo-name2 ms-2" style="font-weight: 500;">${res.ten_khuyen_mai}</div>
-                            </div>
-                            <div class="modal-promo-percent" >
-                                Giảm ${formatCurrency(convertMucKM(res.muc_khuyen_mai))}₫
-                            </div>
-                            <div class="modal-promo-bottom d-flex justify-content-between">
-                                <div class="modal-promo-expiry" >HSD: ${convertDate(res.thoi_gian_ket_thuc)}</div>
-                            </div>
-                        </li>
-                    `;
+                    if (res && res.ma_km) {
+                        return `
+                            <li class="modal-promo-item p-2">
+                                <div class="modal-promo-name d-flex align-items-center">
+                                    <div class="modal-promo-code">${res.ma_km}</div>
+                                    <div class="modal-promo-name2 ms-2" style="font-weight: 500;">${res.ten_khuyen_mai}</div>
+                                </div>
+                                <div class="modal-promo-percent">
+                                    Giảm ${convertMucKM(res.muc_khuyen_mai)}
+                                </div>
+                                <div class="modal-promo-bottom d-flex justify-content-between">
+                                    <div class="modal-promo-expiry">HSD: ${convertDate(res.thoi_gian_ket_thuc)}</div>
+                                </div>
+                            </li>
+                        `;
+                    } else {
+                        return '';
+                    }
                 });
         });
     
-        Promise.all(promises).then(results => {
-            $('.checkout__right-promo').html(results.join(''));
-        }).catch(error => console.log(error));
+        Promise.all(promises)
+            .then(results => {
+                $('.checkout__right-promo').html(results.join(''));
+            })
+            .catch(error => console.log(error));
 
     }
 }
 
 async function loadTTNHToCheckout() {
     const maKH = await getMaKH()
-    getThongTinNhanHang(maKH)
+    getThongTinNhanHangByMaKH(maKH)
         .then(info => {
             html = ''
 
-            info.forEach(item => {
-                html += `
-                    <li class="col-6" >
-                        <div class="checkout-address-btn position-relative select-ttnh" data-id="${item.ma_ttnh}" >
-                            <div class="checkout-address__info">
-                                <h5 style="font-weight: 900;">${item.ho_ten}</h5>
-                                <h6 class="mb-1 mt-1" >${item.so_dien_thoai}</h6>
-                                <h6>${item.dia_chi}</h6>
+            if(info && info.length > 0) {
+                info.forEach(item => {
+                    html += `
+                        <li class="col-6" >
+                            <div class="checkout-address-btn position-relative select-ttnh" data-id="${item.ma_ttnh}" >
+                                <div class="checkout-address__info">
+                                    <h5 style="font-weight: 900;">${item.ho_ten}</h5>
+                                    <h6 class="mb-1 mt-1" >${item.so_dien_thoai}</h6>
+                                    <h6>${item.dia_chi}</h6>
+                                </div>
+                                <button data-id="${item.ma_ttnh}" style="right: 38px;" class="position-absolute btn-update-ttnh"><i class="fa fa-pencil" style="color: darkgray;" aria-hidden="true"></i></button>
+                                <button data-id="${item.ma_ttnh}" style="right: 10px;" class="position-absolute btn-delete-ttnh"><i class="fa fa-trash" style="color: darkgray;" aria-hidden="true"></i></button>
                             </div>
-                            <button data-id="${item.ma_ttnh}" style="right: 38px;" class="position-absolute btn-update-ttnh"><i class="fa fa-pencil" style="color: darkgray;" aria-hidden="true"></i></button>
-                            <button data-id="${item.ma_ttnh}" style="right: 10px;" class="position-absolute btn-delete-ttnh"><i class="fa fa-trash" style="color: darkgray;" aria-hidden="true"></i></button>
-                        </div>
-                    </li>
-                `
-            })
+                        </li>
+                    `
+                })
+            }
 
             html += `
                 <li class="col-6 openmodal" >
@@ -181,14 +189,12 @@ function handleAddTTNHCheckout() {
         let street = $('.checkout #inputStreet').val()
         const checkDefault = $('.checkout #checkDefault').prop('checked')
 
-        console.log("customerId = " + customerId)
-
         if(!validateTTNH(name, phone, province, district, wards, street)) {
             return
         }
         
         const address = `${street}, ${wards}, ${district}, ${province}`
-        const ttnh = await getThongTinNhanHang(customerId)
+        const ttnh = await getThongTinNhanHangByMaKH(customerId)
 
         let res = false;
         if (ttnh.length <= 0) {
@@ -229,7 +235,8 @@ function handleDeleteTTNHCheckout() {
         if (confirmDelete) {
             let res = await deleteThongTinNhanHang(ttnh_id);
             console.log(res)
-            if(res === "success") {
+            if(res === '1') {
+                console.log("OKKK")
                 loadTTNHToCheckout()
             }
             else {
@@ -263,6 +270,22 @@ function selectTTNH() {
     });
 }
 
+function payment(method) {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: 'server/src/controller/GioHangController.php',
+            method: 'POST',
+            data: { action: 'payment', method },
+            dataType: 'JSON',
+            success: promo => resolve(promo),
+            error: (xhr, status, error) => {
+                console.log(error)
+                reject(error)
+            }
+        })
+    })
+}
+
 function selectPaymentMethod() {
     $(document).on('click', '.select-payment-method', async function(e) {
         e.preventDefault();
@@ -287,11 +310,72 @@ function selectPaymentMethod() {
     });
 }
 
+function handleRandomCTSP(maHD) {
+    $('.checkout__right-product').toArray().forEach(async function(e) {
+        const maCTSP = $(e).attr('data-id');
+        const soLuong = parseInt($(e).find('.checkout__right-quantity').text().split(':')[1].trim());
+        const giaSP = $(e).find('.checkout__right-product-price').text().replace(/[₫.]/g, "");
+
+        const cthd = {
+            "maHD": maHD,
+            "maCTSP": maCTSP,
+            "soLuong": soLuong,
+            "giaSP": giaSP
+        }
+        
+        const res = await addCTHD(cthd)
+
+        if(res == "success") {
+            console.log("Thêm CTHD thành công")
+        }
+        else {
+            console.log("Xảy ra lỗi khi thêm CTHD")
+        }
+    })
+}
 
 function handlePayment() {
-    $(document).on('click', '#btn-payment', function(e) {
+    $(document).on('click', '#btn-payment', async function(e) {
         e.preventDefault();
+
+        const maKH = await getMaKH()
         
-        console.log("#btn-payment")
+        let ptttData = sessionStorage.getItem('pttt');
+        ptttData = ptttData ? JSON.parse(ptttData) : {};
+
+        let ttnhData = sessionStorage.getItem('ttnh');
+        ttnhData = ttnhData ? JSON.parse(ttnhData) : {};
+
+        const today = new Date().toISOString().slice(0, 10);
+        const tmpTotal = $('.checkout-confirm__tmp-total').text().replace(/[₫.]/g, "");
+        const promotion = $('.checkout-confirm__promo').text().replace(/[^0-9]/g, "");
+        const finishTotal = $('.checkout-confirm__money-total').text().replace(/[₫.]/g, "");
+        const note = $('.checkout-note-input').val();
+        const status = "Chưa xác nhận"
+        
+        // const resPayment = await payment(ptttData[maKH])
+
+        const bill = {
+            "maKH": maKH,
+            "maTTNH": ttnhData[maKH],
+            "date": today,
+            "tmpTotal": tmpTotal,
+            "promotion": promotion,
+            "finishTotal": finishTotal,
+            "payMethod": ptttData[maKH],
+            "note": note,
+            "status": status
+        }
+
+        const resAddBill = await addBill(bill)
+        console.log(resAddBill)
+
+        if(resAddBill) {
+            alert("Đơn hàng đã được gửi đi, vui lòng chờ nhân viên xác nhận")
+            handleRandomCTSP(resAddBill)
+        }
+        else {
+            alert("Đã xảy ra lỗi, vui lòng thử lại")
+        }
     });
 }

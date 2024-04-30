@@ -11,26 +11,13 @@
                 <div class="row bg-white mb-4 p-4 rounded-3">
                     <h5 class="checkout-header">Thông tin nhận hàng</h5>
                     <ul class="checkout-address row ps-4" style="row-gap: 16px;">
-                        <!-- <li class="col-6" >
-                            <div class="checkout-address-btn select position-relative" >
-                                <div class="checkout-address__info">
-                                    <h5 style="font-weight: 900;">ĐỖ MINH QUÂN</h5>
-                                    <h6 class="mb-1 mt-1" >0909123456</h6>
-                                    <h6>137/2 Lý Thái Tổ, Phường Tân Định, Quận 1, Thành phố Hồ Chí Minh</h6>
-                                </div>
-                                <button style="right: 38px;" class="position-absolute"><i class="fa fa-pencil" aria-hidden="true"></i></button>
-                                <button style="right: 10px;" class="position-absolute"><i class="fa fa-trash" aria-hidden="true"></i></button>
-                            </div>
-                        </li>
-                        <li class="col-6 openmodal" >
-                            <div class="checkout-address-btn">Thêm địa chỉ</div>
-                        </li> -->
+
                     </ul>
                 </div>
                 <div class="row bg-white mb-4 p-4 rounded-3">
                     <h5 class="checkout-header">Ghi chú cho đơn hàng</h5>
                     <div class="checkout-note ps-4">
-                        <input class="w-100" type="text" name="" id="" placeholder="Nhập thông tin ghi chú cho nhà bán hàng">
+                        <input class="w-100 checkout-note-input" type="text" placeholder="Nhập thông tin ghi chú cho nhà bán hàng">
                     </div>
                 </div>
                 <div class="row bg-white mb-4 p-4 rounded-3">
@@ -77,7 +64,7 @@
                 <div class="checkout-confirm row bg-white mb-4 p-4 rounded-3">
                     <div class="d-flex justify-content-between" >
                         <div>Tổng tạm tính</div>
-                        <span>5.593.000₫</span>
+                        <span class="checkout-confirm__tmp-total" >5.593.000₫</span>
                     </div>
                     <div class="d-flex justify-content-between" >
                         <div>Phí vận chuyển</div>
@@ -85,11 +72,11 @@
                     </div>
                     <div class="d-flex justify-content-between" >
                         <div>Khuyến mãi</div>
-                        <span>20%</span>
+                        <span class="checkout-confirm__promo" >-₫0</span>
                     </div>
                     <div class="d-flex justify-content-between" >
                         <div>Thành tiền</div>
-                        <span style="font-size: 20px; color: red;" >5.593.000₫</span>
+                        <span class="checkout-confirm__money-total" style="font-size: 20px; color: red;" >5.593.000₫</span>
                     </div>
                     <button class="btn btn-success mt-4 mx-2" id="btn-payment" >THANH TOÁN</button>
                 </div>

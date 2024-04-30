@@ -45,19 +45,9 @@ class SearchRepo extends ConnectDB {
         }
         return null;
     }
-    public function searchTable($search, $table, $start = 0, $limit = 8){
+    public function filterTable($search, $table, $start = 0, $limit = 8){
         if ($table == "chitietquyen") {
-            if($search=="" || $search=="All"){
-                $query = "SELECT DISTINCT chitietquyen.ma_quyen,chitietquyen.ma_chuc_nang FROM chitietquyen 
-            join chucnangquyen on chucnangquyen.ma_chuc_nang=chitietquyen.ma_chuc_nang
-            join nhomquyen on chitietquyen.ma_quyen=nhomquyen.ma_quyen
-            ORDER BY 1 ASC LIMIT {$start},{$limit}";
-            }else{
-                $query = "SELECT DISTINCT chitietquyen.ma_quyen,chitietquyen.ma_chuc_nang FROM chitietquyen 
-            join chucnangquyen on chucnangquyen.ma_chuc_nang=chitietquyen.ma_chuc_nang
-            join nhomquyen on chitietquyen.ma_quyen=nhomquyen.ma_quyen where nhomquyen.ten_quyen='$search'
-            ORDER BY 1 ASC LIMIT {$start},{$limit}";
-            }
+            $query = "SELECT DISTINCT ma_quyen,ma_chuc_nang FROM chitietquyen WHERE ma_quyen='$search' ORDER BY 1 ASC LIMIT {$start},{$limit}";
             $arrSearch=array();
             $result=mysqli_query($this->conn,$query);
             while ($row = mysqli_fetch_assoc($result)){
@@ -66,21 +56,14 @@ class SearchRepo extends ConnectDB {
             return $arrSearch;
         }
     }
-    public function getCountTable($table, $search){
+    public function getCountFilterTable($table, $search){
         if($table=="chitietquyen"){
-            if($search=="" || $search=="All"){
-                $query = "SELECT count(DISTINCT chitietquyen.ma_quyen,chitietquyen.ma_chuc_nang) FROM chitietquyen 
-                join chucnangquyen on chucnangquyen.ma_chuc_nang=chitietquyen.ma_chuc_nang
-                join nhomquyen on chitietquyen.ma_quyen=nhomquyen.ma_quyen";
-            }else{
-                $query = "SELECT count(DISTINCT chitietquyen.ma_quyen,chitietquyen.ma_chuc_nang) FROM chitietquyen 
-                join chucnangquyen on chucnangquyen.ma_chuc_nang=chitietquyen.ma_chuc_nang
-                join nhomquyen on chitietquyen.ma_quyen=nhomquyen.ma_quyen where nhomquyen.ten_quyen='$search'";
-            }
-            
+            $query="SELECT COUNT(DISTINCT ma_quyen,ma_chuc_nang) as num FROM chitietquyen where ma_quyen='$search'";
             $result=mysqli_query($this->conn,$query);
-            $count=mysqli_num_rows($result);
-            return $count;
+            if($row=mysqli_fetch_assoc($result)){
+                return $row['num'];
+            }
+            return 0;
         }    
     }
     public function getCount($table, $search, $id) {
