@@ -51,6 +51,12 @@
         } else if (isset($_REQUEST['thanh-toan'])) {
             include './server/src/view/checkout.php';
             echo '<script src="client/pages/DiaChi.js"></script>';
+            echo '<script src="client/pages/Checkout.js"></script>';
+            echo '<script src="client/pages/ThongTinNhanHang.js"></script>';
+            echo '<script src="client/pages/KhuyenMai.js"></script>';
+            echo '<script src="client/pages/HoaDon.js"></script>';
+        }else if (isset($_REQUEST["bao-hanh"])) {
+            include "./server/src/view/bao-hanh.php";
         }else if (isset($_REQUEST['bao-hanh'])) {
             include './server/src/view/guarantee.php';
             echo '<script src="client/pages/BaoHanh.js"></script>';
@@ -61,9 +67,12 @@
             include './server/src/view/search-product.php';
         } else if (isset($_REQUEST['thong-tin-tai-khoan'])) {
             include './server/src/view/account-profile.php';
+            echo '<script src="client/pages/ThongTinTaiKhoan.js"></script>';
             echo '<script src="client/pages/ThongTinNhanHang.js"></script>';
             echo '<script src="client/pages/DiaChi.js"></script>';
             echo '<script src="./client/pages/KhachHang.js"></script>';
+            echo '<script src="./client/pages/HoaDon.js"></script>';
+            echo '<script src="./client/pages/ChiTietHoaDon.js"></script>';
         } else {
             include './server/src/view/homepage.php';
             echo '<script src="./client/pages/FeedBack.js"></script>';
@@ -71,6 +80,8 @@
         ?>
     </div>
 
+    <script src="./client/pages/GioHang.js"></script>
+    <script src="./client/pages/DanhGia.js"></script>
     <script src="server/src/assets/js/main.js"></script>
     <script src="./client/pages/ThuongHieu.js"></script>
     <script src="./client/pages/TheLoai.js"></script>
@@ -83,17 +94,17 @@
     <script src="./client/pages/ChiTietSanPham.js"></script>
     <script src="./client/pages/ChiTietCongKetNoi.js"></script>
     <script src="./client/pages/GioHang.js"></script>
+    <script src="./client/pages/TimKiem.js"></script>
+    <script src="./client/pages/Login.js"></script>
     <script src="./client/plugins/pagination.js"></script>
     <script src="./client/plugins/validation.js"></script>
     <script src="./client/plugins/SendOTP.js"></script>
     <script src="./client/plugins/getSession.js"></script>
+    <script src="./client/plugins/getsize.js"></script>
     <script src="./client/utils/general.js"></script>
     <script src="./client/utils/formatCurrency.js"></script>
-    <script src="./client/plugins/getsize.js"></script>
     <script src="./client/utils/formatPromotion.js"></script>
     <script src="./client/utils/formatDate.js"></script>
-    <script src="./client/pages/TimKiem.js"></script>
-    <script src="./client/pages/Login.js"></script>
 </body>
 
 </html>

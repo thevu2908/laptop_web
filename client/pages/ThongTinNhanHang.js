@@ -177,6 +177,7 @@ async function renderThongTinNhanHang() {
 
 function handleRenderThongTinNhanHang() {
     $('.account-profile__left-item.address').on('click', function() {
+        window.history.pushState({}, '', 'index.php?thong-tin-tai-khoan&dia-chi')
         $(this).siblings().not($(this)).removeClass('active')
         $(this).addClass('active')
         renderThongTinNhanHang()

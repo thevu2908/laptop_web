@@ -26,6 +26,10 @@
                                 <i class="material-icons">&#xE147;</i>
                                 <span>Thêm</span>
                             </a>
+							<a class="btn btn-primary btn-update-product-detail-chietkhau-modal update" title="Cập nhật chiết khấu">
+								<i class="material-icons">&#xE254;</i>
+								<span>Cập nhật</span>
+							</a>
                             <a href="#deleteProductDetailModal" class="btn btn-danger btn-delete-checked-product-detail-modal delete" data-toggle="modal">
 								<i class="material-icons">&#xE15C;</i>
 								<span>Xóa</span>
@@ -53,7 +57,7 @@
 							<th>Chiết khấu(%)</th>
                             <th>Giá bán</th>
                             <th>Số lượng tồn</th>
-                            <th class="w-auto" >Actions</th>
+                            <th class="w-auto">Actions</th>
                         </tr>
                     </thead>
                     <tbody class="admin-product-detail-list">
@@ -235,6 +239,29 @@
 						<input type="button" class="btn btn-primary btn-update-product-detail" value="Lưu">
 					</div>
 				</form>
+			</div>
+		</div>
+	</div>
+
+	<div id="updateProductDetailChietKhauModal" class="modal fade" data-backdrop="static">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4	class="modal-title">Cập nhật chiết khấu</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				</div>
+				<div class="modal-body">
+					<form>
+						<div class="form-group">
+							<label for="product-detail-chietkhau">Chiết khấu(%)</label>
+							<input type="number" class="form-control" id="product-detail-chietkhau" >
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<input type="button" class="btn btn-secondary" data-dismiss="modal" value="Hủy">
+					<input type="button" class="btn btn-primary btn-update-product-detail-chietkhau" value="Cập nhật">
+				</div>
 			</div>
 		</div>
 	</div>

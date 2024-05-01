@@ -11,6 +11,7 @@
 body {
     background-color: #fff;
     font-family: Helvetica, Arial, sans-serif;
+    scroll-behavior: smooth;
 }
 
 a {
@@ -29,6 +30,10 @@ p {
 
 ul {
     padding: 0;
+}
+
+.line {
+    border-bottom: 1px solid rgba(0, 0, 0, .09);
 }
 
 button.disabled {

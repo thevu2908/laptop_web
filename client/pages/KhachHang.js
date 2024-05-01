@@ -1,6 +1,6 @@
 $(document).ready(() => {
     handleRenderCustomerProfile()
-    $('.account-profile__left-item.account').click()
+    //$('.account-profile__left-item.account').click()
     handleUpdateCustomerProfile()
 })
 
@@ -52,7 +52,6 @@ function getCustomer(id) {
 }
 
 function renderCustomerProfile(customer) {
-    $('.account-profile__left-title').text(customer.ten_kh)
     $('.account-profile__right').html(`
         <div class="account-profile__info-container">
             <h3 class="account-profile__info-title">Hồ sơ cá nhân</h3>
@@ -107,6 +106,7 @@ function renderCustomerProfile(customer) {
 
 function handleRenderCustomerProfile() {
     $('.account-profile__left-item.account').on('click', async function() {
+        window.history.pushState({}, '', 'index.php?thong-tin-tai-khoan&thong-tin-ca-nhan')
         $(this).siblings().not($(this)).removeClass('active')
         $(this).addClass('active')
         const loginSession = await getLoginSession()

@@ -765,6 +765,7 @@ async function renderProductInfo() {
         const ram = rams.length > 1 ? $('.product-select-item.ram.active').find('input').val() : rams[0].ram
         const rom = roms.length > 1 ? $('.product-select-item.rom.active').find('input').val() : roms[0].rom
         renderProductConfigModal(product, color, ram, rom)
+        renderListReview()
     }
     NProgress.done()
 }

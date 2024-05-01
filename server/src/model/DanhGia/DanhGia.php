@@ -1,6 +1,6 @@
 <?php
 class DanhGia {
-    private $ma_ctsp;
+    private $ma_sp;
     private $ma_kh;
     private $rating;
     private $thoi_gian_danh_gia;
@@ -8,8 +8,8 @@ class DanhGia {
     private $trang_thai;
 
     // Constructor
-    public function __construct($ma_ctsp, $ma_kh, $rating, $thoi_gian_danh_gia, $noi_dung,$trang_thai) {
-        $this->ma_ctsp = $ma_ctsp;
+    public function __construct($ma_sp, $ma_kh, $rating, $thoi_gian_danh_gia, $noi_dung,$trang_thai) {
+        $this->ma_sp = $ma_sp;
         $this->ma_kh = $ma_kh;
         $this->rating = $rating;
         $this->thoi_gian_danh_gia = $thoi_gian_danh_gia;
@@ -18,8 +18,8 @@ class DanhGia {
     }
 
     // Getter methods
-    public function getMaCTSP() {
-        return $this->ma_ctsp;
+    public function getMaSP() {
+        return $this->ma_sp;
     }
 
     public function getMaKH() {

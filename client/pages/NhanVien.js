@@ -4,11 +4,14 @@ $(document).ready(() => {
         renderEmployeeData()
         renderEmployeeAccountData()
         addEmployeee()
+        updateEmployee()
+        showEmployee()
     }
 })
 
 function getEmployeeData() {
     return new Promise((resolve, reject) => {
+        var pageno = $("#currentpage").val();
         $.ajax({
             url: 'server/src/controller/NhanVienController.php',
             method: 'POST',
@@ -43,7 +46,7 @@ async function renderEmployeeData() {
                     <td>${employee.tuoi}</td>
                     <td>${employee.so_dien_thoai}</td>
                     <td>
-                        <a href="#edemployeeployeeModal" class="edit" data-toggle="modal" data-id="${employee.ma_nv}">
+                        <a id='showEmployee' href="#editEmployeeModal" class="edit" data-toggle="modal" data-id="${employee.ma_nv}">
                             <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
                         </a>
                         <a href="#deleteEmployeeModal" class="delete" data-toggle="modal" data-id="${employee.ma_nv}">
@@ -62,7 +65,49 @@ async function renderEmployeeData() {
         
     }
 }
-
+function showEmployee(){
+    $(document).on('click',"#showEmployee",function(){
+        var manv = $(this).attr("data-id");
+        $.ajax({
+            url:"server/src/controller/NhanVienController.php",
+            method:"POST",
+            data:{action:"get",manv:manv},
+            dataType:"JSON",
+            success:function(data){
+                $("#admin-update-manhanvien").val(data['ma_nv']);
+                $("#admin-update-nhanvien").val(data['ten_nv']);
+                $("#admin-update-tuoi").val(data['tuoi']);
+                $("#admin-update-sodienthoai").val(data['so_dien_thoai']);
+            },
+            error:function(xhr,status,error){
+                console.log(error)
+            }
+        })
+    })
+}
+function updateEmployee(){
+    $(document).on('click',"#admin-btn-updateNhanVien",function(){
+        var manv=$("#admin-update-manhanvien").val();
+        var tennv=$("#admin-update-nhanvien").val();
+        var tuoi=$("#admin-update-tuoi").val();
+        var sodienthoai=$("#admin-update-sodienthoai").val();
+        $.ajax({
+            url:"server/src/controller/NhanVienController.php",
+            method:"POST",
+            data:{  action: 'update',
+            manv:manv,
+            tennv:tennv,
+            tuoi:tuoi,
+            sodienthoai:sodienthoai},
+            dataType:"JSON",
+            success:function(data){
+                $("form").trigger('reset');
+                $("#editEmployeeModal").modal("hide");
+                renderEmployeeData();
+            }
+        })
+    })
+}
 function renderEmployeeAccountData() {
     $('.btn-open-add-account-modal').on('click', async e => {
         const employees = await getEmployeeData()

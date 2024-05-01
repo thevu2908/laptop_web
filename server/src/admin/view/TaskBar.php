@@ -83,7 +83,7 @@ function kiemtraquyen($arr,$chucnang){
       if(kiemtraquyen($arr,"Phân Quyền")){
         echo " <li class='side-menu-item ".($page === 'phanquyen' ? 'active' : '')."'>
         <a href='/admin.php?controller=phanquyen' class='nav-link'>
-          <i class='fas fa-message'></i>
+          <i class='fa-solid fa-key'></i>
           <span class='text'>Phân Quyền</span>
         </a>
       </li>";

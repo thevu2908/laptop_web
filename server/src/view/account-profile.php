@@ -7,13 +7,17 @@
                 <div class="account-profile__left">
                     <h3 class="account-profile__left-title"></h3>
                     <div class="account-profile__left-list">
-                        <div class="account-profile__left-item active account">
+                        <div class="account-profile__left-item account">
                             <i class="fa-solid fa-user"></i>
                             <span>Thông tin cá nhân</span>
                         </div>
                         <div class="account-profile__left-item address">
                             <i class="fa-solid fa-location-dot"></i>
                             <span>Địa chỉ</span>
+                        </div>
+                        <div class="account-profile__left-item order">
+                            <i class="fa-regular fa-clipboard"></i>
+                            <span>Đơn hàng</span>
                         </div>
                     </div>
                 </div>
@@ -122,6 +126,23 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
                     <button type="button" class="btn btn-danger btn-delete-address">Xóa</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="order-detail-modal" class="modal fade" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    
+                </div>
+                <div class="modal-footer">
+                    
                 </div>
             </div>
         </div>
