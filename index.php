@@ -47,7 +47,6 @@
         } else if (isset($_REQUEST['gio-hang'])) {
             include './server/src/view/cart.php';
             include './client/pages/DanhGia.js';
-            echo '<script src="./client/pages/KhuyenMai.js"></script>';
         } else if (isset($_REQUEST['thanh-toan'])) {
             include './server/src/view/checkout.php';
             echo '<script src="client/pages/DiaChi.js"></script>';
@@ -82,6 +81,7 @@
     </div>
 
     <script src="./client/pages/GioHang.js"></script>
+    <script src="./client/pages/KhuyenMai.js"></script>
     <script src="./client/pages/DanhGia.js"></script>
     <script src="server/src/assets/js/main.js"></script>
     <script src="./client/pages/ThuongHieu.js"></script>
