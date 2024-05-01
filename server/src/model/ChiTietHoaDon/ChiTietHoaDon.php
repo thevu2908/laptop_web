@@ -1,15 +1,15 @@
 <?php
 class ChiTietHoaDon {
     private $ma_hd;
-    private $ma_ctsp;
+    private $ma_imei;
     private $gia_sp;
     private $so_luong;
     private $thanh_tien;
 
     // Constructor
-    public function __construct($ma_hd, $ma_ctsp, $gia_sp, $so_luong, $thanh_tien) {
+    public function __construct($ma_hd, $ma_imei, $gia_sp, $so_luong, $thanh_tien) {
         $this->ma_hd = $ma_hd;
-        $this->ma_ctsp = $ma_ctsp;
+        $this->ma_imei = $ma_imei;
         $this->gia_sp = $gia_sp;
         $this->so_luong = $so_luong;
         $this->thanh_tien = $thanh_tien;
@@ -20,8 +20,8 @@ class ChiTietHoaDon {
         return $this->ma_hd;
     }
 
-    public function getMaCtsp() {
-        return $this->ma_ctsp;
+    public function getMaImei() {
+        return $this->ma_imei;
     }
 
     public function getGiaSp() {
@@ -36,4 +36,3 @@ class ChiTietHoaDon {
         return $this->thanh_tien;
     }
 }
-?>

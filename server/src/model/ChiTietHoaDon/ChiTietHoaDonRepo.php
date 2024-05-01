@@ -60,4 +60,18 @@ class ChiTietHoaDonRepo extends ConnectDB {
             return null;
         }
     }
+
+    function addCTHD($ma_hd, $ma_ctsp, $so_luong, $gia_sp) {
+        $sql = "INSERT INTO chitiethoadon (ma_hd, ma_imei, gia_sp, so_luong, thanh_tien)
+                SELECT '$ma_hd', ma_imei, '$gia_sp', 1, '$gia_sp'
+                FROM ctsp_imei
+                WHERE ma_ctsp = '$ma_ctsp'
+                ORDER BY RAND()
+                LIMIT $so_luong";
+        $result = mysqli_query($this->conn, $sql);
+        if ($result) {
+            return true;
+        }
+        return false;
+    }
 }

@@ -49,6 +49,15 @@ class GioHangRepo extends ConnectDB {
         return false;
     }
 
+    function deleteGioHangByMaKH($ma_kh) {
+        $sql = "UPDATE giohang SET trang_thai=1 WHERE ma_kh='$ma_kh'";
+        $result = mysqli_query($this->conn, $sql);
+        if ($result) {
+            return true;
+        }
+        return false;
+    }
+
     function updateGioHang(GioHang $giohang) {
         $ma_ctsp = $giohang->getMaCTSP();
         $ma_kh = $giohang->getMaKH();
@@ -68,7 +77,10 @@ class GioHangRepo extends ConnectDB {
 
     function getSizeGioHang($ma_kh): int {
         try {
-            $sql = "SELECT COUNT(*) AS total_quantity FROM giohang WHERE ma_kh='$ma_kh'";
+            // $sql = "SELECT COUNT(*) AS total_quantity FROM giohang WHERE ma_kh='$ma_kh' AND trang_thai=0";
+            $sql = "SELECT SUM(so_luong) AS total_quantity
+                    FROM giohang
+                    WHERE ma_kh='$ma_kh' AND trang_thai=0";
             $statement = mysqli_query($this->conn, $sql);
             $result = mysqli_fetch_assoc($statement);    
             return $result['total_quantity'];

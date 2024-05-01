@@ -21,6 +21,14 @@ class CTHDController {
     public function getChiTietHoaDonInHoaDon($ma_hd) {
         echo json_encode($this->chitietHDRepo->getChiTietHoaDonInHoaDon($ma_hd));
     }
+
+    public function addCTHD($ma_hd, $ma_ctsp, $so_luong, $gia_sp) {
+        if ($this->chitietHDRepo->addCTHD($ma_hd, $ma_ctsp, $so_luong, $gia_sp)) {
+            echo 'success';
+        } else {
+            echo 'fail';
+        }
+    }
 }
 
 $ctHDctl = new CTHDController();
@@ -35,6 +43,10 @@ switch ($action){
         $ma_hd = $_POST['mahoadon'];
         $ctHDctl->getChiTietHoaDonInHoaDon($ma_hd);
         break;
+    case 'add':
+        $obj = json_decode(json_encode($_POST['cthd']));
+
+        $ctHDctl->addCTHD($obj->{'maHD'}, $obj->{'maCTSP'}, $obj->{'soLuong'}, $obj->{'giaSP'});
     default:
         break;
 }

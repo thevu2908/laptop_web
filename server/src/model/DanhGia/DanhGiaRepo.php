@@ -1,7 +1,7 @@
 <?php
 class DanhGiaRepo extends ConnectDB {
-    function getAllDanhGia($ma_ctsp) : array | null {
-        $sql = "SELECT * FROM danhgia WHERE ma_ctsp=$ma_ctsp";
+    function getAllDanhGia($ma_sp) : array | null {
+        $sql = "SELECT * FROM danhgia WHERE ma_sp=$ma_sp";
         $arrDanhGia = [];
         try {
             $result = mysqli_query($this->conn, $sql);
@@ -26,15 +26,15 @@ class DanhGiaRepo extends ConnectDB {
     }
 
     function addDanhGia($danhgia) {
-        $ma_ctsp = $danhgia->getMaCTSP();
+        $ma_sp = $danhgia->getMaSP();
         $ma_kh = $danhgia->getMaKH();
         $rating = $danhgia->getRating();
         $thoi_gian_danh_gia = $danhgia->getThoiGian();
         $noi_dung = $danhgia->getNoiDung();
         $trang_thai = $danhgia->getTrangThai();
 
-        $sql = "INSERT INTO danhgia(ma_ctsp,ma_kh,rating,thoi_gian_danh_gia, noi_dung, trang_thai) 
-                VALUES ('$ma_ctsp', '$ma_kh', '$rating', '$thoi_gian_danh_gia', '$noi_dung', '$trang_thai')";
+        $sql = "INSERT INTO danhgia(ma_sp,ma_kh,rating,thoi_gian_danh_gia, noi_dung, trang_thai) 
+                VALUES ('$ma_sp', '$ma_kh', '$rating', '$thoi_gian_danh_gia', '$noi_dung', '$trang_thai')";
         $result = mysqli_query($this->conn, $sql);
         if ($result) {
             return true;
@@ -52,7 +52,7 @@ class DanhGiaRepo extends ConnectDB {
     }
 
     function updateDanhGia($danhgia) {
-        $ma_ctsp = $danhgia->getMaCTSP();
+        $ma_sp = $danhgia->getMaSP();
         $ma_kh = $danhgia->getMaKH();
         $rating = $danhgia->getRating();
         $thoi_gian_danh_gia = $danhgia->getThoiGian();

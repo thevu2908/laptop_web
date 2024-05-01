@@ -107,7 +107,7 @@ class ThongTinNhanHangRepo extends ConnectDB {
 
     public function deleteThongTinNhanHang($maTtnh) {
         try {
-            $query = "UPDATE thongtinnhanhang SET trang_thai = 0 WHERE ma_ttnh = ?";
+            $query = "UPDATE thongtinnhanhang SET trang_thai = 1 WHERE ma_ttnh = ?";
             $statement = mysqli_prepare($this->conn, $query);
 
             if (!$statement) {

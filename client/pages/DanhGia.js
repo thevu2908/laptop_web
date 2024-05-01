@@ -1,33 +1,57 @@
 $(document).ready(() => {
+    // Trang Admin
     renderReviewAdmin(null)
     clickPage(renderReviewAdmin)
 
+    // Trang User
     handleAddReview()
-
-    renderListReview('CTSP0008')
 })
 
-function renderListReview(ctspId) {
-    $.ajax({
-        url: 'server/src/controller/DanhGiaController.php',
-        method: 'POST',
-        data: { action: 'get-all' , ctspId},
-        dataType: 'JSON',
-        success: data => {
-            if (data && data.length > 0) {
-                let html = ''
-                console.log(data)
+async function getMaKH() {
+    const loginSession = await getLoginSession()
+    return loginSession ? loginSession.customerId : ''
+}
 
-                data.forEach((item, index) => {
+function getCustomer(id) {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: 'server/src/controller/KhachHangController.php',
+            method: 'POST',
+            data: { action: 'get-customer', id },
+            dataType: 'JSON',
+            success: customer => resolve(customer),
+            error: (xhr, status, error) => {
+                console.log(error)
+                reject(error)
+            }
+        })
+    })
+}
+
+async function renderListReview() {
+    const productId = $('.btn-add-cart').attr('data-id');
+    try {
+        const response = await $.ajax({
+            url: 'server/src/controller/DanhGiaController.php',
+            method: 'POST',
+            data: { action: 'get-all', productId },
+            dataType: 'JSON'
+        });
+
+        if (response && response.length > 0) {
+            let html = '';
+
+            for (const item of response) {
+                try {
+                    const res = await getCustomer(item.ma_kh);
+                    
                     html += `
                         <div class="d-flex flex-start mb-4">
-                            <img class="rounded-circle shadow-1-strong me-3"
-                                src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(32).webp" alt="avatar" width="65" height="65" />
                             <div class="card w-100">
                                 <div class="card-body">
                                     <div class="">
-                                        <h5 class="m-0">Johny Cash</h5>
-                                        <p class="small">${convertDate(item.thoi_gian_danh_gia)}</p>
+                                        <h5 class="m-0">${res.ten_kh}</h5>
+                                        <p class="small">${convertDate(item.thoi_gian_danh_gia.slice(0, 10))}</p>
                                         <p class="m-0">
                                             ${item.noi_dung}
                                         </p>
@@ -56,31 +80,32 @@ function renderListReview(ctspId) {
                             </div>
                         </div>
                     `
-                })
-
-                $('.list-review').html(html)
+                } catch (error) {
+                    console.log(error);
+                }
             }
-        },
-        error: (xhr, status, error) => {
-            console.log(error)
+
+            $('.list-review').html(html);
         }
-    })
+    } catch (error) {
+        console.log(error);
+    }
 }
 
 async function renderReviewAdmin(data) {
-    let productDetailId = $('#admin-review-main #product-detail-id').val()
+    let productId = $('#admin-review-main #product-detail-id').val()
 
-    if (productDetailId) {
-        // productDetailId = productDetailId.toUpperCase().trim()
-        // renderProductName(productDetailId)
+    if (productId) {
+        // productId = productId.toUpperCase().trim()
+        // renderProductName(productId)
 
-        const dataReview = data ? data : await getPaginationReview(productDetailId)
+        const dataReview = data ? data : await getPaginationReview(productId)
 
         if (dataReview && dataReview.pagination && dataReview.pagination.length > 0) {
             let html = ''
 
             dataReview.pagination.forEach((review, index) => {
-                if(review.ma_ctsp === productDetailId) {
+                if(review.ma_ctsp === productId) {
                     html += `
                         <tr>
                             <td>
@@ -113,13 +138,13 @@ async function renderReviewAdmin(data) {
     }
 }
 
-function getPaginationReview(productDetailId) {
+function getPaginationReview(productId) {
     return new Promise((resolve, reject) => {
         const page = $('#currentpage').val()
         $.ajax({
             url: 'server/src/controller/PaginationController.php',
             method: 'GET',
-            data: { action: 'pagination', table: 'danhgia', page, id: productDetailId },
+            data: { action: 'pagination', table: 'danhgia', page, id: productId },
             dataType: 'JSON',
             success: review => resolve(review),
             error: (xhr, status, error) => {
@@ -131,7 +156,7 @@ function getPaginationReview(productDetailId) {
 }
 
 function validateReviewEmpty(review) {
-    if(review.productDetailId === '' || review.productDetailId == undefined) {
+    if(review.productId === '' || review.productId == undefined) {
         alert('Lỗi không tìm thấy id sản phẩm')
         return false;
     }
@@ -173,16 +198,18 @@ function addReview(review) {
     })
 }
 
-function handleAddReview() {
-    $(document).on('click', '#btn-add-review', (e) => {
+async function handleAddReview() {
+    $(document).off('click', '#btn-add-review').on('click', '#btn-add-review', async (e) => {
         var currentDate = new Date();
-        var formattedDate = currentDate.toISOString().slice(0, 10);
+        var formattedDate = currentDate.toISOString();
 
-        ctspId = $('.btn-add-cart').attr('data-id');
+        let productId = $('.btn-add-cart').attr('data-id');
+        let customerId = await getMaKH()
+        console.log(customerId)
 
         const dataReview = {
-            productDetailId: ctspId,
-            customerId: 'KH002',
+            productId: productId,
+            customerId: customerId,
             rating: $('#review-index .rating input[type="radio"].rate-active').val(),
             time: formattedDate,
             content: $('#review-index #content-review').val(),
@@ -192,7 +219,7 @@ function handleAddReview() {
             return
         }
 
-        console.log(dataReview.productDetailId)
+        console.log(dataReview.productId)
         console.log(dataReview.customerId)
         console.log(dataReview.rating)
         console.log(dataReview.time)
@@ -202,6 +229,7 @@ function handleAddReview() {
             .then(data => {
                 if (data) {
                     alert('Đánh giá thành công')
+                    renderListReview()
                 } else {
                     alert('Xảy ra lỗi trong quá trình đánh giá')
                 }

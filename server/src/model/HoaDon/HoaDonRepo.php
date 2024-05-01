@@ -74,16 +74,18 @@ class HoaDonRepo extends ConnectDB {
         try {
             $ma_hd = $hoadon->getMaHd();
             $ma_kh = $hoadon->getMaKh();
-            $ma_nv = $hoadon->getMaNv();
+            $ma_ttnh = $hoadon->getTtnh();
             $ngay_tao = $hoadon->getNgayTao();
             $tong_tien = $hoadon->getTongTien();
             $khuyen_mai = $hoadon->getKhuyenMai();
             $thanh_tien = $hoadon->getThanhTien();
             $hinh_thuc = $hoadon->getHinhThuc();
+            $ghi_chu = $hoadon->getGhiChu();
             $tinh_trang = $hoadon->getTinhTrang();
+            $trang_thai = $hoadon->getTrangThai();
     
-            $sql = "INSERT INTO hoadon(ma_hd,ma_kh,ma_nv,ngay_tao,tong_tien,khuyen_mai,thanh_tien,hinh_thuc,tinh_trang) 
-                    VALUES ('$ma_hd', '$ma_kh', '$ma_nv', '$ngay_tao', '$tong_tien', '$khuyen_mai', '$thanh_tien', '$hinh_thuc', '$tinh_trang')";
+            $sql = "INSERT INTO hoadon(ma_hd,ma_kh,ma_ttnh,ngay_tao,tong_tien,khuyen_mai,thanh_tien,hinh_thuc,ghi_chu,tinh_trang,trang_thai) 
+                    VALUES ('$ma_hd', '$ma_kh', '$ma_ttnh', '$ngay_tao', '$tong_tien', '$khuyen_mai', '$thanh_tien', '$hinh_thuc', '$ghi_chu', '$tinh_trang', '$trang_thai')";
             $result = mysqli_query($this->conn, $sql);
 
             return $result;
@@ -144,14 +146,14 @@ class HoaDonRepo extends ConnectDB {
         }
     }
     
-    public function getSize() {
+    function getSizeHoaDon(): int {
         try {
-            $sql = "SELECT count(*) FROM hoadon";
-            $result = mysqli_query($this->conn, $sql);
-            $size = mysqli_fetch_assoc($result);
-            return $size;
+            $sql = "SELECT COUNT(*) AS count FROM hoadon";
+            $statement = mysqli_query($this->conn, $sql);
+            $result = mysqli_fetch_assoc($statement);    
+            return $result['count'];
         } catch (Exception $e) {
-            echo 'Error:'. $e->getMessage();
+            echo 'Error: ' . $e->getMessage() . '<br>';
             return -1;
         }
     }

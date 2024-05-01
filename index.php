@@ -51,6 +51,12 @@
         } else if (isset($_REQUEST['thanh-toan'])) {
             include './server/src/view/checkout.php';
             echo '<script src="client/pages/DiaChi.js"></script>';
+            echo '<script src="client/pages/Checkout.js"></script>';
+            echo '<script src="client/pages/ThongTinNhanHang.js"></script>';
+            echo '<script src="client/pages/KhuyenMai.js"></script>';
+            echo '<script src="client/pages/HoaDon.js"></script>';
+        }else if (isset($_REQUEST["bao-hanh"])) {
+            include "./server/src/view/bao-hanh.php";
         }else if (isset($_REQUEST['bao-hanh'])) {
             include './server/src/view/guarantee.php';
             echo '<script src="client/pages/BaoHanh.js"></script>';
@@ -74,6 +80,8 @@
         ?>
     </div>
 
+    <script src="./client/pages/GioHang.js"></script>
+    <script src="./client/pages/DanhGia.js"></script>
     <script src="server/src/assets/js/main.js"></script>
     <script src="./client/pages/ThuongHieu.js"></script>
     <script src="./client/pages/TheLoai.js"></script>

@@ -25,13 +25,25 @@ class HoaDonController {
     public function getHoaDonByKhachHang($ma_kh, $tinh_trang, $search) {
         echo json_encode($this->hoadonRepo->getHoaDonByKhachHang($ma_kh, $tinh_trang, $search));
     }
+
+    public function getSizeHoaDon() {
+        return $this->hoadonRepo->getSizeHoaDon();
+    }
+
+    public function addHoaDon($hoadon) {
+        if ($this->hoadonRepo->addHoaDon($hoadon)) {
+            echo $hoadon->getMaHd();
+        } else {
+            echo 'fail';
+        }
+    }
 }
 
 $hoadonctl = new HoaDonController();
 $action = isset($_REQUEST['action']) ? $_REQUEST['action'] : null;
 
 switch ($action) {
-    case 'load':
+    case 'get-all':
         $hoadonctl->getAllHoaDon();
         break;
     case 'get':
@@ -48,6 +60,31 @@ switch ($action) {
         $search = $_POST['search'];
         $hoadonctl->getHoaDonByKhachHang($ma_kh, $tinh_trang, $search);
         break;
+    case 'add':
+        $obj = json_decode(json_encode($_POST['bill']));
+        $length = $hoadonctl->getSizeHoaDon();
+
+        if($length >= 0) {
+            $length += 1;
+            $id = 'HD'.sprintf('%04d', $length);
+            $hoadon = new HoaDon(
+                $id,
+                $obj->{'maKH'},
+                '',
+                $obj->{'maTTNH'},
+                $obj->{'date'},
+                $obj->{'tmpTotal'},
+                $obj->{'promotion'},
+                $obj->{'finishTotal'},
+                $obj->{'payMethod'},
+                $obj->{'note'},
+                $obj->{'status'},
+                0
+            );
+
+            $hoadonctl->addHoaDon($hoadon);
+        }
+
     default:
         break;
 }
