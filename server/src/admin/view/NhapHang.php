@@ -5,29 +5,31 @@
 				<div class="table-title">
 					<div class="row">
 						<div class="col-sm-6">
-							<h2>Quản Lý <b id="ad-NhomQuyen">Nhập Hàng</b></h2>
+							<h2>Quản Lý <b id="ad-NhomQuyen">Phiếu Nhập</b></h2>
 						</div>
-                        <div class="col-sm-6">
+                        <!-- <div class="col-sm-6">
                         <a href="#addimportModal" class="btn btn-success add" data-toggle="modal">
 								<i class="material-icons">&#xE147;</i>
 								<span>Thêm</span>
 							</a>
-						</div>
+						</div> -->
 					</div>
 				</div>
 				<table class="table table-striped table-hover">
 					<thead>
 						<tr>
-							<th>
+							<!-- <th>
 								<span class="custom-checkbox">
 									<input type="checkbox" id="selectAll">
 									<label for="selectAll"></label>
 								</span>
-							</th>
-							<th>Mã sản phẩm</th>
-                            <th>Hình Ảnh</th>
-							<th>Tên Sản Phẩm</th>
-                            <th>Action</th>
+							</th> -->
+							<th class="w-auto">Mã Phiếu Nhập</th>
+                            <th>Mã Nhà Cung Cấp</th>
+                            <th>Mã Nhân Viên</th>
+                            <th>Ngày Nhập</th>
+							              <th>Tổng Tiền</th>
+                            <th>Action(Chi Tiết)</th>
                             
 						</tr>
 					</thead>

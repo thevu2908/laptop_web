@@ -18,4 +18,30 @@ class ConnectDB {
             die("Connection failed: ". mysqli_connect_error());
         }
     }
+
+    public function select($sql) {
+        $result = mysqli_query($this->conn, $sql);
+
+        if (!$result) {
+            die("Query failed: ". mysqli_error($this->conn));
+        }
+
+        return $result;
+    }
+
+    public function excute($sql) {
+        mysqli_query($this->conn, $sql);
+
+        if (mysqli_affected_rows($this->conn) === -1) {
+            die("Execution failed: ". mysqli_error($this->conn));
+        }
+    }
+
+    public function last_id($sql) {
+        $this->excute($sql);
+        $last_id = mysqli_insert_id($this->conn);
+        return $last_id;
+    }
+
+    
 }

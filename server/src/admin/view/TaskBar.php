@@ -132,7 +132,7 @@ function kiemtraquyen($arr,$chucnang){
         echo " <li class='side-menu-item ".( $page === 'phieunhap' ? 'active' : '')."'>
         <a href='/admin.php?controller=phieunhap' class='nav-link'>
         <i class='fa-solid fa-right-left'></i>
-          <span class='text'>Phiếu Nhập</span>
+          <span class='text'>Nhập Hàng</span>
         </a>
       </li>";
       }

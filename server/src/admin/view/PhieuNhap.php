@@ -5,35 +5,39 @@
 				<div class="table-title">
 					<div class="row">
 						<div class="col-sm-6">
-							<h2>Quản Lý <b id="ad-NhomQuyen">Phiếu Nhập</b></h2>
+							<h2>Quản Lý <b id="ad-NhomQuyen">Nhập Hàng</b></h2>
 						</div>
 						<div class="col-sm-6">
 							<a href="/admin.php?controller=nhaphang" class="btn btn-success add">
 								<i class="material-icons">&#xE147;</i>
-								<span>Nhập Hàng</span>
+								<span>Phiếu Nhập</span>
+							</a>
+							<a href="/admin.php?controller=giohang" class="btn btn-danger delete">
+								<i class="material-icons">&#xE15C;</i>
+								<span>Giỏ Hàng</span>
 							</a>
 							
-							
 						</div>
+						
 						
 					</div>
 				</div>
 				<table class="table table-striped table-hover">
 					<thead>
 						<tr>
-							<th>
+							<!-- <th>
 								<span class="custom-checkbox">
 									<input type="checkbox" id="selectAll">
 									<label for="selectAll"></label>
 								</span>
-							</th>
-							<th>Mã phiếu nhập</th>
-                            <th>Mã nhà cung cấp</th>
-							<th>Mã nhân viên</th>
-                            <th>Ngày Nhập</th>
-                            <th>Tổng Tiền</th>
-							<th>Status</th>
-							<th>Actions</th>
+							</th> -->
+							<th class="w-auto" >Mã sản phẩm</th>
+                            <th>Mã chi tiết sản phẩm</th>
+							<th>Tên sản phẩm</th>
+                            <th>Nhà cung cấp</th>
+                            <th>Số lượng</th>
+							<th>Giá</th>
+							<th  class="w-auto">Actions</th>
 						</tr>
 					</thead>
 					<tbody id="show-listNhomQuyen">

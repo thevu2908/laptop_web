@@ -68,16 +68,21 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
               break;
           }
           case "phieunhap": {
-            include "./server/src/admin/view/phieunhap.php";
+            include "./server/src/admin/view/PhieuNhap.php";
             echo '<script src="./client/pages/PhieuNhap.js"></script>';
             break;
           }
           case "nhaphang": {
             include "./server/src/admin/view/NhapHang.php";
-            echo '<script src="./client/pages/NhapHang.js"></script>';
+            echo '<script src="./client/pages/PhieuNhap.js"></script>';
             break;
           }
-            case "nhacungcap": {
+          case "giohang": {
+            include "./server/src/admin/view/viewcart.php";
+            echo '<script src="./client/pages/PhieuNhap.js"></script>';
+            break;
+          }
+          case "nhacungcap": {
               include "./server/src/admin/view/NhaCungCap.php";
               echo '<script src="./client/pages/NhaCungCap.js"></script>';
               break;
