@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 01, 2024 at 02:22 PM
+-- Generation Time: May 01, 2024 at 03:55 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -1342,8 +1342,8 @@ CREATE TABLE `giohang` (
 --
 
 INSERT INTO `giohang` (`ma_ctsp`, `ma_kh`, `gia_sp`, `so_luong`, `trang_thai`) VALUES
-('CTSP0001', 'KH0001', 26239500, 4, 0),
-('CTSP0006', 'KH0001', 20989500, 2, 0);
+('CTSP0001', 'KH0001', 26239500, 1, 0),
+('CTSP0006', 'KH0001', 26239500, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -1381,7 +1381,7 @@ CREATE TABLE `hoadon` (
   `khuyen_mai` double NOT NULL,
   `thanh_tien` double NOT NULL,
   `hinh_thuc` varchar(50) NOT NULL,
-  `note` varchar(200) NOT NULL,
+  `ghi_chu` varchar(200) NOT NULL,
   `tinh_trang` varchar(50) NOT NULL,
   `trang_thai` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -1390,7 +1390,7 @@ CREATE TABLE `hoadon` (
 -- Dumping data for table `hoadon`
 --
 
-INSERT INTO `hoadon` (`ma_hd`, `ma_kh`, `ma_nv`, `ma_ttnh`, `ngay_tao`, `tong_tien`, `khuyen_mai`, `thanh_tien`, `hinh_thuc`, `note`, `tinh_trang`, `trang_thai`) VALUES
+INSERT INTO `hoadon` (`ma_hd`, `ma_kh`, `ma_nv`, `ma_ttnh`, `ngay_tao`, `tong_tien`, `khuyen_mai`, `thanh_tien`, `hinh_thuc`, `ghi_chu`, `tinh_trang`, `trang_thai`) VALUES
 ('HD0001', 'KH0001', 'admin', 'TTNH0001', '2024-04-27', 30000000, 0, 30000000, 'COD', '', 'Chưa xác nhận', 0),
 ('HD0002', 'KH0001', 'admin', 'TTNH0002', '2024-04-28', 49000000, 0, 49000000, 'VNPay', '', 'Đã xác nhận', 0),
 ('HD0003', 'KH0001', 'admin', 'TTNH0003', '2024-04-28', 17000000, 0, 17000000, 'COD', '', 'Chưa xác nhận', 0);
