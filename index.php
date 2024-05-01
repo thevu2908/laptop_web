@@ -55,6 +55,7 @@
             echo '<script src="client/pages/ThongTinNhanHang.js"></script>';
             echo '<script src="client/pages/KhuyenMai.js"></script>';
             echo '<script src="client/pages/HoaDon.js"></script>';
+            echo '<script src="./client/pages/ChiTietHoaDon.js"></script>';
         }else if (isset($_REQUEST["bao-hanh"])) {
             include "./server/src/view/bao-hanh.php";
         }else if (isset($_REQUEST['bao-hanh'])) {

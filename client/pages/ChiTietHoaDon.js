@@ -10,3 +10,18 @@ function getChiTietHoaDon(ma_hd) {
         })
     })
 }
+
+function addCTHD(cthd) {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: 'server/src/controller/CTHDController.php',
+            method: 'POST',
+            data: { action: 'add', cthd },
+            success: res => resolve(res),
+            error: (xhr, status, error) => {
+                console.log(error)
+                reject(error)
+            }
+        })
+    })
+}

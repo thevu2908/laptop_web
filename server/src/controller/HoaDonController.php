@@ -34,7 +34,7 @@ class HoaDonController {
         if ($this->hoadonRepo->addHoaDon($hoadon)) {
             echo $hoadon->getMaHd();
         } else {
-            echo 'fail';
+            echo $this->hoadonRepo->addHoaDon($hoadon);
         }
     }
 }

@@ -75,7 +75,7 @@ class GioHangRepo extends ConnectDB {
         return false;
     }
 
-    function getSizeGioHang($ma_kh): int {
+    function getSizeGioHang($ma_kh): int | null {
         try {
             // $sql = "SELECT COUNT(*) AS total_quantity FROM giohang WHERE ma_kh='$ma_kh' AND trang_thai=0";
             $sql = "SELECT SUM(so_luong) AS total_quantity

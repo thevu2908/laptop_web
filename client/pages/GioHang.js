@@ -6,6 +6,11 @@ $(document).ready(() => {
     handleDeleteCart()
 })
 
+async function getMaKH() {
+    const loginSession = await getLoginSession()
+    return loginSession ? loginSession.customerId : ''
+}
+
 function getFullInfoProduct(maCTSP) {
     return new Promise((resolve, reject) => {
         $.ajax({
@@ -206,6 +211,7 @@ function handleAddCart() {
             }
         } catch (error) {
             console.log(error)
+            alert('Xảy ra lỗi trong quá trình thêm sản phẩm vào giỏ hàng')
         }
     })
 }
