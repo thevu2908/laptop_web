@@ -87,8 +87,8 @@
 </div>
 
 <script>
-    var input = document.querySelector(".modal-cart-code input");
-    var button = document.querySelector(".modal-cart-promotion button");
+    const input = document.querySelector(".modal-cart-code input");
+    const button = document.querySelector(".modal-cart-promotion button");
     input.addEventListener('input', function() {
         if (input.value.trim() === '') {
             button.classList.add('disabled');

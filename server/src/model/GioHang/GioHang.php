@@ -4,15 +4,13 @@ class GioHang {
     private $ma_kh;
     private $gia_sp;
     private $so_luong;
-    private $trang_thai;
 
     // Constructor
-    public function __construct($ma_ctsp, $ma_kh, $gia_sp, $so_luong,$trang_thai) {
+    public function __construct($ma_ctsp, $ma_kh, $gia_sp, $so_luong) {
         $this->ma_ctsp = $ma_ctsp;
         $this->ma_kh = $ma_kh;
         $this->gia_sp = $gia_sp;
         $this->so_luong = $so_luong;
-        $this->trang_thai = $trang_thai;
     }
 
     // Getter methods
@@ -30,9 +28,5 @@ class GioHang {
 
     public function getSoLuong() {
         return $this->so_luong;
-    }
-
-    public function getTrangThai() {
-        return $this->trang_thai;
     }
 }
