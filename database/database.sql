@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 01, 2024 at 03:55 PM
+-- Generation Time: May 02, 2024 at 07:20 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -1333,17 +1333,8 @@ CREATE TABLE `giohang` (
   `ma_ctsp` varchar(20) NOT NULL,
   `ma_kh` varchar(20) NOT NULL,
   `gia_sp` float NOT NULL,
-  `so_luong` int(11) NOT NULL,
-  `trang_thai` int(11) NOT NULL
+  `so_luong` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `giohang`
---
-
-INSERT INTO `giohang` (`ma_ctsp`, `ma_kh`, `gia_sp`, `so_luong`, `trang_thai`) VALUES
-('CTSP0001', 'KH0001', 26239500, 1, 0),
-('CTSP0006', 'KH0001', 26239500, 1, 1);
 
 -- --------------------------------------------------------
 
