@@ -39,10 +39,10 @@ switch ($action) {
             $sql1 = "select * from nhacungcap where ma_ncc='$mancc'";
             $result1 = (new ConnectDB())->select($sql1);
             $each1 = mysqli_fetch_array($result1);
-            $_SESSION['cartimport'][$mancc][$ma]['MaSP'] = $each['MaSP'];
-            $_SESSION['cartimport'][$mancc][$ma]['TenSP'] = $each['TenSP'];
-            $_SESSION['cartimport'][$mancc][$ma]['AnhSP'] = $each['AnhSP'];
-            $_SESSION['cartimport'][$mancc][$ma]['MaNCC'] = $mancc;
+            $_SESSION['cartimport'][$mancc][$ma]['ma_sp'] = $each['ma_sp'];
+            $_SESSION['cartimport'][$mancc][$ma]['ten_sp'] = $each['ten_sp'];
+            $_SESSION['cartimport'][$mancc][$ma]['hinh_anh'] = $each['hinh_anh'];
+            $_SESSION['cartimport'][$mancc][$ma]['ma_ncc'] = $mancc;
             $_SESSION['cartimport'][$mancc][$ma]['TenNCC'] = $each1['TenNCC'];
             $_SESSION['cartimport'][$mancc][$ma]['GiaSP'] = $each['GiaSP'];
             $_SESSION['cartimport'][$mancc][$ma]['status'] = 'Chưa Xác Nhận';
@@ -68,15 +68,15 @@ switch ($action) {
         $arrNCC_PN = [];
         $today = date("Y-m-d");
         session_start();
-        $manv = $_SESSION['manv'];
+        $manv = $_SESSION['ma_nv'];
         $cart = $_SESSION['cartimport'];
         foreach ($cart as $cart1) {
             foreach ($cart1 as $ma => $each) {
-                if (empty($arrNCC_PN[$each['MaNCC']][$each['MaSP']])) {
-                    $arrNCC_PN[$each['MaNCC']][$each['MaSP']]['MaNCC'] = $each['MaNCC'];
-                    $arrNCC_PN[$each['MaNCC']][$each['MaSP']]['MaSP'] = $each['MaSP'];
-                    $arrNCC_PN[$each['MaNCC']][$each['MaSP']]['quantity'] = $each['quantity'];
-                    $arrNCC_PN[$each['MaNCC']][$each['MaSP']]['GiaSP'] = $each['GiaSP'];
+                if (empty($arrNCC_PN[$each['ma_ncc']][$each['MaSP']])) {
+                    $arrNCC_PN[$each['ma_ncc']][$each['MaSP']]['ma_ncc'] = $each['ma_ncc'];
+                    $arrNCC_PN[$each['ma_ncc']][$each['MaSP']]['MaSP'] = $each['MaSP'];
+                    $arrNCC_PN[$each['ma_ncc']][$each['MaSP']]['quantity'] = $each['quantity'];
+                    $arrNCC_PN[$each['ma_ncc']][$each['MaSP']]['GiaSP'] = $each['GiaSP'];
                 }
             }
         }
@@ -85,9 +85,9 @@ switch ($action) {
             foreach ($each as $key => $each1) {
                 $thanhtien = $each1['quantity'] * $each1['GiaSP'];
                 $tongtien += $thanhtien;
-                $mancc = $each1["MaNCC"];
+                $mancc = $each1["ma_ncc"];
             }
-            $sql2 = "insert into phieunhap(MaNCC, NgayNhap, MaNV, TongTien)
+            $sql2 = "insert into phieunhap(ma_ncc, ma_nv, ngay_nhap, tong_tien, tinh_trang)
             values ('$mancc', '$today', '$manv', '$tongtien')";
             $maPN = (new ConnectDB())->last_id($sql2);
             foreach ($each as $key => $each1) {

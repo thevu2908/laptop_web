@@ -11,110 +11,66 @@ class NhaCungCapController {
         $this->NhaCungCapRepo = new NhaCungCapRepo();
     }
 
-    public function getAllNhaCungCap() {
-        $promotions = $this->NhaCungCapRepo->getAllNhaCungCap();
+    public function getData() {
+        $employess = $this->NhaCungCapRepo->getData();
         $result = [];
 
-        foreach($promotions as $promotion) {
-            if($promotion['trang_thai'] ==  0) {
-                $result[] = $promotion;
+        foreach ($employess as $employee) {
+            if ($employee['trang_thai'] == 0) {
+                $result[] = $employee;
             }
         }
 
         echo json_encode($result);
     }
-
-    public function getNhaCungCap($ma_km) {
-        return $this->NhaCungCapRepo->getNhaCungCap();
+    public function addSuppiler($mancc,$tenncc,$diachi,$sodienthoai){
+        echo json_encode($this->NhaCungCapRepo->addSuppiler($mancc,$tenncc,$diachi,$sodienthoai));
+    }
+    public function updateSuppiler($mancc,$tenncc,$diachi,$sodienthoai){
+        echo json_encode($this->NhaCungCapRepo->updateSuppiler($mancc,$tenncc,$diachi,$sodienthoai));
     }
 
-    public function getNhaCungCap2($ma_km) {
-        echo json_encode($this->NhaCungCapRepo->getNhaCungCap($ma_km));
-    }
-
-    public function getSizeNhaCungCap(): int {
-        return $this->NhaCungCapRepo->getSizeNhaCungCap();
-    }
-
-    public function getSize() {
-        echo $this->NhaCungCapRepo->getSizeNhaCungCap();
-    }
-
-    public function addNhaCungCap($nhacungcap) {
-        if ($this->NhaCungCapRepo->addNhaCungCap($nhacungcap)) {
-            echo $nhacungcap->getMaNcc();
-        } else {
-            echo null;
-        }
-    }
-
-    public function updateNhaCungCap($nhacungcap) {
-        if ($this->NhaCungCapRepo->updateNhaCungCap($nhacungcap)) {
-            echo 'success';
-        } 
-        else {
-            echo 'fail';
-        }
-    }
-
-    public function deleteNhaCungCap($ma_km) {
-        if ($this->NhaCungCapRepo->deleteNhaCungCap($ma_km)) {
+    public function deleteNCC($productId) {
+        if ($this->NhaCungCapRepo->deleteNCC($productId)) {
             echo 'success';
         } else {
             echo 'fail';
         }
     }
-}
 
-$khuyenMaiCtl = new NhaCungCapController();
-$action = $_POST['action'];
+    public function getSuppiler($mancc){
+        echo json_encode($this->NhaCungCapRepo->getSuppiler($mancc));
+    }
+    }
 
-switch($action) {
-    case 'get':
-        $ma_km = $_POST['promoId'];
-        $khuyenMaiCtl->getNhaCungCap2($ma_km);
-        break;
-    case 'get-size':
-        $khuyenMaiCtl->getSize();
-        break;
-    case 'get-all':
-        $khuyenMaiCtl->getAllNhaCungCap();
+    $nccCtl = new NhaCungCapController();
+    $action = $_POST['action'];
+
+    switch ($action) {
+    case 'load':
+        $nccCtl->getData();
         break;
     case 'add':
-        $size = $khuyenMaiCtl->getSizeNhaCungCap();
-        if($size >= 0) {
-            $size += 1;
-            $promoId = 'NCC'.sprintf("%03d", $size);
-            $obj = json_decode(json_encode($_POST['promo']));
-            
-            $promo = new NhaCungCap(
-                $promoId,
-                $obj->{'promoName'},
-                $obj->{'promoPercent'},
-                $obj->{'promoCondition'},
-                0
-            );
-            
-            $khuyenMaiCtl->addNhaCungCap($promo);
-        }
+        $mancc=$_POST['mancc'];
+        $tenncc=$_POST['tenncc'];
+        $diachi=$_POST['diachi'];
+        $sodienthoai=$_POST['sodienthoai'];
+        $nccCtl->addSuppiler($mancc,$tenncc,$diachi,$sodienthoai); 
+        break; 
+    case 'update':
+        $mancc=$_POST['mancc'];
+        $tenncc=$_POST['tenncc'];
+        $diachi=$_POST['diachi'];
+        $sodienthoai=$_POST['sodienthoai'];
+        $nccCtl->updateSuppiler($mancc,$tenncc,$diachi,$sodienthoai);
+        break;
+    case 'get':
+        $mancc=$_POST['mancc'];
+        $nccCtl->getSuppiler($mancc);
         break;
     case 'delete':
-        $promoId = $_POST['promoId'];
-        $khuyenMaiCtl->deleteNhaCungCap($promoId);
-        break;
-    case 'update':
-        $obj = json_decode(json_encode($_POST['promo']));
-        $promoId = $obj->{'promoId'};
-
-        $promo = new NhaCungCap(
-            $promoId,
-            $obj->{'promoName'},
-            $obj->{'promoPercent'},
-            $obj->{'promoCondition'},
-            0
-        );
-
-        $khuyenMaiCtl->updateNhaCungCap($promo);
+        $productId = $_POST['mancc'];
+        $nccCtl->deleteNCC($productId);
         break;
     default:
         break;
