@@ -61,9 +61,7 @@ function addBill(bill) {
             url: 'server/src/controller/HoaDonController.php',
             method: 'POST',
             data: { action: 'add', bill },
-            success: res => {
-                resolve(res)
-            },
+            success: res => resolve(res),
             error: (xhr, status, error) => {
                 console.log(error)
                 reject(error)
@@ -223,22 +221,6 @@ function searchEndUserOrder() {
         }
     })
 }
-
-
-function addCTHD(cthd) {
-    return new Promise((resolve, reject) => {
-        $.ajax({
-            url: 'server/src/controller/CTHDController.php',
-            method: 'POST',
-            data: { action: 'add', cthd },
-            success: res => {
-                resolve(res)
-            },
-            error: (xhr, status, error) => {
-                console.log(error)
-                reject(error)
-            }
-        })
       
 function renderCustomerOrderDetail() {
     $(document).on('click', '.order-item__product-list', async function() {

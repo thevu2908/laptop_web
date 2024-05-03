@@ -506,6 +506,16 @@ ul, li {
     font-weight: 500;
 }
 
+.btn-payment {
+    background-color: var(--primary-color);
+    color: #fff;
+}
+
+.btn-payment:hover {
+    opacity: .9;
+    color: #fff;
+}
+
 /* END Checkout */
 
 /* MODAL */

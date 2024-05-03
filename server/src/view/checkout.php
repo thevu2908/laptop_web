@@ -24,21 +24,21 @@
                     <h5 class="checkout-header">Phương thức thanh toán</h5>
                     <ul class="checkout-method row ps-4" style="row-gap: 16px;">
                         <li class="col-6" >
-                            <div data-id="vnpay" class="checkout-address-btn flex-column select select-payment-method">
+                            <div data-id="VNPAY" class="checkout-address-btn flex-column select select-payment-method">
                                 <div class="checkout-method-title">Thanh toán VNPAY-QR</div>
                                 <div class="checkout-method-describe">Thanh toán qua Internet Banking, Visa, Master, JCB, VNPAY-QR</div>
                             </div>
                         </li>
                         <li class="col-6" >
-                            <div data-id="cod" class="checkout-address-btn flex-column select-payment-method">
+                            <div data-id="COD" class="checkout-address-btn flex-column select-payment-method">
                                 <div class="checkout-method-title">Thanh toán khi nhận hàng</div>
-                                <div class="checkout-method-describe">HEHE</div>
+                                <div class="checkout-method-describe">COD</div>
                             </div>
                         </li>
                         <li class="col-6" >
                             <div data-id="momo" class="checkout-address-btn flex-column select-payment-method">
-                                <div class="checkout-method-title">Thanh toán QR Code MoMo</div>
-                                <div class="checkout-method-describe">HEHE</div>
+                                <div class="checkout-method-title">Thanh toán qua MoMo bằng mã QR</div>
+                                <!-- <div class="checkout-method-describe">HEHE</div> -->
                             </div>
                         </li>
                     </ul>
@@ -78,7 +78,7 @@
                         <div>Thành tiền</div>
                         <span class="checkout-confirm__money-total" style="font-size: 20px; color: red;" >5.593.000₫</span>
                     </div>
-                    <button class="btn btn-success mt-4 mx-2" id="btn-payment" >THANH TOÁN</button>
+                    <button class="btn btn-payment mt-4 mx-2" id="btn-payment" >THANH TOÁN</button>
                 </div>
             </div>
         </div>
