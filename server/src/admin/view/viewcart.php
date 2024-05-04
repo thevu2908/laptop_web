@@ -60,10 +60,13 @@ if (isset($_SESSION['cartimport']) && is_array($_SESSION['cartimport'])) {
                 <td><?php echo number_format($gia_nhap, 0, ',', '.') . 'VND' ?></td>
                 <td><?php echo number_format($thanhtien, 0, ',', '.') . 'VND' ?></td>
                 <td>
-                    <?php if (true) { ?>
-                        <button class="btn-delete-productcart" value="<?php echo $ma . '.' . $each['ma_ncc'] ?>">Xóa</button>
-                    <?php } else echo 'Nothing' ?>
-                </td>
+    <?php if (true) { ?>
+        <button style="background-color: #ff0000; color: #fff; padding: 10px 12px; font-size: 16px; width: 80px;" class="btn-delete-productcart" value="<?php echo $ma . '.' . $each['ma_ncc'] . '.' . $each['ma_ctsp'] ?>">Xóa</button>
+    <?php } else echo 'Nothing' ?>
+</td>
+
+
+				
             </tr>
 <?php
         }
@@ -92,4 +95,5 @@ if (isset($_SESSION['cartimport']) && is_array($_SESSION['cartimport'])) {
 	</div>
 </main>
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <script src="/client/pages/PhieuNhap.js"></script>

@@ -1,5 +1,5 @@
 <?php
-// session_start();
+session_start();
 $action = '';
 
 require_once __DIR__ . '/../model/ConnectDB.php';
@@ -52,11 +52,13 @@ mysqli_free_result($result1);
             
 
         break;
-    case 'delete':
-        $ma = $_GET['ma'];
-        $mancc = $_GET['mancc'];
-        unset($_SESSION['cartimport'][$mancc][$ma]);
-        break;
+        case 'delete':
+            $ma = $_GET['ma'];
+            $mancc = $_GET['mancc'];
+            $mactsp = $_GET['mactsp']; // Lấy mã ctsp từ dữ liệu truyền vào
+            unset($_SESSION['cartimport'][$mancc][$mactsp]);
+            break;
+        
     case 'payimport':
         $ma = $_GET['ma'];
         $total = $_GET['total'];
