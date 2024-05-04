@@ -377,6 +377,12 @@
     margin-top: 10px;
 }
 
+.empty-cart-message {
+    color: red;
+    font-weight: bold;
+}
+
+
 .cart__right-pay a:hover {
     background-color: var(--primary-color);
 }
