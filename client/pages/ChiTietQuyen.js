@@ -154,7 +154,7 @@ function getAllListNhomQuyen(){
         method: "post",
         success: function (data) {
             var jsonData=JSON.parse(data);
-            var html="<option value='All'>All</option>";
+            var html="";
             jsonData.forEach((nhomquyen,index) => {
                 html+=`<option value="${nhomquyen['ma_quyen']}">${nhomquyen['ten_quyen']}</option>`;
             })
@@ -326,3 +326,34 @@ function changechk(obj){
         }
     }
 }
+$(document).on('click', "#add-admin-NQ", function () {
+    getSizeinTable("nhomquyen", "NQ", "#ma_quyen")
+    $('#addMulPhanQuyen').modal('hide');
+    $("#addNhomQuyen").modal('show');
+});
+
+$(document).on('click', "#add-close", function () {
+    $('#addMulPhanQuyen').modal('show');
+});
+
+$(document).on('click', "#addNhomQuyen", function () {
+    var ma_nhomquyen = $("#ma_quyen").val();
+    var ten_nhomquyen = $("#ten_quyen").val();
+    if (checkSpace(ten_nhomquyen)) {
+        $("#mess_tenquyen").html("Please input tenquyen");
+    } else {
+        $.ajax({
+            url: "server/src/controller/NhomQuyenController.php",
+            method: "POST",
+            data: { action: "Add", maquyen: ma_nhomquyen, tenquyen: ten_nhomquyen },
+            success: function (data) {
+                console.log(data);
+                $("form").trigger('reset');
+                $("#addNhomQuyen").modal("hide");
+                getSizeinTable("nhomquyen", "NQ", "#ma_quyen");
+                getAllListNhomQuyen();
+                $('#addMulPhanQuyen').modal('show');
+            }
+        })
+    }
+});

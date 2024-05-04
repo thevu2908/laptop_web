@@ -136,7 +136,7 @@
 				<form>
 					<div class="modal-header">
 						<h4 class="modal-title">Thêm Nhóm Quyền</h4>
-						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true" id="add-close">&times;</button>
 					</div>
 					<div class="modal-body">
 						<input type="hidden" class="form-control" required id="action" value="Add">
@@ -175,7 +175,7 @@
 					</select>
 				</div>
 				<div class="col-md-4 text-right"> <!-- Adjust the width of the button -->
-					<button type="button" class="btn btn-primary" href="#addNhomQuyen">Thêm Nhóm Quyền</button>
+					<button type="button" class="btn btn-primary" id="add-admin-NQ">Thêm Nhóm Quyền</button>
 				</div>
 			</div>
             <div class="modal-body">
