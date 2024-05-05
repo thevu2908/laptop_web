@@ -351,7 +351,7 @@ $(document).on('click', "#addNhomQuyen", function () {
                 $("form").trigger('reset');
                 $("#addNhomQuyen").modal("hide");
                 getSizeinTable("nhomquyen", "NQ", "#ma_quyen");
-                getAllListNhomQuyen();
+                getAllListNhomQuyen();    
                 $('#addMulPhanQuyen').modal('show');
             }
         })
