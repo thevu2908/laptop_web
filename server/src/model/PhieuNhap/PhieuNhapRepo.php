@@ -52,25 +52,22 @@ switch ($action) {
         }
         break;
     case 'payimport':
+        print_r($ma);
         for ($i = 0; $i < count($ma); $i++) {
-            $sql = " SELECT * FROM  sanpham sp JOIN chitietsanpham ctsp ON sp.ma_sp = ctsp.ma_sp where ma_ctsp='$ma[$i]'";
+            $sql = "SELECT * FROM  sanpham sp JOIN chitietsanpham ctsp ON sp.ma_sp = ctsp.ma_sp where ma_ctsp='$ma[$i]'";
             $result = (new ConnectDB())->select($sql);
             $each = mysqli_fetch_array($result);
-            $new_quantity = $each['so_luong'] + $quantity[$i];
+            $new_quantity = $each['so_luong'] + $quantity[$i];//
             $sql1 = "update sanpham sp JOIN chitietsanpham ctsp ON sp.ma_sp = ctsp.ma_sp
             set 
-            so_luong = '$new_quantity'
+            so_luong = $new_quantity
             where ma_ctsp ='$ma[$i]'";
             (new ConnectDB())->excute($sql1);
         }
-
-        
-
         $arrNCC_PN = [];
-        var_dump($arrNCC_PN);
         $today = date("Y-m-d");
-        session_start();
-        $manv = $_SESSION['ma_nv'];
+        //session_start();
+        $manv = "NV02";
         $cart = $_SESSION['cartimport'];
         foreach ($cart as $cart1) {
             foreach ($cart1 as $ma => $each) {
@@ -83,12 +80,14 @@ switch ($action) {
                 }
             }
         }
-        foreach ($arrNCC_PN as $each) {
+        print_r($arrNCC_PN);
+        foreach ($arrNCC_PN as $i) {
             $tongtien = 0;
-            foreach ($each as $key => $each1) {
-                $thanhtien = $each1['quantity'] * $each1['gia_nhap'];
+            foreach ($i as $key) {
+                var_dump($i);
+                $thanhtien = $key['quantity'] * $key['gia_nhap'];
                 $tongtien += $thanhtien;
-                $mancc = $each1["ma_ncc"];
+                $mancc = $key["ma_ncc"];
             }
 
              // Tạo mã mới dựa trên số lượng mã đã tồn tại

@@ -7,29 +7,26 @@ include __DIR__ . '/../model/PhieuNhap/PhieuNhap.php';
 include __DIR__ . '/../model/PhieuNhap/PhieuNhapRepo.php';
 
 
-if (isset($_GET['action'])) {
-    $action = $_GET['action'];
+if (isset($_REQUEST['action'])) {
+    $action = $_REQUEST['action'];
 }
 
 
 switch ($action) {
     case '':
+        $rows = [];
 
-$rows = [];
+        while ($row = mysqli_fetch_assoc($result)) {
+            $rows[] = $row;
+        }
 
-while ($row = mysqli_fetch_assoc($result)) {
-    $rows[] = $row;
-}
-
-$rows1 = [];
-while ($row1 = mysqli_fetch_assoc($result1)) {
-    $rows1[] = $row1;
-}
-// Free the result set
-mysqli_free_result($result);
-mysqli_free_result($result1);
-
-
+        $rows1 = [];
+        while ($row1 = mysqli_fetch_assoc($result1)) {
+            $rows1[] = $row1;
+        }
+        // Free the result set
+        mysqli_free_result($result);
+        mysqli_free_result($result1);
         break;
     case 'addtocart':
         $ma = $_GET['ma'];
@@ -59,11 +56,12 @@ mysqli_free_result($result1);
         break;
         
     case 'payimport':
-        $ma = $_GET['ma'];
-        //them ctsp
-        $mactsp = $_GET['mactsp'];
-        $total = $_GET['total'];
-        $quantity = $_GET['quantity'];
+        $ma = $_REQUEST['ma'];
+        print_r($ma);
+        $mactsp = $_REQUEST['mactsp'];
+        print_r($mactsp);
+        $total = $_REQUEST['total'];
+        $quantity = $_REQUEST['quantity'];
         require '../model/PhieuNhap/PhieuNhapRepo.php';
         break;
     case 'invoices':
