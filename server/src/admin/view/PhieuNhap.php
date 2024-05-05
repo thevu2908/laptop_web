@@ -53,8 +53,9 @@
                         </td>
                         <td><?php echo $each['so_luong'] ?></td>
                         <td>
-    						<input type="text" id="gia_nhap<?php echo $each['ma_ctsp'] ?>" class="input-gia-sp" value="<?php echo number_format($each['gia_nhap'], 0, ',', ',') ?>" style="width: 100px;" onkeyup="formatCurrency(this)" min="0" step="1000"> VND
-						</td>
+    <input type="text" id="gia_nhap_<?php echo $each['ma_ctsp']; ?>" class="input-gia-sp" value="<?php echo number_format($each['gia_nhap'], 0, ',', ','); ?>" style="width: 100px;" onkeyup="formatCurrency(this)" min="0" step="1000"> VND
+</td>
+
 
 						<script>
 							function formatCurrency(input) {

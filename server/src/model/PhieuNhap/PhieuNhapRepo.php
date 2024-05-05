@@ -64,19 +64,22 @@ switch ($action) {
             (new ConnectDB())->excute($sql1);
         }
 
+        
 
         $arrNCC_PN = [];
+        var_dump($arrNCC_PN);
         $today = date("Y-m-d");
         session_start();
         $manv = $_SESSION['ma_nv'];
         $cart = $_SESSION['cartimport'];
         foreach ($cart as $cart1) {
             foreach ($cart1 as $ma => $each) {
-                if (empty($arrNCC_PN[$each['ma_ncc']][$each['ma_sp']])) {
-                    $arrNCC_PN[$each['ma_ncc']][$each['ma_sp']]['ma_ncc'] = $each['ma_ncc'];
-                    $arrNCC_PN[$each['ma_ncc']][$each['ma_sp']]['ma_sp'] = $each['ma_sp'];
-                    $arrNCC_PN[$each['ma_ncc']][$each['ma_sp']]['quantity'] = $each['quantity'];
-                    $arrNCC_PN[$each['ma_ncc']][$each['ma_sp']]['gia_nhap'] = $each['gia_nhap'];
+                if (empty($arrNCC_PN[$each['ma_ncc']][$each['ma_sp']][$each['ma_ctsp']])) {
+                    $arrNCC_PN[$each['ma_ncc']][$each['ma_sp']][$each['ma_ctsp']]['ma_ncc'] = $each['ma_ncc'];
+                    $arrNCC_PN[$each['ma_ncc']][$each['ma_sp']][$each['ma_ctsp']]['ma_sp'] = $each['ma_sp'];
+                    $arrNCC_PN[$each['ma_ncc']][$each['ma_sp']][$each['ma_ctsp']]['ma_sp'] = $each['ma_ctsp'];
+                    $arrNCC_PN[$each['ma_ncc']][$each['ma_sp']][$each['ma_ctsp']]['quantity'] = $each['quantity'];
+                    $arrNCC_PN[$each['ma_ncc']][$each['ma_sp']][$each['ma_ctsp']]['gia_nhap'] = $each['gia_nhap'];
                 }
             }
         }
@@ -87,14 +90,22 @@ switch ($action) {
                 $tongtien += $thanhtien;
                 $mancc = $each1["ma_ncc"];
             }
-            $sql2 = "insert into phieunhap(ma_ncc, ma_nv, ngay_nhap, tong_tien, tinh_trang)
-            values ('$mancc', '$today', '$manv', '$tongtien')";
+
+             // Tạo mã mới dựa trên số lượng mã đã tồn tại
+                $sql_ma_pn = "SELECT COUNT(*) as count FROM phieunhap";
+                $result = (new ConnectDB())->query($sql_ma_pn);
+                $row = mysqli_fetch_assoc($result);
+                $count = $row['count'] + 1; // Số thứ tự mới
+                $maPN = 'PN' . str_pad($count, 4, '0', STR_PAD_LEFT);
+
+            $sql2 = "insert into phieunhap(ma_pn,ma_ncc, ma_nv, ngay_nhap, tong_tien, tinh_trang)
+            values ('$maPN','$mancc', '$manv', '$today', '$manv', '$tongtien',0)";
             $maPN = (new ConnectDB())->last_id($sql2);
             foreach ($each as $key => $each1) {
-                $ma = $each1['MaSP'];
+                $ma = $each1['ma_ctsp'];
                 $quantity = $each1['quantity'];
-                $thanhtien = $each1['quantity'] * $each1['GiaSP'];
-                $sql3 = "insert into chitietphieunhap(ma_pn, ma_ctsp, so_luong, gia_tien)
+                $thanhtien = $each1['quantity'] * $each1['gia_nhap'];
+                $sql3 = "insert into chitietphieunhap(ma_pn, ma_ctsp, so_luong,thanh_tien)
                 values ('$maPN', '$ma', '$quantity', '$thanhtien')";
                 (new ConnectDB())->excute($sql3);
                 unset($_SESSION['cartimport'][$mancc][$ma]);
@@ -109,6 +120,7 @@ switch ($action) {
     case 'detailinvoices':
         // $sql = "SELECT * FROM  sanpham sp JOIN chitietsanpham ctsp ON sp.ma_sp = ctsp.ma_sp where ma_ctsp='$ma'";
         //SELECT * FROM sanpham sp JOIN chitietsanpham ctsp ON sp.ma_sp = ctsp.ma_sp JOIN chitietphieunhap ctpn ON ctsp.ma_ctsp = ctpn.ma_ctsp JOIN phieunhap pn ON ctpn.ma_pn = pn.ma_pn;
+        //SELECT * FROM sanpham sp JOIN chitietsanpham ctsp ON sp.ma_sp = ctsp.ma_sp JOIN chitietphieunhap ctpn ON ctsp.ma_ctsp = ctpn.ma_ctsp ;
         $sql = "SELECT * FROM  sanpham sp JOIN chitietsanpham ctsp ON sp.ma_sp = ctsp.ma_sp where ma_ctsp='$ma'";
         $result = (new ConnectDB())->select($sql);
         break;

@@ -49,18 +49,19 @@ mysqli_free_result($result1);
         if ($quantity > 0) {
             $_SESSION['cartimport'][$mancc][$mactsp]['quantity'] = $quantity;
         }
-            
 
         break;
-        case 'delete':
-            $ma = $_GET['ma'];
-            $mancc = $_GET['mancc'];
-            $mactsp = $_GET['mactsp']; // Lấy mã ctsp từ dữ liệu truyền vào
-            unset($_SESSION['cartimport'][$mancc][$mactsp]);
-            break;
+    case 'delete':
+        $ma = $_GET['ma'];
+        $mancc = $_GET['mancc'];
+        $mactsp = $_GET['mactsp']; // Lấy mã ctsp từ dữ liệu truyền vào
+        unset($_SESSION['cartimport'][$mancc][$mactsp]);
+        break;
         
     case 'payimport':
         $ma = $_GET['ma'];
+        //them ctsp
+        $mactsp = $_GET['mactsp'];
         $total = $_GET['total'];
         $quantity = $_GET['quantity'];
         require '../model/PhieuNhap/PhieuNhapRepo.php';

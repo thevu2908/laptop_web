@@ -41,12 +41,14 @@ if (isset($_SESSION['cartimport']) && is_array($_SESSION['cartimport'])) {
         foreach ($cart1 as $ma => $each) {
 			if (array_key_exists("gia_nhap", $each)) {
             $gia_nhap = intval($each['gia_nhap']);
+			var_dump($gia_nhap);
 		} else {
 			continue;
 		}
             $quantity = intval($each['quantity']);
 
             $thanhtien = ($gia_nhap * $quantity);
+			
             $tongtien += $thanhtien;
 ?>
 						<input type="hidden" class="inp-ma-ncc" value="<?php echo $each['ma_ncc'] ?>">
@@ -64,9 +66,6 @@ if (isset($_SESSION['cartimport']) && is_array($_SESSION['cartimport'])) {
         <button style="background-color: #ff0000; color: #fff; padding: 10px 12px; font-size: 16px; width: 80px;" class="btn-delete-productcart" value="<?php echo $ma . '.' . $each['ma_ncc'] . '.' . $each['ma_ctsp'] ?>">Xóa</button>
     <?php } else echo 'Nothing' ?>
 </td>
-
-
-				
             </tr>
 <?php
         }
@@ -95,5 +94,6 @@ if (isset($_SESSION['cartimport']) && is_array($_SESSION['cartimport'])) {
 	</div>
 </main>
 
+<script src="path/to/sweetalert2.all.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <script src="/client/pages/PhieuNhap.js"></script>

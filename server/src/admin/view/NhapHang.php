@@ -13,30 +13,37 @@
                     <thead>
                         <tr>
                             <th class="w-auto">Mã Phiếu Nhập</th>
-                            <th>Mã Nhà Cung Cấp</th>
-                            <th>Mã Nhân Viên</th>
-                            <th>Ngày Nhập</th>
-                            <th>Tổng Tiền</th>
-                            <th>Action(Chi Tiết)</th>
+                            <th class="w-auto">Mã Nhà Cung Cấp</th>
+                            <th class="w-auto">Mã Nhân Viên</th>
+                            <th class="w-auto">Ngày Nhập</th>
+                            <th class="w-auto">Tổng Tiền</th>
+                            <th class="w-auto">Action(Chi Tiết)</th>
+                            <th class="w-auto">Tình trạng</th>
                         </tr>
                     </thead>
                     <tbody id="show-listNhomQuyen">
                         <?php 
+					    require_once __DIR__ . '/../../controller/PhieuNhapController.php';
+
                         if(isset($result) && is_array($result)) { // Kiểm tra xem biến $result đã được khai báo và có dữ liệu chưa
                             foreach ($result as $each) { 
                         ?>
                                 <tr>
-                                    <td><?php echo $each['MaPN'] ?></td>
-                                    <td><?php echo $each['MaNCC'] ?></td>
-                                    <td><?php echo $each['NgayNhap'] ?></td>
-                                    <td><?php echo $each['MaNV'] ?></td>
-                                    <td><?php echo number_format($each['TongTien'], 0, ',', '.') . 'VND' ?></td>
+                                    <td><?php echo $each['ma_pn'] ?></td>
+                                    <td><?php echo $each['ma_ncc'] ?></td>
+                                    <td><?php echo $each['ma_nv'] ?></td>
+                                    <td><?php echo $each['ngay_nhap'] ?></td>
+                                    
+                                    <td><?php echo number_format($each['tong_tien'], 0, ',', '.') . 'VND' ?></td>
                                     <td>
-                                        <?php if (true) {  ?>
-                                            <a href="/admin.php?controller=giohang&ma=<?php echo $each['MaPN'] ?>">
-                                                <button style="width:80px;" class="bnt-create-authorize">Chi tiết</button>
+                                            <a href="/admin.php?controller=giohang&ma=<?php echo $each['ma_pn'] ?>">
+                                                <button style="width: 80px;" class="bnt-create-authorize">Chi tiết</button>
                                             </a>
-                                        <?php } else echo "Nothing" ?>
+                                            <?php if ($each['tinh_trang'] == 0) {
+                                                echo '<button class="btn-process-bill" value="' . $each['ma_pn'] . '">Xử lý</button>';
+                                            } else {
+                                                echo 'Đã xử lý';
+                                            } ?>
                                     </td>
                                 </tr>
                         <?php 
@@ -62,4 +69,5 @@
     </div>
 </main>
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <script src="/client/pages/PhieuNhap.js"></script>

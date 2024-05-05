@@ -37,6 +37,11 @@ class ConnectDB {
         }
     }
 
+    public function query($sql) {
+        // Thực hiện truy vấn SQL và trả về kết quả
+        return mysqli_query($this->conn, $sql);
+    }
+
     public function last_id($sql) {
         $this->excute($sql);
         $last_id = mysqli_insert_id($this->conn);
