@@ -86,6 +86,7 @@ switch ($action) {
         foreach ($arrNCC_PN as $each) {
             $tongtien = 0;
             foreach ($each as $key => $each1) {
+                print_r($each1);
                 $thanhtien = $each1['quantity'] * $each1['gia_nhap'];
                 $tongtien += $thanhtien;
                 $mancc = $each1["ma_ncc"];

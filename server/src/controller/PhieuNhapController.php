@@ -1,5 +1,5 @@
 <?php
-session_start();
+// session_start();
 $action = '';
 
 require_once __DIR__ . '/../model/ConnectDB.php';
