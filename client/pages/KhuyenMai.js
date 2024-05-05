@@ -367,7 +367,7 @@ function getNextPromoId() {
         data: { action: 'get-size' },
         dataType: 'JSON',
         success: size => {
-            if(size) {
+            if(size >= 0) {
                 id = 'KM' + String(size+1).padStart(3, '0');
                 $("#promotion-id").val(id)
             }
