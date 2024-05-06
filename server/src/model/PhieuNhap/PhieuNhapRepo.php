@@ -24,7 +24,9 @@ if (isset($_SESSION['arrPQ'])) {
 
 switch ($action) {
     case '':
-        $sql = "SELECT * FROM sanpham sp JOIN chitietsanpham ctsp ON sp.ma_sp = ctsp.ma_sp";
+        $sql = "SELECT * FROM  sanpham sp JOIN chitietsanpham ctsp ON sp.ma_sp = ctsp.ma_sp JOIN mausac ms ON ctsp.ma_mau = ms.ma_mau
+        JOIN chipxuly cxl ON ctsp.ma_chip_xu_ly = cxl.ma_chip_xu_ly
+        JOIN carddohoa cdh ON ctsp.ma_carddohoa = cdh.ma_card";
         $result = (new ConnectDB())->select($sql);
         $sql1 = "select * from nhacungcap";
         $result1 = (new ConnectDB())->select($sql1);
@@ -32,7 +34,9 @@ switch ($action) {
     case 'addtocart':
         session_start();
         if (empty($_SESSION['cartimport'][$mancc][$ma])) {
-            $sql = "SELECT * FROM  sanpham sp JOIN chitietsanpham ctsp ON sp.ma_sp = ctsp.ma_sp where ma_ctsp='$ma'";
+                $sql = "SELECT * FROM  sanpham sp JOIN chitietsanpham ctsp ON sp.ma_sp = ctsp.ma_sp JOIN mausac ms ON ctsp.ma_mau = ms.ma_mau
+                JOIN chipxuly cxl ON ctsp.ma_chip_xu_ly = cxl.ma_chip_xu_ly
+                JOIN carddohoa cdh ON ctsp.ma_carddohoa = cdh.ma_card where ma_ctsp='$ma'";
             $result = (new ConnectDB())->select($sql);
             $each = mysqli_fetch_array($result);
             $sql1 = "select * from nhacungcap where ma_ncc='$mancc'";
@@ -44,6 +48,9 @@ switch ($action) {
             $_SESSION['cartimport'][$mancc][$ma]['hinh_anh'] = $each['hinh_anh'];
             $_SESSION['cartimport'][$mancc][$ma]['ma_ncc'] = $mancc;
             $_SESSION['cartimport'][$mancc][$ma]['ten_ncc'] = $each1['ten_ncc'];
+            $_SESSION['cartimport'][$mancc][$ma]['ram'] = $each['ram'];
+            $_SESSION['cartimport'][$mancc][$ma]['rom'] = $each['rom'];
+            $_SESSION['cartimport'][$mancc][$ma]['ten_mau'] = $each['ten_mau'];
             $_SESSION['cartimport'][$mancc][$ma]['gia_nhap'] = $gianhap;
             // $_SESSION['cartimport'][$mancc][$ma]['status'] = 'Chưa Xác Nhận';
             $_SESSION['cartimport'][$mancc][$ma]['quantity'] = 1;
@@ -67,13 +74,13 @@ switch ($action) {
         
 
         $arrNCC_PN = [];
-        var_dump($arrNCC_PN);
         $today = date("Y-m-d");
         session_start();
         $manv = $_SESSION['ma_nv'];
         $cart = $_SESSION['cartimport'];
         foreach ($cart as $cart1) {
             foreach ($cart1 as $ma => $each) {
+                print_r($each);
                 if (empty($arrNCC_PN[$each['ma_ncc']][$each['ma_sp']][$each['ma_ctsp']])) {
                     $arrNCC_PN[$each['ma_ncc']][$each['ma_sp']][$each['ma_ctsp']]['ma_ncc'] = $each['ma_ncc'];
                     $arrNCC_PN[$each['ma_ncc']][$each['ma_sp']][$each['ma_ctsp']]['ma_sp'] = $each['ma_sp'];

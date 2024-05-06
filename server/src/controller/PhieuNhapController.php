@@ -1,5 +1,9 @@
 <?php
 // session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
 $action = '';
 
 require_once __DIR__ . '/../model/ConnectDB.php';
@@ -7,8 +11,8 @@ include __DIR__ . '/../model/PhieuNhap/PhieuNhap.php';
 include __DIR__ . '/../model/PhieuNhap/PhieuNhapRepo.php';
 
 
-if (isset($_GET['action'])) {
-    $action = $_GET['action'];
+if (isset($_REQUEST['action'])) {
+    $action = $_REQUEST['action'];
 }
 
 
@@ -59,11 +63,11 @@ mysqli_free_result($result1);
         break;
         
     case 'payimport':
-        $ma = $_GET['ma'];
+        $ma = $_REQUEST['ma'];
         //them ctsp
-        $mactsp = $_GET['mactsp'];
-        $total = $_GET['total'];
-        $quantity = $_GET['quantity'];
+        $mactsp = $_REQUEST['mactsp'];
+        $total = $_REQUEST['total'];
+        $quantity = $_REQUEST['quantity'];
         require '../model/PhieuNhap/PhieuNhapRepo.php';
         break;
     case 'invoices':
