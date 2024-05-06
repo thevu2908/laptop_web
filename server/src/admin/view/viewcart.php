@@ -10,10 +10,8 @@
 						</div>
 						<?php if (true) {  ?>
 							<div class="col-sm-6 d-flex justify-content-end align-items-center">
-								<select class="form-control form-control-sm w-auto">
-									<option value="1">--Chọn Nhà Cung Cấp--</option>
-									<option value="2">Option 2</option>
-									<option value="3">Option 3</option>
+								<select class="form-control form-control-sm w-auto supplier-import-product" required>
+									<option value="">--Chọn Nhà Cung Cấp--</option>
 								</select>
 								<a href="#addimportModal" class="btn btn-success btn-pay-cartimport add" data-toggle="modal">
 									<i class="material-icons">&#xE147;</i>

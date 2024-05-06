@@ -19,19 +19,19 @@ if (isset($_REQUEST['action'])) {
 switch ($action) {
     case '':
 
-$rows = [];
+        $rows = [];
 
-while ($row = mysqli_fetch_assoc($result)) {
-    $rows[] = $row;
-}
+        while ($row = mysqli_fetch_assoc($result)) {
+            $rows[] = $row;
+        }
 
-$rows1 = [];
-while ($row1 = mysqli_fetch_assoc($result1)) {
-    $rows1[] = $row1;
-}
-// Free the result set
-mysqli_free_result($result);
-mysqli_free_result($result1);
+        $rows1 = [];
+        while ($row1 = mysqli_fetch_assoc($result1)) {
+            $rows1[] = $row1;
+        }
+        // Free the result set
+        mysqli_free_result($result);
+        mysqli_free_result($result1);
 
 
         break;
@@ -45,7 +45,7 @@ mysqli_free_result($result1);
         require '../admin/view/viewcart.php';
         break;
     case 'changequantity':
-        
+
         $ma = $_GET['ma'];
         $mancc = $_GET['mancc'];
         $mactsp = $_GET['mactsp'];
@@ -61,7 +61,7 @@ mysqli_free_result($result1);
         $mactsp = $_GET['mactsp']; // Lấy mã ctsp từ dữ liệu truyền vào
         unset($_SESSION['cartimport'][$mancc][$mactsp]);
         break;
-        
+
     case 'payimport':
         $ma = $_REQUEST['ma'];
         //them ctsp

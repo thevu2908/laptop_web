@@ -1,3 +1,7 @@
+$(document).ready(function() {
+    selectNhaCC();
+});
+
 $(document).ready(function () {
     $('.btn-add-cartimport').off('click').click(function (e) {
         e.preventDefault();
@@ -22,49 +26,6 @@ $(document).ready(function () {
         });
     });
 });
-
-
-
-// $(document).ready(function () {
-//     $('.btn-delete-productcart').click(function (e) {
-//         e.preventDefault();
-//         Swal.fire({
-//             title: "Bạn chắc chắn chưa?",
-//             text: "Once deleted, you will not be able to recover!",
-//             icon: "warning",
-//             showCancelButton: true,
-//             confirmButtonText: "Yes, delete it!",
-//             cancelButtonText: "No, cancel!",
-//             dangerMode: true,
-//         })
-//         .then((willDelete) => {
-//             if (willDelete) {
-//                 var deleteid = $(this).val();
-//                 console.log(deleteid);
-//                 var tmp = deleteid.split(".");
-//                 var ma = tmp[0]; // Lấy phần tử đầu tiên sau khi cắt chuỗi
-//                 var mancc = tmp[1]; // Lấy phần tử thứ hai sau khi cắt chuỗi
-//                 var mactsp = tmp[2]; // Lấy phần tử thứ ba sau khi cắt chuỗi
-//                 var status = "delete";
-//                 $.ajax({
-//                     type: "GET",
-//                     url: "/server/src/controller/PhieuNhapController.php",
-//                     data:  {
-//                         'ma': ma,
-//                         'mancc': mancc,
-//                         'mactsp': mactsp, // Thêm mã ctsp vào dữ liệu truyền đi
-//                         'action': status
-//                     },
-//                     success: function () {
-//                         location.reload();
-//                     }
-//                 });
-//             } else {
-//                 Swal.fire("Your imaginary file is safe!");
-//             }
-//         });
-//     });
-// });
 
 $(document).ready(function () {
     $('.btn-delete-productcart').click(function (e) {
@@ -185,7 +146,7 @@ $(document).ready(function () {
 
         // Kiểm tra xem đã chọn giá trị từ thẻ select chưa
         var selectedSupplier = $('.form-control').val();
-        if (selectedSupplier === "1") {
+        if (selectedSupplier === "") { // Thay đổi điều kiện thành ""
             // Nếu chưa chọn, hiển thị cảnh báo và không tiếp tục thực hiện thanh toán
             Swal.fire("Vui lòng chọn nhà cung cấp trước khi thanh toán!", "", "warning");
             return; // Ngăn chặn sự kiện click tiếp theo
@@ -259,7 +220,6 @@ $(document).ready(function () {
         });
     });
 });
-
 
 
 // $(document).ready(function () {
@@ -421,4 +381,24 @@ $(document).ready(function () {
           }
       });
   });
+
+
+function selectNhaCC() {
+    $.ajax({
+        url: "server/src/controller/NhaCungCapController.php",
+        data: { action: "load" },
+        method: "post",
+        dataType: "json",
+        success: function (data) {
+            console.log(data);
+            var html = "<option value=''>--Chọn Nhà Cung Cấp--</option>"; // Thêm giá trị mặc định vào đầu tiên
+            data.forEach((ncc, index) => {
+                html += `<option value="${ncc['ma_ncc']}">${ncc['ten_ncc']}</option>`;
+            });
+            $(".supplier-import-product").html(html); 
+        }
+    });
+}
+
+
   
