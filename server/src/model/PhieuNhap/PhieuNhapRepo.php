@@ -52,7 +52,8 @@ switch ($action) {
             $_SESSION['cartimport'][$mancc][$ma]['rom'] = $each['rom'];
             $_SESSION['cartimport'][$mancc][$ma]['ten_mau'] = $each['ten_mau'];
             // $_SESSION['cartimport'][$mancc][$ma]['gia_nhap'] = $gianhap;
-             $_SESSION['cartimport'][$mancc][$ma]['gia_nhap'] = $_GET['gianhap'];
+            $_SESSION['cartimport'][$mancc][$ma]['gia_nhap'] = $each['gia_nhap'];
+            $_SESSION['cartimport'][$mancc][$ma]['gia_nhap'] = $_GET['gianhap'];
 
 
             // $_SESSION['cartimport'][$mancc][$ma]['status'] = 'Chưa Xác Nhận';

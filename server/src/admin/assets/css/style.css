@@ -11,6 +11,14 @@
   transition: 0.3s linear;
 }
 
+.custom-table {
+  width: 100%;
+  max-width: 1200px; /* Điều chỉnh kích thước tối đa của bảng */
+  margin: 0 auto; /* Căn giữa bảng */
+}
+
+
+
 :root {
   --poppins: "Poppins", sans-serif;
   --lato: "Lato", sans-serif;
@@ -672,7 +680,7 @@ input[type="color" i] {
   background: #fff;
   padding: 20px 25px;
   border-radius: 3px;
-  min-width: 1000px;
+  min-width: 1205px;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
 }
 

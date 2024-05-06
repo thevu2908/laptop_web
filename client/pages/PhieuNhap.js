@@ -7,8 +7,8 @@ $(document).ready(function () {
         e.preventDefault();
         
         var deleteid = $(this).val();
-        var giaNhapId = "#gia_nhap_" + deleteid; // Sửa ở đây để đảm bảo lấy đúng id của ô input
-        var giaNhap = $(giaNhapId).val(); // Sử dụng jQuery để lấy giá trị của ô input
+        var giaNhapId = "#gia_nhap_" + deleteid; 
+        var giaNhap = $(giaNhapId).val(); 
 
         $.ajax({
             type: "GET",
@@ -59,7 +59,6 @@ $(document).ready(function () {
                     }
                 });
             } else if (willDelete.dismiss === Swal.DismissReason.cancel) {
-                // Người dùng chọn "No, cancel!"
                 Swal.fire("Cancelled", "Your item is safe :)", "info");
             }
         });
