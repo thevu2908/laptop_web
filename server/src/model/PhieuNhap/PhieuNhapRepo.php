@@ -51,7 +51,10 @@ switch ($action) {
             $_SESSION['cartimport'][$mancc][$ma]['ram'] = $each['ram'];
             $_SESSION['cartimport'][$mancc][$ma]['rom'] = $each['rom'];
             $_SESSION['cartimport'][$mancc][$ma]['ten_mau'] = $each['ten_mau'];
-            $_SESSION['cartimport'][$mancc][$ma]['gia_nhap'] = $gianhap;
+            // $_SESSION['cartimport'][$mancc][$ma]['gia_nhap'] = $gianhap;
+             $_SESSION['cartimport'][$mancc][$ma]['gia_nhap'] = $_GET['gianhap'];
+
+
             // $_SESSION['cartimport'][$mancc][$ma]['status'] = 'Chưa Xác Nhận';
             $_SESSION['cartimport'][$mancc][$ma]['quantity'] = 1;
         } else {

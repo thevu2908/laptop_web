@@ -7,16 +7,14 @@ $(document).ready(function () {
         e.preventDefault();
         
         var deleteid = $(this).val();
-        // var mancc = document.querySelector('.item-ma-ncc').value;
-        var giaNhapId = "gia_nhap_" + deleteid;
-        var giaNhap = document.getElementById(giaNhapId).value;
+        var giaNhapId = "#gia_nhap_" + deleteid; // Sửa ở đây để đảm bảo lấy đúng id của ô input
+        var giaNhap = $(giaNhapId).val(); // Sử dụng jQuery để lấy giá trị của ô input
 
         $.ajax({
             type: "GET",
             url: "/server/src/controller/PhieuNhapController.php",
             data: {
                 'ma': deleteid,
-                // 'mancc': mancc,
                 'gianhap': giaNhap,
                 'action': "addtocart"
             },

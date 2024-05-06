@@ -65,12 +65,10 @@
 									</td> -->
 									<td><?php echo $each['so_luong'] ?></td>
 									<td>
-										<!-- <div style="position: relative;">
-											<input type="text" id="gia_nhap_<?php echo $each['ma_ctsp']; ?>" class="input-gia-sp" value="<?php echo number_format($each['gia_nhap'], 0, ',', ','); ?>" style="width: 100px;" onkeyup="formatCurrency(this)" min="0" step="1000">
-											<span style="position: absolute; right: 5px; top: 50%; transform: translateY(-50%);">VNĐ</span>
-										</div> -->
+
 										<div style="position: relative; display: inline-block;">
-											<input type="text" id="gia_nhap_<?php echo $each['ma_ctsp']; ?>" class="input-gia-sp form-control" value="<?php echo number_format($each['gia_nhap'], 0, ',', ','); ?>" style="width: 120px; " onkeyup="formatCurrency(this)" min="0" step="1000">
+											<input type="number" id="gia_nhap_<?php echo $each['ma_ctsp']; ?>" class="input-gia-sp form-control" value="<?php echo $each['gia_nhap']; ?>" style="width: 120px; " onkeyup="formatCurrency(this); updatePrice(this);" min="0" step="1000">
+											<!-- <input type="text" id="gia_nhap_<?php echo $each['ma_ctsp']; ?>" class="input-gia-sp form-control" value="<?php $each['gia_nhap']; ?>" style="width: 120px; " onkeyup="formatCurrency(this)" min="0" step="1000"> -->
 											<span style="position: absolute; left: calc(100% + 10px); top: 50%; transform: translate(-100%, -50%); white-space: nowrap;">đ</span>
 										</div>
 									</td>
@@ -84,7 +82,7 @@
 									</script>
 									<!-- <input type="hidden" class="item-ma-ncc" name="ma_ncc" value="<?php echo $each1['ma_ncc']; ?>">  -->
 									<td>
-									<button type="button" class="btn btn-primary btn-add-cartimport" value="<?php echo $each['ma_ctsp'] ?>">Thêm</button>
+										<button type="button" class="btn btn-primary btn-add-cartimport" value="<?php echo $each['ma_ctsp'] ?>">Thêm</button>
 									</td>
 								</tr>
 							<?php
