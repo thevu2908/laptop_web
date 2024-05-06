@@ -170,11 +170,11 @@
                 </button>
             </div>
 			<div class="modal-header">
-				<div class="col-md-8"> <!-- Adjust the width of the select element -->
+				<div class="col-md-8">
 					<select class="form-control mb-3" id="admin-select-MaNhomQuyen">
 					</select>
 				</div>
-				<div class="col-md-4 text-right"> <!-- Adjust the width of the button -->
+				<div class="col-md-4 text-right">
 					<button type="button" class="btn btn-primary" id="add-admin-NQ">Thêm Nhóm Quyền</button>
 				</div>
 			</div>

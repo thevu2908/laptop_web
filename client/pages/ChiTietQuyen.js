@@ -328,19 +328,25 @@ function changechk(obj){
 }
 $(document).on('click', "#add-admin-NQ", function () {
     getSizeinTable("nhomquyen", "NQ", "#ma_quyen")
-    $('#addMulPhanQuyen').modal('hide');
-    $("#addNhomQuyen").modal('show');
+    $('#addMulPhanQuyen').modal('hide')
+    $('#addNhomQuyen').on('hidden.bs.modal', function () {
+        $('body').addClass('modal-open')
+    })
+    $("#addNhomQuyen").modal('show')
 });
 
 $(document).on('click', "#add-close", function () {
-    $('#addMulPhanQuyen').modal('show');
+    $('#addNhomQuyen').on('hidden.bs.modal', function () {
+        $('body').addClass('modal-open')
+    })
+    $('#addMulPhanQuyen').modal('show')
 });
 
 $(document).on('click', "#addNhomQuyen", function () {
-    var ma_nhomquyen = $("#ma_quyen").val();
-    var ten_nhomquyen = $("#ten_quyen").val();
+    var ma_nhomquyen = $("#ma_quyen").val()
+    var ten_nhomquyen = $("#ten_quyen").val()
     if (checkSpace(ten_nhomquyen)) {
-        $("#mess_tenquyen").html("Please input tenquyen");
+        $("#mess_tenquyen").html("Please input tenquyen")
     } else {
         $.ajax({
             url: "server/src/controller/NhomQuyenController.php",
@@ -348,11 +354,14 @@ $(document).on('click', "#addNhomQuyen", function () {
             data: { action: "Add", maquyen: ma_nhomquyen, tenquyen: ten_nhomquyen },
             success: function (data) {
                 console.log(data);
-                $("form").trigger('reset');
-                $("#addNhomQuyen").modal("hide");
-                getSizeinTable("nhomquyen", "NQ", "#ma_quyen");
-                getAllListNhomQuyen();    
-                $('#addMulPhanQuyen').modal('show');
+                $("form").trigger('reset')
+                $("#addNhomQuyen").modal("hide")
+                getSizeinTable("nhomquyen", "NQ", "#ma_quyen")
+                getAllListNhomQuyen()
+                $('#addNhomQuyen').on('hidden.bs.modal', function () {
+                    $('body').addClass('modal-open')
+                })
+                $('#addMulPhanQuyen').modal('show')
             }
         })
     }
