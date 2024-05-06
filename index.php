@@ -58,8 +58,6 @@
             echo '<script src="./client/pages/DanhGia.js"></script>';
         } else if (isset($_REQUEST['gio-hang'])) {
             include './server/src/view/cart.php';
-            include './client/pages/DanhGia.js';
-            echo '<script src="./client/pages/KhuyenMai.js"></script>';
         } else if (isset($_REQUEST['thanh-toan'])) {
             include './server/src/view/checkout.php';
             echo '<script src="client/pages/DiaChi.js"></script>';
@@ -67,12 +65,11 @@
             echo '<script src="client/pages/ThongTinNhanHang.js"></script>';
             echo '<script src="client/pages/KhuyenMai.js"></script>';
             echo '<script src="client/pages/HoaDon.js"></script>';
-        }else if (isset($_REQUEST["bao-hanh"])) {
-            include "./server/src/view/bao-hanh.php";
-        }else if (isset($_REQUEST['bao-hanh'])) {
+            echo '<script src="./client/pages/ChiTietHoaDon.js"></script>';
+        } else if (isset($_REQUEST['bao-hanh'])) {
             include './server/src/view/guarantee.php';
             echo '<script src="client/pages/BaoHanh.js"></script>';
-        }else if (isset($_REQUEST['doi-tra'])) {
+        } else if (isset($_REQUEST['doi-tra'])) {
             include './server/src/view/refund.php';
             echo '<script src="client/pages/DoiTra.js"></script>';
         } else if (isset($_REQUEST['tim-kiem'])) {
@@ -92,9 +89,9 @@
         ?>
     </div>
 
-    <script src="./client/pages/GioHang.js"></script>
-    <script src="./client/pages/DanhGia.js"></script>
     <script src="server/src/assets/js/main.js"></script>
+    <script src="./client/pages/GioHang.js"></script>
+    <script src="./client/pages/KhuyenMai.js"></script>
     <script src="./client/pages/ThuongHieu.js"></script>
     <script src="./client/pages/TheLoai.js"></script>
     <script src="./client/pages/MauSac.js"></script>

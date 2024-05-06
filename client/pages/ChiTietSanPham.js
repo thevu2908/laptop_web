@@ -5,6 +5,8 @@ $(document).ready(() => {
     handleAddProductDetail()
     renderUpdateProductDetailModal()
     handleUpdateProductDetailPrice()
+    renderUpdateProductDetailChietKhauModal()
+    handleUpdateProductDetailChietKhau()
     renderDeleteProductDetailModal()
     handleDeleteProductDetail()
     searchProductDetail()
@@ -38,7 +40,7 @@ function getPaginationProductDetails(productId) {
         $.ajax({
             url: 'server/src/controller/PaginationController.php',
             method: 'GET',
-            data: { action: 'pagination', table: 'chitietsanpham', page, id: productId, limit: 3 },
+            data: { action: 'pagination', table: 'chitietsanpham', page, id: productId, limit: 4 },
             dataType: 'JSON',
             success: productDetails => resolve(productDetails),
             error: (xhr, status, error) => {
@@ -103,7 +105,7 @@ async function renderAdminProductDetail(data) {
                         <td>${productDetail.ten_card}</td>
                         <td>${productDetail.ram.toUpperCase()}</td>
                         <td>${productDetail.rom.toUpperCase()}</td>
-                        <td class="d-flex justify-content-center"">
+                        <td class="d-flex justify-content-center border-0">
                             <ul class="product-detail-${index} mb-0" style="width: fit-content;">
                                 
                             </ul>
@@ -120,7 +122,7 @@ async function renderAdminProductDetail(data) {
                                 <i class="material-icons" data-toggle="tooltip" title="Xóa">&#xE872;</i>
                             </a>
                             <a href="/admin.php?controller=danhgia&id=${productDetail.ma_ctsp}" class="info btn-product-detail" data-id=${productDetail.ma_ctsp}>
-                                <i class="fa-solid fa-circle-info" title="Xem đánh giá" ></i>
+                            <i class="fa-solid fa-message" title="Xem đánh giá"></i>
                             </a>
                         </td>
                     </tr>
@@ -130,7 +132,7 @@ async function renderAdminProductDetail(data) {
             })
 
             $('.admin-product-detail-list').html(html)
-            totalPage(productDetails.count, 3)
+            totalPage(productDetails.count, 4)
         } else {
             $('.admin-product-detail-list').html('')
         }
@@ -273,6 +275,60 @@ function handleUpdateProductDetailPrice() {
             } else {
                 alert('Xảy ra lỗi trong quá trình cập nhật giá')
             }
+        }
+    })
+}
+
+function renderUpdateProductDetailChietKhauModal() {
+    $(document).on('click', '.btn-update-product-detail-chietkhau-modal', () => {
+        const checkInputElements = document.querySelectorAll('.admin-product-detail-list input[name="chk[]"]')
+        const checkedProductDetails = Array.from(checkInputElements).filter(item => item.checked).map(item => item.value)
+        if (checkedProductDetails.length > 0) {
+            $('#updateProductDetailChietKhauModal').modal('show')
+        } else {
+            alert('Vui lòng chọn chi tiết sản phẩm')
+        }
+    })
+}
+
+function updateProductDetailChietKhau(productDetailId, chietkhau) {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: 'server/src/controller/CTSanPhamController.php',
+            method: 'POST',
+            data: { action: 'update-chietkhau', productDetailId, chietkhau },
+            success: res => res === 'success' ? resolve(true) : resolve(false),
+            error: (xhr, status, error) => {
+                console.log(error)
+                reject(error)
+            }
+        })
+    })
+}
+
+function handleUpdateProductDetailChietKhau() {
+    $(document).on('click', '.btn-update-product-detail-chietkhau', async () => {
+        const firstCheckInputElement = document.querySelector('table.table thead input[type=checkbox]')
+        const checkInputElements = document.querySelectorAll('.admin-product-detail-list input[name="chk[]"]')
+        const checkedProductDetails = Array.from(checkInputElements).filter(item => item.checked).map(item => item.value)
+        const chietkhau = $('#updateProductDetailChietKhauModal #product-detail-chietkhau').val()
+        
+        if (!chietkhau) {
+            alert('Vui lòng nhập chiết khấu')
+            $('#updateProductDetailChietKhauModal #product-detail-chietkhau').focus()
+            return
+        }
+
+        const promises = checkedProductDetails.map(productDetailId => updateProductDetailChietKhau(productDetailId, chietkhau))
+        const res = await Promise.all(promises)
+        if (res.includes(false)) {
+            alert('Xảy ra lỗi trong quá trình cập nhật chiết khấu')
+        } else {
+            alert('Cập nhật chiết khấu các sản phẩm chọn thành công')
+            firstCheckInputElement.checked = false
+            $('#updateProductDetailChietKhauModal').modal('hide')
+            $('#updateProductDetailChietKhauModal #product-detail-chietkhau').val('')
+            renderAdminProductDetail()
         }
     })
 }

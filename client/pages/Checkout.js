@@ -1,4 +1,5 @@
 $(document).ready(() => {
+    initCheckoutStorage()
     loadCartToCheckout()
     loadPromoToCheckout()
 
@@ -8,6 +9,17 @@ $(document).ready(() => {
     selectPaymentMethod()
     handlePayment()
 })
+
+async function initCheckoutStorage() {
+    const maKH = await getMaKH();
+    const pay_id = $('.select-payment-method.select').attr('data-id');
+        
+    let payMethodData = sessionStorage.getItem('pttt') ? JSON.parse(sessionStorage.getItem('pttt')) : {};
+    if (payMethodData[maKH]) delete payMethodData[maKH];
+    
+    payMethodData[maKH] = pay_id;
+    sessionStorage.setItem('pttt', JSON.stringify(payMethodData));
+}
 
 async function loadCartToCheckout() {
     const maKH = await getMaKH()
@@ -108,9 +120,10 @@ async function loadTTNHToCheckout() {
 
             if(info && info.length > 0) {
                 info.forEach(item => {
+                    const selected = item.dia_chi_mac_dinh == 1 ? 'select' : ''
                     html += `
                         <li class="col-6" >
-                            <div class="checkout-address-btn position-relative select-ttnh" data-id="${item.ma_ttnh}" >
+                            <div class="checkout-address-btn position-relative select-ttnh ${selected}" data-id="${item.ma_ttnh}" >
                                 <div class="checkout-address__info">
                                     <h5 style="font-weight: 900;">${item.ho_ten}</h5>
                                     <h6 class="mb-1 mt-1" >${item.so_dien_thoai}</h6>
@@ -131,6 +144,15 @@ async function loadTTNHToCheckout() {
             `
 
             $('.checkout-address').html(html)
+            
+            const ttnh_id = $('.select-ttnh.select').attr('data-id')
+        
+            let ttnhData = sessionStorage.getItem('ttnh') ? JSON.parse(sessionStorage.getItem('ttnh')) : {};
+            if (ttnhData[maKH]) delete ttnhData[maKH];
+            
+            ttnhData[maKH] = ttnh_id;
+            sessionStorage.setItem('ttnh', JSON.stringify(ttnhData));
+
             handleUpdateTTNHCheckout()
             handleDeleteTTNHCheckout()
             selectTTNH()
@@ -249,23 +271,16 @@ function handleDeleteTTNHCheckout() {
 function selectTTNH() {
     $(document).on('click', '.select-ttnh', async function(e) {
         e.preventDefault();
-        
         $('.select-ttnh').removeClass('select');
-        
         $(this).addClass('select');
 
-        const ttnh_id = $(this).attr('data-id')
         const maKH = await getMaKH()
+        const ttnh_id = $(this).attr('data-id')
         
-        let ttnhData = sessionStorage.getItem('ttnh');
-        ttnhData = ttnhData ? JSON.parse(ttnhData) : {};
-
-        if (ttnhData[maKH]) {
-            delete ttnhData[maKH];
-        }
+        let ttnhData = sessionStorage.getItem('ttnh') ? JSON.parse(sessionStorage.getItem('ttnh')) : {};
+        if (ttnhData[maKH]) delete ttnhData[maKH];
         
         ttnhData[maKH] = ttnh_id;
-
         sessionStorage.setItem('ttnh', JSON.stringify(ttnhData));
     });
 }
@@ -289,49 +304,39 @@ function payment(method) {
 function selectPaymentMethod() {
     $(document).on('click', '.select-payment-method', async function(e) {
         e.preventDefault();
-
         $('.select-payment-method').removeClass('select');
-        
         $(this).addClass('select');
         
-        const pay_id = $(this).attr("data-id");
         const maKH = await getMaKH();
+        const pay_id = $(this).attr("data-id");
         
-        let payMethodData = sessionStorage.getItem('pttt');
-        payMethodData = payMethodData ? JSON.parse(payMethodData) : {};
-
-        if (payMethodData[maKH]) {
-            delete payMethodData[maKH];
-        }
+        let payMethodData = sessionStorage.getItem('pttt') ? JSON.parse(sessionStorage.getItem('pttt')) : {};
+        if (payMethodData[maKH]) delete payMethodData[maKH];
         
         payMethodData[maKH] = pay_id;
-
         sessionStorage.setItem('pttt', JSON.stringify(payMethodData));
     });
 }
 
-function handleRandomCTSP(maHD) {
-    $('.checkout__right-product').toArray().forEach(async function(e) {
+async function handleRandomCTSP(maHD) {
+    const promises = $('.checkout__right-product').toArray().map(async function(e) {
         const maCTSP = $(e).attr('data-id');
         const soLuong = parseInt($(e).find('.checkout__right-quantity').text().split(':')[1].trim());
-        const giaSP = $(e).find('.checkout__right-product-price').text().replace(/[₫.]/g, "");
+        const giaSP = $(e).find('.checkout__right-product-price').text().replace(/[₫.]/g, '');
 
         const cthd = {
-            "maHD": maHD,
-            "maCTSP": maCTSP,
-            "soLuong": soLuong,
-            "giaSP": giaSP
+            'maHD': maHD,
+            'maCTSP': maCTSP,
+            'soLuong': soLuong,
+            'giaSP': giaSP
         }
         
         const res = await addCTHD(cthd)
-
-        if(res == "success") {
-            console.log("Thêm CTHD thành công")
-        }
-        else {
-            console.log("Xảy ra lỗi khi thêm CTHD")
-        }
+        return res === 'success';
     })
+
+    const results = await Promise.all(promises);
+    return results.every(result => result);
 }
 
 function handlePayment() {
@@ -339,43 +344,40 @@ function handlePayment() {
         e.preventDefault();
 
         const maKH = await getMaKH()
-        
-        let ptttData = sessionStorage.getItem('pttt');
-        ptttData = ptttData ? JSON.parse(ptttData) : {};
-
-        let ttnhData = sessionStorage.getItem('ttnh');
-        ttnhData = ttnhData ? JSON.parse(ttnhData) : {};
-
+        const ptttData = sessionStorage.getItem('pttt') ? JSON.parse(sessionStorage.getItem('pttt')) : {};
+        const ttnhData = sessionStorage.getItem('ttnh') ? JSON.parse(sessionStorage.getItem('ttnh')) : {};
         const today = new Date().toISOString().slice(0, 10);
-        const tmpTotal = $('.checkout-confirm__tmp-total').text().replace(/[₫.]/g, "");
-        const promotion = $('.checkout-confirm__promo').text().replace(/[^0-9]/g, "");
-        const finishTotal = $('.checkout-confirm__money-total').text().replace(/[₫.]/g, "");
+        const tmpTotal = $('.checkout-confirm__tmp-total').text().replace(/[₫.]/g, '');
+        const promotion = $('.checkout-confirm__promo').text().replace(/[^0-9]/g, '');
+        const finishTotal = $('.checkout-confirm__money-total').text().replace(/[₫.]/g, '');
         const note = $('.checkout-note-input').val();
-        const status = "Chưa xác nhận"
+        const status = 'Chưa xác nhận'
         
         // const resPayment = await payment(ptttData[maKH])
 
         const bill = {
-            "maKH": maKH,
-            "maTTNH": ttnhData[maKH],
-            "date": today,
-            "tmpTotal": tmpTotal,
-            "promotion": promotion,
-            "finishTotal": finishTotal,
-            "payMethod": ptttData[maKH],
-            "note": note,
-            "status": status
+            'maKH': maKH,
+            'maTTNH': ttnhData[maKH],
+            'date': today,
+            'tmpTotal': tmpTotal,
+            'promotion': promotion,
+            'finishTotal': finishTotal,
+            'payMethod': ptttData[maKH],
+            'note': note,
+            'status': status
         }
 
         const resAddBill = await addBill(bill)
-        console.log(resAddBill)
 
-        if(resAddBill) {
-            alert("Đơn hàng đã được gửi đi, vui lòng chờ nhân viên xác nhận")
-            handleRandomCTSP(resAddBill)
-        }
-        else {
-            alert("Đã xảy ra lỗi, vui lòng thử lại")
+        if (resAddBill.startsWith('HD')) {
+            if (handleRandomCTSP(resAddBill)) {
+                alert('Đơn hàng đã được gửi đi, vui lòng chờ nhân viên xác nhận')
+            } else {
+                alert('Đã xảy ra lỗi, vui lòng thử lại')
+            }
+        } else {
+            console.log(resAddBill)
+            alert('Đã xảy ra lỗi, vui lòng thử lại')
         }
     });
 }

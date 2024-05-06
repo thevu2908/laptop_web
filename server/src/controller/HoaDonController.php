@@ -14,6 +14,10 @@ class HoaDonController {
         echo json_encode($this->hoadonRepo->getAllHoaDon());
     }
 
+    public function getHoaDon($id) {
+        echo json_encode($this->hoadonRepo->getHoaDon($id));
+    }
+
     public function getKhachHang($id) {
        echo json_encode($this->hoadonRepo->getThongTinKhachHang($id));
     }
@@ -30,7 +34,7 @@ class HoaDonController {
         if ($this->hoadonRepo->addHoaDon($hoadon)) {
             echo $hoadon->getMaHd();
         } else {
-            echo 'fail';
+            echo $this->hoadonRepo->addHoaDon($hoadon);
         }
     }
 }
@@ -41,6 +45,10 @@ $action = isset($_REQUEST['action']) ? $_REQUEST['action'] : null;
 switch ($action) {
     case 'get-all':
         $hoadonctl->getAllHoaDon();
+        break;
+    case 'get':
+        $id = $_POST['id'];
+        $hoadonctl->getHoaDon($id);
         break;
     case 'get-khach-hang':
         $id = $_POST['id'];

@@ -3,6 +3,7 @@ $(document).ready(() => {
     handleRenderCustomerOrder()
     filterEndUserOrderStatus()
     searchEndUserOrder()
+    renderCustomerOrderDetail()
 })
 
 // function loadBillData() {
@@ -60,13 +61,24 @@ function addBill(bill) {
             url: 'server/src/controller/HoaDonController.php',
             method: 'POST',
             data: { action: 'add', bill },
-            success: res => {
-                resolve(res)
-            },
+            success: res => resolve(res),
             error: (xhr, status, error) => {
                 console.log(error)
                 reject(error)
             }
+        })
+    })
+}
+
+function getOrder(id) {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: 'server/src/controller/HoaDonController.php',
+            method: 'POST',
+            data: { action: 'get', id },
+            dataType: 'JSON',
+            success: order => resolve(order),
+            error: (xhr, status, error) => reject(error)
         })
     })
 }
@@ -134,7 +146,7 @@ async function renderCustomerOrder() {
                                 <div class="order-item__status ${status}">${order.tinh_trang.toUpperCase()}</div>
                             </div>
                             <div class="line"></div>
-                            <div class="order-item__product-list">
+                            <div class="order-item__product-list" href="#order-detail-modal" data-bs-toggle="modal" data-bs-target="#order-detail-modal">
             `
     
             const orderDetails = await getChiTietHoaDon(order.ma_hd)
@@ -209,20 +221,108 @@ function searchEndUserOrder() {
         }
     })
 }
+      
+function renderCustomerOrderDetail() {
+    $(document).on('click', '.order-item__product-list', async function() {
+        try {
+            const orderId = $(this).parents('.order-item').find('.order-item__id span').text()
+            const order = await getOrder(orderId)
+            const orderDetails = await getChiTietHoaDon(orderId)
+            const address = await getThongTinNhanHang(order.ma_ttnh)
+            console.log(order)
+            let html = `
+                <div class="order-detail_address">
+                    <h3>Địa chỉ nhận hàng</h3>
+                    <div class="order-detail__address-info">
+                        <div class="order-detail__address-info-item">
+                            <label>Người nhận:</label>
+                            <span>${address.ho_ten}</span>
+                        </div>
+                        <div class="order-detail__address-info-item">
+                            <label>Số điện thoại:</label>
+                            <span>${address.so_dien_thoai}</span>
+                        </div>
+                        <div class="order-detail__address-info-item">
+                            <label>Ngày đặt hàng:</label>
+                            <span>${convertDate(order.ngay_tao)}</span>
+                        </div>
+                        <div class="order-detail__address-info-item">
+                            <label>Địa chỉ:</label>
+                            <span>${address.dia_chi}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="order-detail__products">
+                    <h3>Sản phẩm</h3>
+                    <div class="order-detail__product-list">
+            `
 
-function addCTHD(cthd) {
-    return new Promise((resolve, reject) => {
-        $.ajax({
-            url: 'server/src/controller/CTHDController.php',
-            method: 'POST',
-            data: { action: 'add', cthd },
-            success: res => {
-                resolve(res)
-            },
-            error: (xhr, status, error) => {
-                console.log(error)
-                reject(error)
-            }
-        })
+            orderDetails.forEach((orderDetail, index) => {
+                html += `
+                    <a href="index.php?san-pham&id=${orderDetail.ma_sp}" class="order-detail__product-item">
+                        <div class="order-detail__product-info">
+                            <img src="${orderDetail.hinh_anh}" class="order-detail__product-img">
+                            <div class="order-detail__product-info-detail">
+                                <div class="order-detail__product-name">
+                                    <span>${orderDetail.ten_sp} ${orderDetail.ram}/${orderDetail.rom}</span>
+                                </div>
+                                <div>
+                                    <div class="order-detail__product-color">Màu sắc: ${orderDetail.ten_mau}</div>
+                                    <div class="order-detail__product-quantity">x${orderDetail.so_luong}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="order-detail__product-price">
+                            <span>₫${formatCurrency(orderDetail.gia_sp)}</span>
+                        </div>
+                    </a>
+                `
+                index !== orderDetails.length - 1 ? html += '<div class="line"></div>' : ''
+            })
+
+            html += '</div></div>'
+
+            $('#order-detail-modal .modal-title').html(`Chi tiết đơn hàng <b>${order.ma_hd}</b>`)
+            $('#order-detail-modal .modal-body').html(html)
+            $('#order-detail-modal .modal-footer').html(`
+                <div class="order-detail__total">
+                    <div class="order-detail__total-row">
+                        <div class="order-detail__total-label">
+                            <span>Tổng tiền sản phẩm</span>
+                        </div>
+                        <div class="order-detail__total-price">
+                            <span>₫${formatCurrency(order.tong_tien)}</span>
+                        </div>
+                    </div>
+                    <div class="order-detail__total-row">
+                        <div class="order-detail__total-label">
+                            <span>Giảm giá khuyến mãi</span>
+                        </div>
+                        <div class="order-detail__total-price">
+                            <span>${order.khuyen_mai > 0 ? `-₫${order.khuyen_mai}` : '₫0'}</span>
+                        </div>
+                    </div>
+                    <div class="order-detail__total-row final">
+                        <div class="order-detail__total-label">
+                            <span>Thành tiền</span>
+                        </div>
+                        <div class="order-detail__total-price">
+                            <span>₫${formatCurrency(order.thanh_tien)}</span>
+                        </div>
+                    </div>
+                    <div class="order-detail__payment">
+                        <div class="order-detail__total-label">
+                            <span>Phương thức thanh toán</span>
+                        </div>
+                        <div class="order-detail__total-price">
+                            <span>${order.hinh_thuc}</span>
+                        </div>
+                    </div>
+                </div>
+            `)
+        } catch (error) {
+            console.log(error)
+            alert('Có lỗi xảy ra, vui lòng thử lại sau!')
+        }
     })
 }
