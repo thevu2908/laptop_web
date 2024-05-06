@@ -346,7 +346,7 @@ $(document).on('click', "#addNhomQuyen", function () {
     var ma_nhomquyen = $("#ma_quyen").val()
     var ten_nhomquyen = $("#ten_quyen").val()
     if (checkSpace(ten_nhomquyen)) {
-        $("#mess_tenquyen").html("Please input tenquyen")
+        alert("Vui lòng nhập tên quyền")
     } else {
         $.ajax({
             url: "server/src/controller/NhomQuyenController.php",
