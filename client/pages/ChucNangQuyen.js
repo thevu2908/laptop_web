@@ -76,20 +76,22 @@ function renderChucNangQuyen(data){
 function addChucNang(){
     getSizeinTable("chucnangquyen","CN","#admin-MaChucNang");
     $(document).on("click","#admin-addChucNang",function(){
-        var maChucNang=$("#admin-MaChucNang").val();
         var tenChucNang=$("#admin-TenChucNang").val();
-        $.ajax({
-            url:"server/src/controller/ChucNangQuyenController.php",
-            method:"POST",
-            data:{action:"add",maChucNang:maChucNang,tenChucNang:tenChucNang},
-            dataType:"json",
-            success:function(data){
-                $("form").trigger('reset');
-                $("#addChucNang").modal("hide");
-                loadChucNangQuyen()
-            }
-        })
-
+        if(checkSpace(tenChucNang)){
+            alert("Vui lòng nhập tên chức năng")
+        }else{
+            $.ajax({
+                url:"server/src/controller/ChucNangQuyenController.php",
+                method:"POST",
+                data:{action:"add",maChucNang:maChucNang,tenChucNang:tenChucNang},
+                dataType:"json",
+                success:function(data){
+                    $("form").trigger('reset');
+                    $("#addChucNang").modal("hide");
+                    loadChucNangQuyen()
+                }
+            })
+        }
     })
 }
 function editChucNang(){
