@@ -216,7 +216,7 @@ function resetPassword(email) {
                 renderResetSuccess(email)
                 countDownBackHomePage()
             } else {
-                alert('Xayra ra lỗi, vui lòng thử lại sau')
+                alert('Xảy ra ra lỗi, vui lòng thử lại sau')
             }
         } catch (error) {
             console.error(error)

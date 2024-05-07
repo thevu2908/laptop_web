@@ -358,6 +358,7 @@ $(document).on('click', "#addNhomQuyen", function () {
                 $("#addNhomQuyen").modal("hide")
                 getSizeinTable("nhomquyen", "NQ", "#ma_quyen")
                 getAllListNhomQuyen()
+                selectNhomQuyen()
                 $('#addNhomQuyen').on('hidden.bs.modal', function () {
                     $('body').addClass('modal-open')
                 })
