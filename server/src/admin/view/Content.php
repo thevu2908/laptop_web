@@ -8,7 +8,4 @@
       </button>
     </div>
   </form>
-
-  <input type="checkbox" hidden id="switch-mode" />
-  <label for="switch-mode" class="switch-mode"></label>
 </nav>
