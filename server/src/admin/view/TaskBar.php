@@ -129,7 +129,7 @@ function kiemtraquyen($arr,$chucnang){
       </li>";
       }
       if(kiemtraquyen($arr,"Phiếu Nhập") && $chitietquyen->kiemtrahangdong($maquyen,"Phiếu Nhập","Xem")){
-        echo " <li class='side-menu-item ".( $page === 'phieunhap' ? 'active' : '')."'>
+        echo " <li class='side-menu-item ".( $page === 'phieunhap' || $page === 'nhaphang' || $page === 'giohang' ? 'active' : '')."'>
         <a href='/admin.php?controller=phieunhap' class='nav-link'>
         <i class='fa-solid fa-right-left'></i>
           <span class='text'>Nhập Hàng</span>

@@ -1,14 +1,14 @@
-$(document).ready(function() {
+$(document).ready(function () {
     selectNhaCC();
 });
 
 $(document).ready(function () {
     $('.btn-add-cartimport').off('click').click(function (e) {
         e.preventDefault();
-        
+
         var deleteid = $(this).val();
-        var giaNhapId = "#gia_nhap_" + deleteid; 
-        var giaNhap = $(giaNhapId).val(); 
+        var giaNhapId = "#gia_nhap_" + deleteid;
+        var giaNhap = $(giaNhapId).val();
 
         $.ajax({
             type: "GET",
@@ -37,31 +37,31 @@ $(document).ready(function () {
             cancelButtonText: "No, cancel!",
             dangerMode: true,
         })
-        .then((willDelete) => {
-            if (willDelete.isConfirmed) {
-                var deleteid = $(this).val();
-                var tmp = deleteid.split(".");
-                var ma = tmp[0];
-                var mancc = tmp[1];
-                var mactsp = tmp[2];
-                var status = "delete";
-                $.ajax({
-                    type: "GET",
-                    url: "/server/src/controller/PhieuNhapController.php",
-                    data:  {
-                        'ma': ma,
-                        'mancc': mancc,
-                        'mactsp': mactsp,
-                        'action': status
-                    },
-                    success: function () {
-                        location.reload();
-                    }
-                });
-            } else if (willDelete.dismiss === Swal.DismissReason.cancel) {
-                Swal.fire("Cancelled", "Your item is safe :)", "info");
-            }
-        });
+            .then((willDelete) => {
+                if (willDelete.isConfirmed) {
+                    var deleteid = $(this).val();
+                    var tmp = deleteid.split(".");
+                    var ma = tmp[0];
+                    var mancc = tmp[1];
+                    var mactsp = tmp[2];
+                    var status = "delete";
+                    $.ajax({
+                        type: "GET",
+                        url: "/server/src/controller/PhieuNhapController.php",
+                        data: {
+                            'ma': ma,
+                            'mancc': mancc,
+                            'mactsp': mactsp,
+                            'action': status
+                        },
+                        success: function () {
+                            location.reload();
+                        }
+                    });
+                } else if (willDelete.dismiss === Swal.DismissReason.cancel) {
+                    Swal.fire("Cancelled", "Your item is safe :)", "info");
+                }
+            });
     });
 });
 
@@ -338,46 +338,44 @@ $(document).ready(function () {
 //     });
 // });
 
-
-
-
 $(document).ready(function () {
-      $('.change-quanty-cartimport').on('change', () => {
-          var data = document.querySelectorAll('.change-quanty-cartimport');
-          var manccTMP = document.querySelectorAll('.inp-ma-ncc');
-          
-          // Keep track of the number of successful AJAX requests
-          var successCount = 0;
-          
-          for (let i = 0; i < data.length; i++) {
-              var deleteid = data[i].value;
-              var ma = data[i].dataset.ma;
-              var mactsp = data[i].dataset.mactsp;
-              var mancc = manccTMP[i].value;
-              var status = "changequantity";
+    $('.change-quanty-cartimport').on('change', () => {
+        var data = document.querySelectorAll('.change-quanty-cartimport');
+        var manccTMP = document.querySelectorAll('.inp-ma-ncc');
 
-              $.ajax({
-                  type: "GET",
-                  url: "/server/src/controller/PhieuNhapController.php",
-                  data: {
-                      'quantity': deleteid,
-                      'ma': ma,
-                      'mactsp':mactsp,
-                      'mancc': mancc,
-                      'action': status,
-                  },
-                  success: function () {successCount++;
+        // Keep track of the number of successful AJAX requests
+        var successCount = 0;
+
+        for (let i = 0; i < data.length; i++) {
+            var deleteid = data[i].value;
+            var ma = data[i].dataset.ma;
+            var mactsp = data[i].dataset.mactsp;
+            var mancc = manccTMP[i].value;
+            var status = "changequantity";
+
+            $.ajax({
+                type: "GET",
+                url: "/server/src/controller/PhieuNhapController.php",
+                data: {
+                    'quantity': deleteid,
+                    'ma': ma,
+                    'mactsp': mactsp,
+                    'mancc': mancc,
+                    'action': status,
+                },
+                success: function () {
+                    successCount++;
                     if (successCount >= data.length)
-                    
-                         location.reload();
-                  },
-                  error: function (xhr, status, error) {
-                      console.error(xhr.responseText);
-                  }
-              });
-          }
-      });
-  });
+
+                        location.reload();
+                },
+                error: function (xhr, status, error) {
+                    console.error(xhr.responseText);
+                }
+            });
+        }
+    });
+});
 
 
 function selectNhaCC() {
@@ -392,10 +390,7 @@ function selectNhaCC() {
             data.forEach((ncc, index) => {
                 html += `<option value="${ncc['ma_ncc']}">${ncc['ten_ncc']}</option>`;
             });
-            $(".supplier-import-product").html(html); 
+            $(".supplier-import-product").html(html);
         }
     });
 }
-
-
-  

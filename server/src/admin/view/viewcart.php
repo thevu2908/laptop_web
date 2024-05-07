@@ -48,7 +48,7 @@
 								foreach ($cart1 as $ma => $each) {
 									if (array_key_exists("gia_nhap", $each)) {
 										$gia_nhap = intval($each['gia_nhap']);
-										var_dump($gia_nhap);
+										// var_dump($gia_nhap);
 									} else {
 										continue;
 									}

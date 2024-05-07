@@ -1,5 +1,5 @@
 <main>
-	<div class="container-xl">
+	<div class="container-xl admin-import-table">
 		<div class="table-responsive">
 			<div class="table-wrapper">
 				<div class="table-title">
@@ -28,12 +28,12 @@
 							<th>Hình Ảnh</th>
 							<th>RAM</th>
 							<th>ROM</th>
-							<th>Tên Màu</th>
+							<th>Màu</th>
 							<th>CPU</th>
-							<th>Card</th>
+							<th>GPU</th>
 							<!-- <th>Nhà cung cấp</th> -->
 							<th>Số lượng</th>
-							<th>Giá Gốc</th>
+							<th>Giá hiện tại</th>
 							<th>Giá</th>
 							<th class="w-auto">Actions</th>
 						</tr>
@@ -73,7 +73,7 @@
 											<input type="number" id="gia_nhap_<?php echo $each['ma_ctsp']; ?>" class="input-gia-sp form-control" value="<?php echo $each['gia_nhap']; ?>" style="width: 120px; " onkeyup="formatCurrency(this); updatePrice(this);" min="0" step="1000">
 											<!-- <input type="text" id="gia_nhap_<?php echo $each['ma_ctsp']; ?>" class="input-gia-sp form-control" value="<?php echo number_format($each['gia_nhap'], 0, ',', ','); ?>" style="width: 120px; " onkeyup="formatCurrency(this); updatePrice(this);" min="0" step="1000"> -->
 											<!-- <input type="text" id="gia_nhap_<?php echo $each['ma_ctsp']; ?>" class="input-gia-sp form-control" value="<?php echo number_format($each['gia_nhap'], 0, ',', ','); ?>" style="width: 120px; " onkeyup="formatCurrency(this)" min="0" step="1000"> -->
-											<span style="position: absolute; left: calc(100% + 10px); top: 50%; transform: translate(-100%, -50%); white-space: nowrap;">đ</span>
+											<span style="position: absolute; left: calc(100% + 10px); top: 50%; transform: translate(-100%, -50%); white-space: nowrap;"></span>
 										</div>
 									</td>
 									<script>

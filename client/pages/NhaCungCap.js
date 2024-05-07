@@ -10,7 +10,6 @@ $(document).ready(() => {
         renderDeleteNCCModal()
         handleDeleteNCC()
         showSuppiler()
-        
     }
 })
 
@@ -64,7 +63,6 @@ async function renderSuppilerData() {
         phanquyen_chucnang("Nhà Cung Cấp")
         getSizeinTable("nhacungcap","NCC","#admin-nhacungcap-manhacungcap")
         $('.admin-suppiler-list').html(html)
-        
     }
 }
 function showSuppiler(){
@@ -87,9 +85,6 @@ function showSuppiler(){
         })
     })
 }
-
-
-
 
 function updateSuppiler() {
     $(document).on('click', "#admin-btn-updateNhaCungCap", function() {
@@ -177,8 +172,9 @@ function renderSuppilerAccountData() {
         }
     })
 }
+
 function addSuppiler() {
-    getSizeinTable("nhacungacap", "NCC", "#admin-nhacungcap-manhacungcap");
+    getSizeinTable("nhacungcap", "NCC", "#admin-nhacungcap-manhacungcap");
     $(document).on('click', '#admin-btn-addNhaCungCap', function() {
         console.log('information');
         var mancc = $("#admin-nhacungcap-manhacungcap").val();
@@ -227,8 +223,6 @@ function addSuppiler() {
         }
     });
 }
-
-
 
 function getNCC(mancc) {
     return new Promise((resolve, reject) => {
@@ -341,5 +335,3 @@ function handleDeleteNCC() {
         }
     })
 }
-
-

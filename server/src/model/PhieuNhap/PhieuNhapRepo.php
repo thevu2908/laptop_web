@@ -75,8 +75,6 @@ switch ($action) {
             (new ConnectDB())->excute($sql1);
         }
 
-        
-
         $arrNCC_PN = [];
         $today = date("Y-m-d");
         session_start();
@@ -104,14 +102,14 @@ switch ($action) {
             }
 
              // Tạo mã mới dựa trên số lượng mã đã tồn tại
-                $sql_ma_pn = "SELECT COUNT(*) as count FROM phieunhap";
-                $result = (new ConnectDB())->query($sql_ma_pn);
-                $row = mysqli_fetch_assoc($result);
-                $count = $row['count'] + 1; // Số thứ tự mới
-                $maPN = 'PN' . str_pad($count, 4, '0', STR_PAD_LEFT);
+            $sql_ma_pn = "SELECT COUNT(*) as count FROM phieunhap";
+            $result = (new ConnectDB())->query($sql_ma_pn);
+            $row = mysqli_fetch_assoc($result);
+            $count = $row['count'] + 1; // Số thứ tự mới
+            $maPN = 'PN' . str_pad($count, 4, '0', STR_PAD_LEFT);
 
             $sql2 = "insert into phieunhap(ma_pn,ma_ncc, ma_nv, ngay_nhap, tong_tien, tinh_trang)
-            values ('$maPN','$mancc', '$manv', '$today', '$manv', '$tongtien',0)";
+            values ('$maPN','$mancc', '$manv', '$today', '$manv', '$tongtien','0')";
             $maPN = (new ConnectDB())->last_id($sql2);
             foreach ($each as $key => $each1) {
                 $ma = $each1['ma_ctsp'];
@@ -123,6 +121,8 @@ switch ($action) {
                 unset($_SESSION['cartimport'][$mancc][$ma]);
             }
         }
+        break;
+    case 'add-import':
         break;
     case 'invoices':
         $sql = "select * from phieunhap";

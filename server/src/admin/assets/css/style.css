@@ -680,7 +680,7 @@ input[type="color" i] {
   background: #fff;
   padding: 20px 25px;
   border-radius: 3px;
-  min-width: 1205px;
+  min-width: 1000px;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
 }
 
@@ -1188,4 +1188,8 @@ table.table .avatar {
 #tableChiTietDoiTra th,
 #tableChiTietDoiTra td {
     width: auto;
-} 
+}
+
+.admin-import-table .table-wrapper {
+  min-width: 1200px;
+}
