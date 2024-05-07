@@ -11,9 +11,4 @@
 
   <input type="checkbox" hidden id="switch-mode" />
   <label for="switch-mode" class="switch-mode"></label>
-
-  <a href="#" class="notification">
-    <i class="fas fa-bell"></i>
-    <span class="num">28</span>
-  </a>
 </nav>
