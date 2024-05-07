@@ -16,6 +16,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Laptop Admin</title>
   <link rel="icon" type="image/x-icon" href="server\src\admin\assets\images\admin-icon.svg">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
@@ -33,12 +34,12 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
   <script src="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
   <script lang="javascript" src="https://cdn.sheetjs.com/xlsx-0.20.1/package/dist/xlsx.full.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.2.0/chart.umd.js"></script>
 </head>
 <body>
   <div id="admin-main">
     <input type="hidden" value="<?= $ma_quyen ?>" id="admin-nhomquyen">
-    <?php include "./server/src/admin/view/Taskbar.php";
-    //  echo '<script src="./client/pages/Taskbar.js"></script>'; ?>
+    <?php include "./server/src/admin/view/Taskbar.php";?>
     <div class="content">
       <?php include "./server/src/admin/view/Content.php" ?>
       <?php
@@ -47,6 +48,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
         switch ($tmp) {
           case "dashboard":
             include "./server/src/admin/view/Dashboard.php";
+            echo '<script src="./client/pages/DashBoard.js"></script>';
             break;
           case "sanpham": {
               include "./server/src/admin/view/SanPham.php";
@@ -156,6 +158,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
         }
       } else {
         include "./server/src/admin/view/DashBoard.php";
+        echo '<script src="./client/pages/DashBoard.js"></script>';
       }
       ?>
     </div>

@@ -17,8 +17,6 @@
   margin: 0 auto; /* Căn giữa bảng */
 }
 
-
-
 :root {
   --poppins: "Poppins", sans-serif;
   --lato: "Lato", sans-serif;
@@ -34,6 +32,9 @@
   --light-yellow: #fff2c6;
   --orange: #fd7238;
   --light-orange: #ffe0d3;
+  --Heading: #111;
+  --Note: #95989d;
+  --Body-Text: #575864;
 }
 
 html {
@@ -50,6 +51,26 @@ body.dark {
   --light: #0c0c1e;
   --grey: #060714;
   --dark: #fbfbfb;
+}
+
+.body-title-2 {
+  color: var(--Heading);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 17px;
+}
+
+.text-tiny {
+  color: var(--Note);
+  font-size: 12px;
+  line-height: 15px;
+}
+
+.body-text {
+  color: var(--Body-Text);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
 }
 
 .br-50 {
@@ -74,6 +95,12 @@ input[type="color" i] {
   border-color: buttonborder;
   border-image: initial;
   padding: 1px 2px;
+}
+
+img {
+  height: auto;
+  max-width: 100%;
+  vertical-align: middle;
 }
 
 #admin-main {
@@ -423,7 +450,6 @@ input[type="color" i] {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 24px;
-  margin-top: 36px;
 }
 
 .content main .box-info li {
@@ -782,7 +808,7 @@ table.table td a.delete {
 }
 
 table.table td a.info {
-  color: #74C0FC;
+  color: #74c0fc;
 }
 
 table.table td i {
@@ -1182,14 +1208,141 @@ table.table .avatar {
 }
 /**/
 #tableChiTietBaoHanh th,
-    #tableChiTietBaoHanh td {
-        width: auto;
-    }
+#tableChiTietBaoHanh td {
+  width: auto;
+}
 #tableChiTietDoiTra th,
 #tableChiTietDoiTra td {
-    width: auto;
+  width: auto;
 }
 
 .admin-import-table .table-wrapper {
   min-width: 1200px;
+}
+
+.statistic-filter {
+  font-family: "Helvetica Neue", sans-serif;
+}
+
+.statistic-filter label {
+  margin-bottom: 0;
+  font-size: 16px;
+}
+
+.statistic-filter input,
+.statistic-filter select {
+  font-size: 14px;
+  padding: 2px 6px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #495057;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+}
+
+.btn-filter__date {
+  padding: 4px 8px;
+  font-size: 14px;
+  margin-left: 10px;
+}
+
+.revenue-chart__box {
+  position: relative;
+  margin-top: 24px;
+}
+
+.revenue-chart__box span {
+  position: absolute;
+  left: 50%;
+  bottom: -14px;
+  font-size: 14px;
+}
+
+.best-seller-product__container .dropdown-menu {
+  transition: none;
+  min-width: 120px;
+  padding: 0;
+}
+
+.best-seller-product__container .dropdown-menu .dropdown-item {
+  font-size: 14px;
+  padding: 8px 16px;
+}
+
+.best-seller-product__container .dropdown-menu .dropdown-item:hover {
+  color: #2275fc;
+}
+
+.best-seller-product__container .dropdown-menu .dropdown-item:focus {
+  border: none;
+  background-color: transparent;
+  color: inherit;
+  outline: none;
+}
+
+.best-seller-product__container .dropdown-toggle::after {
+  display: none;
+}
+
+.view-quantity {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 15px;
+  display: flex;
+  align-items: center;
+  color: #95989d;
+}
+
+.view-quantity i {
+  width: 16px;
+}
+
+.product-list {
+  gap: 14px;
+}
+
+.product-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  transition: all 0.3s ease;
+  padding-right: 5px;
+  font-family: "Inter", sans-serif;
+}
+
+.product-img {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  flex-shrink: 0;
+  padding: 5px;
+  border-radius: 6px;
+  background: #fff;
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.product-item:hover {
+  background-color: #EDF1F5;
+  border-radius: 10px;
+}
+
+.product-item .text-tiny {
+  line-height: 20px;
+}
+
+.product-item .body-text {
+  color: var(--Heading);
+}
+
+.product-name {
+  max-width: 250px;
+}
+
+.product-name:hover {
+  color: #0168fa;
+  cursor: pointer;
 }
