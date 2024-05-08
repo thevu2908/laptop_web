@@ -7,7 +7,6 @@ $(document).ready(function () {
         e.preventDefault();
         
         var deleteid = $(this).val();
-        // var mancc = document.querySelector('.item-ma-ncc').value;
         var giaNhapId = "gia_nhap_" + deleteid;
         var giaNhap = document.getElementById(giaNhapId).value;
         console.log(giaNhap);
@@ -68,88 +67,15 @@ $(document).ready(function () {
     });
 });
 
-// $(document).ready(function () {
-//     $('.btn-pay-cartimport').click(function (e) {
-//         e.preventDefault();
-//         var total = $('input[name="totalPriceImport"]').val();
-//         var status = "payimport";
-//         var arrQuantity = [];
-//         var arrMaSP = [];
-//         var arrMaCTSP = [];
-
-//         // Lặp qua tất cả các input để thu thập dữ liệu số lượng
-//         $('.change-quanty-cartimport').each(function () {
-//             arrQuantity.push($(this).val());
-//             arrMaSP.push($(this).data('ma'));
-//             arrMaCTSP.push($(this).data('mactsp'));
-//         });
-
-//         Swal.fire({
-//             title: "Bạn chắc chắn chưa?",
-//             text: "Once paid, you will not be able to recover!",
-//             icon: "warning",
-//             showCancelButton: true,
-//             confirmButtonColor: "#3085d6",
-//             cancelButtonColor: "#d33",
-//             confirmButtonText: "Yes, pay it!",
-//             cancelButtonText: "No, cancel!",
-//         }).then((result) => {
-//             if (result.isConfirmed) {
-//                 $.ajax({
-//                     type: "POST",
-//                     url: "/server/src/controller/PhieuNhapController.php",
-//                     data: {
-//                         'quantity': arrQuantity,
-//                         'ma': arrMaSP,
-//                         'mactsp': arrMaCTSP,
-//                         'total': total,
-//                         'action': status,
-//                     },
-//                     success: function () {
-//                         // Xóa tất cả các sản phẩm trong giỏ hàng
-//                         $('.btn-delete-productcart').each(function () {
-//                             var value = $(this).val().split('.');
-//                             var ma = value[0];
-//                             var mancc = value[1];
-//                             var mactsp = value[2];
-//                             $.ajax({
-//                                 type: "GET",
-//                                 url: "/server/src/controller/PhieuNhapController.php",
-//                                 data: {
-//                                     'ma': ma,
-//                                     'mancc': mancc,
-//                                     'mactsp': mactsp,
-//                                     'action': 'delete'
-//                                 },
-//                                 success: function () {
-//                                     // Sau khi xóa thành công, chuyển hướng đến trang /admin.php?controller=phieunhap
-//                                     window.location.href = "/admin.php?controller=phieunhap";
-//                                 },
-//                                 error: function () {
-//                                     Swal.fire("Error!", "There was an error processing your request.", "error");
-//                                 }
-//                             });
-//                         });
-//                     },
-//                     error: function () {
-//                         Swal.fire("Error!", "There was an error processing your request.", "error");
-//                     },
-//                 });
-//             }
-//         });
-//     });
-// });
 
 $(document).ready(function () {
     $('.btn-pay-cartimport').click(function (e) {
         e.preventDefault();
 
-        // Kiểm tra xem đã chọn giá trị từ thẻ select chưa
         var selectedSupplier = $('.form-control').val();
-        if (selectedSupplier === "") { // Thay đổi điều kiện thành ""
-            // Nếu chưa chọn, hiển thị cảnh báo và không tiếp tục thực hiện thanh toán
+        if (selectedSupplier === "") { 
             Swal.fire("Vui lòng chọn nhà cung cấp trước khi thanh toán!", "", "warning");
-            return; // Ngăn chặn sự kiện click tiếp theo
+            return; 
         }
 
         var total = $('input[name="totalPriceImport"]').val();
@@ -223,129 +149,6 @@ $(document).ready(function () {
         });
     });
 });
-
-
-// $(document).ready(function () {
-//     $('.btn-pay-cartimport').click(function (e) {
-//         e.preventDefault();
-//         var total = $('input[name="totalPriceImport"]').val();
-//         var status = "payimport";
-//         var arrQuantity = [];
-//         var arrMaSP = [];
-//         var arrMaCTSP = [];
-//         console.log(total)
-//         // Lặp qua tất cả các input để thu thập dữ liệu số lượng
-//         $('.change-quanty-cartimport').each(function () {
-//             arrQuantity.push($(this).val());
-//             arrMaSP.push($(this).data('ma'));
-//             arrMaCTSP.push($(this).data('mactsp'));
-//         });
-//         $.ajax({
-//             type: "POST",
-//             url: "/server/src/controller/PhieuNhapController.php",
-//             data: {
-//                 quantity: arrQuantity,
-//                 ma: arrMaSP,
-//                 mactsp: arrMaCTSP,
-//                 total: total,
-//                 action: status,
-//             },
-//             dataType: 'json',
-//             success: function (data) {
-//                 console.log(data);
-//                 // Xóa tất cả các sản phẩm trong giỏ hàng
-//                 $('.btn-delete-productcart').each(function () {
-//                     var value = $(this).val().split('.');
-//                     var ma = value[0];
-//                     var mancc = value[1];
-//                     var mactsp = value[2];
-//                     $.ajax({
-//                         type: "GET",
-//                         url: "/server/src/controller/PhieuNhapController.php",
-//                         data: {
-//                             'ma': ma,
-//                             'mancc': mancc,
-//                             'mactsp': mactsp,
-//                             'action': 'delete'
-//                         },
-//                         success: function () {
-//                             // Sau khi xóa thành công, chuyển hướng đến trang /admin.php?controller=phieunhap
-//                             window.location.href = "/admin.php?controller=phieunhap";
-//                         },
-//                         error: function () {
-//                             Swal.fire("Error!", "There was an error processing your request.", "error");
-//                         }
-//                     });
-//                 });
-//             },
-//             error: function (error) {
-//                 //Swal.fire("Error!", "There was an error processing your request.", error);
-//                 console.log(error.responseText)
-//             },
-//         });
-//         // Swal.fire({
-//         //     title: "Bạn chắc chắn chưa?",
-//         //     text: "Once paid, you will not be able to recover!",
-//         //     icon: "warning",
-//         //     showCancelButton: true,
-//         //     confirmButtonColor: "#3085d6",
-//         //     cancelButtonColor: "#d33",
-//         //     confirmButtonText: "Yes, pay it!",
-//         //     cancelButtonText: "No, cancel!",
-//         // }).then((result) => {
-//         //     if (result.isConfirmed) {
-//         //         console.log(arrQuantity)
-//         //         console.log(arrMaSP)
-//         //         console.log(arrMaCTSP)
-//         //         $.ajax({
-//         //             type: "POST",
-//         //             url: "server/src/controller/PhieuNhapController.php",
-//         //             data: {
-//         //                 quantity: arrQuantity,
-//         //                 ma: arrMaSP,
-//         //                 mactsp: arrMaCTSP,
-//         //                 total: total,
-//         //                 action: status,
-//         //             },
-//         //             dataType: 'json',
-//         //             success: function (data) {
-//         //                 console.log(data);
-//         //                 // Xóa tất cả các sản phẩm trong giỏ hàng
-//         //                 $('.btn-delete-productcart').each(function () {
-//         //                     var value = $(this).val().split('.');
-//         //                     var ma = value[0];
-//         //                     var mancc = value[1];
-//         //                     var mactsp = value[2];
-//         //                     $.ajax({
-//         //                         type: "GET",
-//         //                         url: "server/src/controller/PhieuNhapController.php",
-//         //                         data: {
-//         //                             'ma': ma,
-//         //                             'mancc': mancc,
-//         //                             'mactsp': mactsp,
-//         //                             'action': 'delete'
-//         //                         },
-//         //                         success: function () {
-//         //                             // Sau khi xóa thành công, chuyển hướng đến trang /admin.php?controller=phieunhap
-//         //                             window.location.href = "/admin.php?controller=phieunhap";
-//         //                         },
-//         //                         error: function () {
-//         //                             Swal.fire("Error!", "There was an error processing your request.", "error");
-//         //                         }
-//         //                     });
-//         //                 });
-//         //             },
-//         //             error: function (error) {
-//         //                 Swal.fire("Error!", "There was an error processing your request.", error);
-//         //             },
-//         //         });
-//         //     }
-//         // });
-//     });
-// });
-
-
-
 
 $(document).ready(function () {
       $('.change-quanty-cartimport').on('change', () => {

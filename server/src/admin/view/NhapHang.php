@@ -17,8 +17,8 @@
                             <th class="w-auto">Mã Nhân Viên</th>
                             <th class="w-auto">Ngày Nhập</th>
                             <th class="w-auto">Tổng Tiền</th>
-                            <th class="w-auto">Action(Chi Tiết)</th>
                             <th class="w-auto">Tình trạng</th>
+                            <th class="w-auto">Action(Chi Tiết)</th>
                         </tr>
                     </thead>
                     <tbody class="admin-phieunhap-list">

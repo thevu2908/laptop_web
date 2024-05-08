@@ -37,26 +37,28 @@ async function renderPhieuNhapData() {
                 <td>${phieunhap.ma_nv}</td>
                 <td>${phieunhap.ngay_nhap}</td>
                 <td>${phieunhap.tong_tien}</td>
-                <td>
-                    <a href="/admin.php?controller=giohang&ma=${phieunhap.ma_pn}">
-                        <button style="width: 80px;" class="bnt-create-authorize">Chi tiết</button>
-                    </a>
-                </td>
-                <td>`;
                 
-        if (phieunhap.trang_thai == 0) {
-            html += `<button class="btn-process-bill" value="${phieunhap.trang_thai}">Xử lý</button>`;
-        } else {
-            html += `Đã xử lý`;
-        }
-        
-        html += `</td>
+                <td>`;
+
+            if (phieunhap.tinh_trang == 0) {
+                html += `<button class="btn btn-success btn-process-bill" value="${phieunhap.tinh_trang}">Xử lý</button>`;
+            } else {
+                html += `<span style="color: red; font-weight: bold;">Đã xử lý</span>`;
+            }
+
+
+            html += `</td>
+            <td style="padding-top: 10px;">
+                <a href="/admin.php?controller=giohang&ma=${phieunhap.ma_pn}" style="display: block;">
+                    <button style="width: 60%;" class="btn btn-primary">Chi tiết</button>
+                </a>
+            </td>
         </tr>`;
-        
+
         })
         phanquyen_chucnang("Phiếu nhập")
-        getSizeinTable("nhanvien","NV","#admin-phieunhap-maphieunhap")
+        getSizeinTable("nhanvien", "NV", "#admin-phieunhap-maphieunhap")
         $('.admin-phieunhap-list').html(html)
-        
+
     }
 }
