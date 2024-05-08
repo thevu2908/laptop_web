@@ -1,5 +1,5 @@
 <main>
-	<div class="container-xl admin-import-table">
+	<div class="container-xl">
 		<div class="table-responsive">
 			<div class="table-wrapper">
 				<div class="table-title">
@@ -19,7 +19,7 @@
 						</div>
 					</div>
 				</div>
-				<table class="table table-striped table-hover custom-table">
+				<table class="table table-striped table-hover">
 					<thead>
 						<tr>
 							<th class="w-auto">Mã sản phẩm</th>
@@ -28,12 +28,11 @@
 							<th>Hình Ảnh</th>
 							<th>RAM</th>
 							<th>ROM</th>
-							<th>Màu</th>
+							<th>Tên Màu</th>
 							<th>CPU</th>
-							<th>GPU</th>
+							<th>Card</th>
 							<!-- <th>Nhà cung cấp</th> -->
 							<th>Số lượng</th>
-							<th>Giá hiện tại</th>
 							<th>Giá</th>
 							<th class="w-auto">Actions</th>
 						</tr>
@@ -65,16 +64,17 @@
 										</select>
 									</td> -->
 									<td><?php echo $each['so_luong'] ?></td>
-									<td><?php echo number_format($each['gia_nhap'], 0, ',', ','); ?>đ</td>
-
 									<td>
-
+										<!-- <div style="position: relative;">
+											<input type="text" id="gia_nhap_<?php echo $each['ma_ctsp']; ?>" class="input-gia-sp" value="<?php echo number_format($each['gia_nhap'], 0, ',', ','); ?>" style="width: 100px;" onkeyup="formatCurrency(this)" min="0" step="1000">
+											<span style="position: absolute; right: 5px; top: 50%; transform: translateY(-50%);">VNĐ</span>
+										</div> -->
 										<div style="position: relative; display: inline-block;">
-											<input type="number" id="gia_nhap_<?php echo $each['ma_ctsp']; ?>" class="input-gia-sp form-control" value="<?php echo $each['gia_nhap']; ?>" style="width: 120px; " onkeyup="formatCurrency(this); updatePrice(this);" min="0" step="1000">
-											<!-- <input type="text" id="gia_nhap_<?php echo $each['ma_ctsp']; ?>" class="input-gia-sp form-control" value="<?php echo number_format($each['gia_nhap'], 0, ',', ','); ?>" style="width: 120px; " onkeyup="formatCurrency(this); updatePrice(this);" min="0" step="1000"> -->
-											<!-- <input type="text" id="gia_nhap_<?php echo $each['ma_ctsp']; ?>" class="input-gia-sp form-control" value="<?php echo number_format($each['gia_nhap'], 0, ',', ','); ?>" style="width: 120px; " onkeyup="formatCurrency(this)" min="0" step="1000"> -->
-											<span style="position: absolute; left: calc(100% + 10px); top: 50%; transform: translate(-100%, -50%); white-space: nowrap;"></span>
+											<input type="number" id="gia_nhap_<?php echo $each['ma_ctsp']; ?>" class="input-gia-sp form-control" value="<?php echo $each['gia_nhap']; ?>" style="width: 120px; " onkeyup="formatCurrency(this)" min="0" step="1000">
+											<span style="position: absolute; left: calc(100% + 10px); top: 50%; transform: translate(-100%, -50%); white-space: nowrap;">đ</span>
 										</div>
+										
+									
 									</td>
 									<script>
 										function formatCurrency(input) {
@@ -86,7 +86,7 @@
 									</script>
 									<!-- <input type="hidden" class="item-ma-ncc" name="ma_ncc" value="<?php echo $each1['ma_ncc']; ?>">  -->
 									<td>
-										<button type="button" class="btn btn-primary btn-add-cartimport" value="<?php echo $each['ma_ctsp'] ?>">Thêm</button>
+									<button type="button" class="btn btn-primary btn-add-cartimport" value="<?php echo $each['ma_ctsp'] ?>">Thêm</button>
 									</td>
 								</tr>
 							<?php
