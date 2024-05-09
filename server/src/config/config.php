@@ -9,4 +9,4 @@ define('COUNTRY_CODE', 84);
 define('DB_HOST', 'localhost');
 define('DB_USERNAME', 'root');
 define('DB_PASSWORD', 'Giau0964184548@');
-define('DB_NAME', 'web3');
+define('DB_NAME', 'web4');

@@ -14,6 +14,7 @@ include __DIR__ . '/../model/PhieuNhap/PhieuNhapRepo.php';
 if (isset($_REQUEST['action'])) {
     $action = $_REQUEST['action'];
 }
+  
 
 switch ($action) {
     case '':
@@ -58,6 +59,7 @@ switch ($action) {
     case 'payimport':
         $ma = $_REQUEST['ma'];
         //them ctsp
+        
         $mactsp = $_REQUEST['mactsp'];
         $total = $_REQUEST['total'];
         $quantity = $_REQUEST['quantity'];

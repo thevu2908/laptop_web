@@ -4,6 +4,7 @@ include __DIR__ . '/../model/ConnectDB.php';
 include __DIR__ . '/../model/Nhanvien/Nhanvien.php';
 include __DIR__ . '/../model/Nhanvien/NhanvienRepo.php';
 
+
 class NhanVienController {
     private $nhanVienRepo;
 
