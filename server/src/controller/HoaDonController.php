@@ -59,6 +59,32 @@ class HoaDonController {
         else {
             echo 'fail';
         }
+    public function getOrderByMonth($month) {
+        $orders = $this->hoadonRepo->getOrderByMonth($month);
+        $revenue = 0;
+        foreach ($orders as $order) {
+            $revenue += $order['thanh_tien'];
+        }
+        echo json_encode([
+            'orders' => $orders,
+            'revenue' => $revenue
+        ]);
+    }
+
+    public function getOrderByDate($date) {
+        $orders = $this->hoadonRepo->getOrderByDate($date);
+        $revenue = 0;
+        foreach ($orders as $order) {
+            $revenue += $order['thanh_tien'];
+        }
+        echo json_encode([
+            'orders' => $orders,
+            'revenue' => $revenue
+        ]);
+    }
+
+    public function getBestSeller($amount) {
+        echo json_encode($this->hoadonRepo->getBestSeller($amount));
     }
 }
 
@@ -82,6 +108,18 @@ switch ($action) {
         $tinh_trang = $_POST['tinh_trang'];
         $search = $_POST['search'];
         $hoadonctl->getHoaDonByKhachHang($ma_kh, $tinh_trang, $search);
+        break;
+    case 'get-by-date':
+        $date = $_POST['date'];
+        $hoadonctl->getOrderByDate($date);
+        break;
+    case 'get-by-month':
+        $month = $_POST['month'];
+        $hoadonctl->getOrderByMonth($month);
+        break;
+    case 'get-best-seller':
+        $amount = isset($_POST['amount']) ? $_POST['amount'] : 5;
+        $hoadonctl->getBestSeller($amount);
         break;
     case 'add':
         $obj = json_decode(json_encode($_POST['bill']));

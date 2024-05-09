@@ -18,3 +18,18 @@ function isValidPhone(phone) {
 function containsOnlyNumbers(str) {
     return /^\d+$/.test(str)
 }
+function checkValidation(id,idmessage, message,type){
+    $(document).on('keyup', id,function(){
+        if(type==="text"){
+            if(checkSpace($(id).val())){
+                $(idmessage).text(message);
+            }
+        }else if(type==="phone"){
+            if(isValidPhone($(id).val())){
+                $(idmessage).text(message);
+            }
+        }else{
+            return true;
+        }
+    })
+}

@@ -47,15 +47,23 @@ class ChiTietQuyenRepo extends ConnectDB{
         }
         return false;
     }
-    function addMulPhanQuyen($maquyen,$listitemAdd,$hanhdong){
+    function addMulPhanQuyen($maquyen,$listitemAdd){
         foreach($listitemAdd as $key){
-            $sql = "INSERT INTO chitietquyen(ma_quyen,ma_chuc_nang,hanh_dong) VALUES('$maquyen','$key[machucnang]','$hanhdong')";
+            $macn=$key['machucnang'];
+            $hanhdong = $key['hanhdong'];
+            $sql = "INSERT INTO chitietquyen(ma_quyen,ma_chuc_nang,hanh_dong) VALUES('$maquyen','$macn','X')";
             $result = mysqli_query($this->conn,$sql);
-            if(!$result){
-                return true;
+            if($result){
+                foreach($hanhdong as $item){
+                    $ssql = "INSERT INTO chitietquyen(ma_quyen,ma_chuc_nang,hanh_dong) VALUES('$maquyen','$macn','$item')";
+                    $sresult = mysqli_query($this->conn,$ssql);
+                    if(!$sresult){
+                        return false;
+                    }
+                }
             }
         }
-        return false;
+        return true;
     }
     function updatePhanQuyen($maquyen,$machucnang,$hanhdong){
         $sql = "DELETE FROM chitietquyen where ma_quyen='$maquyen' AND ma_chuc_nang='$machucnang' AND hanh_dong='$hanhdong'";

@@ -1,6 +1,7 @@
 var tmp="";
 var listitemRemove = [];
 var listitemAdd = [];
+var listitemAddMul=[];
 $(document).ready(function(){
     console.log($("#admin-select-nhomquyen").val())
     selectNhomQuyen();
@@ -97,39 +98,30 @@ function selectNhomQuyen(){
     })
 }
 function addPhanQuyen(){
-    // getAllListChucNang();
-    // getAllListNhomQuyen();
-    // $(document).on("click","#add_PhanQuyen",function(){
-    //     var maquyen=$("#select_nhomquyen").val();
-    //     var machucnang=$("#select_chucnang").val();
-    //     $.ajax({
-    //         url: "server/src/controller/CTQuyenController.php",
-    //         data: {action:"add",maquyen:maquyen,machucnang:machucnang},
-    //         method: "post",
-    //         success: function (data) {
-    //             //$("form").reset();
-    //             $("#addPhanQuyenModal").modal("hide");
-    //             loadPhanQuyen();
-    //         }
-    //     })
-    // })
     getAllListNhomQuyen()
     selectChangeItem()
     $(document).on("click","#add_PhanQuyen",function(){
         var maquyen=$("#admin-select-MaNhomQuyen").val();
         console.log(maquyen)
-        console.log(listitemAdd)
+        console.log(listitemAddMul)
         $.ajax({
             url: "server/src/controller/CTQuyenController.php",
-            data: {action:"addMul",maquyen:maquyen,listitemAdd:listitemAdd},
+            data: {action:"addMul",maquyen:maquyen,listitemAdd:listitemAddMul},
             method: "post",
             success: function (data) {
-                //$("form").reset();
+                clearModal();
                 $("#addMulPhanQuyen").modal("hide");
                 loadPhanQuyen();
             }
         })
+        if(maquyen===$("#admin-nhomquyen").val()){
+            location.reload()
+        }
     })
+}
+function clearModal(){
+    $('#admin-select-MaNhomQuyen').prop('selectedIndex', 0);
+    $("#admin-show-ChucNang").html("");
 }
 function getTenQuyen(maquyen,index){
     $.ajax({
@@ -162,7 +154,7 @@ function getAllListNhomQuyen(){
         method: "post",
         success: function (data) {
             var jsonData=JSON.parse(data);
-            var html="<option value='All'>All</option>";
+            var html="";
             jsonData.forEach((nhomquyen,index) => {
                 html+=`<option value="${nhomquyen['ma_quyen']}">${nhomquyen['ten_quyen']}</option>`;
             })
@@ -187,8 +179,19 @@ function getAllListChucNang($maquyen){
             var html="";
             jsonData.forEach((chucnang,index) => {
                 html+=`<tr data-row="${chucnang['ma_chuc_nang']}">
-                <td data-column="#">${chucnang['ten_chuc_nang']}</td>
-                <td><input type="checkbox" class="form-check-input" data-row="${chucnang['ma_chuc_nang']}" onclick="addMulChucNang(this)"></td>
+                <td id="admin-TenChucNang-${index}">${chucnang['ten_chuc_nang']}</td>
+                <td>
+                    <input type="checkbox" class="checkbox" data-row="${chucnang['ma_chuc_nang']}" data-column="Xem" onclick="changechk(this)">
+                </td>
+                <td>
+                    <input type="checkbox" class="checkbox" data-row="${chucnang['ma_chuc_nang']}" data-column="Thêm" onclick="changechk(this)">
+                </td>
+                <td>
+                    <input type="checkbox" class="checkbox" data-row="${chucnang['ma_chuc_nang']}" data-column="Xóa" onclick="changechk(this)">
+                </td>
+                <td>
+                    <input type="checkbox" class="checkbox" data-row="${chucnang['ma_chuc_nang']}" data-column="Sửa" onclick="changechk(this)">
+                </td> 
             </tr>`;
             })
             $("#admin-show-ChucNang").html(html);
@@ -222,7 +225,7 @@ function deletePhanQuyen(){
                        pagination(totalPages, currentPage);
                     }
                 })
-                //location.reload();
+                location.reload();
             })
         }
     })
@@ -301,3 +304,66 @@ function filterPhanQuyen(search){
         }
     })
 }
+//
+function changechk(obj){
+    var check=obj.checked;
+    var machucnang=obj.dataset.row;
+    var hanhdong=obj.dataset.column;
+    if(check){
+        var indexAdd=listitemAddMul.findIndex(item=>item.machucnang===machucnang);
+        if(indexAdd!==-1){
+            listitemAddMul[indexAdd].hanhdong.push(hanhdong)
+        }else{
+            listitemAddMul.push({machucnang:machucnang,hanhdong:[hanhdong]});
+        }
+    }else{
+        var indexRemove=listitemAddMul.findIndex(item=>item.machucnang===machucnang);
+        if(indexRemove!==-1){
+            listitemAddMul[indexRemove].hanhdong = listitemAddMul[indexRemove].hanhdong.filter(item => item !== hanhdong);
+            if (listitemAddMul[indexRemove].hanhdong.length === 0) {
+                listitemAddMul.splice(indexRemove, 1);
+            }
+        }
+    }
+}
+$(document).on('click', "#add-admin-NQ", function () {
+    getSizeinTable("nhomquyen", "NQ", "#ma_quyen")
+    $('#addMulPhanQuyen').modal('hide')
+    $('#addNhomQuyen').on('hidden.bs.modal', function () {
+        $('body').addClass('modal-open')
+    })
+    $("#addNhomQuyen").modal('show')
+});
+
+$(document).on('click', "#add-close", function () {
+    $('#addNhomQuyen').on('hidden.bs.modal', function () {
+        $('body').addClass('modal-open')
+    })
+    $('#addMulPhanQuyen').modal('show')
+});
+
+$(document).on('click', "#addNhomQuyen", function () {
+    var ma_nhomquyen = $("#ma_quyen").val()
+    var ten_nhomquyen = $("#ten_quyen").val()
+    if (checkSpace(ten_nhomquyen)) {
+        alert("Vui lòng nhập tên quyền")
+    } else {
+        $.ajax({
+            url: "server/src/controller/NhomQuyenController.php",
+            method: "POST",
+            data: { action: "Add", maquyen: ma_nhomquyen, tenquyen: ten_nhomquyen },
+            success: function (data) {
+                console.log(data);
+                $("form").trigger('reset')
+                $("#addNhomQuyen").modal("hide")
+                getSizeinTable("nhomquyen", "NQ", "#ma_quyen")
+                getAllListNhomQuyen()
+                selectNhomQuyen()
+                $('#addNhomQuyen').on('hidden.bs.modal', function () {
+                    $('body').addClass('modal-open')
+                })
+                $('#addMulPhanQuyen').modal('show')
+            }
+        })
+    }
+});
