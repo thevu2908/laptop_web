@@ -74,4 +74,40 @@ class ChiTietHoaDonRepo extends ConnectDB {
         }
         return false;
     }
+
+    function getCTHDByAdmin($ma_hd) {
+        try {
+            $sql = "SELECT ctsp.ma_ctsp, cthd.*, CONCAT(sp.ten_sp, ' ', ctsp.ram, '/', ctsp.rom) AS ten_sp, mau.ten_mau, ctsp.gia_tien, COUNT(cti.ma_ctsp) AS quantity, hd.tinh_trang
+            FROM `chitiethoadon` cthd
+            JOIN `ctsp_imei` cti ON cthd.ma_imei = cti.ma_imei
+            JOIN `chitietsanpham` ctsp ON cti.ma_ctsp = ctsp.ma_ctsp
+            JOIN `sanpham` sp ON sp.ma_sp = ctsp.ma_sp
+            JOIN `mausac` mau ON mau.ma_mau = ctsp.ma_mau
+            JOIN `hoadon` hd ON hd.ma_hd = cthd.ma_hd
+            WHERE cthd.ma_hd = '$ma_hd'
+            GROUP BY cti.ma_ctsp";
+    
+            $result = mysqli_query($this->conn, $sql);
+            $arr = [];
+            while ($row = mysqli_fetch_assoc($result)) {
+                $arr[] = $row;
+            }
+            return $arr;
+        } catch (Exception $e) {
+            echo 'Error:' . $e->getMessage();
+            return null;
+        }
+    }
+
+    function ConfirmBill($ma_hd, $ma_nv) {
+        $sql = "UPDATE `hoadon`
+                SET tinh_trang='Đã xác nhận', ma_nv='$ma_nv'
+                WHERE ma_hd='$ma_hd'";
+                
+        $result = mysqli_query($this->conn, $sql);
+        if ($result) {
+            return true;
+        }
+        return false;
+    }
 }

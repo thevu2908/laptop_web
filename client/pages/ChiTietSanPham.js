@@ -121,9 +121,6 @@ async function renderAdminProductDetail(data) {
                             <a href="#deleteProductDetailModal" class="delete btn-delete-product-detail-modal" data-toggle="modal" data-id=${productDetail.ma_ctsp}>
                                 <i class="material-icons" data-toggle="tooltip" title="Xóa">&#xE872;</i>
                             </a>
-                            <a href="/admin.php?controller=danhgia&id=${productDetail.ma_ctsp}" class="info btn-product-detail" data-id=${productDetail.ma_ctsp}>
-                            <i class="fa-solid fa-message" title="Xem đánh giá"></i>
-                            </a>
                         </td>
                     </tr>
                 `

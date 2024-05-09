@@ -13,15 +13,15 @@ $(document).ready(() => {
 })
 
 function initSelect2() {
-    $('#address__province').select2({
+    $('#address__province').select({
         placeholder: 'Tỉnh/Thành phố',
         dropdownParent: '#address-modal'
     })
-    $('#address__district').select2({
+    $('#address__district').select({
         placeholder: 'Quận/Huyện',
         dropdownParent: '#address-modal'
     })
-    $('#address__ward').select2({
+    $('#address__ward').select({
         placeholder: 'Phường/Xã',
         dropdownParent: '#address-modal'
     })

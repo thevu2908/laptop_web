@@ -29,6 +29,19 @@ class CTHDController {
             echo 'fail';
         }
     }
+
+    public function getCTHDByAdmin($ma_hd) {
+        echo json_encode($this->chitietHDRepo->getCTHDByAdmin($ma_hd));
+    }
+
+    public function ConfirmBill($ma_hd, $ma_nv) {
+        if($this->chitietHDRepo->ConfirmBill($ma_hd, $ma_nv)) {
+            echo 'success';
+        }
+        else {
+            echo 'fail';
+        }
+    }
 }
 
 $ctHDctl = new CTHDController();
@@ -38,6 +51,15 @@ switch ($action){
     case 'get-cthd':
         $ma_hd = $_POST['ma_hd'];
         $ctHDctl->getChiTietHoaDon($ma_hd);
+        break;
+    case 'get-cthd-admin':
+        $ma_hd = $_POST['ma_hd'];
+        $ctHDctl->getCTHDByAdmin($ma_hd);
+        break;
+    case 'confirm-bill':
+        $ma_hd = $_POST['ma_hd'];
+        $ma_nv = $_POST['ma_nv'];
+        $ctHDctl->ConfirmBill($ma_hd, $ma_nv);
         break;
     case 'getcthd':
         $ma_hd = $_POST['mahoadon'];

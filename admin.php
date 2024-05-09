@@ -61,7 +61,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
               echo '<script src="./client/pages/ChiTietSanPham.js"></script>';
               echo '<script src="./client/pages/ChiTietCongKetNoi.js"></script>';
               break;
-            }
+          }
           case "danhgia": {
               include "./server/src/admin/view/DanhGia.php";
               echo '<script src="./client/pages/DanhGia.js"></script>';
@@ -92,6 +92,10 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
             }
             case "hoadon": {
               include "./server/src/admin/view/HoaDon.php";
+              echo "<script src='./client/pages/HoaDon.js'></script>";
+              echo "<script src='./client/pages/KhachHang.js'></script>";
+              echo "<script src='./client/pages/NhanVien.js'></script>";
+              echo "<script src='./client/pages/ThongTinNhanHang.js'></script>";
               break;
             }
           case "khuyenmai": {
@@ -128,10 +132,16 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
               echo '<script src="./client/pages/ChiTietCongKetNoi.js"></script>';
               break;
             }
-            default: {
-              include "./server/src/admin/view/notfound.php";
+            case "chitiethoadon": {
+              include "./server/src/admin/view/ChiTietHoaDon.php";
+              echo '<script src="./client/pages/ChiTietHoaDon.js"></script>';
+              echo '<script src="./client/plugins/getSession.js"></script>';
               break;
             }
+          default: {
+            include "./server/src/admin/view/notfound.php";
+            break;
+          }
         }
       } else {
         include "./server/src/admin/view/DashBoard.php";

@@ -1,4 +1,4 @@
-<main>
+<main id="admin-bill-main">
 	<div class="container-xl">
 		<div class="table-responsive">
 			<div class="table-wrapper">
@@ -8,10 +8,10 @@
 							<h2>Quản Lý <b>HÓA ĐƠN</b></h2>
 						</div>
 						<div class="col-sm-6">
-							<a href="#addEmployeeModal" class="btn btn-success add" data-toggle="modal">
+							<!-- <a href="#addEmployeeModal" class="btn btn-success add" data-toggle="modal">
 								<i class="material-icons">&#xE147;</i>
 								<span>Thêm</span>
-							</a>
+							</a> -->
 							<a href="#deleteEmployeeModal" class="btn btn-danger delete" data-toggle="modal">
 								<i class="material-icons">&#xE15C;</i>
 								<span>Xóa</span>
@@ -19,7 +19,7 @@
 						</div>
 					</div>
 				</div>
-				<table class="table table-striped table-hover">
+				<table class="table-bill table table-striped table-hover">
 					<thead>
 						<tr>
 							<th>
@@ -40,29 +40,8 @@
 							<th class="w-auto">Actions</th>
 						</tr>
 					</thead>
-					<tbody>
-						<tr>
-							<td>
-								<span class="custom-checkbox">
-									<input type="checkbox" id="checkbox1" name="options[]" value="1">
-									<label for="checkbox1"></label>
-								</span>
-							</td>
-							<td>HD001</td>
-							<td>Đỗ Minh Quân</td>
-							<td>Nguyễn Thanh Sang</td>
-							<td>20-2-2024</td>
-							<td>20.000.000đ</td>
-                            <td>20%</td>
-							<td>16.000.000đ</td>
-							<td>VNPay</td>
-							<td>Đã giao</td>
-							<td>
-								<a href="#" class="view" title="View" data-toggle="tooltip">
-									<i class="material-icons">&#xE417;</i>
-								</a>
-							</td>
-						</tr>
+					<tbody class="admin-bill-list">
+						
 					</tbody>
 				</table>
 				<div class="clearfix">
@@ -81,96 +60,91 @@
 		</div>
 	</div>
 
-	<div id="addPromotionModal" class="modal fade">
-		<div class="modal-dialog">
+	<!-- <div id="addBill" class="modal fade product-config-modal" data-backdrop="static" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-lg modal-dialog-scrollable">
 			<div class="modal-content">
-				<form>
-					<div class="modal-header">
-						<h4 class="modal-title">Thêm khuyến mãi</h4>
-						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-					</div>
-					<div class="modal-body">
-						<div class="form-group">
-							<label>Name</label>
-							<input type="text" class="form-control" required>
+				<div class="modal-header">
+					<h5 class="modal-title promotion-config-detail-name">Thêm khuyến mãi</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body px-0">
+					<form class="add-promotion-form">
+						<div class="modal-row">
+							<h5 class="modal-row-title">Thông tin khuyến mãi</h5>
+							<ul class="modal-row-list">
+								<li class="modal-row-item row align-items-center justify-content-between">
+									<label for="promotion-id" class="col-sm-3 px-0 mb-0">ID:</label>
+									<div class="col-sm-8 px-0">
+										<input type="text" readonly class="form-control" name="promotion-id" id="promotion-id">
+									</div>
+								</li>
+								<li class="modal-row-item row align-items-center justify-content-between">
+									<label for="promotion-name" class="col-sm-3 px-0 mb-0">Tên:</label>
+									<div class="col-sm-8 px-0">
+										<input type="text" class="form-control" name="promotion-name" id="promotion-name">
+									</div>
+								</li>
+								<li class="modal-row-item row align-items-center justify-content-between">
+									<label for="promotion-percent" class="col-sm-3 px-0 mb-0">Mức giảm:</label>
+									<div class="col-sm-8 px-0">
+										<input type="number" class="form-control" name="promotion-percent" id="promotion-percent">
+									</div>
+								</li>
+								<li class="modal-row-item row align-items-center justify-content-between">
+									<label for="promotion-condition" class="col-sm-3 px-0 mb-0">Điều kiện:</label>
+									<div class="input-group col-sm-8 px-0">
+										<div class="input-group-prepend">
+											<div class="input-group-text">≥</div>
+										</div>
+										<input type="number" class="form-control" name="promotion-condition" id="promotion-condition">
+									</div>
+								</li>
+								<li class="modal-row-item row align-items-center justify-content-between">
+									<label for="promotion-date-from" class="col-sm-3 px-0 mb-0">Từ ngày:</label>
+									<div class="col-sm-8 px-0">
+										<input type="date" class="form-control" name="promotion-date-from" id="promotion-date-from">
+									</div>
+								</li>
+								<li class="modal-row-item row align-items-center justify-content-between">
+									<label for="promotion-date-to" class="col-sm-3 px-0 mb-0">Đến ngày:</label>
+									<div class="col-sm-8 px-0">
+										<input type="date" class="form-control" name="promotion-date-to" id="promotion-date-to">
+									</div>
+								</li>
+								<li class="modal-row-item row align-items-center justify-content-between">
+									<label for="promotion-status" class="col-sm-3 px-0 mb-0">Trạng thái:</label>
+									<div class="col-sm-8 px-0">
+										<input type="text" readonly class="form-control" name="promotion-status" id="promotion-status">
+									</div>
+								</li>
+							</ul>
 						</div>
-						<div class="form-group">
-							<label>Email</label>
-							<input type="email" class="form-control" required>
+						<div class="modal-footer">
+							<input type="button" class="btn btn-secondary" data-dismiss="modal" value="Hủy">
+							<input type="button" class="btn btn-primary btn-add-promotion" value="Thêm">
 						</div>
-						<div class="form-group">
-							<label>Address</label>
-							<textarea class="form-control" required></textarea>
-						</div>
-						<div class="form-group">
-							<label>Phone</label>
-							<input type="text" class="form-control" required>
-						</div>
-					</div>
-					<div class="modal-footer">
-						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-						<input type="submit" class="btn btn-success" value="Add">
-					</div>
-				</form>
+					</form>
+				</div>
 			</div>
 		</div>
-	</div>
+	</div> -->
 
-	<div id="editPromotionModal" class="modal fade">
+	<div id="deleteBill" class="modal fade">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<form>
 					<div class="modal-header">
-						<h4 class="modal-title">Sửa thông tin khuyến mãi</h4>
+						<h4 class="modal-title">Xóa hóa đơn</h4>
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 					</div>
-					<div class="modal-body">
-						<input type="hidden" name="ma_tk">
-						<div class="form-group">
-							<div class="form-group">
-								<label>Mã Tài Khoản</label>
-								<input class="form-control" type="text" name="password" required>
-							</div>
-							<!-- <input type="text" class="form-control" required> -->
-							<select name="" id="" class="form-control" required>
-								<option value="">A</option>
-								<option value="">B</option>
-								<option value="">C</option>
-							</select>
-						</div>
-						<div class="form-group">
-							<label>Username</label>
-							<input type="text" class="form-control" name="username" required>
-						</div>
-						<div class="form-group">
-							<label>Password</label>
-							<input class="form-control" type="password" name="password" required>
-						</div>
+					<div class="modal-body delete-body">
+						
 					</div>
 					<div class="modal-footer">
-						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-						<input type="submit" class="btn btn-info" value="Save">
-					</div>
-				</form>
-			</div>
-		</div>
-	</div>
-
-	<div id="deletePromotionModal" class="modal fade">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<form>
-					<div class="modal-header">
-						<h4 class="modal-title">Xóa khuyến mãi</h4>
-						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-					</div>
-					<div class="modal-body">
-						<p>Are you sure you want to delete these Records?</p>
-						<p class="text-warning"><small>This action cannot be undone.</small></p>
-					</div>
-					<div class="modal-footer">
-						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-						<input type="submit" class="btn btn-danger" value="Delete">
+						<input type="button" class="btn btn-default" data-dismiss="modal" value="Hủy">
+						<input id="confirm-delete" class="btn btn-danger" value="Xóa">
 					</div>
 				</form>
 			</div>

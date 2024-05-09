@@ -97,7 +97,7 @@ class HoaDonRepo extends ConnectDB {
 
     public function deleteHoaDon($ma_hd) {
         try {
-            $sql = "UPDATE hoadon SET trang_thai=0 WHERE ma_hd='$ma_hd'";
+            $sql = "UPDATE hoadon SET trang_thai=1 WHERE ma_hd='$ma_hd'";
             $result = mysqli_query($this->conn, $sql);
             return $result;
         } catch (Exception $e) {

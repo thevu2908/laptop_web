@@ -52,7 +52,7 @@
                             <div class="cart__right-total">0₫</div>
                         </div>
                     </div>
-                    <a href="index.php?thanh-toan" class="btn btn-success w-100" >Tiếp tục</a>
+                    <a href="index.php?thanh-toan" class="continue-checkout btn btn-success w-100" >Tiếp tục</a>
                 </div>
             </div>
         </div>

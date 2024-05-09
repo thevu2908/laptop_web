@@ -193,3 +193,4 @@ $(document).on('change', '.custom-form__select', function(e) {
         $(this).siblings('.custom-form__title').hide()
     }
 })
+
