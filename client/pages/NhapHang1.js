@@ -40,7 +40,6 @@ async function renderPhieuNhapData() {
                 <td>${phieunhap.ma_nv}</td>
                 <td>${phieunhap.ngay_nhap}</td>
                 <td>${formattedTongTien} VNĐ</td>
-                
                 <td>`;
 
             if (phieunhap.tinh_trang == 0) {
@@ -52,7 +51,7 @@ async function renderPhieuNhapData() {
             html += `</td>
             <td style="padding-top: 10px;">
                 <a href="/admin.php?controller=giohang&ma=${phieunhap.ma_pn}" style="display: block;">
-                    <button style="width: 60%;" class="btn btn-primary">Chi tiết</button>
+                    <button style="width: 61%;" class="btn btn-primary">Chi tiết</button>
                 </a>
             </td>
         </tr>`;
