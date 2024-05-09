@@ -79,6 +79,22 @@ function getProductDetailId(productId, colorId, ram, rom) {
     })
 }
 
+function getProductDetailByProductId(productId) {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: 'server/src/controller/CTSanPhamController.php',
+            method: 'POST',
+            data: { action: 'get-by-product-id', productId },
+            dataType: 'JSON',
+            success: productDetails => resolve(productDetails),
+            error: (xhr, status, error) => {
+                console.log(error)
+                reject(error)
+            }
+        })
+    })
+}
+
 async function renderAdminProductDetail(data) {
     let productId = $('#admin-product-detail-main #product-id').val()
 
@@ -428,23 +444,6 @@ function handleDeleteProductDetail() {
             $('#deleteProductDetailModal').modal('hide')
         }
     })
-}
-
-function getProductDetailByProductId(productId) {
-    return new Promise((resolve, reject) => {
-        $.ajax({
-            url: 'server/src/controller/CTSanPhamController.php',
-            method: 'POST',
-            data: { action: 'get-by-product-id', productId },
-            dataType: 'JSON',
-            success: productDetails => resolve(productDetails),
-            error: (xhr, status, error) => {
-                console.log(error)
-                reject(error)
-            }
-        })
-    })
-
 }
 
 function searchProductDetail() {
