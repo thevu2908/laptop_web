@@ -132,7 +132,8 @@ class HoaDonRepo extends ConnectDB {
 
     public function searchHoaDon($search) {
         try {
-            $sql = "SELECT * FROM hoadon WHERE CONCAT(ma_hd,ma_kh,ma_nv,ngay_tao,tong_tien,khuyen_mai,thanh_tien,hinh_thuc,tinh_trang) LIKE '%$search%'";
+            $sql = "SELECT * FROM hoadon WHERE CONCAT(ma_hd,ma_kh,ma_nv,ngay_tao,tong_tien,khuyen_mai,thanh_tien,hinh_thuc,tinh_trang) 
+                    LIKE '%$search%'";
             $result = mysqli_query($this->conn, $sql);
             $arrHoaDon = array();
             while ($row = mysqli_fetch_assoc($result)) {
@@ -145,7 +146,7 @@ class HoaDonRepo extends ConnectDB {
         }
     }
     
-    public function getSizeHoaDon(): int {
+    function getSizeHoaDon(): int {
         try {
             $sql = "SELECT COUNT(*) AS count FROM hoadon";
             $statement = mysqli_query($this->conn, $sql);
@@ -154,73 +155,6 @@ class HoaDonRepo extends ConnectDB {
         } catch (Exception $e) {
             echo 'Error: ' . $e->getMessage() . '<br>';
             return -1;
-        }
-    }
-
-    public function getOrderByDate($date) : array | null {
-        try {
-            $sql = "SELECT * FROM hoadon WHERE DATE(ngay_tao) = '$date' AND tinh_trang LIKE '%Đã xác nhận%'";
-            $result = mysqli_query($this->conn, $sql);
-            if (!$result) {
-                throw new Exception('Error: ' . mysqli_error($this->conn));
-            }
-            $array = [];
-            while ($row = mysqli_fetch_assoc($result)) {
-                $array[] = $row;
-            }
-            return $array;
-        } catch (Exception $e) {
-            echo 'Error:'. $e->getMessage();
-            return null;
-        }
-    }
-
-    public function getOrderByMonth($month) : array | null {
-        try {
-            $sql = "SELECT * FROM hoadon WHERE MONTH(ngay_tao) = '$month' AND tinh_trang LIKE '%Đã xác nhận%'";
-            $result = mysqli_query($this->conn, $sql);
-            if (!$result) {
-                throw new Exception('Error: ' . mysqli_error($this->conn));
-            }
-            $array = [];
-            while ($row = mysqli_fetch_assoc($result)) {
-                $array[] = $row;
-            }
-            return $array;
-        } catch (Exception $e) {
-            echo 'Error:'. $e->getMessage();
-            return null;
-        }
-    }
-
-    public function getBestSeller($amount) {
-        try {
-            $sql = "
-                SELECT cthd.ma_imei, sp.ten_sp, sp.hinh_anh, ms.ten_mau, cxl.ten_chip, cdh.ten_card, ctsp.ram, ctsp.rom, ctsp.gia_tien, SUM(cthd.so_luong) as total 
-                FROM chitiethoadon cthd
-                JOIN ctsp_imei ctspi ON cthd.ma_imei = ctspi.ma_imei
-                JOIN chitietsanpham ctsp ON ctspi.ma_ctsp = ctsp.ma_ctsp
-                JOIN mausac ms ON ms.ma_mau = ctsp.ma_mau
-                JOIN chipxuly cxl ON cxl.ma_chip_xu_ly = ctsp.ma_chip_xu_ly
-                JOIN carddohoa cdh ON cdh.ma_card = ctsp.ma_carddohoa
-                JOIN sanpham sp ON sp.ma_sp = ctsp.ma_sp
-                GROUP BY cthd.ma_imei
-                ORDER BY total DESC
-                LIMIT $amount
-            ";
-            $result = mysqli_query($this->conn, $sql);
-            if (!$result) {
-                throw new Exception('Error: ' . mysqli_error($this->conn));
-            }
-
-            $array = [];
-            while ($row = mysqli_fetch_assoc($result)) {
-                $array[] = $row;
-            }
-            return $array;
-        } catch (Exception $e) {
-            echo 'Error:'. $e->getMessage();
-            return null;
         }
     }
 }

@@ -18,6 +18,15 @@ menuBar.addEventListener("click", () => {
   sideBar.classList.toggle("hide");
 });
 
+let switchMode = document.getElementById("switch-mode");
+switchMode.addEventListener("change", (e) => {
+  if (e.target.checked) {
+    document.body.classList.add("dark");
+  } else {
+    document.body.classList.remove("dark");
+  }
+});
+
 let searchFrom = document.querySelector(".content nav form");
 let searchBtn = document.querySelector(".search-btn");
 let searchIcon = document.querySelector(".search-icon");

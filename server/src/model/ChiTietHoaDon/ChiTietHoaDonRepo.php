@@ -1,7 +1,7 @@
 <?php
 
 class ChiTietHoaDonRepo extends ConnectDB {
-    public function getAllChiTietHoaDon() {
+    function getAllChiTietHoaDon() {
         try {
             $sql = "SELECT * FROM chitiethoadon";
             $result = mysqli_query($this->conn, $sql);
@@ -16,7 +16,7 @@ class ChiTietHoaDonRepo extends ConnectDB {
         }
     }
 
-    public function getChiTietHoaDon($ma_hd) {
+    function getChiTietHoaDon($ma_hd) {
         try {
             $sql = "SELECT cthd.*, sp.ma_sp, ctsp.ma_ctsp, sp.ten_sp, ctsp.ram, ctsp.rom, ms.ten_mau, cxl.ten_chip, cdh.ten_card, sp.hinh_anh FROM chitiethoadon cthd
                 JOIN ctsp_imei ctspi ON cthd.ma_imei = ctspi.ma_imei
@@ -39,7 +39,7 @@ class ChiTietHoaDonRepo extends ConnectDB {
         }
     }
 
-    public function getChiTietHoaDonInHoaDon($ma_hd) {
+    function getChiTietHoaDonInHoaDon($ma_hd) {
         try {
             $sql = "SELECT ctsp_imei.ma_imei,chitietsanpham.ma_ctsp,sanpham.ten_sp,chitiethoadon.gia_sp 
                 FROM chitiethoadon JOIN ctsp_imei ON chitiethoadon.ma_imei=ctsp_imei.ma_imei 
@@ -61,22 +61,7 @@ class ChiTietHoaDonRepo extends ConnectDB {
         }
     }
 
-    public function getTotalQuantity($ma_hd) {
-        try {
-            $sql = "SELECT SUM(so_luong) as total_quantity FROM chitiethoadon WHERE ma_hd = '$ma_hd'";
-            $result = mysqli_query($this->conn, $sql);
-            if (!$result) {
-                throw new Exception('Error: '.mysqli_error($this->conn));
-            }
-            $row = mysqli_fetch_assoc($result);
-            return $row['total_quantity'];
-        } catch (Exception $e) {
-            echo 'Error:'. $e->getMessage();
-            return null;
-        }
-    }
-
-    public function addCTHD($ma_hd, $ma_ctsp, $so_luong, $gia_sp) {
+    function addCTHD($ma_hd, $ma_ctsp, $so_luong, $gia_sp) {
         $sql = "INSERT INTO chitiethoadon (ma_hd, ma_imei, gia_sp, so_luong, thanh_tien)
                 SELECT '$ma_hd', ma_imei, '$gia_sp', 1, '$gia_sp'
                 FROM ctsp_imei
