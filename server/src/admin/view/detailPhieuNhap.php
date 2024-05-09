@@ -6,17 +6,10 @@
 
 					<div class="row align-items-center">
 						<div class="col-sm-6">
-							<h2>Quản Lý <b id="ad-NhomQuyen">Nhập Hàng</b></h2>
+							<h2>Quản Lý <b id="ad-NhomQuyen">Chi Tiết Phiếu Nhập</b></h2>
 						</div>
 						<?php if (true) {  ?>
 							<div class="col-sm-6 d-flex justify-content-end align-items-center">
-								<select class="form-control form-control-sm w-auto supplier-import-product" required>
-									<option value="">--Chọn Nhà Cung Cấp--</option>
-								</select>
-								<a href="#addimportModal" class="btn btn-success btn-pay-cartimport add" data-toggle="modal">
-									<i class="material-icons">&#xE147;</i>
-									<span>Thanh Toán</span>
-								</a>
 							</div>
 						<?php } else echo "Nothing" ?>
 					</div>
@@ -36,7 +29,6 @@
 							<th class="w-auto">Số Lượng</th>
 							<th class="w-auto">Giá</th>
 							<th class="w-auto">Tổng Tiền</th>
-							<th class="w-auto">Action(Xóa)</th>
 						</tr>
 					</thead>
 					<tbody id="show-listNhomQuyen">

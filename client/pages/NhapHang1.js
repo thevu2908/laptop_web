@@ -30,13 +30,16 @@ async function renderPhieuNhapData() {
 
         phieunhaps.forEach((phieunhap, index) => {
             console.log(phieunhap)
+            // Format số tiền
+            const formattedTongTien = formatMoney(phieunhap.tong_tien);
+
             html += `
             <tr>
                 <td>${phieunhap.ma_pn}</td>
                 <td>${phieunhap.ma_ncc}</td>
                 <td>${phieunhap.ma_nv}</td>
                 <td>${phieunhap.ngay_nhap}</td>
-                <td>${phieunhap.tong_tien}</td>
+                <td>${formattedTongTien} VNĐ</td>
                 
                 <td>`;
 
@@ -45,7 +48,6 @@ async function renderPhieuNhapData() {
             } else {
                 html += `<span style="color: red; font-weight: bold;">Đã xử lý</span>`;
             }
-
 
             html += `</td>
             <td style="padding-top: 10px;">
@@ -62,3 +64,9 @@ async function renderPhieuNhapData() {
 
     }
 }
+
+// Hàm để định dạng số tiền
+function formatMoney(amount) {
+    return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
