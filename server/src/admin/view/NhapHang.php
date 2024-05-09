@@ -41,4 +41,4 @@
 </main>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-<script src="/client/pages/NhapHang1.js"></script>
+<script src="/client/pages/NhapHang.js"></script>
