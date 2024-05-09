@@ -1,308 +1,70 @@
 $(document).ready(() => {
-    loadPromotionData()
-
-    // updateStatusPromo()
-    getNextPromoId()
-
-    handleAddPromotion()
-
-    renderDeletePromoModal()
-    handleDeletePromo()
-
-    renderUpdatePromoModal()
-    handleUpdatePromo()
-    selectNhaCC()
+    const urlParams = new URLSearchParams(window.location.search)
+    if (window.location.pathname === '/admin.php' && urlParams.get('controller') === 'nhaphang') {
+        renderPhieuNhapData()
+    }
 })
 
-function loadPromotionData() {
-    $.ajax({
-        url: 'server/src/controller/NhaCungCapController.php',
-        method: 'POST',
-        data: { action: 'get-all' },
-        dataType: 'JSON',
-        success: data => {
-            console.log(data)
-            if (data && data.length > 0) {
-                let html = ''
-
-                data.forEach((item) => {
-                    html += `
-                        <tr>
-                            <td>
-                                <span class="custom-checkbox">
-                                    <input type="checkbox" id="checkbox-${item.ma_ncc}" name="chk[]" value="${item.ma_ncc}">
-                                    <label for="checkbox-${item.ma_ncc}"></label>
-                                </span>
-                            </td>
-                            <td>${item.ma_ncc}</td>
-                            <td>${item.ten_ncc}</td>
-                            
-                            
-                            <td>${item.dia_chi}</td>
-                            <td>${item.so_dien_thoai}</td>
-                            <td>
-                                <a href="#updatePromotion" class="edit btn-update-promo-modal" data-toggle="modal" data-id="${item.ma_ncc}">
-                                    <i class="material-icons" data-toggle="tooltip" title="Chỉnh sửa">&#xE254;</i>
-                                </a>
-                                <a href="#deletePromotion" class="delete btn-delete-promo-modal" data-toggle="modal" data-id="${item.ma_ncc}">
-                                    <i class="material-icons" data-toggle="tooltip" title="Xóa">&#xE872;</i>
-                                </a>
-                            </td>
-                        </tr>
-                    `
-                })
-
-                $('.admin-suppiler-list').html(html)
-               
-            }
-        }
-    })
-}
-
-
-
-
-
-
-
-function handleAddPromotion() {
-    $(document).on('click', '.btn btn-success', e => {
-        e.preventDefault();
-        const promo = {
-            promoName: $('#addSupplierModal #promotion-name').val().trim(),
-            promoPercent: $('#addSupplierModal #promotion-percent').val().trim(),
-            promoCondition: $('#addSupplierModal #promotion-condition').val().trim(),
-        }
-
-        if(!validatePromo(promo)) {
-            return
-        }
-
-        addPromotion(promo)
-            .then(res => {
-                if (res) {
-                    alert('Thêm Nhà Cung Cấp thành công')
-                    $('form').trigger('reset')
-                    $('#addSupplierModal').modal('hide')
-                    loadPromotionData()
-                } 
-                else {
-                    alert('Xảy ra lỗi trong quá trình thêm Nhà Cung Cấp')
-                }
-            })
-            .catch(error => console.log(error))
-    })
-}
-
-function getPromotion(promoId) {
+function getPhieuNhapData() {
     return new Promise((resolve, reject) => {
+        var pageno = $("#currentpage").val();
         $.ajax({
-            url: 'server/src/controller/NhaCungCapController.php',
+            url: 'server/src/controller/PhieuNhap1Controller.php',
             method: 'POST',
-            data: { action: 'get', promoId },
+            data: { action: 'load' },
             dataType: 'JSON',
-            success: promo => resolve(promo),
+            success: phieunhaps => resolve(phieunhaps),
             error: (xhr, status, error) => {
                 console.log(error)
                 reject(error)
             }
         })
     })
+
 }
 
-function renderDeletePromoModal() {
-    $(document).on('click', '.btn-delete-promo-modal', e => {
-        const promoId = e.target.closest('.btn-delete-promo-modal').dataset.id
+async function renderPhieuNhapData() {
+    const phieunhaps = await getPhieuNhapData()
+    if (phieunhaps && phieunhaps.length > 0) {
+        let html = ''
 
-        if (promoId) {
-            getPromotion(promoId)
-                .then(promo => {
-                    const html = `
-                        <p>Bạn có chắc chắn muốn xóa Nhà Cung Cấp có mã "<b class="promo-id">${promo.ma_ncc}</b>" không?</p>
-                        <p class="text-warning"><small>Hành động này sẽ không thể hoàn tác</small></p>
-                    `
-                    $('#deleteSuppilerModal .delete-bodya').html(html)
-                })
-        }
-    })
+        phieunhaps.forEach((phieunhap, index) => {
+            console.log(phieunhap)
+            // Format số tiền
+            const formattedTongTien = formatMoney(phieunhap.tong_tien);
 
-    $('.btn-delete-checked-promo-modal').on('click', () => {
-        const html = `
-            <p>Bạn có chắc muốn xóa các Nhà Cung Cấp được chọn không ?</p>
-            <p class="text-warning"><small>Hành động này sẽ không thể hoàn tác</small></p>
-        `
-        $('#deleteSuppilerModal .delete-bodya').html(html)
-    })
-}
+            html += `
+            <tr>
+                <td>${phieunhap.ma_pn}</td>
+                <td>${phieunhap.ma_ncc}</td>
+                <td>${phieunhap.ma_nv}</td>
+                <td>${phieunhap.ngay_nhap}</td>
+                <td>${formattedTongTien} VNĐ</td>
+                <td>`;
 
-function deletePromotion(promoId) {
-    return new Promise((resolve, reject) => {
-        $.ajax({
-            url: 'server/src/controller/NhaCungCapController.php',
-            method: 'POST',
-            data: { action: 'delete', promoId },
-            success: data => {
-                resolve(data)
-            },
-            error: (xhr, status, error) => {
-                console.log(error)
-                reject(error)
+            if (phieunhap.tinh_trang == 0) {
+                html += `<button class="btn btn-success btn-process-bill" value="${phieunhap.tinh_trang}">Xử lý</button>`;
+            } else {
+                html += `<span style="color: red; font-weight: bold;">Đã xử lý</span>`;
             }
+
+            html += `</td>
+            <td style="padding-top: 10px;">
+                <a href="/admin.php?controller=giohang&ma=${phieunhap.ma_pn}" style="display: block;">
+                    <button style="width: 61%;" class="btn btn-primary">Chi tiết</button>
+                </a>
+            </td>
+        </tr>`;
+
         })
-    })
+        phanquyen_chucnang("Phiếu nhập")
+        getSizeinTable("nhanvien", "NV", "#admin-phieunhap-maphieunhap")
+        $('.admin-phieunhap-list').html(html)
+
+    }
 }
 
-function handleDeletePromo() {
-    $(document).on('click', '#confirm-delete', () => {
-        const promoId = $('#deletePromotion .promo-id').text()
-
-        if (promoId) {
-            deletePromotion(promoId)
-                .then(res => {
-                    if (res === 'success') {
-                        alert('Xóa sản phẩm thành công')
-                        $('#deletePromotion').modal('hide')
-                        loadPromotionData()
-                    } 
-                    else if(res === 'fail') {
-                        alert('Không thể xóa khuyến mãi có chương trình "Đang diễn ra"')
-                    }
-                    else {
-                        alert('Xảy ra lỗi trong quá trình xóa sản phẩm')
-                    }
-                })
-                .catch(error => console.log(error))
-        }
-    })
+// Hàm để định dạng số tiền
+function formatMoney(amount) {
+    return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
-
-function getNextPromoId() {
-    $.ajax({
-        url: 'server/src/controller/NhaCungCapController.php',
-        method: 'POST',
-        data: { action: 'get-size' },
-        dataType: 'JSON',
-        success: size => {
-            if(size) {
-                id = 'NCC' + String(size+1).padStart(3, '0');
-                $("#promotion-id").val(id)
-            }
-        },
-        error: (xhr, status, error) => {
-            console.log(error)
-        }
-    })
-    return 1;
-}
-
-function renderUpdatePromoModal() {
-    $(document).on('click', '.btn-update-promo-modal', e => {
-        const promoId = e.target.closest('.btn-update-promo-modal').dataset.id
-
-        getPromotion(promoId)
-            .then(promo => {
-                $('#updatePromotion #promotion-id').val(promo.ma_ncc),
-                $('#updatePromotion #promotion-name').val(promo.ten_ncc),
-                $('#updatePromotion #promotion-condition').val(promo.dia_chi),
-                $('#updatePromotion #promotion-percent').val(promo.so_dien_thoai)
-            })
-            .catch(error => console.log(error))
-    })
-}
-
-function updatePromo(promo) {
-    return new Promise((resolve, reject) => {
-        $.ajax({
-            url: 'server/src/controller/NhaCungCapController.php',
-            method: 'POST',
-            data: { action: 'update', promo },
-            success: res => {
-                if (res == 'success') {
-                    resolve(true)
-                } 
-                else {
-                    console.log(res)
-                    resolve(false)
-                }
-            },
-            error: (xhr, status, error) => {
-                console.log(error)
-                reject(error)
-            }
-        })
-    })
-}
-
-function handleUpdatePromo() {
-    $(document).on('click', '.btn-update-promo', () => {
-        const promo = {
-            promoId: $('#updatePromotion #promotion-id').val().trim(),
-            promoName: $('#updatePromotion #promotion-name').val().trim(),
-            promoCondition: $('#updatePromotion #promotion-condition').val().trim(),
-            promoPercent: $('#updatePromotion #promotion-percent').val().trim(),
-            
-            
-        }
-
-        if(!validatePromo(promo)) {
-            return
-        }
-
-        updatePromo(promo)
-            .then(res => {
-                if(res) {
-                    alert('Cập nhật Nhà Cung Cấp thành công')
-                    $('form').trigger('reset')
-                    $('#updatePromotion').modal('hide')
-                    loadPromotionData()
-                } 
-                else {
-                    alert('Xảy ra lỗi trong quá trình cập nhật Cung Cấp')
-                }
-            })
-            .catch(error => console.log(error))
-    })
-}
-
-// render NCC
-function selectNhaCC(){
-    $("#employee-import-product").val($("#admin-nhomquyen").val())
-    $.ajax({
-        url: "server/src/controller/NhaCungCapController.php",
-        data: {action:"get-all"},
-        method: "post",
-        dataType: "json",
-        
-        success: function (data) {
-            console.log(data)
-            
-            var html="";
-            data.forEach((ncc,index) => {
-                html+=`<option value="${ncc['ma_ncc']}">${ncc['ten_ncc']}</option>`;
-            })
-            $("#supplier-import-product").html(html);
-        }
-
-    })
-}
-
-function selectNhaCC(){
-    $.ajax({
-        url: "server/src/controller/NhaCungCapController.php",
-        data: {action:"get-all"},
-        method: "post",
-        dataType: "json",
-        
-        success: function (data) {
-            console.log(data)
-            
-            var html="";
-            data.forEach((ncc,index) => {
-                html+=`<option value="${ncc['ma_ncc']}">${ncc['ten_ncc']}</option>`;
-            })
-            $("#supplier-import-product").html(html);
-        }
-
-    })
-}
-

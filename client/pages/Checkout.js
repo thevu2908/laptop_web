@@ -125,7 +125,7 @@ async function loadTTNHToCheckout() {
                         <li class="col-6" >
                             <div class="checkout-address-btn position-relative select-ttnh ${selected}" data-id="${item.ma_ttnh}" >
                                 <div class="checkout-address__info">
-                                    <h5 style="font-weight: 900;">${item.ho_ten}</h5>
+                                    <h5 style="font-weight: 600;">${item.ho_ten}</h5>
                                     <h6 class="mb-1 mt-1" >${item.so_dien_thoai}</h6>
                                     <h6>${item.dia_chi}</h6>
                                 </div>
