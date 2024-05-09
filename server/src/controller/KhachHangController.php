@@ -108,7 +108,11 @@ switch($action) {
         $id=$_POST['id'];
         $khachHangCtl->getKH($id);
         break;
-    }    
+    }
+    case "get-length": {
+        echo $khachHangCtl->getKhachhangLength();
+        break;
+    }
     default:
         break;
 }
