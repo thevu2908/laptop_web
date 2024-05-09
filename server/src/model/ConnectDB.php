@@ -10,8 +10,8 @@ class ConnectDB {
     public function __construct() {
         $this->servername = "localhost";
         $this->username = "root";
-        $this->password = "Giau0964184548@";
-        $this->database = "web4";
+        $this->password = "";
+        $this->database = "web2";
         $this->conn = mysqli_connect($this->servername, $this->username, $this->password, $this->database);
 
         if (!$this->conn) {
