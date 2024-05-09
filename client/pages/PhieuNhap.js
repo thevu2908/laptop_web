@@ -31,11 +31,11 @@ $(document).ready(function () {
         e.preventDefault();
         Swal.fire({
             title: "Bạn chắc chắn chưa?",
-            text: "Once deleted, you will not be able to recover!",
+            text: "Khi xóa sẽ không thể hoàn tác",
             icon: "warning",
             showCancelButton: true,
-            confirmButtonText: "Yes, delete it!",
-            cancelButtonText: "No, cancel!",
+            confirmButtonText: "Xóa",
+            cancelButtonText: "Hủy",
             dangerMode: true,
         })
         .then((willDelete) => {
@@ -59,9 +59,6 @@ $(document).ready(function () {
                         location.reload();
                     }
                 });
-            } else if (willDelete.dismiss === Swal.DismissReason.cancel) {
-                // Người dùng chọn "No, cancel!"
-                Swal.fire("Cancelled", "Your item is safe :)", "info");
             }
         });
     });
@@ -95,13 +92,13 @@ $(document).ready(function () {
 
         Swal.fire({
             title: "Bạn chắc chắn chưa?",
-            text: "Once paid, you will not be able to recover!",
+            text: "Tạo phiếu nhập hàng",
             icon: "warning",
             showCancelButton: true,
             confirmButtonColor: "#3085d6",
             cancelButtonColor: "#d33",
-            confirmButtonText: "Yes, pay it!",
-            cancelButtonText: "No, cancel!",
+            confirmButtonText: "Thanh toán",
+            cancelButtonText: "Hủy",
         }).then((result) => {
             if (result.isConfirmed) {
                 $.ajax({
@@ -136,13 +133,13 @@ $(document).ready(function () {
                                     window.location.href = "/admin.php?controller=phieunhap";
                                 },
                                 error: function () {
-                                    Swal.fire("Error!", "There was an error processing your request.", "error");
+                                    Swal.fire("Error!", "Xảy ra lỗi, vui lòng thử lại sau", "error");
                                 }
                             });
                         });
                     },
                     error: function () {
-                        Swal.fire("Error!", "There was an error processing your request.", "error");
+                        Swal.fire("Error!", "Xảy ra lỗi, vui lòng thử lại sau", "error");
                     },
                 });
             }
@@ -196,7 +193,6 @@ function selectNhaCC() {
         method: "post",
         dataType: "json",
         success: function (data) {
-            console.log(data);
             var html = "<option value=''>--Chọn Nhà Cung Cấp--</option>"; // Thêm giá trị mặc định vào đầu tiên
             data.forEach((ncc, index) => {
                 html += `<option value="${ncc['ma_ncc']}">${ncc['ten_ncc']}</option>`;
@@ -204,7 +200,4 @@ function selectNhaCC() {
             $(".supplier-import-product").html(html); 
         }
     });
-}
-
-
-  
+} 
