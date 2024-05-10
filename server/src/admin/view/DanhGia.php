@@ -39,8 +39,8 @@
 							</th>
 							<th>Khách Hàng</th>
 							<th>Rating</th>
-							<th>Ngày Tạo</th>
-							<th>Nội Dung</th>
+							<th>Ngày đánh giá</th>
+							<th>Nội dung</th>
 							<th class="w-auto" >Actions</th>
 						</tr>
 					</thead>

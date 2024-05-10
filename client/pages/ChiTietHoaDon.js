@@ -3,8 +3,6 @@ $(document).ready(() => {
     renderAdminBill(null)
     clickPage(renderAdminBill)
     renderConfirmBillModal()
-    // Trang User
-    // handleAddReview()
 })
 
 function getChiTietHoaDon(ma_hd) {

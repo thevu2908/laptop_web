@@ -114,13 +114,13 @@ function kiemtraquyen($arr,$chucnang){
           <ul class='btn-toggle-nav list-unstyled fw-normal pb-1 small'>
             <li class='side-menu-item ".($page === 'hoadon' ? 'active' : '')."'>
               <a href='/admin.php?controller=hoadon' class='nav-link'>
-                <i class='fa-solid fa-laptop'></i>
+                <i class='fa-regular fa-clipboard'></i>
                 <span class='text'>Hóa Đơn</span>
               </a>
             </li>
             <li class='side-menu-item ".($page === 'chitiethoadon' ? 'active' : '')."'>
               <a href='/admin.php?controller=chitiethoadon' class='nav-link'>
-                <i class='fa-solid fa-laptop-code'></i>
+                <i class='fa-solid fa-clipboard-list'></i>
                 <span class='text'>Chi Tiết Hóa Đơn</span>
               </a>
             </li>
