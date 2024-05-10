@@ -115,12 +115,11 @@ async function loadCart() {
                     })
                 } else {
                     html += '<div class="cart-empty"><img src="server/src/assets/images/empty-cart.png" ></div>'
-                    // $('.cart__footer-total .cart__footer-text').text("Chưa có sản phẩm trong giỏ hàng")
-                    // $('.cart__footer-total .cart__footer-tocart').text("Tiếp tục mua hàng")
                     $('.cart__list-product').html(html)
                     $('.cart__footer-tocart').hide()
                     $('.cart__footer-money').text('')
-                    $('.cart__left-product').html('')
+                    $('.cart__left-product').html(html)
+                    $('.continue-checkout').css('pointer-events', 'none')
                 }
                 loadCartNumber()
             }

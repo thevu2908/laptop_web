@@ -800,6 +800,52 @@ ul, li {
 
 /* END Đánh giá */
 
+
+/* Thanh toán */
+.modal-cart.qr-code-success .text,
+.modal-cart.qr-code-success span,
+.modal-cart.qr-code .text,
+.modal-cart.qr-code span {
+    color: #CC9407;
+    font-weight: 700;
+}
+
+.modal-cart.qr-code-success label,
+.modal-cart.qr-code label {
+    color: white;
+}
+
+.modal-cart.qr-code-success .modal-cart-dialog,
+.modal-cart.qr-code .modal-cart-dialog {
+    background-color: #272A52;
+}
+
+.modal-cart.qr-code .progress-bar {
+    width: 100%;
+    height: 10px;
+    border-radius: 10px;
+    border: 1px solid transparent;
+    overflow: hidden;
+}
+
+.modal-cart.qr-code .progress {
+    width: 100%;
+    height: 100%;
+    background-color: #CC9407;
+    animation: progressAnimation 2s linear infinite;
+}
+
+@keyframes progressAnimation {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(100%);
+    }
+}
+
+/* END Thanh toán */
+
 .login-header {
     padding-bottom: 20px;
 }

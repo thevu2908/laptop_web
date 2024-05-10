@@ -1235,6 +1235,15 @@ table.table .avatar {
 }
 #tableChiTietDoiTra th,
 #tableChiTietDoiTra td {
+    width: auto;
+} 
+
+/* Hóa Đơn */
+table.table-bill.table tr th {
+  padding: 12px 8px;
+}
+
+/* END Hóa Đơn */
   width: auto;
 }
 

@@ -36,9 +36,9 @@
                             </div>
                         </li>
                         <li class="col-6" >
-                            <div data-id="momo" class="checkout-address-btn flex-column select-payment-method">
-                                <div class="checkout-method-title">Thanh toán qua MoMo bằng mã QR</div>
-                                <!-- <div class="checkout-method-describe">HEHE</div> -->
+                            <div data-id="QR" class="checkout-address-btn flex-column select-payment-method">
+                                <div class="checkout-method-title">Thanh toán bằng mã QR</div>
+                                <div class="checkout-method-describe">ACB, BIDV, Techcombank, MBBank, VPBank, VietinBank, Agribank</div>
                             </div>
                         </li>
                     </ul>
@@ -146,6 +146,57 @@
 
             <div class="modal-cart-footer">
                 <button class="btn btn-danger btn-cancel closemodal">Hủy bỏ</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-cart qr-code" >
+        <div class="modal-cart-dialog" style="min-width: 410px;">
+            <div class="modal-cart-body" style="min-height: 450px;" >
+                <div id="img-qrcode mt-2" style="text-align: center; margin-top: 20px;">
+                    <img style="width: 270px; " src="server/src/assets/images/qrcode.png" >
+                </div>
+                <div class="d-flex justify-content-center mt-3">
+                    <h5 class="text" >Mã QR thanh toán tự động</h5>
+                </div>
+                <div class="text d-flex justify-content-center">
+                    <h6 class="text" style="font-size: 15px;" >(Xác nhận tự động - Thường không quá 3')</h6>
+                </div>
+                <div class="d-flex justify-content-start" >
+                    <label>Số tiền: </label>
+                    <span class="checkout-qrcode-price mx-2" >5.593.000₫</span>
+                </div>
+                <div class="d-flex justify-content-start" >
+                    <label>Nội dung: </label>
+                    <span class="checkout-qrcode-content mx-2">Miễn phí</span>
+                </div>
+                <div class="d-flex justify-content-start" >
+                    <label>Người thụ hưởng: </label>
+                    <span class="checkout-qrcode-receiver mx-2" >Do Minh Quan</span>
+                </div>
+                <hr style="color: white;" >
+                <div class="d-flex justify-content-between mb-3" >
+                    <label>Đang chờ thanh toán</label>
+                    <span id="checkout-qrcode-countdown" class="mx-2" >10:00</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-cart qr-code-success" >
+        <div class="modal-cart-dialog" style="min-width: 410px; min-height: 40px;">
+            <div class="modal-cart-body" >
+                <div class="d-flex justify-content-center mt-3">
+                    <h5 class="text" >THANH TOÁN THÀNH CÔNG</h5>
+                </div>
+                <hr style="color: white;" >
+                <div class="d-flex justify-content-between mb-3" >
+                    <label>Bắt đầu sau</label>
+                    <span id="checkout-qrcode-countdown2" class="mx-2" >4s</span>
+                </div>
             </div>
         </div>
     </div>

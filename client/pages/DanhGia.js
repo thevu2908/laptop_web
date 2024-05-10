@@ -34,7 +34,7 @@ async function renderListReview() {
         const response = await $.ajax({
             url: 'server/src/controller/DanhGiaController.php',
             method: 'POST',
-            data: { action: 'get-all', productId },
+            data: { action: 'get-by-masp', productId },
             dataType: 'JSON'
         });
 
@@ -93,7 +93,7 @@ async function renderListReview() {
 }
 
 async function renderReviewAdmin(data) {
-    let productId = $('#admin-review-main #product-detail-id').val()
+    let productId = $('#admin-review-main #product-id').val()
 
     if (productId) {
         // productId = productId.toUpperCase().trim()
@@ -105,7 +105,7 @@ async function renderReviewAdmin(data) {
             let html = ''
 
             dataReview.pagination.forEach((review, index) => {
-                if(review.ma_ctsp === productId) {
+                if(review.ma_sp === productId) {
                     html += `
                         <tr>
                             <td>

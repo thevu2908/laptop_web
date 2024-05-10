@@ -104,6 +104,30 @@ function kiemtraquyen($arr,$chucnang){
         </a>
       </li>";
       }
+      if(kiemtraquyen($arr,"Hóa Đơn") && $chitietquyen->kiemtrahangdong($maquyen,"Hóa Đơn","Xem")){
+        echo "<li class='side-menu-item pr-0'>
+        <button class='btn btn-toggle align-items-center rounded collapsed' data-toggle='collapse' data-target='#dashboard-collapse-hoadon' aria-expanded='<?php echo $page === 'hoadon' || $page === 'chitiethoadon' ? 'true' : 'false'; ?>
+          <i class='fa-solid fa-chevron-right'></i>
+          Hóa đơn
+        </button>
+        <div class='collapse ".($page === 'hoadon' || $page === 'chitiethoadon' ? 'show' : 'hide')."' id='dashboard-collapse-hoadon'>
+          <ul class='btn-toggle-nav list-unstyled fw-normal pb-1 small'>
+            <li class='side-menu-item ".($page === 'hoadon' ? 'active' : '')."'>
+              <a href='/admin.php?controller=hoadon' class='nav-link'>
+                <i class='fa-solid fa-laptop'></i>
+                <span class='text'>Hóa Đơn</span>
+              </a>
+            </li>
+            <li class='side-menu-item ".($page === 'chitiethoadon' ? 'active' : '')."'>
+              <a href='/admin.php?controller=chitiethoadon' class='nav-link'>
+                <i class='fa-solid fa-laptop-code'></i>
+                <span class='text'>Chi Tiết Hóa Đơn</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </li>";
+      }
       if(kiemtraquyen($arr,"Bảo Hành") && $chitietquyen->kiemtrahangdong($maquyen,"Bảo Hành","Xem")){
         echo " <li class='side-menu-item ".( $page === 'baohanh' ? 'active' : '')."'>
         <a href='/admin.php?controller=baohanh' class='nav-link'>

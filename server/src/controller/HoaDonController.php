@@ -11,7 +11,16 @@ class HoaDonController {
     }
 
     public function getAllHoaDon() {
-        echo json_encode($this->hoadonRepo->getAllHoaDon());
+        $bills = $this->hoadonRepo->getAllHoaDon();
+        $result = [];
+
+        foreach($bills as $bill) {
+            if($bill['trang_thai'] ==  0) {
+                $result[] = $bill;
+            }
+        }
+
+        echo json_encode($result);
     }
 
     public function getHoaDon($id) {
@@ -41,6 +50,18 @@ class HoaDonController {
         }
     }
 
+    public function deleteHoaDon($billId) {
+        $hoadon = $this->hoadonRepo->getHoaDon($billId);
+        if ($hoadon['tinh_trang'] == "Chưa xác nhận") {
+            $this->hoadonRepo->deleteHoaDon($billId);
+            echo 'success-delete';
+        }
+        else if($hoadon['tinh_trang'] == "Đã xác nhận") {
+            echo 'success-no-delete';
+        } 
+        else {
+            echo 'fail';
+        }
     public function getOrderByMonth($month) {
         $orders = $this->hoadonRepo->getOrderByMonth($month);
         $revenue = 0;
@@ -130,6 +151,12 @@ switch ($action) {
 
             $hoadonctl->addHoaDon($hoadon);
         }
+        break;
+
+    case 'delete':
+        $id = $_POST['billId'];
+        $hoadonctl->deleteHoaDon($id);
+
     default:
         break;
 }
