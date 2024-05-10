@@ -5,7 +5,7 @@ class ConnectDB {
     private $username;
     private $password;
     private $database;
-    public $conn;
+    protected $conn;
 
     public function __construct() {
         $this->servername = "localhost";
@@ -47,6 +47,4 @@ class ConnectDB {
         $last_id = mysqli_insert_id($this->conn);
         return $last_id;
     }
-
-    
 }

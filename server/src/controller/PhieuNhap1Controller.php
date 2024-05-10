@@ -23,16 +23,24 @@ class PhieuNhap1Controller {
 
         echo json_encode($result);
     }
+
+    public function getImportInvoice($id) {
+        echo json_encode($this->phieunhapRepo->getImportInvoice($id));
+    }
 }
 
-$action = $_POST['action'];
+$action = isset($_REQUEST['action']) ? $_REQUEST['action'] : '';
 
 switch ($action) {
     case 'load':
         $phieunhapCtl = new PhieuNhap1Controller(); 
         $phieunhapCtl->getData(); 
         break;
+    case 'get':
+        $id = $_POST['id'];
+        $phieunhapCtl = new PhieuNhap1Controller();
+        $phieunhapCtl->getImportInvoice($id);
+        break;
     default:
         break;
 }
-?>

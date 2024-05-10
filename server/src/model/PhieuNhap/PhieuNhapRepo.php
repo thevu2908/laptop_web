@@ -132,8 +132,6 @@ switch ($action) {
     case 'invoices':
         $sql = "select * from phieunhap";
         $result123 = (new ConnectDB())->select($sql);
-
-
         break;
     case 'detailinvoices':
         // $sql = "SELECT * FROM  sanpham sp JOIN chitietsanpham ctsp ON sp.ma_sp = ctsp.ma_sp where ma_ctsp='$ma'";
