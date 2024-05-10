@@ -186,7 +186,7 @@
         </div>
     </div>
 
-    <div class="modal-cart qr-code-success open" >
+    <div class="modal-cart qr-code-success" >
         <div class="modal-cart-dialog" style="min-width: 410px; min-height: 40px;">
             <div class="modal-cart-body" >
                 <div class="d-flex justify-content-center mt-3">
