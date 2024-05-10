@@ -83,12 +83,12 @@ function getOrder(id) {
     })
 }
 
-function getCustomerOrder(ma_kh, tinh_trang, search) {
+function getCustomerOrder(ma_kh, tinh_trang, search, page) {
     return new Promise((resolve, reject) => {
         $.ajax({
             url: 'server/src/controller/HoaDonController.php',
-            method: 'POST',
-            data: { action: 'get-customer-order', ma_kh, tinh_trang, search },
+            method: 'GET',
+            data: { action: 'get-customer-order', ma_kh, tinh_trang, search, page, limit: 5 },
             dataType: 'JSON',
             success: orders => resolve(orders),
             error: (xhr, status, error) => reject(error)
@@ -97,12 +97,85 @@ function getCustomerOrder(ma_kh, tinh_trang, search) {
 }
 
 async function renderCustomerOrder() {
+    const page = $('#currentpage').val()
     const loginSession = await getLoginSession()
     const customerId = loginSession.customerId
     const status = $('.order-filter__item.active').find('input').val() || ''
     const search = $('.order-search input').val() || ''
-    const orders = await getCustomerOrder(customerId, status, search.toUpperCase())
-    let html = `
+    const orders = await getCustomerOrder(customerId, status, search.toUpperCase(), page)
+    let orderList = ''
+
+    if (orders && orders.data && orders.data.length > 0) {
+        for (let order of orders.data) {
+            const orderStatus = order.tinh_trang === 'Đã xác nhận' ? 'complete' : 'not-complete'
+            const orderDetails = await getChiTietHoaDon(order.ma_hd)
+            orderList += `
+                <div class="order-item">
+                    <div>
+                        <div class="order-item__box">
+                            <div class="order-item__heading">
+                                <div class="d-flex align-items-center">
+                                    <div class="order-item__id">
+                                        MÃ ĐƠN HÀNG:
+                                        <span>${order.ma_hd}</span>
+                                    </div>
+                                    <div class="order-item__date">
+                                        NGÀY ĐẶT HÀNG:
+                                        <span>${convertDate(order.ngay_tao)}</span>
+                                    </div>
+                                </div>
+                                <div class="order-item__status ${orderStatus}">${order.tinh_trang.toUpperCase()}</div>
+                            </div>
+                            <div class="line"></div>
+                            <div class="order-item__product-list" href="#order-detail-modal" data-bs-toggle="modal" data-bs-target="#order-detail-modal">
+                                ${orderDetails.map(product => `
+                                    <div class="order-item__product-item">
+                                        <div class="order-item__product-item-box">
+                                            <div class="order-item__product">
+                                                <img src="${product.hinh_anh}">
+                                                <div class="order-item__product-info">
+                                                    <div class="order-item__product-name">
+                                                        <span>
+                                                            ${product.ten_sp}
+                                                            ${product.ten_chip.replaceAll(' ', '-')}
+                                                            ${product.ten_card.replaceAll(' ', '-')}
+                                                            ${product.ram}/${product.rom}
+                                                        </span>
+                                                    </div>
+                                                    <div>
+                                                        <div class="order-item__product-color">Màu sắc: ${product.ten_mau}</div>
+                                                        <div class="order-item__product-quantity">x${product.so_luong}</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="order-item__product-price">
+                                                <span>₫${formatCurrency(product.gia_sp)}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="order-item__separate"></div>
+                    <div class="order-item__total">
+                        <div class="order-item__payment">
+                            <label>Phương thức thanh toán:</label>
+                            <div class="order-item__payment-method">${order.hinh_thuc}</div>
+                        </div>
+                        <div class="order-item__total-box">
+                            <label>Thành tiền:</label>
+                            <div class="order-item__total-price">₫${formatCurrency(order.thanh_tien)}</div>
+                        </div>
+                    </div>
+                </div>
+            `
+        }
+    } else {
+        orderList = '<div class="order-empty"><h3>Chưa có đơn hàng</h3><img src="server/src/assets/images/order-empty.png"></div>'
+    }
+
+    $('.account-profile__right').html(`
         <div class="account-order__container">
             <div class="order-filter">
                 <a class="order-filter__item ${status === '' ? 'active' : ''}">
@@ -120,81 +193,14 @@ async function renderCustomerOrder() {
             </div>
             <div class="order-search">
                 <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="search" autocomplete="off" placeholder="Bạn có thể tìm kiếm theo Mã đơn hàng hoặc Tên sản phẩm">
+                <input type="search" autocomplete="off" placeholder="Bạn có thể tìm kiếm theo Mã đơn hàng hoặc Tên sản phẩm" value="${search}">
             </div>
-        <div class="order-list">
-    `
-
-    if (orders && orders.length > 0) {
-        for (let order of orders) {
-            const status = order.tinh_trang === 'Đã xác nhận' ? 'complete' : 'not-complete'
-            html += `
-                <div class="order-item">
-                    <div>
-                        <div class="order-item__box">
-                            <div class="order-item__heading">
-                                <div class="d-flex align-items-center">
-                                    <div class="order-item__id">
-                                        MÃ ĐƠN HÀNG:
-                                        <span>${order.ma_hd}</span>
-                                    </div>
-                                    <div class="order-item__date">
-                                        NGÀY ĐẶT HÀNG:
-                                        <span>${convertDate(order.ngay_tao)}</span>
-                                    </div>
-                                </div>
-                                <div class="order-item__status ${status}">${order.tinh_trang.toUpperCase()}</div>
-                            </div>
-                            <div class="line"></div>
-                            <div class="order-item__product-list" href="#order-detail-modal" data-bs-toggle="modal" data-bs-target="#order-detail-modal">
-            `
-    
-            const orderDetails = await getChiTietHoaDon(order.ma_hd)
-            orderDetails.forEach(product => {
-                html += `
-                    <div class="order-item__product-item">
-                        <div class="order-item__product-item-box">
-                            <div class="order-item__product">
-                                <img src="${product.hinh_anh}">
-                                <div class="order-item__product-info">
-                                    <div class="order-item__product-name">
-                                        <span>${product.ten_sp} ${product.ram}/${product.rom}</span>
-                                    </div>
-                                    <div>
-                                        <div class="order-item__product-color">Màu sắc: ${product.ten_mau}</div>
-                                        <div class="order-item__product-quantity">x${product.so_luong}</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="order-item__product-price">
-                                <span>₫${formatCurrency(product.gia_sp)}</span>
-                            </div>
-                        </div>
-                    </div>
-                `
-            })
-    
-            html += `
-                </div></div></div>
-                <div class="order-item__separate"></div>
-                <div class="order-item__total">
-                    <div class="order-item__payment">
-                        <label>Phương thức thanh toán:</label>
-                        <div class="order-item__payment-method">${order.hinh_thuc}</div>
-                    </div>
-                    <div class="order-item__total-box">
-                        <label>Thành tiền:</label>
-                        <div class="order-item__total-price">₫${formatCurrency(order.thanh_tien)}</div>
-                    </div>
-                </div></div>
-            `
-        }
-    } else if (orders && orders.length === 0) {
-        html += '<div class="order-empty"><h3>Chưa có đơn hàng</h3><img src="server/src/assets/images/order-empty.png" ></div>'
-    }
-    
-    html += `</div></div>`
-    $('.account-profile__right').html(html)
+            <div class="order-list">
+                ${orderList}
+            </div>
+        </div>
+    `)
+    enduserTotalPage(orders.length, 5, page)
 }
 
 function handleRenderCustomerOrder() {
@@ -203,6 +209,7 @@ function handleRenderCustomerOrder() {
         $(this).siblings().not($(this)).removeClass('active')
         $(this).addClass('active')
         renderCustomerOrder()
+        clickPage(renderCustomerOrder)
     })
 }
 
@@ -210,6 +217,7 @@ function filterEndUserOrderStatus() {
     $(document).on('click', '.order-filter__item', function() {
         $(this).siblings().removeClass('active')
         $(this).addClass('active')
+        $("#currentpage").val(1)
         renderCustomerOrder()
     })
 }
@@ -217,7 +225,8 @@ function filterEndUserOrderStatus() {
 function searchEndUserOrder() {
     $(document).on('keyup', '.order-search input', e => {
         if (e.key === 'Enter') {
-            renderCustomerOrder()
+            $("#currentpage").val(1)
+            renderCustomerOrder(e.target.value)
         }
     })
 }
@@ -229,7 +238,7 @@ function renderCustomerOrderDetail() {
             const order = await getOrder(orderId)
             const orderDetails = await getChiTietHoaDon(orderId)
             const address = await getThongTinNhanHang(order.ma_ttnh)
-            console.log(order)
+
             let html = `
                 <div class="order-detail_address">
                     <h3>Địa chỉ nhận hàng</h3>
@@ -258,13 +267,19 @@ function renderCustomerOrderDetail() {
             `
 
             orderDetails.forEach((orderDetail, index) => {
+                console.log(orderDetail)
                 html += `
                     <a href="index.php?san-pham&id=${orderDetail.ma_sp}" class="order-detail__product-item">
                         <div class="order-detail__product-info">
                             <img src="${orderDetail.hinh_anh}" class="order-detail__product-img">
                             <div class="order-detail__product-info-detail">
                                 <div class="order-detail__product-name">
-                                    <span>${orderDetail.ten_sp} ${orderDetail.ram}/${orderDetail.rom}</span>
+                                    <span>
+                                        ${orderDetail.ten_sp}
+                                        ${orderDetail.ten_chip.replaceAll(' ', '-')}
+                                        ${orderDetail.ten_card.replaceAll(' ', '-')}
+                                        ${orderDetail.ram}/${orderDetail.rom}
+                                    </span>
                                 </div>
                                 <div>
                                     <div class="order-detail__product-color">Màu sắc: ${orderDetail.ten_mau}</div>

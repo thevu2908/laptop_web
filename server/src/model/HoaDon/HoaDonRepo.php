@@ -30,9 +30,38 @@ class HoaDonRepo extends ConnectDB {
         }
     }
 
-    public function getHoaDonByKhachHang($ma_kh, $tinh_trang, $search) {
+    public function getHoaDonByKhachHang($ma_kh, $tinh_trang, $search, $start = 0, $limit) {
         try {
             $sql = "SELECT * FROM hoadon
+                WHERE ma_kh = '$ma_kh'
+                AND (tinh_trang LIKE '%$tinh_trang%')
+                AND (ma_hd LIKE '%$search%' OR ma_hd IN (
+                    SELECT cthd.ma_hd FROM chitiethoadon cthd
+                    JOIN ctsp_imei ctspi ON ctspi.ma_imei = cthd.ma_imei
+                    JOIN chitietsanpham ctsp ON ctsp.ma_ctsp = ctspi.ma_ctsp
+                    JOIN sanpham sp ON sp.ma_sp = ctsp.ma_sp
+                    WHERE sp.ten_sp LIKE '%$search%'
+                ))
+                ORDER BY ngay_tao DESC LIMIT $start,$limit
+            ";
+            $result = mysqli_query($this->conn, $sql);
+            if (!$result) {
+                throw new Exception('Error: ' . mysqli_error($this->conn));
+            }
+            $arrHoaDon = array();
+            while ($row = mysqli_fetch_assoc($result)) {
+                $arrHoaDon[] = $row;
+            }
+            return $arrHoaDon;
+        } catch (Exception $e) {
+            echo 'Error:'. $e->getMessage();
+            return null;
+        }
+    }
+
+    public function getHoaDonByKhachHangLength($ma_kh, $tinh_trang, $search) {
+        try {
+            $sql = "SELECT COUNT(*) as length FROM hoadon
                 WHERE ma_kh = '$ma_kh'
                 AND (tinh_trang LIKE '%$tinh_trang%')
                 AND (ma_hd LIKE '%$search%' OR ma_hd IN (
@@ -45,11 +74,10 @@ class HoaDonRepo extends ConnectDB {
                 ORDER BY ngay_tao DESC
             ";
             $result = mysqli_query($this->conn, $sql);
-            $arrHoaDon = array();
-            while ($row = mysqli_fetch_assoc($result)) {
-                $arrHoaDon[] = $row;
+            if (!$result) {
+                throw new Exception('Error: ' . mysqli_error($this->conn));
             }
-            return $arrHoaDon;
+            return mysqli_fetch_assoc($result)['length'];
         } catch (Exception $e) {
             echo 'Error:'. $e->getMessage();
             return null;

@@ -26,6 +26,12 @@
                 <div class="account-profile__right">
                     
                 </div>
+                <div class="d-flex justify-content-center">
+                    <nav class="enduser-pagination">
+                        
+                    </nav>
+                    <input type="hidden" name="currentpage" id="currentpage" value="1">
+                </div>
             </div>
         </div>
     </div>

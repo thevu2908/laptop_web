@@ -32,7 +32,6 @@ function updateCustomer(id, name, phone, email) {
             }
         })
     })
-
 }
 
 function getCustomer(id) {
@@ -109,6 +108,7 @@ function handleRenderCustomerProfile() {
         window.history.pushState({}, '', 'index.php?thong-tin-tai-khoan&thong-tin-ca-nhan')
         $(this).siblings().not($(this)).removeClass('active')
         $(this).addClass('active')
+        $('.enduser-pagination').html('')
         const loginSession = await getLoginSession()
         const { customerId } = loginSession
         const customer = await getCustomer(customerId)
