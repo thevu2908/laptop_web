@@ -111,7 +111,6 @@ async function loadPromoToCheckout() {
                 $('.checkout__right-promo').html(results.join(''));
             })
             .catch(error => console.log(error));
-
     }
 }
 
@@ -132,8 +131,6 @@ async function loadTTNHToCheckout() {
                                     <h6 class="mb-1 mt-1" >${item.so_dien_thoai}</h6>
                                     <h6>${item.dia_chi}</h6>
                                 </div>
-                                <button data-id="${item.ma_ttnh}" style="right: 38px;" class="position-absolute btn-update-ttnh"><i class="fa fa-pencil" style="color: darkgray;" aria-hidden="true"></i></button>
-                                <button data-id="${item.ma_ttnh}" style="right: 10px;" class="position-absolute btn-delete-ttnh"><i class="fa fa-trash" style="color: darkgray;" aria-hidden="true"></i></button>
                             </div>
                         </li>
                     `
@@ -155,9 +152,6 @@ async function loadTTNHToCheckout() {
             
             ttnhData[maKH] = ttnh_id;
             sessionStorage.setItem('ttnh', JSON.stringify(ttnhData));
-
-            handleUpdateTTNHCheckout()
-            handleDeleteTTNHCheckout()
             selectTTNH()
         })
         .catch(error => console.log(error));
@@ -243,34 +237,6 @@ function handleAddTTNHCheckout() {
     });
 }
 
-function handleUpdateTTNHCheckout() {
-    $(document).on('click', '.btn-update-ttnh', function(e) {
-        e.preventDefault();
-        ttnh_id = $(this).attr('data-id')
-        console.log("Update: " + ttnh_id)
-    });
-}
-
-function handleDeleteTTNHCheckout() {
-    $(document).on('click', '.btn-delete-ttnh', async function(e) {
-        e.preventDefault();
-        ttnh_id = $(this).attr('data-id')
-        console.log("Delete: " + ttnh_id)
-        var confirmDelete = confirm("Bạn có chắc muốn xóa Thông tin nhận hàng này không?");
-        if (confirmDelete) {
-            let res = await deleteThongTinNhanHang(ttnh_id);
-            console.log(res)
-            if(res === '1') {
-                console.log("OKKK")
-                loadTTNHToCheckout()
-            }
-            else {
-                console.log("Lỗi xóa TTNH")
-            }
-        }
-    });
-}
-
 function selectTTNH() {
     $(document).on('click', '.select-ttnh', async function(e) {
         e.preventDefault();
@@ -318,8 +284,6 @@ function selectPaymentMethod() {
         
         payMethodData[maKH] = pay_id;
         sessionStorage.setItem('pttt', JSON.stringify(payMethodData));
-
-
     });
 }
 
@@ -377,17 +341,13 @@ function handlePayment() {
             $('.checkout-qrcode-content').text(noiDungCK)
             handleMethodQRCode(soTien, noiDungCK)
             startCountDown()
-        }
-        else if(ptttData[maKH] === 'COD') {
+        } else if(ptttData[maKH] === 'COD') {
             sendPayment()
-        }
-        else if(ptttData[maKH] === 'VNPAY') {
+        } else if(ptttData[maKH] === 'VNPAY') {
             
-        }
-        else {
+        } else {
             console.log(ptttData[maKH] + " KHÔNG tồn tại")
         }
-
     });
 }
 
@@ -420,10 +380,10 @@ async function sendPayment() {
         if (handleRandomCTSP(resAddBill)) {
             alert('Đơn hàng đã được gửi đi, vui lòng chờ nhân viên xác nhận')
             clearCart(maKH)
-            window.location.href = 'index.php?san-pham';
+            window.location.href = 'index.php?thong-tin-tai-khoan&don-hang';
         } 
         else {
-            alert('Đã xảy ra lỗi khi them hoa don, vui lòng thử lại')
+            alert('Đã xảy ra lỗi khi thanh toán, vui lòng thử lại')
         }
     } else {
         console.log(resAddBill)
@@ -435,7 +395,6 @@ let MY_BANK = {
     BANK_ID: "MB",
     ACCOUNT_NO: "0778715603"
 }
-
 
 function handleMethodQRCode(soTien, noiDungCK) {
     let QR = `https://img.vietqr.io/image/${MY_BANK.BANK_ID}-${MY_BANK.ACCOUNT_NO}-qr_only.png?amount=${soTien}&addInfo=${noiDungCK}`;

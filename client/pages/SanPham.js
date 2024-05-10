@@ -306,7 +306,7 @@ async function renderEndUserProductList() {
 
     if (products && products.pagination && products.pagination.length > 0) {
         for (let product of products.pagination) {
-            const productDetails = await getProductDetailByProductId(product.ma_sp)
+            const productDetails = await getProductDetailFilter(product.ma_sp, price, cpu)
             const productDetail = productDetails[0]
 
             html += `

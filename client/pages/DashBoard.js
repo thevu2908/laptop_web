@@ -109,7 +109,11 @@ async function renderBestSeller(initAmount) {
                     <div class="d-flex align-items-center justify-content-between flex-grow-1">
                         <div class="d-flex flex-column">
                             <span class="body-title-2 product-name">
-                                ${product.ten_sp} ${product.ten_mau} ${product.ten_chip} ${product.ten_card} ${product.ram}/${product.rom}
+                                ${product.ten_sp}
+                                ${product.ten_mau}
+                                ${product.ten_chip.replaceAll(' ', '-')}
+                                ${product.ten_card.replaceAll(' ', '-')}
+                                ${product.ram}/${product.rom}
                             </span>
                             <span class="product-sell-quantity text-tiny mt-1">${product.total} sản phẩm</span>
                         </div>

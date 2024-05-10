@@ -1236,6 +1236,9 @@ table.table .avatar {
 #tableChiTietDoiTra th,
 #tableChiTietDoiTra td {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 84b28f5c26ae0a52464bd935878e7ab4c8318766
     width: auto;
 } 
 
@@ -1245,7 +1248,10 @@ table.table-bill.table tr th {
 }
 
 /* END Hóa Đơn */
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> 84b28f5c26ae0a52464bd935878e7ab4c8318766
   width: auto;
 }
 
@@ -1564,5 +1570,9 @@ table.table-bill.table tr th {
 .order-detail__total-row.final .order-detail__total-price span {
   color: var(--primary-color);
   font-size: 24px;
+<<<<<<< HEAD
 }
 >>>>>>> 663fca00fe7aed2572622018d391ab14490bf0fc
+=======
+}
+>>>>>>> 84b28f5c26ae0a52464bd935878e7ab4c8318766

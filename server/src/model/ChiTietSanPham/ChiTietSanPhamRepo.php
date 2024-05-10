@@ -68,6 +68,30 @@ class ChiTietSanPhamRepo extends ConnectDB {
         return null;
     }
 
+    public function getProductDetailFilter($productId, $startPrice, $endPrice, $cpu) {
+        try {
+            $query = "SELECT ctsp.*, ten_mau, ten_chip, ten_card, ram, rom FROM chitietsanpham ctsp 
+                JOIN mausac ms ON ctsp.ma_mau = ms.ma_mau
+                JOIN chipxuly cxl ON ctsp.ma_chip_xu_ly = cxl.ma_chip_xu_ly
+                JOIN carddohoa cdh ON ctsp.ma_carddohoa = cdh.ma_card
+                WHERE ma_sp = '$productId' AND ctsp.gia_tien >= '$startPrice' AND ctsp.gia_tien <= '$endPrice' AND cxl.ten_chip LIKE '$cpu%' 
+                AND ctsp.trang_thai = '0'
+            ";
+            $statement = mysqli_query($this->conn, $query);
+            if (!$statement) {
+                throw new Exception("Query failed: " . mysqli_error($this->conn));
+            }
+
+            $productDetails = [];
+            while ($row = mysqli_fetch_assoc($statement)) {
+                $productDetails[] = $row;
+            }
+            return $productDetails;
+        } catch (Exception $e) {
+            echo 'Error: ' . $e->getMessage() . '<br>';
+        }
+    }
+
     public function getProductDetailsLength() : int {
         try {
             $query = "SELECT COUNT(*) as count FROM chitietsanpham";
@@ -84,7 +108,8 @@ class ChiTietSanPhamRepo extends ConnectDB {
 
     public function addProductDetail($productDetail) : bool {
         try {
-            $query = "INSERT INTO chitietsanpham(ma_ctsp, ma_sp, ma_chip_xu_ly, ma_mau, ma_carddohoa, ram, rom, gia_nhap, chiet_khau, gia_tien, so_luong, trang_thai) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0)";
+            $query = "INSERT INTO chitietsanpham(ma_ctsp, ma_sp, ma_chip_xu_ly, ma_mau, ma_carddohoa, ram, rom, gia_nhap, chiet_khau, gia_tien, so_luong, trang_thai) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0)";
             $statement = mysqli_prepare($this->conn, $query);
 
             if (!$statement) {

@@ -226,12 +226,14 @@ class HoaDonRepo extends ConnectDB {
             $sql = "
                 SELECT cthd.ma_imei, sp.ten_sp, sp.hinh_anh, ms.ten_mau, cxl.ten_chip, cdh.ten_card, ctsp.ram, ctsp.rom, ctsp.gia_tien, SUM(cthd.so_luong) as total 
                 FROM chitiethoadon cthd
+                JOIN hoadon hd ON hd.ma_hd = cthd.ma_hd
                 JOIN ctsp_imei ctspi ON cthd.ma_imei = ctspi.ma_imei
                 JOIN chitietsanpham ctsp ON ctspi.ma_ctsp = ctsp.ma_ctsp
                 JOIN mausac ms ON ms.ma_mau = ctsp.ma_mau
                 JOIN chipxuly cxl ON cxl.ma_chip_xu_ly = ctsp.ma_chip_xu_ly
                 JOIN carddohoa cdh ON cdh.ma_card = ctsp.ma_carddohoa
                 JOIN sanpham sp ON sp.ma_sp = ctsp.ma_sp
+                WHERE hd.tinh_trang LIKE '%Đã xác nhận%'
                 GROUP BY cthd.ma_imei
                 ORDER BY total DESC
                 LIMIT $amount

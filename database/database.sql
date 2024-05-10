@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 02, 2024 at 07:20 AM
+-- Generation Time: May 10, 2024 at 11:13 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -250,20 +250,9 @@ INSERT INTO `chitietcongketnoi` (`ma_cong`, `ma_ctsp`) VALUES
 CREATE TABLE `chitiethoadon` (
   `ma_hd` varchar(20) NOT NULL,
   `ma_imei` varchar(20) NOT NULL,
-  `gia_sp` double NOT NULL,
-  `so_luong` int(11) NOT NULL,
-  `thanh_tien` double NOT NULL
+  `so_luong` int(11) NOT NULL DEFAULT 1,
+  `gia_sp` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `chitiethoadon`
---
-
-INSERT INTO `chitiethoadon` (`ma_hd`, `ma_imei`, `gia_sp`, `so_luong`, `thanh_tien`) VALUES
-('HD0001', 'CTSP0001IMEI1', 15000000, 2, 30000000),
-('HD0002', 'CTSP0001IMEI1', 15000000, 1, 15000000),
-('HD0002', 'CTSP0001IMEI2', 17000000, 2, 34000000),
-('HD0003', 'CTSP0001IMEI3', 17000000, 1, 17000000);
 
 -- --------------------------------------------------------
 
@@ -319,6 +308,13 @@ CREATE TABLE `chitietphieunhap` (
   `thanh_tien` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `chitietphieunhap`
+--
+
+INSERT INTO `chitietphieunhap` (`ma_pn`, `ma_ctsp`, `so_luong`, `gia_tien`, `thanh_tien`) VALUES
+('PN0001', 'CTSP0001', 5, 24990000, 124950000);
+
 -- --------------------------------------------------------
 
 --
@@ -341,10 +337,26 @@ INSERT INTO `chitietquyen` (`ma_quyen`, `ma_chuc_nang`, `hanh_dong`) VALUES
 ('NQ01', 'CN01', 'X'),
 ('NQ01', 'CN01', 'Xem'),
 ('NQ01', 'CN01', 'Xóa'),
+('NQ01', 'CN013', 'Sửa'),
+('NQ01', 'CN013', 'Thêm'),
+('NQ01', 'CN013', 'X'),
+('NQ01', 'CN013', 'Xem'),
+('NQ01', 'CN013', 'Xóa'),
+('NQ01', 'CN014', 'Sửa'),
+('NQ01', 'CN014', 'Thêm'),
+('NQ01', 'CN014', 'X'),
+('NQ01', 'CN014', 'Xem'),
+('NQ01', 'CN014', 'Xóa'),
+('NQ01', 'CN02', 'Sửa'),
 ('NQ01', 'CN02', 'Thêm'),
 ('NQ01', 'CN02', 'X'),
 ('NQ01', 'CN02', 'Xem'),
+('NQ01', 'CN02', 'Xóa'),
+('NQ01', 'CN03', 'Sửa'),
+('NQ01', 'CN03', 'Thêm'),
 ('NQ01', 'CN03', 'X'),
+('NQ01', 'CN03', 'Xem'),
+('NQ01', 'CN03', 'Xóa'),
 ('NQ01', 'CN04', 'Sửa'),
 ('NQ01', 'CN04', 'Thêm'),
 ('NQ01', 'CN04', 'X'),
@@ -355,15 +367,26 @@ INSERT INTO `chitietquyen` (`ma_quyen`, `ma_chuc_nang`, `hanh_dong`) VALUES
 ('NQ01', 'CN05', 'X'),
 ('NQ01', 'CN05', 'Xem'),
 ('NQ01', 'CN05', 'Xóa'),
+('NQ01', 'CN06', 'Sửa'),
+('NQ01', 'CN06', 'Thêm'),
 ('NQ01', 'CN06', 'X'),
 ('NQ01', 'CN06', 'Xem'),
+('NQ01', 'CN06', 'Xóa'),
+('NQ01', 'CN07', 'Sửa'),
 ('NQ01', 'CN07', 'Thêm'),
 ('NQ01', 'CN07', 'X'),
 ('NQ01', 'CN07', 'Xem'),
+('NQ01', 'CN07', 'Xóa'),
+('NQ01', 'CN08', 'Sửa'),
 ('NQ01', 'CN08', 'Thêm'),
 ('NQ01', 'CN08', 'X'),
 ('NQ01', 'CN08', 'Xem'),
 ('NQ01', 'CN08', 'Xóa'),
+('NQ01', 'CN09', 'Sửa'),
+('NQ01', 'CN09', 'Thêm'),
+('NQ01', 'CN09', 'X'),
+('NQ01', 'CN09', 'Xem'),
+('NQ01', 'CN09', 'Xóa'),
 ('NQ01', 'CN10', 'Sửa'),
 ('NQ01', 'CN10', 'Thêm'),
 ('NQ01', 'CN10', 'X'),
@@ -374,17 +397,17 @@ INSERT INTO `chitietquyen` (`ma_quyen`, `ma_chuc_nang`, `hanh_dong`) VALUES
 ('NQ01', 'CN11', 'X'),
 ('NQ01', 'CN11', 'Xem'),
 ('NQ01', 'CN11', 'Xóa'),
+('NQ01', 'CN12', 'Sửa'),
+('NQ01', 'CN12', 'Thêm'),
 ('NQ01', 'CN12', 'X'),
 ('NQ01', 'CN12', 'Xem'),
-('NQ02', 'CN01', 'Thêm'),
+('NQ01', 'CN12', 'Xóa'),
 ('NQ02', 'CN01', 'X'),
-('NQ02', 'CN01', 'Xem'),
-('NQ02', 'CN01', 'Xóa'),
-('NQ02', 'CN02', 'Thêm'),
 ('NQ02', 'CN02', 'X'),
-('NQ02', 'CN02', 'Xem'),
 ('NQ02', 'CN04', 'X'),
 ('NQ02', 'CN04', 'Xem'),
+('NQ02', 'CN05', 'Sửa'),
+('NQ02', 'CN05', 'Thêm'),
 ('NQ02', 'CN05', 'X'),
 ('NQ02', 'CN05', 'Xem'),
 ('NQ02', 'CN05', 'Xóa'),
@@ -521,6 +544,8 @@ CREATE TABLE `chucnangquyen` (
 
 INSERT INTO `chucnangquyen` (`ma_chuc_nang`, `ten_chuc_nang`, `trang_thai`) VALUES
 ('CN01', 'Nhóm Quyền', 0),
+('CN013', 'Nhà Cung Cấp', 0),
+('CN014', 'Hóa Đơn', 0),
 ('CN02', 'Chức Năng', 0),
 ('CN03', 'Phân Quyền', 0),
 ('CN04', 'Khuyến Mãi', 0),
@@ -581,9 +606,36 @@ CREATE TABLE `ctsp_imei` (
 --
 
 INSERT INTO `ctsp_imei` (`ma_imei`, `ma_ctsp`, `trang_thai`) VALUES
-('CTSP0001IMEI1', 'CTSP0001', 0),
-('CTSP0001IMEI2', 'CTSP0002', 0),
-('CTSP0001IMEI3', 'CTSP0008', 0);
+('CTSP0001IMEI1', 'CTSP0001', 1),
+('CTSP0002IMEI2', 'CTSP0002', 1),
+('CTSP0003IMEI3', 'CTSP0003', 1),
+('CTSP0004IMEI4', 'CTSP0004', 1),
+('CTSP0005IMEI5', 'CTSP0005', 1),
+('CTSP0006IMEI6', 'CTSP0006', 1),
+('CTSP0007IMEI7', 'CTSP0007', 1),
+('CTSP0008IMEI8', 'CTSP0008', 1),
+('CTSP0009IMEI9', 'CTSP0009', 1),
+('CTSP0010IMEI10', 'CTSP0010', 1),
+('CTSP0011IMEI11', 'CTSP0011', 1),
+('CTSP0012IMEI12', 'CTSP0012', 1),
+('CTSP0013IMEI13', 'CTSP0013', 1),
+('CTSP0014IMEI14', 'CTSP0014', 1),
+('CTSP0015IMEI15', 'CTSP0015', 1),
+('CTSP0016IMEI16', 'CTSP0016', 1),
+('CTSP0017IMEI17', 'CTSP0017', 1),
+('CTSP0018IMEI18', 'CTSP0018', 1),
+('CTSP0019IMEI19', 'CTSP0019', 1),
+('CTSP0020IMEI20', 'CTSP0020', 1),
+('CTSP0021IMEI21', 'CTSP0021', 1),
+('CTSP0022IMEI22', 'CTSP0022', 1),
+('CTSP0023IMEI23', 'CTSP0023', 1),
+('CTSP0024IMEI24', 'CTSP0024', 1),
+('CTSP0025IMEI25', 'CTSP0025', 1),
+('CTSP0026IMEI26', 'CTSP0026', 1),
+('CTSP0027IMEI27', 'CTSP0027', 1),
+('CTSP0028IMEI28', 'CTSP0028', 1),
+('CTSP0029IMEI29', 'CTSP0029', 1),
+('CTSP0030IMEI30', 'CTSP0030', 1);
 
 -- --------------------------------------------------------
 
@@ -599,6 +651,14 @@ CREATE TABLE `danhgia` (
   `noi_dung` varchar(200) NOT NULL,
   `trang_thai` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `danhgia`
+--
+
+INSERT INTO `danhgia` (`ma_sp`, `ma_kh`, `rating`, `thoi_gian_danh_gia`, `noi_dung`, `trang_thai`) VALUES
+('SP001', 'KH0001', 5, '2024-05-10 07:40:33', 'Sản phẩm tốt', 0),
+('SP002', 'KH0001', 5, '2024-05-10 07:44:05', 'Tuyệt vời', 0);
 
 -- --------------------------------------------------------
 
@@ -1336,6 +1396,15 @@ CREATE TABLE `giohang` (
   `so_luong` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `giohang`
+--
+
+INSERT INTO `giohang` (`ma_ctsp`, `ma_kh`, `gia_sp`, `so_luong`) VALUES
+('CTSP0006', 'KH0002', 20989500, 1),
+('CTSP0010', 'KH0001', 13954500, 1),
+('CTSP0040', 'KH0001', 23089500, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -1376,15 +1445,6 @@ CREATE TABLE `hoadon` (
   `tinh_trang` varchar(50) NOT NULL,
   `trang_thai` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `hoadon`
---
-
-INSERT INTO `hoadon` (`ma_hd`, `ma_kh`, `ma_nv`, `ma_ttnh`, `ngay_tao`, `tong_tien`, `khuyen_mai`, `thanh_tien`, `hinh_thuc`, `ghi_chu`, `tinh_trang`, `trang_thai`) VALUES
-('HD0001', 'KH0001', 'admin', 'TTNH0001', '2024-04-27', 30000000, 0, 30000000, 'COD', '', 'Chưa xác nhận', 0),
-('HD0002', 'KH0001', 'admin', 'TTNH0002', '2024-04-28', 49000000, 0, 49000000, 'VNPay', '', 'Đã xác nhận', 0),
-('HD0003', 'KH0001', 'admin', 'TTNH0003', '2024-04-28', 17000000, 0, 17000000, 'COD', '', 'Chưa xác nhận', 0);
 
 -- --------------------------------------------------------
 
@@ -1464,6 +1524,15 @@ CREATE TABLE `nhacungcap` (
   `so_dien_thoai` varchar(10) NOT NULL,
   `trang_thai` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `nhacungcap`
+--
+
+INSERT INTO `nhacungcap` (`ma_ncc`, `ten_ncc`, `dia_chi`, `so_dien_thoai`, `trang_thai`) VALUES
+('NCC01', 'SGU', 'HCM', '0976124506', 0),
+('NCC02', 'FPT', 'Hà Nội', '0387252609', 0),
+('NCC03', 'test', 'test', '0966763958', 1);
 
 -- --------------------------------------------------------
 
@@ -1560,6 +1629,13 @@ CREATE TABLE `phieunhap` (
   `tinh_trang` varchar(50) NOT NULL,
   `trang_thai` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `phieunhap`
+--
+
+INSERT INTO `phieunhap` (`ma_pn`, `ma_ncc`, `ma_nv`, `ngay_nhap`, `tong_tien`, `tinh_trang`, `trang_thai`) VALUES
+('PN0001', 'NCC01', 'admin', '2024-05-09', 124950000, '0', 0);
 
 -- --------------------------------------------------------
 
@@ -1795,7 +1871,7 @@ INSERT INTO `thongtinnhanhang` (`ma_ttnh`, `ma_kh`, `ho_ten`, `so_dien_thoai`, `
 ('TTNH0003', 'KH0001', 'Yến Nhi', '0862937296', 'Phạm Văn Chiêu, Phường 9, Quận Gò Vấp, Hồ Chí Minh', 0, 0),
 ('TTNH0004', 'KH0002', 'Nguyễn Thế Vũ', '0976124506', '2 Đường 13, Phường 8, Quận Gò Vấp, Hồ Chí Minh', 1, 0),
 ('TTNH0005', 'KH0002', 'Nguyễn Tùng', '0862937296', '117 Phạm Văn Chiêu, Phường 9, Quận Gò Vấp, Hồ Chí Minh', 0, 0),
-('TTNH0006', 'KH0001', 'Nguyễn Tùng', '0966763958', '4 Tôn Đức Thắng, Xã Hưng Thịnh, Huyện Bảo Lạc, Cao Bằng', 0, 0);
+('TTNH0006', 'KH0001', 'Nguyễn Văn Tùng', '0966763958', '4 Tôn Đức Thắng, Xã Hưng Thịnh, Huyện Bảo Lạc, Cao Bằng', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -12458,7 +12534,7 @@ ALTER TABLE `chitietcongketnoi`
 --
 ALTER TABLE `chitiethoadon`
   ADD PRIMARY KEY (`ma_hd`,`ma_imei`),
-  ADD KEY `cthd_fk_ctsp` (`ma_imei`);
+  ADD KEY `cthd_fk_imei` (`ma_imei`);
 
 --
 -- Indexes for table `chitietkhuyenmai`

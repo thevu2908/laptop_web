@@ -95,6 +95,23 @@ function getProductDetailByProductId(productId) {
     })
 }
 
+function getProductDetailFilter(productId, price, cpu) {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: 'server/src/controller/CTSanPhamController.php',
+            method: 'POST',
+            data: { action: 'get-filter', productId, price, cpu },
+            dataType: 'JSON',
+            success: productDetails => resolve(productDetails),
+            error: (xhr, status, error) => {
+                console.log(error)
+                reject(error)
+            }
+        })
+    })
+
+}
+
 async function renderAdminProductDetail(data) {
     let productId = $('#admin-product-detail-main #product-id').val()
 

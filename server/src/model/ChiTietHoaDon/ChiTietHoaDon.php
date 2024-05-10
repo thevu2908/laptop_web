@@ -4,15 +4,13 @@ class ChiTietHoaDon {
     private $ma_imei;
     private $gia_sp;
     private $so_luong;
-    private $thanh_tien;
 
     // Constructor
-    public function __construct($ma_hd, $ma_imei, $gia_sp, $so_luong, $thanh_tien) {
+    public function __construct($ma_hd, $ma_imei, $gia_sp, $so_luong) {
         $this->ma_hd = $ma_hd;
         $this->ma_imei = $ma_imei;
         $this->gia_sp = $gia_sp;
         $this->so_luong = $so_luong;
-        $this->thanh_tien = $thanh_tien;
     }
 
     // Getter methods
@@ -30,9 +28,5 @@ class ChiTietHoaDon {
 
     public function getSoLuong() {
         return $this->so_luong;
-    }
-
-    public function getThanhTien() {
-        return $this->thanh_tien;
     }
 }

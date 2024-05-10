@@ -2473,10 +2473,20 @@ ul, li {
     border-radius: 0px;
 }
 
+.btn-add-cart:hover {
+    background-color: #fb5c42;
+    border-color: #fb5c42;
+}
+
+.btn-buy:hover {
+    background-color: #0071e3;
+    border-color: #0071e3;
+}
+
 .btn-add-cart:hover,
 .btn-buy:hover {
-    color: #fff;
     opacity: 0.9;
+    color: #fff;
 }
 
 .product-guarantee {

@@ -1,11 +1,12 @@
 $(document).ready(() => {
-    loadBillData()
+    const urlParams = new URLSearchParams(window.location.search)
+    if (window.location.pathname === '/admin.php' && urlParams.get('controller') === 'hoadon') {
+        loadBillData()
+    }
     handleRenderCustomerOrder()
     filterEndUserOrderStatus()
     searchEndUserOrder()
     renderCustomerOrderDetail()
-    renderDeleteBillModal()
-    handleDeletePromo()
 })
 
 async function loadBillData() {
@@ -25,12 +26,6 @@ async function loadBillData() {
                 let nhanvien = await getEmployee(item.ma_nv);
                 html += `
                     <tr>
-                        <td>
-                            <span class="custom-checkbox">
-                                <input type="checkbox" id="checkbox1" name="options[]" value="1">
-                                <label for="checkbox1"></label>
-                            </span>
-                        </td>
                         <td>${item.ma_hd}</td>
                         <td>${khachhang.ten_kh}</td>
                         <td>${nhanvien === null ? "" : nhanvien.ten_nv}</td>
@@ -43,9 +38,6 @@ async function loadBillData() {
                         <td>
                             <a href="/admin.php?controller=chitiethoadon&id=${item.ma_hd}" class="info btn-product-detail" data-id=${item.ma_hd}>
                                 <i class="fa-solid fa-circle-info" title="Chi tiết hóa đơn" ></i>
-                            </a>
-                            <a href="#deleteBill" class="delete btn-delete-bill-modal" data-toggle="modal" data-id=${item.ma_hd}>
-                                <i class="material-icons" data-toggle="tooltip" title="Xóa">&#xE872;</i>
                             </a>
                         </td>
                     </tr>
@@ -263,6 +255,12 @@ function renderCustomerOrderDetail() {
                             <label>Địa chỉ:</label>
                             <span>${address.dia_chi}</span>
                         </div>
+                        ${order.ghi_chu ? `
+                            <div class="order-detail__address-info-item">
+                                <label>Ghi chú:</label>
+                                <span>${order.ghi_chu}</span>
+                            </div>
+                        ` : ''}
                     </div>
                 </div>
                 <div class="order-detail__products">
@@ -342,65 +340,6 @@ function renderCustomerOrderDetail() {
         } catch (error) {
             console.log(error)
             alert('Có lỗi xảy ra, vui lòng thử lại sau!')
-        }
-    })
-}
-
-function renderDeleteBillModal() {
-    $(document).on('click', '.btn-delete-bill-modal', async function() {
-        const billId = $(this).attr('data-id')
-        console.log(billId)
-
-        if (billId) {
-            const html = `
-                <p>Bạn có chắc chắn muốn xóa hóa đơn có mã "<b class="bill-id">${billId}</b>" không?</p>
-                <p class="text-warning"><small>Hành động này sẽ không thể hoàn tác</small></p>
-            `
-            $('#deleteBill .delete-body').html(html)
-        }
-    })
-}
-
-function deleteBill(billId) {
-    return new Promise((resolve, reject) => {
-        $.ajax({
-            url: 'server/src/controller/HoaDonController.php',
-            method: 'POST',
-            data: { action: 'delete', billId },
-            success: data => {
-                resolve(data)
-            },
-            error: (xhr, status, error) => {
-                console.log(error)
-                reject(error)
-            }
-        })
-    })
-}
-
-function handleDeletePromo() {
-    $(document).on('click', '#confirm-delete', () => {
-        const billId = $('#deleteBill .bill-id').text()
-
-        if (billId) {
-            deleteBill(billId)
-                .then(res => {
-                    console.log(res)
-                    if (res === 'success-delete') {
-                        alert('Xóa hóa đơn thành công')
-                        $('#deleteBill').modal('hide')
-                        loadBillData()
-                    } 
-                    else if (res === 'success-no-delete') {
-                        alert('Không thể xóa hóa đơn có tình trạng "Đã xác nhận"')
-                        $('#deleteBill').modal('hide')
-                        loadBillData()
-                    }
-                    else {
-                        alert('Xảy ra lỗi trong quá trình xóa hóa đơn')
-                    }
-                })
-                .catch(error => console.log(error))
         }
     })
 }

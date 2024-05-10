@@ -15,17 +15,17 @@
       </div>
     </li>
     <li>
-      <i class="fas fa-people-group"></i>
-      <div class="text customer-statistic">
-        <p>Khách hàng</p>
-        <h3 class="customer-statistic__number"></h3>
-      </div>
-    </li>
-    <li>
       <i class="fa-solid fa-laptop"></i>
       <div class="text product-statistic">
         <p>Sản phẩm</p>
         <h3 class="product-statistic__number"></h3>
+      </div>
+    </li>
+    <li>
+      <i class="fas fa-people-group"></i>
+      <div class="text customer-statistic">
+        <p>Khách hàng</p>
+        <h3 class="customer-statistic__number"></h3>
       </div>
     </li>
   </div>
