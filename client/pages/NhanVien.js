@@ -33,6 +33,7 @@ async function renderEmployeeData() {
         let html = ''
 
         employees.forEach((employee, index) => {
+            console.log(employee)
             html += `
                 <tr>
                     <td>

@@ -180,6 +180,7 @@ function handleRenderThongTinNhanHang() {
         window.history.pushState({}, '', 'index.php?thong-tin-tai-khoan&dia-chi')
         $(this).siblings().not($(this)).removeClass('active')
         $(this).addClass('active')
+        $('.enduser-pagination').html('')
         renderThongTinNhanHang()
     })
 }
