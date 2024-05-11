@@ -23,6 +23,19 @@ class HoaDonController {
         echo json_encode($result);
     }
 
+    public function getAllHoaDonByStatus($status) {
+        $bills = $this->hoadonRepo->getAllHoaDon();
+        $result = [];
+
+        foreach($bills as $bill) {
+            if($bill['trang_thai'] ==  0 && $bill['tinh_trang'] ==  $status) {
+                $result[] = $bill;
+            }
+        }
+
+        echo json_encode($result);
+    }
+
     public function getHoaDon($id) {
         echo json_encode($this->hoadonRepo->getHoaDon($id));
     }
@@ -157,6 +170,10 @@ switch ($action) {
     case 'delete':
         $id = $_POST['billId'];
         $hoadonctl->deleteHoaDon($id);
+
+    case 'search-status':
+        $status = $_GET['status'];
+        $hoadonctl->getAllHoaDonByStatus($status);
 
     default:
         break;

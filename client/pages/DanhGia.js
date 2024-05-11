@@ -1,8 +1,12 @@
 $(document).ready(() => {
-    // Trang Admin
-    renderReviewAdmin(null)
-    clickPage(renderReviewAdmin)
-
+    const urlParams = new URLSearchParams(window.location.search)
+    if (window.location.pathname === '/admin.php' && urlParams.get('controller') === 'danhgia') {
+        // Trang Admin
+        renderReviewAdmin(null)
+        clickPage(renderReviewAdmin)
+        renderDeleteReviewModal()
+        handleDeletePromo()
+    }
     // Trang User
     handleAddReview()
 })
@@ -30,6 +34,7 @@ function getCustomer(id) {
 
 async function renderListReview() {
     const productId = $('.btn-add-cart').attr('data-id');
+
     try {
         const response = await $.ajax({
             url: 'server/src/controller/DanhGiaController.php',
@@ -93,18 +98,20 @@ async function renderListReview() {
 }
 
 async function renderReviewAdmin(data) {
-    let productId = $('#admin-review-main #product-id').val()
+    let productId = null;
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.has('id')) {
+        productId = urlParams.get('id');
+    }
 
     if (productId) {
-        // productId = productId.toUpperCase().trim()
-        // renderProductName(productId)
-
-        const dataReview = data ? data : await getPaginationReview(productId)
+        
+        const dataReview = data ? data : await getPaginationReview(4)
 
         if (dataReview && dataReview.pagination && dataReview.pagination.length > 0) {
             let html = ''
 
-            dataReview.pagination.forEach((review, index) => {
+            dataReview.pagination.forEach((review, index) => {  
                 if(review.ma_sp === productId) {
                     html += `
                         <tr>
@@ -114,12 +121,14 @@ async function renderReviewAdmin(data) {
                                     <label for="checkbox-${review.ma_kh}"></label>
                                 </span>
                             </td>
+                            <td>${review.ma_sp}</td>
                             <td>${review.ma_kh}</td>
                             <td>${review.rating} sao</td>
                             <td>${review.thoi_gian_danh_gia}</td>
                             <td>${review.noi_dung}</td>
                             <td>
-                                <a href="#deleteReviewModal" class="delete btn-delete-product-detail-modal" data-toggle="modal" data-id=${review.ma_kh}>
+                                <a href="#deleteReviewModal" class="delete btn-delete-review-modal" 
+                                data-toggle="modal" masp="${review.ma_sp}" makh="${review.ma_kh}" thoigian="${review.thoi_gian_danh_gia}">
                                     <i class="material-icons" data-toggle="tooltip" title="Xóa">&#xE872;</i>
                                 </a>
                             </td>
@@ -133,18 +142,51 @@ async function renderReviewAdmin(data) {
         } else {
             $('.admin-review-list').html('')
         }
-    } else {
-        $('.admin-review-list').html('')
+    } 
+    else {
+        const dataReview = data ? data : await getPaginationReview()
+
+        if (dataReview && dataReview.pagination && dataReview.pagination.length > 0) {
+            let html = ''
+
+            dataReview.pagination.forEach((review, index) => {  
+                html += `
+                    <tr>
+                        <td>
+                            <span class="custom-checkbox">
+                                <input type="checkbox" id="checkbox-${review.ma_kh}" name="chk[]" value="${review.ma_kh}">
+                                <label for="checkbox-${review.ma_kh}"></label>
+                            </span>
+                        </td>
+                        <td>${review.ma_sp}</td>
+                        <td>${review.ma_kh}</td>
+                        <td>${review.rating} sao</td>
+                        <td>${review.thoi_gian_danh_gia}</td>
+                        <td>${review.noi_dung}</td>
+                        <td>
+                            <a href="#deleteReviewModal" class="delete btn-delete-product-detail-modal" data-toggle="modal" data-id=${review.ma_kh}>
+                                <i class="material-icons" data-toggle="tooltip" title="Xóa">&#xE872;</i>
+                            </a>
+                        </td>
+                    </tr>
+                `
+            })
+
+            $('.admin-review-list').html(html)
+            totalPage(dataReview.count)
+        } else {
+            $('.admin-review-list').html('')
+        }
     }
 }
 
-function getPaginationReview(productId) {
+function getPaginationReview() {
     return new Promise((resolve, reject) => {
         const page = $('#currentpage').val()
         $.ajax({
             url: 'server/src/controller/PaginationController.php',
             method: 'GET',
-            data: { action: 'pagination', table: 'danhgia', page, id: productId },
+            data: { action: 'pagination', table: 'danhgia', page },
             dataType: 'JSON',
             success: review => resolve(review),
             error: (xhr, status, error) => {
@@ -255,5 +297,65 @@ async function handleAddReview() {
                 }
             })
             .catch(error => console.log(error))
+    })
+}
+
+function renderDeleteReviewModal() {
+    $(document).on('click', '.btn-delete-review-modal', function() {
+        const maKH = $(this).attr('makh')
+        const maSP = $(this).attr('masp')
+        const thoiGian = $(this).attr('thoigian')
+
+        if (maKH && maSP && thoiGian) {
+            const html = `
+                <p>Bạn có chắc chắn muốn xóa đánh giá này không?</p>
+                <p class="d-none delete-id" customer-id="${maKH}" product-id="${maSP}" time="${thoiGian}"></p>
+                <p class="text-warning"><small>Hành động này sẽ không thể hoàn tác</small></p>
+            `
+            $('#deleteReviewModal .modal-body').html(html)
+        }
+    })
+}
+
+function deleteReview(maKH, maSP, thoiGian) {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: 'server/src/controller/DanhGiaController.php',
+            method: 'POST',
+            data: { action: 'delete', maKH, maSP, thoiGian },
+            success: data => {
+                resolve(data)
+            },
+            error: (xhr, status, error) => {
+                console.log(error)
+                reject(error)
+            }
+        })
+    })
+}
+
+function handleDeletePromo() {
+    $(document).on('click', '#deleteReviewModal .confirm-delete', () => {
+        const customerId = $('#deleteReviewModal .delete-id').attr('customer-id')
+        const productId = $('#deleteReviewModal .delete-id').attr('product-id')
+        const time = $('#deleteReviewModal .delete-id').attr('time')
+
+        console.log(time)
+
+        if (customerId && productId && time) {
+            deleteReview(customerId, productId, time)
+                .then(res => {
+                    if (res === 'success') {
+                        alert('Xóa đánh giá thành công')
+                        $('#deleteReviewModal').modal('hide')
+                        renderReviewAdmin(null)
+                        clickPage(renderReviewAdmin)
+                    } 
+                    else {
+                        alert('Xảy ra lỗi trong quá trình xóa đánh giá')
+                    }
+                })
+                .catch(error => console.log(error))
+        }
     })
 }

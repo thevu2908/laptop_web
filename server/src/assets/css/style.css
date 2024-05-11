@@ -2463,7 +2463,7 @@ ul, li {
     border-radius: 0px;
 }
 
-.btn-buy {
+.btn-buy-now {
     width: 20%;
     background-color: #0071e3;
     border-color: #0071e3;
@@ -2478,13 +2478,13 @@ ul, li {
     border-color: #fb5c42;
 }
 
-.btn-buy:hover {
+.btn-buy-now:hover {
     background-color: #0071e3;
     border-color: #0071e3;
 }
 
 .btn-add-cart:hover,
-.btn-buy:hover {
+.btn-buy-now:hover {
     opacity: 0.9;
     color: #fff;
 }

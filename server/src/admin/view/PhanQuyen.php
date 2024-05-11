@@ -41,8 +41,9 @@
 					</tbody>
 				</table>
 				<div class="clearfix">
-				<div class="hint-text">Showing <b id="cur">5</b> out of <b id="total">25</b> entries</div>					
-				   <div id="pagination">
+					<div class="hint-text">Showing <b id="cur">5</b> out of <b id="total">25</b> entries</div>					
+				   	<div id="pagination">
+						
                     </div>
 					<input type="hidden" name="currentpage" id="currentpage" value="1">
 				</div>

@@ -1,6 +1,6 @@
 <?php
 class DanhGiaRepo extends ConnectDB {
-    function getAllDanhGia($ma_sp) : array | null {
+    function getAllDanhGiaByMaSP($ma_sp) : array | null {
         $sql = "SELECT * FROM danhgia WHERE ma_sp=$ma_sp";
         $arrDanhGia = [];
         try {
@@ -16,7 +16,23 @@ class DanhGiaRepo extends ConnectDB {
         return null;
     }
 
-    function getDanhGia($ma_kh) {
+    function getAllDanhGia() : array | null {
+        $sql = "SELECT * FROM danhgia";
+        $arrDanhGia = [];
+        try {
+            $result = mysqli_query($this->conn, $sql);
+            while($row = mysqli_fetch_assoc($result)) {
+                $arrDanhGia[] = $row;
+            }
+            return $arrDanhGia;
+        }
+        catch (Exception $e) {
+            echo 'Error: ' . $e->getMessage() . '<br>';
+        }
+        return null;
+    }
+
+    function getDanhGiaByMaKH($ma_kh) {
         $sql = "SELECT * FROM danhgia WHERE ma_kh = '$ma_kh'";
         $result = mysqli_query($this->conn, $sql);
         if ($row = mysqli_fetch_assoc($result)) {
@@ -42,8 +58,8 @@ class DanhGiaRepo extends ConnectDB {
         return false;
     }
 
-    function deleteDanhGia($ma_kh) {
-        $sql = "UPDATE danhgia SET trang_thai=1 WHERE ma_kh='$ma_kh'";
+    function deleteDanhGia($ma_kh, $ma_sp, $thoi_gian_danh_gia) {
+        $sql = "UPDATE danhgia SET trang_thai=1 WHERE ma_kh='$ma_kh' AND ma_sp='$ma_sp' AND thoi_gian_danh_gia='$thoi_gian_danh_gia'";
         $result = mysqli_query($this->conn, $sql);
         if ($result) {
             return true;
