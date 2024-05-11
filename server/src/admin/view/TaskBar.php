@@ -188,10 +188,10 @@ function kiemtraquyen($arr,$chucnang){
     ?>
   </ul>
   <ul class="side-menu">
-    <li>
-      <a class="btn-logout" style="text-decoration: none;">
+    <li class="side-menu-item">
+      <a class="btn-logout" style="text-decoration: none; padding: .5rem 1rem;">
         <i class="fas fa-right-from-bracket"></i>
-        <span class="text">Logout</span>
+        <span class="text">Đăng xuất</span>
       </a>
     </li>
   </ul>
