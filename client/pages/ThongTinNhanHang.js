@@ -1,5 +1,4 @@
 $(document).ready(() => {
-    const urlParams = new URLSearchParams(window.location.search)
     if (window.location.pathname === '/index.php') {
         initSelect2()
         $('#address-modal .btn-close').on('click', resetValue)
