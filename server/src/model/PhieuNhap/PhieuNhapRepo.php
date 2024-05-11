@@ -55,7 +55,6 @@ switch ($action) {
             
             echo $gia_nhap;
 
-            // $_SESSION['cartimport'][$mancc][$ma]['status'] = 'Chưa Xác Nhận';
             $_SESSION['cartimport'][$mancc][$ma]['quantity'] = 1;
         } else {
             $_SESSION['cartimport'][$mancc][$ma]['quantity']++;
