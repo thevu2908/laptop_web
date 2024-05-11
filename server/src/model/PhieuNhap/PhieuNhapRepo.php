@@ -56,6 +56,7 @@ switch ($action) {
 
             echo $gia_nhap;
 
+            // $_SESSION['cartimport'][$mancc][$ma]['status'] = 'Chưa Xác Nhận';
             $_SESSION['cartimport'][$mancc][$ma]['quantity'] = 1;
         } else {
             $_SESSION['cartimport'][$mancc][$ma]['quantity']++;
@@ -80,6 +81,7 @@ switch ($action) {
         $manv = $_SESSION['id'];
 
         $cart = $_SESSION['cartimport'];
+        $gianhap = array();
         foreach ($cart as $cart1) {
             foreach ($cart1 as $ma => $each) {
                 print_r($each);
@@ -90,6 +92,7 @@ switch ($action) {
                     $arrNCC_PN[$each['ma_ncc']][$each['ma_sp']][$each['ma_ctsp']]['ma_sp'] = $each['ma_ctsp'];
                     $arrNCC_PN[$each['ma_ncc']][$each['ma_sp']][$each['ma_ctsp']]['quantity'] = $each['quantity'];
                     $arrNCC_PN[$each['ma_ncc']][$each['ma_sp']][$each['ma_ctsp']]['gia_nhap'] = $each['gia_nhap'];
+                    $gianhap[] = $each['gia_nhap'];
                 }
             }
         }
@@ -105,6 +108,8 @@ switch ($action) {
             $mactsp123 = $_REQUEST['mactsp'];
             $total123 = $_REQUEST['total'];
             $mancc123 = $_POST['mancc'];
+            $gia_nhap123 = $_REQUEST['gia_nhap'];
+            $quantity123 = $_REQUEST['quantity'];
 
             // Tạo mã mới dựa trên số lượng mã đã tồn tại
             $sql_ma_pn = "SELECT COUNT(*) as count FROM phieunhap";
@@ -116,14 +121,27 @@ switch ($action) {
             $sql2 = "insert into phieunhap(ma_pn, ma_ncc, ma_nv, ngay_nhap, tong_tien, tinh_trang, trang_thai)
                 values ('$maPN','$mancc123', '$manv', '$today', '$total123', 0 ,0)";
 
-            var_dump($sql2);
+            $maPn1 = $maPN;
             $maPN = (new ConnectDB())->last_id($sql2);
+            $count = count($ma123);
+
+            for ($i = 0; $i < $count; $i++) {
+                $total_ctpn = 0;
+                $product_ma = $ma123[$i];
+                $product_mactsp = $mactsp123[$i];
+                $product_gia_nhap = $gianhap[$i];
+                $product_quantity = $quantity123[$i];
+                $total_ctpn = $product_gia_nhap * $product_quantity;
+                $sql_ct = "INSERT INTO `chitietphieunhap` (`ma_pn`, `ma_ctsp`, `so_luong`, `gia_tien`, `thanh_tien`) VALUES ('$maPn1', '$product_mactsp', '$product_quantity', '$product_gia_nhap', '$total_ctpn');";
+                (new ConnectDB())->excute($sql_ct);
+            }
+
             foreach ($each as $key => $each1) {
                 $ma = $each1['ma_ctsp'];
                 $quantity = $each1['quantity'];
+                $gia_tien1 = $each1['gia_nhap'];
                 $thanhtien = $each1['quantity'] * $each1['gia_nhap'];
-                $sql3 = "insert into chitietphieunhap(ma_pn, ma_ctsp, so_luong,thanh_tien) values ('$maPN', '$ma', '$quantity', '$thanhtien')";
-                (new ConnectDB())->excute($sql3);
+
                 unset($_SESSION['cartimport'][$mancc][$ma]);
             }
         }
