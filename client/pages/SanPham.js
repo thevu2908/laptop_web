@@ -201,6 +201,9 @@ async function renderAdminProductTable(data) {
                         <a href="/admin.php?controller=chitietsanpham&id=${product.ma_sp}" class="info btn-product-detail" data-id=${product.ma_sp}>
                             <i class="fa-solid fa-circle-info" title="Chi tiết sản phẩm" ></i>
                         </a>
+                        <a href="/admin.php?controller=danhgia&id=${product.ma_sp}" class="info btn-product-detail" data-id=${product.ma_sp}>
+                            <i class="fa-solid fa-message" title="Xem đánh giá"></i>
+                        </a>
                     </td>
                 </tr>
             `
@@ -303,7 +306,7 @@ async function renderEndUserProductList() {
 
     if (products && products.pagination && products.pagination.length > 0) {
         for (let product of products.pagination) {
-            const productDetails = await getProductDetailByProductId(product.ma_sp)
+            const productDetails = await getProductDetailFilter(product.ma_sp, price, cpu)
             const productDetail = productDetails[0]
 
             html += `

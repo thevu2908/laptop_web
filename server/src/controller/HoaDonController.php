@@ -11,7 +11,16 @@ class HoaDonController {
     }
 
     public function getAllHoaDon() {
-        echo json_encode($this->hoadonRepo->getAllHoaDon());
+        $bills = $this->hoadonRepo->getAllHoaDon();
+        $result = [];
+
+        foreach($bills as $bill) {
+            if($bill['trang_thai'] ==  0) {
+                $result[] = $bill;
+            }
+        }
+
+        echo json_encode($result);
     }
 
     public function getHoaDon($id) {
@@ -22,8 +31,11 @@ class HoaDonController {
        echo json_encode($this->hoadonRepo->getThongTinKhachHang($id));
     }
 
-    public function getHoaDonByKhachHang($ma_kh, $tinh_trang, $search) {
-        echo json_encode($this->hoadonRepo->getHoaDonByKhachHang($ma_kh, $tinh_trang, $search));
+    public function getHoaDonByKhachHang($ma_kh, $tinh_trang, $search, $start, $limit) {
+        echo json_encode([
+            'data' => $this->hoadonRepo->getHoaDonByKhachHang($ma_kh, $tinh_trang, $search, $start, $limit),
+            'length' => $this->hoadonRepo->getHoaDonByKhachHangLength($ma_kh, $tinh_trang, $search)
+        ]);
     }
 
     public function getSizeHoaDon() {
@@ -83,10 +95,13 @@ switch ($action) {
         $hoadonctl->getKhachHang($id);
         break;
     case 'get-customer-order':
-        $ma_kh = $_POST['ma_kh'];
-        $tinh_trang = $_POST['tinh_trang'];
-        $search = $_POST['search'];
-        $hoadonctl->getHoaDonByKhachHang($ma_kh, $tinh_trang, $search);
+        $ma_kh = $_GET['ma_kh'];
+        $tinh_trang = $_GET['tinh_trang'];
+        $search = $_GET['search'];
+        $page = isset($_GET['page']) ? $_GET['page'] : 1;
+        $limit = isset($_GET['limit']) ? $_GET['limit'] : 5;
+        $start = ($page - 1) * $limit;
+        $hoadonctl->getHoaDonByKhachHang($ma_kh, $tinh_trang, $search, $start, $limit);
         break;
     case 'get-by-date':
         $date = $_POST['date'];
@@ -124,6 +139,7 @@ switch ($action) {
 
             $hoadonctl->addHoaDon($hoadon);
         }
+        break;
     default:
         break;
 }

@@ -34,7 +34,7 @@ async function renderListReview() {
         const response = await $.ajax({
             url: 'server/src/controller/DanhGiaController.php',
             method: 'POST',
-            data: { action: 'get-all', productId },
+            data: { action: 'get-by-masp', productId },
             dataType: 'JSON'
         });
 
@@ -93,7 +93,7 @@ async function renderListReview() {
 }
 
 async function renderReviewAdmin(data) {
-    let productId = $('#admin-review-main #product-detail-id').val()
+    let productId = $('#admin-review-main #product-id').val()
 
     if (productId) {
         // productId = productId.toUpperCase().trim()
@@ -105,7 +105,7 @@ async function renderReviewAdmin(data) {
             let html = ''
 
             dataReview.pagination.forEach((review, index) => {
-                if(review.ma_ctsp === productId) {
+                if(review.ma_sp === productId) {
                     html += `
                         <tr>
                             <td>
@@ -115,7 +115,7 @@ async function renderReviewAdmin(data) {
                                 </span>
                             </td>
                             <td>${review.ma_kh}</td>
-                            <td>${review.rating}</td>
+                            <td>${review.rating} sao</td>
                             <td>${review.thoi_gian_danh_gia}</td>
                             <td>${review.noi_dung}</td>
                             <td>
@@ -156,13 +156,13 @@ function getPaginationReview(productId) {
 }
 
 function validateReviewEmpty(review) {
-    if(review.productId === '' || review.productId == undefined) {
-        alert('Lỗi không tìm thấy id sản phẩm')
-        return false;
-    }
     if(review.customerId === '' || review.customerId == undefined) {
         alert('Vui lòng đăng nhập để có thể đánh giá')
-        // *** Quay lại trang đăng nhập
+        window.location.href = 'index.php?dang-nhap'
+        return false;
+    }
+    if(review.productId === '' || review.productId == undefined) {
+        alert('Lỗi không tìm thấy id sản phẩm')
         return false;
     }
     if(review.rating === '' || review.rating == undefined) {
@@ -202,10 +202,8 @@ async function handleAddReview() {
     $(document).off('click', '#btn-add-review').on('click', '#btn-add-review', async (e) => {
         var currentDate = new Date();
         var formattedDate = currentDate.toISOString();
-
         let productId = $('.btn-add-cart').attr('data-id');
         let customerId = await getMaKH()
-        console.log(customerId)
 
         const dataReview = {
             productId: productId,
@@ -219,16 +217,38 @@ async function handleAddReview() {
             return
         }
 
-        console.log(dataReview.productId)
-        console.log(dataReview.customerId)
-        console.log(dataReview.rating)
-        console.log(dataReview.time)
-        console.log(dataReview.content)
-
         addReview(dataReview)
             .then(data => {
                 if (data) {
                     alert('Đánh giá thành công')
+                    $('.rating').html(`
+                        <li class="rate">
+                            <input type="radio" name="radio1" id="star1" value="1">
+                            <div class="face"></div>
+                            <i class="far review fa-star star one-star"></i>
+                        </li>
+                        <li class="rate">
+                            <input type="radio" name="radio1" id="star2" value="2">
+                            <div class="face"></div>
+                            <i class="far review fa-star star two-star"></i>
+                        </li>
+                        <li class="rate">
+                            <input type="radio" name="radio1" id="star3" value="3">
+                            <div class="face"></div>
+                            <i class="far review fa-star star three-star"></i>
+                        </li>
+                        <li class="rate">
+                            <input type="radio" name="radio1" id="star4" value="4">
+                            <div class="face"></div>
+                            <i class="far review fa-star star four-star"></i>
+                        </li>
+                        <li class="rate">
+                            <input type="radio" name="radio1" id="star5" value="5">
+                            <div class="face"></div>
+                            <i class="far review fa-star star five-star"></i>
+                        </li>
+                    `)
+                    $('#review-index #content-review').val('')
                     renderListReview()
                 } else {
                     alert('Xảy ra lỗi trong quá trình đánh giá')

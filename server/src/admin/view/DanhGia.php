@@ -11,13 +11,13 @@
 							<form>
                                 <div class="d-flex align-items-center">
                                     <?php
-                                    $productDetailId = "";
+                                    $productId = "";
                                     if (isset($_REQUEST['id'])) {
-                                        $productDetailId = $_REQUEST['id'];
+                                        $productId = $_REQUEST['id'];
                                     }
 
                                     ?>
-                                    <input type="search" value="<?= $productDetailId ?>" class="form-control form-control-sm" id="product-detail-id" placeholder="Mã  CT sản phẩm" style="border-top-right-radius: 0; border-bottom-right-radius: 0">
+                                    <input type="search" value="<?= $productId ?>" class="form-control form-control-sm" id="product-id" placeholder="Mã sản phẩm" style="border-top-right-radius: 0; border-bottom-right-radius: 0">
                                     <button type="button" class="btn-search-product-detail">
                                         <i class="fas fa-search search-icon"></i>
                                     </button>
@@ -39,8 +39,8 @@
 							</th>
 							<th>Khách Hàng</th>
 							<th>Rating</th>
-							<th>Ngày Tạo</th>
-							<th>Nội Dung</th>
+							<th>Ngày đánh giá</th>
+							<th>Nội dung</th>
 							<th class="w-auto" >Actions</th>
 						</tr>
 					</thead>

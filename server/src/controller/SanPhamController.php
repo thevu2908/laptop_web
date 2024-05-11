@@ -249,6 +249,10 @@ switch ($action) {
                 $orderBy = 'ctsp.gia_tien';
                 $orderType = 'ASC';
                 break;
+            case 'best-seller':
+                $orderBy = 'sp.so_luong_mua';
+                $orderType = 'DESC';
+                break;
             default:
                 $orderBy = 'sp.ma_sp';
                 $orderType = 'ASC';

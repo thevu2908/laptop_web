@@ -50,7 +50,7 @@ $danhGiaCtl = new DanhGiaController();
 $action = $_POST['action'];
 
 switch($action) {
-    case 'get-all':
+    case 'get-by-masp':
         $ma_sp = json_encode($_POST['productId']);
         $danhGiaCtl->getAllDanhGia($ma_sp);
         break;
@@ -67,5 +67,10 @@ switch($action) {
         );
         
         $danhGiaCtl->addReview($review);
+        break;
+    case 'delete':
+        $ma_sp = json_encode($_POST['maSP']);
+        $ma_kh = json_encode($_POST['maKH']);
+        $danhGiaCtl->deleteReview($ma_sp);
         break;
 }

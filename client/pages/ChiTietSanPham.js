@@ -95,6 +95,23 @@ function getProductDetailByProductId(productId) {
     })
 }
 
+function getProductDetailFilter(productId, price, cpu) {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: 'server/src/controller/CTSanPhamController.php',
+            method: 'POST',
+            data: { action: 'get-filter', productId, price, cpu },
+            dataType: 'JSON',
+            success: productDetails => resolve(productDetails),
+            error: (xhr, status, error) => {
+                console.log(error)
+                reject(error)
+            }
+        })
+    })
+
+}
+
 async function renderAdminProductDetail(data) {
     let productId = $('#admin-product-detail-main #product-id').val()
 
@@ -136,9 +153,6 @@ async function renderAdminProductDetail(data) {
                             </a>
                             <a href="#deleteProductDetailModal" class="delete btn-delete-product-detail-modal" data-toggle="modal" data-id=${productDetail.ma_ctsp}>
                                 <i class="material-icons" data-toggle="tooltip" title="Xóa">&#xE872;</i>
-                            </a>
-                            <a href="/admin.php?controller=danhgia&id=${productDetail.ma_ctsp}" class="info btn-product-detail" data-id=${productDetail.ma_ctsp}>
-                            <i class="fa-solid fa-message" title="Xem đánh giá"></i>
                             </a>
                         </td>
                     </tr>

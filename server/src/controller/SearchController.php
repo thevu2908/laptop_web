@@ -18,6 +18,7 @@ class SearchController {
         }
         echo json_encode(['count'=>$this->searchRepo->getCount($table, $search, $id), "pagination"=>$results]);
     }
+
     public function filterTb($search, $table, $start, $limit){
        echo json_encode(["pagination"=>$this->searchRepo->filterTable($search, $table, $start, $limit),"count"=>$this->searchRepo->getCountFilterTable($table, $search)]);
     }
@@ -36,7 +37,7 @@ switch ($action) {
         $start = ($page - 1) * $limit;
         $searchController->search($search, $table, $start, $limit, $id);
         break;
-    case "filter":{
+    case 'filter':
         $search = $_GET['search'];
         $table = $_GET['table'];
         $page = !empty($_GET['page']) ? $_GET['page'] : 1;
@@ -45,7 +46,6 @@ switch ($action) {
         $start = ($page - 1) * $limit;
         $searchController->filterTb($search,$table,$start,$limit);
         break;
-    }    
     default:
         break;
 }

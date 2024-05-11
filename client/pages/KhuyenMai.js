@@ -344,7 +344,7 @@ function handleDeletePromo() {
             deletePromotion(promoId)
                 .then(res => {
                     if (res === 'success') {
-                        alert('Xóa sản phẩm thành công')
+                        alert('Xóa khuyến mãi thành công')
                         $('#deletePromotion').modal('hide')
                         loadPromotionData()
                     } 
@@ -352,7 +352,7 @@ function handleDeletePromo() {
                         alert('Không thể xóa khuyến mãi có chương trình "Đang diễn ra"')
                     }
                     else {
-                        alert('Xảy ra lỗi trong quá trình xóa sản phẩm')
+                        alert('Xảy ra lỗi trong quá trình xóa khuyến mãi')
                     }
                 })
                 .catch(error => console.log(error))
@@ -454,7 +454,6 @@ function handleUpdatePromo() {
 }
 
 function renderPromoByMaKH() {
-    console.log("renderCartList")
     $.ajax({
         url: 'server/src/controller/KhuyenMaiController.php',
         method: 'POST',
@@ -535,4 +534,13 @@ function delPromoToLocalStorage() {
         }
         loadPromotionData()
     });
+}
+
+function delPromoToLocalByMaKH(maKH) {
+    let khuyenMai = JSON.parse(localStorage.getItem('khuyenMai')) || {};
+    
+    if (khuyenMai[maKH]) {
+        delete khuyenMai[maKH];
+        localStorage.setItem('khuyenMai', JSON.stringify(khuyenMai));
+    }
 }

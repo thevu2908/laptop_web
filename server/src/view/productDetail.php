@@ -54,7 +54,6 @@ include "header.php";
                                             <h5>Đánh giá của bạn</h5>
                                             <div class="form-outline">
                                                 <textarea class="form-control" style="min-height: 100px; max-height: 100px;" id="content-review" rows="4"></textarea>
-                                                <!-- <label class="form-label" for="textAreaExample">Hãy nêu cảm nhận của bạn?</label> -->
                                             </div>
                                             <div class="d-flex justify-content-end mt-3">
                                                 <button id="btn-add-review" type="button" class="btn btn-danger">

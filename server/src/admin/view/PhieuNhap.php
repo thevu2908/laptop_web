@@ -8,12 +8,12 @@
 							<h2>Quản Lý <b id="ad-NhomQuyen">Nhập Hàng</b></h2>
 						</div>
 						<div class="col-sm-6">
-							<a href="/admin.php?controller=nhaphang" class="btn btn-success add">
-								<i class="material-icons">&#xE147;</i>
+							<a href="/admin.php?controller=nhaphang" class="btn btn-success add d-flex align-items-center">
+								<i class="fa-solid fa-receipt" style="font-size: 18px;"></i>
 								<span>Phiếu Nhập</span>
 							</a>
-							<a href="/admin.php?controller=giohang" class="btn btn-danger delete">
-								<i class="material-icons">&#xE15C;</i>
+							<a href="/admin.php?controller=giohang" class="btn btn-danger delete d-flex align-items-center">
+								<i class="fa-solid fa-cart-shopping" style="font-size: 18px;"></i>
 								<span>Giỏ Hàng</span>
 							</a>
 						</div>

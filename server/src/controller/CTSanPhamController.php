@@ -44,6 +44,10 @@ class CTSanPhamController {
         return $this->ctspRepo->getProductDetailsLength();
     }
 
+    public function getProductDetailFilter($productId, $startPrice, $endPrice, $cpu) {
+        echo json_encode($this->ctspRepo->getProductDetailFilter($productId, $startPrice, $endPrice, $cpu));
+    }
+
     public function addProductDetail($productDetail) {
         if ($this->ctspRepo->addProductDetail($productDetail)) {
             echo $productDetail->getMaCtsp();
@@ -103,6 +107,46 @@ switch ($action) {
         $ram = $_POST['ram'];
         $rom = $_POST['rom'];
         $ctspCtl->getProductDetailId($productId, $colorId, $ram, $rom);
+        break;
+    case 'get-filter':
+        $productId = $_POST['productId'];
+        $price = $_POST['price'];
+        $cpu = $_POST['cpu'];
+        $startPrice = 0;
+        $endPrice = PHP_INT_MAX;
+
+        switch ($price) {
+            case '':
+                $startPrice = 0;
+                $endPrice = PHP_INT_MAX;
+                break;
+            case '<10':
+                $startPrice = 0;
+                $endPrice = 10000000 + 1;
+                break;
+            case '10-15':
+                $startPrice = 10000000;
+                $endPrice = 15000000;
+                break;
+            case '15-20':
+                $startPrice = 15000000;
+                $endPrice = 20000000;
+                break;
+            case '20-25':
+                $startPrice = 20000000;
+                $endPrice = 25000000;
+                break;
+            case '>25':
+                $startPrice = 25000000 + 1;
+                $endPrice = PHP_INT_MAX;
+                break;
+            default:
+                $startPrice = 0;
+                $endPrice = PHP_INT_MAX;
+                break;
+        }
+
+        $ctspCtl->getProductDetailFilter($productId, $startPrice, $endPrice, $cpu);
         break;
     case 'add':
         $length = $ctspCtl->getProductDetailsLength();

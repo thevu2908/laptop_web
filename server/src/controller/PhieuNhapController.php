@@ -15,7 +15,6 @@ if (isset($_REQUEST['action'])) {
     $action = $_REQUEST['action'];
 }
   
-
 switch ($action) {
     case '':
         $rows = [];
@@ -48,7 +47,6 @@ switch ($action) {
         if ($quantity > 0) {
             $_SESSION['cartimport'][$mancc][$mactsp]['quantity'] = $quantity;
         }
-
         break;
     case 'delete':
         $ma = $_GET['ma'];
@@ -76,4 +74,5 @@ switch ($action) {
         break;
     default:
         echo "Nhập linh tinh gì đấy !";
+        break;
 }

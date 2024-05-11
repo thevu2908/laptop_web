@@ -3,7 +3,6 @@ $(document).ready(() => {
     const urlParams = new URLSearchParams(window.location.search)
     if (window.location.pathname === '/admin.php' && urlParams.get('controller') === 'nhacungcap') {
         renderSuppilerData()
-        renderSuppilerAccountData()
         addSuppiler()
         updateSuppiler()
         // deleteNCC()
@@ -140,39 +139,6 @@ function updateSuppiler() {
     });
 }
 
-function renderSuppilerAccountData() {
-    $('.btn-open-add-account-modal').on('click', async e => {
-        const employees = await getSuppilerData()
-
-        if (employees && employees.length > 0) {
-            const accounts = await getAllAccounts()
-            let availableEmployees = []
-
-            employees.forEach(employee => {
-                let flag = true
-
-                accounts.forEach(account => {
-                    if (employee.ma_ncc === account.ma_tk) {
-                        flag = false
-                        return
-                    }
-                })
-
-                if (flag) availableEmployees.push(employee)
-            })
-
-            let html = ''
-
-            availableEmployees.forEach((employee, index) => {
-                const selected = index === 0 ? 'selected' : '';
-                html += `<option value='${employee.ma_ncc}' ${selected}>${employee.ma_ncc} - ${employee.ten_ncc}</option>`
-            })
-
-            $('#admin-account-employee-choose').html(html)
-        }
-    })
-}
-
 function addSuppiler() {
     getSizeinTable("nhacungcap", "NCC", "#admin-nhacungcap-manhacungcap");
     $(document).on('click', '#admin-btn-addNhaCungCap', function() {
@@ -248,7 +214,7 @@ function renderDeleteNCCModal() {
             getNCC(mancc)
                 .then(product => {
                     const html = `
-                        <p>Bạn có chắc chắn muốn xóa Nhà Cung Cấp có mã "<b class="ncc-id">${product.ma_ncc}</b>" không ?</p>
+                        <p>Bạn có chắc chắn muốn xóa nhà cung cấp có mã "<b class="ncc-id">${product.ma_ncc}</b>" không ?</p>
                         <p class="text-warning"><small>Hành động này sẽ không thể hoàn tác</small></p>
                     `
                     $('#deleteSuppilerModal .confirm-delete-ncc').html(html)
@@ -258,7 +224,7 @@ function renderDeleteNCCModal() {
 
     $('.btn-delete-checked-ncc-modal').on('click', () => {
         const html = `
-            <p>Bạn có chắc muốn xóa các Nhà Cung Cấp được chọn không ?</p>
+            <p>Bạn có chắc muốn xóa các nhà cung cấp được chọn không ?</p>
             <p class="text-warning"><small>Hành động này sẽ không thể hoàn tác</small></p>
         `
         $('#deleteSuppilerModal .confirm-delete-ncc').html(html)
@@ -294,11 +260,11 @@ function handleDeleteNCC() {
             deleteNCC(mancc)
                 .then(res => {
                     if (res === true) {
-                        alert('Xóa sản phẩm thành công')
+                        alert('Xóa nhà cung cấp thành công')
                         $('#deleteSuppilerModal').modal('hide')
                         renderSuppilerData()
                     } else {
-                        alert('Xảy ra lỗi trong quá trình xóa sản phẩm')
+                        alert('Xảy ra lỗi trong quá trình xóa nhà cung cấp')
                     }
                 })
                 .catch(error => console.log(error))
@@ -320,15 +286,15 @@ function handleDeleteNCC() {
 
                 Promise.all(promises).then(results => {
                     if (results.includes(false)) {
-                        alert('Xảy ra lỗi trong quá trình xóa các sản phẩm')
+                        alert('Xảy ra lỗi trong quá trình xóa các nhà cung cấp')
                     } else {
-                        alert('Đã xóa sản phẩm các sản phẩm được chọn')
+                        alert('Đã xóa nhà cung cấp các nhà cung cấp được chọn')
                         firstCheckInputElement.checked = false
                         renderSuppilerData()
                     }
                 })
             } else {
-                alert('Không có sản phẩm nào được chọn\nVui lòng check vào ô các sản phẩm muốn xóa')
+                alert('Không có nhà cung cấp nào được chọn\nVui lòng check vào ô các nhà cung cấp muốn xóa')
             }
 
             $('#deleteSuppilerModal').modal('hide')
