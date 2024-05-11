@@ -67,6 +67,7 @@ async function loadBillData() {
 
             $('.admin-bill-list').html(html);
             totalPage(dataBill.count)
+            displayTotalPage("#admin-bill-main .hint-text", dataBill.count, dataBill.pagination.length)
         }
 
     } catch (error) {

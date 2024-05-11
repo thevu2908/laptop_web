@@ -1,4 +1,4 @@
-<main>
+<main id="admin-promo-main" >
 	<div class="container-xl">
 		<div class="table-responsive">
 			<div class="table-wrapper">

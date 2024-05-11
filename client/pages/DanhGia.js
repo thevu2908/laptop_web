@@ -2,7 +2,7 @@ $(document).ready(() => {
     const urlParams = new URLSearchParams(window.location.search)
     if (window.location.pathname === '/admin.php' && urlParams.get('controller') === 'danhgia') {
         // Trang Admin
-        renderReviewAdmin(null)
+        renderReviewAdmin("")
         clickPage(renderReviewAdmin)
         renderDeleteReviewModal()
         handleDeletePromo()
@@ -97,96 +97,56 @@ async function renderListReview() {
     }
 }
 
-async function renderReviewAdmin(data) {
-    let productId = null;
+async function renderReviewAdmin(productId) {
     const urlParams = new URLSearchParams(window.location.search);
     if (urlParams.has('id')) {
         productId = urlParams.get('id');
     }
 
-    if (productId) {
-        
-        const dataReview = data ? data : await getPaginationReview(4)
+    const dataReview = await getPaginationReview(productId)
 
-        if (dataReview && dataReview.pagination && dataReview.pagination.length > 0) {
-            let html = ''
+    if (dataReview && dataReview.pagination && dataReview.pagination.length > 0) {
+        let html = ''
 
-            dataReview.pagination.forEach((review, index) => {  
-                if(review.ma_sp === productId) {
-                    html += `
-                        <tr>
-                            <td>
-                                <span class="custom-checkbox">
-                                    <input type="checkbox" id="checkbox-${review.ma_kh}" name="chk[]" value="${review.ma_kh}">
-                                    <label for="checkbox-${review.ma_kh}"></label>
-                                </span>
-                            </td>
-                            <td>${review.ma_sp}</td>
-                            <td>${review.ma_kh}</td>
-                            <td>${review.rating} sao</td>
-                            <td>${review.thoi_gian_danh_gia}</td>
-                            <td>${review.noi_dung}</td>
-                            <td>
-                                <a href="#deleteReviewModal" class="delete btn-delete-review-modal" 
-                                data-toggle="modal" masp="${review.ma_sp}" makh="${review.ma_kh}" thoigian="${review.thoi_gian_danh_gia}">
-                                    <i class="material-icons" data-toggle="tooltip" title="Xóa">&#xE872;</i>
-                                </a>
-                            </td>
-                        </tr>
-                    `
-                }
-            })
+        dataReview.pagination.forEach((review, index) => {  
+            html += `
+                <tr>
+                    <td>
+                        <span class="custom-checkbox">
+                            <input type="checkbox" id="checkbox-${review.ma_kh}" name="chk[]" value="${review.ma_kh}">
+                            <label for="checkbox-${review.ma_kh}"></label>
+                        </span>
+                    </td>
+                    <td>${review.ma_sp}</td>
+                    <td>${review.ma_kh}</td>
+                    <td>${review.rating} sao</td>
+                    <td>${review.thoi_gian_danh_gia}</td>
+                    <td>${review.noi_dung}</td>
+                    <td>
+                        <a href="#deleteReviewModal" class="delete btn-delete-review-modal" 
+                        data-toggle="modal" masp="${review.ma_sp}" makh="${review.ma_kh}" thoigian="${review.thoi_gian_danh_gia}">
+                            <i class="material-icons" data-toggle="tooltip" title="Xóa">&#xE872;</i>
+                        </a>
+                    </td>
+                </tr>
+            `
+        })
 
-            $('.admin-review-list').html(html)
-            totalPage(dataReview.count)
-        } else {
-            $('.admin-review-list').html('')
-        }
-    } 
-    else {
-        const dataReview = data ? data : await getPaginationReview()
-
-        if (dataReview && dataReview.pagination && dataReview.pagination.length > 0) {
-            let html = ''
-
-            dataReview.pagination.forEach((review, index) => {  
-                html += `
-                    <tr>
-                        <td>
-                            <span class="custom-checkbox">
-                                <input type="checkbox" id="checkbox-${review.ma_kh}" name="chk[]" value="${review.ma_kh}">
-                                <label for="checkbox-${review.ma_kh}"></label>
-                            </span>
-                        </td>
-                        <td>${review.ma_sp}</td>
-                        <td>${review.ma_kh}</td>
-                        <td>${review.rating} sao</td>
-                        <td>${review.thoi_gian_danh_gia}</td>
-                        <td>${review.noi_dung}</td>
-                        <td>
-                            <a href="#deleteReviewModal" class="delete btn-delete-product-detail-modal" data-toggle="modal" data-id=${review.ma_kh}>
-                                <i class="material-icons" data-toggle="tooltip" title="Xóa">&#xE872;</i>
-                            </a>
-                        </td>
-                    </tr>
-                `
-            })
-
-            $('.admin-review-list').html(html)
-            totalPage(dataReview.count)
-        } else {
-            $('.admin-review-list').html('')
-        }
+        $('.admin-review-list').html(html)
+        totalPage(dataReview.count)
+        displayTotalPage("#admin-review-main .hint-text", dataReview.count, dataReview.pagination.length)
+    } else {
+        $('.admin-review-list').html('')
     }
 }
 
-function getPaginationReview() {
+function getPaginationReview(productId) {
     return new Promise((resolve, reject) => {
         const page = $('#currentpage').val()
         $.ajax({
             url: 'server/src/controller/PaginationController.php',
             method: 'GET',
-            data: { action: 'pagination', table: 'danhgia', page },
+            data: { action: 'pagination', table: 'danhgia', page, id: productId },
             dataType: 'JSON',
             success: review => resolve(review),
             error: (xhr, status, error) => {
@@ -348,7 +308,7 @@ function handleDeletePromo() {
                     if (res === 'success') {
                         alert('Xóa đánh giá thành công')
                         $('#deleteReviewModal').modal('hide')
-                        renderReviewAdmin(null)
+                        renderReviewAdmin("")
                         clickPage(renderReviewAdmin)
                     } 
                     else {

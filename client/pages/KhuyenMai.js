@@ -55,6 +55,7 @@ async function renderPromotionToAdmin(data) {
             
             $('.admin-promotion-list').html(html)
             totalPage(dataPromo.count)
+            displayTotalPage("#admin-promo-main .hint-text", dataPromo.count, dataPromo.pagination.length)
         }
 
     } catch (error) {
