@@ -95,10 +95,10 @@ async function renderSuppilerData(data) {
                 </tr>
             `
             }
-            
+
             phanquyen_chucnang("Nhà Cung Cấp")
-        getSizeinTable("nhacungcap","NCC","#admin-nhacungcap-manhacungcap")
-        $('.admin-suppiler-list').html(html)
+            getSizeinTable("nhacungcap", "NCC", "#admin-nhacungcap-manhacungcap")
+            $('.admin-suppiler-list').html(html)
             totalPage(dataPromo.count)
             displayTotalPage("#admin-ncc-main .hint-text", dataPromo.count, dataPromo.pagination.length)
         }
@@ -108,21 +108,21 @@ async function renderSuppilerData(data) {
     }
 }
 
-function showSuppiler(){
-    $(document).on('click',"#showSuppiler",function(){
+function showSuppiler() {
+    $(document).on('click', "#showSuppiler", function () {
         var mancc = $(this).attr("data-id");
         $.ajax({
-            url:"server/src/controller/NhaCungCapController.php",
-            method:"POST",
-            data:{action:"get",mancc:mancc},
-            dataType:"JSON",
-            success:function(data){
+            url: "server/src/controller/NhaCungCapController.php",
+            method: "POST",
+            data: { action: "get", mancc: mancc },
+            dataType: "JSON",
+            success: function (data) {
                 $("#admin-update-manhacungcap").val(data['ma_ncc']);
                 $("#admin-update-nhacungcap").val(data['ten_ncc']);
                 $("#admin-update-diachi").val(data['dia_chi']);
                 $("#admin-update-sodienthoai").val(data['so_dien_thoai']);
             },
-            error:function(xhr,status,error){
+            error: function (xhr, status, error) {
                 console.log(error)
             }
         })
@@ -130,7 +130,7 @@ function showSuppiler(){
 }
 
 function updateSuppiler() {
-    $(document).on('click', "#admin-btn-updateNhaCungCap", function() {
+    $(document).on('click', "#admin-btn-updateNhaCungCap", function () {
         var mancc = $("#admin-update-manhacungcap").val();
         var tenncc = $("#admin-update-nhacungcap").val();
         var diachi = $("#admin-update-diachi").val();
@@ -170,13 +170,13 @@ function updateSuppiler() {
                 sodienthoai: sodienthoai
             },
             dataType: "JSON",
-            success: function(data) {
+            success: function (data) {
                 $("form").trigger('reset');
                 $("#editSuppilerModal").modal("hide");
                 console.log(data);
                 renderSuppilerData();
             },
-            error: function(xhr, status, error) {
+            error: function (xhr, status, error) {
                 console.log(error);
             }
         });
@@ -185,7 +185,7 @@ function updateSuppiler() {
 
 function addSuppiler() {
     getSizeinTable("nhacungcap", "NCC", "#admin-nhacungcap-manhacungcap");
-    $(document).on('click', '#admin-btn-addNhaCungCap', function() {
+    $(document).on('click', '#admin-btn-addNhaCungCap', function () {
         console.log('information');
         var mancc = $("#admin-nhacungcap-manhacungcap").val();
         console.log('ma' + mancc);
@@ -219,14 +219,14 @@ function addSuppiler() {
                     sodienthoai: sodienthoai
                 },
                 dataType: 'JSON',
-                success: function(data) {
+                success: function (data) {
                     console.log('inf');
                     console.log(data);
                     $("form").trigger('reset');
                     $("#addSuppilerModal").modal("hide");
                     renderSuppilerData();
                 },
-                error: function(xhr, status, error) {
+                error: function (xhr, status, error) {
                     console.log(error);
                 }
             });

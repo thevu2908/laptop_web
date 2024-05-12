@@ -184,6 +184,14 @@ function kiemtraquyen($arr,$chucnang){
         </a>
       </li>";
       }
+      if(kiemtraquyen($arr,"Khách Hàng") && $chitietquyen->kiemtrahangdong($maquyen,"Khách Hàng","Xem")){
+        echo " <li class='side-menu-item ".( $page === 'khachhang' ? 'active' : '')."'>
+        <a href='/admin.php?controller=khachhang' class='nav-link'>
+          <i class='fa-solid fa-circle-user'></i>
+          <span class='text'>Khách Hàng</span>
+        </a>
+      </li>";
+      }
     }
     ?>
   </ul>

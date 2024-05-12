@@ -55,6 +55,19 @@ function getOrderByMonth(month) {
     })
 }
 
+function getImportInvoiceByMonth(month) {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: 'server/src/controller/PhieuNhap1Controller.php',
+            method: 'POST',
+            data: { action: 'get-import-month', month },
+            dataType: 'JSON',
+            success: invoices => resolve(invoices),
+            error: error => reject(error)
+        })
+    })
+}
+
 function getCustomerLength() {
     return new Promise((resolve, reject) => {
         $.ajax({
@@ -362,9 +375,13 @@ async function createRevenueBarChart() {
     try {
         const chart = document.querySelector('#revenue-chart')
         let revenueData = []
+        let importData = []
+
         for (let i = 1; i <= 12; i++) {
             const orders = await getOrderByMonth(i)
+            const importInvoices = await getImportInvoiceByMonth(i)
             revenueData.push(orders.revenue / 1000000)
+            importData.push(importInvoices.total / 1000000)
         }
 
         new Chart(chart, {
@@ -374,7 +391,7 @@ async function createRevenueBarChart() {
                 datasets: [
                     {
                         label: 'Nhập hàng (triệu đồng)',
-                        data: [],
+                        data: importData,
                         borderWidth: 1,
                         borderColor: '#FFB1C1',
                         backgroundColor: '#FFB1C1'

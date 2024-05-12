@@ -55,6 +55,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
             echo '<script src="./client/pages/ChiTietHoaDon.js"></script>';
             echo '<script src="./client/pages/ThuongHieu.js"></script>';
             echo '<script src="client/pages/ThongTinNhanHang.js"></script>';
+            echo '<script src="client/pages/NhapHang.js"></script>';
             break;
           case "sanpham": {
               include "./server/src/admin/view/SanPham.php";
@@ -95,6 +96,12 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
               echo '<script src="./client/pages/NhaCungCap.js"></script>';
               break;
             }
+          case "khachhang": {
+              include "./server/src/admin/view/KhachHang.php";
+              echo '<script src="./client/pages/KhachHang.js"></script>';
+              echo '<script src="client/pages/ThongTinNhanHang.js"></script>';
+              break;
+          }
           case "taikhoan": {
               include "./server/src/admin/view/TaiKhoan.php";
               echo '<script src="./client/pages/TaiKhoan.js"></script>';

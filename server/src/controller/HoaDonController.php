@@ -201,19 +201,15 @@ switch ($action) {
                 $obj->{'status'},
                 0
             );
-
             $hoadonctl->addHoaDon($hoadon);
         }
         break;
-
     case 'delete':
         $id = $_POST['billId'];
         $hoadonctl->deleteHoaDon($id);
-
     case 'search-status':
         $status = $_GET['status'];
         $hoadonctl->getAllHoaDonByStatus($status);
-
     default:
         break;
 }

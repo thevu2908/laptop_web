@@ -65,7 +65,7 @@
                     </tbody>
                 </table>
                 <div class="clearfix">
-                    <div class="hint-text">Hiển thị <b>5</b> trong <b>25</b> chi tiết</div>
+                    <div class="hint-text"></div>
                     <div id="pagination">
 						
 					</div>

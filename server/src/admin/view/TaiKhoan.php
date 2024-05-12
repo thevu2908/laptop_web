@@ -1,4 +1,4 @@
-<main>
+<main id="admin-account-main">
 	<div class="container-xl">
 		<div class="table-responsive">
 			<div class="table-wrapper">
@@ -39,7 +39,7 @@
 					</tbody>
 				</table>
 				<div class="clearfix">
-					<div class="hint-text">Hiển thị <b>5</b> trong <b>25</b> kết quả</div>
+					<div class="hint-text"></div>
 					<div id="pagination">
 
 					</div>
