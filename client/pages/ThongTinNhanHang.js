@@ -1,8 +1,10 @@
 $(document).ready(() => {
-    initSelect2()
-    $('#address-modal .btn-close').on('click', resetValue)
-    $('#address-modal .btn-secondary').on('click', resetValue)
-    $('.btn-add-address__modal').on('click', resetValue)
+    if (window.location.pathname === '/index.php') {
+        initSelect2()
+        $('#address-modal .btn-close').on('click', resetValue)
+        $('#address-modal .btn-secondary').on('click', resetValue)
+        $('.btn-add-address__modal').on('click', resetValue)
+    }
     
     handleRenderThongTinNhanHang()
     renderUpdateThongTinNhanHangModal()

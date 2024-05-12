@@ -11,8 +11,21 @@ class DanhGiaController {
         $this->danhGiaRepo = new DanhGiaRepo();
     }
 
-    public function getAllDanhGia($ma_sp) {
-        $reviews = $this->danhGiaRepo->getAllDanhGia($ma_sp);
+    public function getAllDanhGiaByMaSP($ma_sp) {
+        $reviews = $this->danhGiaRepo->getAllDanhGiaByMaSP($ma_sp);
+        $result = [];
+
+        foreach($reviews as $review) {
+            if($review['trang_thai'] ==  0) {
+                $result[] = $review;
+            }
+        }
+
+        echo json_encode($result);
+    }
+
+    public function getAllDanhGia() {
+        $reviews = $this->danhGiaRepo->getAllDanhGia();
         $result = [];
 
         foreach($reviews as $review) {
@@ -37,8 +50,8 @@ class DanhGiaController {
         }
     }
 
-    public function deleteReview($reviewId) {
-        if ($this->danhGiaRepo->deleteDanhGia($reviewId)) {
+    public function deleteReview($ma_kh, $ma_sp, $thoi_gian_danh_gia) {
+        if ($this->danhGiaRepo->deleteDanhGia($ma_kh, $ma_sp, $thoi_gian_danh_gia)) {
             echo 'success';
         } else {
             echo 'fail';
@@ -50,9 +63,12 @@ $danhGiaCtl = new DanhGiaController();
 $action = $_POST['action'];
 
 switch($action) {
+    case 'get-all':
+        $danhGiaCtl->getAllDanhGia();
+        break;
     case 'get-by-masp':
         $ma_sp = json_encode($_POST['productId']);
-        $danhGiaCtl->getAllDanhGia($ma_sp);
+        $danhGiaCtl->getAllDanhGiaByMaSP($ma_sp);
         break;
     case 'add':
         $obj = json_decode(json_encode($_POST['review']));
@@ -69,8 +85,10 @@ switch($action) {
         $danhGiaCtl->addReview($review);
         break;
     case 'delete':
-        $ma_sp = json_encode($_POST['maSP']);
-        $ma_kh = json_encode($_POST['maKH']);
-        $danhGiaCtl->deleteReview($ma_sp);
+        $ma_kh = $_POST['maKH'];
+        $ma_sp = $_POST['maSP'];
+        $thoi_gian = $_POST['thoiGian'];
+        
+        $danhGiaCtl->deleteReview($ma_kh, $ma_sp, $thoi_gian);
         break;
-}
+    }

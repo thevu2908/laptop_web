@@ -18,7 +18,7 @@ class ChiTietHoaDonRepo extends ConnectDB {
 
     public function getChiTietHoaDon($ma_hd) {
         try {
-            $sql = "SELECT cthd.*, sp.ma_sp, ctsp.ma_ctsp, sp.ten_sp, ctsp.ram, ctsp.rom, ms.ten_mau, cxl.ten_chip, cdh.ten_card, sp.hinh_anh FROM chitiethoadon cthd
+            $sql = "SELECT cthd.ma_hd, cthd.gia_sp, SUM(cthd.so_luong) as so_luong, sp.ma_sp, ctsp.ma_ctsp, sp.ten_sp, ctsp.ram, ctsp.rom, ms.ten_mau, cxl.ten_chip, cdh.ten_card, sp.hinh_anh FROM chitiethoadon cthd
                 JOIN ctsp_imei ctspi ON cthd.ma_imei = ctspi.ma_imei
                 JOIN chitietsanpham ctsp ON ctsp.ma_ctsp = ctspi.ma_ctsp
                 JOIN mausac ms ON ms.ma_mau = ctsp.ma_mau
@@ -26,6 +26,7 @@ class ChiTietHoaDonRepo extends ConnectDB {
                 JOIn carddohoa cdh ON cdh.ma_card = ctsp.ma_carddohoa
                 JOIN sanpham sp ON sp.ma_sp = ctsp.ma_sp
                 WHERE cthd.ma_hd = '$ma_hd'
+                GROUP BY ctsp.ma_ctsp
             ";
             $result = mysqli_query($this->conn, $sql);
             $arr = [];
@@ -77,12 +78,13 @@ class ChiTietHoaDonRepo extends ConnectDB {
     }
 
     public function addCTHD($ma_hd, $ma_ctsp, $so_luong, $gia_sp) {
-        $sql = "INSERT INTO chitiethoadon (ma_hd, ma_imei, gia_sp, so_luong, thanh_tien)
-                SELECT '$ma_hd', ma_imei, '$gia_sp', 1, '$gia_sp'
-                FROM ctsp_imei
-                WHERE ma_ctsp = '$ma_ctsp'
-                ORDER BY RAND()
-                LIMIT $so_luong";
+        $sql = "INSERT INTO chitiethoadon (ma_hd, ma_imei, gia_sp, so_luong)
+            SELECT '$ma_hd', ma_imei, '$gia_sp', 1
+            FROM ctsp_imei
+            WHERE ma_ctsp = '$ma_ctsp'
+            ORDER BY RAND()
+            LIMIT $so_luong
+        ";
         $result = mysqli_query($this->conn, $sql);
         if ($result) {
             return true;

@@ -37,6 +37,7 @@
 									<label for="selectAll"></label>
 								</span>
 							</th>
+							<th>Mã sản phẩm</th>
 							<th>Khách Hàng</th>
 							<th>Rating</th>
 							<th>Ngày đánh giá</th>
@@ -68,12 +69,12 @@
 						<h4 class="modal-title">Xóa đánh giá</h4>
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 					</div>
-					<div class="modal-body confirm-delete">
+					<div class="modal-body">
 						
 					</div>
 					<div class="modal-footer">
 						<input type="button" class="btn btn-secondary" data-dismiss="modal" value="Hủy">
-						<input type="button" class="btn btn-danger btn-delete-product-detail" value="Xóa">
+						<input type="button" class="btn btn-danger confirm-delete" value="Xóa">
 					</div>
 				</form>
 			</div>

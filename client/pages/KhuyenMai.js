@@ -1,17 +1,113 @@
 $(document).ready(() => {
-    // loadPromotionData()
+    const urlParams = new URLSearchParams(window.location.search)
+    if (window.location.pathname === '/admin.php' && urlParams.get('controller') === 'khuyenmai') {
+        renderPromotionToAdmin(null)
+        clickPage(renderPromotionToAdmin)
+        loadPaginationPromo()
 
-    updateStatusPromo()
-    getNextPromoId()
+        updateStatusPromo()
+        getNextPromoId()
 
-    handleAddPromotion()
+        handleAddPromotion()
 
-    renderDeletePromoModal()
-    handleDeletePromo()
+        renderDeletePromoModal()
+        handleDeletePromo()
 
-    renderUpdatePromoModal()
-    handleUpdatePromo()
+        renderUpdatePromoModal()
+        handleUpdatePromo()
+    }
 })
+
+async function renderPromotionToAdmin(data) {
+    try {
+        const dataPromo = data ? data : await getPaginationPromo()
+
+        if (dataPromo && dataPromo.pagination && dataPromo.pagination.length > 0) {
+            let html = ''
+
+            for (const item of dataPromo.pagination) {
+                html += `
+                <tr>
+                    <td>
+                        <span class="custom-checkbox">
+                            <input type="checkbox" id="checkbox-${item.ma_km}" name="chk[]" value="${item.ma_km}">
+                            <label for="checkbox-${item.ma_km}"></label>
+                        </span>
+                    </td>
+                    <td>${item.ma_km}</td>
+                    <td>${item.ten_khuyen_mai}</td>
+                    <td>≥ ${formatCurrency(item.dieu_kien)}</td>
+                    <td>${convertMucKM(item.muc_khuyen_mai)}</td>
+                    <td>${convertDate(item.thoi_gian_bat_dau)}</td>
+                    <td>${convertDate(item.thoi_gian_ket_thuc)}</td>
+                    <td>${item.tinh_trang}</td>
+                    <td>
+                        <a href="#updatePromotion" class="edit btn-update-promo-modal" data-toggle="modal" data-id="${item.ma_km}">
+                            <i class="material-icons" data-toggle="tooltip" title="Chỉnh sửa">&#xE254;</i>
+                        </a>
+                        <a href="#deletePromotion" class="delete btn-delete-promo-modal" data-toggle="modal" data-id="${item.ma_km}">
+                            <i class="material-icons" data-toggle="tooltip" title="Xóa">&#xE872;</i>
+                        </a>
+                    </td>
+                </tr>
+            `
+            }
+            
+            $('.admin-promotion-list').html(html)
+            totalPage(dataPromo.count)
+            displayTotalPage("#admin-promo-main .hint-text", dataPromo.count, dataPromo.pagination.length)
+        }
+
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+// function renderPromotionToAdmin() {
+//     $.ajax({
+//         url: 'server/src/controller/KhuyenMaiController.php',
+//         method: 'POST',
+//         data: { action: 'get-all' },
+//         dataType: 'JSON',
+//         success: async data => {
+//             if (data && data.length > 0) {
+//                 let html = ''
+
+//                 data.forEach((item) => {
+//                     // html render cho admin
+//                     html += `
+//                         <tr>
+//                             <td>
+//                                 <span class="custom-checkbox">
+//                                     <input type="checkbox" id="checkbox-${item.ma_km}" name="chk[]" value="${item.ma_km}">
+//                                     <label for="checkbox-${item.ma_km}"></label>
+//                                 </span>
+//                             </td>
+//                             <td>${item.ma_km}</td>
+//                             <td>${item.ten_khuyen_mai}</td>
+//                             <td>≥ ${formatCurrency(item.dieu_kien)}</td>
+//                             <td>${convertMucKM(item.muc_khuyen_mai)}</td>
+//                             <td>${convertDate(item.thoi_gian_bat_dau)}</td>
+//                             <td>${convertDate(item.thoi_gian_ket_thuc)}</td>
+//                             <td>${item.tinh_trang}</td>
+//                             <td>
+//                                 <a href="#updatePromotion" class="edit btn-update-promo-modal" data-toggle="modal" data-id="${item.ma_km}">
+//                                     <i class="material-icons" data-toggle="tooltip" title="Chỉnh sửa">&#xE254;</i>
+//                                 </a>
+//                                 <a href="#deletePromotion" class="delete btn-delete-promo-modal" data-toggle="modal" data-id="${item.ma_km}">
+//                                     <i class="material-icons" data-toggle="tooltip" title="Xóa">&#xE872;</i>
+//                                 </a>
+//                             </td>
+//                         </tr>
+//                     `
+                    
+//                 })
+
+//                 $('.admin-promotion-list').html(html)
+//             }
+//         }
+//     })
+// }
 
 function loadPromotionData() {
     $.ajax({
@@ -134,6 +230,7 @@ function loadPromotionData() {
                 })
 
                 $('.admin-promotion-list').html(html)
+                console.log($('.admin-promotion-list'))
                 $('.modal-cart-list').html(html2)
 
                 if(!conditionKM) {
@@ -148,6 +245,7 @@ function loadPromotionData() {
         }
     })
 }
+
 
 function checkValidPromo(item) {
     if(item != undefined) {
@@ -183,6 +281,9 @@ function updateStatusPromo() {
         var endDate = $('#promotion-date-to').val();
         var promotionStatus = $('#promotion-status');
 
+        console.log(startDate)
+        console.log(endDate)
+
         if(startDate != '' && endDate != '' && startDate >= endDate) {
             alert('Ngày bắt đầu không được lớn hơn ngày kết thúc của chương trình');
             $('#promotion-date-from').val('');
@@ -198,6 +299,32 @@ function updateStatusPromo() {
             }
         }
     })
+
+    $(document).on('change', '#updatePromotion #promotion-date-from, #updatePromotion #promotion-date-to', () => {
+        var today = new Date().toISOString().slice(0, 10);
+        var startDate = $('#updatePromotion #promotion-date-from').val();
+        var endDate = $('#updatePromotion #promotion-date-to').val();
+        var promotionStatus = $('#updatePromotion #promotion-status');
+
+        console.log(startDate)
+        console.log(endDate)
+
+        if(startDate != '' && endDate != '' && startDate >= endDate) {
+            alert('Ngày bắt đầu không được lớn hơn ngày kết thúc của chương trình');
+            $('#updatePromotion #promotion-date-from').val('');
+            $('#updatePromotion #promotion-date-to').val('');
+        }
+        else {
+            if (today >= startDate && today <= endDate) {
+                promotionStatus.val('Đang diễn ra');
+            } else if (today < startDate) {
+                promotionStatus.val('Chưa bắt đầu');
+            } else {
+                promotionStatus.val('Đã kết thúc');
+            }
+        }
+    })
+    
 }
 
 function validatePromo(promo) {
@@ -268,7 +395,7 @@ function handleAddPromotion() {
                     alert('Thêm khuyến mãi thành công')
                     $('form').trigger('reset')
                     $('#addPromotion').modal('hide')
-                    loadPromotionData()
+                    loadPromotionToAdmin()
                 } 
                 else {
                     alert('Xảy ra lỗi trong quá trình thêm khuyến mãi')
@@ -346,7 +473,7 @@ function handleDeletePromo() {
                     if (res === 'success') {
                         alert('Xóa khuyến mãi thành công')
                         $('#deletePromotion').modal('hide')
-                        loadPromotionData()
+                        loadPromotionToAdmin()
                     } 
                     else if(res === 'fail') {
                         alert('Không thể xóa khuyến mãi có chương trình "Đang diễn ra"')
@@ -381,20 +508,17 @@ function getNextPromoId() {
 }
 
 function renderUpdatePromoModal() {
-    $(document).on('click', '.btn-update-promo-modal', e => {
+    $(document).on('click', '.btn-update-promo-modal', async e => {
         const promoId = e.target.closest('.btn-update-promo-modal').dataset.id
 
-        getPromotion(promoId)
-            .then(promo => {
-                $('#updatePromotion #promotion-id').val(promo.ma_km),
-                $('#updatePromotion #promotion-name').val(promo.ten_khuyen_mai),
-                $('#updatePromotion #promotion-percent').val(promo.muc_khuyen_mai),
-                $('#updatePromotion #promotion-condition').val(promo.dieu_kien),
-                $('#updatePromotion #promotion-date-from').val(promo.thoi_gian_bat_dau),
-                $('#updatePromotion #promotion-date-to').val(promo.thoi_gian_ket_thuc),
-                $('#updatePromotion #promotion-status').val(promo.tinh_trang)
-            })
-            .catch(error => console.log(error))
+        const promo = await getPromotion(promoId)
+        $('#updatePromotion #promotion-id').val(promo.ma_km)
+        $('#updatePromotion #promotion-name').val(promo.ten_khuyen_mai)
+        $('#updatePromotion #promotion-percent').val(promo.muc_khuyen_mai)
+        $('#updatePromotion #promotion-condition').val(promo.dieu_kien)
+        $('#updatePromotion #promotion-date-from').val(promo.thoi_gian_bat_dau)
+        $('#updatePromotion #promotion-date-to').val(promo.thoi_gian_ket_thuc)
+        $('#updatePromotion #promotion-status').val(promo.tinh_trang)
     })
 }
 
@@ -443,7 +567,7 @@ function handleUpdatePromo() {
                     alert('Cập nhật khuyến mãi thành công')
                     $('form').trigger('reset')
                     $('#updatePromotion').modal('hide')
-                    loadPromotionData()
+                    loadPromotionToAdmin()
                 } 
                 else {
                     alert('Xảy ra lỗi trong quá trình cập nhật khuyến mãi')
@@ -543,4 +667,21 @@ function delPromoToLocalByMaKH(maKH) {
         delete khuyenMai[maKH];
         localStorage.setItem('khuyenMai', JSON.stringify(khuyenMai));
     }
+}
+
+function getPaginationPromo() {
+    return new Promise((resolve, reject) => {
+        const page = $('#currentpage').val()
+        $.ajax({
+            url: 'server/src/controller/PaginationController.php',
+            method: 'GET',
+            data: { action: 'pagination', table: 'khuyenmai', page },
+            dataType: 'JSON',
+            success: review => resolve(review),
+            error: (xhr, status, error) => {
+                console.log(error)
+                reject(error)
+            }
+        })
+    })
 }

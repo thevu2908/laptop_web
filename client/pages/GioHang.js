@@ -159,7 +159,7 @@ function addCart(cart) {
 }
 
 function handleAddCart() {
-    $(document).off('click', '.btn-add-cart').on('click', '.btn-add-cart', async e => {
+    $(document).off('click', '.btn-add-cart, .btn-buy-now').on('click', '.btn-add-cart, .btn-buy-now', async e => {
         e.preventDefault();
     
         try {
@@ -170,7 +170,7 @@ function handleAddCart() {
                 return
             }
 
-            const productId = e.target.closest('.btn-add-cart').dataset.id;
+            const productId = e.target.closest('.btn-add-cart, .btn-buy-now').dataset.id;
             const ram = $('span.product-detail-info.ram').contents().filter(function() { return this.nodeType === 3 }).text().trim()
             const rom = $('span.product-detail-info.rom').contents().filter(function() { return this.nodeType === 3 }).text().replace('SSD', '').trim()
             const color = $('.product-color-item.active').data('id')
@@ -188,8 +188,12 @@ function handleAddCart() {
                 cart.quantity = parseInt(objectData.so_luong) + parseInt(cart.quantity)
                 const updateRes = await updateCart(cart)
                 if (updateRes === 'success') {
-                    alert('Đã thêm sản phẩm vào giỏ hàng')
-                    loadCart(cart.customerId)
+                    if ($(e.target).hasClass('btn-buy-now')) {
+                        window.location.href = 'index.php?gio-hang';
+                    } else {
+                        alert('Đã thêm sản phẩm vào giỏ hàng')
+                        loadCart(cart.customerId)
+                    }
                 } else {
                     alert('Xảy ra lỗi trong quá trình thêm sản phẩm vào giỏ hàng')
                 }

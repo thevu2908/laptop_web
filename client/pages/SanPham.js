@@ -756,7 +756,7 @@ async function renderProductInfo() {
                     ? `
                         <input type="number" class="product-bought-quantity" step="1" min="1" max="9" name="quantity" value="1" title="Số lượng mua" size="4">
                         <button class="btn btn-add-cart" data-id=${product.id}>Thêm vào giỏ</button>
-                        <a href="index.php?gio-hang" class="btn btn-buy" data-id=${product.id}>Mua ngay</a>
+                        <a href="#" class="btn btn-primary btn-buy-now" data-id=${product.id}>Mua ngay</a>
                     `
                     : ''
                 }

@@ -63,7 +63,7 @@ class PhieuBaoHanhRepo extends ConnectDB{
         return null;
     }
     public function updatePhieuBaoHanh($ma_pbh,$ngaytra){
-        $query="UPDATE phieubaohanh SET ngay_tra='$ngaytra' WHERE ma_pbh='$ma_pbh'";
+        $query="UPDATE phieubaohanh SET ngay_tra='$ngaytra',tinh_trang='Đã Bảo Hành' WHERE ma_pbh='$ma_pbh'";
         $result=mysqli_query($this->conn,$query);
         if($result){
             return true;

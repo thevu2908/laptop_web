@@ -2,26 +2,47 @@ $(document).ready(() => {
     const urlParams = new URLSearchParams(window.location.search)
     if (window.location.pathname === '/admin.php' && urlParams.get('controller') === 'hoadon') {
         loadBillData()
+        clickPage(loadBillData)
+        handleRenderCustomerOrder()
+        filterEndUserOrderStatus()
+        searchEndUserOrder()
+        renderCustomerOrderDetail()
     }
-    handleRenderCustomerOrder()
-    filterEndUserOrderStatus()
-    searchEndUserOrder()
-    renderCustomerOrderDetail()
+    
+})
+
+let search = ""
+
+function getPaginationBill(search) {
+    return new Promise((resolve, reject) => {
+        const page = $('#currentpage').val()
+        $.ajax({
+            url: 'server/src/controller/PaginationController.php',
+            method: 'GET',
+            data: { action: 'pagination', table: 'hoadon', page, id: search },
+            dataType: 'JSON',
+            success: review => resolve(review),
+            error: (xhr, status, error) => {
+                console.log(error)
+                reject(error)
+            }
+        })
+    })
+}
+
+$(document).on("change","#admin-select-hoadon", async function(){ 
+    search = $("#admin-select-hoadon").val()
+    loadBillData()
+    clickPage(loadBillData)
 })
 
 async function loadBillData() {
     try {
-        const data = await $.ajax({
-            url: 'server/src/controller/HoaDonController.php',
-            method: 'POST',
-            data: { action: 'get-all' },
-            dataType: 'JSON'
-        });
+        const dataBill = await getPaginationBill(search)
 
-        if (data && data.length > 0) {
-            let html = '';
-            
-            for (const item of data) {
+        if (dataBill && dataBill.pagination && dataBill.pagination.length > 0) {
+            let html = ''
+            for (const item of dataBill.pagination) {
                 let khachhang = await getCustomer(item.ma_kh);
                 let nhanvien = await getEmployee(item.ma_nv);
                 html += `
@@ -36,7 +57,7 @@ async function loadBillData() {
                         <td>${item.hinh_thuc}</td>
                         <td>${item.tinh_trang}</td>
                         <td>
-                            <a href="/admin.php?controller=chitiethoadon&id=${item.ma_hd}" class="info btn-product-detail" data-id=${item.ma_hd}>
+                            <a href="/admin.php?controller=chitiethoadon&id=${item.ma_hd}" class="info btn-product-detail" dataBill-id=${item.ma_hd}>
                                 <i class="fa-solid fa-circle-info" title="Chi tiết hóa đơn" ></i>
                             </a>
                         </td>
@@ -45,7 +66,10 @@ async function loadBillData() {
             }
 
             $('.admin-bill-list').html(html);
+            totalPage(dataBill.count)
+            displayTotalPage("#admin-bill-main .hint-text", dataBill.count, dataBill.pagination.length)
         }
+
     } catch (error) {
         console.log(error);
     }
