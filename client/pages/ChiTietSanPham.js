@@ -163,6 +163,7 @@ async function renderAdminProductDetail(data) {
 
             $('.admin-product-detail-list').html(html)
             totalPage(productDetails.count, 4)
+            displayTotalPage('#admin-product-detail-main .hint-text', productDetails.count, productDetails.pagination.length)
         } else {
             $('.admin-product-detail-list').html('')
         }
