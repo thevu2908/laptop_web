@@ -62,8 +62,8 @@ class HoaDonController {
         ]);
     }
 
-    public function getOrderByDate($date) {
-        $orders = $this->hoadonRepo->getOrderByDate($date);
+    public function getOrderInDate($brandId, $startDate, $endDate) {
+        $orders = $this->hoadonRepo->getOrderInDate($brandId, $startDate, $endDate);
         $revenue = 0;
         foreach ($orders as $order) {
             $revenue += $order['thanh_tien'];
@@ -74,8 +74,15 @@ class HoaDonController {
         ]);
     }
 
-    public function getBestSeller($amount) {
-        echo json_encode($this->hoadonRepo->getBestSeller($amount));
+    public function getPaginationOrderInDate($brandId, $startDate, $endDate, $start, $limit) {
+        echo json_encode([
+            "data" => $this->hoadonRepo->getPaginationOrderInDate($brandId, $startDate, $endDate, $start, $limit),
+            "length" => $this->hoadonRepo->getPaginationOrderInDateLength($brandId, $startDate, $endDate)
+        ]);
+    }
+
+    public function getBestSeller($amount, $brandId, $startDate, $endDate) {
+        echo json_encode($this->hoadonRepo->getBestSeller($amount, $brandId, $startDate, $endDate));
     }
 }
 
@@ -103,9 +110,32 @@ switch ($action) {
         $start = ($page - 1) * $limit;
         $hoadonctl->getHoaDonByKhachHang($ma_kh, $tinh_trang, $search, $start, $limit);
         break;
-    case 'get-by-date':
-        $date = $_POST['date'];
-        $hoadonctl->getOrderByDate($date);
+    case 'get-in-date':
+        $brandId = $_POST['brandId'];
+        $startDate = isset($_POST['startDate']) ? $_POST['startDate'] : null;
+        $endDate = isset($_POST['endDate']) ? $_POST['endDate'] : null;
+        if (!$startDate && !$endDate) {
+            $current_month = date('m');
+            $current_year = date('Y');
+            $startDate = date('Y-m-01', strtotime("$current_year-$current_month-01"));
+            $endDate = date('Y-m-t', strtotime("$current_year-$current_month-01"));
+        }
+        $hoadonctl->getOrderInDate($brandId, $startDate, $endDate);
+        break;
+    case 'pagination-order-in-date':
+        $brandId = $_POST['brandId'];
+        $startDate = isset($_POST['startDate']) ? $_POST['startDate'] : null;
+        $endDate = isset($_POST['endDate']) ? $_POST['endDate'] : null;
+        $page = isset($_POST['page']) ? $_POST['page'] : 1;
+        $limit = isset($_POST['limit']) ? $_POST['limit'] : 8;
+        $start = ($page - 1) * $limit;
+        if (!$startDate && !$endDate) {
+            $current_month = date('m');
+            $current_year = date('Y');
+            $startDate = date('Y-m-01', strtotime("$current_year-$current_month-01"));
+            $endDate = date('Y-m-t', strtotime("$current_year-$current_month-01"));
+        }
+        $hoadonctl->getPaginationOrderInDate($brandId, $startDate, $endDate, $start, $limit);
         break;
     case 'get-by-month':
         $month = $_POST['month'];
@@ -113,7 +143,16 @@ switch ($action) {
         break;
     case 'get-best-seller':
         $amount = isset($_POST['amount']) ? $_POST['amount'] : 5;
-        $hoadonctl->getBestSeller($amount);
+        $brandId = $_POST['brandId'];
+        $startDate = isset($_POST['startDate']) ? $_POST['startDate'] : null;
+        $endDate = isset($_POST['endDate']) ? $_POST['endDate'] : null;
+        if (!$startDate && !$endDate) {
+            $current_month = date('m');
+            $current_year = date('Y');
+            $startDate = date('Y-m-01', strtotime("$current_year-$current_month-01"));
+            $endDate = date('Y-m-t', strtotime("$current_year-$current_month-01"));
+        }
+        $hoadonctl->getBestSeller($amount, $brandId, $startDate, $endDate);
         break;
     case 'add':
         $obj = json_decode(json_encode($_POST['bill']));

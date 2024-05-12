@@ -129,7 +129,7 @@ img {
   background: var(--light);
   height: 100%;
   width: 280px;
-  z-index: 2000;
+  z-index: 99;
   font-family: var(--lato);
   transition: 0.3s ease;
   overflow-x: hidden;
@@ -503,10 +503,9 @@ img {
 }
 
 .content main .box-info li .text h3 {
-  font-size: 24px;
   font-weight: 600;
   color: var(--dark);
-  font-size: 24px;
+  font-size: 20px;
   font-weight: 600;
   color: var(--dark);
   font-family: 'Inter', 'sans-serif';
@@ -537,6 +536,7 @@ img {
 .content main .table-data .head {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: 16px;
   margin-bottom: 24px;
 }
@@ -1244,8 +1244,6 @@ table.table-bill.table tr th {
 }
 
 /* END Hóa Đơn */
-  width: auto;
-}
 
 .admin-import-table .table-wrapper {
   min-width: 1200px;
@@ -1296,18 +1294,6 @@ table.table-bill.table tr th {
   margin-left: 10px;
 }
 
-.revenue-chart__box {
-  position: relative;
-  margin-top: 24px;
-}
-
-.revenue-chart__box span {
-  position: absolute;
-  left: 50%;
-  bottom: -14px;
-  font-size: 14px;
-}
-
 .view-quantity {
   font-size: 12px;
   font-weight: 400;
@@ -1336,7 +1322,7 @@ table.table-bill.table tr th {
 }
 
 .product-list {
-  gap: 24px;
+  gap: 20px;
   max-height: 85%;
   width: 100%;
   overflow-y: scroll;
@@ -1389,6 +1375,10 @@ table.table-bill.table tr th {
 .product-name:hover {
   color: #0168fa;
   cursor: pointer;
+}
+
+#order-detail-modal {
+  font-family: 'Inter', 'sans-serif';
 }
 
 #order-detail-modal .modal-body {
@@ -1562,4 +1552,29 @@ table.table-bill.table tr th {
 .order-detail__total-row.final .order-detail__total-price span {
   color: var(--primary-color);
   font-size: 24px;
+}
+
+.admin-dashboard .table-data .order .recent-order__table thead th {
+  font-size: 14px;
+  border: none;
+  font-family: 'Inter', 'sans-serif';
+}
+
+.admin-dashboard .table-data .order .recent-order__table thead tr:hover {
+  background-color: transparent;
+}
+
+.admin-dashboard .table-data .order .recent-order__table td {
+  font-size: 14px;
+  font-family: 'Inter', 'sans-serif';
+  padding: 10px 0;
+}
+
+.admin-dashboard .table-data .order .recent-order__table td:first-child {
+  display: table-cell;
+  padding-left: 0;
+}
+
+.recent-order__table .recent-order__list {
+  cursor: pointer;
 }
