@@ -56,10 +56,11 @@ async function renderAdminBill(data) {
                         </td>
                         <td>${bill.ma_ctsp}</td>
                         <td>${bill.ten_sp}</td>
+                        <td>${bill.ram}</td>
+                        <td>${bill.rom}</td>
                         <td>${bill.ten_mau}</td>
                         <td>${bill.gia_tien}</td>
                         <td>${bill.quantity}</td>
-                        <td>${bill.thanh_tien}</td>
                     </tr>
                 `
             })

@@ -43,10 +43,12 @@
                             </th>
                             <th>ID</th>
                             <th>Tên sản phẩm</th>
+                            <th>Ram</th>
+                            <th>Rom</th>
                             <th>Tên màu</th>
                             <th>Giá tiền</th>
-                            <th>Số lượng</th>
-                            <th class="w-auto">Thành tiền</th>
+                            <th class="w-auto">Số lượng</th>
+                            <!-- <th class="w-auto">Thành tiền</th> -->
                         </tr>
                     </thead>
                     <tbody class="admin-bill-detail-list">

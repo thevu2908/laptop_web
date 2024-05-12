@@ -9,6 +9,7 @@ $(document).ready(() => {
     }
     // Trang User
     handleAddReview()
+    // renderListReview()
 })
 
 async function getMaKH() {
@@ -34,67 +35,131 @@ function getCustomer(id) {
 
 async function renderListReview() {
     const productId = $('.btn-add-cart').attr('data-id');
+    const dataReview = await getPaginationReview(productId)
+    console.log(dataReview)
 
-    try {
-        const response = await $.ajax({
-            url: 'server/src/controller/DanhGiaController.php',
-            method: 'POST',
-            data: { action: 'get-by-masp', productId },
-            dataType: 'JSON'
-        });
+    if (dataReview && dataReview.pagination && dataReview.pagination.length > 0) {
+        let html = ''
 
-        if (response && response.length > 0) {
-            let html = '';
+        for (const item of dataReview.pagination) {
 
-            for (const item of response) {
-                try {
-                    const res = await getCustomer(item.ma_kh);
-                    
-                    html += `
-                        <div class="d-flex flex-start mb-4">
-                            <div class="card w-100">
-                                <div class="card-body">
-                                    <div class="">
-                                        <h5 class="m-0">${res.ten_kh}</h5>
-                                        <p class="small">${convertDate(item.thoi_gian_danh_gia.slice(0, 10))}</p>
-                                        <p class="m-0">
-                                            ${item.noi_dung}
-                                        </p>
+            const res = await getCustomer(item.ma_kh);
+            html += `
+                <div class="d-flex flex-start mb-4">
+                    <div class="card w-100">
+                        <div class="card-body">
+                            <div class="">
+                                <h5 class="m-0">${res.ten_kh}</h5>
+                                <p class="small">${convertDate(item.thoi_gian_danh_gia.slice(0, 10))}</p>
+                                <p class="m-0">
+                                    ${item.noi_dung}
+                                </p>
 
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <ul class="rating d-flex">
-                                                <li class="rate">
-                                                    <i class="far fa-star star ${item.rating > 0 ? 'fas rate-active' : '' }"></i>
-                                                </li>
-                                                <li class="rate">
-                                                    <i class="far fa-star star ${item.rating - 1 > 0 ? 'fas rate-active' : '' }"></i>
-                                                </li>
-                                                <li class="rate">
-                                                    <i class="far fa-star star ${item.rating - 2 > 0 ? 'fas rate-active' : '' }"></i>
-                                                </li>
-                                                <li class="rate">
-                                                    <i class="far fa-star star ${item.rating - 3 > 0 ? 'fas rate-active' : '' }"></i>
-                                                </li>
-                                                <li class="rate">
-                                                    <i class="far fa-star star ${item.rating - 4 > 0 ? 'fas rate-active' : '' }"></i>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <ul class="rating d-flex">
+                                        <li class="rate">
+                                            <i class="far fa-star star ${item.rating > 0 ? 'fas rate-active' : '' }"></i>
+                                        </li>
+                                        <li class="rate">
+                                            <i class="far fa-star star ${item.rating - 1 > 0 ? 'fas rate-active' : '' }"></i>
+                                        </li>
+                                        <li class="rate">
+                                            <i class="far fa-star star ${item.rating - 2 > 0 ? 'fas rate-active' : '' }"></i>
+                                        </li>
+                                        <li class="rate">
+                                            <i class="far fa-star star ${item.rating - 3 > 0 ? 'fas rate-active' : '' }"></i>
+                                        </li>
+                                        <li class="rate">
+                                            <i class="far fa-star star ${item.rating - 4 > 0 ? 'fas rate-active' : '' }"></i>
+                                        </li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>
-                    `
-                } catch (error) {
-                    console.log(error);
-                }
-            }
-
-            $('.list-review').html(html);
+                    </div>
+                </div>
+            `
         }
-    } catch (error) {
-        console.log(error);
+
+        $('.list-review').html(html);
+        totalPage(dataReview.count)
     }
+
+    // try {
+    //     const response = await $.ajax({
+    //         url: 'server/src/controller/DanhGiaController.php',
+    //         method: 'POST',
+    //         data: { action: 'get-by-masp', productId },
+    //         dataType: 'JSON'
+    //     });
+
+    //     if (response && response.length > 0) {
+    //         let html = '';
+
+    //         for (const item of response) {
+    //             try {
+    //                 const res = await getCustomer(item.ma_kh);
+                    
+    //                 html += `
+    //                     <div class="d-flex flex-start mb-4">
+    //                         <div class="card w-100">
+    //                             <div class="card-body">
+    //                                 <div class="">
+    //                                     <h5 class="m-0">${res.ten_kh}</h5>
+    //                                     <p class="small">${convertDate(item.thoi_gian_danh_gia.slice(0, 10))}</p>
+    //                                     <p class="m-0">
+    //                                         ${item.noi_dung}
+    //                                     </p>
+
+    //                                     <div class="d-flex justify-content-between align-items-center">
+    //                                         <ul class="rating d-flex">
+    //                                             <li class="rate">
+    //                                                 <i class="far fa-star star ${item.rating > 0 ? 'fas rate-active' : '' }"></i>
+    //                                             </li>
+    //                                             <li class="rate">
+    //                                                 <i class="far fa-star star ${item.rating - 1 > 0 ? 'fas rate-active' : '' }"></i>
+    //                                             </li>
+    //                                             <li class="rate">
+    //                                                 <i class="far fa-star star ${item.rating - 2 > 0 ? 'fas rate-active' : '' }"></i>
+    //                                             </li>
+    //                                             <li class="rate">
+    //                                                 <i class="far fa-star star ${item.rating - 3 > 0 ? 'fas rate-active' : '' }"></i>
+    //                                             </li>
+    //                                             <li class="rate">
+    //                                                 <i class="far fa-star star ${item.rating - 4 > 0 ? 'fas rate-active' : '' }"></i>
+    //                                             </li>
+    //                                         </ul>
+    //                                     </div>
+    //                                 </div>
+    //                             </div>
+    //                         </div>
+    //                     </div>
+    //                 `
+    //             } catch (error) {
+    //                 console.log(error);
+    //             }
+    //         }
+
+    //         $('.list-review').html(html);
+    //     }
+    // } catch (error) {
+    //     console.log(error);
+    // }
+}
+
+function searchKhuyenMai() {
+    $(document).on('keyup', '.admin-search-info', e => {
+        const search = e.target.value.toLowerCase()
+
+        $.ajax({
+            url: 'server/src/controller/SearchController.php',
+            method: 'GET',
+            data: { action: 'search', table: 'danhgia', search },
+            dataType: 'JSON',
+            success: data => renderReviewAdmin(data),
+            error: (xhr, status, error) => console.log(error)
+        })
+    })
 }
 
 async function renderReviewAdmin(productId) {
@@ -113,7 +178,8 @@ async function renderReviewAdmin(productId) {
                 <tr>
                     <td>
                         <span class="custom-checkbox">
-                            <input type="checkbox" id="checkbox-${review.ma_kh}" name="chk[]" value="${review.ma_kh}">
+                            <input type="checkbox" id="checkbox-${review.ma_kh}" name="chk[]" 
+                            maKH="${review.ma_kh}" maSP="${review.ma_sp}" thoiGian="${review.thoi_gian_danh_gia}">
                             <label for="checkbox-${review.ma_kh}"></label>
                         </span>
                     </td>
@@ -275,6 +341,15 @@ function renderDeleteReviewModal() {
             $('#deleteReviewModal .modal-body').html(html)
         }
     })
+
+    $('.btn-delete-checked-review-modal').on('click', () => {
+        const html = `
+            <p>Bạn có chắc muốn xóa các đánh giá được chọn không ?</p>
+            <p class="text-warning"><small>Hành động này sẽ không thể hoàn tác</small></p>
+        `
+        $('#deleteReviewModal .modal-body').html(html)
+    })
+
 }
 
 function deleteReview(maKH, maSP, thoiGian) {
@@ -316,6 +391,41 @@ function handleDeletePromo() {
                     }
                 })
                 .catch(error => console.log(error))
+        }
+        else {
+            let checkedReviews = []
+            const firstCheckInputElement = document.querySelector('table.table thead input[type=checkbox]')
+            const checkInputElements = document.querySelectorAll('.admin-review-list input[name="chk[]"]')
+            
+            checkInputElements.forEach(item => {
+                if (item.checked) {
+                    const maKH = item.getAttribute('maKH');
+                    const maSP = item.getAttribute('maSP');
+                    const thoiGian = item.getAttribute('thoiGian');
+                    checkedReviews.push([maKH, maSP, thoiGian]);
+                }
+            })
+            console.log(checkedReviews)
+
+            if (checkedReviews.length > 0) {
+                let promises = []
+
+                checkedReviews.forEach(reviewId => promises.push(deleteReview(reviewId[0], reviewId[1], reviewId[2])))
+
+                Promise.all(promises).then(results => {
+                    if (results.includes(false)) {
+                        alert('Xảy ra lỗi trong quá trình xóa các đánh giá')
+                    } else {
+                        alert('Đã xóa các đánh giá được chọn')
+                        firstCheckInputElement.checked = false
+                        renderReviewAdmin("")
+                    }
+                })
+            } else {
+                alert('Không có đánh giá nào được chọn\nVui lòng check vào ô các đánh giá muốn xóa')
+            }
+
+            $('#deleteReviewModal').modal('hide')
         }
     })
 }

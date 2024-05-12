@@ -7,6 +7,8 @@ $(document).ready(() => {
         filterEndUserOrderStatus()
         searchEndUserOrder()
         renderCustomerOrderDetail()
+        renderViewTTNHModal()
+        searchHoaDon()
     }
     
 })
@@ -30,15 +32,31 @@ function getPaginationBill(search) {
     })
 }
 
+function searchHoaDon() {
+    $(document).on('keyup', '.admin-search-info', e => {
+        const search = e.target.value.toLowerCase()
+
+        $.ajax({
+            url: 'server/src/controller/SearchController.php',
+            method: 'GET',
+            data: { action: 'search', table: 'hoadon', search },
+            dataType: 'JSON',
+            success: data => loadBillData(data),
+            error: (xhr, status, error) => console.log(error)
+        })
+    })
+}
+
 $(document).on("change","#admin-select-hoadon", async function(){ 
-    search = $("#admin-select-hoadon").val()
+    search = $("#admin-select-hoadon").val() == "all" ? "" : $("#admin-select-hoadon").val()
+    $('#currentpage').val(1)
     loadBillData()
     clickPage(loadBillData)
 })
 
-async function loadBillData() {
+async function loadBillData(data) {
     try {
-        const dataBill = await getPaginationBill(search)
+        const dataBill = data ? data : await getPaginationBill(search)
 
         if (dataBill && dataBill.pagination && dataBill.pagination.length > 0) {
             let html = ''
@@ -60,6 +78,9 @@ async function loadBillData() {
                             <a href="/admin.php?controller=chitiethoadon&id=${item.ma_hd}" class="info btn-product-detail" dataBill-id=${item.ma_hd}>
                                 <i class="fa-solid fa-circle-info" title="Chi tiết hóa đơn" ></i>
                             </a>
+                            <a href="#viewTTNHModal" data-toggle="modal" class="delete btn-view-TTNH" dataTTNH-id=${item.ma_ttnh}>
+                                <i class="fa-solid fa-map-location-dot" title="Thông tin nhận hàng"></i>
+                            </a>
                         </td>
                     </tr>
                 `;
@@ -68,6 +89,9 @@ async function loadBillData() {
             $('.admin-bill-list').html(html);
             totalPage(dataBill.count)
             displayTotalPage("#admin-bill-main .hint-text", dataBill.count, dataBill.pagination.length)
+        }
+        else {
+            $('.admin-bill-list').html('');
         }
 
     } catch (error) {
@@ -364,6 +388,25 @@ function renderCustomerOrderDetail() {
         } catch (error) {
             console.log(error)
             alert('Có lỗi xảy ra, vui lòng thử lại sau!')
+        }
+    })
+}
+
+function renderViewTTNHModal() {
+    $(document).on('click', '.btn-view-TTNH', async function() { 
+        const ttnh_id = $(this).attr("datattnh-id")
+        console.log(ttnh_id)
+
+        if (ttnh_id) {
+            let ttnh = await getThongTinNhanHang(ttnh_id)
+            let khachhang = await getCustomer(ttnh.ma_kh);
+            
+            $('#viewTTNHModal .sender-name').text(khachhang.ten_kh)
+            $('#viewTTNHModal .sender-phone').text(khachhang.so_dien_thoai)
+            $('#viewTTNHModal .sender-email').text(khachhang.email)
+            $('#viewTTNHModal .recipient-name').text(ttnh.ho_ten)
+            $('#viewTTNHModal .recipient-phone').text(ttnh.so_dien_thoai)
+            $('#viewTTNHModal .recipient-address').text(ttnh.dia_chi)
         }
     })
 }

@@ -92,7 +92,7 @@ class ChiTietHoaDonRepo extends ConnectDB {
 
     function getCTHDByAdmin($ma_hd) {
         try {
-            $sql = "SELECT ctsp.ma_ctsp, cthd.*, CONCAT(sp.ten_sp, ' ', ctsp.ram, '/', ctsp.rom) AS ten_sp, mau.ten_mau, ctsp.gia_tien, COUNT(cti.ma_ctsp) AS quantity, hd.tinh_trang
+            $sql = "SELECT ctsp.*, cthd.*, sp.ten_sp, mau.ten_mau, COUNT(cti.ma_ctsp) AS quantity, hd.tinh_trang
             FROM `chitiethoadon` cthd
             JOIN `ctsp_imei` cti ON cthd.ma_imei = cti.ma_imei
             JOIN `chitietsanpham` ctsp ON cti.ma_ctsp = ctsp.ma_ctsp
