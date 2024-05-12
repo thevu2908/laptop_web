@@ -405,3 +405,8 @@ function ShowChiTietBaoHanh(obj){
     showTinhTrang(mapbh);
     updatePhieuBaoHanh(mapbh)
 }
+function setColorTinhTrang(tinhtrang){
+    if(tinhtrang==="Đang Bảo Hành"){
+        
+    }
+}
