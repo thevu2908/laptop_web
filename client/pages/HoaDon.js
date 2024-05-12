@@ -3,12 +3,11 @@ $(document).ready(() => {
     if (window.location.pathname === '/admin.php' && urlParams.get('controller') === 'hoadon') {
         loadBillData()
         clickPage(loadBillData)
-        handleRenderCustomerOrder()
-        filterEndUserOrderStatus()
-        searchEndUserOrder()
-        renderCustomerOrderDetail()
     }
-    
+    handleRenderCustomerOrder()
+    filterEndUserOrderStatus()
+    searchEndUserOrder()
+    renderCustomerOrderDetail()
 })
 
 let search = ""
