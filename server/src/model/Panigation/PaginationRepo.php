@@ -24,6 +24,20 @@ class PaginationRepo extends ConnectDB {
                     WHERE ctsp.ma_sp = '$id' AND ctsp.trang_thai = '0'
                     ORDER BY ctsp.ma_ctsp ASC LIMIT {$start},{$limit}
                 ";
+            } else if ($table == "hoadon") {
+                $query = "
+                    SELECT *
+                    FROM hoadon
+                    WHERE trang_thai = '0' AND tinh_trang LIKE '%{$id}%'
+                    ORDER BY 1 ASC LIMIT {$start},{$limit}
+                ";
+            } else if ($table == "danhgia") {
+                $query = "
+                    SELECT *
+                    FROM danhgia
+                    WHERE trang_thai = '0' AND ma_sp LIKE '%{$id}%'
+                    ORDER BY 1 ASC LIMIT {$start},{$limit}
+                ";
             } else {
                 $query = "SELECT * from $table WHERE trang_thai = '0' ORDER BY 1 ASC LIMIT {$start},{$limit}";
             }
@@ -48,6 +62,10 @@ class PaginationRepo extends ConnectDB {
                 $query = "SELECT count(DISTINCT ma_quyen, ma_chuc_nang) as num FROM chitietquyen";
             } else if ($table == "chitietsanpham") {
                 $query = "SELECT count(*) as num FROM chitietsanpham WHERE ma_sp = '$id' AND trang_thai = '0'";
+            } else if ($table == "hoadon") {
+                $query = "SELECT count(*) as num FROM hoadon WHERE tinh_trang LIKE '%$id%' AND trang_thai = '0'";
+            } else if ($table == "danhgia") {
+                $query = "SELECT count(*) as num FROM danhgia WHERE ma_sp LIKE '%$id%' AND trang_thai = '0'";
             } else {
                 $query = "SELECT count(*) as num FROM $table WHERE trang_thai = '0'";
             }

@@ -124,12 +124,12 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
               echo "<script src='./client/pages/HoaDon.js'></script>";
               echo "<script src='./client/pages/KhachHang.js'></script>";
               echo "<script src='./client/pages/NhanVien.js'></script>";
-              echo "<script src='./client/pages/ThongTinNhanHang.js'></script>";
               break;
             }
           case "khuyenmai": {
               include "./server/src/admin/view/KhuyenMai.php";
               echo "<script src='./client/pages/KhuyenMai.js'></script>";
+              echo "<script src='./client/plugins/pagination.js'></script>";
               break;
             }
           case "nhomquyen": {
@@ -190,6 +190,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
   <script src="./server/src/admin/assets/js/productColor.js"></script>
   <script src="./client/utils/formatCurrency.js"></script>
   <script src="./client/utils/formatDate.js"></script>
+  <script src="./client/utils/general.js"></script>
   <script src="./client/utils/formatPromotion.js"></script>
   <script src="./client/plugins/pagination.js"></script>
   <script src="./client/plugins/PhanQuyen.js"></script>

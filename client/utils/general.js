@@ -16,3 +16,7 @@ function removeDuplicateObject(arr, key) {
 function removeRedundantSpaces(str) {
     return str.replace(/\s+/g, ' ').trim();
 }
+
+function displayTotalPage(element, count, totalPage) {
+    $(element).html(`Hiển thị <b>${totalPage}</b> trong <b>${count}</b> chi tiết`)
+}

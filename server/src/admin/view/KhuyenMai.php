@@ -1,4 +1,4 @@
-<main>
+<main id="admin-promo-main" >
 	<div class="container-xl">
 		<div class="table-responsive">
 			<div class="table-wrapper">
@@ -43,16 +43,11 @@
 					</tbody>
 				</table>
 				<div class="clearfix">
-					<div class="hint-text">Hiển thị <b>5</b> trong <b>25</b> kết quả</div>
-					<ul class="pagination">
-						<li class="page-item disabled"><a href="#">Previous</a></li>
-						<li class="page-item"><a href="#" class="page-link">1</a></li>
-						<li class="page-item"><a href="#" class="page-link">2</a></li>
-						<li class="page-item active"><a href="#" class="page-link">3</a></li>
-						<li class="page-item"><a href="#" class="page-link">4</a></li>
-						<li class="page-item"><a href="#" class="page-link">5</a></li>
-						<li class="page-item"><a href="#" class="page-link">Next</a></li>
-					</ul>
+					<div class="hint-text">Showing <b id="cur">5</b> out of <b id="total">25</b> entries</div>
+					<div id="pagination">
+						
+					</div>
+					<input type="hidden" name="currentpage" id="currentpage" value="1">
 				</div>
 			</div>
 		</div>
@@ -133,7 +128,7 @@
 		<div class="modal-dialog modal-lg modal-dialog-scrollable">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title promotion-config-detail-name">Thêm khuyến mãi</h5>
+					<h5 class="modal-title promotion-config-detail-name">Chỉnh sửa khuyến mãi</h5>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>

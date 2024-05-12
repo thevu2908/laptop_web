@@ -3,10 +3,15 @@
 		<div class="table-responsive">
 			<div class="table-wrapper">
 				<div class="table-title">
-					<div class="row">
+					<div class="row justify-content-between">
 						<div class="col-sm-6">
 							<h2>Quản Lý <b>HÓA ĐƠN</b></h2>
 						</div>
+						<select class="form-select" aria-label="Default select example" id="admin-select-hoadon">
+							<option value='all'>Tất cả</option>
+							<option value='Đã xác nhận'>Đã xác nhận</option>
+							<option value='Chưa xác nhận'>Chưa xác nhận</option>
+						</select>
 					</div>
 				</div>
 				<table class="table-bill table table-striped table-hover">
@@ -29,16 +34,11 @@
 					</tbody>
 				</table>
 				<div class="clearfix">
-					<div class="hint-text">Hiển thị <b>5</b> trong <b>25</b> kết quả</div>
-					<ul class="pagination">
-						<li class="page-item disabled"><a href="#">Previous</a></li>
-						<li class="page-item"><a href="#" class="page-link">1</a></li>
-						<li class="page-item"><a href="#" class="page-link">2</a></li>
-						<li class="page-item active"><a href="#" class="page-link">3</a></li>
-						<li class="page-item"><a href="#" class="page-link">4</a></li>
-						<li class="page-item"><a href="#" class="page-link">5</a></li>
-						<li class="page-item"><a href="#" class="page-link">Next</a></li>
-					</ul>
+					<div class="hint-text">Hiển thị <b>5</b> trong <b>25</b> chi tiết</div>
+                    <div id="pagination">
+						
+					</div>
+					<input type="hidden" name="currentpage" id="currentpage" value="1">
 				</div>
 			</div>
 		</div>
