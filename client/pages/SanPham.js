@@ -211,6 +211,7 @@ async function renderAdminProductTable(data) {
         $('.admin-product-list').html(html)
         phanquyen_chucnang("Sản Phẩm")
         totalPage(products.count)
+        displayTotalPage("#admin-product-main .hint-text", products.count, products.pagination.length)
     }
 }
 

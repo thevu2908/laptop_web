@@ -53,7 +53,7 @@
 					</tbody>
 				</table>
 				<div class="clearfix">
-					<div class="hint-text">Showing <b id="cur">5</b> out of <b id="total">25</b> entries</div>
+					<div class="hint-text"></div>
 					<div id="pagination">
 						
 					</div>
