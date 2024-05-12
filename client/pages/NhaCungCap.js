@@ -100,6 +100,7 @@ async function renderSuppilerData(data) {
         getSizeinTable("nhacungcap","NCC","#admin-nhacungcap-manhacungcap")
         $('.admin-suppiler-list').html(html)
             totalPage(dataPromo.count)
+            displayTotalPage("#admin-ncc-main .hint-text", dataPromo.count, dataPromo.pagination.length)
         }
 
     } catch (error) {

@@ -1,5 +1,5 @@
 
-<main>
+<main id="admin-ncc-main">
 	<div class="container-xl">
 		<div class="table-responsive">
 			<div class="table-wrapper">
