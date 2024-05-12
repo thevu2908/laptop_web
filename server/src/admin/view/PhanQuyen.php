@@ -131,7 +131,7 @@
 	</div>
 	<!-- <p>Add Mul</p> -->
 	<!-- Add Modal HTML -->
-	<div id="addNhomQuyen" class="modal fade">
+	<div id="addNQ" class="modal fade">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<form>
