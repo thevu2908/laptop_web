@@ -5,7 +5,7 @@ $(document).ready(() => {
         renderReviewAdmin("")
         clickPage(renderReviewAdmin)
         renderDeleteReviewModal()
-        handleDeletePromo()
+        handleDeleteReview()
     }
     // Trang User
     handleAddReview()
@@ -294,7 +294,7 @@ function deleteReview(maKH, maSP, thoiGian) {
     })
 }
 
-function handleDeletePromo() {
+function handleDeleteReview() {
     $(document).on('click', '#deleteReviewModal .confirm-delete', () => {
         const customerId = $('#deleteReviewModal .delete-id').attr('customer-id')
         const productId = $('#deleteReviewModal .delete-id').attr('product-id')
