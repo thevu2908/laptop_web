@@ -33,6 +33,7 @@ async function renderEmployeeData() {
         let html = ''
 
         employees.forEach((employee, index) => {
+            console.log(employee)
             html += `
                 <tr>
                     <td>
@@ -175,5 +176,21 @@ function addEmployeee(){
                 },
             })
         }
+    })
+}
+
+function getEmployee(manv){
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url:"server/src/controller/NhanVienController.php",
+            method:"POST",
+            data:{action:"get", manv},
+            dataType:"JSON",
+            success: data => resolve(data),
+            error: (xhr, status, error) => {
+                console.log(error)
+                reject(error)
+            }
+        })
     })
 }

@@ -76,6 +76,7 @@ function renderChucNangQuyen(data){
 function addChucNang(){
     getSizeinTable("chucnangquyen","CN","#admin-MaChucNang");
     $(document).on("click","#admin-addChucNang",function(){
+        var maChucNang = $("#admin-MaChucNang").val();
         var tenChucNang=$("#admin-TenChucNang").val();
         if(checkSpace(tenChucNang)){
             alert("Vui lòng nhập tên chức năng")

@@ -1,128 +1,81 @@
 <main>
-  <div class="head-title">
-    <div class="left">
-      <h1>Dashboard</h1>
-    </div>
-
-    <a href="#" class="download-btn">
-      <i class="fas fa-cloud-download-alt"></i>
-      <span class="text">Download Report</span>
-    </a>
-  </div>
-
   <div class="box-info">
     <li>
       <i class="fas fa-calendar-check"></i>
-      <span class="text">
-        <h3>1.5K</h3>
-        <p>New Orders</p>
-      </span>
-    </li>
-    <li>
-      <i class="fas fa-people-group"></i>
-      <span class="text">
-        <h3>1M</h3>
-        <p>Clients</p>
-      </span>
+      <div class="text order-statistic">
+        <p>Đơn hàng</p>
+        <h3 class="order-statistics__quantity"></h3>
+      </div>
     </li>
     <li>
       <i class="fas fa-dollar-sign"></i>
-      <span class="text">
-        <h3>$900k</h3>
-        <p>Turnover</p>
-      </span>
+      <div class="text revenue-statistic">
+        <p>Doanh thu</p>
+        <h3 class="revenue-statistic__number"></h3>
+      </div>
+    </li>
+    <li>
+      <i class="fa-solid fa-laptop"></i>
+      <div class="text product-statistic">
+        <p>Sản phẩm</p>
+        <h3 class="product-statistic__number"></h3>
+      </div>
+    </li>
+    <li>
+      <i class="fas fa-people-group"></i>
+      <div class="text customer-statistic">
+        <p>Khách hàng</p>
+        <h3 class="customer-statistic__number"></h3>
+      </div>
     </li>
   </div>
 
   <div class="table-data">
     <div class="order">
       <div class="head">
-        <h3>Recent Orders</h3>
-        <i class="fas fa-search"></i>
-        <i class="fas fa-filter"></i>
+        <h3>Doanh số</h3>
       </div>
-
-      <table>
-        <thead>
-          <tr>
-            <th>User</th>
-            <th>Order Date</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>
-              <img src="profile.png" alt="Error" />
-              <p>User Name</p>
-            </td>
-            <td>07-05-2023</td>
-            <td><span class="status pending">Pending</span></td>
-          </tr>
-          <tr>
-            <td>
-              <img src="profile.png" alt="" />
-              <p>User Name</p>
-            </td>
-            <td>07-05-2023</td>
-            <td><span class="status pending">Pending</span></td>
-          </tr>
-          <tr>
-            <td>
-              <img src="profile.png" alt="" />
-              <p>User Name</p>
-            </td>
-            <td>07-05-2023</td>
-            <td><span class="status process">Process</span></td>
-          </tr>
-          <tr>
-            <td>
-              <img src="profile.png" alt="" />
-              <p>User Name</p>
-            </td>
-            <td>07-05-2023</td>
-            <td><span class="status process">Process</span></td>
-          </tr>
-          <tr>
-            <td>
-              <img src="profile.png" alt="" />
-              <p>User Name</p>
-            </td>
-            <td>07-05-2023</td>
-            <td><span class="status complete">Complete</span></td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="statistic-filter">
+        <form>
+          <div class="d-flex align-items-center">
+            <div>
+              <label for="from">Từ</label>
+              <input type="date" id="from">
+            </div>
+            <div class="mx-1">
+              <label for="to">Đến</labelf>
+                <input type="date" id="to">
+            </div>
+            <button type="button" class="btn btn-primary btn-filter__date">Thống kê</button>
+            <div style="margin-left: 20px;">
+              <label for="brand-filter">Thương hiệu:</label>
+              <select id="brand-filter" style="margin-left: 4px; padding: 4px 6px;">
+                <option value="">Tất cả</option>
+              </select>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="revenue-chart__container">
+        <div class="revenue-chart__box">
+          <canvas id="revenue-chart"></canvas>
+          <span>Tháng</span>
+        </div>
+      </div>
     </div>
 
-    <div class="todo">
+    <div class="todo best-seller-product__container">
       <div class="head">
-        <h3>Todos</h3>
-        <i class="fas fa-plus"></i>
-        <i class="fas fa-filter"></i>
+        <h3>Sản phẩm bán chạy</h3>
+        <span class="view-quantity">
+          Hiển thị
+          <input type="number" class="view-product-quantity" title="Số sản phẩm hiển thị" value="5">
+          sản phẩm
+        </span>
       </div>
 
-      <ul class="todo-list">
-        <li class="not-completed">
-          <p>Todo List</p>
-          <i class="fas fa-ellipsis-vertical"></i>
-        </li>
-        <li class="not-completed">
-          <p>Todo List</p>
-          <i class="fas fa-ellipsis-vertical"></i>
-        </li>
-        <li class="completed">
-          <p>Todo List</p>
-          <i class="fas fa-ellipsis-vertical"></i>
-        </li>
-        <li class="completed">
-          <p>Todo List</p>
-          <i class="fas fa-ellipsis-vertical"></i>
-        </li>
-        <li class="completed">
-          <p>Todo List</p>
-          <i class="fas fa-ellipsis-vertical"></i>
-        </li>
+      <ul class="product-list d-flex flex-column">
+
       </ul>
     </div>
   </div>

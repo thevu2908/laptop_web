@@ -87,7 +87,7 @@
 						</div>
 					</div>
 					<div class="modal-footer">
-						<input type="button" class="btn btn-danger" data-dismiss="modal" value="Hủy">
+						<input type="button" class="btn btn-default" data-dismiss="modal" value="Hủy">
 						<input type="button" class="btn btn-success btn-add-account" value="Thêm">
 					</div>
 				</form>

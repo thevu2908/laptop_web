@@ -207,31 +207,45 @@ class SanPhamRepo extends ConnectDB {
 
     public function filterProducts($brandId, $startPrice, $endPrice, $cpu, $orderBy, $orderType, $start = 0, $limit = 6) {
         try {
-            $query = "
-                SELECT DISTINCT sp.*, ten_thuong_hieu, ten_loai, ten_hdh
-                FROM chitietsanpham ctsp
+            $query = "SELECT DISTINCT sp.* FROM chitietsanpham ctsp
                 JOIN (
-                    SELECT sp.*, ten_thuong_hieu, ten_loai, ten_hdh
+                    SELECT sp.*, ten_thuong_hieu, ten_loai, ten_hdh, total.total as so_luong_mua
                     FROM sanpham sp 
                     JOIN thuonghieu th ON sp.ma_thuong_hieu = th.ma_thuong_hieu
                     JOIN theloai tl ON sp.ma_the_loai = tl.ma_the_loai
                     JOIN hedieuhanh hdh ON sp.ma_hdh = hdh.ma_hdh
+                    JOIN (
+                    	SELECT temp.ma_sp, SUM(temp.total) as total FROM (
+                            SELECT sp.ma_sp, cthd1.total as total FROM sanpham sp
+                            JOIN chitietsanpham ctsp ON sp.ma_sp = ctsp.ma_sp
+                            LEFT JOIN (
+                                SELECT ctspi.ma_ctsp, SUM(cthd.so_luong) as total 
+                                FROM chitiethoadon cthd
+                                JOIN ctsp_imei ctspi ON cthd.ma_imei = ctspi.ma_imei
+                                JOIN hoadon hd ON hd.ma_hd = cthd.ma_hd
+                                WHERE hd.tinh_trang LIKE '%Đã xác nhận%'
+                                GROUP BY cthd.ma_imei
+                            ) AS cthd1 ON cthd1.ma_ctsp = ctsp.ma_ctsp
+                        ) AS temp
+                        GROUP BY temp.ma_sp
+                    ) AS total ON total.ma_sp = sp.ma_sp
                     WHERE sp.trang_thai = '0'
                 ) AS sp ON ctsp.ma_sp = sp.ma_sp  
-                JOIN mausac ms ON ctsp.ma_mau = ms.ma_mau
                 JOIN chipxuly cxl ON ctsp.ma_chip_xu_ly = cxl.ma_chip_xu_ly
                 JOIN carddohoa cdh ON ctsp.ma_carddohoa = cdh.ma_card
                 WHERE sp.ma_thuong_hieu LIKE '%$brandId%' AND ctsp.gia_tien >= '$startPrice' AND ctsp.gia_tien <= '$endPrice' AND cxl.ten_chip LIKE '$cpu%'
-                ORDER BY $orderBy $orderType LIMIT $start, $limit
+                ORDER BY $orderBy $orderType LIMIT $start,$limit
             ";
 
             $result = mysqli_query($this->conn, $query);
+            if (!$result) {
+                throw new Exception("Query failed: " . mysqli_error($this->conn));
+            }
+
             $arr = [];
-    
             while ($row = mysqli_fetch_array($result)) {
                 $arr[] = $row;
             }
-    
             return $arr;
         } catch (Exception $e) {
             echo 'Error: ' . $e->getMessage() . '<br>';
@@ -241,15 +255,28 @@ class SanPhamRepo extends ConnectDB {
 
     public function getFilterProductsCount($brandId, $startPrice, $endPrice, $cpu, $orderBy, $orderType) {
         try {
-            $query = "
-                SELECT count(DISTINCT sp.ma_sp) as count
-                FROM chitietsanpham ctsp
+            $query = "SELECT COUNT(DISTINCT sp.ma_sp) as count FROM chitietsanpham ctsp
                 JOIN (
-                    SELECT sp.*, ten_thuong_hieu, ten_loai, ten_hdh
+                    SELECT sp.*, ten_thuong_hieu, ten_loai, ten_hdh, total.total as so_luong_mua
                     FROM sanpham sp 
                     JOIN thuonghieu th ON sp.ma_thuong_hieu = th.ma_thuong_hieu
                     JOIN theloai tl ON sp.ma_the_loai = tl.ma_the_loai
                     JOIN hedieuhanh hdh ON sp.ma_hdh = hdh.ma_hdh
+                    JOIN (
+                    	SELECT temp.ma_sp, SUM(temp.total) as total FROM (
+                            SELECT sp.ma_sp, cthd1.total as total FROM sanpham sp
+                            JOIN chitietsanpham ctsp ON sp.ma_sp = ctsp.ma_sp
+                            LEFT JOIN (
+                                SELECT ctspi.ma_ctsp, SUM(cthd.so_luong) as total 
+                                FROM chitiethoadon cthd
+                                JOIN ctsp_imei ctspi ON cthd.ma_imei = ctspi.ma_imei
+                                JOIN hoadon hd ON hd.ma_hd = cthd.ma_hd
+                                WHERE hd.tinh_trang LIKE '%Đã xác nhận%'
+                                GROUP BY cthd.ma_imei
+                            ) AS cthd1 ON cthd1.ma_ctsp = ctsp.ma_ctsp
+                        ) AS temp
+                        GROUP BY temp.ma_sp
+                    ) AS total ON total.ma_sp = sp.ma_sp
                     WHERE sp.trang_thai = '0'
                 ) AS sp ON ctsp.ma_sp = sp.ma_sp  
                 JOIN mausac ms ON ctsp.ma_mau = ms.ma_mau
@@ -258,10 +285,10 @@ class SanPhamRepo extends ConnectDB {
                 WHERE sp.ma_thuong_hieu LIKE '%$brandId%' AND ctsp.gia_tien >= '$startPrice' AND ctsp.gia_tien <= '$endPrice' AND cxl.ten_chip LIKE '$cpu%'
                 ORDER BY $orderBy $orderType
             ";
-            
+
             $result = mysqli_query($this->conn, $query);
             if (!$result) {
-                return -1;
+                throw new Exception("Query failed: " . mysqli_error($this->conn));
             }
     
             if ($row = mysqli_fetch_array($result)) {

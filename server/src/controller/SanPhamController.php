@@ -180,7 +180,7 @@ switch ($action) {
         break;
     case 'save-image':
         $productId = $_POST['productId'];
-        if ($productId) {
+        if ($productId !== 'null') {
             $name = $productId;
             $sanPhamCtl->saveImage("fileInputName", $name);
         } else {
@@ -188,7 +188,6 @@ switch ($action) {
             if ($length >= 0) {
                 $length += 1;
                 $name = 'SP'.sprintf("%03d", $length);
-    
                 $sanPhamCtl->saveImage("fileInputName", $name);
             }
         }
@@ -249,6 +248,10 @@ switch ($action) {
             case 'low-high':
                 $orderBy = 'ctsp.gia_tien';
                 $orderType = 'ASC';
+                break;
+            case 'best-seller':
+                $orderBy = 'sp.so_luong_mua';
+                $orderType = 'DESC';
                 break;
             default:
                 $orderBy = 'sp.ma_sp';

@@ -1,5 +1,5 @@
 $(document).ready(() => {
-    loadPromotionData()
+    // loadPromotionData()
 
     updateStatusPromo()
     getNextPromoId()
@@ -19,13 +19,16 @@ function loadPromotionData() {
         method: 'POST',
         data: { action: 'get-all' },
         dataType: 'JSON',
-        success: data => {
+        success: async data => {
             if (data && data.length > 0) {
                 let html = ''
                 let html2 = ''
-                let html3 = ''
+                let maKH = await getMaKH()
+                let khuyenMai = JSON.parse(localStorage.getItem('khuyenMai')) || {};
+                let conditionKM = false
 
                 data.forEach((item) => {
+                    // html render cho admin
                     html += `
                         <tr>
                             <td>
@@ -37,7 +40,7 @@ function loadPromotionData() {
                             <td>${item.ma_km}</td>
                             <td>${item.ten_khuyen_mai}</td>
                             <td>≥ ${formatCurrency(item.dieu_kien)}</td>
-                            <td>₫${formatCurrency(convertMucKM(item.muc_khuyen_mai))}</td>
+                            <td>${convertMucKM(item.muc_khuyen_mai)}</td>
                             <td>${convertDate(item.thoi_gian_bat_dau)}</td>
                             <td>${convertDate(item.thoi_gian_ket_thuc)}</td>
                             <td>${item.tinh_trang}</td>
@@ -52,45 +55,125 @@ function loadPromotionData() {
                         </tr>
                     `
 
-                    html2 += `
-                        <li class="modal-promo-item p-2" >
-                            <div class="modal-promo-name d-flex align-items-center" >
-                                <div class="modal-promo-code">${item.ma_km}</div>
-                                <div class="modal-promo-name2 ms-2" style="font-weight: 500;">${item.ten_khuyen_mai}</div>
-                            </div>
-                            <div class="modal-promo-percent" >
-                                Giảm ${formatCurrency(convertMucKM(item.muc_khuyen_mai))}₫
-                            </div>
-                            <div class="modal-promo-bottom d-flex justify-content-between">
-                                <div class="modal-promo-expiry" >HSD: ${convertDate(item.thoi_gian_ket_thuc)}</div>
-                                <div class="modal-promo-add" >Bỏ chọn</div>
-                            </div>
-                        </li>
-                    `
+                    // render khi đã chọn khuyến mãi phù hợp
+                    if(khuyenMai[maKH]) { 
+                        var finish_money = $('.cart__right-total-temp').length > 0 
+                                            ? parseFloat($('.cart__right-total-temp').text().replace(/[₫.]/g, ""))
+                                            : parseFloat($('.checkout-confirm__money-total').text().replace(/[₫.]/g, ""));
+                        let promises = khuyenMai[maKH].map(maKM => {
+                            return getPromotion(maKM)
+                                .then(res => {
+                                    let mucKM = parseFloat(res.muc_khuyen_mai)
+                                    if(mucKM % 1 === 0 && mucKM !== 0) {
+                                        finish_money -= mucKM
+                                    }
+                                    else {
+                                        finish_money -= finish_money*mucKM
+                                    }
+                                    return `
+                                        <li class="modal-promo-item p-2" >
+                                            <div class="modal-promo-name d-flex align-items-center" >
+                                                <div class="modal-promo-code">${res.ma_km}</div>
+                                                <div class="modal-promo-name2 ms-2" style="font-weight: 500;">${res.ten_khuyen_mai}</div>
+                                            </div>
+                                            <div class="modal-promo-percent" >
+                                                Giảm ${convertMucKM(res.muc_khuyen_mai)}
+                                            </div>
+                                            <div class="modal-promo-bottom d-flex justify-content-between">
+                                                <div class="modal-promo-expiry" >HSD: ${convertDate(res.thoi_gian_ket_thuc)}</div>
+                                                <div class="modal-promo-del" data-id="${res.ma_km}" >Bỏ chọn</div>
+                                            </div>
+                                        </li>
+                                    `;
+                                });
+                        });
 
-                    html3 += `
-                        <li class="modal-promo-item" >
-                            <div class="modal-promo-name d-flex align-items-center" >
-                                <div class="modal-promo-code">${item.ma_km}</div>
-                                <div class="modal-promo-name2 ms-2" style="font-weight: 500;">${item.ten_khuyen_mai}</div>
-                            </div>
-                            <div class="modal-promo-percent mt-2 mb-2" >
-                                Giảm ${formatCurrency(convertMucKM(item.muc_khuyen_mai))}₫
-                            </div>
-                            <div class="modal-promo-bottom d-flex justify-content-between">
-                                <div class="modal-promo-expiry" >HSD: ${convertDate(item.thoi_gian_ket_thuc)}</div>
-                                <div class="modal-promo-add" >Áp dụng</div>
-                            </div>
-                        </li>
-                    `
+                        
+                        Promise.all(promises).then(results => {
+                            $('.cart-list-promo').html(results.join(''));
+                            delPromoToLocalStorage()
+
+                            tmp_total = $('.cart__right-total-temp').length > 0 
+                                        ? parseFloat($('.cart__right-total-temp').text().replace(/[₫.]/g, ""))
+                                        : parseFloat($('.checkout-confirm__tmp-total').text().replace(/[₫.]/g, ""));
+                            if(tmp_total != finish_money) {
+                                var money_reduce = tmp_total - finish_money
+                                $('.cart__right-price-reduce').text("- " + convertMucKM(money_reduce)) 
+                                $('.checkout-confirm__promo').text("- " + convertMucKM(money_reduce)) 
+                                $('.cart__right-total').text(convertMucKM(finish_money))
+                                $('.checkout-confirm__money-total').text(convertMucKM(finish_money))
+                            }
+                            else {
+                                $('.cart__right-price-reduce').text("-0₫")
+                                $('.checkout-confirm__promo').text("-0₫")
+                            }
+                        }).catch(error => console.log(error));
+
+                    }
+
+                    // html2 render cho enduser
+                    if(checkValidPromo(item)) {
+                        conditionKM = true
+                        html2 += `
+                            <li class="modal-promo-item apply" >
+                                <div class="modal-promo-name d-flex align-items-center" >
+                                    <div class="modal-promo-code">${item.ma_km}</div>
+                                    <div class="modal-promo-name2 ms-2" style="font-weight: 500;">${item.ten_khuyen_mai}</div>
+                                </div>
+                                <div class="modal-promo-percent mt-2 mb-2" >
+                                    Giảm ${(convertMucKM(item.muc_khuyen_mai))}
+                                </div>
+                                <div class="modal-promo-bottom d-flex justify-content-between">
+                                    <div class="modal-promo-expiry" >HSD: ${convertDate(item.thoi_gian_ket_thuc)}</div>
+                                    <div class="modal-promo-add" data-id="${item.ma_km}" >Áp dụng</div>
+                                </div>
+                            </li>
+                        `
+                    }
+                    
                 })
 
                 $('.admin-promotion-list').html(html)
-                $('.cart-list-promo').html(html2)
-                $('.modal-cart-list').html(html3)
+                $('.modal-cart-list').html(html2)
+
+                if(!conditionKM) {
+                    $('.cart__right-condition').text("Đơn hàng chưa đủ điều kiện áp dụng khuyến mãi. Vui lòng mua thêm để áp dụng")
+                }
+
+                if(khuyenMai[maKH] && khuyenMai[maKH] != '') {
+                    $('.cart__right-condition').text("Khuyến mãi đã được áp dụng")
+                }
             }
+            addPromoToLocalStorage()
         }
     })
+}
+
+function checkValidPromo(item) {
+    if(item != undefined) {
+        var today = new Date().toISOString().slice(0, 10);
+        var startDate = item.thoi_gian_bat_dau;
+        var endDate = item.thoi_gian_ket_thuc;
+        var check = false;
+
+        if (today >= startDate && today <= endDate) {
+            check = true
+        } else if (today < startDate) {
+            check = false
+        } else {
+            check = false
+        }
+
+        if(check) {
+            var tmp_total = $('.cart__right-total-temp').text().replace(/[₫.]/g, "");
+            if(tmp_total >= item.dieu_kien) {
+                check = true
+            }
+        }
+
+        return check
+        
+    }
 }
 
 function updateStatusPromo() {
@@ -261,7 +344,7 @@ function handleDeletePromo() {
             deletePromotion(promoId)
                 .then(res => {
                     if (res === 'success') {
-                        alert('Xóa sản phẩm thành công')
+                        alert('Xóa khuyến mãi thành công')
                         $('#deletePromotion').modal('hide')
                         loadPromotionData()
                     } 
@@ -269,7 +352,7 @@ function handleDeletePromo() {
                         alert('Không thể xóa khuyến mãi có chương trình "Đang diễn ra"')
                     }
                     else {
-                        alert('Xảy ra lỗi trong quá trình xóa sản phẩm')
+                        alert('Xảy ra lỗi trong quá trình xóa khuyến mãi')
                     }
                 })
                 .catch(error => console.log(error))
@@ -284,7 +367,7 @@ function getNextPromoId() {
         data: { action: 'get-size' },
         dataType: 'JSON',
         success: size => {
-            if(size) {
+            if(size >= 0) {
                 id = 'KM' + String(size+1).padStart(3, '0');
                 $("#promotion-id").val(id)
             }
@@ -370,37 +453,94 @@ function handleUpdatePromo() {
     })
 }
 
-function renderCartList() {
-    console.log("renderCartList")
+function renderPromoByMaKH() {
     $.ajax({
         url: 'server/src/controller/KhuyenMaiController.php',
         method: 'POST',
         data: { action: 'get-all'},
-        success: data => {
+        success: async data => {
             if (data && data.length > 0) {
                 let html = ''
+                let maKH = await getMaKH()
+                let khuyenMai = JSON.parse(localStorage.getItem('khuyenMai')) || {};
                 
-                data.forEach((item, index) => {
-                    html += `
-                        <li class="modal-promo-item p-2" >
-                            <div class="modal-promo-name d-flex align-items-center" >
-                                <div class="modal-promo-code">${data.ma_km}</div>
-                                <div class="modal-promo-name2 ms-2" style="font-weight: 500;">${data.ten_khuyen_mai}</div>
-                            </div>
-                            <div class="modal-promo-percent" >
-                                ${data.muc_khuyen_mai}
-                            </div>
-                            <div class="modal-promo-bottom d-flex justify-content-between">
-                                <div class="modal-promo-expiry" >HSD: ${data.thoi_gian_ket_thuc}</div>
-                                <div class="modal-promo-add" >Bỏ chọn</div>
-                            </div>
-                        </li>
-                    `
-                })
+                if(khuyenMai[maKH]) {
+                    data.forEach((item, index) => {
+                        if(data.ma_km)
+                        html += `
+                            <li class="modal-promo-item p-2" >
+                                <div class="modal-promo-name d-flex align-items-center" >
+                                    <div class="modal-promo-code">${data.ma_km}</div>
+                                    <div class="modal-promo-name2 ms-2" style="font-weight: 500;">${data.ten_khuyen_mai}</div>
+                                </div>
+                                <div class="modal-promo-percent" >
+                                    ${data.muc_khuyen_mai}
+                                </div>
+                                <div class="modal-promo-bottom d-flex justify-content-between">
+                                    <div class="modal-promo-expiry" >HSD: ${data.thoi_gian_ket_thuc}</div>
+                                    <div class="modal-promo-del" >Bỏ chọn</div>
+                                </div>
+                            </li>
+                        `
+                    })
+                }
+                
             }
         },
         error: (xhr, status, error) => {
             console.log(error)
         }
     })
+}
+
+function addPromoToLocalStorage() {
+    $('.modal-promo-add').click(async function() {
+        const maKM = $(this).attr('data-id');
+        const maKH = await getMaKH()
+
+        let khuyenMai = JSON.parse(localStorage.getItem('khuyenMai')) || {};
+        
+        if (!khuyenMai[maKH]) {
+            khuyenMai[maKH] = [];
+        }
+
+        if (!khuyenMai[maKH].includes(maKM)) {
+            khuyenMai[maKH].push(maKM);
+            alert("Áp dụng khuyến mãi thành công")
+        }
+
+        loadPromotionData()
+
+        localStorage.setItem('khuyenMai', JSON.stringify(khuyenMai));
+    })
+}
+
+function delPromoToLocalStorage() {
+    $('.modal-promo-del').click(async function() {
+        const maKM = $(this).attr('data-id');
+        const maKH = await getMaKH();
+    
+        let khuyenMai = JSON.parse(localStorage.getItem('khuyenMai')) || {};
+    
+        if (khuyenMai[maKH]) {
+            const index = khuyenMai[maKH].indexOf(maKM);
+            if (index !== -1) {
+                khuyenMai[maKH].splice(index, 1);
+                localStorage.setItem('khuyenMai', JSON.stringify(khuyenMai));
+                alert("Xóa khuyến mãi thành công");
+                $(this).closest('.modal-promo-item').remove();
+                $('.cart__right-condition').text("")
+            }
+        }
+        loadPromotionData()
+    });
+}
+
+function delPromoToLocalByMaKH(maKH) {
+    let khuyenMai = JSON.parse(localStorage.getItem('khuyenMai')) || {};
+    
+    if (khuyenMai[maKH]) {
+        delete khuyenMai[maKH];
+        localStorage.setItem('khuyenMai', JSON.stringify(khuyenMai));
+    }
 }

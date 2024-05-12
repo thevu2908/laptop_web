@@ -47,30 +47,6 @@ $(document).on('click', '.show-sort-filter', e => {
     document.querySelector('.sort-filter-menu').classList.toggle('active')
 })
 
-// add quantity
-$('input.input-qty').each(function () {
-    var $this = $(this),
-        qty = $this.parent().find(".is-form"),
-        min = Number($this.attr('min')),
-        max = Number($this.attr('max'));
-
-    if (min == 0) {
-        var d = 0;
-    }
-    else {
-        var d = min;
-    }
-    $(qty).on('click', function () {
-        if ($(this).hasClass('minus')) {
-            if (d > min) d += -1;
-        } else if ($(this).hasClass('plus')) {
-            var x = Number($this.val()) + 1;
-            if (x <= max) d += 1;
-        }
-        $this.attr('value', d).val(d);
-    });
-});
-
 // verify otp when sign up
 $(document).on('input', '.verify-otp-input', e => {
     $('.verify-otp-input').attr('value', $('.verify-otp-input').val())
@@ -134,22 +110,25 @@ NProgress.configure({
 })
 
 // open modal
-$('.openmodal').click((e) => {
+$(document).on('click', '.openmodal', function(e) {
     e.preventDefault();
     $('.modal-cart').addClass('open');
 });
 
-$('.closemodal').click((e) => {
+$(document).on('click', '.closemodal', function(e) {
     e.preventDefault();
     $('.modal-cart').removeClass('open');
 });
 
-$('.modal-cart').click((e) => {
+$(document).on('click', '.modal-cart', function(e) {
+    if (e.target !== this) {
+        return;
+    }
     e.preventDefault();
     $('.modal-cart').removeClass('open');
 });
 
-$(".modal-cart-dialog").click((e) => {
+$(document).on('click', ".modal-cart-dialog", function(e) {
     e.stopPropagation();
 });
 
@@ -214,3 +193,4 @@ $(document).on('change', '.custom-form__select', function(e) {
         $(this).siblings('.custom-form__title').hide()
     }
 })
+

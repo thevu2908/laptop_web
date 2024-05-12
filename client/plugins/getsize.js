@@ -8,6 +8,9 @@ function getSizeinTable(table,ma,id){
         dataType:"json",
         success:function(data){
             $(id).val(ma+"0"+(Number.parseInt(data)+1));
+        },
+        error: (xhr, status, error) => {
+            console.log(xhr.responseText);
         }
     })
 }

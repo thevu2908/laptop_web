@@ -201,6 +201,9 @@ async function renderAdminProductTable(data) {
                         <a href="/admin.php?controller=chitietsanpham&id=${product.ma_sp}" class="info btn-product-detail" data-id=${product.ma_sp}>
                             <i class="fa-solid fa-circle-info" title="Chi tiết sản phẩm" ></i>
                         </a>
+                        <a href="/admin.php?controller=danhgia&id=${product.ma_sp}" class="info btn-product-detail" data-id=${product.ma_sp}>
+                            <i class="fa-solid fa-message" title="Xem đánh giá"></i>
+                        </a>
                     </td>
                 </tr>
             `
@@ -303,7 +306,7 @@ async function renderEndUserProductList() {
 
     if (products && products.pagination && products.pagination.length > 0) {
         for (let product of products.pagination) {
-            const productDetails = await getProductDetailByProductId(product.ma_sp)
+            const productDetails = await getProductDetailFilter(product.ma_sp, price, cpu)
             const productDetail = productDetails[0]
 
             html += `
@@ -765,6 +768,7 @@ async function renderProductInfo() {
         const ram = rams.length > 1 ? $('.product-select-item.ram.active').find('input').val() : rams[0].ram
         const rom = roms.length > 1 ? $('.product-select-item.rom.active').find('input').val() : roms[0].rom
         renderProductConfigModal(product, color, ram, rom)
+        renderListReview()
     }
     NProgress.done()
 }
@@ -795,7 +799,7 @@ function selectEndUserConfig(product) {
     let ram = product.detail[0].ram
     let rom = product.detail[0].rom
     let color = product.detail[0].color
-    let price = product.detail[0].price
+    let price = `₫${formatCurrency(product.detail[0].price)}`
 
     $(document).on('click', '.product-select-item.ram', function() {
         $('.product-select-item.ram').removeClass('active')
@@ -952,9 +956,7 @@ function saveImage(fileInput, productId) {
             data: formData,
             contentType: false,
             processData: false,
-            success: data => {
-                resolve(data)
-            },
+            success: res => resolve(res),
             error: (xhr, status, error) => {
                 console.log(error)
                 reject(error)
@@ -973,7 +975,7 @@ function addProduct(product) {
                 if (!productId.startsWith('SP')) {
                     console.log(productId)
                     resolve(false)
-                } else {
+                } else {                    
                     let promises = []
                     let productDetails = []
 
@@ -990,7 +992,6 @@ function addProduct(product) {
                     })
 
                     productDetails.forEach(productDetail => promises.push(addProductDetail(productDetail, productId, product.plugs)))
-
                     Promise.all(promises).then(results => resolve(!results.includes(false)))
                 }
             },
@@ -1003,7 +1004,7 @@ function addProduct(product) {
 }
 
 function handleAddProduct() {
-    $(document).on('click', '.btn-add-product', e => {
+    $(document).on('click', '.btn-add-product', async e => {
         const product = {
             img: $('.preview-img').attr('src'),
             brandId: $('#product-brand').val(),
@@ -1028,28 +1029,27 @@ function handleAddProduct() {
         if (!validateProductEmpty(product)) {
             return
         }
+        
+        try {
+            const saveImageRes = await saveImage(document.querySelector('#addProductModal #product-image'), null)
+            if (saveImageRes !== 'success') {
+                alert(saveImageRes)
+                return
+            }
 
-        saveImage(document.querySelector('#addProductModal #product-image'), null)
-            .then(res => {
-                if (res !== 'success') {
-                    alert(res)
-                    return
-                }
-
-                addProduct(product)
-                    .then(res => {
-                        if (res) {
-                            alert('Thêm sản phẩm thành công')
-                            $('form').trigger('reset')
-                            $('#addProductModal').modal('hide')
-                            renderAdminProductTable()
-                        } else {
-                            alert('Xảy ra lỗi trong quá trình thêm sản phẩm')
-                        }
-                    })
-                    .catch(error => console.log(error))
-            })
-            .catch(error => console.log(error))
+            const addProductRes = await addProduct(product)
+            if (addProductRes) {
+                alert('Thêm sản phẩm thành công')
+                $('form').trigger('reset')
+                $('#addProductModal').modal('hide')
+                renderAdminProductTable()
+            } else {
+                alert('Xảy ra lỗi trong quá trình thêm sản phẩm')
+            }
+        } catch (error) {
+            console.log(error)
+            alert('Xảy ra lỗi trong quá trình thêm sản phẩm, vui lòng thử lại sau')
+        }
     })
 }
 
@@ -1106,7 +1106,7 @@ function updateProduct(product) {
 }
 
 function handleUpdateProduct() {
-    $(document).on('click', '.btn-update-product', () => {
+    $(document).on('click', '.btn-update-product', async () => {
         const product = {
             productId: $('#editProductModal .product-id').text(),
             img: $('#editProductModal .preview-img').attr('src'),
@@ -1131,25 +1131,25 @@ function handleUpdateProduct() {
             return
         }
 
-        saveImage(document.querySelector('#editProductModal #product-image'), product.productId)
-            .then(res => {
-                if (res !== 'success' && res !== 'no image updated') {
-                    alert(res)
-                    return
-                }
+        try {
+            const saveImageRes = await saveImage(document.querySelector('#editProductModal #product-image'), product.productId)
+            if (saveImageRes !== 'success' && saveImageRes !== 'no image updated') {
+                alert(saveImageRes)
+                return
+            }
 
-                updateProduct(product)
-                    .then(res => {
-                        if (res) {
-                            alert('Cập nhật sản phẩm thành công')
-                            $('#editProductModal').modal('hide')
-                            renderAdminProductTable()
-                        } else {
-                            alert('Xảy ra lỗi trong quá trình cập nhật sản phẩm')
-                        }
-                    })
-                    .catch(error => console.log(error))
-            })
+            const updateProductRes = await updateProduct(product)
+            if (updateProductRes) {
+                alert('Cập nhật sản phẩm thành công')
+                $('#editProductModal').modal('hide')
+                renderAdminProductTable()
+            } else {
+                alert('Xảy ra lỗi trong quá trình cập nhật sản phẩm')
+            }
+        } catch (error) {
+            console.log(error)
+            alert('Xảy ra lỗi trong quá trình cập nhật sản phẩm, vui lòng thử lại sau')
+        }
     })
 }
 

@@ -43,7 +43,6 @@ class KhachHangController {
     }
     public function getWard() {
         $district_id = $_POST['district_id'];
-
         echo json_encode($this->khachHangRepo->getWard($district_id));
     }
 
@@ -109,7 +108,11 @@ switch($action) {
         $id=$_POST['id'];
         $khachHangCtl->getKH($id);
         break;
-    }    
+    }
+    case "get-length": {
+        echo $khachHangCtl->getKhachhangLength();
+        break;
+    }
     default:
         break;
 }

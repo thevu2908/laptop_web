@@ -112,7 +112,8 @@ function loadNhomQuyenDataAccount() {
                 $("#admin-account-access-edit").html(html)
                 $("#admin-account-access-view").html(html)
             }
-        }
+        },
+        error: (xhr, status, error) => console.log(error)
     })
 }
 
