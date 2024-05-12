@@ -86,6 +86,7 @@ async function renderAccountData(data) {
         $('.admin-account-list').html(html)
         phanquyen_chucnang("Tài Khoản")
         totalPage(accounts.count)
+        displayTotalPage("#admin-account-main .hint-text", accounts.count, accounts.pagination.length)
     }
 }
 
