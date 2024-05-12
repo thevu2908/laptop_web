@@ -71,6 +71,9 @@ $khachHangCtl = new KhachHangController();
 $action = isset($_POST['action']) ? $_POST['action'] : '';
 
 switch($action) {
+    case 'get-data':
+        $khachHangCtl->getAllKhachHang();
+        break;
     case 'add':
         $length = $khachHangCtl->getKhachhangLength();
         if ($length >= 0) {
