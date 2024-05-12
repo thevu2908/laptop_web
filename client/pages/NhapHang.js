@@ -3,6 +3,8 @@ $(document).ready(() => {
     if (window.location.pathname === '/admin.php' && urlParams.get('controller') === 'nhaphang') {
         renderPhieuNhapData()
         renderImportInvoiceDetail()
+        renderConfirmImportModal()
+        handleConfifmrImportInvoice()
     }
 })
 
@@ -25,7 +27,7 @@ function getImportInvoice(id) {
         $.ajax({
             url: 'server/src/controller/PhieuNhap1Controller.php',
             method: 'POST',
-            data: { action: 'get', id },
+            data: { action: 'get-import', id },
             dataType: 'JSON',
             success: importInvoice => resolve(importInvoice),
             error: (xhr, status, error) => reject(error)
@@ -49,10 +51,16 @@ async function renderPhieuNhapData() {
                         <td>₫${formatCurrency(phieunhap.tong_tien)}</td>
                         <td>
                             ${phieunhap.tinh_trang == 0 
-                                ? `<button class="btn btn-success btn-process-bill" value="${phieunhap.tinh_trang}" data-id="${phieunhap.ma_pn}">
-                                        Xử lý
+                                ? `<button
+                                        class="btn btn-success btn-confirm-import-modal"
+                                        value="${phieunhap.tinh_trang}"
+                                        data-id="${phieunhap.ma_pn}"
+                                        data-toggle="modal"
+                                        data-target="#confirm-import-modal"
+                                    >
+                                        Duyệt
                                     </button>`
-                                : `<span style="color: red; font-weight: bold;">Đã xử lý</span>`
+                                : `<span style="color: #28a745; font-weight: bold;">Đã duyệt</span>`
                             }
                         </td>
                         <td style="padding-top: 10px;">
@@ -163,6 +171,47 @@ async function renderImportInvoiceDetail() {
                         </div>
                     </div>
                 `)
+            }
+        } catch (error) {
+            console.log(error)
+            alert('Có lỗi xảy ra, vui lòng thử lại sau!')
+        }
+    })
+}
+
+function renderConfirmImportModal() {
+    $(document).on('click', '.btn-confirm-import-modal', function() {
+        const id = $(this).data('id')
+        $('#confirm-import-modal .confirm-import b').text(id)
+        $('#confirm-import-modal .btn-confirm-import').data('id', id)
+    })
+}
+
+function confirmImportInvoice(id) {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: 'server/src/controller/PhieuNhap1Controller.php',
+            method: 'POST',
+            data: { action: 'confirm', id },
+            success: res => resolve(res),
+            error: (xhr, status, error) => reject(error)
+        })
+    })
+}
+
+function handleConfifmrImportInvoice() {
+    $(document).on('click', '.btn-confirm-import', async function() {
+        try {
+            const id = $(this).data('id')
+            const res = await confirmImportInvoice(id)
+            console.log(res, typeof res)
+            if (res === 'true') {
+                alert('Xác nhận duyệt phiếu nhập thành công!')
+                $('form').trigger('reset')
+                $('#confirm-import-modal').modal('hide')
+                renderPhieuNhapData()
+            } else {
+                alert('Xác nhận duyệt phiếu nhập thất bại!')
             }
         } catch (error) {
             console.log(error)
