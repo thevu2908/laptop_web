@@ -41,6 +41,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
 <body>
   <div id="admin-main">
     <input type="hidden" value="<?= $ma_quyen ?>" id="admin-nhomquyen">
+    <input type="hidden" value="<?= $ma_tk ?>" id="admin-matk">
     <?php include "./server/src/admin/view/Taskbar.php"; ?>
     <div class="content">
       <?php include "./server/src/admin/view/Content.php" ?>

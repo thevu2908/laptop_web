@@ -1,7 +1,7 @@
 <?php
 class NhomQuyenRepos extends ConnectDB{
     function getAllNhomQuyen(){
-        $sql = "SELECT * FROM nhomquyen";
+        $sql = "SELECT * FROM nhomquyen WHERE trang_thai=0";
         $result = mysqli_query($this->conn,$sql);
         $arrNhomQuyen=array();
         while($row=mysqli_fetch_assoc($result)){

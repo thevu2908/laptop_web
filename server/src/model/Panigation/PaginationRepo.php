@@ -4,7 +4,10 @@ class PaginationRepo extends ConnectDB {
     public function getPagination($table, $start = 0, $limit = 8, $id) : array | null {
         try {
             if ($table == "chitietquyen") {
-                $query = "SELECT DISTINCT ma_quyen,ma_chuc_nang FROM chitietquyen ORDER BY 1 ASC LIMIT {$start},{$limit}";
+                $query = "SELECT DISTINCT chitietquyen.ma_quyen,chitietquyen.ma_chuc_nang FROM 
+                chitietquyen join nhomquyen on chitietquyen.ma_quyen=nhomquyen.ma_quyen join chucnangquyen 
+                on chitietquyen.ma_chuc_nang=chucnangquyen.ma_chuc_nang AND chucnangquyen.trang_thai=0 
+                AND nhomquyen.trang_thai=0 ORDER BY 1 ASC LIMIT {$start},{$limit}";
             } else if ($table == "sanpham") {
                 $query = "
                     SELECT sp.*, ten_thuong_hieu, ten_loai, ten_hdh
@@ -59,7 +62,9 @@ class PaginationRepo extends ConnectDB {
     public function getCount($table, $id) {
         try {
             if ($table == "chitietquyen") {
-                $query = "SELECT count(DISTINCT ma_quyen, ma_chuc_nang) as num FROM chitietquyen";
+                $query = "SELECT count(DISTINCT nhomquyen.ma_quyen, chucnangquyen.ma_chuc_nang) as num FROM chitietquyen join nhomquyen on chitietquyen.ma_quyen=nhomquyen.ma_quyen join chucnangquyen 
+                on chitietquyen.ma_chuc_nang=chucnangquyen.ma_chuc_nang AND chucnangquyen.trang_thai='0'
+                AND nhomquyen.trang_thai='0'";
             } else if ($table == "chitietsanpham") {
                 $query = "SELECT count(*) as num FROM chitietsanpham WHERE ma_sp = '$id' AND trang_thai = '0'";
             } else if ($table == "hoadon") {

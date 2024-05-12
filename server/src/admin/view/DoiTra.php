@@ -70,13 +70,13 @@
 								<input type="text" class="form-control form-control-sm" required id="admin-doitra-manhanvien" readonly='false'>
 							</div>
 						</div>
-						<div class="col-md-6">
+						<!-- <div class="col-md-6">
 							<div class="form-group">
 							<p id="mess_tenquyen"></p>
 								<label>Khách Hàng</label>
 								<input type="text" class="form-control form-control-sm" required id="admin-doitra-makhachhang">
 							</div>
-						</div>
+						</div> -->
 					</div>
 					<div class="form-group">
 					<div class="row">

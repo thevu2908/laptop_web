@@ -1,7 +1,7 @@
 <?php
 class ChucNangQuyenRepo extends ConnectDB{
     public function getAllChucNangQuyen(){
-        $query="SELECT * from chucnangquyen";
+        $query="SELECT * from chucnangquyen trang_thai=0";
         $result=mysqli_query($this->conn,$query);
         $arrChucNangQuyen=array();
         while($row=mysqli_fetch_array($result)){

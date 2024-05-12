@@ -119,6 +119,7 @@ function loadNhomQuyenDataAccount() {
 
 function deleteNhomQuyen() {
     $(document).on("click", "#btnDel", function () {
+        var id = $(this).attr("data-id1");
         console.log(id);
         $("#deleteNhomQuyen").modal('show');
         $(document).on("click", "#btnDelete", function () {
@@ -200,20 +201,20 @@ function detailNhomQuyen() {
     })
 }
 
-function detailNhomQuyen() {
-    $(document).on("click","#btnDetail",function(){
-        var id=$(this).attr("data-id2");
-        console.log(id);
-        $.ajax({
-            url:"server/src/controller/NhomQuyenController.php",
-            method:"POST",
-            data:{action:"Get",id:id},
-            dataType:"JSON",
-            success:function(data){
-                $("#detail_maquyen").val(data.ma_quyen);
-                $("#detail_tenquyen").val(data.ten_quyen);
+// function detailNhomQuyen() {
+//     $(document).on("click","#btnDetail",function(){
+//         var id=$(this).attr("data-id2");
+//         console.log(id);
+//         $.ajax({
+//             url:"server/src/controller/NhomQuyenController.php",
+//             method:"POST",
+//             data:{action:"Get",id:id},
+//             dataType:"JSON",
+//             success:function(data){
+//                 $("#detail_maquyen").val(data.ma_quyen);
+//                 $("#detail_tenquyen").val(data.ten_quyen);
                 
-            }
-        })
-    })
-}
+//             }
+//         })
+//     })
+// }

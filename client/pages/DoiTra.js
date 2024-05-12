@@ -11,7 +11,7 @@ $(document).ready(function() {
 var listitemDoiTra=[]
 function addDoiTra(){
     getSizeinTable("phieudoitra","PDT","#admin-maphieudoitra")
-    $("#admin-doitra-manhanvien").val("NV01")
+    $("#admin-doitra-manhanvien").val($("#admin-matk").val());
     loadMaHoaDon();
     selectMaHoaDon();
     $(document).on("click","#admin-add-DoiTra",function(){
@@ -167,7 +167,7 @@ function loadMaHoaDon(){
     $.ajax({
         url:"server/src/controller/HoaDonController.php",
         method:"POST",
-        data:{action:"getmahoadon"},
+        data:{action:"get-all"},
         dataType:"json",
         success:function(data){
             var html="<option value='choose' selected>Choose</option>";
