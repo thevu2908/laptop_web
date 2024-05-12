@@ -41,12 +41,33 @@
     </div>
 
     <div id="order-detail-modal" class="modal fade" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable">
             <div class="modal-content">
                 
             </div>
         </div>
     </div>
+
+    <div id="confirm-import-modal" class="modal fade" data-backdrop="static" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<form>
+					<div class="modal-header">
+						<h4 class="modal-title">Xác nhận duyệt phiếu nhập</h4>
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					</div>
+					<div class="modal-body confirm-import">
+                        <p>Bạn có chắc chắn muốn duyệt phiếu nhập <b></b> không ?</p>
+                        <p class="text-danger"><small>Điều này sẽ cập nhật số lượng sản phẩm trong kho, giá nhập của sản phẩm và tạo mã IMEI cho sản phẩm</small></p>
+					</div>
+					<div class="modal-footer">
+						<input type="button" class="btn btn-secondary" data-dismiss="modal" value="Hủy" >
+						<input type="button" class="btn btn-primary btn-confirm-import" value="Duyệt" >
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
 </main>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>

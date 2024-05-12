@@ -1,15 +1,15 @@
 <div class="content">
     <div class="content-banner">
-        <img src="server\src\assets\images\banner\banner.jpg" sizes="(max-width: 1279px) 100vw, 99vw" alt="" class="contetnt-banner-image">
+        <img src="server/src/assets/images/banner/banner.jpg" sizes="(max-width: 1279px) 100vw, 99vw" alt="" class="contetnt-banner-image">
         <div class="content-banner-image-box">
-            <img src="server\src\assets\images\banner\laptop-1.png" class="content-banner-image">
-            <img src="server\src\assets\images\banner\laptop-2.png" class="content-banner-image content-banner-image-flow">
-            <img src="server\src\assets\images\banner\laptop-3.png" class="content-banner-image content-banner-image-flow">
-            <img src="server\src\assets\images\banner\laptop-4.png" class="content-banner-image content-banner-image-flow">
-            <img src="server\src\assets\images\banner\laptop-5.png" class="content-banner-image content-banner-image-flow">
+            <img src="server/src/assets/images/banner/laptop-1.png" class="content-banner-image">
+            <img src="server/src/assets/images/banner/laptop-2.png" class="content-banner-image content-banner-image-flow">
+            <img src="server/src/assets/images/banner/laptop-3.png" class="content-banner-image content-banner-image-flow">
+            <img src="server/src/assets/images/banner/laptop-4.png" class="content-banner-image content-banner-image-flow">
+            <img src="server/src/assets/images/banner/laptop-5.png" class="content-banner-image content-banner-image-flow">
         </div>
         <div class="content-banner-text">
-            <img src="server\src\assets\images\banner\title.png">
+            <img src="server/src/assets/images/banner/title.png">
             <p>
                 Kỉ nguyên AI đã tới. LAPTOP mang tới dải sản phẩm hỗ trợ AI đa dạng nhất hiện nay, trang bị vi xử lí
                 <sup>®</sup>
@@ -150,7 +150,7 @@
                         </span>
                         <div class="feature-block-content">
                             <h5>Miễn phí vận chuyển</h5>
-                            <p>Đơn hàng từ 20 triệu đồng</p>
+                            <p>Tất cả đơn hàng</p>
                         </div>
                     </div>
                 </div>

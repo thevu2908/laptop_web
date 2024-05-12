@@ -10,7 +10,10 @@ $(document).ready(() => {
         renderViewTTNHModal()
         searchHoaDon()
     }
-    
+    handleRenderCustomerOrder()
+    filterEndUserOrderStatus()
+    searchEndUserOrder()
+    renderCustomerOrderDetail()
 })
 
 let search = ""

@@ -10,20 +10,21 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8" />
+  <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Laptop Admin</title>
   <link rel="icon" type="image/x-icon" href="server\src\admin\assets\images\admin-icon.svg">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round|Inter">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <link rel="stylesheet" href="server/src/admin/assets/css/style.css" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet">
@@ -38,10 +39,11 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.2.0/chart.umd.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 </head>
+
 <body>
   <div id="admin-main">
     <input type="hidden" value="<?= $ma_quyen ?>" id="admin-nhomquyen">
-    <?php include "./server/src/admin/view/Taskbar.php";?>
+    <?php include "./server/src/admin/view/Taskbar.php"; ?>
     <div class="content">
       <?php include "./server/src/admin/view/Content.php" ?>
       <?php
@@ -51,6 +53,11 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
           case "dashboard":
             include "./server/src/admin/view/Dashboard.php";
             echo '<script src="./client/pages/DashBoard.js"></script>';
+            echo "<script src='./client/pages/HoaDon.js'></script>";
+            echo '<script src="./client/pages/ChiTietHoaDon.js"></script>';
+            echo '<script src="./client/pages/ThuongHieu.js"></script>';
+            echo '<script src="client/pages/ThongTinNhanHang.js"></script>';
+            echo '<script src="client/pages/NhapHang.js"></script>';
             break;
           case "sanpham": {
               include "./server/src/admin/view/SanPham.php";
@@ -65,30 +72,36 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
               echo '<script src="./client/pages/ChiTietSanPham.js"></script>';
               echo '<script src="./client/pages/ChiTietCongKetNoi.js"></script>';
               break;
-          }
+            }
           case "danhgia": {
               include "./server/src/admin/view/DanhGia.php";
               echo '<script src="./client/pages/DanhGia.js"></script>';
               break;
-          }
+            }
           case "phieunhap": {
-            include "./server/src/admin/view/PhieuNhap.php";
-            echo '<script src="./client/pages/PhieuNhap.js"></script>';
-            break;
-          }
+              include "./server/src/admin/view/PhieuNhap.php";
+              echo '<script src="./client/pages/PhieuNhap.js"></script>';
+              break;
+            }
           case "nhaphang": {
-            include "./server/src/admin/view/NhapHang.php";
-            echo '<script src="./client/pages/PhieuNhap.js"></script>';
-            break;
-          }
+              include "./server/src/admin/view/NhapHang.php";
+              echo '<script src="./client/pages/PhieuNhap.js"></script>';
+              break;
+            }
           case "giohang": {
-            include "./server/src/admin/view/viewcart.php";
-            echo '<script src="./client/pages/PhieuNhap.js"></script>';
-            break;
-          }
+              include "./server/src/admin/view/viewcart.php";
+              echo '<script src="./client/pages/PhieuNhap.js"></script>';
+              break;
+            }
           case "nhacungcap": {
               include "./server/src/admin/view/NhaCungCap.php";
               echo '<script src="./client/pages/NhaCungCap.js"></script>';
+              break;
+            }
+          case "khachhang": {
+              include "./server/src/admin/view/KhachHang.php";
+              echo '<script src="./client/pages/KhachHang.js"></script>';
+              echo '<script src="client/pages/ThongTinNhanHang.js"></script>';
               break;
           }
           case "taikhoan": {
@@ -97,24 +110,25 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
               echo "<script src='./client/pages/NhomQuyen.js'></script>";
               echo "<script src='./client/pages/NhanVien.js'></script>'";
               break;
-          }
+            }
           case "baohanh": {
-            include "./server/src/admin/view/BaoHanh.php";
-            echo "<script src='./client/pages/BaoHanh.js'></script>";
-            break;
-          }
+              include "./server/src/admin/view/BaoHanh.php";
+              echo "<script src='./client/pages/BaoHanh.js'></script>";
+              break;
+            }
           case "doitra": {
-            include "./server/src/admin/view/DoiTra.php";
-            echo "<script src='./client/pages/DoiTra.js'></script>";
-            break;
-          }case "nhanvien":{
-            include "./server/src/admin/view/NhanVien.php";
+              include "./server/src/admin/view/DoiTra.php";
+              echo "<script src='./client/pages/DoiTra.js'></script>";
+              break;
+            }
+          case "nhanvien": {
+              include "./server/src/admin/view/NhanVien.php";
               echo "<script src='./client/pages/NhanVien.js'></script>'";
-              echo '<script src="./client/pages/TaiKhoan.js"></script>';
+              echo "<script src='./client/pages/TaiKhoan.js'></script>";
               echo "<script src='./client/pages/NhomQuyen.js'></script>";
               break;
             }
-            case "hoadon": {
+          case "hoadon": {
               include "./server/src/admin/view/HoaDon.php";
               echo "<script src='./client/pages/HoaDon.js'></script>";
               echo "<script src='./client/pages/KhachHang.js'></script>";
@@ -125,7 +139,6 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
           case "khuyenmai": {
               include "./server/src/admin/view/KhuyenMai.php";
               echo "<script src='./client/pages/KhuyenMai.js'></script>";
-              echo "<script src='./client/plugins/pagination.js'></script>";
               break;
             }
           case "nhomquyen": {
@@ -143,7 +156,6 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
               echo "<script src='./client/pages/ChiTietQuyen.js'></script>";
               break;
             }
-  
           case "chitietsanpham": {
               include "./server/src/admin/view/ChiTietSanPham.php";
               echo '<script src="./client/pages/ThuongHieu.js"></script>';
@@ -158,20 +170,23 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
               echo '<script src="./client/pages/ChiTietCongKetNoi.js"></script>';
               break;
             }
-            case "chitiethoadon": {
+          case "chitiethoadon": {
               include "./server/src/admin/view/ChiTietHoaDon.php";
               echo '<script src="./client/pages/ChiTietHoaDon.js"></script>';
-              echo '<script src="./client/plugins/getSession.js"></script>';
               break;
             }
           default: {
-            include "./server/src/admin/view/notfound.php";
-            break;
-          }
+              include "./server/src/admin/view/notfound.php";
+              break;
+            }
         }
       } else {
         include "./server/src/admin/view/DashBoard.php";
         echo '<script src="./client/pages/DashBoard.js"></script>';
+        echo "<script src='./client/pages/HoaDon.js'></script>";
+        echo '<script src="./client/pages/ChiTietHoaDon.js"></script>';
+        echo '<script src="./client/pages/ThuongHieu.js"></script>';
+        echo '<script src="client/pages/ThongTinNhanHang.js"></script>';
       }
       ?>
     </div>
@@ -186,10 +201,10 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
   <script src="./client/utils/general.js"></script>
   <script src="./client/utils/formatPromotion.js"></script>
   <script src="./client/plugins/pagination.js"></script>
+  <script src="./client/plugins/getSession.js"></script>
   <script src="./client/plugins/PhanQuyen.js"></script>
   <script src="./client/plugins/getsize.js"></script>
   <script src="./client/plugins/validation.js"></script>
   <script src="./client/pages/Login.js"></script>
 </body>
 </html>
-

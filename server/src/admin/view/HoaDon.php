@@ -20,7 +20,7 @@
 							<th>ID</th>
 							<th>Khách Hàng</th>
 							<th>Nhân Viên</th>
-							<th>Ngày Tạo</th>
+							<th>Ngày Đặt</th>
 							<th>Tổng Tiền</th>
 							<th>Khuyến Mãi</th>
 							<th>Thành tiền</th>

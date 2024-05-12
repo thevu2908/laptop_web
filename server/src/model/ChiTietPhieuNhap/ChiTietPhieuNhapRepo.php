@@ -1,7 +1,7 @@
 <?php
 
 class ChiTietPhieuNhapRepo extends ConnectDB {
-    public function getImportInvoiceDetail($id) {
+    public function getImportInvoiceDetail($id) : array | null {
         try {
             $sql = "SELECT sp.ma_sp, ctpn.*, sp.ten_sp, sp.hinh_anh, ms.ten_mau, cxl.ten_chip, cdh.ten_card, ctsp.ram, ctsp.rom FROM chitietphieunhap ctpn
                 JOIN chitietsanpham ctsp ON ctsp.ma_ctsp = ctpn.ma_ctsp
@@ -16,7 +16,7 @@ class ChiTietPhieuNhapRepo extends ConnectDB {
                 throw new Exception("Query failed: " . mysqli_error($this->conn));
             }
             $array = [];
-            while ($row = mysqli_fetch_array($result)) {
+            while ($row = mysqli_fetch_assoc($result)) {
                 $array[] = $row;
             }
             return $array;

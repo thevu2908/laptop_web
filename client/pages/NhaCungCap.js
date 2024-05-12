@@ -2,13 +2,14 @@
 $(document).ready(() => {
     const urlParams = new URLSearchParams(window.location.search)
     if (window.location.pathname === '/admin.php' && urlParams.get('controller') === 'nhacungcap') {
-        renderSuppilerData()
+        renderSuppilerData(null)
+        clickPage(renderSuppilerData)
         addSuppiler()
         updateSuppiler()
-        // deleteNCC()
         renderDeleteNCCModal()
         handleDeleteNCC()
         showSuppiler()
+        searchNCC()
     }
 })
 
@@ -29,56 +30,99 @@ function getSuppilerData() {
     })
 }
 
-async function renderSuppilerData() {
-    const employees = await getSuppilerData()
-    if (employees && employees.length > 0) {
-        let html = ''
-        employees.forEach((employee, index) => {
-            console.log(employee)
-            html += `
-                <tr data-id="${employee.ma_ncc}">
+function searchNCC() {
+    $(document).on('keyup', '.admin-search-info', e => {
+        const search = e.target.value.toLowerCase()
+
+        $.ajax({
+            url: 'server/src/controller/SearchController.php',
+            method: 'GET',
+            data: { action: 'search', table: 'nhacungcap', search },
+            dataType: 'JSON',
+            success: accounts => renderSuppilerData(accounts),
+            error: (xhr, status, error) => console.log(error)
+        })
+    })
+}
+
+function getPaginationNCC() {
+    return new Promise((resolve, reject) => {
+        const page = $('#currentpage').val()
+        $.ajax({
+            url: 'server/src/controller/PaginationController.php',
+            method: 'GET',
+            data: { action: 'pagination', table: 'nhacungcap', page },
+            dataType: 'JSON',
+            success: review => resolve(review),
+            error: (xhr, status, error) => {
+                console.log(error)
+                reject(error)
+            }
+        })
+    })
+}
+
+async function renderSuppilerData(data) {
+    try {
+        const dataPromo = data ? data : await getPaginationNCC()
+
+        if (dataPromo && dataPromo.pagination && dataPromo.pagination.length > 0) {
+            let html = ''
+
+            for (const item of dataPromo.pagination) {
+                html += `
+                <tr>
                     <td>
                         <span class="custom-checkbox">
-                            <input type="checkbox" id="checkbox-${employee.ma_ncc}" name="chk[]" value="${employee.ma_ncc}" '>
-                            <label for="checkbox-${employee.ma_ncc}"></label>
+                            <input type="checkbox" id="checkbox-${item.ma_ncc}" name="chk[]" value="${item.ma_ncc}">
+                            <label for="checkbox-${item.ma_ncc}"></label>
                         </span>
                     </td>
-                    <td>${employee.ma_ncc}</td>
-                    <td>${employee.ten_ncc}</td>
-                    <td>${employee.dia_chi}</td>
-                    <td>${employee.so_dien_thoai}</td>
+                    
+                    <td>${item.ma_ncc}</td>
+                    <td>${item.ten_ncc}</td>
+                    <td>${item.dia_chi}</td>
+                    <td>${item.so_dien_thoai}</td>
                     <td>
-                        <a id='showSuppiler' href="#editSuppilerModal" class="edit" data-toggle="modal" data-id="${employee.ma_ncc}">
+                        <a id='showSuppiler' href="#editSuppilerModal" class="edit" data-toggle="modal" data-id="${item.ma_ncc}">
                             <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
                         </a>
-                        <a href="#deleteSuppilerModal" class="delete btn-delete-ncc-modal" data-toggle="modal" data-id="${employee.ma_ncc}">
+                        <a href="#deleteSuppilerModal" class="delete btn-delete-ncc-modal" data-toggle="modal" data-id="${item.ma_ncc}">
                             <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
                         </a>
                        
                     </td>
                 </tr>
             `
-        })
-        phanquyen_chucnang("Nhà Cung Cấp")
-        getSizeinTable("nhacungcap","NCC","#admin-nhacungcap-manhacungcap")
-        $('.admin-suppiler-list').html(html)
+            }
+
+            phanquyen_chucnang("Nhà Cung Cấp")
+            getSizeinTable("nhacungcap", "NCC", "#admin-nhacungcap-manhacungcap")
+            $('.admin-suppiler-list').html(html)
+            totalPage(dataPromo.count)
+            displayTotalPage("#admin-ncc-main .hint-text", dataPromo.count, dataPromo.pagination.length)
+        }
+
+    } catch (error) {
+        console.log(error);
     }
 }
-function showSuppiler(){
-    $(document).on('click',"#showSuppiler",function(){
+
+function showSuppiler() {
+    $(document).on('click', "#showSuppiler", function () {
         var mancc = $(this).attr("data-id");
         $.ajax({
-            url:"server/src/controller/NhaCungCapController.php",
-            method:"POST",
-            data:{action:"get",mancc:mancc},
-            dataType:"JSON",
-            success:function(data){
+            url: "server/src/controller/NhaCungCapController.php",
+            method: "POST",
+            data: { action: "get", mancc: mancc },
+            dataType: "JSON",
+            success: function (data) {
                 $("#admin-update-manhacungcap").val(data['ma_ncc']);
                 $("#admin-update-nhacungcap").val(data['ten_ncc']);
                 $("#admin-update-diachi").val(data['dia_chi']);
                 $("#admin-update-sodienthoai").val(data['so_dien_thoai']);
             },
-            error:function(xhr,status,error){
+            error: function (xhr, status, error) {
                 console.log(error)
             }
         })
@@ -86,7 +130,7 @@ function showSuppiler(){
 }
 
 function updateSuppiler() {
-    $(document).on('click', "#admin-btn-updateNhaCungCap", function() {
+    $(document).on('click', "#admin-btn-updateNhaCungCap", function () {
         var mancc = $("#admin-update-manhacungcap").val();
         var tenncc = $("#admin-update-nhacungcap").val();
         var diachi = $("#admin-update-diachi").val();
@@ -126,13 +170,13 @@ function updateSuppiler() {
                 sodienthoai: sodienthoai
             },
             dataType: "JSON",
-            success: function(data) {
+            success: function (data) {
                 $("form").trigger('reset');
                 $("#editSuppilerModal").modal("hide");
                 console.log(data);
                 renderSuppilerData();
             },
-            error: function(xhr, status, error) {
+            error: function (xhr, status, error) {
                 console.log(error);
             }
         });
@@ -141,7 +185,7 @@ function updateSuppiler() {
 
 function addSuppiler() {
     getSizeinTable("nhacungcap", "NCC", "#admin-nhacungcap-manhacungcap");
-    $(document).on('click', '#admin-btn-addNhaCungCap', function() {
+    $(document).on('click', '#admin-btn-addNhaCungCap', function () {
         console.log('information');
         var mancc = $("#admin-nhacungcap-manhacungcap").val();
         console.log('ma' + mancc);
@@ -175,14 +219,14 @@ function addSuppiler() {
                     sodienthoai: sodienthoai
                 },
                 dataType: 'JSON',
-                success: function(data) {
+                success: function (data) {
                     console.log('inf');
                     console.log(data);
                     $("form").trigger('reset');
                     $("#addSuppilerModal").modal("hide");
                     renderSuppilerData();
                 },
-                error: function(xhr, status, error) {
+                error: function (xhr, status, error) {
                     console.log(error);
                 }
             });

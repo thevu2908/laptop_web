@@ -18,5 +18,5 @@ function removeRedundantSpaces(str) {
 }
 
 function displayTotalPage(element, count, totalPage) {
-    $(element).html(`Hiển thị <b>${totalPage}</b> trong <b>${count}</b> chi tiết`)
+    $(element).html(`Hiển thị <b>${totalPage}</b> trong <b>${count}</b> kết quả`)
 }
