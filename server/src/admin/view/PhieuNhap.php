@@ -31,7 +31,6 @@
 							<th>Tên Màu</th>
 							<th>CPU</th>
 							<th>Card</th>
-							<!-- <th>Nhà cung cấp</th> -->
 							<th>Số lượng</th>
 							<th>Giá</th>
 							<th class="w-auto">Actions</th>
@@ -41,8 +40,6 @@
 
 						<?php
 						require_once __DIR__ . '/../../controller/PhieuNhapController.php';
-						// var_dump($rows);
-						// var_dump($x);
 						if (isset($rows) && is_array($rows)) {
 							foreach ($rows as $each) {
 						?>
@@ -56,19 +53,9 @@
 									<td><?php echo $each['ten_mau'] ?></td>
 									<td><?php echo $each['ten_chip'] ?></td>
 									<td><?php echo $each['ten_card'] ?></td>
-									<!-- <td>
-										<select id="mancc" class="item-ma-ncc">
-											<?php foreach ($rows1 as $each1) { ?>
-												<option value="<?php echo $each1['ma_ncc'] ?>"><?php echo $each1['ten_ncc'] ?></option>
-											<?php } ?>
-										</select>
-									</td> -->
 									<td><?php echo $each['so_luong'] ?></td>
 									<td>
-										<!-- <div style="position: relative;">
-											<input type="text" id="gia_nhap_<?php echo $each['ma_ctsp']; ?>" class="input-gia-sp" value="<?php echo number_format($each['gia_nhap'], 0, ',', ','); ?>" style="width: 100px;" onkeyup="formatCurrency(this)" min="0" step="1000">
-											<span style="position: absolute; right: 5px; top: 50%; transform: translateY(-50%);">VNĐ</span>
-										</div> -->
+										
 										<div style="position: relative; display: inline-block;">
 											<input type="number" id="gia_nhap_<?php echo $each['ma_ctsp']; ?>" class="input-gia-sp form-control" value="<?php echo $each['gia_nhap']; ?>" style="width: 120px; " onkeyup="formatCurrency(this)" min="0" step="1000">
 											<span style="position: absolute; left: calc(100% + 10px); top: 50%; transform: translate(-100%, -50%); white-space: nowrap;">đ</span>
@@ -84,7 +71,6 @@
 											input.value = value;
 										}
 									</script>
-									<!-- <input type="hidden" class="item-ma-ncc" name="ma_ncc" value="<?php echo $each1['ma_ncc']; ?>">  -->
 									<td>
 									<button type="button" class="btn btn-primary btn-add-cartimport" value="<?php echo $each['ma_ctsp'] ?>">Thêm</button>
 									</td>
