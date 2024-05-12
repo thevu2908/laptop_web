@@ -2,9 +2,26 @@ $(document).ready(() => {
     const urlParams = new URLSearchParams(window.location.search)
     if (window.location.pathname === '/admin.php' && urlParams.get('controller') === 'nhaphang') {
         renderPhieuNhapData()
+        clickPage(renderPhieuNhapData)
         renderImportInvoiceDetail()
+        searchPN()
     }
 })
+
+function searchPN() {
+    $(document).on('keyup', '.admin-search-info', e => {
+        const search = e.target.value.toLowerCase()
+
+        $.ajax({
+            url: 'server/src/controller/SearchController.php',
+            method: 'GET',
+            data: { action: 'search', table: 'phieunhap', search },
+            dataType: 'JSON',
+            success: pn => renderPhieuNhapData(pn),
+            error: (xhr, status, error) => console.log(error)
+        })
+    })
+}
 
 function getPhieuNhapData() {
     return new Promise((resolve, reject) => {
@@ -16,6 +33,23 @@ function getPhieuNhapData() {
             dataType: 'JSON',
             success: phieunhaps => resolve(phieunhaps),
             error: (xhr, status, error) => reject(error)
+        })
+    })
+}
+
+function getPaginationNH() {
+    return new Promise((resolve, reject) => {
+        const page = $('#currentpage').val()
+        $.ajax({
+            url: 'server/src/controller/PaginationController.php',
+            method: 'GET',
+            data: { action: 'pagination', table: 'phieunhap', page },
+            dataType: 'JSON',
+            success: review => resolve(review),
+            error: (xhr, status, error) => {
+                console.log(error)
+                reject(error)
+            }
         })
     })
 }
@@ -35,13 +69,15 @@ function getImportInvoice(id) {
 
 async function renderPhieuNhapData() {
     try {
-        const phieunhaps = await getPhieuNhapData()
-        if (phieunhaps && phieunhaps.length > 0) {
+        const dataPromo = await getPaginationNH()
+        console.log(dataPromo)
+
+        if (dataPromo && dataPromo.pagination && dataPromo.pagination.length > 0) {
             let html = ''
-    
-            phieunhaps.forEach((phieunhap, index) => {
+
+            for (const phieunhap of dataPromo.pagination) {
                 html += `
-                    <tr>
+                <tr>
                         <td>${phieunhap.ma_pn}</td>
                         <td>${phieunhap.ma_ncc}</td>
                         <td>${phieunhap.ma_nv}</td>
@@ -67,16 +103,63 @@ async function renderPhieuNhapData() {
                             </button>
                         </td>
                     </tr>
-                `;
-            })
+            `
+            }
             phanquyen_chucnang("Phiếu nhập")
             $('.admin-phieunhap-list').html(html)
+            totalPage(dataPromo.count)
+            displayTotalPage("#admin-pn-main .hint-text", dataPromo.count, dataPromo.pagination.length)
         }
-    } catch(error) {
-        console.log(error)
-        alert('Có lỗi xảy ra, vui lòng thử lại sau!')
+
+    } catch (error) {
+        console.log(error);
     }
 }
+
+// async function renderPhieuNhapData() {
+//     try {
+//         const phieunhaps = await getPhieuNhapData()
+//         if (phieunhaps && phieunhaps.length > 0) {
+//             let html = ''
+    
+//             phieunhaps.forEach((phieunhap, index) => {
+//                 html += `
+//                     <tr>
+//                         <td>${phieunhap.ma_pn}</td>
+//                         <td>${phieunhap.ma_ncc}</td>
+//                         <td>${phieunhap.ma_nv}</td>
+//                         <td>${convertDate(phieunhap.ngay_nhap)}</td>
+//                         <td>₫${formatCurrency(phieunhap.tong_tien)}</td>
+//                         <td>
+//                             ${phieunhap.tinh_trang == 0 
+//                                 ? `<button class="btn btn-success btn-process-bill" value="${phieunhap.tinh_trang}" data-id="${phieunhap.ma_pn}">
+//                                         Xử lý
+//                                     </button>`
+//                                 : `<span style="color: red; font-weight: bold;">Đã xử lý</span>`
+//                             }
+//                         </td>
+//                         <td style="padding-top: 10px;">
+//                             <button 
+//                                 data-target="#order-detail-modal"
+//                                 data-toggle="modal"
+//                                 style="width: 61%;"
+//                                 class="btn btn-primary btn-import-invoice__detail"
+//                                 data-id="${phieunhap.ma_pn}"
+//                             >
+//                                 Chi tiết
+//                             </button>
+//                         </td>
+//                     </tr>
+//                 `;
+//             })
+//             phanquyen_chucnang("Phiếu nhập")
+//             $('.admin-phieunhap-list').html(html)
+//         }
+//     } catch(error) {
+//         console.log(error)
+//         alert('Có lỗi xảy ra, vui lòng thử lại sau!')
+//     }
+// }
 
 async function renderImportInvoiceDetail() {
     $(document).on('click', '.btn-import-invoice__detail', async function() {
