@@ -1,4 +1,4 @@
-<main>
+<main id="admin-refund-main">
 	<div class="container-xl">
 		<div class="table-responsive">
 			<div class="table-wrapper">
@@ -35,7 +35,7 @@
 					</tbody>
 				</table>
 				<div class="clearfix">
-					<div class="hint-text">Showing <b id="cur">5</b> out of <b id="total">25</b> entries</div>
+					<div class="hint-text"></div>
 					<div id="pagination">
 					</div>
 					<input type="hidden" name="currentpage" id="currentpage" value="1">
