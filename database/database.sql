@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 10, 2024 at 11:13 AM
+-- Generation Time: May 11, 2024 at 04:07 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -253,6 +253,46 @@ CREATE TABLE `chitiethoadon` (
   `so_luong` int(11) NOT NULL DEFAULT 1,
   `gia_sp` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `chitiethoadon`
+--
+
+INSERT INTO `chitiethoadon` (`ma_hd`, `ma_imei`, `so_luong`, `gia_sp`) VALUES
+('HD001', 'CTSP0001IMEI1', 1, 25739700),
+('HD002', 'CTSP0002IMEI1', 1, 30889700),
+('HD003', 'CTSP0003IMEI1', 1, 25739700),
+('HD004', 'CTSP0004IMEI1', 1, 30889700),
+('HD005', 'CTSP0005IMEI1', 1, 10699500),
+('HD006', 'CTSP0006IMEI1', 1, 20989500),
+('HD007', 'CTSP0007IMEI1', 1, 15214500),
+('HD008', 'CTSP0008IMEI1', 1, 13114500),
+('HD009', 'CTSP0009IMEI1', 1, 16474500),
+('HD010', 'CTSP0010IMEI1', 1, 13954500),
+('HD011', 'CTSP0011IMEI1', 1, 12589500),
+('HD012', 'CTSP0012IMEI1', 1, 21514500),
+('HD013', 'CTSP0013IMEI1', 1, 13114500),
+('HD014', 'CTSP0014IMEI1', 1, 20464500),
+('HD015', 'CTSP0015IMEI1', 1, 18889500),
+('HD016', 'CTSP0016IMEI1', 1, 19939500),
+('HD017', 'CTSP0017IMEI1', 1, 18994500),
+('HD018', 'CTSP0018IMEI1', 1, 21199500),
+('HD019', 'CTSP0019IMEI1', 1, 40939500),
+('HD020', 'CTSP0020IMEI1', 1, 50389500),
+('HD021', 'CTSP0021IMEI1', 1, 19414500),
+('HD022', 'CTSP0022IMEI1', 1, 32548950),
+('HD023', 'CTSP0023IMEI1', 1, 29389500),
+('HD024', 'CTSP0024IMEI1', 1, 34639500),
+('HD025', 'CTSP0025IMEI1', 1, 29389500),
+('HD026', 'CTSP0026IMEI1', 1, 34639500),
+('HD027', 'CTSP0027IMEI1', 1, 29389500),
+('HD028', 'CTSP0028IMEI1', 1, 34639500),
+('HD029', 'CTSP0029IMEI1', 1, 29389500),
+('HD030', 'CTSP0030IMEI1', 1, 34639500),
+('HD031', 'CTSP0001IMEI2', 1, 25739700),
+('HD032', 'CTSP0031IMEI1', 1, 47239500),
+('HD032', 'CTSP0032IMEI1', 1, 47239500),
+('HD032', 'CTSP0033IMEI1', 1, 29599500);
 
 -- --------------------------------------------------------
 
@@ -607,35 +647,50 @@ CREATE TABLE `ctsp_imei` (
 
 INSERT INTO `ctsp_imei` (`ma_imei`, `ma_ctsp`, `trang_thai`) VALUES
 ('CTSP0001IMEI1', 'CTSP0001', 1),
-('CTSP0002IMEI2', 'CTSP0002', 1),
-('CTSP0003IMEI3', 'CTSP0003', 1),
-('CTSP0004IMEI4', 'CTSP0004', 1),
-('CTSP0005IMEI5', 'CTSP0005', 1),
-('CTSP0006IMEI6', 'CTSP0006', 1),
-('CTSP0007IMEI7', 'CTSP0007', 1),
-('CTSP0008IMEI8', 'CTSP0008', 1),
-('CTSP0009IMEI9', 'CTSP0009', 1),
-('CTSP0010IMEI10', 'CTSP0010', 1),
-('CTSP0011IMEI11', 'CTSP0011', 1),
-('CTSP0012IMEI12', 'CTSP0012', 1),
-('CTSP0013IMEI13', 'CTSP0013', 1),
-('CTSP0014IMEI14', 'CTSP0014', 1),
-('CTSP0015IMEI15', 'CTSP0015', 1),
-('CTSP0016IMEI16', 'CTSP0016', 1),
-('CTSP0017IMEI17', 'CTSP0017', 1),
-('CTSP0018IMEI18', 'CTSP0018', 1),
-('CTSP0019IMEI19', 'CTSP0019', 1),
-('CTSP0020IMEI20', 'CTSP0020', 1),
-('CTSP0021IMEI21', 'CTSP0021', 1),
-('CTSP0022IMEI22', 'CTSP0022', 1),
-('CTSP0023IMEI23', 'CTSP0023', 1),
-('CTSP0024IMEI24', 'CTSP0024', 1),
-('CTSP0025IMEI25', 'CTSP0025', 1),
-('CTSP0026IMEI26', 'CTSP0026', 1),
-('CTSP0027IMEI27', 'CTSP0027', 1),
-('CTSP0028IMEI28', 'CTSP0028', 1),
-('CTSP0029IMEI29', 'CTSP0029', 1),
-('CTSP0030IMEI30', 'CTSP0030', 1);
+('CTSP0001IMEI2', 'CTSP0001', 1),
+('CTSP0002IMEI1', 'CTSP0002', 1),
+('CTSP0003IMEI1', 'CTSP0003', 1),
+('CTSP0004IMEI1', 'CTSP0004', 1),
+('CTSP0005IMEI1', 'CTSP0005', 1),
+('CTSP0006IMEI1', 'CTSP0006', 1),
+('CTSP0007IMEI1', 'CTSP0007', 1),
+('CTSP0008IMEI1', 'CTSP0008', 1),
+('CTSP0009IMEI1', 'CTSP0009', 1),
+('CTSP0010IMEI1', 'CTSP0010', 1),
+('CTSP0011IMEI1', 'CTSP0011', 1),
+('CTSP0012IMEI1', 'CTSP0012', 1),
+('CTSP0013IMEI1', 'CTSP0013', 1),
+('CTSP0014IMEI1', 'CTSP0014', 1),
+('CTSP0015IMEI1', 'CTSP0015', 1),
+('CTSP0016IMEI1', 'CTSP0016', 1),
+('CTSP0017IMEI1', 'CTSP0017', 1),
+('CTSP0018IMEI1', 'CTSP0018', 1),
+('CTSP0019IMEI1', 'CTSP0019', 1),
+('CTSP0020IMEI1', 'CTSP0020', 1),
+('CTSP0021IMEI1', 'CTSP0021', 1),
+('CTSP0022IMEI1', 'CTSP0022', 1),
+('CTSP0023IMEI1', 'CTSP0023', 1),
+('CTSP0024IMEI1', 'CTSP0024', 1),
+('CTSP0025IMEI1', 'CTSP0025', 1),
+('CTSP0026IMEI1', 'CTSP0026', 1),
+('CTSP0027IMEI1', 'CTSP0027', 1),
+('CTSP0028IMEI1', 'CTSP0028', 1),
+('CTSP0029IMEI1', 'CTSP0029', 1),
+('CTSP0030IMEI1', 'CTSP0030', 1),
+('CTSP0031IMEI1', 'CTSP0031', 1),
+('CTSP0032IMEI1', 'CTSP0032', 1),
+('CTSP0033IMEI1', 'CTSP0033', 1),
+('CTSP0034IMEI1', 'CTSP0034', 1),
+('CTSP0035IMEI1', 'CTSP0035', 1),
+('CTSP0036IMEI1', 'CTSP0036', 1),
+('CTSP0037IMEI1', 'CTSP0037', 1),
+('CTSP0038IMEI1', 'CTSP0038', 1),
+('CTSP0039IMEI1', 'CTSP0039', 1),
+('CTSP0040IMEI1', 'CTSP0040', 1),
+('CTSP0041IMEI1', 'CTSP0041', 1),
+('CTSP0042IMEI1', 'CTSP0042', 1),
+('CTSP0043IMEI1', 'CTSP0043', 1),
+('CTSP0044IMEI1', 'CTSP0044', 1);
 
 -- --------------------------------------------------------
 
@@ -1446,6 +1501,44 @@ CREATE TABLE `hoadon` (
   `trang_thai` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `hoadon`
+--
+
+INSERT INTO `hoadon` (`ma_hd`, `ma_kh`, `ma_nv`, `ma_ttnh`, `ngay_tao`, `tong_tien`, `khuyen_mai`, `thanh_tien`, `hinh_thuc`, `ghi_chu`, `tinh_trang`, `trang_thai`) VALUES
+('HD001', 'KH0001', 'admin', 'TTNH0001', '2024-04-22', 25739700, 0, 25739700, 'COD', '', 'Đã xác nhận', 0),
+('HD002', 'KH0001', 'admin', 'TTNH0001', '2024-03-22', 30889700, 0, 30889700, 'COD', '', 'Đã xác nhận', 0),
+('HD003', 'KH0001', 'admin', 'TTNH0001', '2024-04-04', 25739700, 0, 25739700, 'COD', '', 'Đã xác nhận', 0),
+('HD004', 'KH0001', 'admin', 'TTNH0001', '2024-07-15', 30889700, 0, 30889700, 'COD', '', 'Đã xác nhận', 0),
+('HD005', 'KH0001', 'admin', 'TTNH0001', '2024-08-08', 10699500, 0, 10699500, 'COD', '', 'Đã xác nhận', 0),
+('HD006', 'KH0001', 'admin', 'TTNH0001', '2024-06-13', 20989500, 0, 20989500, 'COD', '', 'Đã xác nhận', 0),
+('HD007', 'KH0001', 'admin', 'TTNH0001', '2024-03-28', 15214500, 0, 15214500, 'COD', '', 'Đã xác nhận', 0),
+('HD008', 'KH0001', 'admin', 'TTNH0001', '2024-07-01', 13114500, 0, 13114500, 'COD', '', 'Đã xác nhận', 0),
+('HD009', 'KH0001', 'admin', 'TTNH0001', '2024-03-06', 16474500, 0, 16474500, 'COD', '', 'Đã xác nhận', 0),
+('HD010', 'KH0001', 'admin', 'TTNH0001', '2024-06-05', 13954500, 0, 13954500, 'COD', '', 'Đã xác nhận', 0),
+('HD011', 'KH0001', 'admin', 'TTNH0001', '2024-08-10', 12589500, 0, 12589500, 'COD', '', 'Đã xác nhận', 0),
+('HD012', 'KH0001', 'admin', 'TTNH0001', '2024-04-18', 21514500, 0, 21514500, 'COD', '', 'Đã xác nhận', 0),
+('HD013', 'KH0001', 'admin', 'TTNH0001', '2024-02-08', 13114500, 0, 13114500, 'COD', '', 'Đã xác nhận', 0),
+('HD014', 'KH0001', 'admin', 'TTNH0001', '2024-11-04', 20464500, 0, 20464500, 'COD', '', 'Đã xác nhận', 0),
+('HD015', 'KH0001', 'admin', 'TTNH0001', '2024-11-12', 18889500, 0, 18889500, 'COD', '', 'Đã xác nhận', 0),
+('HD016', 'KH0001', 'admin', 'TTNH0001', '2024-02-19', 19939500, 0, 19939500, 'COD', '', 'Đã xác nhận', 0),
+('HD017', 'KH0001', 'admin', 'TTNH0001', '2024-07-01', 18994500, 0, 18994500, 'COD', '', 'Đã xác nhận', 0),
+('HD018', 'KH0001', 'admin', 'TTNH0001', '2024-01-19', 21199500, 0, 21199500, 'COD', '', 'Đã xác nhận', 0),
+('HD019', 'KH0001', 'admin', 'TTNH0001', '2024-04-28', 40939500, 0, 40939500, 'COD', '', 'Đã xác nhận', 0),
+('HD020', 'KH0001', 'admin', 'TTNH0001', '2024-10-12', 50389500, 0, 50389500, 'COD', '', 'Đã xác nhận', 0),
+('HD021', 'KH0001', 'admin', 'TTNH0001', '2024-10-06', 19414500, 0, 19414500, 'COD', '', 'Đã xác nhận', 0),
+('HD022', 'KH0001', 'admin', 'TTNH0001', '2024-03-30', 32548950, 0, 32548950, 'COD', '', 'Đã xác nhận', 0),
+('HD023', 'KH0001', 'admin', 'TTNH0001', '2024-09-14', 29389500, 0, 29389500, 'COD', '', 'Đã xác nhận', 0),
+('HD024', 'KH0001', 'admin', 'TTNH0001', '2024-07-30', 34639500, 0, 34639500, 'COD', '', 'Đã xác nhận', 0),
+('HD025', 'KH0001', 'admin', 'TTNH0001', '2024-03-04', 29389500, 0, 29389500, 'COD', '', 'Đã xác nhận', 0),
+('HD026', 'KH0001', 'admin', 'TTNH0001', '2024-12-20', 34639500, 0, 34639500, 'COD', '', 'Đã xác nhận', 0),
+('HD027', 'KH0001', 'admin', 'TTNH0001', '2024-09-25', 29389500, 0, 29389500, 'COD', '', 'Đã xác nhận', 0),
+('HD028', 'KH0001', 'admin', 'TTNH0001', '2024-12-28', 34639500, 0, 34639500, 'COD', '', 'Đã xác nhận', 0),
+('HD029', 'KH0001', 'admin', 'TTNH0001', '2024-03-11', 29389500, 0, 29389500, 'COD', '', 'Đã xác nhận', 0),
+('HD030', 'KH0001', 'admin', 'TTNH0001', '2024-02-26', 34639500, 0, 34639500, 'COD', '', 'Đã xác nhận', 0),
+('HD031', 'KH0002', 'admin', 'TTNH0004', '2024-05-10', 25739700, 0, 25739700, 'COD', '', 'Đã xác nhận', 0),
+('HD032', 'KH0002', 'admin', 'TTNH0004', '2024-05-11', 124078500, 0, 124078500, 'COD', '', 'Đã xác nhận', 0);
+
 -- --------------------------------------------------------
 
 --
@@ -1485,6 +1578,13 @@ CREATE TABLE `khuyenmai` (
   `tinh_trang` varchar(50) NOT NULL,
   `trang_thai` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `khuyenmai`
+--
+
+INSERT INTO `khuyenmai` (`ma_km`, `ten_khuyen_mai`, `muc_khuyen_mai`, `dieu_kien`, `thoi_gian_bat_dau`, `thoi_gian_ket_thuc`, `tinh_trang`, `trang_thai`) VALUES
+('KM001', 'Lễ 30/4', 70, '15000000', '2024-05-11', '2024-05-31', 'Đang diễn ra', 0);
 
 -- --------------------------------------------------------
 

@@ -23,8 +23,9 @@
                                     </button>
                                 </div>
                             </form>
-							<a href="#deleteReviewModal" class="btn btn-danger" data-toggle="modal">
-								<i class="material-icons">&#xE15C;</i> <span>Xóa</span></a>
+							<a href="#deleteReviewModal" class="btn btn-danger btn-delete-checked-review-modal" data-toggle="modal">
+								<i class="material-icons">&#xE15C;</i> <span>Xóa</span>
+							</a>
 						</div>
 					</div>
 				</div>

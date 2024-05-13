@@ -3,7 +3,7 @@ $(document).ready(() => {
     if (window.location.pathname === '/admin.php' && urlParams.get('controller') === 'khuyenmai') {
         renderPromotionToAdmin(null)
         clickPage(renderPromotionToAdmin)
-        loadPaginationPromo()
+        // loadPaginationPromo()
 
         updateStatusPromo()
         getNextPromoId()
@@ -15,8 +15,25 @@ $(document).ready(() => {
 
         renderUpdatePromoModal()
         handleUpdatePromo()
+
+        searchKhuyenMai()
     }
 })
+
+function searchKhuyenMai() {
+    $(document).on('keyup', '.admin-search-info', e => {
+        const search = e.target.value.toLowerCase()
+
+        $.ajax({
+            url: 'server/src/controller/SearchController.php',
+            method: 'GET',
+            data: { action: 'search', table: 'khuyenmai', search },
+            dataType: 'JSON',
+            success: data => renderPromotionToAdmin(data),
+            error: (xhr, status, error) => console.log(error)
+        })
+    })
+}
 
 async function renderPromotionToAdmin(data) {
     try {
@@ -394,7 +411,8 @@ function handleAddPromotion() {
                     alert('Thêm khuyến mãi thành công')
                     $('form').trigger('reset')
                     $('#addPromotion').modal('hide')
-                    loadPromotionToAdmin()
+                    // loadPromotionToAdmin()
+                    renderPromotionToAdmin()
                 } 
                 else {
                     alert('Xảy ra lỗi trong quá trình thêm khuyến mãi')
@@ -425,14 +443,11 @@ function renderDeletePromoModal() {
         const promoId = e.target.closest('.btn-delete-promo-modal').dataset.id
 
         if (promoId) {
-            getPromotion(promoId)
-                .then(promo => {
-                    const html = `
-                        <p>Bạn có chắc chắn muốn xóa khuyến mãi có mã "<b class="promo-id">${promo.ma_km}</b>" không?</p>
-                        <p class="text-warning"><small>Hành động này sẽ không thể hoàn tác</small></p>
-                    `
-                    $('#deletePromotion .delete-body').html(html)
-                })
+            const html = `
+                <p>Bạn có chắc chắn muốn xóa khuyến mãi có mã "<b class="promo-id">${promoId}</b>" không?</p>
+                <p class="text-warning"><small>Hành động này sẽ không thể hoàn tác</small></p>
+            `
+            $('#deletePromotion .delete-body').html(html)
         }
     })
 
@@ -472,7 +487,8 @@ function handleDeletePromo() {
                     if (res === 'success') {
                         alert('Xóa khuyến mãi thành công')
                         $('#deletePromotion').modal('hide')
-                        loadPromotionToAdmin()
+                        // loadPromotionToAdmin()
+                        renderPromotionToAdmin()
                     } 
                     else if(res === 'fail') {
                         alert('Không thể xóa khuyến mãi có chương trình "Đang diễn ra"')
@@ -482,6 +498,37 @@ function handleDeletePromo() {
                     }
                 })
                 .catch(error => console.log(error))
+        }
+        else {
+            let checkedPromos = []
+            const firstCheckInputElement = document.querySelector('table.table thead input[type=checkbox]')
+            const checkInputElements = document.querySelectorAll('.admin-promotion-list input[name="chk[]"]')
+
+            checkInputElements.forEach(item => {
+                if (item.checked) {
+                    checkedPromos.push(item.value)
+                }
+            })
+
+            if (checkedPromos.length > 0) {
+                let promises = []
+
+                checkedPromos.forEach(promoId => promises.push(deletePromotion(promoId)))
+
+                Promise.all(promises).then(results => {
+                    if (results.includes(false)) {
+                        alert('Xảy ra lỗi trong quá trình xóa các khuyến mãi')
+                    } else {
+                        alert('Đã xóa các khuyến mãi được chọn')
+                        firstCheckInputElement.checked = false
+                        renderPromotionToAdmin()
+                    }
+                })
+            } else {
+                alert('Không có khuyến mãi nào được chọn\nVui lòng check vào ô các khuyến mãi muốn xóa')
+            }
+
+            $('#deletePromotion').modal('hide')
         }
     })
 }
@@ -494,7 +541,7 @@ function getNextPromoId() {
         dataType: 'JSON',
         success: size => {
             if(size >= 0) {
-                id = 'KM' + String(size+1).padStart(3, '0');
+                id = 'KM' + String(size+0).padStart(3, '0');
                 $("#promotion-id").val(id)
             }
         },
@@ -566,7 +613,8 @@ function handleUpdatePromo() {
                     alert('Cập nhật khuyến mãi thành công')
                     $('form').trigger('reset')
                     $('#updatePromotion').modal('hide')
-                    loadPromotionToAdmin()
+                    // loadPromotionToAdmin()
+                    renderPromotionToAdmin()
                 } 
                 else {
                     alert('Xảy ra lỗi trong quá trình cập nhật khuyến mãi')
@@ -647,8 +695,8 @@ function delPromoToLocalStorage() {
     
         if (khuyenMai[maKH]) {
             const index = khuyenMai[maKH].indexOf(maKM);
-            if (index !== -1) {
-                khuyenMai[maKH].splice(index, 1);
+            if (index !== -0) {
+                khuyenMai[maKH].splice(index, 0);
                 localStorage.setItem('khuyenMai', JSON.stringify(khuyenMai));
                 alert("Xóa khuyến mãi thành công");
                 $(this).closest('.modal-promo-item').remove();

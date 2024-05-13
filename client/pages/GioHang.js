@@ -189,7 +189,7 @@ function handleAddCart() {
                 const updateRes = await updateCart(cart)
                 if (updateRes === 'success') {
                     if ($(e.target).hasClass('btn-buy-now')) {
-                        window.location.href = 'index.php?gio-hang';
+                        window.location.href = 'index.php?thanh-toan';
                     } else {
                         alert('Đã thêm sản phẩm vào giỏ hàng')
                         loadCart(cart.customerId)
@@ -200,8 +200,12 @@ function handleAddCart() {
             } else {
                 const addRes = await addCart(cart)
                 if (addRes === 'success') {
-                    alert('Đã thêm sản phẩm vào giỏ hàng')
-                    loadCart(cart.customerId)
+                    if ($(e.target).hasClass('btn-buy-now')) {
+                        window.location.href = 'index.php?thanh-toan';
+                    } else {
+                        alert('Đã thêm sản phẩm vào giỏ hàng')
+                        loadCart(cart.customerId)
+                    }
                 } else {
                     alert('Xảy ra lỗi trong quá trình thêm sản phẩm vào giỏ hàng')
                 }

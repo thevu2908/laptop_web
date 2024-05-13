@@ -23,6 +23,15 @@ class SearchRepo extends ConnectDB {
                     WHERE ctsp.ma_sp = '$id' AND CONCAT(ctsp.ma_ctsp, ms.ten_mau, cxl.ten_chip, cdh.ten_card, ram, rom) LIKE '%$search_term%'
                     ORDER BY ctsp.ma_ctsp ASC LIMIT {$start},{$limit}
                 ";
+            } else if($table == "hoadon") {
+                $query = "
+                    SELECT * 
+                    FROM `hoadon` hd
+                    JOIN `khachhang` kh on kh.ma_kh=hd.ma_kh
+                    JOIN `nhanvien` nv on nv.ma_nv=hd.ma_nv
+                    WHERE CONCAT(ma_hd, kh.ten_kh, nv.ten_nv, ngay_tao, hinh_thuc) LIKE '%$search_term%'
+                    ORDER BY hd.ma_hd ASC LIMIT {$start},{$limit}
+                ";
             } else {
                 $query = "SELECT * FROM $table WHERE CONCAT(";
                 $result = $this->conn->query("SHOW COLUMNS FROM $table");
@@ -84,6 +93,14 @@ class SearchRepo extends ConnectDB {
                     JOIN chipxuly cxl ON ctsp.ma_chip_xu_ly = cxl.ma_chip_xu_ly
                     JOIN carddohoa cdh ON ctsp.ma_carddohoa = cdh.ma_card
                     WHERE ctsp.ma_sp = '$id' AND CONCAT(ctsp.ma_ctsp, ms.ten_mau, cxl.ten_chip, cdh.ten_card, ram, rom) LIKE '%$search_term%'
+                ";
+            } else if($table == "hoadon") {
+                $query = "
+                SELECT count(*) as num
+                FROM `hoadon` hd
+                JOIN `khachhang` kh on kh.ma_kh=hd.ma_kh
+                JOIN `nhanvien` nv on nv.ma_nv=hd.ma_nv
+                WHERE CONCAT(ma_hd, kh.ten_kh, nv.ten_nv, ngay_tao, hinh_thuc, tinh_trang) LIKE '%$search_term%'
                 ";
             } else {
                 $query = "SELECT count(*) as num FROM $table WHERE CONCAT(";
