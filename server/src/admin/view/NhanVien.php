@@ -134,7 +134,7 @@
 					</div>
 					<div class="modal-footer">
 						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-						<input type="submit" class="btn btn-danger" value="Delete">
+						<input type="button" class="btn btn-danger" value="Delete" id="admin-btn-deleteNhanvien">
 					</div>
 				</form>
 			</div>

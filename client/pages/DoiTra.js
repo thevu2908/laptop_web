@@ -11,7 +11,7 @@ $(document).ready(function() {
 var listitemDoiTra=[]
 function addDoiTra(){
     getSizeinTable("phieudoitra","PDT","#admin-maphieudoitra")
-    $("#admin-doitra-manhanvien").val("NV01")
+    $("#admin-doitra-manhanvien").val($("#admin-matk").val());
     loadMaHoaDon();
     selectMaHoaDon();
     $(document).on("click","#admin-add-DoiTra",function(){
@@ -28,10 +28,10 @@ function addDoiTra(){
         var maphieudoitra=$("#admin-maphieudoitra").val();
         var mahoadon=$("#admin-select-mahoadon").val()
         var manhanvien=$("#admin-doitra-manhanvien").val()
-        var thanhtien=0;
-        var soluong=0;
-        listitemDoiTra.forEach(item=>thanhtien+=Number.parseFloat(item.giasanpham))
-        listitemDoiTra.forEach(item=>soluong+=Number.parseInt(item.soluong))
+        var thanhtien= $("#admin-DoiTra-tongtientra").val(tongtien);
+        var soluong= $("#admin-DoiTra-tongsoluong").val(soluong);
+        // listitemDoiTra.forEach(item=>thanhtien+=Number.parseFloat(item.giasanpham))
+        // listitemDoiTra.forEach(item=>soluong+=Number.parseInt(item.soluong))
         var thanhtienSP=thanhtien;
         var tongsoluongSP=soluong;
         console.log(thanhtienSP,tongsoluongSP,manhanvien,maphieudoitra)
@@ -167,7 +167,7 @@ function loadMaHoaDon(){
     $.ajax({
         url:"server/src/controller/HoaDonController.php",
         method:"POST",
-        data:{action:"getmahoadon"},
+        data:{action:"get-all"},
         dataType:"json",
         success:function(data){
             var html="<option value='choose' selected>Choose</option>";

@@ -329,14 +329,14 @@ function changechk(obj){
 $(document).on('click', "#add-admin-NQ", function () {
     getSizeinTable("nhomquyen", "NQ", "#ma_quyen")
     $('#addMulPhanQuyen').modal('hide')
-    $('#addNhomQuyen').on('hidden.bs.modal', function () {
+    $('#addNQ').on('hidden.bs.modal', function () {
         $('body').addClass('modal-open')
     })
-    $("#addNhomQuyen").modal('show')
+    $("#addNQ").modal('show')
 });
 
 $(document).on('click', "#add-close", function () {
-    $('#addNhomQuyen').on('hidden.bs.modal', function () {
+    $('#addNQ').on('hidden.bs.modal', function () {
         $('body').addClass('modal-open')
     })
     $('#addMulPhanQuyen').modal('show')
@@ -355,11 +355,11 @@ $(document).on('click', "#addNhomQuyen", function () {
             success: function (data) {
                 console.log(data);
                 $("form").trigger('reset')
-                $("#addNhomQuyen").modal("hide")
+                $("#addNQ").modal("hide")
                 getSizeinTable("nhomquyen", "NQ", "#ma_quyen")
                 getAllListNhomQuyen()
                 selectNhomQuyen()
-                $('#addNhomQuyen').on('hidden.bs.modal', function () {
+                $('#addNQ').on('hidden.bs.modal', function () {
                     $('body').addClass('modal-open')
                 })
                 $('#addMulPhanQuyen').modal('show')
