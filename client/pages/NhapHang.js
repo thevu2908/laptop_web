@@ -5,10 +5,12 @@ $(document).ready(() => {
         clickPage(renderPhieuNhapData)
         renderImportInvoiceDetail()
         searchPN()
+        renderConfirmImportModal()
+        handleConfifmrImportInvoice()
     }
 })
 
-let search = ""
+var search = ""
 
 function searchPN() {
     $(document).on('keyup', '.admin-search-info', e => {
@@ -251,7 +253,6 @@ function handleConfifmrImportInvoice() {
         try {
             const id = $(this).data('id')
             const res = await confirmImportInvoice(id)
-            console.log(res, typeof res)
             if (res === 'true') {
                 alert('Xác nhận duyệt phiếu nhập thành công!')
                 $('form').trigger('reset')

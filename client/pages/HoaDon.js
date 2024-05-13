@@ -16,7 +16,7 @@ $(document).ready(() => {
     renderCustomerOrderDetail()
 })
 
-let search = ""
+var search = ""
 
 function getPaginationBill(search) {
     return new Promise((resolve, reject) => {
