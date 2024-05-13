@@ -183,11 +183,11 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th scope="col" colspan="1">Chức Năng</th>
-                            <th scope="col">Xem</th>
-                            <th scope="col">Thêm</th>
-                            <th scope="col">Xóa</th>
-                            <th scope="col">Sửa</th>
+                            <th scope="col" colspan="1" class="w-auto">Chức Năng</th>
+                            <th scope="col" class="w-auto">Xem</th>
+                            <th scope="col" class="w-auto">Thêm</th>
+                            <th scope="col" class="w-auto">Xóa</th>
+                            <th scope="col" class="w-auto">Sửa</th>
                         </tr>
                     </thead>
                     <tbody id="admin-show-ChucNang">

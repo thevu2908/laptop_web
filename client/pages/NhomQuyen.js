@@ -4,11 +4,20 @@ $(document).ready(function () {
     if (window.location.pathname === '/admin.php' && urlParams.get('controller') === 'nhomquyen') {
         loadNhomQuyen();
         clickPage(loadNhomQuyen);
+        $(document).on("keyup","#search",function(){
+            if($("#search").val()==='' || $("#search").val()===null){
+                loadNhomQuyen();
+                clickPage(loadNhomQuyen);
+                console.log("AAAAAAAAAAAA")
+            }else{
+                search($(this).val())
+                clickPage(search)
+            }
+        })
         addNhomQuyen();
         deleteNhomQuyen();
         updateNhomQuyen();
         getNhomQuyen();
-        // searchNhomQuyen();
         detailNhomQuyen();
     }
     loadNhomQuyenDataAccount()
@@ -45,6 +54,18 @@ function loadNhomQuyen() {
         success: function (data) {
             render(data);
         }
+    })
+}
+function search(search){
+    var pageno = $("#currentpage").val();
+    $.ajax({
+            url:'server/src/controller/SearchController.php',
+            method: 'GET',
+            data: { action: 'search', search, table: 'nhomquyen', pageno },
+            dataType: 'JSON',        
+            success: function (data) {
+                 render(data);
+            }
     })
 }
 function searchNhomQuyen() {
