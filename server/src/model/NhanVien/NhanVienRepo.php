@@ -46,11 +46,15 @@ class NhanVienRepo extends ConnectDB {
     }
 
     public function deleteEmployee($manv) {
-        $query="UPDATE nhanvien SET trang_thai=0 WHERE ma_nv='$manv'";
-        $result=mysqli_query($this->conn,$query);
-        if($result){
-            return true;
-        }else{
+        try {
+            $query="UPDATE nhanvien SET trang_thai=1 WHERE ma_nv='$manv'";
+            $result=mysqli_query($this->conn,$query);
+            if (!$result) {
+                throw new Exception("Error: " . mysqli_error($this->conn));
+            }
+            return $result;
+        } catch (Exception $e) {
+            echo 'Error: ' . $e->getMessage() . '<br>';
             return false;
         }
     }
@@ -67,6 +71,26 @@ class NhanVienRepo extends ConnectDB {
         $query="UPDATE nhanvien SET ten_nv='$tennv',tuoi=$tuoi,so_dien_thoai='$sodienthoai' WHERE ma_nv='$manv'";
         $result=mysqli_query($this->conn,$query);
         if($result){
+            return true;
+        }
+        return false;
+    }
+
+    public function deleteMulEmployee($arrNhanVien){
+        foreach($arrNhanVien as $key){
+            $query="UPDATE nhanvien SET trang_thai=1 WHERE ma_nv='$key[manhanvien]'";
+            $result=mysqli_query($this->conn,$query);
+            if(!$result){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public function checkPhoneEmployee($sodienthoai){
+        $query="SELECT * FROM nhanvien WHERE so_dien_thoai='$sodienthoai'";
+        $result=mysqli_query($this->conn,$query);
+        if(mysqli_num_rows($result) > 0){
             return true;
         }
         return false;
