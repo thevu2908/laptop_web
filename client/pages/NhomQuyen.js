@@ -4,16 +4,17 @@ $(document).ready(function () {
     if (window.location.pathname === '/admin.php' && urlParams.get('controller') === 'nhomquyen') {
         loadNhomQuyen();
         clickPage(loadNhomQuyen);
-        $(document).on("keyup","#search",function(){
-            if($("#search").val()==='' || $("#search").val()===null){
-                loadNhomQuyen();
-                clickPage(loadNhomQuyen);
-                console.log("AAAAAAAAAAAA")
-            }else{
-                search($(this).val())
-                //clickPage(search)
-            }
-        })
+        searchNhomQuyen()
+        // $(document).on("keyup","#search",function(){
+        //     if($("#search").val()==='' || $("#search").val()===null){
+        //         loadNhomQuyen();
+        //         clickPage(loadNhomQuyen);
+        //         console.log("AAAAAAAAAAAA")
+        //     }else{
+        //         search($(this).val())
+        //         //clickPage(search)
+        //     }
+        // })
         addNhomQuyen();
         deleteNhomQuyen();
         updateNhomQuyen();
@@ -68,21 +69,21 @@ function search(search){
             }
     })
 }
-function searchNhomQuyen() {
-    $(document).on("keyup", "#search", function () {
-        var search = $(this).val();
-        $.ajax({
-            url: "server/src/controller/NhomQuyenController.php",
-            method: "POST",
-            data: { action: "Search", search: search },
-            success: function (data) {
-                if (data) {
-                    render(data);
-                }
-            }
-        })
-    })
-}
+// function searchNhomQuyen() {
+//     $(document).on("keyup", "#search", function () {
+//         var search = $(this).val();
+//         $.ajax({
+//             url: "server/src/controller/NhomQuyenController.php",
+//             method: "POST",
+//             data: { action: "Search", search: search },
+//             success: function (data) {
+//                 if (data) {
+//                     render(data);
+//                 }
+//             }
+//         })
+//     })
+// }
 function render(data) {
     var html = "";
     if (true) {
@@ -218,6 +219,19 @@ function detailNhomQuyen() {
                 $("#detail_tenquyen").val(data.ten_quyen);
 
             }
+        })
+    })
+}
+function searchNhomQuyen() {
+    $(document).on('keyup', '.admin-search-info', e => {
+        const search = e.target.value.toLowerCase()
+        $.ajax({
+            url: 'server/src/controller/SearchController.php',
+            method: 'GET',
+            data: { action: 'search', table: 'nhomquyen', search },
+            dataType: 'JSON',
+            success: data => render(data),
+            error: (xhr, status, error) => console.log(error)
         })
     })
 }

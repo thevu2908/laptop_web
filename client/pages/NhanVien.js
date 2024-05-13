@@ -81,7 +81,6 @@ async function renderEmployeeData() {
         $('.admin-employee-list').html(html)
     }
 }
-
 function showEmployee() {
     $(document).on('click', "#showEmployee", function () {
         var manv = $(this).attr("data-id");
@@ -286,3 +285,16 @@ function deleteMulEmployee() {
         })
     })
 }
+// function searchEmployee() {
+//     $(document).on('keyup', '.admin-search-info', e => {
+//         const search = e.target.value.toLowerCase()
+//         $.ajax({
+//             url: 'server/src/controller/SearchController.php',
+//             method: 'GET',
+//             data: { action: 'search', table: 'nhanvien', search },
+//             dataType: 'JSON',
+//             success: accounts => renderAccountData(accounts),
+//             error: (xhr, status, error) => console.log(error)
+//         })
+//     })
+// }

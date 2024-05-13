@@ -4,6 +4,7 @@ $(document).ready(function () {
         loadDoiTra()
         clickPage(loadDoiTra)
         addDoiTra()
+        searchDoiTra()
     }
     TraCuu()
     //$('#myModal').modal({backdrop: 'static', keyboard: false})
@@ -64,7 +65,12 @@ function loadDoiTra() {
         method: "GET",
         dataType: "json",
         success: function (data) {
-            var jsondata = data.pagination;
+            render(data)
+        }
+    })
+}
+function render(data){
+    var jsondata = data.pagination;
             var html = "";
             jsondata.forEach((phieudoitra, index) => {
                 html += `<tr>
@@ -92,8 +98,6 @@ function loadDoiTra() {
             phanquyen_chucnang("Đổi Trả");
             totalPage(data.count);
             displayTotalPage("#admin-refund-main .hint-text", data.count, jsondata.length)
-        }
-    })
 }
 function showDetail(phieudoitra) {
     var mapdt = phieudoitra.dataset.row;
@@ -287,4 +291,17 @@ function clearModal() {
     $("#admin-showDoiTra").html("");
     $("#admin-showChitiethoadon").html("");
     $("#admin-select-mahoadon").prop("selectedIndex", 0);
+}
+function searchDoiTra() {
+    $(document).on('keyup', '.admin-search-info', e => {
+        const search = e.target.value.toLowerCase()
+        $.ajax({
+            url: 'server/src/controller/SearchController.php',
+            method: 'GET',
+            data: { action: 'search', table: 'phieudoitra', search },
+            dataType: 'JSON',
+            success: data => render(data),
+            error: (xhr, status, error) => console.log(error)
+        })
+    })
 }

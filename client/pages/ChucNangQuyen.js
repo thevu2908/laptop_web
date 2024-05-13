@@ -1,17 +1,18 @@
 $(document).ready(function() {
     loadChucNangQuyen();
     clickPage(loadChucNangQuyen)
-    $(document).on("keyup","#search",function(){
-        var search = $(this).val();
-        console.log(search+"AAAA");
-        if(checkSpace(search)){
-            loadChucNangQuyen();
-            clickPage(loadChucNangQuyen)
-        }else{
-            searchChucNangQuyen(search)
-            clickPage(searchChucNangQuyen)
-        }
-    })
+    // $(document).on("keyup","#search",function(){
+    //     var search = $(this).val();
+    //     console.log(search+"AAAA");
+    //     if(checkSpace(search)){
+    //         loadChucNangQuyen();
+    //         clickPage(loadChucNangQuyen)
+    //     }else{
+    //         searchChucNangQuyen(search)
+    //         clickPage(searchChucNangQuyen)
+    //     }
+    // })
+    searchChucNang()
     addChucNang()
     getChucNangQuyen()
     editChucNang()
@@ -124,6 +125,19 @@ function getChucNangQuyen(){
                $("#admin-edit-machucnang").val(data.ma_chuc_nang)
                $("#admin-edit-tenchucnang").val(data.ten_chuc_nang)
             }
+        })
+    })
+}
+function searchChucNang() {
+    $(document).on('keyup', '.admin-search-info', e => {
+        const search = e.target.value.toLowerCase()
+        $.ajax({
+            url: 'server/src/controller/SearchController.php',
+            method: 'GET',
+            data: { action: 'search', table: 'chucnangquyen', search },
+            dataType: 'JSON',
+            success: data => renderChucNangQuyen(data),
+            error: (xhr, status, error) => console.log(error)
         })
     })
 }
