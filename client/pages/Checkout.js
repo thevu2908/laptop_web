@@ -307,8 +307,8 @@ async function handleRandomCTSP(maHD) {
         }
         
         const res = await addCTHD(cthd)
-        console.log("res = " + res)
-        return res === 'success';
+        console.log(res)
+        return res === 'true';
     })
 
     const results = await Promise.all(promises);
@@ -382,20 +382,26 @@ async function sendPayment() {
         'status': status
     }
 
-    const resAddBill = await addBill(bill)
+    try {
+        const resAddBill = await addBill(bill)
 
-    if (resAddBill.startsWith('HD')) {
-        if (handleRandomCTSP(resAddBill)) {
-            alert('Đơn hàng đã được gửi đi, vui lòng chờ nhân viên xác nhận')
-            clearCart(maKH)
-            window.location.href = 'index.php?thong-tin-tai-khoan&don-hang';
-        } 
-        else {
-            alert('Đã xảy ra lỗi khi thanh toán, vui lòng thử lại')
+        if (resAddBill.startsWith('HD')) {
+            const addCTHD = await handleRandomCTSP(resAddBill)
+            
+            if (addCTHD) {
+                alert('Đơn hàng đã được gửi đi, vui lòng chờ nhân viên xác nhận')
+                clearCart(maKH)
+                window.location.href = 'index.php?thong-tin-tai-khoan&don-hang';
+            } else {
+                console.log(addCTHD)
+                alert('Đã xảy ra lỗi khi thanh toán, vui lòng thử lại')
+            }
+        } else {
+            alert('Đã xảy ra lỗi, vui lòng thử lại')
         }
-    } else {
-        console.log(resAddBill)
-        alert('Đã xảy ra lỗi, vui lòng thử lại')
+    } catch (error) {
+        console.log(error)
+        alert('Đã xảy ra lỗi khi thanh toán, vui lòng thử lại sau')
     }
 }
 

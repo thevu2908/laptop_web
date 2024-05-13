@@ -69,7 +69,7 @@
 						</div>
 					</div>
 					<div class="modal-footer">
-						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+						<input type="button" class="btn btn-default" data-dismiss="modal" value="Hủy">
 						<input type="button" class="btn btn-success" value="Thêm" id="addNhomQuyen">
 					</div>
 				</form>
@@ -98,8 +98,8 @@
 						</div>
 					</div>
 					<div class="modal-footer">
-						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-						<input type="button" class="btn btn-info" id="btnUpdate" value="Update">
+						<input type="button" class="btn btn-default" data-dismiss="modal" value="Hủy">
+						<input type="button" class="btn btn-info" id="btnUpdate" value="Lưu">
 					</div>
 				</form>
 			</div>
@@ -111,16 +111,16 @@
 			<div class="modal-content">
 				<form>
 					<div class="modal-header">
-						<h4 class="modal-title">Delete Employee</h4>
+						<h4 class="modal-title">Xóa Nhóm Quyền</h4>
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 					</div>
 					<div class="modal-body">
-						<p>Are you sure you want to delete these Records?</p>
-						<p class="text-warning"><small>This action cannot be undone.</small></p>
+						<có>Bạn có muốn xóa nhóm quyền này không ?</p>
+						<p class="text-warning"><small>Hành động này sẽ không thể hoàn tác</small></p>
 					</div>
 					<div class="modal-footer">
-						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-						<input type="button" class="btn btn-danger" value="Delete" id="btnDelete">
+						<input type="button" class="btn btn-default" data-dismiss="modal" value="Hủy">
+						<input type="button" class="btn btn-danger" value="Xóa" id="btnDelete">
 					</div>
 				</form>
 			</div>
@@ -148,10 +148,6 @@
 							<input type="text" class="form-control" name="" id="detail_tenquyen" required
 								readonly="false">
 						</div>
-					</div>
-					<div class="modal-footer">
-						<input type="button" class="btn btn-danger" data-dismiss="modal" value="Cancel">
-						<!-- <input type="button" class="btn btn-info" id="btnUpdate" value="Update"> -->
 					</div>
 				</form>
 			</div>

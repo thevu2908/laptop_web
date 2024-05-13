@@ -21,4 +21,8 @@ class ImeiController {
         $imei = new Imei($imeiId, $productDetailId, 0);
         return $this->imeiRepo->addImei($imei);
     }
+
+    public function deleteImei($imeiId) : bool {
+        return $this->imeiRepo->deleteImei($imeiId);
+    }
 }

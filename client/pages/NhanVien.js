@@ -249,24 +249,28 @@ function removeList(checkbox) {
 function deleteEmployee() {
     $(document).on("click", "#showId-nhanvien", function () {
         var id = $(this).attr("data-id2");
-        console.log(id)
-        $(document).on("click", "#admin-btn-deleteNhanvien", function () {
-            $.ajax({
-                url: "server/src/controller/NhanVienController.php",
-                method: "POST",
-                data: { action: "delete", manv: id },
-                dataType: "JSON",
-                success: function (data) {
-                    console.log(data)
-                    $("form").trigger('reset');
-                    $("#deleteEmployeeModal").modal("hide");
-                    renderEmployeeData();
-                }
+
+        if(id==="admin"){
+            alert("Không thể xóa nhân viên admin")
+            $("#deleteEmployeeModal").modal("hide");
+            return
+        }else{
+            $(document).off("click", "#admin-btn-deleteNhanvien").on("click","#admin-btn-deleteNhanvien",function(){
+                $.ajax({
+                    url:"server/src/controller/NhanVienController.php",
+                    method:"POST",
+                    data:{action:"delete",manv:id},
+                    dataType:"JSON",
+                    success:function(data){
+                        $("form").trigger('reset');
+                        $("#deleteEmployeeModal").modal("hide");
+                        renderEmployeeData();
+                    }
+                })
             })
-        })
+        }
     })
 }
-
 function deleteMulEmployee() {
     $(document).on("click", "#admin-btn-deleteNhanvien", function () {
         $.ajax({

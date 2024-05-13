@@ -194,6 +194,34 @@ class ChiTietSanPhamRepo extends ConnectDB {
         }
     }
 
+    public function addOrderUpdateProductQuantity($productDetailId, $quantity) {
+        try {
+            $query = "UPDATE chitietsanpham SET so_luong = so_luong - '$quantity' WHERE ma_ctsp = '$productDetailId';
+                UPDATE sanpham sp SET sp.so_luong_ton = (SELECT SUM(ctsp.so_luong) FROM chitietsanpham ctsp WHERE ctsp.ma_sp = sp.ma_sp GROUP BY sp.ma_sp)
+            ";
+
+            $result = mysqli_multi_query($this->conn, $query);
+            if (!$result) {
+                throw new Exception("Query failed: " . mysqli_error($this->conn));
+            }
+
+            while (mysqli_next_result($this->conn)) {
+                if (!mysqli_more_results($this->conn)) {
+                    break;
+                }
+            }
+
+            if (mysqli_error($this->conn)) {
+                throw new Exception("Result set processing failed: " . mysqli_error($this->conn));
+            }
+
+            return true;
+        } catch (Exception $e) {
+            echo 'Error: ' . $e->getMessage() . '<br>';
+            return false;
+        }
+    }
+
     public function confirmImportUpdateProductDetail($productDetailId, $quantity, $price) {
         try {
             $query = "UPDATE chitietsanpham SET so_luong = so_luong + '$quantity', gia_nhap = '$price', gia_tien = gia_nhap * (100 + chiet_khau) / 100

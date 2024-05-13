@@ -19,7 +19,7 @@ class NhanVienRepo extends ConnectDB {
 
     public function getAvailableEmployees() {
         try {
-            $query = "SELECT * FROM nhanvien WHERE ma_nv NOT IN (SELECT ma_tk FROM taikhoan)";
+            $query = "SELECT * FROM nhanvien WHERE ma_nv NOT IN (SELECT ma_tk FROM taikhoan) AND trang_thai = 0";
             $result = mysqli_query($this->conn, $query);
             if (!$result) {
                 throw new Exception("Error: " . mysqli_error($this->conn));

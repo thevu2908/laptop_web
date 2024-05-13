@@ -1,17 +1,28 @@
 <?php
-include("../model/ConnectDB.php");
-include("../model/ChiTietHoaDon/ChiTietHoaDon.php");
-include("../model/ChiTietHoaDon/ChiTietHoaDonRepo.php");
+
+require_once "../model/ConnectDB.php";
+include "../model/ChiTietHoaDon/ChiTietHoaDon.php";
+include "../model/ChiTietHoaDon/ChiTietHoaDonRepo.php";
+include "../controller/CTSanPhamController.php";
+include "../controller/ImeiController.php";
 
 class CTHDController {
     private $chitietHDRepo;
+    private $ctspController;
+    private $imeiController;
 
     public function __construct() {
         $this->chitietHDRepo = new ChiTietHoaDonRepo();
+        $this->ctspController = new CTSanPhamController();
+        $this->imeiController = new ImeiController();
     }
 
     public function getAllChiTietHoaDon() {
         echo json_encode($this->chitietHDRepo->getAllChiTietHoaDon());
+    }
+
+    public function getOnlyChiTietHoaDon($ma_hd) {
+        return $this->chitietHDRepo->getOnlyChiTietHoaDon($ma_hd);
     }
 
     public function getChiTietHoaDon($ma_hd) {
@@ -28,10 +39,21 @@ class CTHDController {
 
     public function addCTHD($ma_hd, $ma_ctsp, $so_luong, $gia_sp) {
         if ($this->chitietHDRepo->addCTHD($ma_hd, $ma_ctsp, $so_luong, $gia_sp)) {
-            echo 'success';
-        } else {
-            echo 'fail';
+            $cthds = $this->chitietHDRepo->getOnlyChiTietHoaDon($ma_hd);
+            foreach ($cthds as $cthd) {
+                if (!$this->imeiController->deleteImei($cthd['ma_imei'])) {
+                    return $this->imeiController->deleteImei($cthd['ma_imei']);
+                }
+            }
+            $cthdQuantity = $this->chitietHDRepo->getChiTietHoaDon($ma_hd);
+            foreach ($cthdQuantity as $cthd) {
+                if (!$this->ctspController->addOrderUpdateProductQuantity($cthd['ma_ctsp'], $cthd['so_luong'])) {
+                    return $this->ctspController->addOrderUpdateProductQuantity($cthd['ma_ctsp'], $cthd['so_luong']);
+                }
+            }
+            return true;
         }
+        return $this->chitietHDRepo->addCTHD($ma_hd, $ma_ctsp, $so_luong, $gia_sp);
     }
 
     public function getCTHDByAdmin($ma_hd) {
@@ -39,10 +61,9 @@ class CTHDController {
     }
 
     public function ConfirmBill($ma_hd, $ma_nv) {
-        if($this->chitietHDRepo->ConfirmBill($ma_hd, $ma_nv)) {
+        if ($this->chitietHDRepo->ConfirmBill($ma_hd, $ma_nv)) {
             echo 'success';
-        }
-        else {
+        } else {
             echo 'fail';
         }
     }
@@ -73,9 +94,9 @@ switch ($action){
         $orderId = $_POST['orderId'];
         $ctHDctl->getTotalQuantity($orderId);
         break;
-    case 'add':
+    case 'add-cthd':
         $obj = json_decode(json_encode($_POST['cthd']));
-        $ctHDctl->addCTHD($obj->{'maHD'}, $obj->{'maCTSP'}, $obj->{'soLuong'}, $obj->{'giaSP'});
+        echo json_encode($ctHDctl->addCTHD($obj->{'maHD'}, $obj->{'maCTSP'}, $obj->{'soLuong'}, $obj->{'giaSP'}));
     default:
         break;
 }

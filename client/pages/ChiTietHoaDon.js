@@ -23,7 +23,7 @@ function addCTHD(cthd) {
         $.ajax({
             url: 'server/src/controller/CTHDController.php',
             method: 'POST',
-            data: { action: 'add', cthd },
+            data: { action: 'add-cthd', cthd },
             success: res => resolve(res),
             error: (xhr, status, error) => {
                 console.log(error)
@@ -47,12 +47,6 @@ async function renderAdminBill(data) {
                 console.log(bill)
                 html += `
                     <tr>
-                        <td>
-                            <span class="custom-checkbox">
-                                <input type="checkbox" id="checkbox-${bill.ma_ctsp}" name="chk[]" value="${bill.ma_ctsp}">
-                                <label for="checkbox-${bill.ma_ctsp}"></label>
-                            </span>
-                        </td>
                         <td>${bill.ma_ctsp}</td>
                         <td>${bill.ma_imei}</td>
                         <td><img style="width: 60px;" src="${bill.hinh_anh}"></td>

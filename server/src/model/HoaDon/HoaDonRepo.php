@@ -3,7 +3,7 @@
 class HoaDonRepo extends ConnectDB {
     public function getAllHoaDon() {
         try {
-            $sql = "SELECT * FROM hoadon";
+            $sql = "SELECT * FROM hoadon ORDER BY ngay_tao DESC";
             $result = mysqli_query($this->conn, $sql);
             $arrHoaDon = array();
             while($row = mysqli_fetch_assoc($result)) {

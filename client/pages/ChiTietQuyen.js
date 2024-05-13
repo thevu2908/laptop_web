@@ -80,6 +80,7 @@ function renderPhanQuyen(data){
     })
 
     totalPage(data.count);
+    displayTotalPage("#admin-access-main .hint-text", data.count, jsonData.length)
 }
 function selectNhomQuyen(){
     $.ajax({

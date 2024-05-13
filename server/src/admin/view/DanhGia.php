@@ -40,23 +40,18 @@
 							</th>
 							<th style="cursor: pointer;" onclick="sortTable('#admin-review-main table.table', 1)" >
 								Mã sản phẩm
-								<i class="fa fa-sort" aria-hidden="true"></i>
 							</th>
 							<th style="cursor: pointer;" onclick="sortTable('#admin-review-main table.table', 2)" >
 								Khách Hàng
-								<i class="fa fa-sort" aria-hidden="true"></i>
 							</th>
 							<th style="cursor: pointer;" onclick="sortTable('#admin-review-main table.table', 3)" >
 								Rating
-								<i class="fa fa-sort" aria-hidden="true"></i>
 							</th>
 							<th style="cursor: pointer;" onclick="sortTable('#admin-review-main table.table', 4)" >
 								Ngày đánh giá
-								<i class="fa fa-sort" aria-hidden="true"></i>
 							</th>
 							<th style="cursor: pointer;" onclick="sortTable('#admin-review-main table.table', 5)" >
 								Nội dung
-								<i class="fa fa-sort" aria-hidden="true"></i>
 							</th>
 							<th class="w-auto" >Actions</th>
 						</tr>
