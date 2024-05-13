@@ -23,7 +23,7 @@
                                     </button>
                                 </div>
                             </form>
-							<a href="#deleteReviewModal" class="btn btn-danger btn-delete-checked-review-modal" data-toggle="modal">
+							<a href="#deleteReviewModal" class="btn btn-danger btn-delete-checked-review-modal delete" data-toggle="modal">
 								<i class="material-icons">&#xE15C;</i> <span>Xóa</span>
 							</a>
 						</div>
@@ -38,19 +38,19 @@
 									<label for="selectAll"></label>
 								</span>
 							</th>
-							<th style="cursor: pointer;" onclick="sortTable('#admin-review-main table.table', 0)" >
+							<th style="cursor: pointer;" onclick="sortTable('#admin-review-main table.table', 1)" >
 								Mã sản phẩm
 							</th>
-							<th style="cursor: pointer;" onclick="sortTable('#admin-review-main table.table', 1)" >
+							<th style="cursor: pointer;" onclick="sortTable('#admin-review-main table.table', 2)" >
 								Khách Hàng
 							</th>
-							<th style="cursor: pointer;" onclick="sortTable('#admin-review-main table.table', 2)" >
+							<th style="cursor: pointer;" onclick="sortTable('#admin-review-main table.table', 3)" >
 								Rating
 							</th>
-							<th style="cursor: pointer;" onclick="sortTable('#admin-review-main table.table', 3)" >
+							<th style="cursor: pointer;" onclick="sortTable('#admin-review-main table.table', 4)" >
 								Ngày đánh giá
 							</th>
-							<th style="cursor: pointer;" onclick="sortTable('#admin-review-main table.table', 4)" >
+							<th style="cursor: pointer;" onclick="sortTable('#admin-review-main table.table', 5)" >
 								Nội dung
 							</th>
 							<th class="w-auto" >Actions</th>

@@ -130,7 +130,7 @@ async function renderReviewAdmin(productId) {
                     <td>${review.noi_dung}</td>
                     <td>
                         <a href="#deleteReviewModal" class="delete btn-delete-review-modal" 
-                        data-toggle="modal" masp="${review.ma_sp}" makh="${review.ma_kh}" thoigian="${review.thoi_gian_danh_gia}">
+                            data-toggle="modal" masp="${review.ma_sp}" makh="${review.ma_kh}" thoigian="${review.thoi_gian_danh_gia}">
                             <i class="material-icons" data-toggle="tooltip" title="Xóa">&#xE872;</i>
                         </a>
                     </td>
@@ -209,7 +209,17 @@ function addReview(review) {
 async function handleAddReview() {
     $(document).off('click', '#btn-add-review').on('click', '#btn-add-review', async (e) => {
         var currentDate = new Date();
-        var formattedDate = currentDate.toISOString();
+        // var formattedDate = currentDate.toISOString();
+        var currentDate = new Date();
+        var year = currentDate.getFullYear();
+        var month = String(currentDate.getMonth() + 1).padStart(2, '0');
+        var day = String(currentDate.getDate()).padStart(2, '0');
+        var hours = String(currentDate.getHours()).padStart(2, '0');
+        var minutes = String(currentDate.getMinutes()).padStart(2, '0');
+        var seconds = String(currentDate.getSeconds()).padStart(2, '0');
+
+        var formattedDate = year + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds;
+        console.log(formattedDate)
         let productId = $('.btn-add-cart').attr('data-id');
         let customerId = await getMaKH()
 
