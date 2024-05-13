@@ -43,4 +43,59 @@
 			</div>
 		</div>
 	</div>
+
+	<div id="viewTTNHModal" class="modal fade product-config-modal" data-backdrop="static" aria-hidden="true">
+		<div class="modal-dialog modal-lg modal-dialog-scrollable">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title product-config-detail-name">Thông tin nhận hàng <b class="ttnh-id"></b></h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body px-0">
+					<form class="view-TTNH-form">
+						<div class="modal-row">
+							<h5 class="modal-row-title">Thông tin người đặt</h5>
+							<table class="modal-row-table">
+								<tbody>
+									<tr>
+										<td>Họ tên:</td>
+										<td class="sender-name"></td>
+									</tr>
+									<tr>
+										<td>Số điện thoại:</td>
+										<td class="sender-phone"></td>
+									</tr>
+									<tr>
+										<td>Email:</td>
+										<td class="sender-email"></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div class="modal-row">
+							<h5 class="modal-row-title">Thông tin người nhận</h5>
+							<table class="modal-row-table">
+								<tbody>
+									<tr>
+										<td>Họ tên:</td>
+										<td class="recipient-name"></td>
+									</tr>
+									<tr>
+										<td>Số điện thoại:</td>
+										<td class="recipient-phone"></td>
+									</tr>
+									<tr>
+										<td>Địa chỉ giao:</td>
+										<td class="recipient-address"></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
 </main>

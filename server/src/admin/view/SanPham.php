@@ -8,13 +8,13 @@
 							<h2>Quản Lý <b>Sản Phẩm</b></h2>
 						</div>
 						<div class="col-sm-6">
-							<form>
+							<div>
 								<input type="file" id="import-excel-file" accept=".xlsx,.xls" hidden>
 								<a href="#" class="btn btn-primary btn-import-excel">
 									<i class="fa-solid fa-file-import"></i>
 									<span>Import Excel</span>
 								</a>
-							</form>
+							</div>
 							<div>
 								<a href="#" class="btn btn-primary btn-export-excel">
 									<i class="fa-solid fa-file-export"></i>

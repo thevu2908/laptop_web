@@ -7,12 +7,6 @@ $(document).ready(function() {
     }
     TraCuu()
     kiemtrathoigianbaohanh()
-    // loadBaoHanh()
-    // clickPage(loadBaoHanh)
-    // addBaoHanh()
-    // TraCuu()
-    // kiemtrathoigianbaohanh()
-    //$('#addBaoHanh').modal({backdrop: 'static', keyboard: false})
 })
 var listitemBaoHanh=[];
 function addBaoHanh(){
@@ -209,6 +203,7 @@ function loadBaoHanh(){
             getSizeinTable("phieubaohanh","BH","#admin-mabaohanh");
             phanquyen_chucnang("Bảo Hành");
             totalPage(data.count);
+            displayTotalPage('#admin-guarantee-main .hint-text', data.count, jsondata.length);
         }
     })
 }

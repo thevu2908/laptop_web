@@ -11,7 +11,7 @@ $(document).ready(function () {
                 console.log("AAAAAAAAAAAA")
             }else{
                 search($(this).val())
-                clickPage(search)
+                //clickPage(search)
             }
         })
         addNhomQuyen();
@@ -111,6 +111,7 @@ function render(data) {
     getSizeinTable("nhomquyen","NQ","#ma_quyen")
     phanquyen_chucnang("Nhóm Quyền");
     totalPage(data.count);
+    displayTotalPage("#admin-access-main .hint-text", data.count, jsonData.length)
 }
 
 function loadNhomQuyenDataAccount() {
@@ -119,7 +120,6 @@ function loadNhomQuyenDataAccount() {
         method: "POST",
         data: { action: 'Load' },
         success: data => {
-            console.log(data)
             if (data && data.length > 0) {
                 let html = '';
                 const jsonData = JSON.parse(data);
@@ -221,21 +221,3 @@ function detailNhomQuyen() {
         })
     })
 }
-
-// function detailNhomQuyen() {
-//     $(document).on("click","#btnDetail",function(){
-//         var id=$(this).attr("data-id2");
-//         console.log(id);
-//         $.ajax({
-//             url:"server/src/controller/NhomQuyenController.php",
-//             method:"POST",
-//             data:{action:"Get",id:id},
-//             dataType:"JSON",
-//             success:function(data){
-//                 $("#detail_maquyen").val(data.ma_quyen);
-//                 $("#detail_tenquyen").val(data.ten_quyen);
-                
-//             }
-//         })
-//     })
-// }

@@ -76,8 +76,8 @@ class HoaDonController {
             echo 'fail';
         }
     }
-    public function getOrderByMonth($month) {
-        $orders = $this->hoadonRepo->getOrderByMonth($month);
+    public function getOrderByMonth($month, $brandId) {
+        $orders = $this->hoadonRepo->getOrderByMonth($month, $brandId);
         $revenue = 0;
         foreach ($orders as $order) {
             $revenue += $order['thanh_tien'];
@@ -165,7 +165,8 @@ switch ($action) {
         break;
     case 'get-by-month':
         $month = $_POST['month'];
-        $hoadonctl->getOrderByMonth($month);
+        $brandId = $_POST['brandId'];
+        $hoadonctl->getOrderByMonth($month, $brandId);
         break;
     case 'get-best-seller':
         $amount = isset($_POST['amount']) ? $_POST['amount'] : 5;
@@ -201,19 +202,15 @@ switch ($action) {
                 $obj->{'status'},
                 0
             );
-
             $hoadonctl->addHoaDon($hoadon);
         }
         break;
-
     case 'delete':
         $id = $_POST['billId'];
         $hoadonctl->deleteHoaDon($id);
-
     case 'search-status':
         $status = $_GET['status'];
         $hoadonctl->getAllHoaDonByStatus($status);
-
     default:
         break;
 }

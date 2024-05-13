@@ -14,6 +14,7 @@ $(document).ready(() => {
     handleFilterDateStatistic()
     createRevenueBarChart()
     createOrderLineChart()
+    handleFilterChart()
 })
 
 function getOrderInDate(brandId, startDate, endDate) {
@@ -42,14 +43,27 @@ function getPaginationOrderInDate(brandId, page, startDate, endDate) {
     })
 }
 
-function getOrderByMonth(month) {
+function getOrderByMonth(month, brandId) {
     return new Promise((resolve, reject) => {
         $.ajax({
             url: 'server/src/controller/HoaDonController.php',
             method: 'POST',
-            data: { action: 'get-by-month', month },
+            data: { action: 'get-by-month', month, brandId },
             dataType: 'JSON',
             success: orders => resolve(orders),
+            error: error => reject(error)
+        })
+    })
+}
+
+function getImportInvoiceByMonth(month, brandId) {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: 'server/src/controller/PhieuNhap1Controller.php',
+            method: 'POST',
+            data: { action: 'get-import-month', month, brandId },
+            dataType: 'JSON',
+            success: invoices => resolve(invoices),
             error: error => reject(error)
         })
     })
@@ -358,23 +372,33 @@ function handleFilterDateStatistic() {
     })
 }
 
+let revenueChart
 async function createRevenueBarChart() {
     try {
-        const chart = document.querySelector('#revenue-chart')
-        let revenueData = []
-        for (let i = 1; i <= 12; i++) {
-            const orders = await getOrderByMonth(i)
-            revenueData.push(orders.revenue / 1000000)
+        if (revenueChart) {
+            revenueChart.destroy()
         }
 
-        new Chart(chart, {
+        const ctx = document.querySelector('#revenue-chart').getContext('2d')
+        const brandId = $('#brand-filter__revenue-chart').val()
+        let revenueData = []
+        let importData = []
+
+        for (let i = 1; i <= 12; i++) {
+            const orders = await getOrderByMonth(i, brandId)
+            const importInvoices = await getImportInvoiceByMonth(i, brandId)
+            revenueData.push(orders.revenue / 1000000)
+            importData.push(importInvoices.total / 1000000)
+        }
+
+        revenueChart = new Chart(ctx, {
             type: 'bar',
             data: {
                 labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'],
                 datasets: [
                     {
                         label: 'Nhập hàng (triệu đồng)',
-                        data: [],
+                        data: importData,
                         borderWidth: 1,
                         borderColor: '#FFB1C1',
                         backgroundColor: '#FFB1C1'
@@ -403,16 +427,23 @@ async function createRevenueBarChart() {
     }
 }
 
+let orderChart
 async function createOrderLineChart() {
     try {
-        const chart = document.querySelector('#order-chart')
+        if (orderChart) {
+            orderChart.destroy()
+        }
+
+        const ctx = document.querySelector('#order-chart').getContext('2d')
+        const brandId = $('#brand-filter__order-chart').val()
         let orderData = []
+
         for (let i = 1; i <= 12; i++) {
-            const orders = await getOrderByMonth(i)
+            const orders = await getOrderByMonth(i, brandId)
             orderData.push(orders.orders.length)
         }
 
-        new Chart(chart, {
+        orderChart = new Chart(ctx, {
             type: 'line',
             data: {
                 labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'],
@@ -439,4 +470,13 @@ async function createOrderLineChart() {
         console.log(error)
         alert('Có lỗi trong lúc tạo biểu đồ thống kê hóa đơn, vui lòng thử lại sau')
     }
+}
+
+function handleFilterChart() {
+    $('#brand-filter__revenue-chart').on('change', function() {
+        createRevenueBarChart()
+    })
+    $('#brand-filter__order-chart').on('change', function() {
+        createOrderLineChart()
+    })
 }

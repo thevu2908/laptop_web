@@ -1,5 +1,4 @@
 function getSizeinTable(table,ma,id){
-    console.log(id);
     $(id).val("");
     $.ajax({
         url:"server/src/controller/GetIdTableController.php",

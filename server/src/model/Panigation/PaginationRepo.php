@@ -41,6 +41,13 @@ class PaginationRepo extends ConnectDB {
                     WHERE trang_thai = '0' AND ma_sp LIKE '%{$id}%'
                     ORDER BY 1 ASC LIMIT {$start},{$limit}
                 ";
+            } else if ($table == "phieunhap") {
+                $query = "
+                    SELECT *
+                    FROM phieunhap
+                    WHERE trang_thai = '0' AND tinh_trang LIKE '%{$id}%'
+                    ORDER BY 1 ASC LIMIT {$start},{$limit}
+                ";
             } else {
                 $query = "SELECT * from $table WHERE trang_thai = '0' ORDER BY 1 ASC LIMIT {$start},{$limit}";
             }
@@ -71,6 +78,8 @@ class PaginationRepo extends ConnectDB {
                 $query = "SELECT count(*) as num FROM hoadon WHERE tinh_trang LIKE '%$id%' AND trang_thai = '0'";
             } else if ($table == "danhgia") {
                 $query = "SELECT count(*) as num FROM danhgia WHERE ma_sp LIKE '%$id%' AND trang_thai = '0'";
+            } else if ($table == "phieunhap") {
+                $query = "SELECT count(*) as num FROM phieunhap WHERE tinh_trang LIKE '%$id%' AND trang_thai = '0'";
             } else {
                 $query = "SELECT count(*) as num FROM $table WHERE trang_thai = '0'";
             }

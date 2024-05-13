@@ -3,6 +3,7 @@ $(document).ready(() => {
     if (window.location.pathname === '/admin.php' && urlParams.get('controller') === 'taikhoan') {
         renderAccountData()
         clickPage(renderAccountData)
+        handleRenderAvailableEmployees()
         handleAddAccount()
         showUpdateAccountModal()
         handleUpdateAccount()
@@ -11,7 +12,6 @@ $(document).ready(() => {
         showDeleteCheckedAccountModal()
         showViewAccountModal()
         searchAccount()
-       
     }
 })
 
@@ -90,6 +90,23 @@ async function renderAccountData(data) {
     }
 }
 
+async function renderAvailableEmployees() {
+    try {
+        const employees = await getAvailableEmployees()
+        console.log(employees)
+        $('#admin-account-employee-choose').html(`
+            ${employees.map(employee => `<option value="${employee.ma_nv}">${employee.ma_nv} - ${employee.ten_nv}</option>`).join('')}
+        `)
+    } catch (error) {
+        console.log(error)
+        alert('Xảy ra lỗi trong khi lấy dữ liệu nhân viên chưa được tạo tài khoản. Vui lòng thử lại sau')
+    }
+}
+
+function handleRenderAvailableEmployees() {
+    $(document).on('click', '.btn-open-add-account-modal', renderAvailableEmployees)
+}
+
 function getAllAccounts() {
     return new Promise((resolve, reject) => {
         $.ajax({
@@ -129,7 +146,6 @@ function addAccount(accountId, accessId, username, password) {
             }
         })
     })
-
 }
 
 function handleAddAccount() {
@@ -144,6 +160,10 @@ function handleAddAccount() {
         }
         if (!password) {
             alert('Vui lòng nhập mật khẩu')
+            return
+        }
+        if(checkSpace(password)){
+            alert('Vui lòng nhập mật hợp lệ')
             return
         }
         if (!accessId) {
@@ -223,7 +243,6 @@ function updateAccount(accountId, accessId, username, password) {
             }
         })
     })
-
 }
 
 function handleUpdateAccount() {
@@ -301,7 +320,6 @@ function deleteAccount(accountId) {
             }
         })
     })
-
 }
 
 function handleDeleteAccount() {

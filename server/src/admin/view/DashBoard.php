@@ -78,7 +78,7 @@
         <h3>Sản phẩm bán chạy</h3>
         <span class="view-quantity">
           Hiển thị
-          <input type="number" class="view-product-quantity" title="Số sản phẩm hiển thị" value="5">
+          <input type="number" class="view-product-quantity" title="Số sản phẩm hiển thị" value="5" min="1" >
           sản phẩm
         </span>
       </div>
@@ -93,6 +93,17 @@
     <div class="order">
       <div class="head">
         <h3>Hóa đơn</h3>
+        <div class="statistic-filter">
+          <form>
+            <div class="d-flex align-items-center">
+              <div>
+                <select id="brand-filter__order-chart" class="brand-filter__list" style="margin-left: 4px; padding: 4px 6px;">
+
+                </select>
+              </div>
+            </div>
+          </form>
+        </div>
       </div>
       <div class="order-chart__container">
         <div class="order-chart__box">
@@ -108,8 +119,7 @@
           <form>
             <div class="d-flex align-items-center">
               <div>
-                <!-- <label for="brand-filter__chart">Thương hiệu:</label> -->
-                <select id="brand-filter__chart" class="brand-filter__list" style="margin-left: 4px; padding: 4px 6px;">
+                <select id="brand-filter__revenue-chart" class="brand-filter__list" style="margin-left: 4px; padding: 4px 6px;">
 
                 </select>
               </div>

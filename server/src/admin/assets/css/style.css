@@ -85,7 +85,7 @@ body.dark {
 }
 
 .line {
-  border-bottom: 1px solid rgba(0, 0, 0, .09);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.09);
 }
 
 .btn-ssm {
@@ -499,7 +499,7 @@ img {
 
 .content main .box-info li:nth-child(4) i {
   color: #7065f0;
-  background-color: rgba(112, 101, 240, .2);
+  background-color: rgba(112, 101, 240, 0.2);
 }
 
 .content main .box-info li .text h3 {
@@ -508,13 +508,13 @@ img {
   font-size: 20px;
   font-weight: 600;
   color: var(--dark);
-  font-family: 'Inter', 'sans-serif';
+  font-family: "Inter", "sans-serif";
 }
 
 .content main .box-info li .text p {
   color: var(--dark);
   margin-bottom: 0;
-  font-family: 'Inter', 'sans-serif';
+  font-family: "Inter", "sans-serif";
 }
 
 .content main .table-data {
@@ -1235,8 +1235,8 @@ table.table .avatar {
 }
 #tableChiTietDoiTra th,
 #tableChiTietDoiTra td {
-    width: auto;
-} 
+  width: auto;
+}
 
 /* Hóa Đơn */
 table.table-bill.table tr th {
@@ -1378,7 +1378,7 @@ table.table-bill.table tr th {
 }
 
 #order-detail-modal {
-  font-family: 'Inter', 'sans-serif';
+  font-family: "Inter", "sans-serif";
 }
 
 #order-detail-modal .modal-body {
@@ -1387,7 +1387,7 @@ table.table-bill.table tr th {
 
 .order-detail_address h3,
 .order-detail__products h3 {
-  color: rgba(0, 0, 0, .8);
+  color: rgba(0, 0, 0, 0.8);
   font-size: 20px;
   line-height: 24px;
   text-transform: capitalize;
@@ -1435,12 +1435,12 @@ table.table-bill.table tr th {
   align-items: center;
   flex-wrap: nowrap;
   word-wrap: break-word;
-  color: rgba(0, 0, 0, .87);
+  color: rgba(0, 0, 0, 0.87);
   padding: 12px 0 0;
 }
 
 .order-detail__product-item:hover {
-  color: rgba(0, 0, 0, .87);
+  color: rgba(0, 0, 0, 0.87);
 }
 
 .order-detail__product-info {
@@ -1487,7 +1487,7 @@ table.table-bill.table tr th {
 
 .order-detail__product-color {
   margin: 0 0 5px;
-  color: rgba(0, 0, 0, .54);
+  color: rgba(0, 0, 0, 0.54);
 }
 
 .order-detail__product-quantity {
@@ -1510,7 +1510,7 @@ table.table-bill.table tr th {
   padding: 0;
 }
 
-#order-detail-modal .modal-footer>* {
+#order-detail-modal .modal-footer > * {
   margin: 0;
 }
 
@@ -1523,13 +1523,13 @@ table.table-bill.table tr th {
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  border-bottom: 1px dotted rgba(0, 0, 0, .09);
+  border-bottom: 1px dotted rgba(0, 0, 0, 0.09);
   padding: 0 24px;
   text-align: right;
 }
 
 .order-detail__total-label {
-  color: rgba(0, 0, 0, .54);
+  color: rgba(0, 0, 0, 0.54);
   font-size: 12px;
   padding: 13px 10px;
 }
@@ -1540,12 +1540,12 @@ table.table-bill.table tr th {
 }
 
 .order-detail__total-price {
-  border-left: 1px dotted rgba(0, 0, 0, .09);
+  border-left: 1px dotted rgba(0, 0, 0, 0.09);
   justify-content: flex-end;
   padding: 13px 0 13px 10px;
   width: 240px;
   word-wrap: break-word;
-  color: rgba(0, 0, 0, .8);
+  color: rgba(0, 0, 0, 0.8);
   font-size: 14px;
 }
 
@@ -1557,7 +1557,7 @@ table.table-bill.table tr th {
 .admin-dashboard .table-data .order .recent-order__table thead th {
   font-size: 14px;
   border: none;
-  font-family: 'Inter', 'sans-serif';
+  font-family: "Inter", "sans-serif";
 }
 
 .admin-dashboard .table-data .order .recent-order__table thead tr:hover {
@@ -1566,7 +1566,7 @@ table.table-bill.table tr th {
 
 .admin-dashboard .table-data .order .recent-order__table td {
   font-size: 14px;
-  font-family: 'Inter', 'sans-serif';
+  font-family: "Inter", "sans-serif";
   padding: 10px 0;
 }
 
@@ -1577,4 +1577,33 @@ table.table-bill.table tr th {
 
 .recent-order__table .recent-order__list {
   cursor: pointer;
+}
+
+.admin-customer__container table.table tr th:first-child {
+  width: unset;
+}
+
+.customer-address {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 10px 0;
+}
+
+.customer-address:not(:last-child) {
+  margin-bottom: 12px;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.customer-address__default {
+  position: absolute;
+  right: 0;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 8px 16px;
+  background-color: #007bff;
+  color: #fff;
+  border-radius: 4px;
 }

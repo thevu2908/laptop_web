@@ -3,7 +3,6 @@ $(document).ready(() => {
     if (window.location.pathname === '/admin.php' && urlParams.get('controller') === 'nhanvien') {
         renderEmployeeData()
         clickPage(renderEmployeeData)
-        renderEmployeeAccountData()
         addEmployeee()
         updateEmployee()
         showEmployee()
@@ -16,8 +15,8 @@ function getEmployeeData() {
     return new Promise((resolve, reject) => {
         var pageno = $("#currentpage").val();
         $.ajax({
-            url:"server/src/controller/PaginationController.php",
-            data: {action:"pagination", page: pageno,table:"nhanvien"},
+            url: "server/src/controller/PaginationController.php",
+            data: { action: "pagination", page: pageno, table: "nhanvien" },
             method: "GET",
             dataType: "json",
             success: employess => resolve(employess),
@@ -27,17 +26,28 @@ function getEmployeeData() {
             }
         })
     })
+}
 
+function getAvailableEmployees() {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: "server/src/controller/NhanVienController.php",
+            method: "POST",
+            data: { action: "get-available-employees" },
+            dataType: "JSON",
+            success: employees => resolve(employees),
+            error: (xhr, status, error) => reject(error)
+        })
+    })
 }
 
 async function renderEmployeeData() {
-    var tmp=await getEmployeeData();
+    var tmp = await getEmployeeData();
     const employees = tmp.pagination
     if (employees && employees.length > 0) {
         let html = ''
 
         employees.forEach((employee, index) => {
-            console.log(employee)
             html += `
                 <tr>
                     <td>
@@ -65,165 +75,138 @@ async function renderEmployeeData() {
             `
         })
         phanquyen_chucnang("Nhân Viên")
-        getSizeinTable("nhanvien","NV","#admin-nhanvien-manhanvien")
+        getSizeinTable("nhanvien", "NV", "#admin-nhanvien-manhanvien")
         totalPage(tmp.count);
+        displayTotalPage('#admin-employee-main .hint-text', tmp.count, employees.length)
         $('.admin-employee-list').html(html)
-        
     }
 }
-function showEmployee(){
-    $(document).on('click',"#showEmployee",function(){
+
+function showEmployee() {
+    $(document).on('click', "#showEmployee", function () {
         var manv = $(this).attr("data-id");
         $.ajax({
-            url:"server/src/controller/NhanVienController.php",
-            method:"POST",
-            data:{action:"get",manv:manv},
-            dataType:"JSON",
-            success:function(data){
+            url: "server/src/controller/NhanVienController.php",
+            method: "POST",
+            data: { action: "get", manv: manv },
+            dataType: "JSON",
+            success: function (data) {
                 $("#admin-update-manhanvien").val(data['ma_nv']);
                 $("#admin-update-nhanvien").val(data['ten_nv']);
                 $("#admin-update-tuoi").val(data['tuoi']);
                 $("#admin-update-sodienthoai").val(data['so_dien_thoai']);
             },
-            error:function(xhr,status,error){
+            error: function (xhr, status, error) {
                 console.log(error)
             }
         })
     })
 }
-function updateEmployee(){
-    $(document).on('click',"#admin-btn-updateNhanVien",function(){
-        var manv=$("#admin-update-manhanvien").val();
-        var tennv=$("#admin-update-nhanvien").val();
-        var tuoi=$("#admin-update-tuoi").val();
-        var sodienthoai=$("#admin-update-sodienthoai").val();
-        if(checkSpace(tennv) && checkSpace(tuoi) && checkSpace(sodienthoai)){
+
+function updateEmployee() {
+    $(document).on('click', "#admin-btn-updateNhanVien", function () {
+        var manv = $("#admin-update-manhanvien").val();
+        var tennv = $("#admin-update-nhanvien").val();
+        var tuoi = $("#admin-update-tuoi").val();
+        var sodienthoai = $("#admin-update-sodienthoai").val();
+        if (checkSpace(tennv) && checkSpace(tuoi) && checkSpace(sodienthoai)) {
             alert("Vui Lòng Nhập");
-        }else if(checkSpace(tennv)){
+        } else if (checkSpace(tennv)) {
             alert("Vui Lòng Nhập Tên Nhân Viên");
-        }else if(checkSpace(sodienthoai)){
+        } else if (checkSpace(sodienthoai)) {
             alert("Vui Lòng Nhập Số Điện Thoại");
-        }else if(checkSpace(tuoi)){
+        } else if (checkSpace(tuoi)) {
             alert("Vui Lòng Nhập Tuổi");
-        }else if(!isValidPhone(sodienthoai)){
+        } else if (!isValidPhone(sodienthoai)) {
             alert("Số Điện Thoại Không Hợp Lệ")
-        }else if(!containsOnlyNumbers(tuoi)){
+        } else if (!containsOnlyNumbers(tuoi)) {
             alert("Tuổi Không Hợp Lệ")
-        }else{
+        } else {
             $.ajax({
-                url:'server/src/controller/NhanVienController.php',
+                url: 'server/src/controller/NhanVienController.php',
                 method: 'POST',
                 data: {
                     action: 'checkPhone',
-                    sodienthoai:sodienthoai
+                    sodienthoai: sodienthoai
                 },
                 dataType: 'JSON',
-                success: function(data){
-                    if(data===false){
+                success: function (data) {
+                    if (data === false) {
                         $.ajax({
-                            url:"server/src/controller/NhanVienController.php",
-                            method:"POST",
-                            data:{  action: 'update',
-                            manv:manv,
-                            tennv:tennv,
-                            tuoi:tuoi,
-                            sodienthoai:sodienthoai},
-                            dataType:"JSON",
-                            success:function(data){
+                            url: "server/src/controller/NhanVienController.php",
+                            method: "POST",
+                            data: {
+                                action: 'update',
+                                manv: manv,
+                                tennv: tennv,
+                                tuoi: tuoi,
+                                sodienthoai: sodienthoai
+                            },
+                            dataType: "JSON",
+                            success: function (data) {
                                 $("form").trigger('reset');
                                 $("#editEmployeeModal").modal("hide");
                                 renderEmployeeData();
                             }
                         })
-                    }else{
+                    } else {
                         alert("Số Điện Thoại Đã Tồn Tại")
                     }
                 }
             })
-      }
-    })
-}
-function renderEmployeeAccountData() {
-    $('.btn-open-add-account-modal').on('click', async e => {
-        const employees = await getEmployeeData()
-
-        if (employees && employees.length > 0) {
-            const accounts = await getAllAccounts()
-            let availableEmployees = []
-
-            employees.forEach(employee => {
-                let flag = true
-
-                accounts.forEach(account => {
-                    if (employee.ma_nv === account.ma_tk) {
-                        flag = false
-                        return
-                    }
-                })
-
-                if (flag) availableEmployees.push(employee)
-            })
-
-            let html = ''
-
-            availableEmployees.forEach((employee, index) => {
-                const selected = index === 0 ? 'selected' : '';
-                html += `<option value='${employee.ma_nv}' ${selected}>${employee.ma_nv} - ${employee.ten_nv}</option>`
-            })
-
-            $('#admin-account-employee-choose').html(html)
         }
     })
 }
-function addEmployeee(){
-    getSizeinTable("nhanvien","NV","#admin-nhanvien-manhanvien")
-    $(document).on('click', '#admin-btn-addNhanVien',function(){
-        var manv=$("#admin-nhanvien-manhanvien").val();
-        var tennv=$("#admin-nhanvien-tennhanvien").val();
-        var tuoi=$("#admin-nhanvien-tuoi").val();
-        var sodienthoai=$("#admin-nhanvien-sodienthoai").val();
-        if(checkSpace(tennv) && checkSpace(tuoi) && checkSpace(sodienthoai)){
+
+function addEmployeee() {
+    getSizeinTable("nhanvien", "NV", "#admin-nhanvien-manhanvien")
+    $(document).on('click', '#admin-btn-addNhanVien', function () {
+        var manv = $("#admin-nhanvien-manhanvien").val();
+        var tennv = $("#admin-nhanvien-tennhanvien").val();
+        var tuoi = $("#admin-nhanvien-tuoi").val();
+        var sodienthoai = $("#admin-nhanvien-sodienthoai").val();
+        if (checkSpace(tennv) && checkSpace(tuoi) && checkSpace(sodienthoai)) {
             alert("Vui Lòng Nhập");
-        }else if(checkSpace(tennv)){
+        } else if (checkSpace(tennv)) {
             alert("Vui Lòng Nhập Tên Nhân Viên");
-        }else if(checkSpace(sodienthoai)){
+        } else if (checkSpace(sodienthoai)) {
             alert("Vui Lòng Nhập Số Điện Thoại");
-        }else if(checkSpace(tuoi)){
+        } else if (checkSpace(tuoi)) {
             alert("Vui Lòng Nhập Tuổi");
-        }else if(!isValidPhone(sodienthoai)){
+        } else if (!isValidPhone(sodienthoai)) {
             alert("Số Điện Thoại Không Hợp Lệ")
-        }else if(!containsOnlyNumbers(tuoi)){
+        } else if (!containsOnlyNumbers(tuoi)) {
             alert("Tuổi Không Hợp Lệ")
-        }else{
+        } else {
             $.ajax({
-                url:'server/src/controller/NhanVienController.php',
+                url: 'server/src/controller/NhanVienController.php',
                 method: 'POST',
                 data: {
                     action: 'checkPhone',
-                    sodienthoai:sodienthoai
+                    sodienthoai: sodienthoai
                 },
                 dataType: 'JSON',
-                success: function(data){
-                    if(data===false){
+                success: function (data) {
+                    if (data === false) {
                         $.ajax({
-                            url:'server/src/controller/NhanVienController.php',
+                            url: 'server/src/controller/NhanVienController.php',
                             method: 'POST',
                             data: {
                                 action: 'add',
-                                manv:manv,
-                                tennv:tennv,
-                                tuoi:tuoi,
-                                sodienthoai:sodienthoai
+                                manv: manv,
+                                tennv: tennv,
+                                tuoi: tuoi,
+                                sodienthoai: sodienthoai
                             },
                             dataType: 'JSON',
-                            success: function(data){
+                            success: function (data) {
                                 console.log(data);
                                 $("form").trigger('reset');
                                 $("#addEmployeeModal").modal("hide");
                                 renderEmployeeData();
                             },
-                    })
-                    }else{
+                        })
+                    } else {
                         alert("Số Điện Thoại Đã Tồn Tại")
                     }
                 },
@@ -233,13 +216,13 @@ function addEmployeee(){
     })
 }
 
-function getEmployee(manv){
+function getEmployee(manv) {
     return new Promise((resolve, reject) => {
         $.ajax({
-            url:"server/src/controller/NhanVienController.php",
-            method:"POST",
-            data:{action:"get", manv},
-            dataType:"JSON",
+            url: "server/src/controller/NhanVienController.php",
+            method: "POST",
+            data: { action: "get", manv },
+            dataType: "JSON",
             success: data => resolve(data),
             error: (xhr, status, error) => {
                 console.log(error)
@@ -248,11 +231,12 @@ function getEmployee(manv){
         })
     })
 }
+
 function removeList(checkbox) {
     var isChecked = checkbox.checked;
-    var manhanvien= checkbox.dataset.row;
+    var manhanvien = checkbox.dataset.row;
     if (isChecked) {
-        listitemRemove.push({ manhanvien: manhanvien});
+        listitemRemove.push({ manhanvien: manhanvien });
     } else {
         var indexToRemove = listitemRemove.findIndex(item => item.manhanvien === manhanvien);
         if (indexToRemove !== -1) {
@@ -261,9 +245,11 @@ function removeList(checkbox) {
     }
     console.log(listitemRemove);
 }
-function deleteEmployee(){
-    $(document).on("click","#showId-nhanvien",function(){
+
+function deleteEmployee() {
+    $(document).on("click", "#showId-nhanvien", function () {
         var id = $(this).attr("data-id2");
+
         if(id==="admin"){
             alert("admin không được xóa")
             return
@@ -284,23 +270,18 @@ function deleteEmployee(){
         }
     })
 }
-function deleteMulEmployee(){
-    $(document).on("click","#admin-btn-deleteNhanvien",function(){
-        var indexToRemove = listitemRemove.findIndex(item => item.manhanvien === "admin");
-        if(indexToRemove!==-1){
-            alert("admin không được xóa")
-        }else{
-            $.ajax({
-                url:"server/src/controller/NhanVienController.php",
-                method:"POST",
-                data:{action:"deleteMul",listitemRemove:listitemRemove},
-                dataType:"JSON",
-                success:function(data){
-                    $("form").trigger('reset');
-                    $("#deleteEmployeeModal").modal("hide");
-                    renderEmployeeData();
-                }
-            })
-        }
+function deleteMulEmployee() {
+    $(document).on("click", "#admin-btn-deleteNhanvien", function () {
+        $.ajax({
+            url: "server/src/controller/NhanVienController.php",
+            method: "POST",
+            data: { action: "deleteMul", listitemRemove: listitemRemove },
+            dataType: "JSON",
+            success: function (data) {
+                $("form").trigger('reset');
+                $("#deleteEmployeeModal").modal("hide");
+                renderEmployeeData();
+            }
+        })
     })
 }
