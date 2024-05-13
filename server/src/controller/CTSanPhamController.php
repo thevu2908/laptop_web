@@ -76,6 +76,10 @@ class CTSanPhamController {
         return $this->ctspRepo->confirmImportUpdateProductDetail($productDetailId, $quantity, $price);
     }
 
+    public function addOrderUpdateProductQuantity($productDetailId, $quantity) {
+        return $this->ctspRepo->addOrderUpdateProductQuantity($productDetailId, $quantity);
+    }
+
     public function deleteProductDetail($productDetailId) {
         if ($this->ctspRepo->deleteProductDetail($productDetailId)) {
             echo 'success';

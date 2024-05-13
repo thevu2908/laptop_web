@@ -16,6 +16,21 @@ class ChiTietHoaDonRepo extends ConnectDB {
         }
     }
 
+    public function getOnlyChiTietHoaDon($ma_hd) {
+        try {
+            $sql = "SELECT * FROM chitiethoadon WHERE ma_hd = '$ma_hd'";
+            $result = mysqli_query($this->conn, $sql);
+            $arrChiTietHoaDon = array();
+            while ($row = mysqli_fetch_assoc($result)) {
+                $arrChiTietHoaDon[] = $row;
+            }
+            return $arrChiTietHoaDon;
+        } catch (Exception $e) {
+            echo 'Error:'. $e->getMessage();
+            return null;
+        }
+    }
+
     public function getChiTietHoaDon($ma_hd) {
         try {
             $sql = "SELECT cthd.ma_hd, cthd.gia_sp, SUM(cthd.so_luong) as so_luong, sp.ma_sp, ctsp.ma_ctsp, sp.ten_sp, ctsp.ram, ctsp.rom, ms.ten_mau, cxl.ten_chip, cdh.ten_card, sp.hinh_anh
@@ -79,18 +94,23 @@ class ChiTietHoaDonRepo extends ConnectDB {
     }
 
     public function addCTHD($ma_hd, $ma_ctsp, $so_luong, $gia_sp) {
-        $sql = "INSERT INTO chitiethoadon (ma_hd, ma_imei, gia_sp, so_luong)
-            SELECT '$ma_hd', ma_imei, '$gia_sp', 1
-            FROM ctsp_imei
-            WHERE ma_ctsp = '$ma_ctsp'
-            ORDER BY RAND()
-            LIMIT $so_luong
-        ";
-        $result = mysqli_query($this->conn, $sql);
-        if ($result) {
-            return true;
+        try {
+            $sql = "INSERT INTO chitiethoadon (ma_hd, ma_imei, gia_sp, so_luong)
+                SELECT '$ma_hd', ma_imei, '$gia_sp', 1
+                FROM ctsp_imei
+                WHERE ma_ctsp = '$ma_ctsp' AND trang_thai = 0
+                ORDER BY RAND()
+                LIMIT $so_luong
+            ";
+            $result = mysqli_query($this->conn, $sql);
+            if (!$result) {
+                throw new Exception('Error: '.mysqli_error($this->conn));
+            }
+            return $result;
+        } catch (Exception $e) {
+            echo 'Error:'. $e->getMessage();
+            return false;
         }
-        return false;
     }
 
     public function getCTHDByAdmin($ma_hd) {

@@ -23,7 +23,7 @@ function addCTHD(cthd) {
         $.ajax({
             url: 'server/src/controller/CTHDController.php',
             method: 'POST',
-            data: { action: 'add', cthd },
+            data: { action: 'add-cthd', cthd },
             success: res => resolve(res),
             error: (xhr, status, error) => {
                 console.log(error)

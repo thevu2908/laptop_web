@@ -320,7 +320,6 @@ function renderCustomerOrderDetail() {
             `
 
             orderDetails.forEach((orderDetail, index) => {
-                console.log(orderDetail)
                 html += `
                     <a href="index.php?san-pham&id=${orderDetail.ma_sp}" class="order-detail__product-item">
                         <div class="order-detail__product-info">
