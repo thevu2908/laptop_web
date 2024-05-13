@@ -17,14 +17,14 @@ class SearchRepo extends ConnectDB
                     ORDER BY ma_sp LIMIT {$start},{$limit}
                 ";
             } else if ($table == "nhaphang") {
-                $query = "
-    SELECT * FROM sanpham sp JOIN chitietsanpham ctsp ON sp.ma_sp = ctsp.ma_sp JOIN mausac ms ON ctsp.ma_mau = ms.ma_mau
-    JOIN chipxuly cxl ON ctsp.ma_chip_xu_ly = cxl.ma_chip_xu_ly
-    JOIN carddohoa cdh ON ctsp.ma_carddohoa = cdh.ma_card
-    WHERE CONCAT(sp.ma_sp, ctsp.ma_ctsp, ten_sp, ram, rom, ten_mau, ten_chip, ten_card) LIKE '%$search_term%'
-    ORDER BY sp.ma_sp, ctsp.ma_ctsp
-    LIMIT {$start},{$limit}
-";
+                 $query = "
+                SELECT * FROM sanpham sp JOIN chitietsanpham ctsp ON sp.ma_sp = ctsp.ma_sp JOIN mausac ms ON ctsp.ma_mau = ms.ma_mau
+                JOIN chipxuly cxl ON ctsp.ma_chip_xu_ly = cxl.ma_chip_xu_ly
+                JOIN carddohoa cdh ON ctsp.ma_carddohoa = cdh.ma_card
+                WHERE CONCAT(sp.ma_sp, ctsp.ma_ctsp, ten_sp, ram, rom, ten_mau, ten_chip, ten_card) LIKE '%$search_term%'
+                ORDER BY sp.ma_sp, ctsp.ma_ctsp
+                LIMIT {$start},{$limit}
+            ";
 
             } else if ($table == "chitietsanpham") {
                 $query = "
@@ -99,11 +99,12 @@ class SearchRepo extends ConnectDB
                 ";
             } else if ($table == "nhaphang") {
                 $query = "
-                    SELECT count(*) as num FROM chitietsanpham ctsp
+                    SELECT count(*) as num FROM sanpham sp
+                    JOIN chitietsanpham ctsp ON sp.ma_sp = ctsp.ma_sp
                     JOIN mausac ms ON ctsp.ma_mau = ms.ma_mau
                     JOIN chipxuly cxl ON ctsp.ma_chip_xu_ly = cxl.ma_chip_xu_ly
                     JOIN carddohoa cdh ON ctsp.ma_carddohoa = cdh.ma_card
-                    WHERE CONCAT(ma_sp, ma_ctsp, ten_sp, ram, rom, ten_mau, ten_chip, ten_card) LIKE '%$search_term%'
+                    WHERE CONCAT(sp.ma_sp, ctsp.ma_ctsp, ten_sp, ram, rom, ten_mau, ten_chip, ten_card) LIKE '%$search_term%'
                 ";
             } else if ($table == "chitietsanpham") {
                 $query = "
