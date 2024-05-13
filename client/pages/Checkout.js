@@ -457,7 +457,7 @@ async function checkPaid(soTien, noiDungCK) {
 function startCountDown() {
     const countdownElement = document.getElementById('checkout-qrcode-countdown');
 
-    let countdownSeconds = 60; // giây
+    let countdownSeconds = 599; // giây
 
     countdownInterval = setInterval(() => {
         const minutes = Math.floor(countdownSeconds / 60);
@@ -479,7 +479,7 @@ function startCountDown() {
 function startCountDown2() {
     const countdownElement = document.getElementById('checkout-qrcode-countdown2');
 
-    let countdownSeconds = 4;
+    let countdownSeconds = 3;
 
     const countdownInterval2 = setInterval(() => {
         const seconds = countdownSeconds % 60;

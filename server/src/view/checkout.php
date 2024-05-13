@@ -153,7 +153,7 @@
     <div class="modal-cart qr-code" >
         <div class="modal-cart-dialog" style="min-width: 410px;">
             <div class="modal-cart-body" style="min-height: 450px;" >
-                <div id="img-qrcode mt-2" style="text-align: center; margin-top: 20px;">
+                <div id="img-qrcode" class="mt-2" style="text-align: center; margin-top: 20px;">
                     <img style="width: 270px;" src="server/src/assets/images/qrcode.png" >
                 </div>
                 <div class="d-flex justify-content-center mt-3">
