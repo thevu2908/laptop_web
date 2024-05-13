@@ -272,7 +272,7 @@ $("#tableChiTietHoaDon tbody").on("click", "tr", function(){
                 <td scope="row">${ID}</td>
                 <td scope="row"><textarea class="form-control" rows="4" cols="100"></textarea>
                 <td scope="row"><input type="text" class="form-control" value='${giasanpham}'></td>
-                <td style="cursor: pointer; color: var(--danger);" data-row="IME1" onclick="removeItem(this)">
+                <td style="cursor: pointer; color: var(--danger);" onclick="removeItem(this)">
                     <i class="material-icons" data-toggle="tooltip" title="Remove">&#xE872;</i>
                 </td>
                 </tr>`;
