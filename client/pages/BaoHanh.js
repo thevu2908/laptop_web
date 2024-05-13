@@ -19,11 +19,12 @@ function addBaoHanh(){
     getSizeinTable("phieubaohanh","BH","#admin-mabaohanh");
     loadMaHoaDon()
     selectMaHoaDon();
+    $("#admin-baohanh-manhanvien").val($("#admin-matk").val())
     $(document).on("click","#admin-add-BaoHanh",function(){
         var maphieubaohanh=$("#admin-mabaohanh").val();
         var mahoadon=$("#admin-select-mahoadon").val();
         var makhachhang=$("#admin-baohanh-makhachhang").val().split("-")[0];
-        var manhanvien="NV01";
+        var manhanvien=$("#admin-baohanh-manhanvien").val();
         var date=new Date()
         var tinhtrangbaohanh=$("#admin-select-trinhtrang").val();
         listitemBaoHanh=[];
@@ -141,7 +142,7 @@ function ThongTinKhachHang(mahoadon){
     $.ajax({
         url:"server/src/controller/HoaDonController.php",
         method:"POST",
-        data:{action:"getkhachhang",id:mahoadon},
+        data:{action:"get-khach-hang",id:mahoadon},
         dataType:"json",
         success:function(data){
             if(data!==null){
@@ -158,7 +159,7 @@ function loadMaHoaDon(){
     $.ajax({
         url:"server/src/controller/HoaDonController.php",
         method:"POST",
-        data:{action:"getmahoadon"},
+        data:{action:"get-all"},
         dataType:"json",
         success:function(data){
             var html="<option value='choose' selected>Choose</option>";
@@ -189,8 +190,8 @@ function loadBaoHanh(){
                 </td>
                 <td>${phieubaohanh['ma_pbh']}</td>
                 <td>${phieubaohanh['ma_nv']}</td>
+                <td>${phieubaohanh['ma_hd']}</td>
                 <td id='ma_nv_${index}'>${phieubaohanh['ma_hd']}</td>
-                <td>${phieubaohanh['ma_kh']}</td>
                 <td>${phieubaohanh['ngay_bao_hanh']}</td>
                 <td>${checkTime(phieubaohanh['ngay_tra'])?" ":phieubaohanh['ngay_tra']}</td>
                 <td>${phieubaohanh['tinh_trang']}</td>
@@ -263,7 +264,11 @@ function kiemtrathoigianbaohanh(){
 
     })
     $(document).on("click","#btnTraCuuThoiGian",function(){
-        thoigianbaohanh(hinhthuctracuu,$("#thoigian-imei").val())
+        if($("#thoigian-imei").val()===""){
+            alert("Vul Lòng Nhập");
+        }else{
+            thoigianbaohanh(hinhthuctracuu,$("#thoigian-imei").val())
+        }
     })
 }
 function thoigianbaohanh(hinhthuc,data){
@@ -278,7 +283,7 @@ function thoigianbaohanh(hinhthuc,data){
             data.forEach((item,index)=>{
                 html+=`<p>Mã Hóa Đơn: ${item['ma_hd']}<br>Ngày Mua:${item['ngay_tao']}<br>Mã IMEI: ${item['ma_imei']}<br>Sản Phẩm: ${item['ten_sp']}<br>Thời Gian Bảo Hành: 12 tháng<br>Thời Gian Bảo Hành Còn Lại: ${tinhNgayBaoHanh(item['ngay_tao'])}</p>`;
             })
-            $("#ketqua-tracuu").html(html);
+            $("#ketqua-tracuu").html(html); 
         }
     })
 }

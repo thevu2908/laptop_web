@@ -7,9 +7,11 @@ $(document).ready(() => {
         addEmployeee()
         updateEmployee()
         showEmployee()
+        deleteMulEmployee()
+        deleteEmployee()
     }
 })
-
+var listitemRemove = [];
 function getEmployeeData() {
     return new Promise((resolve, reject) => {
         var pageno = $("#currentpage").val();
@@ -52,7 +54,7 @@ async function renderEmployeeData() {
                 <tr>
                     <td>
                         <span class="custom-checkbox">
-                            <input type="checkbox" id="checkbox-${employee.ma_nv}" name="chk[]" value="${employee.ma_nv}">
+                            <input type="checkbox" id="checkbox-${employee.ma_nv}" name="chk[]" value="${employee.ma_nv}" data-row="${employee.ma_nv}" onclick="removeList(this)">
                             <label for="checkbox-${employee.ma_nv}"></label>
                         </span>
                     </td>
@@ -64,10 +66,10 @@ async function renderEmployeeData() {
                         <a id='showEmployee' href="#editEmployeeModal" class="edit" data-toggle="modal" data-id="${employee.ma_nv}">
                             <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
                         </a>
-                        <a href="#deleteEmployeeModal" class="delete" data-toggle="modal" data-id="${employee.ma_nv}">
+                        <a href="#deleteEmployeeModal" class="delete" id="showId-nhanvien" data-toggle="modal" data-id2="${employee.ma_nv}">
                             <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
                         </a>
-                        <a href="#" class="view" title="View" data-toggle="tooltip" data-id="${employee.ma_nv}">
+                        <a href="#" class="view" title="View" data-toggle="tooltip" data-id3="${employee.ma_nv}">
                             <i class="material-icons">&#xE417;</i>
                         </a>
                     </td>
@@ -109,21 +111,50 @@ function updateEmployee(){
         var tennv=$("#admin-update-nhanvien").val();
         var tuoi=$("#admin-update-tuoi").val();
         var sodienthoai=$("#admin-update-sodienthoai").val();
-        $.ajax({
-            url:"server/src/controller/NhanVienController.php",
-            method:"POST",
-            data:{  action: 'update',
-            manv:manv,
-            tennv:tennv,
-            tuoi:tuoi,
-            sodienthoai:sodienthoai},
-            dataType:"JSON",
-            success:function(data){
-                $("form").trigger('reset');
-                $("#editEmployeeModal").modal("hide");
-                renderEmployeeData();
-            }
-        })
+        if(checkSpace(tennv) && checkSpace(tuoi) && checkSpace(sodienthoai)){
+            alert("Vui Lòng Nhập");
+        }else if(checkSpace(tennv)){
+            alert("Vui Lòng Nhập Tên Nhân Viên");
+        }else if(checkSpace(sodienthoai)){
+            alert("Vui Lòng Nhập Số Điện Thoại");
+        }else if(checkSpace(tuoi)){
+            alert("Vui Lòng Nhập Tuổi");
+        }else if(!isValidPhone(sodienthoai)){
+            alert("Số Điện Thoại Không Hợp Lệ")
+        }else if(!containsOnlyNumbers(tuoi)){
+            alert("Tuổi Không Hợp Lệ")
+        }else{
+            $.ajax({
+                url:'server/src/controller/NhanVienController.php',
+                method: 'POST',
+                data: {
+                    action: 'checkPhone',
+                    sodienthoai:sodienthoai
+                },
+                dataType: 'JSON',
+                success: function(data){
+                    if(data===false){
+                        $.ajax({
+                            url:"server/src/controller/NhanVienController.php",
+                            method:"POST",
+                            data:{  action: 'update',
+                            manv:manv,
+                            tennv:tennv,
+                            tuoi:tuoi,
+                            sodienthoai:sodienthoai},
+                            dataType:"JSON",
+                            success:function(data){
+                                $("form").trigger('reset');
+                                $("#editEmployeeModal").modal("hide");
+                                renderEmployeeData();
+                            }
+                        })
+                    }else{
+                        alert("Số Điện Thoại Đã Tồn Tại")
+                    }
+                }
+            })
+      }
     })
 }
 
@@ -175,25 +206,45 @@ function addEmployeee(){
             alert("Vui Lòng Nhập Số Điện Thoại");
         }else if(checkSpace(tuoi)){
             alert("Vui Lòng Nhập Tuổi");
+        }else if(!isValidPhone(sodienthoai)){
+            alert("Số Điện Thoại Không Hợp Lệ")
+        }else if(!containsOnlyNumbers(tuoi)){
+            alert("Tuổi Không Hợp Lệ")
         }else{
             $.ajax({
                 url:'server/src/controller/NhanVienController.php',
                 method: 'POST',
                 data: {
-                    action: 'add',
-                    manv:manv,
-                    tennv:tennv,
-                    tuoi:tuoi,
+                    action: 'checkPhone',
                     sodienthoai:sodienthoai
                 },
                 dataType: 'JSON',
                 success: function(data){
-                    console.log(data);
-                    $("form").trigger('reset');
-                    $("#addEmployeeModal").modal("hide");
-                    renderEmployeeData();
+                    if(data===false){
+                        $.ajax({
+                            url:'server/src/controller/NhanVienController.php',
+                            method: 'POST',
+                            data: {
+                                action: 'add',
+                                manv:manv,
+                                tennv:tennv,
+                                tuoi:tuoi,
+                                sodienthoai:sodienthoai
+                            },
+                            dataType: 'JSON',
+                            success: function(data){
+                                console.log(data);
+                                $("form").trigger('reset');
+                                $("#addEmployeeModal").modal("hide");
+                                renderEmployeeData();
+                            },
+                    })
+                    }else{
+                        alert("Số Điện Thoại Đã Tồn Tại")
+                    }
                 },
             })
+
         }
     })
 }
@@ -210,6 +261,52 @@ function getEmployee(manv){
                 console.log(error)
                 reject(error)
             }
+        })
+    })
+}
+function removeList(checkbox) {
+    var isChecked = checkbox.checked;
+    var manhanvien= checkbox.dataset.row;
+    if (isChecked) {
+        listitemRemove.push({ manhanvien: manhanvien});
+    } else {
+        var indexToRemove = listitemRemove.findIndex(item => item.manhanvien === manhanvien);
+        if (indexToRemove !== -1) {
+            listitemRemove.splice(indexToRemove, 1);
+        }
+    }
+    console.log(listitemRemove);
+}
+function deleteEmployee(){
+    $(document).on("click","#showId-nhanvien",function(){
+        var id = $(this).attr("data-id2");
+        $(document).on("click","#admin-btn-deleteNhanvien",function(){
+            $.ajax({
+                url:"server/src/controller/NhanVienController.php",
+                method:"POST",
+                data:{action:"delete",manv:id},
+                dataType:"JSON",
+                success:function(data){
+                    $("form").trigger('reset');
+                    $("#deleteEmployeeModal").modal("hide");
+                    renderEmployeeData();
+                }
+            })
+        })
+    })
+}
+function deleteMulEmployee(){
+    $(document).on("click","#admin-btn-deleteNhanvien",function(){
+        $.ajax({
+        url:"server/src/controller/NhanVienController.php",
+        method:"POST",
+        data:{action:"deleteMul",listitemRemove:listitemRemove},
+        dataType:"JSON",
+        success:function(data){
+            $("form").trigger('reset');
+            $("#deleteEmployeeModal").modal("hide");
+            renderEmployeeData();
+        }
         })
     })
 }
