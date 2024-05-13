@@ -1,4 +1,4 @@
-<main>
+<main id="admin-employee-main">
 	<div class="container-xl">
 		<div class="table-responsive">
 			<div class="table-wrapper">
@@ -40,7 +40,7 @@
 					</tbody>
 				</table>
 				<div class="clearfix">
-				<div class="hint-text">Showing <b id="cur">5</b> out of <b id="total">25</b> entries</div>
+				<div class="hint-text"></div>
 					<div id="pagination">
 					</div>
 					<input type="hidden" name="currentpage" id="currentpage" value="1">
@@ -68,7 +68,7 @@
 						</div>
 						<div class="form-group">
 							<label>Tuổi</label>
-							<input type="text" class="form-control" required id="admin-nhanvien-tuoi">
+							<input type="number" class="form-control" required id="admin-nhanvien-tuoi" min="20">
 						</div>
 						<div class="form-group">
 							<label>Số Điện Thoại</label>
@@ -76,8 +76,8 @@
 						</div>
 					</div>
 					<div class="modal-footer">
-						<input type="button" class="btn btn-danger" data-dismiss="modal" value="Cancel">
-						<input type="button" class="btn btn-success" id="admin-btn-addNhanVien" value="Add">
+						<input type="button" class="btn btn-danger" data-dismiss="modal" value="Hủy">
+						<input type="button" class="btn btn-success" id="admin-btn-addNhanVien" value="Thêm">
 					</div>
 				</form>
 			</div>
@@ -104,7 +104,7 @@
 						</div>
 						<div class="form-group">
 							<label>Tuổi</label>
-							<input class="form-control" type="text" name="age" id='admin-update-tuoi' required>
+							<input class="form-control" type="number" name="age" id='admin-update-tuoi' required>
 						</div>
 						<div class="form-group">
 							<label>Số Điện Thoại</label>
@@ -112,8 +112,8 @@
 						</div>
 					</div>
 					<div class="modal-footer">
-						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-						<input type="button" class="btn btn-info" id="admin-btn-updateNhanVien" value="Save">
+						<input type="button" class="btn btn-default" data-dismiss="modal" value="Hủy">
+						<input type="button" class="btn btn-info" id="admin-btn-updateNhanVien" value="Lưu">
 					</div>
 				</form>
 			</div>
@@ -125,16 +125,16 @@
 			<div class="modal-content">
 				<form>
 					<div class="modal-header">
-						<h4 class="modal-title">Delete Employee</h4>
+						<h4 class="modal-title">Xóa nhân viên</h4>
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 					</div>
 					<div class="modal-body">
-						<p>Are you sure you want to delete these Records?</p>
-						<p class="text-warning"><small>This action cannot be undone.</small></p>
+						<p>Bạn có muốn xóa nhân viên này không</p>
+						<p class="text-warning"><small>Hành động này sẽ không thể hoàn tác</small></p>
 					</div>
 					<div class="modal-footer">
-						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-						<input type="button" class="btn btn-danger" value="Delete" id="admin-btn-deleteNhanvien">
+						<input type="button" class="btn btn-default" data-dismiss="modal" value="Hủy">
+						<input type="button" class="btn btn-danger" value="Xóa" id="admin-btn-deleteNhanvien">
 					</div>
 				</form>
 			</div>

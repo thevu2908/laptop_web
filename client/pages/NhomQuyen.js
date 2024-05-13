@@ -4,11 +4,20 @@ $(document).ready(function () {
     if (window.location.pathname === '/admin.php' && urlParams.get('controller') === 'nhomquyen') {
         loadNhomQuyen();
         clickPage(loadNhomQuyen);
+        $(document).on("keyup","#search",function(){
+            if($("#search").val()==='' || $("#search").val()===null){
+                loadNhomQuyen();
+                clickPage(loadNhomQuyen);
+                console.log("AAAAAAAAAAAA")
+            }else{
+                search($(this).val())
+                clickPage(search)
+            }
+        })
         addNhomQuyen();
         deleteNhomQuyen();
         updateNhomQuyen();
         getNhomQuyen();
-        // searchNhomQuyen();
         detailNhomQuyen();
     }
     loadNhomQuyenDataAccount()
@@ -45,6 +54,18 @@ function loadNhomQuyen() {
         success: function (data) {
             render(data);
         }
+    })
+}
+function search(search){
+    var pageno = $("#currentpage").val();
+    $.ajax({
+            url:'server/src/controller/SearchController.php',
+            method: 'GET',
+            data: { action: 'search', search, table: 'nhomquyen', pageno },
+            dataType: 'JSON',        
+            success: function (data) {
+                 render(data);
+            }
     })
 }
 function searchNhomQuyen() {
@@ -90,6 +111,7 @@ function render(data) {
     getSizeinTable("nhomquyen","NQ","#ma_quyen")
     phanquyen_chucnang("Nhóm Quyền");
     totalPage(data.count);
+    displayTotalPage("#admin-access-main .hint-text", data.count, jsonData.length)
 }
 
 function loadNhomQuyenDataAccount() {
@@ -98,7 +120,6 @@ function loadNhomQuyenDataAccount() {
         method: "POST",
         data: { action: 'Load' },
         success: data => {
-            console.log(data)
             if (data && data.length > 0) {
                 let html = '';
                 const jsonData = JSON.parse(data);
@@ -200,21 +221,3 @@ function detailNhomQuyen() {
         })
     })
 }
-
-// function detailNhomQuyen() {
-//     $(document).on("click","#btnDetail",function(){
-//         var id=$(this).attr("data-id2");
-//         console.log(id);
-//         $.ajax({
-//             url:"server/src/controller/NhomQuyenController.php",
-//             method:"POST",
-//             data:{action:"Get",id:id},
-//             dataType:"JSON",
-//             success:function(data){
-//                 $("#detail_maquyen").val(data.ma_quyen);
-//                 $("#detail_tenquyen").val(data.ten_quyen);
-                
-//             }
-//         })
-//     })
-// }
