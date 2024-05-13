@@ -34,6 +34,16 @@ class NhomQuyenRepos extends ConnectDB{
         }
         return false;
     }
+    function deleteMulNhomQuyen($arrNhomQuyen){
+        foreach($arrNhomQuyen as $key){
+            $sql = "UPDATE nhomquyen SET trang_thai=1  WHERE ma_quyen='$key[maquyen]'";
+            $result = mysqli_query($this->conn,$sql);
+            if(!$result){
+                return false;
+            }
+        }
+        return true;
+    }
     function updateNhomQuyen($ma_quyen,$ten_quyen){
         $sql = "UPDATE nhomquyen SET ten_quyen='$ten_quyen' WHERE ma_quyen='$ma_quyen'";
         $result = mysqli_query($this->conn,$sql);

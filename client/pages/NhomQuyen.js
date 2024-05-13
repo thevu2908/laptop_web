@@ -5,31 +5,23 @@ $(document).ready(function () {
         loadNhomQuyen();
         clickPage(loadNhomQuyen);
         searchNhomQuyen()
-        // $(document).on("keyup","#search",function(){
-        //     if($("#search").val()==='' || $("#search").val()===null){
-        //         loadNhomQuyen();
-        //         clickPage(loadNhomQuyen);
-        //         console.log("AAAAAAAAAAAA")
-        //     }else{
-        //         search($(this).val())
-        //         //clickPage(search)
-        //     }
-        // })
         addNhomQuyen();
         deleteNhomQuyen();
+        deleteMulNhomQuyen();
         updateNhomQuyen();
         getNhomQuyen();
         detailNhomQuyen();
     }
     loadNhomQuyenDataAccount()
 })
+var listitemRemove = [];
 function addNhomQuyen() {
     getSizeinTable("nhomquyen","NQ","#ma_quyen")
     $(document).on('click', "#addNhomQuyen", function () {
         var ma_nhomquyen = $("#ma_quyen").val();
         var ten_nhomquyen = $("#ten_quyen").val();
         if (checkSpace(ten_nhomquyen)) {
-            $("#mess_tenquyen").html("Please input tenquyen");
+            alert("Vui Lòng Nhập Tên Nhóm Quyền")
         } else {
             $.ajax({
                 url: "server/src/controller/NhomQuyenController.php",
@@ -93,7 +85,7 @@ function render(data) {
             html += `<tr>
                 <td>
                     <span class="custom-checkbox">
-                        <input type="checkbox" id="checkbox1" name="chk[]" value="1">
+                        <input type="checkbox" id="checkbox1" name="chk[]" value="1"  data-row="${nhomquyen['ma_quyen']}" onclick="removeList(this)">
                         <label for="checkbox1"></label>
                     </span>
                 </td>
@@ -232,6 +224,33 @@ function searchNhomQuyen() {
             dataType: 'JSON',
             success: data => render(data),
             error: (xhr, status, error) => console.log(error)
+        })
+    })
+}
+function removeList(checkbox) {
+    var isChecked = checkbox.checked;
+    var maquyen = checkbox.dataset.row;
+    if (isChecked) {
+        listitemRemove.push({ maquyen: maquyen });
+    } else {
+        var indexToRemove = listitemRemove.findIndex(item => item.maquyen === maquyen);
+        if (indexToRemove !== -1) {
+            listitemRemove.splice(indexToRemove, 1);
+        }
+    }
+    console.log(listitemRemove);
+}
+function deleteMulNhomQuyen(){
+    $(document).on("click", "#btnDelete", function () {
+        $.ajax({
+            url: "server/src/controller/NhomQuyenController.php",
+            method: "POST",
+            data: { action: "deleteMul", listitemRemove: listitemRemove },
+            success: function (data) {
+                $("#deleteNhomQuyen").modal('hide');
+                $("form").trigger('reset');
+                loadNhomQuyen();
+            }
         })
     })
 }

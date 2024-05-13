@@ -49,7 +49,6 @@ function loadChucNangQuyen(){
 }
 function renderChucNangQuyen(data){
     var jsondata=data.pagination;
-    console.log(data)
     var html="";
     jsondata.forEach((chucnangquyen,index) => {
         html+=`<tr>
@@ -73,6 +72,7 @@ function renderChucNangQuyen(data){
     getSizeinTable("chucnangquyen","CN","#admin-MaChucNang");
     phanquyen_chucnang("Chức Năng");
     totalPage(data.count);
+    displayTotalPage("#admin-access-main .hint-text", data.count, jsondata.length)
 }
 function addChucNang(){
     getSizeinTable("chucnangquyen","CN","#admin-MaChucNang");

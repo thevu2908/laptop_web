@@ -43,6 +43,9 @@ class NhomQuyenController{
     function getSize(){
         echo $this->nhomquyenrepos->getSize();
     }
+    function deleteMulNhomQuyen($arrNhomQuyen){
+        echo json_encode($this->nhomquyenrepos->deleteMulNhomQuyen($arrNhomQuyen));
+    }
     // function panigation($start,$limit){
     //     $nhomquyen= $this->nhomquyenrepos->panigation($start,$limit);
     //     if(!empty($nhomquyen)){
@@ -87,6 +90,10 @@ switch($tmp) {
     case "Search":{
         $search=$_POST['search'];
         $nhomquyenctl->searchNhomQuyen($search);
+        break;
+    }case "deleteMul":{
+        $arrNhomQuyen=json_decode(json_encode($_POST['listitemRemove']), true);
+        $nhomquyenctl->deleteMulNhomQuyen($arrNhomQuyen);
         break;
     }
     case "Size":{
