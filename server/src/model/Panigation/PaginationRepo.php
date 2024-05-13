@@ -18,7 +18,15 @@ class PaginationRepo extends ConnectDB {
                     WHERE sp.trang_thai = '0'
                     ORDER BY sp.ma_sp ASC LIMIT {$start},{$limit}
                 ";
-            } else if ($table == "chitietsanpham") {
+            } else if ($table == "nhaphang") {
+                $query = "
+                    SELECT * 
+                    FROM sanpham sp JOIN chitietsanpham ctsp ON sp.ma_sp = ctsp.ma_sp JOIN mausac ms ON ctsp.ma_mau = ms.ma_mau
+                    JOIN chipxuly cxl ON ctsp.ma_chip_xu_ly = cxl.ma_chip_xu_ly
+                    JOIN carddohoa cdh ON ctsp.ma_carddohoa = cdh.ma_card
+                    ORDER BY sp.ma_sp, ctsp.ma_ctsp LIMIT {$start},{$limit}
+                ";
+            }else if ($table == "chitietsanpham") {
                 $query = "
                     SELECT ctsp.*, ms.ten_mau, cxl.ten_chip, cdh.ten_card FROM chitietsanpham ctsp
                     JOIN mausac ms ON ctsp.ma_mau = ms.ma_mau
@@ -72,7 +80,12 @@ class PaginationRepo extends ConnectDB {
                 $query = "SELECT count(DISTINCT nhomquyen.ma_quyen, chucnangquyen.ma_chuc_nang) as num FROM chitietquyen join nhomquyen on chitietquyen.ma_quyen=nhomquyen.ma_quyen join chucnangquyen 
                 on chitietquyen.ma_chuc_nang=chucnangquyen.ma_chuc_nang AND chucnangquyen.trang_thai='0'
                 AND nhomquyen.trang_thai='0'";
-            } else if ($table == "chitietsanpham") {
+            }else if ($table == "nhaphang") {
+                $query = "SELECT count(*) as num FROM sanpham sp JOIN chitietsanpham ctsp ON sp.ma_sp = ctsp.ma_sp JOIN mausac ms ON ctsp.ma_mau = ms.ma_mau
+                    JOIN chipxuly cxl ON ctsp.ma_chip_xu_ly = cxl.ma_chip_xu_ly
+                    JOIN carddohoa cdh ON ctsp.ma_carddohoa = cdh.ma_card";
+            }
+             else if ($table == "chitietsanpham") {
                 $query = "SELECT count(*) as num FROM chitietsanpham WHERE ma_sp = '$id' AND trang_thai = '0'";
             } else if ($table == "hoadon") {
                 $query = "SELECT count(*) as num FROM hoadon WHERE tinh_trang LIKE '%$id%' AND trang_thai = '0'";
