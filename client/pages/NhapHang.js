@@ -80,7 +80,6 @@ $(document).on("change","#admin-select-phieunhap", async function(){
 async function renderPhieuNhapData(data) {
     try {
         const dataPromo = data ? data : await getPaginationNH(search)
-        console.log(dataPromo)
 
         if (dataPromo && dataPromo.pagination && dataPromo.pagination.length > 0) {
             let html = ''
@@ -125,60 +124,14 @@ async function renderPhieuNhapData(data) {
             $('.admin-phieunhap-list').html(html)
             totalPage(dataPromo.count)
             displayTotalPage("#admin-pn-main .hint-text", dataPromo.count, dataPromo.pagination.length)
-        }
-        else {
+        } else {
             $('.admin-phieunhap-list').html('')
+            displayTotalPage("#admin-pn-main .hint-text", 0, 0)
         }
-
     } catch (error) {
         console.log(error);
     }
 }
-
-// async function renderPhieuNhapData() {
-//     try {
-//         const phieunhaps = await getPhieuNhapData()
-//         if (phieunhaps && phieunhaps.length > 0) {
-//             let html = ''
-    
-//             phieunhaps.forEach((phieunhap, index) => {
-//                 html += `
-//                     <tr>
-//                         <td>${phieunhap.ma_pn}</td>
-//                         <td>${phieunhap.ma_ncc}</td>
-//                         <td>${phieunhap.ma_nv}</td>
-//                         <td>${convertDate(phieunhap.ngay_nhap)}</td>
-//                         <td>₫${formatCurrency(phieunhap.tong_tien)}</td>
-//                         <td>
-//                             ${phieunhap.tinh_trang == 0 
-//                                 ? `<button class="btn btn-success btn-process-bill" value="${phieunhap.tinh_trang}" data-id="${phieunhap.ma_pn}">
-//                                         Xử lý
-//                                     </button>`
-//                                 : `<span style="color: red; font-weight: bold;">Đã xử lý</span>`
-//                             }
-//                         </td>
-//                         <td style="padding-top: 10px;">
-//                             <button 
-//                                 data-target="#order-detail-modal"
-//                                 data-toggle="modal"
-//                                 style="width: 61%;"
-//                                 class="btn btn-primary btn-import-invoice__detail"
-//                                 data-id="${phieunhap.ma_pn}"
-//                             >
-//                                 Chi tiết
-//                             </button>
-//                         </td>
-//                     </tr>
-//                 `;
-//             })
-//             phanquyen_chucnang("Phiếu nhập")
-//             $('.admin-phieunhap-list').html(html)
-//         }
-//     } catch(error) {
-//         console.log(error)
-//         alert('Có lỗi xảy ra, vui lòng thử lại sau!')
-//     }
-// }
 
 async function renderImportInvoiceDetail() {
     $(document).on('click', '.btn-import-invoice__detail', async function() {

@@ -26,9 +26,9 @@
                         <?php if (true) { ?>
                             <div class="col-sm-6 d-flex justify-content-end align-items-center">
                                 <select class="form-select w-65 rounded" aria-label="Default select example" id="admin-select-phieunhap" required>
-                                    <option value='all'>--Tất cả--</option>
-                                    <option value='0'>Duyệt</option>
-                                    <option value='1'>Đã xử lý</option>
+                                    <option value='all'>Tất cả</option>
+                                    <option value='0'>Chưa xác nhận</option>
+                                    <option value='1'>Đã xác nhận</option>
                                 </select>
                                 <a href="/admin.php?controller=phieunhap" class="btn btn-success add d-flex align-items-center">
                                     <i class="fa-solid fa-file-import me-1" style="font-size: 18px;"></i>
@@ -36,10 +36,6 @@
                                 </a>
                             </div>
                         <?php } else echo "Nothing" ?>
-
-
-
-
                     </div>
                 </div>
                 <table class="table table-striped table-hover">
