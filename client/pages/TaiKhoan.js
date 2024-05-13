@@ -162,6 +162,10 @@ function handleAddAccount() {
             alert('Vui lòng nhập mật khẩu')
             return
         }
+        if(checkSpace(password)){
+            alert('Vui lòng nhập mật hợp lệ')
+            return
+        }
         if (!accessId) {
             alert('Vui lòng chọn quyền tài khoản\nNếu không có quyền hãy thêm quyền mới vào hệ thống')
             return

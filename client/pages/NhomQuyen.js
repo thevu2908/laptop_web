@@ -11,7 +11,7 @@ $(document).ready(function () {
                 console.log("AAAAAAAAAAAA")
             }else{
                 search($(this).val())
-                clickPage(search)
+                //clickPage(search)
             }
         })
         addNhomQuyen();
