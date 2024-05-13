@@ -185,9 +185,15 @@ class HoaDonRepo extends ConnectDB {
         }
     }
 
-    public function getOrderByDate($date) : array | null {
+    public function getOrderInDate($brandId, $startDate, $endDate) : array | null {
         try {
-            $sql = "SELECT * FROM hoadon WHERE DATE(ngay_tao) = '$date' AND tinh_trang LIKE '%Đã xác nhận%'";
+            $sql = "SELECT DISTINCT hd.* FROM hoadon hd
+                JOIN chitiethoadon cthd ON cthd.ma_hd = hd.ma_hd
+                JOIN ctsp_imei ctspi ON ctspi.ma_imei = cthd.ma_imei
+                JOIN chitietsanpham ctsp ON ctsp.ma_ctsp = ctspi.ma_ctsp
+                JOIN sanpham sp ON sp.ma_sp = ctsp.ma_sp
+                WHERE hd.ngay_tao BETWEEN '$startDate' AND '$endDate' AND hd.tinh_trang LIKE '%Đã xác nhận%' AND sp.ma_thuong_hieu LIKE '%$brandId%'
+            ";
             $result = mysqli_query($this->conn, $sql);
             if (!$result) {
                 throw new Exception('Error: ' . mysqli_error($this->conn));
@@ -203,9 +209,16 @@ class HoaDonRepo extends ConnectDB {
         }
     }
 
-    public function getOrderByMonth($month) : array | null {
+    public function getPaginationOrderInDate($brandId, $startDate, $endDate, $start, $limit) : array | null {
         try {
-            $sql = "SELECT * FROM hoadon WHERE MONTH(ngay_tao) = '$month' AND tinh_trang LIKE '%Đã xác nhận%'";
+            $sql = "SELECT DISTINCT hd.* FROM hoadon hd
+                JOIN chitiethoadon cthd ON cthd.ma_hd = hd.ma_hd
+                JOIN ctsp_imei ctspi ON ctspi.ma_imei = cthd.ma_imei
+                JOIN chitietsanpham ctsp ON ctsp.ma_ctsp = ctspi.ma_ctsp
+                JOIN sanpham sp ON sp.ma_sp = ctsp.ma_sp
+                WHERE hd.ngay_tao BETWEEN '$startDate' AND '$endDate' AND hd.tinh_trang LIKE '%Đã xác nhận%' AND sp.ma_thuong_hieu LIKE '%$brandId%'
+                ORDER BY hd.ngay_tao DESC LIMIT $start,$limit
+            ";
             $result = mysqli_query($this->conn, $sql);
             if (!$result) {
                 throw new Exception('Error: ' . mysqli_error($this->conn));
@@ -221,10 +234,54 @@ class HoaDonRepo extends ConnectDB {
         }
     }
 
-    public function getBestSeller($amount) {
+    public function getPaginationOrderInDateLength($brandId, $startDate, $endDate) : int {
         try {
-            $sql = "
-                SELECT cthd.ma_imei, sp.ten_sp, sp.hinh_anh, ms.ten_mau, cxl.ten_chip, cdh.ten_card, ctsp.ram, ctsp.rom, ctsp.gia_tien, SUM(cthd.so_luong) as total 
+            $sql = "SELECT COUNT(DISTINCT hd.ma_hd) as count FROM hoadon hd
+                JOIN chitiethoadon cthd ON cthd.ma_hd = hd.ma_hd
+                JOIN ctsp_imei ctspi ON ctspi.ma_imei = cthd.ma_imei
+                JOIN chitietsanpham ctsp ON ctsp.ma_ctsp = ctspi.ma_ctsp
+                JOIN sanpham sp ON sp.ma_sp = ctsp.ma_sp
+                WHERE hd.ngay_tao BETWEEN '$startDate' AND '$endDate' AND hd.tinh_trang LIKE '%Đã xác nhận%' AND sp.ma_thuong_hieu LIKE '%$brandId%'
+            ";
+            $result = mysqli_query($this->conn, $sql);
+            if (!$result) {
+                throw new Exception('Error: ' . mysqli_error($this->conn));
+            }
+            $row = mysqli_fetch_assoc($result);
+            return $row['count'];
+        } catch (Exception $e) {
+            echo 'Error: ' . $e->getMessage() . '<br>';
+            return -1;
+        }
+    }
+
+    public function getOrderByMonth($month, $brandId) : array | null {
+        try {
+            $sql = "SELECT hd.* FROM hoadon hd
+                JOIN chitiethoadon cthd ON cthd.ma_hd = hd.ma_hd
+                JOIN ctsp_imei ctspi ON ctspi.ma_imei = cthd.ma_imei
+                JOIN chitietsanpham ctsp ON ctsp.ma_ctsp = ctspi.ma_ctsp
+                JOIN sanpham sp ON sp.ma_sp = ctsp.ma_sp
+                WHERE MONTH(hd.ngay_tao) = '$month' AND hd.tinh_trang LIKE '%Đã xác nhận%' AND sp.ma_thuong_hieu LIKE '%$brandId%'
+            ";
+            $result = mysqli_query($this->conn, $sql);
+            if (!$result) {
+                throw new Exception('Error: ' . mysqli_error($this->conn));
+            }
+            $array = [];
+            while ($row = mysqli_fetch_assoc($result)) {
+                $array[] = $row;
+            }
+            return $array;
+        } catch (Exception $e) {
+            echo 'Error:'. $e->getMessage();
+            return null;
+        }
+    }
+
+    public function getBestSeller($amount, $brandId, $startDate, $endDate) : array | null {
+        try {
+            $sql = "SELECT ctsp.ma_ctsp, sp.ten_sp, sp.hinh_anh, ms.ten_mau, cxl.ten_chip, cdh.ten_card, ctsp.ram, ctsp.rom, ctsp.gia_tien, SUM(cthd.so_luong) as total 
                 FROM chitiethoadon cthd
                 JOIN hoadon hd ON hd.ma_hd = cthd.ma_hd
                 JOIN ctsp_imei ctspi ON cthd.ma_imei = ctspi.ma_imei
@@ -233,11 +290,12 @@ class HoaDonRepo extends ConnectDB {
                 JOIN chipxuly cxl ON cxl.ma_chip_xu_ly = ctsp.ma_chip_xu_ly
                 JOIN carddohoa cdh ON cdh.ma_card = ctsp.ma_carddohoa
                 JOIN sanpham sp ON sp.ma_sp = ctsp.ma_sp
-                WHERE hd.tinh_trang LIKE '%Đã xác nhận%'
-                GROUP BY cthd.ma_imei
+                WHERE hd.tinh_trang LIKE '%Đã xác nhận%' AND hd.ngay_tao BETWEEN '$startDate' AND '$endDate' AND sp.ma_thuong_hieu LIKE '%$brandId%'
+                GROUP BY ctsp.ma_ctsp
                 ORDER BY total DESC
                 LIMIT $amount
             ";
+
             $result = mysqli_query($this->conn, $sql);
             if (!$result) {
                 throw new Exception('Error: ' . mysqli_error($this->conn));

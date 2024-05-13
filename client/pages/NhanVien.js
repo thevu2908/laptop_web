@@ -2,6 +2,7 @@ $(document).ready(() => {
     const urlParams = new URLSearchParams(window.location.search)
     if (window.location.pathname === '/admin.php' && urlParams.get('controller') === 'nhanvien') {
         renderEmployeeData()
+        clickPage(renderEmployeeData)
         renderEmployeeAccountData()
         addEmployeee()
         updateEmployee()
@@ -13,10 +14,10 @@ function getEmployeeData() {
     return new Promise((resolve, reject) => {
         var pageno = $("#currentpage").val();
         $.ajax({
-            url: 'server/src/controller/NhanVienController.php',
-            method: 'POST',
-            data: { action: 'load' },
-            dataType: 'JSON',
+            url:"server/src/controller/PaginationController.php",
+            data: {action:"pagination", page: pageno,table:"nhanvien"},
+            method: "GET",
+            dataType: "json",
             success: employess => resolve(employess),
             error: (xhr, status, error) => {
                 console.log(error)
@@ -24,11 +25,24 @@ function getEmployeeData() {
             }
         })
     })
+}
 
+function getAvailableEmployees() {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: "server/src/controller/NhanVienController.php",
+            method:"POST",
+            data: { action: "get-available-employees" },
+            dataType: "JSON",
+            success: employees => resolve(employees),
+            error: (xhr, status, error) => reject(error)
+        })
+    })
 }
 
 async function renderEmployeeData() {
-    const employees = await getEmployeeData()
+    var tmp=await getEmployeeData();
+    const employees = tmp.pagination
     if (employees && employees.length > 0) {
         let html = ''
 
@@ -62,10 +76,12 @@ async function renderEmployeeData() {
         })
         phanquyen_chucnang("Nhân Viên")
         getSizeinTable("nhanvien","NV","#admin-nhanvien-manhanvien")
+        totalPage(tmp.count);
         $('.admin-employee-list').html(html)
         
     }
 }
+
 function showEmployee(){
     $(document).on('click',"#showEmployee",function(){
         var manv = $(this).attr("data-id");
@@ -86,6 +102,7 @@ function showEmployee(){
         })
     })
 }
+
 function updateEmployee(){
     $(document).on('click',"#admin-btn-updateNhanVien",function(){
         var manv=$("#admin-update-manhanvien").val();
@@ -109,6 +126,7 @@ function updateEmployee(){
         })
     })
 }
+
 function renderEmployeeAccountData() {
     $('.btn-open-add-account-modal').on('click', async e => {
         const employees = await getEmployeeData()
@@ -141,6 +159,7 @@ function renderEmployeeAccountData() {
         }
     })
 }
+
 function addEmployeee(){
     getSizeinTable("nhanvien","NV","#admin-nhanvien-manhanvien")
     $(document).on('click', '#admin-btn-addNhanVien',function(){

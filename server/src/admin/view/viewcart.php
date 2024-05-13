@@ -29,7 +29,6 @@
 							<th class="w-auto">Mã Chi Tiết Sản Phẩm</th>
 							<th class="w-auto">Tên Sản Phẩm</th>
 							<th class="w-auto">Hình Ảnh</th>
-							<!-- <th class="w-auto">Nhà Cung Cấp</th> -->
 							<th class="w-auto">ram</th>
 							<th class="w-auto">rom</th>
 							<th class="w-auto">Tên Màu</th>
@@ -48,7 +47,6 @@
 								foreach ($cart1 as $ma => $each) {
 									if (array_key_exists("gia_nhap", $each)) {
 										$gia_nhap = intval($each['gia_nhap']);
-										// var_dump($gia_nhap);
 									} else {
 										continue;
 									}

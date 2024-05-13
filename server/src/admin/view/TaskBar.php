@@ -184,14 +184,22 @@ function kiemtraquyen($arr,$chucnang){
         </a>
       </li>";
       }
+      if(kiemtraquyen($arr,"Khách Hàng") && $chitietquyen->kiemtrahangdong($maquyen,"Khách Hàng","Xem")){
+        echo " <li class='side-menu-item ".( $page === 'khachhang' ? 'active' : '')."'>
+        <a href='/admin.php?controller=khachhang' class='nav-link'>
+          <i class='fa-solid fa-circle-user'></i>
+          <span class='text'>Khách Hàng</span>
+        </a>
+      </li>";
+      }
     }
     ?>
   </ul>
   <ul class="side-menu">
-    <li>
-      <a class="btn-logout" style="text-decoration: none;">
+    <li class="side-menu-item">
+      <a class="btn-logout" style="text-decoration: none; padding: .5rem 1rem;">
         <i class="fas fa-right-from-bracket"></i>
-        <span class="text">Logout</span>
+        <span class="text">Đăng xuất</span>
       </a>
     </li>
   </ul>

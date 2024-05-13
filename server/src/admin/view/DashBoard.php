@@ -1,4 +1,21 @@
-<main>
+<main class="admin-dashboard">
+  <div class="d-flex align-items-center statistic-filter mb-3">
+    <div style="margin-right: 16px;">
+      <label for="brand-filter" style="margin-bottom: 0px;">Thương hiệu:</label>
+      <select id="brand-filter" class="brand-filter__list" style="margin-left: 4px; padding: 4px 6px;">
+
+      </select>
+    </div>
+    <div>
+      <label for="start-date">Từ</label>
+      <input type="date" id="start-date" min="2024-01-01">
+    </div>
+    <div class="mx-1">
+      <label for="end-date">Đến</label>
+      <input type="date" id="end-date" min="2023-01-01">
+    </div>
+    <button type="button" class="btn btn-primary btn-filter__date">Thống kê</button>
+  </div>
   <div class="box-info">
     <li>
       <i class="fas fa-calendar-check"></i>
@@ -31,45 +48,37 @@
   </div>
 
   <div class="table-data">
-    <div class="order">
+    <div class="order recent-order__container">
       <div class="head">
-        <h3>Doanh số</h3>
+        <h3>Hóa đơn gần đây</h3>
       </div>
-      <div class="statistic-filter">
-        <form>
-          <div class="d-flex align-items-center">
-            <div>
-              <label for="from">Từ</label>
-              <input type="date" id="from">
-            </div>
-            <div class="mx-1">
-              <label for="to">Đến</labelf>
-                <input type="date" id="to">
-            </div>
-            <button type="button" class="btn btn-primary btn-filter__date">Thống kê</button>
-            <div style="margin-left: 20px;">
-              <label for="brand-filter">Thương hiệu:</label>
-              <select id="brand-filter" style="margin-left: 4px; padding: 4px 6px;">
-                <option value="">Tất cả</option>
-              </select>
-            </div>
-          </div>
-        </form>
-      </div>
-      <div class="revenue-chart__container">
-        <div class="revenue-chart__box">
-          <canvas id="revenue-chart"></canvas>
-          <span>Tháng</span>
+      <table class="recent-order__table">
+        <thead>
+          <tr>
+            <th>Mã hóa đơn</th>
+            <th>Ngày mua</th>
+            <th>Tổng tiền</th>
+            <th>Khuyến mãi</th>
+            <th>Thành tiền</th>
+          </tr>
+        </thead>
+        <tbody class="recent-order__list">
+
+        </tbody>
+      </table>
+      <div class="clearfix">
+        <div id="pagination">
+
         </div>
+        <input type="hidden" name="currentpage" id="currentpage" value="1">
       </div>
     </div>
-
     <div class="todo best-seller-product__container">
       <div class="head">
         <h3>Sản phẩm bán chạy</h3>
         <span class="view-quantity">
           Hiển thị
-          <input type="number" class="view-product-quantity" title="Số sản phẩm hiển thị" value="5">
+          <input type="number" class="view-product-quantity" title="Số sản phẩm hiển thị" value="5" min="1" >
           sản phẩm
         </span>
       </div>
@@ -77,6 +86,72 @@
       <ul class="product-list d-flex flex-column">
 
       </ul>
+    </div>
+  </div>
+
+  <div class="table-data">
+    <div class="order">
+      <div class="head">
+        <h3>Hóa đơn</h3>
+        <div class="statistic-filter">
+          <form>
+            <div class="d-flex align-items-center">
+              <div>
+                <select id="brand-filter__order-chart" class="brand-filter__list" style="margin-left: 4px; padding: 4px 6px;">
+
+                </select>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="order-chart__container">
+        <div class="order-chart__box">
+          <canvas id="order-chart"></canvas>
+        </div>
+      </div>
+      <div class="text-center">Tháng</div>
+    </div>
+    <div class="order">
+      <div class="head">
+        <h3>Doanh số</h3>
+        <div class="statistic-filter">
+          <form>
+            <div class="d-flex align-items-center">
+              <div>
+                <select id="brand-filter__revenue-chart" class="brand-filter__list" style="margin-left: 4px; padding: 4px 6px;">
+
+                </select>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="revenue-chart__container">
+        <div class="revenue-chart__box">
+          <canvas id="revenue-chart"></canvas>
+        </div>
+      </div>
+      <div class="text-center">Tháng</div>
+    </div>
+  </div>
+
+  <div id="order-detail-modal" class="modal fade" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title"></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+
+        </div>
+        <div class="modal-footer">
+
+        </div>
+      </div>
     </div>
   </div>
 </main>

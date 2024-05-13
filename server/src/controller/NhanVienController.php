@@ -24,12 +24,19 @@ class NhanVienController {
 
         echo json_encode($result);
     }
+
+    public function getAvailableEmployees() {
+        echo json_encode($this->nhanVienRepo->getAvailableEmployees());
+    }
+
     public function addEmployee($manv,$tennv,$tuoi,$sodienthoai){
         echo json_encode($this->nhanVienRepo->addEmployee($manv,$tennv,$tuoi,$sodienthoai));
     }
+
     public function updateEmployee($manv,$tennv,$tuoi,$sodienthoai){
         echo json_encode($this->nhanVienRepo->updateEmployee($manv,$tennv,$tuoi,$sodienthoai));
     }
+
     public function getEmployee($manv){
         echo json_encode($this->nhanVienRepo->getEmployee($manv));
     }
@@ -41,6 +48,9 @@ $action = $_POST['action'];
 switch ($action) {
     case 'load':
         $nhanVienCtl->getData();
+        break;
+    case 'get-available-employees':
+        $nhanVienCtl->getAvailableEmployees();
         break;
     case 'add':
         $manv=$_POST['manv'];
