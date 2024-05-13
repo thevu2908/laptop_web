@@ -7,7 +7,14 @@
 						<div class="col-sm-6">
 							<h2>Quản Lý <b>Khuyến mãi</b></h2>
 						</div>
+						
 						<div class="col-sm-6">
+							<select class="form-select" aria-label="Default select example" id="admin-select-khuyenmai">
+								<option value='all'>Tất cả</option>
+								<option value='Đang diễn ra'>Đang diễn ra</option>
+								<option value='Đã kết thúc'>Đã kết thúc</option>
+								<option value='Chưa diễn ra'>Chưa diễn ra</option>
+							</select>
 							<a href="#addPromotion" class="btn btn-success add" data-toggle="modal">
 								<i class="material-icons">&#xE147;</i>
 								<span>Thêm</span>
@@ -28,31 +35,31 @@
 									<label for="selectAll"></label>
 								</span>
 							</th>
-							<th style="cursor: pointer;" onclick="sortTable('#admin-promo-main table.table', 0)" >
+							<th style="cursor: pointer;" onclick="sortTable('#admin-promo-main table.table', 1)" >
 								ID
 								<i class="fa fa-sort" aria-hidden="true"></i>
 							</th>
-							<th style="cursor: pointer;" onclick="sortTable('#admin-promo-main table.table', 1)" >
+							<th style="cursor: pointer;" onclick="sortTable('#admin-promo-main table.table', 2)" >
 								Chương trình
 								<i class="fa fa-sort" aria-hidden="true"></i>
 							</th>
-							<th style="cursor: pointer;" onclick="sortTable('#admin-promo-main table.table', 2)" >
+							<th style="cursor: pointer;" onclick="sortTable('#admin-promo-main table.table', 3)" >
 								Điều kiện
 								<i class="fa fa-sort" aria-hidden="true"></i>
 							</th>
-							<th style="cursor: pointer;" onclick="sortTable('#admin-promo-main table.table', 3)" >
+							<th style="cursor: pointer;" onclick="sortTable('#admin-promo-main table.table', 4)" >
 								Giảm
 								<i class="fa fa-sort" aria-hidden="true"></i>
 							</th>
-							<th style="cursor: pointer;" onclick="sortTable('#admin-promo-main table.table', 4)" >
+							<th style="cursor: pointer;" onclick="sortTable('#admin-promo-main table.table', 5)" >
 								Từ ngày
 								<i class="fa fa-sort" aria-hidden="true"></i>
 							</th>
-							<th style="cursor: pointer;" onclick="sortTable('#admin-promo-main table.table', 5)" >
+							<th style="cursor: pointer;" onclick="sortTable('#admin-promo-main table.table', 6)" >
 								Đến ngày
 								<i class="fa fa-sort" aria-hidden="true"></i>
 							</th>
-							<th style="cursor: pointer;" onclick="sortTable('#admin-promo-main table.table', 6)" >
+							<th style="cursor: pointer;" onclick="sortTable('#admin-promo-main table.table', 7)" >
 								Status
 								<i class="fa fa-sort" aria-hidden="true"></i>
 							</th>

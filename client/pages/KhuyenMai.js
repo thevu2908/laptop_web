@@ -20,6 +20,15 @@ $(document).ready(() => {
     }
 })
 
+var search = ""
+
+$(document).on("change","#admin-select-khuyenmai", async function(){ 
+    search = $("#admin-select-khuyenmai").val() == "all" ? "" : $("#admin-select-khuyenmai").val()
+    $('#currentpage').val(1)
+    renderPromotionToAdmin()
+    clickPage(renderPromotionToAdmin)
+})
+
 function searchKhuyenMai() {
     $(document).on('keyup', '.admin-search-info', e => {
         const search = e.target.value.toLowerCase()
@@ -37,7 +46,7 @@ function searchKhuyenMai() {
 
 async function renderPromotionToAdmin(data) {
     try {
-        const dataPromo = data ? data : await getPaginationPromo()
+        const dataPromo = data ? data : await getPaginationPromo(search)
 
         if (dataPromo && dataPromo.pagination && dataPromo.pagination.length > 0) {
             let html = ''
@@ -74,57 +83,14 @@ async function renderPromotionToAdmin(data) {
             totalPage(dataPromo.count)
             displayTotalPage("#admin-promo-main .hint-text", dataPromo.count, dataPromo.pagination.length)
         }
+        else {
+            $('.admin-promotion-list').html('');
+        }
 
     } catch (error) {
         console.log(error);
     }
 }
-
-// function renderPromotionToAdmin() {
-//     $.ajax({
-//         url: 'server/src/controller/KhuyenMaiController.php',
-//         method: 'POST',
-//         data: { action: 'get-all' },
-//         dataType: 'JSON',
-//         success: async data => {
-//             if (data && data.length > 0) {
-//                 let html = ''
-
-//                 data.forEach((item) => {
-//                     // html render cho admin
-//                     html += `
-//                         <tr>
-//                             <td>
-//                                 <span class="custom-checkbox">
-//                                     <input type="checkbox" id="checkbox-${item.ma_km}" name="chk[]" value="${item.ma_km}">
-//                                     <label for="checkbox-${item.ma_km}"></label>
-//                                 </span>
-//                             </td>
-//                             <td>${item.ma_km}</td>
-//                             <td>${item.ten_khuyen_mai}</td>
-//                             <td>≥ ${formatCurrency(item.dieu_kien)}</td>
-//                             <td>${convertMucKM(item.muc_khuyen_mai)}</td>
-//                             <td>${convertDate(item.thoi_gian_bat_dau)}</td>
-//                             <td>${convertDate(item.thoi_gian_ket_thuc)}</td>
-//                             <td>${item.tinh_trang}</td>
-//                             <td>
-//                                 <a href="#updatePromotion" class="edit btn-update-promo-modal" data-toggle="modal" data-id="${item.ma_km}">
-//                                     <i class="material-icons" data-toggle="tooltip" title="Chỉnh sửa">&#xE254;</i>
-//                                 </a>
-//                                 <a href="#deletePromotion" class="delete btn-delete-promo-modal" data-toggle="modal" data-id="${item.ma_km}">
-//                                     <i class="material-icons" data-toggle="tooltip" title="Xóa">&#xE872;</i>
-//                                 </a>
-//                             </td>
-//                         </tr>
-//                     `
-                    
-//                 })
-
-//                 $('.admin-promotion-list').html(html)
-//             }
-//         }
-//     })
-// }
 
 function loadPromotionData() {
     $.ajax({
@@ -411,7 +377,6 @@ function handleAddPromotion() {
                     alert('Thêm khuyến mãi thành công')
                     $('form').trigger('reset')
                     $('#addPromotion').modal('hide')
-                    // loadPromotionToAdmin()
                     renderPromotionToAdmin()
                 } 
                 else {
@@ -487,7 +452,6 @@ function handleDeletePromo() {
                     if (res === 'success') {
                         alert('Xóa khuyến mãi thành công')
                         $('#deletePromotion').modal('hide')
-                        // loadPromotionToAdmin()
                         renderPromotionToAdmin()
                     } 
                     else if(res === 'fail') {
@@ -716,13 +680,13 @@ function delPromoToLocalByMaKH(maKH) {
     }
 }
 
-function getPaginationPromo() {
+function getPaginationPromo(search) {
     return new Promise((resolve, reject) => {
         const page = $('#currentpage').val()
         $.ajax({
             url: 'server/src/controller/PaginationController.php',
             method: 'GET',
-            data: { action: 'pagination', table: 'khuyenmai', page },
+            data: { action: 'pagination', table: 'khuyenmai', page, id: search },
             dataType: 'JSON',
             success: review => resolve(review),
             error: (xhr, status, error) => {

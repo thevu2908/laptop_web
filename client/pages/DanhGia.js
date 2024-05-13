@@ -86,67 +86,6 @@ async function renderListReview() {
         // totalPage(dataReview.count)
         enduserTotalPage(dataReview.count, 4, page)
     }
-
-    // try {
-    //     const response = await $.ajax({
-    //         url: 'server/src/controller/DanhGiaController.php',
-    //         method: 'POST',
-    //         data: { action: 'get-by-masp', productId },
-    //         dataType: 'JSON'
-    //     });
-
-    //     if (response && response.length > 0) {
-    //         let html = '';
-
-    //         for (const item of response) {
-    //             try {
-    //                 const res = await getCustomer(item.ma_kh);
-                    
-    //                 html += `
-    //                     <div class="d-flex flex-start mb-4">
-    //                         <div class="card w-100">
-    //                             <div class="card-body">
-    //                                 <div class="">
-    //                                     <h5 class="m-0">${res.ten_kh}</h5>
-    //                                     <p class="small">${convertDate(item.thoi_gian_danh_gia.slice(0, 10))}</p>
-    //                                     <p class="m-0">
-    //                                         ${item.noi_dung}
-    //                                     </p>
-
-    //                                     <div class="d-flex justify-content-between align-items-center">
-    //                                         <ul class="rating d-flex">
-    //                                             <li class="rate">
-    //                                                 <i class="far fa-star star ${item.rating > 0 ? 'fas rate-active' : '' }"></i>
-    //                                             </li>
-    //                                             <li class="rate">
-    //                                                 <i class="far fa-star star ${item.rating - 1 > 0 ? 'fas rate-active' : '' }"></i>
-    //                                             </li>
-    //                                             <li class="rate">
-    //                                                 <i class="far fa-star star ${item.rating - 2 > 0 ? 'fas rate-active' : '' }"></i>
-    //                                             </li>
-    //                                             <li class="rate">
-    //                                                 <i class="far fa-star star ${item.rating - 3 > 0 ? 'fas rate-active' : '' }"></i>
-    //                                             </li>
-    //                                             <li class="rate">
-    //                                                 <i class="far fa-star star ${item.rating - 4 > 0 ? 'fas rate-active' : '' }"></i>
-    //                                             </li>
-    //                                         </ul>
-    //                                     </div>
-    //                                 </div>
-    //                             </div>
-    //                         </div>
-    //                     </div>
-    //                 `
-    //             } catch (error) {
-    //                 console.log(error);
-    //             }
-    //         }
-
-    //         $('.list-review').html(html);
-    //     }
-    // } catch (error) {
-    //     console.log(error);
-    // }
 }
 
 function searchKhuyenMai() {
@@ -192,7 +131,7 @@ async function renderReviewAdmin(productId) {
                     <td>${review.noi_dung}</td>
                     <td>
                         <a href="#deleteReviewModal" class="delete btn-delete-review-modal" 
-                        data-toggle="modal" masp="${review.ma_sp}" makh="${review.ma_kh}" thoigian="${review.thoi_gian_danh_gia}">
+                            data-toggle="modal" masp="${review.ma_sp}" makh="${review.ma_kh}" thoigian="${review.thoi_gian_danh_gia}">
                             <i class="material-icons" data-toggle="tooltip" title="Xóa">&#xE872;</i>
                         </a>
                     </td>
@@ -271,7 +210,17 @@ function addReview(review) {
 async function handleAddReview() {
     $(document).off('click', '#btn-add-review').on('click', '#btn-add-review', async (e) => {
         var currentDate = new Date();
-        var formattedDate = currentDate.toISOString();
+        // var formattedDate = currentDate.toISOString();
+        var currentDate = new Date();
+        var year = currentDate.getFullYear();
+        var month = String(currentDate.getMonth() + 1).padStart(2, '0');
+        var day = String(currentDate.getDate()).padStart(2, '0');
+        var hours = String(currentDate.getHours()).padStart(2, '0');
+        var minutes = String(currentDate.getMinutes()).padStart(2, '0');
+        var seconds = String(currentDate.getSeconds()).padStart(2, '0');
+
+        var formattedDate = year + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds;
+        console.log(formattedDate)
         let productId = $('.btn-add-cart').attr('data-id');
         let customerId = await getMaKH()
 
