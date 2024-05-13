@@ -190,8 +190,8 @@ function loadBaoHanh(){
                 </td>
                 <td>${phieubaohanh['ma_pbh']}</td>
                 <td>${phieubaohanh['ma_nv']}</td>
+                <td>${phieubaohanh['ma_hd']}</td>
                 <td id='ma_nv_${index}'>${phieubaohanh['ma_hd']}</td>
-                <td>${phieubaohanh['ma_kh']}</td>
                 <td>${phieubaohanh['ngay_bao_hanh']}</td>
                 <td>${checkTime(phieubaohanh['ngay_tra'])?" ":phieubaohanh['ngay_tra']}</td>
                 <td>${phieubaohanh['tinh_trang']}</td>

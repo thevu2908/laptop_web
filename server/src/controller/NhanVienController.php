@@ -33,6 +33,12 @@ class NhanVienController {
     public function getEmployee($manv){
         echo json_encode($this->nhanVienRepo->getEmployee($manv));
     }
+    public function deleteEmployee($manv){
+        echo json_encode($this->nhanVienRepo->deleteEmployee($manv));
+    }
+    public function deleteMulEmployee($arrNhanVien){
+        echo json_encode($this->nhanVienRepo->deleteMulEmployee($arrNhanVien));
+    }
 }
 
 $nhanVienCtl = new NhanVienController();
@@ -59,6 +65,14 @@ switch ($action) {
     case 'get':
         $manv=$_POST['manv'];
         $nhanVienCtl->getEmployee($manv);
+        break;
+    case 'delete':
+        $manv=$_POST['manv'];
+        $nhanVienCtl->deleteEmployee($manv);
+        break;
+    case 'deleteMul':
+        $arrMaNhanVien=json_decode(json_encode($_POST['listitemRemove']), true);
+        $nhanVienCtl->deleteMulEmployee($arrMaNhanVien);
         break;
     default:
         break;

@@ -28,10 +28,10 @@ function addDoiTra(){
         var maphieudoitra=$("#admin-maphieudoitra").val();
         var mahoadon=$("#admin-select-mahoadon").val()
         var manhanvien=$("#admin-doitra-manhanvien").val()
-        var thanhtien=0;
-        var soluong=0;
-        listitemDoiTra.forEach(item=>thanhtien+=Number.parseFloat(item.giasanpham))
-        listitemDoiTra.forEach(item=>soluong+=Number.parseInt(item.soluong))
+        var thanhtien= $("#admin-DoiTra-tongtientra").val(tongtien);
+        var soluong= $("#admin-DoiTra-tongsoluong").val(soluong);
+        // listitemDoiTra.forEach(item=>thanhtien+=Number.parseFloat(item.giasanpham))
+        // listitemDoiTra.forEach(item=>soluong+=Number.parseInt(item.soluong))
         var thanhtienSP=thanhtien;
         var tongsoluongSP=soluong;
         console.log(thanhtienSP,tongsoluongSP,manhanvien,maphieudoitra)
