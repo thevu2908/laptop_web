@@ -42,13 +42,11 @@
                                 </span>
                             </th>
                             <th>ID</th>
+                            <th>Mã imei</th>
+                            <th>Hình ảnh</th>
                             <th>Tên sản phẩm</th>
-                            <th>Ram</th>
-                            <th>Rom</th>
-                            <th>Tên màu</th>
                             <th>Giá tiền</th>
                             <th class="w-auto">Số lượng</th>
-                            <!-- <th class="w-auto">Thành tiền</th> -->
                         </tr>
                     </thead>
                     <tbody class="admin-bill-detail-list">
@@ -56,7 +54,7 @@
                     </tbody>
                 </table>
                 <div class="clearfix">
-                    <div class="hint-text">Hiển thị <b>5</b> trong <b>25</b> chi tiết</div>
+                    <div class="hint-text"></div>
                     <div id="pagination">
 						
 					</div>

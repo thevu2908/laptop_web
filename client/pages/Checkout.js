@@ -77,6 +77,12 @@ function getPromotion(promoId) {
     })
 }
 
+$(document).on('click', '.openmodal.form2', function(e) {
+    e.preventDefault();
+    $('.modal-cart').addClass('open');
+});
+
+
 async function loadPromoToCheckout() { 
     let maKH = await getMaKH()
     let khuyenMai = JSON.parse(localStorage.getItem('khuyenMai')) || {};
@@ -138,7 +144,7 @@ async function loadTTNHToCheckout() {
             }
 
             html += `
-                <li class="col-6 openmodal" >
+                <li class="col-6" >
                     <div class="checkout-address-btn add-address-btn" style="color: #848788;">Thêm địa chỉ</div>
                 </li>
             `
@@ -322,6 +328,10 @@ async function clearCart(maKH) {
     }
 }
 
+$(document).on('click', '.add-address-btn', async function(e) { 
+    $('.modal-cart.checkout').addClass('open')
+})
+
 function handlePayment() {
     $(document).on('click', '#btn-payment', async function(e) {
         e.preventDefault();
@@ -343,8 +353,6 @@ function handlePayment() {
             startCountDown()
         } else if(ptttData[maKH] === 'COD') {
             sendPayment()
-        } else if(ptttData[maKH] === 'VNPAY') {
-            
         } else {
             console.log(ptttData[maKH] + " KHÔNG tồn tại")
         }
@@ -455,7 +463,7 @@ async function checkPaid(soTien, noiDungCK) {
 function startCountDown() {
     const countdownElement = document.getElementById('checkout-qrcode-countdown');
 
-    let countdownSeconds = 60; // giây
+    let countdownSeconds = 599; // giây
 
     countdownInterval = setInterval(() => {
         const minutes = Math.floor(countdownSeconds / 60);
@@ -477,7 +485,7 @@ function startCountDown() {
 function startCountDown2() {
     const countdownElement = document.getElementById('checkout-qrcode-countdown2');
 
-    let countdownSeconds = 4;
+    let countdownSeconds = 3;
 
     const countdownInterval2 = setInterval(() => {
         const seconds = countdownSeconds % 60;

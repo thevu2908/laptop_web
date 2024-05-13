@@ -36,6 +36,8 @@ function getCustomer(id) {
 async function renderListReview() {
     const productId = $('.btn-add-cart').attr('data-id');
     const dataReview = await getPaginationReview(productId)
+    const page = $('#currentpage').val() || ''
+
     console.log(dataReview)
 
     if (dataReview && dataReview.pagination && dataReview.pagination.length > 0) {
@@ -82,7 +84,8 @@ async function renderListReview() {
         }
 
         $('.list-review').html(html);
-        totalPage(dataReview.count)
+        // totalPage(dataReview.count)
+        enduserTotalPage(dataReview.count, 4, page)
     }
 
     // try {

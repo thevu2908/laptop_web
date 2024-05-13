@@ -32,7 +32,7 @@
                         <a href="#"class="openmodal select-promo">Chọn khuyến mãi</a>
                     </div>
                     <div class="cart__right-condition" style="color: #828EB1;" ></div>
-                    <ul class="cart-list-promo" style="max-height: 270px;" >
+                    <ul class="cart-list-promo" style="max-height: 270px; overflow: auto;" >
                     
                     </ul>
                 </div>

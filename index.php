@@ -46,6 +46,7 @@
             echo '<script src="./client/pages/DanhGia.js"></script>';
         } else if (isset($_REQUEST['gio-hang'])) {
             include './server/src/view/cart.php';
+            echo '<script src="client/pages/ChiTietSanPham.js"></script>';
         } else if (isset($_REQUEST['thanh-toan'])) {
             include './server/src/view/checkout.php';
             echo '<script src="client/pages/DiaChi.js"></script>';

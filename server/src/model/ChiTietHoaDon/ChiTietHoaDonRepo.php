@@ -115,15 +115,17 @@ class ChiTietHoaDonRepo extends ConnectDB {
 
     public function getCTHDByAdmin($ma_hd) {
         try {
-            $sql = "SELECT ctsp.*, cthd.*, sp.ten_sp, mau.ten_mau, COUNT(cti.ma_ctsp) AS quantity, hd.tinh_trang
-            FROM `chitiethoadon` cthd
-            JOIN `ctsp_imei` cti ON cthd.ma_imei = cti.ma_imei
-            JOIN `chitietsanpham` ctsp ON cti.ma_ctsp = ctsp.ma_ctsp
-            JOIN `sanpham` sp ON sp.ma_sp = ctsp.ma_sp
-            JOIN `mausac` mau ON mau.ma_mau = ctsp.ma_mau
-            JOIN `hoadon` hd ON hd.ma_hd = cthd.ma_hd
-            WHERE cthd.ma_hd = '$ma_hd'
-            GROUP BY cti.ma_ctsp";
+            $sql = "SELECT cthd.ma_hd, cthd.gia_sp, cthd.ma_imei, cthd.so_luong, sp.ma_sp, ctsp.ma_ctsp, sp.ten_sp, ctsp.ram, ctsp.rom, ms.ten_mau, cxl.ten_chip, cdh.ten_card, sp.hinh_anh, hd.tinh_trang
+                FROM chitiethoadon cthd
+                JOIN ctsp_imei ctspi ON cthd.ma_imei = ctspi.ma_imei
+                JOIN chitietsanpham ctsp ON ctsp.ma_ctsp = ctspi.ma_ctsp
+                JOIN mausac ms ON ms.ma_mau = ctsp.ma_mau
+                JOIN chipxuly cxl ON cxl.ma_chip_xu_ly = ctsp.ma_chip_xu_ly
+                JOIn carddohoa cdh ON cdh.ma_card = ctsp.ma_carddohoa
+                JOIN sanpham sp ON sp.ma_sp = ctsp.ma_sp
+                JOIN `hoadon` hd ON hd.ma_hd = cthd.ma_hd
+                WHERE cthd.ma_hd = '$ma_hd'
+                GROUP BY ctsp.ma_ctsp";
     
             $result = mysqli_query($this->conn, $sql);
             $arr = [];

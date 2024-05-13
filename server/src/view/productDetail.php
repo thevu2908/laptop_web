@@ -76,18 +76,20 @@ include "header.php";
                             <div class="list-review col-md-11 col-lg-9 col-xl-7 w-100">
 
                             </div>
-                            <div class="clearfix">
+                            <!-- <div class="clearfix">
+
                                 <div id="pagination">
                                     
                                 </div>
                                 <input type="hidden" name="currentpage" id="currentpage" value="1">
-                            </div>
-                            <!-- <div class="col-12 d-flex justify-content-center">
+                            </div> -->
+                            <div class="col-12 d-flex justify-content-center">
+
                                 <nav class="enduser-pagination">
                                     
                                 </nav>
                                 <input type="hidden" name="currentpage" id="currentpage" value="1">
-                            </div> -->
+                            </div>
                         </div>
                     </div>
                 </section>
