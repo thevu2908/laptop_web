@@ -32,21 +32,21 @@ class PaginationRepo extends ConnectDB {
                     SELECT *
                     FROM hoadon
                     WHERE trang_thai = '0' AND tinh_trang LIKE '%{$id}%'
-                    ORDER BY 1 ASC LIMIT {$start},{$limit}
+                    ORDER BY ngay_tao DESC LIMIT {$start},{$limit}
                 ";
             } else if ($table == "danhgia") {
                 $query = "
                     SELECT *
                     FROM danhgia
                     WHERE trang_thai = '0' AND ma_sp LIKE '%{$id}%'
-                    ORDER BY 1 ASC LIMIT {$start},{$limit}
+                    ORDER BY thoi_gian_danh_gia DESC LIMIT {$start},{$limit}
                 ";
             } else if ($table == "phieunhap") {
                 $query = "
                     SELECT *
                     FROM phieunhap
                     WHERE trang_thai = '0' AND tinh_trang LIKE '%{$id}%'
-                    ORDER BY 1 ASC LIMIT {$start},{$limit}
+                    ORDER BY ngay_nhap DESC LIMIT {$start},{$limit}
                 ";
             } else {
                 $query = "SELECT * from $table WHERE trang_thai = '0' ORDER BY 1 ASC LIMIT {$start},{$limit}";
