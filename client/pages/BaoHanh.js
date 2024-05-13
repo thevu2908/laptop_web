@@ -3,6 +3,7 @@ $(document).ready(function() {
     if (window.location.pathname === '/admin.php' && urlParams.get('controller') === 'baohanh') {
         loadBaoHanh()
         clickPage(loadBaoHanh)
+        searchBaoHanh()
         addBaoHanh()
     }
     TraCuu()
@@ -172,7 +173,12 @@ function loadBaoHanh(){
         method: "GET",
         dataType: "json",
         success:function(data){
-            var jsondata=data.pagination;
+            render(data)
+        }
+    })
+}
+function render(data){
+    var jsondata=data.pagination;
             var html="";
             jsondata.forEach((phieubaohanh,index) => {
                 html+=`<tr>
@@ -204,8 +210,6 @@ function loadBaoHanh(){
             phanquyen_chucnang("Bảo Hành");
             totalPage(data.count);
             displayTotalPage('#admin-guarantee-main .hint-text', data.count, jsondata.length);
-        }
-    })
 }
 $("#tableChiTietHoaDon tbody").on("click", "tr", function(){
     var ime = $(this).find("td:eq(0)").text();
@@ -405,8 +409,16 @@ function ShowChiTietBaoHanh(obj){
     showTinhTrang(mapbh);
     updatePhieuBaoHanh(mapbh)
 }
-function setColorTinhTrang(tinhtrang){
-    if(tinhtrang==="Đang Bảo Hành"){
-        
-    }
+function searchBaoHanh() {
+    $(document).on('keyup', '.admin-search-info', e => {
+        const search = e.target.value.toLowerCase()
+        $.ajax({
+            url: 'server/src/controller/SearchController.php',
+            method: 'GET',
+            data: { action: 'search', table: 'phieubaohanh', search },
+            dataType: 'JSON',
+            success: data => render(data),
+            error: (xhr, status, error) => console.log(error)
+        })
+    })
 }
