@@ -197,7 +197,7 @@ function selectMaHoaDon(){
                     <td scope="row">${cthd['ma_ctsp']}</td>
                     <td scope="row">${cthd['ten_sp']}</td>
                     <td scope="row">${cthd['gia_sp']}</td>
-                    <td scope="row"><i class="material-icons">&#xE147;</i></td>
+                    <td style="cursor: pointer; color: var(--primary);" scope="row"><i class="material-icons">&#xE147;</i></td>
                     </tr>`
                 })
                 $("#admin-showChitiethoadon").html(html);
@@ -272,7 +272,9 @@ $("#tableChiTietHoaDon tbody").on("click", "tr", function(){
                 <td scope="row">${ID}</td>
                 <td scope="row"><textarea class="form-control" rows="4" cols="100"></textarea>
                 <td scope="row"><input type="text" class="form-control" value='${giasanpham}'></td>
-                <td data-row="IME1" onclick="removeItem(this)"><i class="material-icons" data-toggle="tooltip" title="Remove">&#xE872;</i></td>
+                <td style="cursor: pointer; color: var(--danger);" data-row="IME1" onclick="removeItem(this)">
+                    <i class="material-icons" data-toggle="tooltip" title="Remove">&#xE872;</i>
+                </td>
                 </tr>`;
         $("#tableChiTietDoiTra tbody").append(newRow);
         tinh();
