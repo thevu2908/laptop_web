@@ -77,6 +77,12 @@ function getPromotion(promoId) {
     })
 }
 
+$(document).on('click', '.openmodal.form2', function(e) {
+    e.preventDefault();
+    $('.modal-cart').addClass('open');
+});
+
+
 async function loadPromoToCheckout() { 
     let maKH = await getMaKH()
     let khuyenMai = JSON.parse(localStorage.getItem('khuyenMai')) || {};
@@ -138,7 +144,7 @@ async function loadTTNHToCheckout() {
             }
 
             html += `
-                <li class="col-6 openmodal" >
+                <li class="col-6" >
                     <div class="checkout-address-btn add-address-btn" style="color: #848788;">Thêm địa chỉ</div>
                 </li>
             `
@@ -321,6 +327,10 @@ async function clearCart(maKH) {
         alert("Đã có lỗi xảy ra, vui lòng thử lại sau")
     }
 }
+
+$(document).on('click', '.add-address-btn', async function(e) { 
+    $('.modal-cart.checkout').addClass('open')
+})
 
 function handlePayment() {
     $(document).on('click', '#btn-payment', async function(e) {

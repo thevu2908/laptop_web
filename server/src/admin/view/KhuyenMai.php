@@ -28,13 +28,34 @@
 									<label for="selectAll"></label>
 								</span>
 							</th>
-							<th>ID</th>
-							<th>Chương trình</th>
-							<th>Điều kiện</th>
-							<th>Giảm</th>
-							<th>Từ ngày</th>
-							<th>Đến ngày</th>
-							<th>Status</th>
+							<th style="cursor: pointer;" onclick="sortTable('#admin-promo-main table.table', 0)" >
+								ID
+								<i class="fa fa-sort" aria-hidden="true"></i>
+							</th>
+							<th style="cursor: pointer;" onclick="sortTable('#admin-promo-main table.table', 1)" >
+								Chương trình
+								<i class="fa fa-sort" aria-hidden="true"></i>
+							</th>
+							<th style="cursor: pointer;" onclick="sortTable('#admin-promo-main table.table', 2)" >
+								Điều kiện
+								<i class="fa fa-sort" aria-hidden="true"></i>
+							</th>
+							<th style="cursor: pointer;" onclick="sortTable('#admin-promo-main table.table', 3)" >
+								Giảm
+								<i class="fa fa-sort" aria-hidden="true"></i>
+							</th>
+							<th style="cursor: pointer;" onclick="sortTable('#admin-promo-main table.table', 4)" >
+								Từ ngày
+								<i class="fa fa-sort" aria-hidden="true"></i>
+							</th>
+							<th style="cursor: pointer;" onclick="sortTable('#admin-promo-main table.table', 5)" >
+								Đến ngày
+								<i class="fa fa-sort" aria-hidden="true"></i>
+							</th>
+							<th style="cursor: pointer;" onclick="sortTable('#admin-promo-main table.table', 6)" >
+								Status
+								<i class="fa fa-sort" aria-hidden="true"></i>
+							</th>
 							<th class="w-auto">Actions</th>
 						</tr>
 					</thead>
