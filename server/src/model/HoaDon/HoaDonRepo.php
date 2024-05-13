@@ -257,7 +257,7 @@ class HoaDonRepo extends ConnectDB {
 
     public function getOrderByMonth($month, $brandId) : array | null {
         try {
-            $sql = "SELECT hd.* FROM hoadon hd
+            $sql = "SELECT DISTINCT hd.* FROM hoadon hd
                 JOIN chitiethoadon cthd ON cthd.ma_hd = hd.ma_hd
                 JOIN ctsp_imei ctspi ON ctspi.ma_imei = cthd.ma_imei
                 JOIN chitietsanpham ctsp ON ctsp.ma_ctsp = ctspi.ma_ctsp
