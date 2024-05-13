@@ -1,4 +1,4 @@
-<main>
+<main id="admin-pn-main">
 	<div class="container-xl">
 		<div class="table-responsive">
 			<div class="table-wrapper">
@@ -36,53 +36,14 @@
 							<th class="w-auto">Actions</th>
 						</tr>
 					</thead>
-					<tbody id="show-listNhomQuyen">
-
-						<?php
+					
+					<?php
 						require_once __DIR__ . '/../../controller/PhieuNhapController.php';
-						if (isset($rows) && is_array($rows)) {
-							foreach ($rows as $each) {
+						
 						?>
-								<tr>
-									<td><?php echo $each['ma_sp'] ?></td>
-									<td><?php echo $each['ma_ctsp'] ?></td>
-									<td><?php echo $each['ten_sp'] ?></td>
-									<td><img style="width: 60px" src="<?php echo $each['hinh_anh'] ?>" alt="Hình ảnh sản phẩm"></td>
-									<td><?php echo $each['ram'] ?></td>
-									<td><?php echo $each['rom'] ?></td>
-									<td><?php echo $each['ten_mau'] ?></td>
-									<td><?php echo $each['ten_chip'] ?></td>
-									<td><?php echo $each['ten_card'] ?></td>
-									<td><?php echo $each['so_luong'] ?></td>
-									<td>
-										
-										<div style="position: relative; display: inline-block;">
-											<input type="number" id="gia_nhap_<?php echo $each['ma_ctsp']; ?>" class="input-gia-sp form-control" value="<?php echo $each['gia_nhap']; ?>" style="width: 120px; " onkeyup="formatCurrency(this)" min="0" step="1000">
-											<span style="position: absolute; left: calc(100% + 10px); top: 50%; transform: translate(-100%, -50%); white-space: nowrap;">đ</span>
-										</div>
-										
-									
-									</td>
-									<script>
-										function formatCurrency(input) {
-											let value = input.value;
-											value = value.replace(/[^\d]/g, '');
-											value = new Intl.NumberFormat('vi-VN').format(value);
-											input.value = value;
-										}
-									</script>
-									<td>
-									<button type="button" class="btn btn-primary btn-add-cartimport" value="<?php echo $each['ma_ctsp'] ?>">Thêm</button>
-									</td>
-								</tr>
-							<?php
-							}
-						} else { ?>
-							<tr>
-								<td colspan="7" style="color: red; font-weight: bold;">Không có dữ liệu để hiển thị.</td>
-							</tr>
+					<tbody id="show-listNH">
 
-						<?php } ?>
+								
 					</tbody>
 				</table>
 				<div class="clearfix">
@@ -96,3 +57,4 @@
 </main>
 
 <script src="/client/pages/PhieuNhap.js"></script>
+<script src="/client/pages/PhieuNhap1.js"></script>
