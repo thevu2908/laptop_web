@@ -22,17 +22,37 @@
 				<table class="table table-striped table-hover">
 					<thead>
 						<tr>
-							<th class="w-auto">Mã sản phẩm</th>
-							<th>Mã chi tiết sản phẩm</th>
-							<th>Tên sản phẩm</th>
+							<th style="cursor: pointer;" onclick="sortTable('#admin-pn-main table.table', 1)"  class="w-auto">
+							Mã sản phẩm
+                            </th>
+							<th style="cursor: pointer;" onclick="sortTable('#admin-pn-main table.table', 2)"  class="w-auto">
+							Mã chi tiết sản phẩm
+                            </th>
+							<th style="cursor: pointer;" onclick="sortTable('#admin-pn-main table.table', 3)"  class="w-auto">
+							Tên sản phẩm
+                            </th>
 							<th>Hình Ảnh</th>
-							<th>RAM</th>
-							<th>ROM</th>
-							<th>Tên Màu</th>
-							<th>CPU</th>
-							<th>Card</th>
-							<th>Số lượng</th>
-							<th>Giá</th>
+							<th style="cursor: pointer;" onclick="sortTable('#admin-pn-main table.table', 4)"  class="w-auto">
+							RAM
+                            </th>
+							<th style="cursor: pointer;" onclick="sortTable('#admin-pn-main table.table', 5)"  class="w-auto">
+							ROM
+                            </th>
+							<th style="cursor: pointer;" onclick="sortTable('#admin-pn-main table.table', 6)"  class="w-auto">
+							Tên Màu
+                            </th>
+							<th style="cursor: pointer;" onclick="sortTable('#admin-pn-main table.table', 7)"  class="w-auto">
+							CPU
+                            </th>
+							<th style="cursor: pointer;" onclick="sortTable('#admin-pn-main table.table', 8)"  class="w-auto">
+							Card
+                            </th>
+							<th style="cursor: pointer;" onclick="sortTable('#admin-pn-main table.table', 9)"  class="w-auto">
+							Số lượng
+                            </th>
+							<th style="cursor: pointer;" onclick="sortTable('#admin-pn-main table.table', 10)"  class="w-auto">
+							Giá
+                            </th>
 							<th class="w-auto">Actions</th>
 						</tr>
 					</thead>

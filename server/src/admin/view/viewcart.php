@@ -1,4 +1,4 @@
-<main>
+<main id="admin-cart-main">
 	<div class="container-xl">
 		<div class="table-responsive">
 			<div class="table-wrapper">
@@ -23,23 +23,43 @@
 				</div>
 
 				<table class="table table-striped table-hover">
+					
 					<thead>
 						<tr>
-							<th class="w-auto">Mã sản phẩm</th>
-							<th class="w-auto">Mã Chi Tiết Sản Phẩm</th>
-							<th class="w-auto">Tên Sản Phẩm</th>
+							<th style="cursor: pointer;" onclick="sortTable('#admin-cart-main table.table', 1)"  class="w-auto">
+								Mã sản phẩm
+                            </th>
+							<th style="cursor: pointer;" onclick="sortTable('#admin-cart-main table.table', 2)"  class="w-auto">
+								Mã Chi Tiết Sản Phẩm
+                            </th>
+							<th style="cursor: pointer;" onclick="sortTable('#admin-cart-main table.table', 3)"  class="w-auto">
+								Tên Sản Phẩm
+                            </th>
 							<th class="w-auto">Hình Ảnh</th>
-							<th class="w-auto">ram</th>
-							<th class="w-auto">rom</th>
-							<th class="w-auto">Tên Màu</th>
-							<th class="w-auto">Số Lượng</th>
-							<th class="w-auto">Giá</th>
-							<th class="w-auto">Tổng Tiền</th>
+							<th style="cursor: pointer;" onclick="sortTable('#admin-cart-main table.table', 4)"  class="w-auto">
+								ram
+                            </th>
+							<th style="cursor: pointer;" onclick="sortTable('#admin-cart-main table.table', 5)"  class="w-auto">
+								rom
+                            </th>
+							<th style="cursor: pointer;" onclick="sortTable('#admin-cart-main table.table', 6)"  class="w-auto">
+								Tên Màu
+                            </th>
+							<th style="cursor: pointer;" onclick="sortTable('#admin-cart-main table.table', 7)"  class="w-auto">
+								Số Lượng
+                            </th>
+							<th style="cursor: pointer;" onclick="sortTable('#admin-cart-main table.table', 8)"  class="w-auto">
+								Giá
+                            </th>
+							<th style="cursor: pointer;" onclick="sortTable('#admin-cart-main table.table', 9)"  class="w-auto">
+								Tổng Tiền
+                            </th>
 							<th class="w-auto">Action(Xóa)</th>
 						</tr>
 					</thead>
 					<tbody id="show-listNhomQuyen">
 						<?php
+						// session_unset();
 						if (isset($_SESSION['cartimport']) && is_array($_SESSION['cartimport'])) {
 							$cart = $_SESSION['cartimport'];
 							$tongtien = 0;
@@ -47,6 +67,7 @@
 								foreach ($cart1 as $ma => $each) {
 									if (array_key_exists("gia_nhap", $each)) {
 										$gia_nhap = intval($each['gia_nhap']);
+										// var_dump($gia_nhap);
 									} else {
 										continue;
 									}

@@ -1,4 +1,4 @@
-<main id="admin-pn-main">
+<main id="admin-nh-main">
     <div class="container-xl">
         <div class="table-responsive">
             <div class="table-wrapper">
@@ -41,12 +41,25 @@
                 <table class="table table-striped table-hover">
                     <thead>
                         <tr>
-                            <th class="w-auto">Mã phiếu nhập</th>
-                            <th class="w-auto">Mã nhà cung cấp</th>
-                            <th class="w-auto">Mã nhân viên</th>
-                            <th class="w-auto">Ngày tạo phiếu</th>
-                            <th class="w-auto">Tổng tiền</th>
-                            <th class="w-auto">Tình trạng</th>
+                            <th style="cursor: pointer;" onclick="sortTable('#admin-nh-main table.table', 1)" >
+							Mã phiếu nhập
+							</th>
+                            <th style="cursor: pointer;" onclick="sortTable('#admin-nh-main table.table', 2)" >
+							Mã Nhà Cung Cấp
+							</th>
+                            <th style="cursor: pointer;" onclick="sortTable('#admin-nh-main table.table', 3)" >
+							Mã nhân viên
+							</th>
+                            <th style="cursor: pointer;" onclick="sortTable('#admin-nh-main table.table', 4)" >
+							Ngày tạo phiếu
+							</th>
+                            <th style="cursor: pointer;" onclick="sortTable('#admin-nh-main table.table', 5)" >
+							Tổng tiền
+							</th>
+                            <th style="cursor: pointer;" onclick="sortTable('#admin-nh-main table.table', 6)" >
+							Tình trạng
+							</th>
+                            <!-- <th class="w-auto">Tình trạng</th> -->
                             <th class="w-auto">Chi tiết phiếu nhập</th>
                         </tr>
                     </thead>

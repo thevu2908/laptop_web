@@ -114,13 +114,15 @@ async function renderPhieuNhapData(data) {
     try {
         const dataPromo = data ? data : await getPaginationNH()
 
-        let html = '';
         
         if (dataPromo && dataPromo.pagination && dataPromo.pagination.length > 0) {
         // const phieunhaps1 = await getPhieuNhapData();
         // if (phieunhaps1 && phieunhaps1.length > 0) {
+        let html = '';
+
             for (const phieunhap of dataPromo.pagination) {
             // phieunhaps1.forEach((phieunhap, index) => {
+                
                 console.log(dataPromo)
                 html += `
                     <tr>
@@ -158,14 +160,17 @@ async function renderPhieuNhapData(data) {
             // phanquyen_chucnang("Nhập Hàng")
             // getSizeinTable("nhacungcap", "NCC", "#admin-nhacungcap-manhacungcap")
             // $('.show-listNhomQuyen').html(html)
+            $('#show-listNH').html(html);
+            totalPage(dataPromo.count)
+            displayTotalPage("#admin-pn-main .hint-text", dataPromo.count, dataPromo.pagination.length)
             
         } else {
             html = '<tr><td colspan="11" style="color: red; font-weight: bold;">Không có dữ liệu để hiển thị.</td></tr>';
         }
 
-        $('#show-listNH').html(html);
-            totalPage(dataPromo.count)
-            displayTotalPage("#admin-pn-main .hint-text", dataPromo.count, dataPromo.pagination.length)
+            //   $('#show-listNH').html(html);
+            // totalPage(dataPromo.count)
+            // displayTotalPage("#admin-pn-main .hint-text", dataPromo.count, dataPromo.pagination.length)
 
         // $('#show-listNH').html(html);
     } catch (error) {
