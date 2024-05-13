@@ -37,8 +37,8 @@ class PhieuNhap1Controller {
         echo json_encode($this->phieunhapRepo->getImportInvoice($id));
     }
 
-    public function getImportInvoiceByMonth($month) {
-        $importInvoices = $this->phieunhapRepo->getImportInvoiceByMonth($month);
+    public function getImportInvoiceByMonth($month, $brandId) {
+        $importInvoices = $this->phieunhapRepo->getImportInvoiceByMonth($month, $brandId);
         $total = 0;
         foreach ($importInvoices as $importInvoice) {
             $total += $importInvoice['tong_tien'];
@@ -81,8 +81,9 @@ switch ($action) {
         break;
     case 'get-import-month':
         $month = $_POST['month'];
+        $brandId = $_POST['brandId'];
         $phieunhapCtl = new PhieuNhap1Controller();
-        $phieunhapCtl->getImportInvoiceByMonth($month);
+        $phieunhapCtl->getImportInvoiceByMonth($month, $brandId);
         break;
     case 'confirm':
         $id = $_POST['id'];

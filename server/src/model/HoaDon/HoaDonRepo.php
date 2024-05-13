@@ -255,9 +255,15 @@ class HoaDonRepo extends ConnectDB {
         }
     }
 
-    public function getOrderByMonth($month) : array | null {
+    public function getOrderByMonth($month, $brandId) : array | null {
         try {
-            $sql = "SELECT * FROM hoadon WHERE MONTH(ngay_tao) = '$month' AND tinh_trang LIKE '%Đã xác nhận%'";
+            $sql = "SELECT hd.* FROM hoadon hd
+                JOIN chitiethoadon cthd ON cthd.ma_hd = hd.ma_hd
+                JOIN ctsp_imei ctspi ON ctspi.ma_imei = cthd.ma_imei
+                JOIN chitietsanpham ctsp ON ctsp.ma_ctsp = ctspi.ma_ctsp
+                JOIN sanpham sp ON sp.ma_sp = ctsp.ma_sp
+                WHERE MONTH(hd.ngay_tao) = '$month' AND hd.tinh_trang LIKE '%Đã xác nhận%' AND sp.ma_thuong_hieu LIKE '%$brandId%'
+            ";
             $result = mysqli_query($this->conn, $sql);
             if (!$result) {
                 throw new Exception('Error: ' . mysqli_error($this->conn));
