@@ -393,11 +393,11 @@ function showViewAccountModal() {
 function searchAccount() {
     $(document).on('keyup', '.admin-search-info', e => {
         const search = e.target.value.toLowerCase()
-
+        const page = $('#currentpage').val()
         $.ajax({
             url: 'server/src/controller/SearchController.php',
             method: 'GET',
-            data: { action: 'search', table: 'taikhoan', search },
+            data: { action: 'search', table: 'taikhoan', search, page },
             dataType: 'JSON',
             success: accounts => renderAccountData(accounts),
             error: (xhr, status, error) => console.log(error)
