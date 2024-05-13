@@ -353,8 +353,6 @@ function handlePayment() {
             startCountDown()
         } else if(ptttData[maKH] === 'COD') {
             sendPayment()
-        } else if(ptttData[maKH] === 'VNPAY') {
-            
         } else {
             console.log(ptttData[maKH] + " KHÔNG tồn tại")
         }

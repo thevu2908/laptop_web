@@ -3,15 +3,12 @@ $(document).ready(() => {
     if (window.location.pathname === '/admin.php' && urlParams.get('controller') === 'hoadon') {
         loadBillData()
         clickPage(loadBillData)
-<<<<<<< HEAD
         handleRenderCustomerOrder()
         filterEndUserOrderStatus()
         searchEndUserOrder()
         renderCustomerOrderDetail()
         renderViewTTNHModal()
         searchHoaDon()
-=======
->>>>>>> 752284ee93fb72bd50b0d226a376825a23705e59
     }
     handleRenderCustomerOrder()
     filterEndUserOrderStatus()

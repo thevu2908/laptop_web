@@ -209,4 +209,3 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
   <script src="./client/pages/Login.js"></script>
 </body>
 </html>
-

@@ -38,6 +38,7 @@ async function renderAdminBill(data) {
 
     if (billId) {
         const billInfo = await getInfoCTHD(billId)
+        console.log(billId)
 
         if (billInfo && billInfo.length > 0) {
             let html = ''
@@ -53,12 +54,11 @@ async function renderAdminBill(data) {
                             </span>
                         </td>
                         <td>${bill.ma_ctsp}</td>
-                        <td>${bill.ten_sp}</td>
-                        <td>${bill.ram}</td>
-                        <td>${bill.rom}</td>
-                        <td>${bill.ten_mau}</td>
-                        <td>${bill.gia_tien}</td>
-                        <td>${bill.quantity}</td>
+                        <td>${bill.ma_imei}</td>
+                        <td><img style="width: 60px;" src="${bill.hinh_anh}"></td>
+                        <td>${bill.ten_sp} ${bill.ram}/${bill.rom} | ${bill.ten_card} | ${bill.ten_mau}</td>
+                        <td>${bill.gia_sp}</td>
+                        <td>${bill.so_luong}</td>
                     </tr>
                 `
             })
@@ -81,7 +81,6 @@ async function renderAdminBill(data) {
                 console.log("Chưa xác nhận")
 
             }
-            // totalPage(billInfo.length, 4)
         } else {
             $('.admin-bill-detail-list').html('')
         }
@@ -112,7 +111,7 @@ function getInfoCTHD(ma_hd) {
         $.ajax({
             url: 'server/src/controller/CTHDController.php',
             method: 'POST',
-            data: { action: 'get-cthd', ma_hd },
+            data: { action: 'get-cthd-admin', ma_hd },
             dataType: "JSON",
             success: res => resolve(res),
             error: (xhr, status, error) => {

@@ -17,15 +17,33 @@
 				<table class="table-bill table table-striped table-hover">
 					<thead>
 						<tr>
-							<th>ID</th>
-							<th>Khách Hàng</th>
-							<th>Nhân Viên</th>
-							<th>Ngày Đặt</th>
-							<th>Tổng Tiền</th>
-							<th>Khuyến Mãi</th>
-							<th>Thành tiền</th>
-							<th>Hình thức</th>
-							<th>Tình Trạng</th>
+							<th style="cursor: pointer;" onclick="sortTable('#admin-bill-main table.table', 0)" >
+								ID
+							</th>
+							<th style="cursor: pointer;" onclick="sortTable('#admin-bill-main table.table', 1)" >
+								Khách Hàng
+							</th>
+							<th style="cursor: pointer;" onclick="sortTable('#admin-bill-main table.table', 2)" >
+								Nhân Viên
+							</th>
+							<th style="cursor: pointer;" onclick="sortTable('#admin-bill-main table.table', 3)" >
+								Ngày Đặt
+							</th>
+							<th style="cursor: pointer;" onclick="sortTable('#admin-bill-main table.table', 4)" >
+								Tổng Tiền
+							</th>
+							<th style="cursor: pointer;" onclick="sortTable('#admin-bill-main table.table', 5)" >
+								Khuyến Mãi
+							</th>
+							<th style="cursor: pointer;" onclick="sortTable('#admin-bill-main table.table', 6)" >
+								Thành tiền
+							</th>
+							<th style="cursor: pointer;" onclick="sortTable('#admin-bill-main table.table', 7)" >
+								Hình thức
+							</th>
+							<th style="cursor: pointer;" onclick="sortTable('#admin-bill-main table.table', 8)" >
+								Tình Trạng
+							</th>
 							<th class="w-auto">Actions</th>
 						</tr>
 					</thead>
