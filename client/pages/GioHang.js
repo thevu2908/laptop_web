@@ -182,32 +182,41 @@ function handleAddCart() {
                 quantity: $('.product-info-right .product-bought-quantity').val().trim(),
             }
             const getCartRes = await getCart(cart.productDetailId, cart.customerId)
+            const ctsp = await getProductDetail(cart.productDetailId)
             const objectData = JSON.parse(getCartRes)
             
             if (objectData != null) {
                 cart.quantity = parseInt(objectData.so_luong) + parseInt(cart.quantity)
-                const updateRes = await updateCart(cart)
-                if (updateRes === 'success') {
-                    if ($(e.target).hasClass('btn-buy-now')) {
-                        window.location.href = 'index.php?thanh-toan';
+                if(cart.quantity <= ctsp.so_luong) {
+                    const updateRes = await updateCart(cart)
+                    if (updateRes === 'success') {
+                        if ($(e.target).hasClass('btn-buy-now')) {
+                            window.location.href = 'index.php?thanh-toan';
+                        } else {
+                            alert('Đã thêm sản phẩm vào giỏ hàng')
+                            loadCart(cart.customerId)
+                        }
                     } else {
-                        alert('Đã thêm sản phẩm vào giỏ hàng')
-                        loadCart(cart.customerId)
+                        alert('Xảy ra lỗi trong quá trình thêm sản phẩm vào giỏ hàng')
                     }
                 } else {
-                    alert('Xảy ra lỗi trong quá trình thêm sản phẩm vào giỏ hàng')
+                    alert(`Số lượng sản phẩm ở cửa hàng hiện tại chỉ còn ${ctsp.so_luong} sản phẩm`)
                 }
             } else {
-                const addRes = await addCart(cart)
-                if (addRes === 'success') {
-                    if ($(e.target).hasClass('btn-buy-now')) {
-                        window.location.href = 'index.php?thanh-toan';
+                if(cart.quantity <= ctsp.so_luong) {
+                    const addRes = await addCart(cart)
+                    if (addRes === 'success') {
+                        if ($(e.target).hasClass('btn-buy-now')) {
+                            window.location.href = 'index.php?thanh-toan';
+                        } else {
+                            alert('Đã thêm sản phẩm vào giỏ hàng')
+                            loadCart(cart.customerId)
+                        }
                     } else {
-                        alert('Đã thêm sản phẩm vào giỏ hàng')
-                        loadCart(cart.customerId)
+                        alert('Xảy ra lỗi trong quá trình thêm sản phẩm vào giỏ hàng')
                     }
                 } else {
-                    alert('Xảy ra lỗi trong quá trình thêm sản phẩm vào giỏ hàng')
+                    alert(`Số lượng sản phẩm ở cửa hàng hiện tại chỉ còn ${ctsp.so_luong} sản phẩm`)
                 }
             }
         } catch (error) {

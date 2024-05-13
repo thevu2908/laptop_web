@@ -520,6 +520,7 @@ ul, li {
 .btn-payment:hover {
     opacity: .9;
     color: #fff;
+    background-color: var(--primary-color);
 }
 
 /* END Checkout */

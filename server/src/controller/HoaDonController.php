@@ -1,7 +1,8 @@
 <?php
-include("../model/ConnectDB.php");
-include("../model/HoaDon/HoaDon.php");
-include("../model/HoaDon/HoaDonRepo.php");
+
+require_once "../model/ConnectDB.php";
+include "../model/HoaDon/HoaDon.php";
+include "../model/HoaDon/HoaDonRepo.php";
 
 class HoaDonController {
     private $hoadonRepo;
@@ -187,7 +188,7 @@ switch ($action) {
 
         if($length >= 0) {
             $length += 1;
-            $id = 'HD'.sprintf('%04d', $length);
+            $id = 'HD'.sprintf('%03d', $length);
             $hoadon = new HoaDon(
                 $id,
                 $obj->{'maKH'},

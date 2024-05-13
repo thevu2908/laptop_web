@@ -28,13 +28,27 @@
 									<label for="selectAll"></label>
 								</span>
 							</th>
-							<th>ID</th>
-							<th>Chương trình</th>
-							<th>Điều kiện</th>
-							<th>Giảm</th>
-							<th>Từ ngày</th>
-							<th>Đến ngày</th>
-							<th>Status</th>
+							<th style="cursor: pointer;" onclick="sortTable('#admin-promo-main table.table', 0)" >
+								ID
+							</th>
+							<th style="cursor: pointer;" onclick="sortTable('#admin-promo-main table.table', 1)" >
+								Chương trình
+							</th>
+							<th style="cursor: pointer;" onclick="sortTable('#admin-promo-main table.table', 2)" >
+								Điều kiện
+							</th>
+							<th style="cursor: pointer;" onclick="sortTable('#admin-promo-main table.table', 3)" >
+								Giảm
+							</th>
+							<th style="cursor: pointer;" onclick="sortTable('#admin-promo-main table.table', 4)" >
+								Từ ngày
+							</th>
+							<th style="cursor: pointer;" onclick="sortTable('#admin-promo-main table.table', 5)" >
+								Đến ngày
+							</th>
+							<th style="cursor: pointer;" onclick="sortTable('#admin-promo-main table.table', 6)" >
+								Status
+							</th>
 							<th class="w-auto">Actions</th>
 						</tr>
 					</thead>

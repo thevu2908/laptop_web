@@ -33,4 +33,18 @@ class ImeiRepo extends ConnectDB {
             return false;
         }
     }
+
+    public function deleteImei($imeiId) : bool {
+        try {
+            $query = "UPDATE ctsp_imei SET trang_thai = 1 WHERE ma_imei = '$imeiId'";
+            $result = mysqli_query($this->conn, $query);
+            if (!$result) {
+                throw new Exception("Query failed: " . mysqli_error($this->conn));
+            }
+            return $result;
+        } catch (Exception $e) {
+            echo 'Error: ' . $e->getMessage() . '<br>';
+            return false;
+        }
+    }
 }

@@ -250,7 +250,8 @@ function deleteEmployee() {
         var id = $(this).attr("data-id2");
 
         if(id==="admin"){
-            alert("admin không được xóa")
+            alert("Không thể xóa nhân viên admin")
+            $("#deleteEmployeeModal").modal("hide");
             return
         }else{
             $(document).off("click", "#admin-btn-deleteNhanvien").on("click","#admin-btn-deleteNhanvien",function(){

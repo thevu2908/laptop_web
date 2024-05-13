@@ -23,22 +23,22 @@
                 <div class="row bg-white mb-4 p-4 rounded-3">
                     <h5 class="checkout-header">Phương thức thanh toán</h5>
                     <ul class="checkout-method row ps-4" style="row-gap: 16px;">
-                        <li class="col-6" >
+                        <!-- <li class="col-6" >
                             <div data-id="VNPAY" class="checkout-address-btn flex-column select select-payment-method">
                                 <div class="checkout-method-title">Thanh toán VNPAY-QR</div>
                                 <div class="checkout-method-describe">Thanh toán qua Internet Banking, Visa, Master, JCB, VNPAY-QR</div>
+                            </div>
+                        </li> -->
+                        <li class="col-6" >
+                            <div data-id="QR" class="checkout-address-btn select flex-column select-payment-method">
+                                <div class="checkout-method-title">Thanh toán bằng mã QR</div>
+                                <div class="checkout-method-describe">ACB, BIDV, Techcombank, MBBank, VPBank, VietinBank, Agribank</div>
                             </div>
                         </li>
                         <li class="col-6" >
                             <div data-id="COD" class="checkout-address-btn flex-column select-payment-method">
                                 <div class="checkout-method-title">Thanh toán khi nhận hàng</div>
                                 <div class="checkout-method-describe">COD</div>
-                            </div>
-                        </li>
-                        <li class="col-6" >
-                            <div data-id="QR" class="checkout-address-btn flex-column select-payment-method">
-                                <div class="checkout-method-title">Thanh toán bằng mã QR</div>
-                                <div class="checkout-method-describe">ACB, BIDV, Techcombank, MBBank, VPBank, VietinBank, Agribank</div>
                             </div>
                         </li>
                     </ul>
@@ -51,13 +51,13 @@
                         <div class="">Thông tin đơn hàng</div>
                         <a href="index.php?gio-hang" class="edit-order align-self-center">Chỉnh sửa</a>
                     </h5>
-                    <ul class="checkout__right-cart">
+                    <ul class="checkout__right-cart" style="max-height: 170px; overflow: auto;">
                         
                     </ul>
                 </div>
                 <div class="row bg-white mb-4 p-4 rounded-3">
                     <h5 class="checkout-header">Khuyến mãi đơn hàng</h5>
-                    <ul class="checkout__right-promo" >
+                    <ul class="checkout__right-promo" style="max-height: 190px; overflow: auto;">
                         
                     </ul>                
                 </div>
@@ -153,8 +153,8 @@
     <div class="modal-cart qr-code" >
         <div class="modal-cart-dialog" style="min-width: 410px;">
             <div class="modal-cart-body" style="min-height: 450px;" >
-                <div id="img-qrcode mt-2" style="text-align: center; margin-top: 20px;">
-                    <img style="width: 270px; " src="server/src/assets/images/qrcode.png" >
+                <div id="img-qrcode" class="mt-2" style="text-align: center; margin-top: 20px;">
+                    <img style="width: 270px;" src="server/src/assets/images/qrcode.png" >
                 </div>
                 <div class="d-flex justify-content-center mt-3">
                     <h5 class="text" >Mã QR thanh toán tự động</h5>

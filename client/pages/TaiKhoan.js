@@ -93,7 +93,6 @@ async function renderAccountData(data) {
 async function renderAvailableEmployees() {
     try {
         const employees = await getAvailableEmployees()
-        console.log(employees)
         $('#admin-account-employee-choose').html(`
             ${employees.map(employee => `<option value="${employee.ma_nv}">${employee.ma_nv} - ${employee.ten_nv}</option>`).join('')}
         `)
@@ -150,7 +149,7 @@ function addAccount(accountId, accessId, username, password) {
 
 function handleAddAccount() {
     $('.btn-add-account').on('click', async e => {
-        const accountId = $('#admin-account-id').val()
+        const accountId = $('#admin-account-employee-choose').val()
         const accessId = $('#admin-account-access').val()
         const password = $('#admin-account-password').val()
 
@@ -162,7 +161,7 @@ function handleAddAccount() {
             alert('Vui lòng nhập mật khẩu')
             return
         }
-        if(checkSpace(password)){
+        if (checkSpace(password)){
             alert('Vui lòng nhập mật hợp lệ')
             return
         }
@@ -397,11 +396,11 @@ function showViewAccountModal() {
 function searchAccount() {
     $(document).on('keyup', '.admin-search-info', e => {
         const search = e.target.value.toLowerCase()
-
+        const page = $('#currentpage').val()
         $.ajax({
             url: 'server/src/controller/SearchController.php',
             method: 'GET',
-            data: { action: 'search', table: 'taikhoan', search },
+            data: { action: 'search', table: 'taikhoan', search, page },
             dataType: 'JSON',
             success: accounts => renderAccountData(accounts),
             error: (xhr, status, error) => console.log(error)

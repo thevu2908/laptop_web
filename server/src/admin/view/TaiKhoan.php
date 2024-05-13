@@ -64,11 +64,6 @@
 									
 							</select>
 						</div>
-
-						<div class="form-group">
-							<label for="admin-account-id">Mã tài khoản</label>
-							<input type="text" class="form-control" name="admin-account-id" id="admin-account-id" disabled>
-						</div>
 						<div class="form-group">
 							<label for="admin-account-password">Password</label>
 							<div class="admin-account-pwd">

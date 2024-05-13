@@ -77,6 +77,12 @@ function getPromotion(promoId) {
     })
 }
 
+$(document).on('click', '.openmodal.form2', function(e) {
+    e.preventDefault();
+    $('.modal-cart').addClass('open');
+});
+
+
 async function loadPromoToCheckout() { 
     let maKH = await getMaKH()
     let khuyenMai = JSON.parse(localStorage.getItem('khuyenMai')) || {};
@@ -138,7 +144,7 @@ async function loadTTNHToCheckout() {
             }
 
             html += `
-                <li class="col-6 openmodal" >
+                <li class="col-6" >
                     <div class="checkout-address-btn add-address-btn" style="color: #848788;">Thêm địa chỉ</div>
                 </li>
             `
@@ -301,8 +307,8 @@ async function handleRandomCTSP(maHD) {
         }
         
         const res = await addCTHD(cthd)
-        console.log("res = " + res)
-        return res === 'success';
+        console.log(res)
+        return res === 'true';
     })
 
     const results = await Promise.all(promises);
@@ -321,6 +327,10 @@ async function clearCart(maKH) {
         alert("Đã có lỗi xảy ra, vui lòng thử lại sau")
     }
 }
+
+$(document).on('click', '.add-address-btn', async function(e) { 
+    $('.modal-cart.checkout').addClass('open')
+})
 
 function handlePayment() {
     $(document).on('click', '#btn-payment', async function(e) {
@@ -343,8 +353,6 @@ function handlePayment() {
             startCountDown()
         } else if(ptttData[maKH] === 'COD') {
             sendPayment()
-        } else if(ptttData[maKH] === 'VNPAY') {
-            
         } else {
             console.log(ptttData[maKH] + " KHÔNG tồn tại")
         }
@@ -374,20 +382,26 @@ async function sendPayment() {
         'status': status
     }
 
-    const resAddBill = await addBill(bill)
+    try {
+        const resAddBill = await addBill(bill)
 
-    if (resAddBill.startsWith('HD')) {
-        if (handleRandomCTSP(resAddBill)) {
-            alert('Đơn hàng đã được gửi đi, vui lòng chờ nhân viên xác nhận')
-            clearCart(maKH)
-            window.location.href = 'index.php?thong-tin-tai-khoan&don-hang';
-        } 
-        else {
-            alert('Đã xảy ra lỗi khi thanh toán, vui lòng thử lại')
+        if (resAddBill.startsWith('HD')) {
+            const addCTHD = await handleRandomCTSP(resAddBill)
+            
+            if (addCTHD) {
+                alert('Đơn hàng đã được gửi đi, vui lòng chờ nhân viên xác nhận')
+                clearCart(maKH)
+                window.location.href = 'index.php?thong-tin-tai-khoan&don-hang';
+            } else {
+                console.log(addCTHD)
+                alert('Đã xảy ra lỗi khi thanh toán, vui lòng thử lại')
+            }
+        } else {
+            alert('Đã xảy ra lỗi, vui lòng thử lại')
         }
-    } else {
-        console.log(resAddBill)
-        alert('Đã xảy ra lỗi, vui lòng thử lại')
+    } catch (error) {
+        console.log(error)
+        alert('Đã xảy ra lỗi khi thanh toán, vui lòng thử lại sau')
     }
 }
 
@@ -449,7 +463,7 @@ async function checkPaid(soTien, noiDungCK) {
 function startCountDown() {
     const countdownElement = document.getElementById('checkout-qrcode-countdown');
 
-    let countdownSeconds = 60; // giây
+    let countdownSeconds = 599; // giây
 
     countdownInterval = setInterval(() => {
         const minutes = Math.floor(countdownSeconds / 60);
@@ -471,7 +485,7 @@ function startCountDown() {
 function startCountDown2() {
     const countdownElement = document.getElementById('checkout-qrcode-countdown2');
 
-    let countdownSeconds = 4;
+    let countdownSeconds = 3;
 
     const countdownInterval2 = setInterval(() => {
         const seconds = countdownSeconds % 60;

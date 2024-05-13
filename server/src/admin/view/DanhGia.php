@@ -38,11 +38,21 @@
 									<label for="selectAll"></label>
 								</span>
 							</th>
-							<th>Mã sản phẩm</th>
-							<th>Khách Hàng</th>
-							<th>Rating</th>
-							<th>Ngày đánh giá</th>
-							<th>Nội dung</th>
+							<th style="cursor: pointer;" onclick="sortTable('#admin-review-main table.table', 0)" >
+								Mã sản phẩm
+							</th>
+							<th style="cursor: pointer;" onclick="sortTable('#admin-review-main table.table', 1)" >
+								Khách Hàng
+							</th>
+							<th style="cursor: pointer;" onclick="sortTable('#admin-review-main table.table', 2)" >
+								Rating
+							</th>
+							<th style="cursor: pointer;" onclick="sortTable('#admin-review-main table.table', 3)" >
+								Ngày đánh giá
+							</th>
+							<th style="cursor: pointer;" onclick="sortTable('#admin-review-main table.table', 4)" >
+								Nội dung
+							</th>
 							<th class="w-auto" >Actions</th>
 						</tr>
 					</thead>
