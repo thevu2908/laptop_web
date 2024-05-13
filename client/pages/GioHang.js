@@ -199,9 +199,8 @@ function handleAddCart() {
                     } else {
                         alert('Xảy ra lỗi trong quá trình thêm sản phẩm vào giỏ hàng')
                     }
-                }
-                else {
-                    alert('Số lượng sản phẩm trong giỏ hàng không được lớn hơn tồn kho')
+                } else {
+                    alert(`Số lượng sản phẩm ở cửa hàng hiện tại chỉ còn ${ctsp.so_luong} sản phẩm`)
                 }
             } else {
                 if(cart.quantity <= ctsp.so_luong) {
@@ -216,9 +215,8 @@ function handleAddCart() {
                     } else {
                         alert('Xảy ra lỗi trong quá trình thêm sản phẩm vào giỏ hàng')
                     }
-                }
-                else {
-                    alert('Số lượng sản phẩm được thêm vào không được lớn hơn tồn kho')
+                } else {
+                    alert(`Số lượng sản phẩm ở cửa hàng hiện tại chỉ còn ${ctsp.so_luong} sản phẩm`)
                 }
             }
         } catch (error) {

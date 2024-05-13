@@ -41,11 +41,11 @@
 									<label for="selectAll"></label>
 								</span>
 							</th>
-							<th>ID</th>
-							<th>Tên sản phẩm</th>
-							<th>Thương hiệu</th>
-							<th>Số lượng tồn</th>
-							<th>Actions</th>
+							<th style="cursor: pointer;" onclick="sortTable('#admin-product-main table.table', 1)">ID</th>
+							<th style="cursor: pointer;" onclick="sortTable('#admin-product-main table.table', 2)">Tên sản phẩm</th>
+							<th style="cursor: pointer;" onclick="sortTable('#admin-product-main table.table', 3)">Thương hiệu</th>
+							<th style="cursor: pointer;" onclick="sortTable('#admin-product-main table.table', 4)">Số lượng tồn</th>
+							<th style="cursor: pointer;" onclick="sortTable('#admin-product-main table.table', 5)">Actions</th>
 						</tr>
 					</thead>
 					<tbody class="admin-product-list">

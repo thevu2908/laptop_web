@@ -125,7 +125,8 @@ class ChiTietHoaDonRepo extends ConnectDB {
                 JOIN sanpham sp ON sp.ma_sp = ctsp.ma_sp
                 JOIN `hoadon` hd ON hd.ma_hd = cthd.ma_hd
                 WHERE cthd.ma_hd = '$ma_hd'
-                GROUP BY ctsp.ma_ctsp";
+                GROUP BY cthd.ma_imei
+            ";
     
             $result = mysqli_query($this->conn, $sql);
             $arr = [];

@@ -17,9 +17,9 @@
                             <div class="status alert alert-danger" style="margin-right: 15px; padding: 3px; font-weight: 500;" role="alert">
                                 Chưa xác nhận
                             </div>
-                            <a href="#updateStatusBill" style="margin-right: 15px; padding: 10px; height: 32px;" data-id="<?= $billId ?>" class="d-flex align-items-center btn btn-primary btn-update-status-bill update" title="Cập nhật tình trạng" data-toggle="modal">
+                            <a href="#updateStatusBill" style="margin-right: 15px; padding: 10px; height: 32px;" data-id="<?= $billId ?>" class="d-flex align-items-center btn btn-primary btn-update-status-bill update" title="Xác nhận hóa đơn" data-toggle="modal">
                                 <i class="material-icons">&#xe9d2;</i>
-                                <span>Cập nhật</span>
+                                <span>Xác nhận</span>
                             </a>
                             <form>
                                 <div class="d-flex align-items-center">
@@ -35,12 +35,6 @@
                 <table class="table table-striped table-hover admin-product-detail-table">
                     <thead>
                         <tr>
-                            <th>
-                                <span class="custom-checkbox">
-                                    <input type="checkbox" id="selectAll">
-                                    <label for="selectAll"></label>
-                                </span>
-                            </th>
                             <th>ID</th>
                             <th>Mã imei</th>
                             <th>Hình ảnh</th>

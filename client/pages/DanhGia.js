@@ -38,8 +38,6 @@ async function renderListReview() {
     const dataReview = await getPaginationReview(productId)
     const page = $('#currentpage').val() || ''
 
-    console.log(dataReview)
-
     if (dataReview && dataReview.pagination && dataReview.pagination.length > 0) {
         let html = ''
 
@@ -87,67 +85,6 @@ async function renderListReview() {
         // totalPage(dataReview.count)
         enduserTotalPage(dataReview.count, 4, page)
     }
-
-    // try {
-    //     const response = await $.ajax({
-    //         url: 'server/src/controller/DanhGiaController.php',
-    //         method: 'POST',
-    //         data: { action: 'get-by-masp', productId },
-    //         dataType: 'JSON'
-    //     });
-
-    //     if (response && response.length > 0) {
-    //         let html = '';
-
-    //         for (const item of response) {
-    //             try {
-    //                 const res = await getCustomer(item.ma_kh);
-                    
-    //                 html += `
-    //                     <div class="d-flex flex-start mb-4">
-    //                         <div class="card w-100">
-    //                             <div class="card-body">
-    //                                 <div class="">
-    //                                     <h5 class="m-0">${res.ten_kh}</h5>
-    //                                     <p class="small">${convertDate(item.thoi_gian_danh_gia.slice(0, 10))}</p>
-    //                                     <p class="m-0">
-    //                                         ${item.noi_dung}
-    //                                     </p>
-
-    //                                     <div class="d-flex justify-content-between align-items-center">
-    //                                         <ul class="rating d-flex">
-    //                                             <li class="rate">
-    //                                                 <i class="far fa-star star ${item.rating > 0 ? 'fas rate-active' : '' }"></i>
-    //                                             </li>
-    //                                             <li class="rate">
-    //                                                 <i class="far fa-star star ${item.rating - 1 > 0 ? 'fas rate-active' : '' }"></i>
-    //                                             </li>
-    //                                             <li class="rate">
-    //                                                 <i class="far fa-star star ${item.rating - 2 > 0 ? 'fas rate-active' : '' }"></i>
-    //                                             </li>
-    //                                             <li class="rate">
-    //                                                 <i class="far fa-star star ${item.rating - 3 > 0 ? 'fas rate-active' : '' }"></i>
-    //                                             </li>
-    //                                             <li class="rate">
-    //                                                 <i class="far fa-star star ${item.rating - 4 > 0 ? 'fas rate-active' : '' }"></i>
-    //                                             </li>
-    //                                         </ul>
-    //                                     </div>
-    //                                 </div>
-    //                             </div>
-    //                         </div>
-    //                     </div>
-    //                 `
-    //             } catch (error) {
-    //                 console.log(error);
-    //             }
-    //         }
-
-    //         $('.list-review').html(html);
-    //     }
-    // } catch (error) {
-    //     console.log(error);
-    // }
 }
 
 function searchKhuyenMai() {
