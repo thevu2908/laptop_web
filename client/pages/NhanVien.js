@@ -110,21 +110,36 @@ function updateEmployee(){
         }else if(!containsOnlyNumbers(tuoi)){
             alert("Tuổi Không Hợp Lệ")
         }else{
-        $.ajax({
-            url:"server/src/controller/NhanVienController.php",
-            method:"POST",
-            data:{  action: 'update',
-            manv:manv,
-            tennv:tennv,
-            tuoi:tuoi,
-            sodienthoai:sodienthoai},
-            dataType:"JSON",
-            success:function(data){
-                $("form").trigger('reset');
-                $("#editEmployeeModal").modal("hide");
-                renderEmployeeData();
-            }
-        })
+            $.ajax({
+                url:'server/src/controller/NhanVienController.php',
+                method: 'POST',
+                data: {
+                    action: 'checkPhone',
+                    sodienthoai:sodienthoai
+                },
+                dataType: 'JSON',
+                success: function(data){
+                    if(data===false){
+                        $.ajax({
+                            url:"server/src/controller/NhanVienController.php",
+                            method:"POST",
+                            data:{  action: 'update',
+                            manv:manv,
+                            tennv:tennv,
+                            tuoi:tuoi,
+                            sodienthoai:sodienthoai},
+                            dataType:"JSON",
+                            success:function(data){
+                                $("form").trigger('reset');
+                                $("#editEmployeeModal").modal("hide");
+                                renderEmployeeData();
+                            }
+                        })
+                    }else{
+                        alert("Số Điện Thoại Đã Tồn Tại")
+                    }
+                }
+            })
       }
     })
 }
@@ -184,20 +199,36 @@ function addEmployeee(){
                 url:'server/src/controller/NhanVienController.php',
                 method: 'POST',
                 data: {
-                    action: 'add',
-                    manv:manv,
-                    tennv:tennv,
-                    tuoi:tuoi,
+                    action: 'checkPhone',
                     sodienthoai:sodienthoai
                 },
                 dataType: 'JSON',
                 success: function(data){
-                    console.log(data);
-                    $("form").trigger('reset');
-                    $("#addEmployeeModal").modal("hide");
-                    renderEmployeeData();
+                    if(data===false){
+                        $.ajax({
+                            url:'server/src/controller/NhanVienController.php',
+                            method: 'POST',
+                            data: {
+                                action: 'add',
+                                manv:manv,
+                                tennv:tennv,
+                                tuoi:tuoi,
+                                sodienthoai:sodienthoai
+                            },
+                            dataType: 'JSON',
+                            success: function(data){
+                                console.log(data);
+                                $("form").trigger('reset');
+                                $("#addEmployeeModal").modal("hide");
+                                renderEmployeeData();
+                            },
+                    })
+                    }else{
+                        alert("Số Điện Thoại Đã Tồn Tại")
+                    }
                 },
             })
+
         }
     })
 }

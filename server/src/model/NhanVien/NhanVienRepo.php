@@ -52,6 +52,14 @@ class NhanVienRepo extends ConnectDB {
         }
         return null;
     }
+    public function checkPhoneEmployee($sodienthoai){
+        $query="SELECT * FROM nhanvien WHERE so_dien_thoai='$sodienthoai'";
+        $result=mysqli_query($this->conn,$query);
+        if(mysqli_num_rows($result) > 0){
+            return true;
+        }
+        return false;
+    }
     public function updateEmployee($manv,$tennv,$tuoi,$sodienthoai){
         $query="UPDATE nhanvien SET ten_nv='$tennv',tuoi=$tuoi,so_dien_thoai='$sodienthoai' WHERE ma_nv='$manv'";
         $result=mysqli_query($this->conn,$query);
