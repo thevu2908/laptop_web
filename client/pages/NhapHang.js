@@ -10,7 +10,7 @@ $(document).ready(() => {
     }
 })
 
-let search = ""
+var search = ""
 
 function searchPN() {
     $(document).on('keyup', '.admin-search-info', e => {
