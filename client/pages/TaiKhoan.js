@@ -3,6 +3,7 @@ $(document).ready(() => {
     if (window.location.pathname === '/admin.php' && urlParams.get('controller') === 'taikhoan') {
         renderAccountData()
         clickPage(renderAccountData)
+        handleRenderAvailableEmployees()
         handleAddAccount()
         showUpdateAccountModal()
         handleUpdateAccount()
@@ -87,6 +88,23 @@ async function renderAccountData(data) {
         totalPage(accounts.count)
         displayTotalPage("#admin-account-main .hint-text", accounts.count, accounts.pagination.length)
     }
+}
+
+async function renderAvailableEmployees() {
+    try {
+        const employees = await getAvailableEmployees()
+        console.log(employees)
+        $('#admin-account-employee-choose').html(`
+            ${employees.map(employee => `<option value="${employee.ma_nv}">${employee.ma_nv} - ${employee.ten_nv}</option>`).join('')}
+        `)
+    } catch (error) {
+        console.log(error)
+        alert('Xảy ra lỗi trong khi lấy dữ liệu nhân viên chưa được tạo tài khoản. Vui lòng thử lại sau')
+    }
+}
+
+function handleRenderAvailableEmployees() {
+    $(document).on('click', '.btn-open-add-account-modal', renderAvailableEmployees)
 }
 
 function getAllAccounts() {

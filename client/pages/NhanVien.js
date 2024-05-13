@@ -27,6 +27,19 @@ function getEmployeeData() {
     })
 }
 
+function getAvailableEmployees() {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: "server/src/controller/NhanVienController.php",
+            method:"POST",
+            data: { action: "get-available-employees" },
+            dataType: "JSON",
+            success: employees => resolve(employees),
+            error: (xhr, status, error) => reject(error)
+        })
+    })
+}
+
 async function renderEmployeeData() {
     var tmp=await getEmployeeData();
     const employees = tmp.pagination
