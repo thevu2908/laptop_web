@@ -37,9 +37,7 @@ async function renderAdminBill(data) {
     let billId = $('#admin-bill-detail-main #bill-id').val()
 
     if (billId) {
-        const billJson = await getInfoCTHD(billId)
-        const billInfo = JSON.parse(billJson)
-        console.log(billInfo)
+        const billInfo = await getInfoCTHD(billId)
 
         if (billInfo && billInfo.length > 0) {
             let html = ''
@@ -114,7 +112,8 @@ function getInfoCTHD(ma_hd) {
         $.ajax({
             url: 'server/src/controller/CTHDController.php',
             method: 'POST',
-            data: { action: 'get-cthd-admin', ma_hd },
+            data: { action: 'get-cthd', ma_hd },
+            dataType: "JSON",
             success: res => resolve(res),
             error: (xhr, status, error) => {
                 console.log(error)
