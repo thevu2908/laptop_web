@@ -264,11 +264,36 @@ function removeList(checkbox) {
 function deleteEmployee(){
     $(document).on("click","#showId-nhanvien",function(){
         var id = $(this).attr("data-id2");
-        $(document).on("click","#admin-btn-deleteNhanvien",function(){
+        if(id==="admin"){
+            alert("admin không được xóa")
+            return
+        }else{
+            $(document).off("click", "#admin-btn-deleteNhanvien").on("click","#admin-btn-deleteNhanvien",function(){
+                $.ajax({
+                    url:"server/src/controller/NhanVienController.php",
+                    method:"POST",
+                    data:{action:"delete",manv:id},
+                    dataType:"JSON",
+                    success:function(data){
+                        $("form").trigger('reset');
+                        $("#deleteEmployeeModal").modal("hide");
+                        renderEmployeeData();
+                    }
+                })
+            })
+        }
+    })
+}
+function deleteMulEmployee(){
+    $(document).on("click","#admin-btn-deleteNhanvien",function(){
+        var indexToRemove = listitemRemove.findIndex(item => item.manhanvien === "admin");
+        if(indexToRemove!==-1){
+            alert("admin không được xóa")
+        }else{
             $.ajax({
                 url:"server/src/controller/NhanVienController.php",
                 method:"POST",
-                data:{action:"delete",manv:id},
+                data:{action:"deleteMul",listitemRemove:listitemRemove},
                 dataType:"JSON",
                 success:function(data){
                     $("form").trigger('reset');
@@ -276,21 +301,6 @@ function deleteEmployee(){
                     renderEmployeeData();
                 }
             })
-        })
-    })
-}
-function deleteMulEmployee(){
-    $(document).on("click","#admin-btn-deleteNhanvien",function(){
-        $.ajax({
-        url:"server/src/controller/NhanVienController.php",
-        method:"POST",
-        data:{action:"deleteMul",listitemRemove:listitemRemove},
-        dataType:"JSON",
-        success:function(data){
-            $("form").trigger('reset');
-            $("#deleteEmployeeModal").modal("hide");
-            renderEmployeeData();
         }
-        })
     })
 }
