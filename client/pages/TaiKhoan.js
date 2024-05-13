@@ -11,7 +11,6 @@ $(document).ready(() => {
         showDeleteCheckedAccountModal()
         showViewAccountModal()
         searchAccount()
-       
     }
 })
 
@@ -129,7 +128,6 @@ function addAccount(accountId, accessId, username, password) {
             }
         })
     })
-
 }
 
 function handleAddAccount() {
@@ -223,7 +221,6 @@ function updateAccount(accountId, accessId, username, password) {
             }
         })
     })
-
 }
 
 function handleUpdateAccount() {
@@ -301,7 +298,6 @@ function deleteAccount(accountId) {
             }
         })
     })
-
 }
 
 function handleDeleteAccount() {

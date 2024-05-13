@@ -230,7 +230,6 @@ function loadPromotionData() {
                 })
 
                 $('.admin-promotion-list').html(html)
-                console.log($('.admin-promotion-list'))
                 $('.modal-cart-list').html(html2)
 
                 if(!conditionKM) {

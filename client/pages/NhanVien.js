@@ -25,7 +25,6 @@ function getEmployeeData() {
             }
         })
     })
-
 }
 
 async function renderEmployeeData() {
@@ -69,6 +68,7 @@ async function renderEmployeeData() {
         
     }
 }
+
 function showEmployee(){
     $(document).on('click',"#showEmployee",function(){
         var manv = $(this).attr("data-id");
@@ -89,6 +89,7 @@ function showEmployee(){
         })
     })
 }
+
 function updateEmployee(){
     $(document).on('click',"#admin-btn-updateNhanVien",function(){
         var manv=$("#admin-update-manhanvien").val();
@@ -112,6 +113,7 @@ function updateEmployee(){
         })
     })
 }
+
 function renderEmployeeAccountData() {
     $('.btn-open-add-account-modal').on('click', async e => {
         const employees = await getEmployeeData()
@@ -144,6 +146,7 @@ function renderEmployeeAccountData() {
         }
     })
 }
+
 function addEmployeee(){
     getSizeinTable("nhanvien","NV","#admin-nhanvien-manhanvien")
     $(document).on('click', '#admin-btn-addNhanVien',function(){
