@@ -65,6 +65,10 @@ class KhachHangController {
             echo 'fail';
         }
     }
+
+    public function checkExistCustomerPhone($phone) {
+        echo json_encode($this->khachHangRepo->checkExistCustomerPhone($phone));
+    }
 }
 
 $khachHangCtl = new KhachHangController();
@@ -101,13 +105,17 @@ switch($action) {
     case 'get-province':
         $khachHangCtl->getProvince();
         break;
+    case 'check-exist-customer-phone':
+        $phone = $_POST['phone'];
+        $khachHangCtl->checkExistCustomerPhone($phone);
+        break;
     case 'get-district':
         $khachHangCtl->getDistrict();
         break;
     case 'get-ward':
         $khachHangCtl->getWard();
         break;
-    case "get-khachhang":{
+    case "get-khachhang": {
         $id=$_POST['id'];
         $khachHangCtl->getKH($id);
         break;

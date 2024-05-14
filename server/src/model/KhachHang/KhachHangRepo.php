@@ -96,6 +96,20 @@ class KhachHangRepo extends ConnectDB {
         }
     }
 
+    public function checkExistCustomerPhone($phone) {
+        try {
+            $sql = "SELECT * FROM khachhang WHERE so_dien_thoai = '$phone'";
+            $result = mysqli_query($this->conn, $sql);
+            if (!$result) {
+                throw new Exception("Error: " . mysqli_error($this->conn));
+            }
+            return mysqli_num_rows($result) > 0;
+        } catch (Exception $e) {
+            echo 'Error:'. $e->getMessage();
+            return false;
+        }
+    }
+
     public function getProvince() {
         try {
             $sql = "SELECT * FROM province";

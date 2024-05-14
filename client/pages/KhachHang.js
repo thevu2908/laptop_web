@@ -242,6 +242,18 @@ function validateCustomer(name, email, phone) {
     return flag
 }
 
+function validateExistCustomerPhone(phone) {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: 'server/src/controller/KhachHangController.php',
+            method: 'POST',
+            data: { action: 'check-exist-customer-phone', phone },
+            success: res => resolve(res),
+            error: (xhr, status, error) => reject(error)
+        })
+    })
+}
+
 function handleUpdateCustomerProfile() {
     $(document).on('click', '.btn-update__customer-profile', async function () {
         const id = $(this).data('id')
@@ -250,6 +262,10 @@ function handleUpdateCustomerProfile() {
         const phone = $('#account-profile__phone').val()
 
         if (!validateCustomer(name, email, phone)) return
+        if (validateExistCustomerPhone(phone)) {
+            alert('Số điện thoại đã được sử dụng')
+            return
+        }
 
         const res = await updateCustomer(id, name, phone, email)
         if (res) {
