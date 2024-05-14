@@ -440,3 +440,6 @@ function searchBaoHanh() {
         })
     })
 }
+$(document).on("click","#ThoiGianBaoHanhUser",function(){
+    $("#tracuuThoiGianBaoHanhUser").modal("show");
+})

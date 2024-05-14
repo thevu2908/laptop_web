@@ -77,12 +77,12 @@
 											<table class="table" id="tableChiTietDoiTra">
 												<thead>
 													<tr>
-														<th scope="col">#</th>
-														<th scope="col">Mã IME</th>
-														<th scope="col">ID</th>
-														<th scope="col">Lý Do</th>
-														<th scope="col">Giá Sản Phẩm</th>
-														<th scope="col">Action</th>
+														<th scope="col" class="w-auto">#</th>
+														<th scope="col" class="w-auto">Mã IME</th>
+														<th scope="col" class="w-auto">ID</th>
+														<th scope="col" class="w-auto">Lý Do</th>
+														<th scope="col" class="w-auto">Giá Sản Phẩm</th>
+														<th scope="col" class="w-auto">Action</th>
 													</tr>
 												</thead>
 												<tbody id="admin-showDoiTra">
@@ -92,7 +92,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="row">
+							<div class="row" style="display: none;">
 								<div class="col">
 									<div class="form-group">
 										<p id="mess_tenquyen"></p>
@@ -117,12 +117,12 @@
 										<table class="table" id="tableChiTietHoaDon">
 											<thead>
 												<tr>
-													<th scope="col">#</th>
-													<th scope="col">Mã IME</th>
-													<th scope="col">ID</th>
-													<th scope="col">Tên</th>
-													<th scope="col">Giá</th>
-													<th scope="col">Action</th>
+													<th scope="col" class="w-auto">#</th>
+													<th scope="col" class="w-auto">Mã IME</th>
+													<th scope="col" class="w-auto">ID</th>
+													<th scope="col" class="w-auto">Tên</th>
+													<th scope="col" class="w-auto">Giá</th>
+													<th scope="col" class="w-auto">Action</th>
 												</tr>
 											</thead>
 											<tbody id="admin-showChitiethoadon">
