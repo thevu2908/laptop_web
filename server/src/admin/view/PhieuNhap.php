@@ -1,4 +1,4 @@
-<main id="admin-pn-main">
+<main id="admin-nh-main">
 	<div class="container-xl">
 		<div class="table-responsive">
 			<div class="table-wrapper">
@@ -22,18 +22,18 @@
 				<table class="table table-striped table-hover">
 					<thead>
 						<tr>
-							<th class="w-auto">Mã sản phẩm</th>
-							<th>Mã chi tiết sản phẩm</th>
-							<th>Tên sản phẩm</th>
-							<th>Hình Ảnh</th>
-							<th>RAM</th>
-							<th>ROM</th>
-							<th>Tên Màu</th>
-							<th>CPU</th>
-							<th>Card</th>
-							<th>Số lượng</th>
-							<th>Giá</th>
-							<th class="w-auto">Actions</th>
+							<th style="cursor: pointer;" onclick="sortTable('#admin-nh-main table.table', 0)" class="w-auto">Mã sản phẩm</th>
+							<th style="cursor: pointer;" onclick="sortTable('#admin-nh-main table.table', 1)">Mã chi tiết sản phẩm</th>
+							<th style="cursor: pointer;" onclick="sortTable('#admin-nh-main table.table', 2)">Tên sản phẩm</th>
+							<th style="cursor: pointer;" onclick="sortTable('#admin-nh-main table.table', 3)">Hình Ảnh</th>
+							<th style="cursor: pointer;" onclick="sortTable('#admin-nh-main table.table', 4)">RAM</th>
+							<th style="cursor: pointer;" onclick="sortTable('#admin-nh-main table.table', 5)">ROM</th>
+							<th style="cursor: pointer;" onclick="sortTable('#admin-nh-main table.table', 6)">Tên Màu</th>
+							<th style="cursor: pointer;" onclick="sortTable('#admin-nh-main table.table', 7)">CPU</th>
+							<th style="cursor: pointer;" onclick="sortTable('#admin-nh-main table.table', 8)">Card</th>
+							<th style="cursor: pointer;" onclick="sortTable('#admin-nh-main table.table', 9)">Số lượng</th>
+							<th style="cursor: pointer;" onclick="sortTable('#admin-nh-main table.table', 10)">Giá</th>
+							<th style="cursor: pointer;" onclick="sortTable('#admin-nh-main table.table', 11)" class="w-auto">Actions</th>
 						</tr>
 					</thead>
 					

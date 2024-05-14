@@ -22,13 +22,13 @@
 									<label for="selectAll"></label>
 								</span>
 							</th>
-							<th>Mã Phiếu Đổi Trả</th>
-							<th>Mã Hóa Đơn</th>
-							<th>Nhân Viên</th>
-							<th>Ngày Trả</th>
-							<th>Số Lượng Trả</th>
-							<th>Tổng Tiền Trả</th>
-							<th class='w-auto'>Actions</th>
+							<th style="cursor: pointer;" onclick="sortTable('#admin-refund-main table.table', 1)">Mã Phiếu Đổi Trả</th>
+							<th style="cursor: pointer;" onclick="sortTable('#admin-refund-main table.table', 2)">Mã Hóa Đơn</th>
+							<th style="cursor: pointer;" onclick="sortTable('#admin-refund-main table.table', 3)">Nhân Viên</th>
+							<th style="cursor: pointer;" onclick="sortTable('#admin-refund-main table.table', 4)">Ngày Trả</th>
+							<th style="cursor: pointer;" onclick="sortTable('#admin-refund-main table.table', 5)">Số Lượng Trả</th>
+							<th style="cursor: pointer;" onclick="sortTable('#admin-refund-main table.table', 6)">Tổng Tiền Trả</th>
+							<th style="cursor: pointer;" onclick="sortTable('#admin-refund-main table.table', 7)" class='w-auto'>Actions</th>
 						</tr>
 					</thead>
 					<tbody id="show-listDoiTra">

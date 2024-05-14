@@ -46,18 +46,18 @@
                                     <label for="selectAll"></label>
                                 </span>
                             </th>
-                            <th>ID</th>
-                            <th>Màu sắc</th>
-                            <th>CPU</th>
-                            <th>Card đồ họa</th>
-                            <th>RAM</th>
-                            <th>ROM</th>
-                            <th>Cổng kết nối</th>
-							<th>Giá nhập</th>
-							<th>Chiết khấu(%)</th>
-                            <th>Giá bán</th>
-                            <th>Số lượng tồn</th>
-                            <th class="w-auto">Actions</th>
+                            <th style="cursor: pointer;" onclick="sortTable('#admin-product-detail-main table.table', 1)">ID</th>
+                            <th style="cursor: pointer;" onclick="sortTable('#admin-product-detail-main table.table', 2)">Màu sắc</th>
+                            <th style="cursor: pointer;" onclick="sortTable('#admin-product-detail-main table.table', 3)">CPU</th>
+                            <th style="cursor: pointer;" onclick="sortTable('#admin-product-detail-main table.table', 4)">Card đồ họa</th>
+                            <th style="cursor: pointer;" onclick="sortTable('#admin-product-detail-main table.table', 5)">RAM</th>
+                            <th style="cursor: pointer;" onclick="sortTable('#admin-product-detail-main table.table', 6)">ROM</th>
+                            <th style="cursor: pointer;" onclick="sortTable('#admin-product-detail-main table.table', 7)">Cổng kết nối</th>
+							<th style="cursor: pointer;" onclick="sortTable('#admin-product-detail-main table.table', 8)">Giá nhập</th>
+							<th style="cursor: pointer;" onclick="sortTable('#admin-product-detail-main table.table', 9)">Chiết khấu(%)</th>
+                            <th style="cursor: pointer;" onclick="sortTable('#admin-product-detail-main table.table', 10)">Giá bán</th>
+                            <th style="cursor: pointer;" onclick="sortTable('#admin-product-detail-main table.table', 11)">Số lượng tồn</th>
+                            <th style="cursor: pointer;" onclick="sortTable('#admin-product-detail-main table.table', 12)" class="w-auto">Actions</th>
                         </tr>
                     </thead>
                     <tbody class="admin-product-detail-list">

@@ -35,12 +35,12 @@
                 <table class="table table-striped table-hover admin-product-detail-table">
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>Mã imei</th>
-                            <th>Hình ảnh</th>
-                            <th>Tên sản phẩm</th>
-                            <th>Giá tiền</th>
-                            <th class="w-auto">Số lượng</th>
+                            <th style="cursor: pointer;" onclick="sortTable('#admin-bill-detail-main table.table', 0)">ID</th>
+                            <th style="cursor: pointer;" onclick="sortTable('#admin-bill-detail-main table.table', 1)">Mã imei</th>
+                            <th style="cursor: pointer;" onclick="sortTable('#admin-bill-detail-main table.table', 2)">Hình ảnh</th>
+                            <th style="cursor: pointer;" onclick="sortTable('#admin-bill-detail-main table.table', 3)">Tên sản phẩm</th>
+                            <th style="cursor: pointer;" onclick="sortTable('#admin-bill-detail-main table.table', 4)">Giá tiền</th>
+                            <th style="cursor: pointer;" onclick="sortTable('#admin-bill-detail-main table.table', 5)" class="w-auto">Số lượng</th>
                         </tr>
                     </thead>
                     <tbody class="admin-bill-detail-list">
