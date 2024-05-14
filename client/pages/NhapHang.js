@@ -125,10 +125,10 @@ async function renderPhieuNhapData(data) {
             phanquyen_chucnang("Phiếu nhập")
             $('.admin-phieunhap-list').html(html)
             totalPage(dataPromo.count)
-            displayTotalPage("#admin-pn-main .hint-text", dataPromo.count, dataPromo.pagination.length)
+            displayTotalPage("#admin-nh-main .hint-text", dataPromo.count, dataPromo.pagination.length)
         } else {
             $('.admin-phieunhap-list').html('')
-            displayTotalPage("#admin-pn-main .hint-text", 0, 0)
+            displayTotalPage("#admin-nh-main .hint-text", 0, 0)
         }
     } catch (error) {
         console.log(error);
