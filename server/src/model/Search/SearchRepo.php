@@ -8,8 +8,7 @@ class SearchRepo extends ConnectDB
             $searchs = [];
             $search_term = $this->conn->real_escape_string($search);
             if ($table == "sanpham") {
-                $query = "
-                    SELECT sp.*, ten_thuong_hieu, ten_loai, ten_hdh FROM sanpham sp
+                $query = "SELECT sp.*, ten_thuong_hieu, ten_loai, ten_hdh FROM sanpham sp
                     JOIN thuonghieu th ON sp.ma_thuong_hieu = th.ma_thuong_hieu
                     JOIN theloai tl ON sp.ma_the_loai = tl.ma_the_loai
                     JOIN hedieuhanh hdh ON sp.ma_hdh = hdh.ma_hdh
@@ -17,32 +16,33 @@ class SearchRepo extends ConnectDB
                     ORDER BY ma_sp LIMIT {$start},{$limit}
                 ";
             } else if ($table == "nhaphang") {
-                 $query = "
-                SELECT * FROM sanpham sp JOIN chitietsanpham ctsp ON sp.ma_sp = ctsp.ma_sp JOIN mausac ms ON ctsp.ma_mau = ms.ma_mau
-                JOIN chipxuly cxl ON ctsp.ma_chip_xu_ly = cxl.ma_chip_xu_ly
-                JOIN carddohoa cdh ON ctsp.ma_carddohoa = cdh.ma_card
-                WHERE CONCAT(sp.ma_sp, ctsp.ma_ctsp, ten_sp, ram, rom, ten_mau, ten_chip, ten_card) LIKE '%$search_term%'
-                ORDER BY sp.ma_sp, ctsp.ma_ctsp
-                LIMIT {$start},{$limit}
-            ";
-
+                $query = "SELECT * FROM sanpham sp JOIN chitietsanpham ctsp ON sp.ma_sp = ctsp.ma_sp JOIN mausac ms ON ctsp.ma_mau = ms.ma_mau
+                    JOIN chipxuly cxl ON ctsp.ma_chip_xu_ly = cxl.ma_chip_xu_ly
+                    JOIN carddohoa cdh ON ctsp.ma_carddohoa = cdh.ma_card
+                    WHERE CONCAT(sp.ma_sp, ctsp.ma_ctsp, ten_sp, ram, rom, ten_mau, ten_chip, ten_card) LIKE '%$search_term%'
+                    ORDER BY sp.ma_sp, ctsp.ma_ctsp
+                    LIMIT {$start},{$limit}
+                ";
             } else if ($table == "chitietsanpham") {
-                $query = "
-                    SELECT ctsp.*, ms.ten_mau, cxl.ten_chip, cdh.ten_card FROM chitietsanpham ctsp
+                $query = "SELECT ctsp.*, ms.ten_mau, cxl.ten_chip, cdh.ten_card FROM chitietsanpham ctsp
                     JOIN mausac ms ON ctsp.ma_mau = ms.ma_mau
                     JOIN chipxuly cxl ON ctsp.ma_chip_xu_ly = cxl.ma_chip_xu_ly
                     JOIN carddohoa cdh ON ctsp.ma_carddohoa = cdh.ma_card
                     WHERE ctsp.ma_sp = '$id' AND CONCAT(ctsp.ma_ctsp, ms.ten_mau, cxl.ten_chip, cdh.ten_card, ram, rom) LIKE '%$search_term%'
                     ORDER BY ctsp.ma_ctsp ASC LIMIT {$start},{$limit}
                 ";
-            } else if($table == "hoadon") {
-                $query = "
-                    SELECT * 
+            } else if ($table == "hoadon") {
+                $query = "SELECT * 
                     FROM `hoadon` hd
                     JOIN `khachhang` kh on kh.ma_kh=hd.ma_kh
                     JOIN `nhanvien` nv on nv.ma_nv=hd.ma_nv
                     WHERE CONCAT(ma_hd, kh.ten_kh, nv.ten_nv, ngay_tao, hinh_thuc) LIKE '%$search_term%'
                     ORDER BY hd.ma_hd ASC LIMIT {$start},{$limit}
+                ";
+            } else if ($table == "khachhang") {
+                $query = "SELECT * FROM khachhang
+                    WHERE CONCAT(ma_kh, ten_kh, so_dien_thoai, email) LIKE '%$search_term%'
+                    ORDER BY ma_kh ASC LIMIT {$start},{$limit}
                 ";
             } else {
                 $query = "SELECT * FROM $table WHERE CONCAT(";
