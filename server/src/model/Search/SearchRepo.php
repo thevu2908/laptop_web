@@ -15,14 +15,11 @@ class SearchRepo extends ConnectDB
                     WHERE CONCAT(ma_sp, ten_sp, ten_thuong_hieu) LIKE '%$search_term%'
                     ORDER BY ma_sp LIMIT {$start},{$limit}
                 ";
-            } else if ($table == "nhaphang") {
-                $query = "SELECT * FROM sanpham sp JOIN chitietsanpham ctsp ON sp.ma_sp = ctsp.ma_sp JOIN mausac ms ON ctsp.ma_mau = ms.ma_mau
-                    JOIN chipxuly cxl ON ctsp.ma_chip_xu_ly = cxl.ma_chip_xu_ly
-                    JOIN carddohoa cdh ON ctsp.ma_carddohoa = cdh.ma_card
-                    WHERE CONCAT(sp.ma_sp, ctsp.ma_ctsp, ten_sp, ram, rom, ten_mau, ten_chip, ten_card) LIKE '%$search_term%'
-                    ORDER BY sp.ma_sp, ctsp.ma_ctsp
-                    LIMIT {$start},{$limit}
-                ";
+            }else if ($table == "chitietquyen") {
+                $query = "SELECT DISTINCT chitietquyen.ma_quyen,chitietquyen.ma_chuc_nang FROM 
+                chitietquyen join nhomquyen on chitietquyen.ma_quyen=nhomquyen.ma_quyen join chucnangquyen 
+                on chitietquyen.ma_chuc_nang=chucnangquyen.ma_chuc_nang
+                WHERE chucnangquyen.ten_chuc_nang LIKE '%$search_term%' ORDER BY 1 ASC LIMIT {$start},{$limit}";
             } else if ($table == "chitietsanpham") {
                 $query = "SELECT ctsp.*, ms.ten_mau, cxl.ten_chip, cdh.ten_card FROM chitietsanpham ctsp
                     JOIN mausac ms ON ctsp.ma_mau = ms.ma_mau

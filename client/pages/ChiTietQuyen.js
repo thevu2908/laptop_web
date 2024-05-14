@@ -14,12 +14,12 @@ $(document).ready(function(){
         tmp="";
         search=$("#admin-select-nhomquyen").val()
         console.log(search+"--fill--")
-        if(search=="All" || search===""){
+        if(search==="All" || search===""){
             $("#currentpage").val(1);
             loadPhanQuyen();
             clickPage(loadPhanQuyen);
         }else{
-            if(search!="All"){
+            if(search!=="All"){
                 filterPhanQuyen(search);
                 clickPage(filterPhanQuyen);
             }
@@ -368,3 +368,17 @@ $(document).on('click', "#addNhomQuyen", function () {
         })
     }
 });
+function searchChiTietQuyen() {
+    $(document).on('keyup', '.admin-search-info', e => {
+        const search = e.target.value.toLowerCase()
+        const page = $('#currentpage').val()
+        $.ajax({
+            url: 'server/src/controller/SearchController.php',
+            method: 'GET',
+            data: { action: 'search', table: 'chitietquyen', search, page },
+            dataType: 'JSON',
+            success: data =>  renderPhanQuyen(data),
+            error: (xhr, status, error) => console.log(error)
+        })
+    })
+}

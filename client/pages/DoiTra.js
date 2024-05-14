@@ -60,7 +60,7 @@ function checkEmptyColumns() {
     $('#tableChiTietDoiTra tbody tr').each(function () {
         var lydo = $(this).find('td:nth-child(4) textarea').val()
         var giasanpham = $(this).find('td:nth-child(5) input').val()
-        if (!lydo || !giasanpham) {
+        if (!lydo && !giasanpham && isNaN(parseFloat(giasanpham)) || parseFloat(giasanpham)>0 ) {
             isEmpty = true;
             return false;
         }
