@@ -15,6 +15,9 @@ function addDoiTra() {
     $("#admin-doitra-manhanvien").val($("#admin-matk").val());
     loadMaHoaDon();
     selectMaHoaDon();
+    $(document).on("input", "#tableChiTietDoiTra tbody tr td input", function() {
+        tinhTongThanhTien();
+    });
     $(document).on("click", "#admin-add-DoiTra", function () {
         listitemDoiTra = [];
         $('#tableChiTietDoiTra tbody tr').each(function () {
@@ -31,8 +34,6 @@ function addDoiTra() {
         var manhanvien = $("#admin-doitra-manhanvien").val()
         var thanhtien = $("#admin-DoiTra-tongtientra").val();
         var soluong = $("#admin-DoiTra-tongsoluong").val();
-        // listitemDoiTra.forEach(item=>thanhtien+=Number.parseFloat(item.giasanpham))
-        // listitemDoiTra.forEach(item=>soluong+=Number.parseInt(item.soluong))
         var thanhtienSP = thanhtien;
         var tongsoluongSP = soluong;
         console.log(thanhtienSP, tongsoluongSP, manhanvien, maphieudoitra)
@@ -55,7 +56,7 @@ function tinh() {
         soluong += 1;
     });
     $("#admin-DoiTra-tongsoluong").val(soluong);
-    $("#admin-DoiTra-tongsoluong").val(tongtien);
+    $("#admin-DoiTra-tongtientra").val(tongtien);
 }
 function loadDoiTra() {
     var pageno = $("#currentpage").val();
