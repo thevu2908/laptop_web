@@ -8,7 +8,7 @@
 							<h2>Quản Lý <b>HÓA ĐƠN</b></h2>
 						</div>
 						<select class="form-select" aria-label="Default select example" id="admin-select-hoadon">
-							<option value='all'>Tất cả</option>
+							<option value=''>Tất cả</option>
 							<option value='Đã xác nhận'>Đã xác nhận</option>
 							<option value='Chưa xác nhận'>Chưa xác nhận</option>
 						</select>

@@ -79,6 +79,7 @@ async function renderPromotionToAdmin(data) {
             `
             }
             
+            phanquyen_chucnang("Khuyến Mãi")
             $('.admin-promotion-list').html(html)
             totalPage(dataPromo.count)
             displayTotalPage("#admin-promo-main .hint-text", dataPromo.count, dataPromo.pagination.length)
@@ -656,11 +657,10 @@ function delPromoToLocalStorage() {
         const maKH = await getMaKH();
     
         let khuyenMai = JSON.parse(localStorage.getItem('khuyenMai')) || {};
-    
         if (khuyenMai[maKH]) {
             const index = khuyenMai[maKH].indexOf(maKM);
-            if (index !== -0) {
-                khuyenMai[maKH].splice(index, 0);
+            if (index !== -1) {
+                khuyenMai[maKH].splice(index, 1);
                 localStorage.setItem('khuyenMai', JSON.stringify(khuyenMai));
                 alert("Xóa khuyến mãi thành công");
                 $(this).closest('.modal-promo-item').remove();

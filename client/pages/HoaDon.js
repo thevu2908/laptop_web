@@ -16,7 +16,7 @@ $(document).ready(() => {
     renderCustomerOrderDetail()
 })
 
-var search = ""
+// var search = ""
 
 function getPaginationBill(search) {
     return new Promise((resolve, reject) => {
@@ -35,19 +35,21 @@ function getPaginationBill(search) {
     })
 }
 
-function searchHoaDon() {
-    $(document).on('keyup', '.admin-search-info', e => {
-        const search = e.target.value.toLowerCase()
-
+function getHoaDonSearch(search, page, id) {
+    return new Promise((resolve, reject) => {
         $.ajax({
             url: 'server/src/controller/SearchController.php',
             method: 'GET',
-            data: { action: 'search', table: 'hoadon', search },
+            data: { action: 'search', table: 'hoadon', search, page, id },
             dataType: 'JSON',
-            success: data => loadBillData(data),
-            error: (xhr, status, error) => console.log(error)
+            success: data => resolve(data),
+            error: (xhr, status, error) => reject(error)
         })
     })
+} 
+
+function searchHoaDon() {
+    $(document).on('keyup', '.admin-search-info', loadBillData)
 }
 
 $(document).on("change","#admin-select-hoadon", async function(){ 
@@ -57,9 +59,14 @@ $(document).on("change","#admin-select-hoadon", async function(){
     clickPage(loadBillData)
 })
 
-async function loadBillData(data) {
+async function loadBillData() {
     try {
-        const dataBill = data ? data : await getPaginationBill(search)
+        const page = $('#currentpage').val()
+        const search = $('.admin-search-info').val() || ''
+        const id = $("#admin-select-hoadon").val()
+        const dataBill = await getHoaDonSearch(search, page, id)
+        console.log(dataBill)
+        // const dataBill = data ? data : await getPaginationBill(search)
 
         if (dataBill && dataBill.pagination && dataBill.pagination.length > 0) {
             let html = ''
@@ -366,7 +373,7 @@ function renderCustomerOrderDetail() {
                             <span>Giảm giá khuyến mãi</span>
                         </div>
                         <div class="order-detail__total-price">
-                            <span>${order.khuyen_mai > 0 ? `-₫${order.khuyen_mai}` : '₫0'}</span>
+                            <span>${order.khuyen_mai > 0 ? `-₫${formatCurrency(order.khuyen_mai)}` : '₫0'}</span>
                         </div>
                     </div>
                     <div class="order-detail__total-row final">

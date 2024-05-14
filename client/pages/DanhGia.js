@@ -138,6 +138,7 @@ async function renderReviewAdmin(productId) {
             `
         })
 
+        phanquyen_chucnang("Đánh Giá")
         $('.admin-review-list').html(html)
         totalPage(dataReview.count)
         displayTotalPage("#admin-review-main .hint-text", dataReview.count, dataReview.pagination.length)

@@ -35,9 +35,8 @@ class SearchRepo extends ConnectDB
                 $query = "SELECT * 
                     FROM `hoadon` hd
                     JOIN `khachhang` kh on kh.ma_kh=hd.ma_kh
-                    JOIN `nhanvien` nv on nv.ma_nv=hd.ma_nv
-                    WHERE CONCAT(ma_hd, kh.ten_kh, nv.ten_nv, ngay_tao, hinh_thuc) LIKE '%$search_term%'
-                    ORDER BY hd.ma_hd ASC LIMIT {$start},{$limit}
+                    WHERE CONCAT(ma_hd, kh.ten_kh, ngay_tao, hinh_thuc) LIKE '%$search_term%' AND hd.tinh_trang LIKE '%$id%'
+                    ORDER BY hd.ngay_tao DESC LIMIT {$start},{$limit}
                 ";
             } else if ($table == "khachhang") {
                 $query = "SELECT * FROM khachhang
@@ -125,11 +124,10 @@ class SearchRepo extends ConnectDB
                 ";
             } else if($table == "hoadon") {
                 $query = "
-                SELECT count(*) as num
-                FROM `hoadon` hd
-                JOIN `khachhang` kh on kh.ma_kh=hd.ma_kh
-                JOIN `nhanvien` nv on nv.ma_nv=hd.ma_nv
-                WHERE CONCAT(ma_hd, kh.ten_kh, nv.ten_nv, ngay_tao, hinh_thuc, tinh_trang) LIKE '%$search_term%'
+                    SELECT count(*) as num
+                    FROM `hoadon` hd
+                    JOIN `khachhang` kh on kh.ma_kh=hd.ma_kh
+                    WHERE CONCAT(ma_hd, kh.ten_kh, ngay_tao, hinh_thuc, tinh_trang) LIKE '%$search_term%' AND hd.tinh_trang LIKE '%$id%'
                 ";
             } else {
                 $query = "SELECT count(*) as num FROM $table WHERE CONCAT(";
