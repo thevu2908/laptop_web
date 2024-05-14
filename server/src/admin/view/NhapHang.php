@@ -3,51 +3,33 @@
         <div class="table-responsive">
             <div class="table-wrapper">
                 <div class="table-title">
-
-                    <!-- <div class="col-sm-6">
-                            <h2>Quản Lý <b id="ad-NhomQuyen">Phiếu Nhập</b></h2>
-                        </div>
-                        <select class="form-select" aria-label="Default select example" id="admin-select-phieunhap">
-							<option value='all'>Tất cả</option>
-							<option value='0'>Duyệt</option>
-							<option value='1'>Đã duyệt</option>
-						</select>
-                        <div class="col-sm-6">
-                            <a href="/admin.php?controller=phieunhap" class="btn btn-success add d-flex align-items-center">
-                                <i class='fa-solid fa-file-import' style="font-size: 18px;"></i>
-                                <span>Nhập hàng</span>
-                            </a>
-                        </div> -->
-
                     <div class="row align-items-center">
                         <div class="col-sm-6">
                             <h2>Quản Lý <b id="ad-NhomQuyen">Nhập Hàng</b></h2>
                         </div>
-                        <?php if (true) { ?>
-                            <div class="col-sm-6 d-flex justify-content-end align-items-center">
-                                <select class="form-select w-65 rounded" aria-label="Default select example" id="admin-select-phieunhap" required>
-                                    <option value='all'>Tất cả</option>
-                                    <option value='0'>Chưa xác nhận</option>
-                                    <option value='1'>Đã xác nhận</option>
-                                </select>
-                                <a href="/admin.php?controller=phieunhap" class="btn btn-success add d-flex align-items-center">
-                                    <i class="fa-solid fa-file-import me-1" style="font-size: 18px;"></i>
-                                    <span>Nhập hàng</span>
-                                </a>
-                            </div>
-                        <?php } else echo "Nothing" ?>
+                        <div class="col-sm-6 d-flex justify-content-end align-items-center">
+                            <select class="form-select w-65 rounded" aria-label="Default select example" id="admin-select-phieunhap" required>
+                                <option value='all'>Tất cả</option>
+                                <option value='0'>Chưa xác nhận</option>
+                                <option value='1'>Đã xác nhận</option>
+                            </select>
+                            <a href="/admin.php?controller=phieunhap" class="btn btn-success add d-flex align-items-center">
+                                <i class="fa-solid fa-file-import me-1" style="font-size: 18px;"></i>
+                                <span>Nhập hàng</span>
+                            </a>
+                        </div>
                     </div>
                 </div>
                 <table class="table table-striped table-hover">
                     <thead>
                         <tr>
-                            <th class="w-auto">Mã phiếu nhập</th>
-                            <th class="w-auto">Mã nhà cung cấp</th>
-                            <th class="w-auto">Mã nhân viên</th>
-                            <th class="w-auto">Ngày tạo phiếu</th>
-                            <th class="w-auto">Tổng tiền</th>
-                            <th class="w-auto">Tình trạng</th>
-                            <th class="w-auto">Chi tiết phiếu nhập</th>
+                            <th style="cursor: pointer;" onclick="sortTable('#admin-pn-main table.table', 0)" class="w-auto">Mã phiếu nhập</th>
+                            <th style="cursor: pointer;" onclick="sortTable('#admin-pn-main table.table', 1)" class="w-auto">Mã nhà cung cấp</th>
+                            <th style="cursor: pointer;" onclick="sortTable('#admin-pn-main table.table', 2)" class="w-auto">Mã nhân viên</th>
+                            <th style="cursor: pointer;" onclick="sortTable('#admin-pn-main table.table', 3)" class="w-auto">Ngày tạo phiếu</th>
+                            <th style="cursor: pointer;" onclick="sortTable('#admin-pn-main table.table', 4)" class="w-auto">Tổng tiền</th>
+                            <th style="cursor: pointer;" onclick="sortTable('#admin-pn-main table.table', 5)" class="w-auto">Tình trạng</th>
+                            <th style="cursor: pointer;" onclick="sortTable('#admin-pn-main table.table', 6)" class="w-auto">Chi tiết phiếu nhập</th>
                         </tr>
                     </thead>
                     <tbody class="admin-phieunhap-list">

@@ -62,21 +62,7 @@ function search(search){
             }
     })
 }
-// function searchNhomQuyen() {
-//     $(document).on("keyup", "#search", function () {
-//         var search = $(this).val();
-//         $.ajax({
-//             url: "server/src/controller/NhomQuyenController.php",
-//             method: "POST",
-//             data: { action: "Search", search: search },
-//             success: function (data) {
-//                 if (data) {
-//                     render(data);
-//                 }
-//             }
-//         })
-//     })
-// }
+
 function render(data) {
     var html = "";
     if (true) {
@@ -137,7 +123,7 @@ function deleteNhomQuyen() {
         e.preventDefault();
         var id = $(this).attr("data-id1");
         if(id==='NQ01'){
-            alert("Không thể xóa Nhóm Quyền này");
+            alert("Không thể xóa quyền admin");
             return false;
         }else{
             $("#deleteNhomQuyen").modal('show');

@@ -3,7 +3,7 @@ $(document).ready(() => {
     if (window.location.pathname === '/admin.php' && urlParams.get('controller') === 'khachhang') {
         renderAdminCustomerTable()
         renderAdminCustomerAddress()
-        searchKhachHang()
+        handleSearchCustomer()
     }
     handleRenderCustomerProfile()
     handleUpdateCustomerProfile()
@@ -37,10 +37,28 @@ function getCustomer(id) {
         })
     })
 }
-function render(customers){
-    let html = ''
-    if (customers && customers.pagination && customers.pagination.length > 0) {
-        html += customers.pagination.map(customer => `
+
+function getSearchCustomer(search, page) {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: 'server/src/controller/SearchController.php',
+            method: 'GET',
+            data: { action: 'search', table: 'khachhang', search, page },
+            dataType: 'JSON',
+            success: customers => resolve(customers),
+            error: (xhr, status, error) => reject(error)
+        })
+    })
+}
+
+async function renderAdminCustomerTable() {
+    try {
+        const page = $('#current-page').val()
+        const search = $('.admin-search-info').val() || ''
+        const customers = await getSearchCustomer(search, page)
+        let html = ''
+        if (customers && customers.pagination && customers.pagination.length > 0) {
+            html += customers.pagination.map(customer => `
             <tr>
                 <td>${customer.ma_kh}</td>
                 <td>${customer.ten_kh}</td>
@@ -53,18 +71,12 @@ function render(customers){
                 </td>
             </tr>
         `).join('')
-    }
-    $('.admin-customer-list').html(html)
-    phanquyen_chucnang('Khách Hàng')
-    totalPage(customers.count)
-    displayTotalPage("#admin-customer-main .hint-text", customers.count, customers.pagination.length)
-}
-async function renderAdminCustomerTable() {
-    try {
-        const page = $('#current-page').val()
-        const customers = await getCustomers(page)
-        render(customers)
-       
+        }
+        $('.admin-customer-list').html(html)
+        phanquyen_chucnang('Khách Hàng')
+        totalPage(customers.count)
+        displayTotalPage("#admin-customer-main .hint-text", customers.count, customers.pagination.length)
+
     } catch (error) {
         console.log(error)
         alert('Xảy ra lỗi khi lấy dữ liệu khách hàng, vui lòng thử lại sau')
@@ -72,7 +84,7 @@ async function renderAdminCustomerTable() {
 }
 
 function renderAdminCustomerAddress() {
-    $(document).on('click', '.btn-customer-address', async function() {
+    $(document).on('click', '.btn-customer-address', async function () {
         try {
             const id = $(this).data('id')
             const addresses = await getThongTinNhanHangByMaKH(id)
@@ -195,7 +207,7 @@ function renderCustomerProfile(customer) {
 }
 
 function handleRenderCustomerProfile() {
-    $('.account-profile__left-item.account').on('click', async function() {
+    $('.account-profile__left-item.account').on('click', async function () {
         window.history.pushState({}, '', 'index.php?thong-tin-tai-khoan&thong-tin-ca-nhan')
         $(this).siblings().not($(this)).removeClass('active')
         $(this).addClass('active')
@@ -213,25 +225,25 @@ function validateCustomer(name, email, phone) {
         $('#name-error').show()
         $('#name-error').text('Vui lòng nhập họ tên')
         $('#account-profile__name').parent().addClass('error')
-        flag =  false
+        flag = false
     }
     if (!isValidEmail(email)) {
         $('#email-error').show()
         $('#email-error').text('Email không hợp lệ')
         $('#account-profile__email').parent().addClass('error')
-        flag =  false
+        flag = false
     }
     if (!isValidPhone(phone)) {
         $('#phone-error').show()
         $('#phone-error').text('Số điện thoại không hợp lệ')
         $('#account-profile__phone').parent().addClass('error')
-        flag =  false
+        flag = false
     }
     return flag
 }
 
 function handleUpdateCustomerProfile() {
-    $(document).on('click', '.btn-update__customer-profile', async function() {
+    $(document).on('click', '.btn-update__customer-profile', async function () {
         const id = $(this).data('id')
         const name = $('#account-profile__name').val()
         const email = $('#account-profile__email').val()
@@ -248,16 +260,7 @@ function handleUpdateCustomerProfile() {
         }
     })
 }
-function searchKhachHang() {
-    $(document).on('keyup', '.admin-search-info', e => {
-        const search = e.target.value.toLowerCase()
-        $.ajax({
-            url: 'server/src/controller/SearchController.php',
-            method: 'GET',
-            data: { action: 'search', table: 'khachhang', search },
-            dataType: 'JSON',
-            success: data => render(data),
-            error: (xhr, status, error) => console.log(error)
-        })
-    })
+
+function handleSearchCustomer() {
+    $(document).on('keyup', '.admin-search-info', renderAdminCustomerTable) 
 }

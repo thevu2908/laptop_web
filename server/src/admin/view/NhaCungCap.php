@@ -29,11 +29,11 @@
 									<label for="selectAll"></label>
 								</span>
 							</th>
-							<th>Mã Nhà Cung Cấp</th>
-							<th>Tên Nhà Cung Cấp</th>
-							<th>Địa Chỉ</th>
-							<th>Số điện thoại</th>
-							<th>Actions</th>
+							<th style="cursor: pointer;" onclick="sortTable('#admin-ncc-main table.table', 1)">Mã Nhà Cung Cấp</th>
+							<th style="cursor: pointer;" onclick="sortTable('#admin-ncc-main table.table', 2)">Tên Nhà Cung Cấp</th>
+							<th style="cursor: pointer;" onclick="sortTable('#admin-ncc-main table.table', 3)">Địa Chỉ</th>
+							<th style="cursor: pointer;" onclick="sortTable('#admin-ncc-main table.table', 4)">Số điện thoại</th>
+							<th style="cursor: pointer;" onclick="sortTable('#admin-ncc-main table.table', 5)">Actions</th>
 						</tr>
 					</thead>
 					<tbody class="admin-suppiler-list">

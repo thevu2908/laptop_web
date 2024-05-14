@@ -8,17 +8,15 @@
 						<div class="col-sm-6">
 							<h2>Quản Lý <b id="ad-NhomQuyen">Nhập Hàng</b></h2>
 						</div>
-						<?php if (true) {  ?>
-							<div class="col-sm-6 d-flex justify-content-end align-items-center">
-								<select class="form-control form-control-sm w-auto supplier-import-product" required>
-									<option value="">--Chọn Nhà Cung Cấp--</option>
-								</select>
-								<a href="#addimportModal" class="btn btn-success btn-pay-cartimport add" data-toggle="modal">
-									<i class="material-icons">&#xE147;</i>
-									<span>Thanh Toán</span>
-								</a>
-							</div>
-						<?php } else echo "Nothing" ?>
+						<div class="col-sm-6 d-flex justify-content-end align-items-center">
+							<select class="form-control form-control-sm w-auto supplier-import-product" required>
+								<option value="">--Chọn Nhà Cung Cấp--</option>
+							</select>
+							<a href="#addimportModal" class="btn btn-success btn-pay-cartimport add" data-toggle="modal">
+								<i class="material-icons">&#xE147;</i>
+								<span>Thanh Toán</span>
+							</a>
+						</div>
 					</div>
 				</div>
 
@@ -72,9 +70,7 @@
 										<td><?php echo number_format($gia_nhap, 0, ',', '.') . 'VND' ?></td>
 										<td><?php echo number_format($thanhtien, 0, ',', '.') . 'VND' ?></td>
 										<td>
-											<?php if (true) { ?>
-												<button type="button" class="btn btn-danger btn-delete-productcart" value="<?php echo $ma . '.' . $each['ma_ncc'] . '.' . $each['ma_ctsp'] ?>">Xóa</button>
-											<?php } else echo 'Nothing' ?>
+										<button type="button" class="btn btn-danger btn-delete-productcart" value="<?php echo $ma . '.' . $each['ma_ncc'] . '.' . $each['ma_ctsp'] ?>">Xóa</button>
 										</td>
 									</tr>
 						<?php
