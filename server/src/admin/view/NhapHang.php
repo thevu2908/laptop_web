@@ -1,4 +1,4 @@
-<main id="admin-pn-main">
+<main id="admin-nh-main">
     <div class="container-xl">
         <div class="table-responsive">
             <div class="table-wrapper">
