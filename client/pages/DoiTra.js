@@ -48,7 +48,7 @@ function addDoiTra() {
             alert("Vui lòng chọn hóa đơn")
         } else if (listitemDoiTra.length === 0) {
             alert("Vui lòng chọn sản phẩm đổi trả")
-        }else if(checkEmptyColumns()){
+        } else if (checkEmptyColumns()) {
             alert("Vui lòng điền đầy đủ thông tin")
         } else {
             callAddPhieuDoiTra(maphieudoitra, manhanvien, mahoadon, ngaydoitra, tongsoluongSP, thanhtienSP)
@@ -60,25 +60,14 @@ function checkEmptyColumns() {
     $('#tableChiTietDoiTra tbody tr').each(function () {
         var lydo = $(this).find('td:nth-child(4) textarea').val()
         var giasanpham = $(this).find('td:nth-child(5) input').val()
-        if (!lydo && !giasanpham && isNaN(parseFloat(giasanpham)) || parseFloat(giasanpham)>0 ) {
+        if (!lydo && !giasanpham) {
             isEmpty = true;
             return false;
         }
     });
     return isEmpty;
 }
-// function tinh() {
-//     let tongtien = 0;
-//     let soluong = 0;
-//     $('#tableChiTietDoiTra tbody tr').each(function () {
-//         var giasanpham = $(this).find('td:nth-child(5) input').val()
-//         tongtien += Number.parseFloat(giasanpham);
-//         soluong += 1;
-//     });
-//     $("#admin-DoiTra-tongsoluong").val(soluong);
-//     $("#admin-DoiTra-tongtientra").val(tongtien);
-// }
-// tinh()
+
 function loadDoiTra() {
     var pageno = $("#currentpage").val();
     $.ajax({
@@ -91,11 +80,11 @@ function loadDoiTra() {
         }
     })
 }
-function render(data){
+function render(data) {
     var jsondata = data.pagination;
-            var html = "";
-            jsondata.forEach((phieudoitra, index) => {
-                html += `<tr>
+    var html = "";
+    jsondata.forEach((phieudoitra, index) => {
+        html += `<tr>
                 <td>
                     <span class="custom-checkbox">
                         <input type="checkbox" id="checkbox1" name="options[]" value="1">
@@ -114,12 +103,12 @@ function render(data){
                     <a href="#detailPhieuDoiTra" class="view" data-row=${phieudoitra['ma_pdt']} data-toggle="modal" title="View" data-toggle="tooltip" onclick='showDetail(this)'><i class="material-icons">&#xE417;</i></a>
                 </td>
             </tr>`
-            });
-            $("#show-listDoiTra").html(html);
-            getSizeinTable("phieudoitra", "PDT", "#admin-maphieudoitra")
-            phanquyen_chucnang("Đổi Trả");
-            totalPage(data.count);
-            displayTotalPage("#admin-refund-main .hint-text", data.count, jsondata.length)
+    });
+    $("#show-listDoiTra").html(html);
+    getSizeinTable("phieudoitra", "PDT", "#admin-maphieudoitra")
+    phanquyen_chucnang("Đổi Trả");
+    totalPage(data.count);
+    displayTotalPage("#admin-refund-main .hint-text", data.count, jsondata.length)
 }
 function showDetail(phieudoitra) {
     var mapdt = phieudoitra.dataset.row;
@@ -301,7 +290,7 @@ $("#tableChiTietHoaDon tbody").on("click", "tr", function () {
                 <td scope="row">${ime}</td>
                 <td scope="row">${ID}</td>
                 <td scope="row"><textarea class="form-control" rows="4" cols="100"></textarea>
-                <td scope="row"><input type="text" class="form-control" value='${giasanpham}'></td>
+                <td scope="row"><input type="number" class="form-control" value='${giasanpham}'></td>
                 <td style="cursor: pointer; color: var(--danger);" onclick="removeItem(this)">
                     <i class="material-icons" data-toggle="tooltip" title="Remove">&#xE872;</i>
                 </td>

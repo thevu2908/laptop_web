@@ -72,7 +72,7 @@ function render(data) {
             html += `<tr>
                 <td>
                     <span class="custom-checkbox">
-                        <input type="checkbox" id="checkbox1" name="chk[]" value="1"  data-row="${nhomquyen['ma_quyen']}" onclick="removeList(this)">
+                        <input type="checkbox" id="checkbox1" name="chk[]" value="1"  data-row="${nhomquyen['ma_quyen']}" onclick="removeNhomQuyenList(this)">
                         <label for="checkbox1"></label>
                     </span>
                 </td>
@@ -220,7 +220,7 @@ function searchNhomQuyen() {
         })
     })
 }
-function removeList(checkbox) {
+function removeNhomQuyenList(checkbox) {
     var isChecked = checkbox.checked;
     var maquyen = checkbox.dataset.row;
     if (isChecked) {

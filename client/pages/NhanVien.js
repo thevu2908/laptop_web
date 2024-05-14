@@ -50,7 +50,7 @@ async function renderEmployeeData() {
                 <tr>
                     <td>
                         <span class="custom-checkbox">
-                            <input type="checkbox" id="checkbox-${employee.ma_nv}" name="chk[]" value="${employee.ma_nv}" data-row="${employee.ma_nv}" onclick="removeList(this)">
+                            <input type="checkbox" id="checkbox-${employee.ma_nv}" name="chk[]" value="${employee.ma_nv}" data-row="${employee.ma_nv}" onclick="removeNhanVienList(this)">
                             <label for="checkbox-${employee.ma_nv}"></label>
                         </span>
                     </td>
@@ -231,7 +231,7 @@ function getEmployee(manv) {
     })
 }
 
-function removeList(checkbox) {
+function removeNhanVienList(checkbox) {
     var isChecked = checkbox.checked;
     var manhanvien = checkbox.dataset.row;
     if (isChecked) {
@@ -287,16 +287,3 @@ function deleteMulEmployee() {
         })
     })
 }
-// function searchEmployee() {
-//     $(document).on('keyup', '.admin-search-info', e => {
-//         const search = e.target.value.toLowerCase()
-//         $.ajax({
-//             url: 'server/src/controller/SearchController.php',
-//             method: 'GET',
-//             data: { action: 'search', table: 'nhanvien', search },
-//             dataType: 'JSON',
-//             success: accounts => renderAccountData(accounts),
-//             error: (xhr, status, error) => console.log(error)
-//         })
-//     })
-// }

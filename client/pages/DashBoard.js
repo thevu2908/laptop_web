@@ -340,6 +340,10 @@ async function renderBestSeller(initAmount) {
 function handleRenderBestSellerQuantity() {
     $('.view-product-quantity').on('change', function() {
         const amount = $(this).val()
+        if (amount <= 0) {
+            alert('Vui lòng nhập số dương')
+            return
+        }
         renderBestSeller(amount)
     })
 }
