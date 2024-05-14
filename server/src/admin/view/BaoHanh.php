@@ -26,13 +26,13 @@
 									<label for="selectAll"></label>
 								</span>
 							</th>
-							<th>Mã Phiếu Bảo Hành</th>
-							<th>Nhân Viên</th>
-							<th>Mã Hóa Đơn</th>
-							<th>Khách Hàng</th>
-							<th>Ngày Bảo Hành</th>
-							<th>Ngày Trả</th>
-							<th>Tình Trạng</th>
+							<th style="cursor: pointer;" onclick="sortTable('#admin-guarantee-main table.table', 1)">Mã Phiếu Bảo Hành</th>
+							<th style="cursor: pointer;" onclick="sortTable('#admin-guarantee-main table.table', 2)">Nhân Viên</th>
+							<th style="cursor: pointer;" onclick="sortTable('#admin-guarantee-main table.table', 3)">Mã Hóa Đơn</th>
+							<th style="cursor: pointer;" onclick="sortTable('#admin-guarantee-main table.table', 4)">Khách Hàng</th>
+							<th style="cursor: pointer;" onclick="sortTable('#admin-guarantee-main table.table', 5)">Ngày Bảo Hành</th>
+							<th style="cursor: pointer;" onclick="sortTable('#admin-guarantee-main table.table', 6)">Ngày Trả</th>
+							<th style="cursor: pointer;" onclick="sortTable('#admin-guarantee-main table.table', 7)">Tình Trạng</th>
 							<th class='w-auto'>Actions</th>
 						</tr>
 					</thead>

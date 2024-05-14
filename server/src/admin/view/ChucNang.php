@@ -22,8 +22,8 @@
 									<label for="selectAll"></label>
 								</span>
 							</th>
-							<th>Mã Chức Năng</th>
-							<th>Chức Năng</th>
+							<th style="cursor: pointer;" onclick="sortTable('#admin-access-main table.table', 1)">Mã Chức Năng</th>
+							<th style="cursor: pointer;" onclick="sortTable('#admin-access-main table.table', 2)">Chức Năng</th>
 							<th>Status</th>
 							<th>Actions</th>
 						</tr>

@@ -3,6 +3,7 @@ $(document).ready(() => {
     if (window.location.pathname === '/admin.php' && urlParams.get('controller') === 'khachhang') {
         renderAdminCustomerTable()
         renderAdminCustomerAddress()
+        searchKhachHang()
     }
     handleRenderCustomerProfile()
     handleUpdateCustomerProfile()
@@ -36,31 +37,34 @@ function getCustomer(id) {
         })
     })
 }
-
+function render(customers){
+    let html = ''
+    if (customers && customers.pagination && customers.pagination.length > 0) {
+        html += customers.pagination.map(customer => `
+            <tr>
+                <td>${customer.ma_kh}</td>
+                <td>${customer.ten_kh}</td>
+                <td>${customer.so_dien_thoai}</td>
+                <td>${customer.email}</td>
+                <td>
+                    <a href="#customer-address-modal" data-toggle="modal" class="info btn-customer-address" data-id="${customer.ma_kh}">
+                        <i class="fa-solid fa-location-dot"></i>
+                    </a>
+                </td>
+            </tr>
+        `).join('')
+    }
+    $('.admin-customer-list').html(html)
+    phanquyen_chucnang('Khách Hàng')
+    totalPage(customers.count)
+    displayTotalPage("#admin-customer-main .hint-text", customers.count, customers.pagination.length)
+}
 async function renderAdminCustomerTable() {
     try {
         const page = $('#current-page').val()
         const customers = await getCustomers(page)
-        let html = ''
-        if (customers && customers.pagination && customers.pagination.length > 0) {
-            html += customers.pagination.map(customer => `
-                <tr>
-                    <td>${customer.ma_kh}</td>
-                    <td>${customer.ten_kh}</td>
-                    <td>${customer.so_dien_thoai}</td>
-                    <td>${customer.email}</td>
-                    <td>
-                        <a href="#customer-address-modal" data-toggle="modal" class="info btn-customer-address" data-id="${customer.ma_kh}">
-                            <i class="fa-solid fa-location-dot"></i>
-                        </a>
-                    </td>
-                </tr>
-            `).join('')
-        }
-        $('.admin-customer-list').html(html)
-        phanquyen_chucnang('Khách Hàng')
-        totalPage(customers.count)
-        displayTotalPage("#admin-customer-main .hint-text", customers.count, customers.pagination.length)
+        render(customers)
+       
     } catch (error) {
         console.log(error)
         alert('Xảy ra lỗi khi lấy dữ liệu khách hàng, vui lòng thử lại sau')
@@ -242,5 +246,18 @@ function handleUpdateCustomerProfile() {
         } else {
             alert('Có lỗi xảy ra, vui lòng kiểm tra lại thông tin')
         }
+    })
+}
+function searchKhachHang() {
+    $(document).on('keyup', '.admin-search-info', e => {
+        const search = e.target.value.toLowerCase()
+        $.ajax({
+            url: 'server/src/controller/SearchController.php',
+            method: 'GET',
+            data: { action: 'search', table: 'khachhang', search },
+            dataType: 'JSON',
+            success: data => render(data),
+            error: (xhr, status, error) => console.log(error)
+        })
     })
 }

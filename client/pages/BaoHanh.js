@@ -19,7 +19,7 @@ function addBaoHanh(){
         var maphieubaohanh=$("#admin-mabaohanh").val();
         var mahoadon=$("#admin-select-mahoadon").val();
         var makhachhang=$("#admin-baohanh-makhachhang").val().split("-")[0];
-        var manhanvien=$("#admin-baohanh-manhanvien").val();
+        var manhanvien=$("#admin-matk").val()
         var date=new Date()
         var tinhtrangbaohanh=$("#admin-select-trinhtrang").val();
         listitemBaoHanh=[];
@@ -50,12 +50,28 @@ function addBaoHanh(){
             alert("Vui lòng chọn nhân viên");
         }else if(listitemBaoHanh.length===0){
             alert("Vui lòng chọn sản phẩm cần bảo hành");
+        }else if(checkEmptyColumns()){
+            alert("Vui lòng điền đầy đủ thông tin");
         }else{
             addPhieuBaoHanh(maphieubaohanh,mahoadon,makhachhang,manhanvien,tinhtrangbaohanh)
             //console.log(noiDungBaoHanh+"---"+lyDoBaoHanh)
         }
     
     })
+}
+function checkEmptyColumns() {
+    var isEmpty = false;
+    $('#tableChiTietBaoHanh tbody tr').each(function () {
+        var ime = $(this).find('td:nth-child(2)').text();
+        var masanpham = $(this).find('td:nth-child(3)').text();
+        var lyDoBaoHanh = $(this).find('td:nth-child(4) textarea').val();
+        var noiDungBaoHanh = $(this).find('td:nth-child(5) textarea').val();
+        if (!ime || !masanpham || !lyDoBaoHanh || !noiDungBaoHanh) {
+            isEmpty = true;
+            return false;
+        }
+    });
+    return isEmpty;
 }
 function addPhieuBaoHanh(maphieubaohanh,mahoadon,makhachhang,manhanvien,tinhtrangbaohanh) {
     $.ajax({
@@ -68,6 +84,7 @@ function addPhieuBaoHanh(maphieubaohanh,mahoadon,makhachhang,manhanvien,tinhtran
             addChiTietPhieuBaoHanh(maphieubaohanh,listitemBaoHanh);
             clearModal()
             $("#addBaoHanh").modal("hide");
+            alert("Thêm Phiếu Bảo Hành Thành Công")
             loadBaoHanh();
         },error:function(xhr,status,error){
             console.error(xhr.responseText); 
@@ -101,6 +118,7 @@ function selectMaHoaDon(){
     $("#show-mess").text("")
     $(document).on("change","#admin-select-mahoadon",function(){
         var mahoadon=$(this).val();
+        $("#admin-baohanh-manhanvien").val($("#admin-matk").val())
         $.ajax({
             url:"server/src/controller/CTHDController.php",
             method:"POST",

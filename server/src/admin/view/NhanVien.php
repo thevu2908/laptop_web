@@ -28,10 +28,10 @@
 									<label for="selectAll"></label>
 								</span>
 							</th>
-							<th>Mã nhân viên</th>
-							<th>Nhân viên</th>
-							<th>Tuổi</th>
-							<th>Số điện thoại</th>
+							<th style="cursor: pointer;" onclick="sortTable('#admin-employee-main table.table', 1)">Mã nhân viên</th>
+							<th style="cursor: pointer;" onclick="sortTable('#admin-employee-main table.table', 2)">Nhân viên</th>
+							<th style="cursor: pointer;" onclick="sortTable('#admin-employee-main table.table', 3)">Tuổi</th>
+							<th style="cursor: pointer;" onclick="sortTable('#admin-employee-main table.table', 4)">Số điện thoại</th>
 							<th>Actions</th>
 						</tr>
 					</thead>

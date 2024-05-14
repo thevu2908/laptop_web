@@ -29,8 +29,8 @@ function addDoiTra() {
         var maphieudoitra = $("#admin-maphieudoitra").val();
         var mahoadon = $("#admin-select-mahoadon").val()
         var manhanvien = $("#admin-doitra-manhanvien").val()
-        var thanhtien = $("#admin-DoiTra-tongtientra").val(tongtien);
-        var soluong = $("#admin-DoiTra-tongsoluong").val(soluong);
+        var thanhtien = $("#admin-DoiTra-tongtientra").val();
+        var soluong = $("#admin-DoiTra-tongsoluong").val();
         // listitemDoiTra.forEach(item=>thanhtien+=Number.parseFloat(item.giasanpham))
         // listitemDoiTra.forEach(item=>soluong+=Number.parseInt(item.soluong))
         var thanhtienSP = thanhtien;
@@ -55,7 +55,7 @@ function tinh() {
         soluong += 1;
     });
     $("#admin-DoiTra-tongsoluong").val(soluong);
-    $("#admin-DoiTra-tongtientra").val(tongtien);
+    $("#admin-DoiTra-tongsoluong").val(tongtien);
 }
 function loadDoiTra() {
     var pageno = $("#currentpage").val();
@@ -141,6 +141,7 @@ function callAddPhieuDoiTra(maphieudoitra, manhanvien, mahoadon, ngaydoitra, ton
             callAddChiTietPhieuDoiTra(maphieudoitra, listitemDoiTra)
             $("#adminDoiTra").modal('hide');
             clearModal()
+            alert("Thêm Phiếu Đổi Trả Thành Công")
             loadDoiTra()
         }, error: function (xhr, status, error) {
             console.error(xhr.responseText);

@@ -31,6 +31,7 @@ function addNhomQuyen() {
                     console.log(data);
                     $("form").trigger('reset');
                     $("#addNhomQuyen").modal("hide");
+                    alert("Thêm Nhóm Quyền Thành Công")
                     loadNhomQuyen();
                 }
             })
@@ -94,7 +95,7 @@ function render(data) {
                 <td><span class="status text-success">&bull;</span> Active</td>
                 <td id="container">
                     <a id="btnUp" href="#editNhomQuyen" class="edit" data-toggle="modal" data-id=${nhomquyen['ma_quyen']}><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                    <a id="btnDel" href="#deleteNhomQuyen" class="delete" data-toggle="modal" data-id1=${nhomquyen['ma_quyen']}><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                    <a id="btnDel" href="#" class="delete" data-toggle="modal" data-id1=${nhomquyen['ma_quyen']}><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                     <a id="btnDetail" href="#detailNhomQuyen" class="view" data-id2=${nhomquyen['ma_quyen']} data-toggle="modal"><i class="material-icons">&#xE417;</i></a>
                 </td>
             </tr>`
@@ -132,21 +133,26 @@ function loadNhomQuyenDataAccount() {
 }
 
 function deleteNhomQuyen() {
-    $(document).on("click", "#btnDel", function () {
+    $(document).on("click", "#btnDel", function (e) {
+        e.preventDefault();
         var id = $(this).attr("data-id1");
-        console.log(id);
-        $("#deleteNhomQuyen").modal('show');
-        $(document).on("click", "#btnDelete", function () {
-            $.ajax({
-                url: "server/src/controller/NhomQuyenController.php",
-                method: "POST",
-                data: { id: id, action: "Delete" },
-                success: function (data) {
-                    $("#deleteNhomQuyen").modal('hide');
-                    loadNhomQuyen();
-                }
-            })
-        })
+        if(id==='NQ01'){
+            alert("Không thể xóa Nhóm Quyền này");
+            return false;
+        }else{
+            $("#deleteNhomQuyen").modal('show');
+            $(document).on("click", "#btnDelete", function () {
+                $.ajax({
+                    url: "server/src/controller/NhomQuyenController.php",
+                    method: "POST",
+                    data: { id: id, action: "Delete" },
+                    success: function (data) {
+                        $("#deleteNhomQuyen").modal('hide');
+                        loadNhomQuyen();
+                    }
+                })
+            })   
+        }
     })
 }
 function getNhomQuyen() {
@@ -191,6 +197,7 @@ function updateNhomQuyen() {
             success: function (data) {
                 $("form").trigger('reset');
                 $("#editNhomQuyen").modal('hide');
+                alert("Cập Nhật Nhóm Quyền Thành Công")
                 loadNhomQuyen();
             }
         })

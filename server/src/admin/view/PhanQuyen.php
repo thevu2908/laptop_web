@@ -28,8 +28,8 @@
 									<label for="selectAll"></label>
 								</span>
 							</th>
-							<th>Nhóm Quyền</th>
-							<th>Chức Năng</th>
+							<th style="cursor: pointer;" onclick="sortTable('#admin-access-main table.table', 1)">Nhóm Quyền</th>
+							<th style="cursor: pointer;" onclick="sortTable('#admin-access-main table.table', 2)">Chức Năng</th>
 							<th>Xem</th>
 							<th>Thêm</th>
                             <th>Xóa</th>

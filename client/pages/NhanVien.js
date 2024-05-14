@@ -27,7 +27,6 @@ function getEmployeeData() {
         })
     })
 }
-
 function getAvailableEmployees() {
     return new Promise((resolve, reject) => {
         $.ajax({
@@ -40,7 +39,6 @@ function getAvailableEmployees() {
         })
     })
 }
-
 async function renderEmployeeData() {
     var tmp = await getEmployeeData();
     const employees = tmp.pagination
@@ -64,7 +62,7 @@ async function renderEmployeeData() {
                         <a id='showEmployee' href="#editEmployeeModal" class="edit" data-toggle="modal" data-id="${employee.ma_nv}">
                             <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
                         </a>
-                        <a href="#deleteEmployeeModal" class="delete" id="showId-nhanvien" data-toggle="modal" data-id2="${employee.ma_nv}">
+                        <a href="#" class="delete" id="showId-nhanvien" data-toggle="modal" data-id2="${employee.ma_nv}">
                             <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
                         </a>
                         <a href="#" class="view" title="View" data-toggle="tooltip" data-id3="${employee.ma_nv}">
@@ -145,6 +143,7 @@ function updateEmployee() {
                             success: function (data) {
                                 $("form").trigger('reset');
                                 $("#editEmployeeModal").modal("hide");
+                                alert("Cập Nhật Nhân Viên Thành Công")
                                 renderEmployeeData();
                             }
                         })
@@ -202,6 +201,7 @@ function addEmployeee() {
                                 console.log(data);
                                 $("form").trigger('reset');
                                 $("#addEmployeeModal").modal("hide");
+                                alert("Thêm Nhân Viên Thành Công")
                                 renderEmployeeData();
                             },
                         })
@@ -246,15 +246,16 @@ function removeList(checkbox) {
 }
 
 function deleteEmployee() {
-    $(document).on("click", "#showId-nhanvien", function () {
+    $(document).on("click", "#showId-nhanvien", function (e) {
+        e.preventDefault();
         var id = $(this).attr("data-id2");
-
         if(id==="admin"){
             alert("Không thể xóa nhân viên admin")
-            $("#deleteEmployeeModal").modal("hide");
-            return
+            //$("#deleteEmployeeModal").modal("hide");
+            return false;
         }else{
-            $(document).off("click", "#admin-btn-deleteNhanvien").on("click","#admin-btn-deleteNhanvien",function(){
+            $("#deleteEmployeeModal").modal("show");
+            $(document).on("click","#admin-btn-deleteNhanvien",function(){
                 $.ajax({
                     url:"server/src/controller/NhanVienController.php",
                     method:"POST",
@@ -263,6 +264,7 @@ function deleteEmployee() {
                     success:function(data){
                         $("form").trigger('reset');
                         $("#deleteEmployeeModal").modal("hide");
+                        alert("Xóa Nhân Viên Thành Công")
                         renderEmployeeData();
                     }
                 })

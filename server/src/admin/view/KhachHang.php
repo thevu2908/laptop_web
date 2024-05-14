@@ -12,11 +12,11 @@
                 <table class="table table-striped table-hover admin-customer-table">
                     <thead>
                         <tr>
-                            <th>Mã khách hàng</th>
-                            <th>Tên khách hàng</th>
-                            <th>Số điện thoại</th>
-                            <th>Email</th>
-                            <th>Thông tin nhận hàng</th>
+                            <th style="cursor: pointer;" onclick="sortTable('#admin-customer-main table.table', 1)">Mã khách hàng</th>
+                            <th style="cursor: pointer;" onclick="sortTable('#admin-customer-main table.table', 2)">Tên khách hàng</th>
+                            <th style="cursor: pointer;" onclick="sortTable('#admin-customer-main table.table', 3)">Số điện thoại</th>
+                            <th style="cursor: pointer;" onclick="sortTable('#admin-customer-main table.table', 4)">Email</th>
+                            <th style="cursor: pointer;" onclick="sortTable('#admin-customer-main table.table', 5)">Thông tin nhận hàng</th>
                         </tr>
                     </thead>
                     <tbody class="admin-customer-list">

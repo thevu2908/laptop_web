@@ -28,9 +28,9 @@
 									<label for="selectAll"></label>
 								</span>
 							</th>
-							<th>Mã Tài Khoản</th>
-							<th>Quyền</th>
-							<th>Username</th>
+							<th style="cursor: pointer;" onclick="sortTable('#admin-account-main table.table', 1)">Mã Tài Khoản</th>
+							<th style="cursor: pointer;" onclick="sortTable('#admin-account-main table.table', 2)">Quyền</th>
+							<th style="cursor: pointer;" onclick="sortTable('#admin-account-main table.table', 3)">Username</th>
 							<th>Actions</th>
 						</tr>
 					</thead>

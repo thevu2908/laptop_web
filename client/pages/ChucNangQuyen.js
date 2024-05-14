@@ -90,6 +90,7 @@ function addChucNang(){
                 success:function(data){
                     $("form").trigger('reset');
                     $("#addChucNang").modal("hide");
+                    alert("Thêm Chức Năng Thành Công")
                     loadChucNangQuyen()
                 }
             })
@@ -108,6 +109,7 @@ function editChucNang(){
             success:function(data){
                 $("form").trigger('reset');
                 $("#editChucNang").modal("hide");
+                alert("Cập Nhật Chức Năng Thành Công")
                 loadChucNangQuyen()
             }
         })
