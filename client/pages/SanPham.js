@@ -966,6 +966,13 @@ function saveImage(fileInput, productId) {
     })
 }
 
+function resetAddProductForm() {
+    $('form').trigger('reset')
+    $('.preview-img').attr('src', '')
+    $('.upload-box').addClass('hide-image')
+    $('.selectpicker').selectpicker('refresh')
+}
+
 function addProduct(product) {
     return new Promise((resolve, reject) => {
         $.ajax({
@@ -1041,7 +1048,7 @@ function handleAddProduct() {
             const addProductRes = await addProduct(product)
             if (addProductRes) {
                 alert('Thêm sản phẩm thành công')
-                $('form').trigger('reset')
+                resetAddProductForm()
                 $('#addProductModal').modal('hide')
                 renderAdminProductTable()
             } else {
