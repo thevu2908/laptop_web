@@ -32,8 +32,6 @@ function searchNH() {
             data: { action: 'search', search, table: 'nhaphang', page },
             dataType: 'JSON',
             success: accounts => renderPhieuNhapData(accounts),
-            // success: accounts => console.log(accounts),
-
             error: (xhr, status, error) => console.log(error)
         })
     })
@@ -45,9 +43,9 @@ function getPaginationNH(limit) {
         $.ajax({
             url: 'server/src/controller/PaginationController.php',
             method: 'GET',
-            data: { action: 'pagination', table: 'nhaphang', page: page, limit: limit},
+            data: { action: 'pagination', table: 'nhaphang', page: page, limit: limit },
             dataType: 'JSON',
-            
+
             success: review => resolve(review),
             error: (xhr, status, error) => {
                 console.log(error)
@@ -57,72 +55,14 @@ function getPaginationNH(limit) {
     })
 }
 
-// async function renderPhieuNhapData() {
-//     try {
-//         const phieunhaps1 = await getPhieuNhapData();
-//         let html = ''; // Initialize HTML outside the loop
-
-//         if (phieunhaps1 && phieunhaps1.length > 0) {
-//             phieunhaps1.forEach((phieunhap, index) => {
-//                 html += `
-    
-//                     <tr>
-//                         <td>${phieunhap.ma_sp}</td>
-//                         <td>${phieunhap.ma_ctsp}</td>
-//                         <td>${phieunhap.ten_sp}</td>
-//                         <td><img style="width: 60px" src="${phieunhap.hinh_anh}" alt="Hình ảnh sản phẩm"></td>
-//                         <td>${phieunhap.ram}</td>
-//                         <td>${phieunhap.rom}</td>
-//                         <td>${phieunhap.ten_mau}</td>
-//                         <td>${phieunhap.ten_chip}</td>
-//                         <td>${phieunhap.ten_card}</td>
-//                         <td>${phieunhap.so_luong}</td>
-//                         <td>
-//                             <div style="position: relative; display: inline-block;">
-//                                 <input type="number" id="gia_nhap_${phieunhap.ma_ctsp}" class="input-gia-sp form-control" value="${phieunhap.gia_nhap}" style="width: 120px; " onkeyup="formatCurrency(this)" min="0" step="1000">
-//                                 <span style="position: absolute; left: calc(100% + 10px); top: 50%; transform: translate(-100%, -50%); white-space: nowrap;">đ</span>
-//                             </div>
-//                         </td>
-//                         <script>
-//                         function formatCurrency(input) {
-//                             let value = input.value;
-//                             value = value.replace(/[^\d]/g, '');
-//                             value = new Intl.NumberFormat('vi-VN').format(value);
-//                             input.value = value;
-//                         }
-//                     </script>
-//                         <td>
-//                             <button type="button" class="btn btn-primary btn-add-cartimport" value="${phieunhap.ma_ctsp}">Thêm</button>
-//                         </td>
-//                     </tr>
-//                 `;
-//             });
-//         } else {
-//             html = '<tr><td colspan="11" style="color: red; font-weight: bold;">Không có dữ liệu để hiển thị.</td></tr>';
-//         }
-//         phanquyen_chucnang("Nhập Hàng")
-//         $('#show-listNhomQuyen').html(html);
-//         totalPage(dataPromo.count)
-
-//     } catch (error) {
-//         console.error(error);
-//     }
-// }
-
-
 async function renderPhieuNhapData(data) {
     try {
         const dataPromo = data ? data : await getPaginationNH()
 
-        
         if (dataPromo && dataPromo.pagination && dataPromo.pagination.length > 0) {
-        // const phieunhaps1 = await getPhieuNhapData();
-        // if (phieunhaps1 && phieunhaps1.length > 0) {
-        let html = '';
+            let html = '';
 
             for (const phieunhap of dataPromo.pagination) {
-            // phieunhaps1.forEach((phieunhap, index) => {
-                
                 console.log(dataPromo)
                 html += `
                     <tr>
@@ -157,28 +97,18 @@ async function renderPhieuNhapData(data) {
                 `;
             }
 
-            // phanquyen_chucnang("Nhập Hàng")
-            // getSizeinTable("nhacungcap", "NCC", "#admin-nhacungcap-manhacungcap")
-            // $('.show-listNhomQuyen').html(html)
             $('#show-listNH').html(html);
             totalPage(dataPromo.count)
-            displayTotalPage("#admin-pn-main .hint-text", dataPromo.count, dataPromo.pagination.length)
-            
+            displayTotalPage("#admin-nh-main .hint-text", dataPromo.count, dataPromo.pagination.length)
         } else {
             html = '<tr><td colspan="11" style="color: red; font-weight: bold;">Không có dữ liệu để hiển thị.</td></tr>';
         }
-
-            //   $('#show-listNH').html(html);
-            // totalPage(dataPromo.count)
-            // displayTotalPage("#admin-pn-main .hint-text", dataPromo.count, dataPromo.pagination.length)
-
-        // $('#show-listNH').html(html);
     } catch (error) {
         console.error(error);
     }
 }
 
-$(document).ready(function() {
+$(document).ready(function () {
     selectNhaCC();
 });
 
@@ -221,29 +151,29 @@ $(document).ready(function () {
             cancelButtonText: "Hủy",
             dangerMode: true,
         })
-        .then((willDelete) => {
-            if (willDelete.isConfirmed) {
-                var deleteid = $(this).val();
-                var tmp = deleteid.split(".");
-                var ma = tmp[0];
-                var mancc = tmp[1];
-                var mactsp = tmp[2];
-                var status = "delete";
-                $.ajax({
-                    type: "GET",
-                    url: "/server/src/controller/PhieuNhapController.php",
-                    data:  {
-                        'ma': ma,
-                        'mancc': mancc,
-                        'mactsp': mactsp,
-                        'action': status
-                    },
-                    success: function () {
-                        location.reload();
-                    }
-                });
-            }
-        });
+            .then((willDelete) => {
+                if (willDelete.isConfirmed) {
+                    var deleteid = $(this).val();
+                    var tmp = deleteid.split(".");
+                    var ma = tmp[0];
+                    var mancc = tmp[1];
+                    var mactsp = tmp[2];
+                    var status = "delete";
+                    $.ajax({
+                        type: "GET",
+                        url: "/server/src/controller/PhieuNhapController.php",
+                        data: {
+                            'ma': ma,
+                            'mancc': mancc,
+                            'mactsp': mactsp,
+                            'action': status
+                        },
+                        success: function () {
+                            location.reload();
+                        }
+                    });
+                }
+            });
     });
 });
 
@@ -253,9 +183,9 @@ $(document).ready(function () {
         e.preventDefault();
 
         var selectedSupplier = $('.form-control').val();
-        if (selectedSupplier === "") { 
+        if (selectedSupplier === "") {
             Swal.fire("Vui lòng chọn nhà cung cấp trước khi thanh toán!", "", "warning");
-            return; 
+            return;
         }
 
         var total = $('input[name="totalPriceImport"]').val();
@@ -329,43 +259,43 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
-      $('.change-quanty-cartimport').on('change', () => {
-          var data = document.querySelectorAll('.change-quanty-cartimport');
-          var manccTMP = document.querySelectorAll('.inp-ma-ncc');
-          
-          // Keep track of the number of successful AJAX requests
-          var successCount = 0;
-          
-          for (let i = 0; i < data.length; i++) {
-              var deleteid = data[i].value;
-              var ma = data[i].dataset.ma;
-              var mactsp = data[i].dataset.mactsp;
-              var mancc = manccTMP[i].value;
-              var status = "changequantity";
+    $('.change-quanty-cartimport').on('change', () => {
+        var data = document.querySelectorAll('.change-quanty-cartimport');
+        var manccTMP = document.querySelectorAll('.inp-ma-ncc');
 
-              $.ajax({
-                  type: "GET",
-                  url: "/server/src/controller/PhieuNhapController.php",
-                  data: {
-                      'quantity': deleteid,
-                      'ma': ma,
-                      'mactsp':mactsp,
-                      'mancc': mancc,
-                      'action': status,
-                  },
-                  success: function () {successCount++;
+        // Keep track of the number of successful AJAX requests
+        var successCount = 0;
+
+        for (let i = 0; i < data.length; i++) {
+            var deleteid = data[i].value;
+            var ma = data[i].dataset.ma;
+            var mactsp = data[i].dataset.mactsp;
+            var mancc = manccTMP[i].value;
+            var status = "changequantity";
+
+            $.ajax({
+                type: "GET",
+                url: "/server/src/controller/PhieuNhapController.php",
+                data: {
+                    'quantity': deleteid,
+                    'ma': ma,
+                    'mactsp': mactsp,
+                    'mancc': mancc,
+                    'action': status,
+                },
+                success: function () {
+                    successCount++;
                     if (successCount >= data.length)
-                    
-                         location.reload();
-                  },
-                  error: function (xhr, status, error) {
-                      console.error(xhr.responseText);
-                  }
-              });
-          }
-      });
-  });
 
+                        location.reload();
+                },
+                error: function (xhr, status, error) {
+                    console.error(xhr.responseText);
+                }
+            });
+        }
+    });
+});
 
 function selectNhaCC() {
     $.ajax({
@@ -378,7 +308,7 @@ function selectNhaCC() {
             data.forEach((ncc, index) => {
                 html += `<option value="${ncc['ma_ncc']}">${ncc['ten_ncc']}</option>`;
             });
-            $(".supplier-import-product").html(html); 
+            $(".supplier-import-product").html(html);
         }
     });
 } 

@@ -13,15 +13,7 @@ class PhieuNhap2Controller {
     }
 
     public function getData() {
-        $phieunhaps1 = $this->phieunhapRepo2->getData();
-        $result = [];
-
-        foreach ($phieunhaps1 as $phieunhap) {
-
-            $result[] = $phieunhap;
-        }
-
-        echo json_encode($result);
+        echo json_encode($this->phieunhapRepo2->getData());
     }
 }
 

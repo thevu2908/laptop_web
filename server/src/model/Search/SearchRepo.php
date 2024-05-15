@@ -32,8 +32,7 @@ class SearchRepo extends ConnectDB
                     ORDER BY ctsp.ma_ctsp ASC LIMIT {$start},{$limit}
                 ";
             } else if ($table == "hoadon") {
-                $query = "SELECT * 
-                    FROM `hoadon` hd
+                $query = "SELECT * FROM `hoadon` hd
                     JOIN `khachhang` kh on kh.ma_kh=hd.ma_kh
                     WHERE CONCAT(ma_hd, kh.ten_kh, ngay_tao, hinh_thuc) LIKE '%$search_term%' AND hd.tinh_trang LIKE '%$id%'
                     ORDER BY hd.ngay_tao DESC LIMIT {$start},{$limit}
@@ -57,7 +56,7 @@ class SearchRepo extends ConnectDB
 
             $result = $this->conn->query($query);
 
-            if ($result === false) {
+            if (!$result) {
                 throw new Exception("Query execution failed." . $this->conn->error);
             }
 
@@ -70,8 +69,7 @@ class SearchRepo extends ConnectDB
         }
         return null;
     }
-    public function filterTable($search, $table, $start = 0, $limit = 8)
-    {
+    public function filterTable($search, $table, $start = 0, $limit = 8) {
         if ($table == "chitietquyen") {
             $query = "SELECT DISTINCT ma_quyen,ma_chuc_nang FROM chitietquyen WHERE ma_quyen='$search' ORDER BY 1 ASC LIMIT {$start},{$limit}";
             $arrSearch = array();
@@ -82,8 +80,8 @@ class SearchRepo extends ConnectDB
             return $arrSearch;
         }
     }
-    public function getCountFilterTable($table, $search)
-    {
+
+    public function getCountFilterTable($table, $search) {
         if ($table == "chitietquyen") {
             $query = "SELECT COUNT(DISTINCT ma_quyen,ma_chuc_nang) as num FROM chitietquyen where ma_quyen='$search'";
             $result = mysqli_query($this->conn, $query);
@@ -93,21 +91,19 @@ class SearchRepo extends ConnectDB
             return 0;
         }
     }
-    public function getCount($table, $search, $id)
-    {
+
+    public function getCount($table, $search, $id) {
         try {
             $search_term = $this->conn->real_escape_string($search);
             if ($table == 'sanpham') {
-                $query = "
-                    SELECT count(*) as num FROM sanpham sp JOIN chitietsanpham ctsp ON sp.ma_sp = ctsp.ma_sp JOIN mausac ms ON ctsp.ma_mau = ms.ma_mau
+                $query = "SELECT count(*) as num FROM sanpham sp JOIN chitietsanpham ctsp ON sp.ma_sp = ctsp.ma_sp JOIN mausac ms ON ctsp.ma_mau = ms.ma_mau
                     JOIN chipxuly cxl ON ctsp.ma_chip_xu_ly = cxl.ma_chip_xu_ly
                     JOIN carddohoa cdh ON ctsp.ma_carddohoa = cdh.ma_card
                     ORDER BY sp.ma_sp, ctsp.ma_ctsp
                     WHERE CONCAT(ma_sp, ten_sp, ten_thuong_hieu) LIKE '%$search_term%'
                 ";
             } else if ($table == "nhaphang") {
-                $query = "
-                    SELECT count(*) as num FROM sanpham sp
+                $query = "SELECT count(*) as num FROM sanpham sp
                     JOIN chitietsanpham ctsp ON sp.ma_sp = ctsp.ma_sp
                     JOIN mausac ms ON ctsp.ma_mau = ms.ma_mau
                     JOIN chipxuly cxl ON ctsp.ma_chip_xu_ly = cxl.ma_chip_xu_ly
@@ -115,16 +111,14 @@ class SearchRepo extends ConnectDB
                     WHERE CONCAT(sp.ma_sp, ctsp.ma_ctsp, ten_sp, ram, rom, ten_mau, ten_chip, ten_card) LIKE '%$search_term%'
                 ";
             } else if ($table == "chitietsanpham") {
-                $query = "
-                    SELECT count(*) as num FROM chitietsanpham ctsp
+                $query = "SELECT count(*) as num FROM chitietsanpham ctsp
                     JOIN mausac ms ON ctsp.ma_mau = ms.ma_mau
                     JOIN chipxuly cxl ON ctsp.ma_chip_xu_ly = cxl.ma_chip_xu_ly
                     JOIN carddohoa cdh ON ctsp.ma_carddohoa = cdh.ma_card
                     WHERE ctsp.ma_sp = '$id' AND CONCAT(ctsp.ma_ctsp, ms.ten_mau, cxl.ten_chip, cdh.ten_card, ram, rom) LIKE '%$search_term%'
                 ";
             } else if($table == "hoadon") {
-                $query = "
-                    SELECT count(*) as num
+                $query = "SELECT count(*) as num
                     FROM `hoadon` hd
                     JOIN `khachhang` kh on kh.ma_kh=hd.ma_kh
                     WHERE CONCAT(ma_hd, kh.ten_kh, ngay_tao, hinh_thuc, tinh_trang) LIKE '%$search_term%' AND hd.tinh_trang LIKE '%$id%'
@@ -142,7 +136,7 @@ class SearchRepo extends ConnectDB
             }
 
             $result = $this->conn->query($query);
-            if (!$result) return -1;
+            if (!$result) throw new Exception("Query execution failed." . $this->conn->error);
 
             if ($row = $result->fetch_assoc()) {
                 return $row['num'];
