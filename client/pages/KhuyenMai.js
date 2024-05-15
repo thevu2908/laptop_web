@@ -3,19 +3,13 @@ $(document).ready(() => {
     if (window.location.pathname === '/admin.php' && urlParams.get('controller') === 'khuyenmai') {
         renderPromotionToAdmin(null)
         clickPage(renderPromotionToAdmin)
-        // loadPaginationPromo()
-
         updateStatusPromo()
         getNextPromoId()
-
         handleAddPromotion()
-
         renderDeletePromoModal()
         handleDeletePromo()
-
         renderUpdatePromoModal()
         handleUpdatePromo()
-
         searchKhuyenMai()
     }
 })

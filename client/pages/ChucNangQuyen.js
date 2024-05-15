@@ -1,17 +1,6 @@
 $(document).ready(function() {
     loadChucNangQuyen();
     clickPage(loadChucNangQuyen)
-    // $(document).on("keyup","#search",function(){
-    //     var search = $(this).val();
-    //     console.log(search+"AAAA");
-    //     if(checkSpace(search)){
-    //         loadChucNangQuyen();
-    //         clickPage(loadChucNangQuyen)
-    //     }else{
-    //         searchChucNangQuyen(search)
-    //         clickPage(searchChucNangQuyen)
-    //     }
-    // })
     searchChucNang()
     addChucNang()
     getChucNangQuyen()

@@ -16,8 +16,6 @@ $(document).ready(() => {
     renderCustomerOrderDetail()
 })
 
-// var search = ""
-
 function getPaginationBill(search) {
     return new Promise((resolve, reject) => {
         const page = $('#currentpage').val()

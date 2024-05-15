@@ -7,7 +7,6 @@ $(document).ready(function () {
         searchDoiTra()
     }
     TraCuu()
-    //$('#myModal').modal({backdrop: 'static', keyboard: false})
 })
 var listitemDoiTra = []
 function addDoiTra() {

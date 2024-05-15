@@ -9,7 +9,6 @@ $(document).ready(() => {
     }
     // Trang User
     handleAddReview()
-    // renderListReview()
 })
 
 async function getMaKH() {
