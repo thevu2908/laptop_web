@@ -22,7 +22,7 @@ function displayTotalPage(element, count, totalPage) {
 }
 
 function sortTable(element, n) {
-    var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+    let table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
     table = document.querySelector(element);
     switching = true;
     dir = "asc";
@@ -30,29 +30,37 @@ function sortTable(element, n) {
     while (switching) {
         switching = false;
         rows = table.rows;
-      
+
         for (i = 1; i < (rows.length - 1); i++) {
             shouldSwitch = false;
-        
+
             x = rows[i].getElementsByTagName("TD")[n];
             y = rows[i + 1].getElementsByTagName("TD")[n];
-            
+
+            let xValue = parseFloat(x.innerHTML.toLowerCase());
+            let yValue = parseFloat(y.innerHTML.toLowerCase());
+
+            if (isNaN(xValue) || isNaN(yValue)) {
+                xValue = x.innerHTML.toLowerCase();
+                yValue = y.innerHTML.toLowerCase();
+            }
+
             if (dir == "asc") {
-            if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
-                shouldSwitch = true;
-                break;
-            }
+                if (xValue > yValue) {
+                    shouldSwitch = true;
+                    break;
+                }
             } else if (dir == "desc") {
-            if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
-                shouldSwitch = true;
-                break;
-            }
+                if (xValue < yValue) {
+                    shouldSwitch = true;
+                    break;
+                }
             }
         }
         if (shouldSwitch) {
             rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
             switching = true;
-            switchcount ++;
+            switchcount++;
         } else {
             if (switchcount == 0 && dir == "asc") {
                 dir = "desc";
