@@ -10,13 +10,13 @@
 						<div class="col-sm-6">
 							<div>
 								<input type="file" id="import-excel-file" accept=".xlsx,.xls" hidden>
-								<a href="#" class="btn btn-primary btn-import-excel">
+								<a href="#importProductModal" class="btn btn-primary btn-import-excel" data-toggle="modal">
 									<i class="fa-solid fa-file-import"></i>
 									<span>Import Excel</span>
 								</a>
 							</div>
 							<div>
-								<a href="#" class="btn btn-primary btn-export-excel">
+								<a class="btn btn-primary btn-export-excel">
 									<i class="fa-solid fa-file-export"></i>
 									<span>Export Excel</span>
 								</a>
@@ -752,6 +752,27 @@
 						</div>
 					</form>
 				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="importProductModal" class="modal fade" data-backdrop="static" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<form>
+					<div class="modal-header">
+						<h4 class="modal-title">Nhập file excel</h4>
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					</div>
+					<div class="modal-body">
+						<p>Vui lòng đảm bảo file excel đúng định dạng file dưới đây:</p>
+						<a href="server/src/admin/assets/excel/template.xlsx" download>template.xlsx</a>
+					</div>
+					<div class="modal-footer">
+						<input type="button" class="btn btn-secondary" data-dismiss="modal" value="Hủy">
+						<input type="button" class="btn btn-danger btn-import-product" value="Tiếp tục import">
+					</div>
+				</form>
 			</div>
 		</div>
 	</div>

@@ -162,7 +162,7 @@ if (productChietKhau) {
 }
 
 // import excel
-const btnImportExcel = document.querySelector('#admin-product-main .btn-import-excel')
+const btnImportExcel = document.querySelector('#admin-product-main .btn-import-product')
 
 if (btnImportExcel) {
     btnImportExcel.onclick = () => document.querySelector('#admin-product-main #import-excel-file').click()

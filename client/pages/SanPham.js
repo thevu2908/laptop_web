@@ -1199,13 +1199,7 @@ function deleteProduct(productId) {
             url: 'server/src/controller/SanPhamController.php',
             method: 'POST',
             data: { action: 'delete', productId },
-            success: data => {
-                if (data === 'success') {
-                    resolve(true)
-                } else {
-                    resolve(false)
-                }
-            },
+            success: res => res === 'success' ? resolve(true) : resolve(false),
             error: (xhr, status, error) => {
                 console.log(error)
                 reject(error)
@@ -1396,13 +1390,14 @@ function importExcel() {
 
                 if (!res.includes(false)) {
                     alert('Thêm các sản phẩm từ file excel thành công')
-                    $('form').trigger('reset')
+                    $('#importProductModal').modal('hide')
                     renderAdminProductTable()
                 } else {
                     alert('Xảy ra lỗi trong quá trình thêm sản phẩm vào hệ thống từ file excel\nVui lòng kiểm tra lại định dạng và nội dung của file excel')
                 }
             } catch (error) {
                 console.log(error)
+                alert('Xảy ra lỗi trong quá trình thêm sản phẩm vào hệ thống từ file excel\nVui lòng kiểm tra lại định dạng và nội dung của file excel')
             } finally {
                 NProgress.done()
             }
