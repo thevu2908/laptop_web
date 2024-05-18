@@ -255,14 +255,14 @@ class HoaDonRepo extends ConnectDB {
         }
     }
 
-    public function getOrderByMonth($month, $brandId) : array | null {
+    public function getOrderByMonth($month) : array | null {
         try {
             $sql = "SELECT DISTINCT hd.* FROM hoadon hd
                 JOIN chitiethoadon cthd ON cthd.ma_hd = hd.ma_hd
                 JOIN ctsp_imei ctspi ON ctspi.ma_imei = cthd.ma_imei
                 JOIN chitietsanpham ctsp ON ctsp.ma_ctsp = ctspi.ma_ctsp
                 JOIN sanpham sp ON sp.ma_sp = ctsp.ma_sp
-                WHERE MONTH(hd.ngay_tao) = '$month' AND hd.tinh_trang LIKE '%Đã xác nhận%' AND sp.ma_thuong_hieu LIKE '%$brandId%'
+                WHERE MONTH(hd.ngay_tao) = '$month' AND hd.tinh_trang LIKE '%Đã xác nhận%'
             ";
             $result = mysqli_query($this->conn, $sql);
             if (!$result) {
@@ -301,6 +301,31 @@ class HoaDonRepo extends ConnectDB {
                 throw new Exception('Error: ' . mysqli_error($this->conn));
             }
 
+            $array = [];
+            while ($row = mysqli_fetch_assoc($result)) {
+                $array[] = $row;
+            }
+            return $array;
+        } catch (Exception $e) {
+            echo 'Error:'. $e->getMessage();
+            return null;
+        }
+    }
+
+    public function getOrderProductBrand($startDate, $endDate) : array | null{
+        try {
+            $query = "SELECT DISTINCT sp.ma_thuong_hieu, th.ten_thuong_hieu FROM hoadon hd
+                JOIN chitiethoadon cthd ON cthd.ma_hd = hd.ma_hd
+                JOIN ctsp_imei ctspi ON ctspi.ma_imei = cthd.ma_imei
+                JOIN chitietsanpham ctsp ON ctsp.ma_ctsp = ctspi.ma_ctsp
+                JOIN sanpham sp ON sp.ma_sp = ctsp.ma_sp
+                JOIN thuonghieu th ON th.ma_thuong_hieu = sp.ma_thuong_hieu
+                WHERE hd.tinh_trang LIKE '%Đã xác nhận%' AND hd.ngay_tao BETWEEN '$startDate' AND '$endDate'
+            ";
+            $result = mysqli_query($this->conn, $query);
+            if (!$result) {
+                throw new Exception('Error: ' . mysqli_error($this->conn));
+            }
             $array = [];
             while ($row = mysqli_fetch_assoc($result)) {
                 $array[] = $row;

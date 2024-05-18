@@ -56,7 +56,6 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
             echo '<script src="./client/pages/DashBoard.js"></script>';
             echo "<script src='./client/pages/HoaDon.js'></script>";
             echo '<script src="./client/pages/ChiTietHoaDon.js"></script>';
-            echo '<script src="./client/pages/ThuongHieu.js"></script>';
             echo '<script src="client/pages/ThongTinNhanHang.js"></script>';
             echo '<script src="client/pages/NhapHang.js"></script>';
             break;
@@ -186,7 +185,6 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
         echo '<script src="./client/pages/DashBoard.js"></script>';
         echo "<script src='./client/pages/HoaDon.js'></script>";
         echo '<script src="./client/pages/ChiTietHoaDon.js"></script>';
-        echo '<script src="./client/pages/ThuongHieu.js"></script>';
         echo '<script src="client/pages/ThongTinNhanHang.js"></script>';
       }
       ?>

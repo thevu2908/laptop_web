@@ -35,13 +35,13 @@ class PhieuNhap1Repo extends ConnectDB {
         }
     }
 
-    public function getImportInvoiceByMonth($month, $brandId) {
+    public function getImportInvoiceByMonth($month) {
         try {
             $query = "SELECT DISTINCT pn.* FROM phieunhap pn
                 JOIN chitietphieunhap ctpn ON ctpn.ma_pn = pn.ma_pn
                 JOIN chitietsanpham ctsp ON ctsp.ma_ctsp = ctpn.ma_ctsp
                 JOIN sanpham sp ON sp.ma_sp = ctsp.ma_sp
-                WHERE MONTH(ngay_nhap) = '$month' AND tinh_trang = 1 AND sp.ma_thuong_hieu LIKE '%$brandId%'
+                WHERE MONTH(ngay_nhap) = '$month' AND tinh_trang = 1
             ";
 
             $result = mysqli_query($this->conn, $query);

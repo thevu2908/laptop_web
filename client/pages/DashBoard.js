@@ -14,7 +14,6 @@ $(document).ready(() => {
     handleFilterDateStatistic()
     createRevenueBarChart()
     createOrderLineChart()
-    handleFilterChart()
 })
 
 function getOrderInDate(brandId, startDate, endDate) {
@@ -43,12 +42,12 @@ function getPaginationOrderInDate(brandId, page, startDate, endDate) {
     })
 }
 
-function getOrderByMonth(month, brandId) {
+function getOrderByMonth(month) {
     return new Promise((resolve, reject) => {
         $.ajax({
             url: 'server/src/controller/HoaDonController.php',
             method: 'POST',
-            data: { action: 'get-by-month', month, brandId },
+            data: { action: 'get-by-month', month },
             dataType: 'JSON',
             success: orders => resolve(orders),
             error: error => reject(error)
@@ -56,12 +55,12 @@ function getOrderByMonth(month, brandId) {
     })
 }
 
-function getImportInvoiceByMonth(month, brandId) {
+function getImportInvoiceByMonth(month) {
     return new Promise((resolve, reject) => {
         $.ajax({
             url: 'server/src/controller/PhieuNhap1Controller.php',
             method: 'POST',
-            data: { action: 'get-import-month', month, brandId },
+            data: { action: 'get-import-month', month },
             dataType: 'JSON',
             success: invoices => resolve(invoices),
             error: error => reject(error)
@@ -108,9 +107,25 @@ function getBestSeller(amount, brandId, startDate, endDate) {
     })
 }
 
+function getOrderProductBrand(startDate, endDate) {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: 'server/src/controller/HoaDonController.php',
+            method: 'POST',
+            data: { action: 'get-order-product-brand', startDate, endDate },
+            dataType: 'JSON',
+            success: products => resolve(products),
+            error: error => reject(error)
+        })
+    })
+}
+
 async function renderFilterProductBrand() {
     try {
-        const brands = await getBrandData()
+        const startDate = $('#start-date').val()
+        const endDate = $('#end-date').val()
+        const brands = await getOrderProductBrand(startDate, endDate)
+        console.log(brands)
         $('.admin-dashboard .brand-filter__list').html(`
             <option value="">Tất cả</option>
             ${brands.map(brand => `<option value="${brand.ma_thuong_hieu}">${brand.ten_thuong_hieu}</option>`).join('')}
@@ -265,14 +280,14 @@ function renderRecentOrderDetail() {
                                     <span>Giảm giá khuyến mãi</span>
                                 </div>
                                 <div class="order-detail__total-price">
-                                    <span>${order.khuyen_mai > 0 ? `-₫${order.khuyen_mai}` : '₫0'}</span>
+                                    <span>${order.khuyen_mai > 0 ? `-₫${formatCurrency(order.khuyen_mai)}` : '₫0'}</span>
                                 </div>
                             </div>
                             <div class="order-detail__total-row final">
                                 <div class="order-detail__total-label">
                                     <span>Thành tiền</span>
                                 </div>
-                                <div class="order-detail__total-price">
+                                <div class="order-detail__total-price" style="color: var(--primary)">
                                     <span><b>₫${formatCurrency(order.thanh_tien)}</b></span>
                                 </div>
                             </div>
@@ -373,29 +388,24 @@ function handleFilterDateStatistic() {
         renderBestSeller()
         renderRecentOrder()
         renderStatistic()
+        renderFilterProductBrand()
     })
 }
 
-let revenueChart
 async function createRevenueBarChart() {
     try {
-        if (revenueChart) {
-            revenueChart.destroy()
-        }
-
         const ctx = document.querySelector('#revenue-chart').getContext('2d')
-        const brandId = $('#brand-filter__revenue-chart').val()
         let revenueData = []
         let importData = []
 
         for (let i = 1; i <= 12; i++) {
-            const orders = await getOrderByMonth(i, brandId)
-            const importInvoices = await getImportInvoiceByMonth(i, brandId)
+            const orders = await getOrderByMonth(i)
+            const importInvoices = await getImportInvoiceByMonth(i)
             revenueData.push(orders.revenue / 1000000)
             importData.push(importInvoices.total / 1000000)
         }
 
-        revenueChart = new Chart(ctx, {
+        const revenueChart = new Chart(ctx, {
             type: 'bar',
             data: {
                 labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'],
@@ -431,23 +441,17 @@ async function createRevenueBarChart() {
     }
 }
 
-let orderChart
 async function createOrderLineChart() {
     try {
-        if (orderChart) {
-            orderChart.destroy()
-        }
-
         const ctx = document.querySelector('#order-chart').getContext('2d')
-        const brandId = $('#brand-filter__order-chart').val()
         let orderData = []
 
         for (let i = 1; i <= 12; i++) {
-            const orders = await getOrderByMonth(i, brandId)
+            const orders = await getOrderByMonth(i)
             orderData.push(orders.orders.length)
         }
 
-        orderChart = new Chart(ctx, {
+        const orderChart = new Chart(ctx, {
             type: 'line',
             data: {
                 labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'],
@@ -474,13 +478,4 @@ async function createOrderLineChart() {
         console.log(error)
         alert('Có lỗi trong lúc tạo biểu đồ thống kê hóa đơn, vui lòng thử lại sau')
     }
-}
-
-function handleFilterChart() {
-    $('#brand-filter__revenue-chart').on('change', function() {
-        createRevenueBarChart()
-    })
-    $('#brand-filter__order-chart').on('change', function() {
-        createOrderLineChart()
-    })
 }

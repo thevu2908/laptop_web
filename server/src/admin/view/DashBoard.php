@@ -93,17 +93,6 @@
     <div class="order">
       <div class="head">
         <h3>Hóa đơn</h3>
-        <div class="statistic-filter">
-          <form>
-            <div class="d-flex align-items-center">
-              <div>
-                <select id="brand-filter__order-chart" class="brand-filter__list" style="margin-left: 4px; padding: 4px 6px;">
-
-                </select>
-              </div>
-            </div>
-          </form>
-        </div>
       </div>
       <div class="order-chart__container">
         <div class="order-chart__box">
@@ -115,17 +104,6 @@
     <div class="order">
       <div class="head">
         <h3>Doanh số</h3>
-        <div class="statistic-filter">
-          <form>
-            <div class="d-flex align-items-center">
-              <div>
-                <select id="brand-filter__revenue-chart" class="brand-filter__list" style="margin-left: 4px; padding: 4px 6px;">
-
-                </select>
-              </div>
-            </div>
-          </form>
-        </div>
       </div>
       <div class="revenue-chart__container">
         <div class="revenue-chart__box">

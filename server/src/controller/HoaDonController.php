@@ -77,8 +77,8 @@ class HoaDonController {
             echo 'fail';
         }
     }
-    public function getOrderByMonth($month, $brandId) {
-        $orders = $this->hoadonRepo->getOrderByMonth($month, $brandId);
+    public function getOrderByMonth($month) {
+        $orders = $this->hoadonRepo->getOrderByMonth($month);
         $revenue = 0;
         foreach ($orders as $order) {
             $revenue += $order['thanh_tien'];
@@ -110,6 +110,10 @@ class HoaDonController {
 
     public function getBestSeller($amount, $brandId, $startDate, $endDate) {
         echo json_encode($this->hoadonRepo->getBestSeller($amount, $brandId, $startDate, $endDate));
+    }
+
+    public function getOrderProductBrand($startDate, $endDate) {
+        echo json_encode($this->hoadonRepo->getOrderProductBrand($startDate, $endDate));
     }
 }
 
@@ -166,8 +170,7 @@ switch ($action) {
         break;
     case 'get-by-month':
         $month = $_POST['month'];
-        $brandId = $_POST['brandId'];
-        $hoadonctl->getOrderByMonth($month, $brandId);
+        $hoadonctl->getOrderByMonth($month);
         break;
     case 'get-best-seller':
         $amount = isset($_POST['amount']) ? $_POST['amount'] : 5;
@@ -181,6 +184,17 @@ switch ($action) {
             $endDate = date('Y-m-t', strtotime("$current_year-$current_month-01"));
         }
         $hoadonctl->getBestSeller($amount, $brandId, $startDate, $endDate);
+        break;
+    case 'get-order-product-brand':
+        $startDate = isset($_POST['startDate']) ? $_POST['startDate'] : null;
+        $endDate = isset($_POST['endDate']) ? $_POST['endDate'] : null;
+        if (!$startDate && !$endDate) {
+            $current_month = date('m');
+            $current_year = date('Y');
+            $startDate = date('Y-m-01', strtotime("$current_year-$current_month-01"));
+            $endDate = date('Y-m-t', strtotime("$current_year-$current_month-01"));
+        }
+        $hoadonctl->getOrderProductBrand($startDate, $endDate);
         break;
     case 'add':
         $obj = json_decode(json_encode($_POST['bill']));
